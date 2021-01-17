@@ -1,0 +1,18 @@
+project("../Passwords.xcodeproj")
+scheme("Snapshot")
+clear_previous_screenshots(true)
+override_status_bar(true)
+number_of_retries(0)
+
+devices([
+    "iPhone 11 Pro Max",
+    "iPhone 11 Pro",
+    "iPhone 8 Plus",
+    "iPhone SE (2nd generation)",
+    "iPhone SE (1st generation)"
+])
+
+languages([
+    "en-US",
+    "de-DE"
+])
