@@ -50,6 +50,7 @@ extension NCPasswordsRequest {
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Basic \(authorizationData.base64EncodedString())", forHTTPHeaderField: "Authorization")
+        request.httpShouldHandleCookies = false
         request.httpBody = encode()
         
         URLSession(configuration: .default, delegate: nil, delegateQueue: .main).dataTask(with: request) {
