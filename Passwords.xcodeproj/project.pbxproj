@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F09583725D14FDD0082D438 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F118756253C9EE30019FECA /* Assets.xcassets */; };
 		8F118753253C9EE10019FECA /* PasswordsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F118752253C9EE10019FECA /* PasswordsApp.swift */; };
 		8F118755253C9EE10019FECA /* EntriesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F118754253C9EE10019FECA /* EntriesPage.swift */; };
-		8F118757253C9EE30019FECA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F118756253C9EE30019FECA /* Assets.xcassets */; };
 		8F118765253CA2980019FECA /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F118764253CA2980019FECA /* AuthenticationServices.framework */; };
 		8F513A5F2560624F001C6EF9 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F513A5E2560624F001C6EF9 /* Credentials.swift */; };
 		8F513A63256064E9001C6EF9 /* ServerSetupPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F513A62256064E9001C6EF9 /* ServerSetupPage.swift */; };
@@ -737,8 +737,8 @@
 			files = (
 				8F5331A825605B9400AB6FED /* Localizable.strings in Resources */,
 				8F52F3E225937B2700B4EFCE /* IAP.plist in Resources */,
+				8F09583725D14FDD0082D438 /* Assets.xcassets in Resources */,
 				8F5757E425671EA4003F1E9F /* InfoPlist.strings in Resources */,
-				8F118757253C9EE30019FECA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -995,7 +995,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PARENT_PRODUCT_BUNDLE_IDENTIFIER = de.cdslash.Passwords;
+				PARENT_PRODUCT_BUNDLE_IDENTIFIER = "de.cdslash.Passwords-debug";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1063,7 +1063,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-debug";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
