@@ -64,7 +64,7 @@ extension LoginFlowPage {
 
 extension LoginFlowPage {
     
-    class BottomlessWKWebView: WKWebView { /// Funny, right?
+    final class BottomlessWKWebView: WKWebView { /// Funny, right?
         
         override var safeAreaInsets: UIEdgeInsets {
             var edgeInsets = super.safeAreaInsets
