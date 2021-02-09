@@ -53,7 +53,7 @@ extension NCPasswordsRequest {
         request.httpShouldHandleCookies = false
         request.httpBody = encode()
         
-        URLSession(configuration: .default, delegate: nil, delegateQueue: .main).dataTask(with: request) {
+        URLSession(configuration: .default, delegate: AuthenticationChallengeController.default, delegateQueue: .main).dataTask(with: request) {
             [self] data, response, error in
             guard let data = data else {
                 completion(nil)

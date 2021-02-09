@@ -1,4 +1,5 @@
 "_about" = "Über";
+"_accept" = "Akzeptieren";
 "_account" = "Account";
 "_all" = "Alle";
 "_anErrorOccurred" = "Es ist ein Fehler aufgetreten ...";
@@ -36,6 +37,8 @@
 "_hidePassword" = "Passwort verstecken";
 "_highFive" = "High Five! 👏";
 "_integration" = "Integration";
+"_invalidCertificate" = "Ungültiges Zertifikat";
+"_invalidCertificateMessage(hash)" = "Das Zertifikat des Servers ist ungültig. Eine sichere Verbindung kann nicht garantiert werden. Soll das Zertifikat dennoch akzeptiert werden?\n\nSHA-256 des Zertifikats:\n%@";
 "_length(length)" = "Länge: %@";
 "_logIn" = "Anmelden";
 "_logOut" = "Abmelden";
@@ -57,6 +60,7 @@
 "_passwordStatusGoodMessage3" = "Es verstößt nicht gegen nutzerdefinierte Regeln.";
 "_passwordStatusOutdatedMessage" = "Dieses Passwort hat das maximale Alter erreicht.";
 "_providerInstructionsMessage" = "Diese App unterstützt Password AutoFill. Das Feature muss in der iOS Einstellungen App aktiviert werden:\n1. Öffne die Einstellungen App\n2. Tippe auf Passwörter\n3. Tippe auf Automatisch ausfüllen\n4. Aktiviere Automatisch ausfüllen\n5. Aktiviere diese App";
+"_reject" = "Ablehnen";
 "_security" = "Sicherheit";
 "_select" = "Auswählen";
 "_settings" = "Einstellungen";

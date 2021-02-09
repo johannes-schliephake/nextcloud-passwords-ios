@@ -1,4 +1,5 @@
 "_about" = "About";
+"_accept" = "Accept";
 "_account" = "Account";
 "_all" = "All";
 "_anErrorOccurred" = "An error occurred ...";
@@ -36,6 +37,8 @@
 "_hidePassword" = "Hide Password";
 "_highFive" = "High Five! 👏";
 "_integration" = "Integration";
+"_invalidCertificate" = "Invalid Certificate";
+"_invalidCertificateMessage(hash)" = "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%@";
 "_length(length)" = "Length: %@";
 "_logIn" = "Log In";
 "_logOut" = "Log Out";
@@ -57,6 +60,7 @@
 "_passwordStatusGoodMessage3" = "It doesn't violate user defined rules.";
 "_passwordStatusOutdatedMessage" = "This password has reached the maximum age.";
 "_providerInstructionsMessage" = "This app supports Password AutoFill. The feature has to be enabled in iOS's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap AutoFill Passwords\n4. Enable AutoFill Passwords\n5. Enable this app";
+"_reject" = "Deny";
 "_security" = "Security";
 "_select" = "Select";
 "_settings" = "Settings";

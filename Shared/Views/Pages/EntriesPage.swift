@@ -68,44 +68,6 @@ struct EntriesPage: View {
                         .environmentObject(credentialsController)
                         .environmentObject(tipController)
                 }
-            EmptyView()
-                .sheet(item: $folderForEditing) {
-                    folder in
-                    EditFolderNavigation(folder: folder, addFolder: {
-                        entriesController.add(folder: folder)
-                    }, updateFolder: {
-                        entriesController.update(folder: folder)
-                    })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(credentialsController)
-                    .environmentObject(tipController)
-                }
-                .actionSheet(item: $folderForDeletion) {
-                    folder in
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
-                        entriesController.delete(folder: folder)
-                    }])
-                }
-            EmptyView()
-                .sheet(item: $passwordForEditing) {
-                    password in
-                    EditPasswordNavigation(password: password, addPassword: {
-                        entriesController.add(password: password)
-                    }, updatePassword: {
-                        entriesController.update(password: password)
-                    })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(credentialsController)
-                    .environmentObject(tipController)
-                }
-                .actionSheet(item: $passwordForDeletion) {
-                    password in
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                        entriesController.delete(password: password)
-                    }])
-                }
         }
     }
     
@@ -152,6 +114,44 @@ struct EntriesPage: View {
                 }
                 .listStyle(PlainListStyle())
             }
+            EmptyView()
+                .sheet(item: $folderForEditing) {
+                    folder in
+                    EditFolderNavigation(folder: folder, addFolder: {
+                        entriesController.add(folder: folder)
+                    }, updateFolder: {
+                        entriesController.update(folder: folder)
+                    })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(credentialsController)
+                    .environmentObject(tipController)
+                }
+                .actionSheet(item: $folderForDeletion) {
+                    folder in
+                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
+                        entriesController.delete(folder: folder)
+                    }])
+                }
+            EmptyView()
+                .sheet(item: $passwordForEditing) {
+                    password in
+                    EditPasswordNavigation(password: password, addPassword: {
+                        entriesController.add(password: password)
+                    }, updatePassword: {
+                        entriesController.update(password: password)
+                    })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(credentialsController)
+                    .environmentObject(tipController)
+                }
+                .actionSheet(item: $passwordForDeletion) {
+                    password in
+                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                        entriesController.delete(password: password)
+                    }])
+                }
         }
     }
     
