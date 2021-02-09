@@ -42,6 +42,7 @@ extension LoginFlowPage {
             let webView = BottomlessWKWebView(frame: .zero, configuration: configuration)
             webView.customUserAgent = "\(Bundle.main.infoDictionary?["CFBundleName"] as! String) (iOS)"
             webView.isOpaque = false
+            webView.navigationDelegate = AuthenticationChallengeController.default
             return webView
         }
         

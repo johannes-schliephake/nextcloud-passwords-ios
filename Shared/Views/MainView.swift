@@ -6,6 +6,7 @@ struct MainView: View {
     
     @EnvironmentObject private var autoFillController: AutoFillController
     
+    @StateObject private var authenticationChallengeController = AuthenticationChallengeController.default
     @StateObject private var biometricAuthenticationController = ProcessInfo.processInfo.environment["TEST"] == "true" ? BiometricAuthenticationController.mock : BiometricAuthenticationController()
     @StateObject private var credentialsController = ProcessInfo.processInfo.environment["TEST"] == "true" ? CredentialsController.mock : CredentialsController.default
     @StateObject private var tipController = ProcessInfo.processInfo.environment["TEST"] == "true" ? TipController.mock : TipController()
@@ -15,6 +16,7 @@ struct MainView: View {
     var body: some View {
         EntriesNavigation()
             .onChange(of: tipController.transactionState, perform: transactionStateDidChange)
+            .onChange(of: authenticationChallengeController.certificateConfirmationRequests, perform: didChange)
             .copyToast()
             .environmentObject(autoFillController)
             .environmentObject(biometricAuthenticationController)
@@ -34,7 +36,7 @@ struct MainView: View {
                 tipController.transactionState = nil
             }
         case .purchased, .restored:
-            UIAlertController.presentGlobalAlert(title: "_tipReceived".localized, message: "_tipReceivedMessage".localized, dismiss: "_highFive".localized) {
+            UIAlertController.presentGlobalAlert(title: "_tipReceived".localized, message: "_tipReceivedMessage".localized, dismissText: "_highFive".localized) {
                 tipController.transactionState = nil
             }
         case .failed:
@@ -46,6 +48,17 @@ struct MainView: View {
         @unknown default:
             return
         }
+    }
+    
+    private func didChange(certificateConfirmationRequests: [AuthenticationChallengeController.CertificateConfirmationRequest]) {
+        guard let certificateConfirmationRequest = certificateConfirmationRequests.first else {
+            return
+        }
+        UIAlertController.presentGlobalAlert(title: "_invalidCertificate".localized, message: String(format: "_invalidCertificateMessage(hash)".localized, certificateConfirmationRequest.hash), dismissText: "_reject".localized, dismissHandler: {
+            authenticationChallengeController.deny(certificateHash: certificateConfirmationRequest.hash)
+        }, confirmText: "_accept".localized, confirmHandler: {
+            authenticationChallengeController.accept(certificateHash: certificateConfirmationRequest.hash)
+        }, destructive: true)
     }
     
 }

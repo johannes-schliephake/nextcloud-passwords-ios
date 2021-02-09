@@ -24,11 +24,12 @@ final class ServerSetupController: ObservableObject {
                 }
                 
                 /// Check if url hosts a Nextcloud instance 1.5 seconds after last user input
+                AuthenticationChallengeController.default.clearAcceptedCertificateHash()
                 let capabilitiesUrl = url.appendingPathComponent("ocs/v1.php/cloud/capabilities")
                 var request = URLRequest(url: capabilitiesUrl)
                 request.addValue("true", forHTTPHeaderField: "OCS-APIREQUEST")
                 
-                URLSession(configuration: .default, delegate: nil, delegateQueue: .main).dataTask(with: request) {
+                URLSession(configuration: .default, delegate: AuthenticationChallengeController.default, delegateQueue: .main).dataTask(with: request) {
                     data, response, error in
                     guard let serverAddress = self?.serverAddress,
                           URL(string: serverAddress) == url else {
