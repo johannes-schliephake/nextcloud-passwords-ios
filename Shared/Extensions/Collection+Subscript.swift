@@ -1,6 +1,3 @@
-import Foundation
-
-
 extension Collection {
     
     subscript(safe index: Index?) -> Element? {

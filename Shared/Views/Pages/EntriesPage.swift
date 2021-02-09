@@ -291,7 +291,7 @@ struct EntriesPage: View {
             Image(systemName: "arrow.up.arrow.down")
             Spacer()
         }
-        .onChange(of: entriesController.filterBy, perform: filterByDidChange)
+        .onChange(of: entriesController.filterBy, perform: didChange)
     }
     
     private func createMenu() -> some View {
@@ -326,7 +326,7 @@ struct EntriesPage: View {
         }
     }
     
-    private func filterByDidChange(filterBy: EntriesController.Filter) {
+    private func didChange(filterBy: EntriesController.Filter) {
         if !folder.isBaseFolder,
            filterBy != .folders {
             presentationMode.wrappedValue.dismiss()

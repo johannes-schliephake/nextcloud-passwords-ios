@@ -65,9 +65,7 @@ final class EntriesController: ObservableObject {
     
     init() {
         CredentialsController.default.$credentials.sink(receiveValue: requestEntries).store(in: &subscriptions)
-        if let credentials = CredentialsController.default.credentials {
-            requestEntries(credentials: credentials)
-        }
+        requestEntries(credentials: CredentialsController.default.credentials)
     }
     
     private init(folders: [Folder], passwords: [Password]) {

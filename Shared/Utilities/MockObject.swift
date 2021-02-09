@@ -1,6 +1,3 @@
-import Foundation
-
-
 protocol MockObject {
     
     associatedtype ObjectType
