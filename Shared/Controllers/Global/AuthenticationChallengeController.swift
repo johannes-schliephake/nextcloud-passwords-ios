@@ -20,9 +20,9 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
     }
     private var subscriptions = Set<AnyCancellable>()
     
-    private let keychain = Keychain(service: Bundle.main.object(forInfoDictionaryKey: "AppService") as! String, accessGroup: Bundle.main.object(forInfoDictionaryKey: "AppKeychain") as! String)
+    private let keychain = Keychain(service: Configuration.appService, accessGroup: Configuration.appGroup)
     
-    override init() {
+    override private init() {
         super.init()
         
         acceptedCertificateHash = keychain.load(key: "acceptedCertificateHash")

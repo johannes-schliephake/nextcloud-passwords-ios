@@ -29,7 +29,7 @@ final class EntriesController: ObservableObject {
             }
         }
     }
-    @AppStorage("filterBy", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var filterBy: Filter = .folders {
+    @AppStorage("filterBy", store: UserDefaults(suiteName: Configuration.appGroup)!) var filterBy: Filter = .folders {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
@@ -41,7 +41,7 @@ final class EntriesController: ObservableObject {
             }
         }
     }
-    @AppStorage("sortBy", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var sortBy: Sorting = .label {
+    @AppStorage("sortBy", store: UserDefaults(suiteName: Configuration.appGroup)!) var sortBy: Sorting = .label {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
@@ -52,7 +52,7 @@ final class EntriesController: ObservableObject {
             }
         }
     }
-    @AppStorage("reversed", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var reversed = false {
+    @AppStorage("reversed", store: UserDefaults(suiteName: Configuration.appGroup)!) var reversed = false {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()

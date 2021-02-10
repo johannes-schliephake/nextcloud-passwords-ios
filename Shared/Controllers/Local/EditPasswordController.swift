@@ -1,4 +1,5 @@
 import SwiftUI
+import CryptoKit
 
 
 final class EditPasswordController: ObservableObject {
@@ -7,19 +8,19 @@ final class EditPasswordController: ObservableObject {
     private let addPassword: () -> Void
     private let updatePassword: () -> Void
     
-    @AppStorage("generatorNumbers", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var generatorNumbers = true {
+    @AppStorage("generatorNumbers", store: UserDefaults(suiteName: Configuration.appGroup)!) var generatorNumbers = true {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
         }
     }
-    @AppStorage("generatorSpecial", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var generatorSpecial = true {
+    @AppStorage("generatorSpecial", store: UserDefaults(suiteName: Configuration.appGroup)!) var generatorSpecial = true {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
         }
     }
-    @AppStorage("generatorLength", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var generatorLength = 36.0 {
+    @AppStorage("generatorLength", store: UserDefaults(suiteName: Configuration.appGroup)!) var generatorLength = 36.0 {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
@@ -66,6 +67,8 @@ final class EditPasswordController: ObservableObject {
         }
         if password.password != passwordPassword {
             password.edited = Date()
+            password.hash = Insecure.SHA1.hash(data: passwordPassword.data(using: .utf8)!).map { String(format: "%02x", $0) }.joined()
+            print(password.hash)
         }
         password.updated = Date()
         
