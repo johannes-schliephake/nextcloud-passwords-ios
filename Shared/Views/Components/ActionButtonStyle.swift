@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ActionButtonStyle: ButtonStyle {
     
-    func makeBody(configuration: Configuration) -> some View {
+    func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         ActionButton(configuration: configuration)
     }
     

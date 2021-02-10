@@ -19,9 +19,9 @@ final class CredentialsController: ObservableObject {
         }
     }
     
-    private let keychain = Keychain(service: Bundle.main.object(forInfoDictionaryKey: "AppService") as! String, accessGroup: Bundle.main.object(forInfoDictionaryKey: "AppKeychain") as! String)
+    private let keychain = Keychain(service: Configuration.appService, accessGroup: Configuration.appGroup)
     
-    init() {
+    private init() {
         guard let server = keychain.load(key: "server"),
               let user = keychain.load(key: "user"),
               let password = keychain.load(key: "password") else {

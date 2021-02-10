@@ -297,12 +297,12 @@ struct EntriesPage: View {
     private func createMenu() -> some View {
         Menu {
             Button(action: {
-                folderForEditing = Folder(parent: folder.id, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                folderForEditing = Folder(parent: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
             }) {
                 Label("_createFolder", systemImage: "folder")
             }
             Button(action: {
-                passwordForEditing = Password(folder: folder.id, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                passwordForEditing = Password(folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
             }) {
                 Label("_createPassword", systemImage: "key")
             }
