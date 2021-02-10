@@ -10,8 +10,6 @@
 		8F09583725D14FDD0082D438 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F118756253C9EE30019FECA /* Assets.xcassets */; };
 		8F09585125D159F10082D438 /* AuthenticationChallengeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09585025D159F10082D438 /* AuthenticationChallengeController.swift */; };
 		8F09585225D159F10082D438 /* AuthenticationChallengeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09585025D159F10082D438 /* AuthenticationChallengeController.swift */; };
-		8F09585D25D19D280082D438 /* String+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09585C25D19D280082D438 /* String+Identifiable.swift */; };
-		8F09585E25D19D280082D438 /* String+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09585C25D19D280082D438 /* String+Identifiable.swift */; };
 		8F118753253C9EE10019FECA /* PasswordsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F118752253C9EE10019FECA /* PasswordsApp.swift */; };
 		8F118755253C9EE10019FECA /* EntriesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F118754253C9EE10019FECA /* EntriesPage.swift */; };
 		8F118765253CA2980019FECA /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F118764253CA2980019FECA /* AuthenticationServices.framework */; };
@@ -21,8 +19,8 @@
 		8F51428F2573F91800DD96C0 /* EditPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51428E2573F91800DD96C0 /* EditPasswordController.swift */; };
 		8F52EFC925B1D0FC00DCFAC1 /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */; };
 		8F52EFCA25B1D0FC00DCFAC1 /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */; };
-		8F52EFD225B1FA3C00DCFAC1 /* UIPasteboard+privateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFD125B1FA3C00DCFAC1 /* UIPasteboard+privateString.swift */; };
-		8F52EFD325B1FA3C00DCFAC1 /* UIPasteboard+privateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFD125B1FA3C00DCFAC1 /* UIPasteboard+privateString.swift */; };
+		8F52EFD225B1FA3C00DCFAC1 /* UIPasteboard+PrivateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFD125B1FA3C00DCFAC1 /* UIPasteboard+PrivateString.swift */; };
+		8F52EFD325B1FA3C00DCFAC1 /* UIPasteboard+PrivateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFD125B1FA3C00DCFAC1 /* UIPasteboard+PrivateString.swift */; };
 		8F52EFDB25B200DD00DCFAC1 /* Collection+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */; };
 		8F52EFDC25B200DD00DCFAC1 /* Collection+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */; };
 		8F52F3C725936FDE00B4EFCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F52F3C625936FDE00B4EFCE /* StoreKit.framework */; };
@@ -168,7 +166,6 @@
 
 /* Begin PBXFileReference section */
 		8F09585025D159F10082D438 /* AuthenticationChallengeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationChallengeController.swift; sourceTree = "<group>"; };
-		8F09585C25D19D280082D438 /* String+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Identifiable.swift"; sourceTree = "<group>"; };
 		8F11874F253C9EE10019FECA /* Passwords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passwords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F118752253C9EE10019FECA /* PasswordsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordsApp.swift; sourceTree = "<group>"; };
 		8F118754253C9EE10019FECA /* EntriesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesPage.swift; sourceTree = "<group>"; };
@@ -182,7 +179,7 @@
 		8F51428A2573BEFA00DD96C0 /* CreatePasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasswordRequest.swift; sourceTree = "<group>"; };
 		8F51428E2573F91800DD96C0 /* EditPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordController.swift; sourceTree = "<group>"; };
 		8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObject.swift; sourceTree = "<group>"; };
-		8F52EFD125B1FA3C00DCFAC1 /* UIPasteboard+privateString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPasteboard+privateString.swift"; sourceTree = "<group>"; };
+		8F52EFD125B1FA3C00DCFAC1 /* UIPasteboard+PrivateString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPasteboard+PrivateString.swift"; sourceTree = "<group>"; };
 		8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Subscript.swift"; sourceTree = "<group>"; };
 		8F52F3C625936FDE00B4EFCE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8F52F3C82593746F00B4EFCE /* TipController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipController.swift; sourceTree = "<group>"; };
@@ -610,8 +607,7 @@
 				8FBE43C8258D5A2D003F7F34 /* UIApplication+IsExtension.swift */,
 				8FBE43CC258D5A5D003F7F34 /* UIApplication+SafeOpen.swift */,
 				8F5A843F259A4FA700BFDF29 /* UIApplication+SafeShared.swift */,
-				8F52EFD125B1FA3C00DCFAC1 /* UIPasteboard+privateString.swift */,
-				8F09585C25D19D280082D438 /* String+Identifiable.swift */,
+				8F52EFD125B1FA3C00DCFAC1 /* UIPasteboard+PrivateString.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -786,7 +782,6 @@
 				8F559A2225A0B23E00D7A39F /* MainView.swift in Sources */,
 				8F77DA6325699FB300CFDA8D /* EntriesController.swift in Sources */,
 				8F57B426256C0DD600329B05 /* SettingsPage.swift in Sources */,
-				8F09585D25D19D280082D438 /* String+Identifiable.swift in Sources */,
 				8F559A1325A0AE2700D7A39F /* SettingsNavigation.swift in Sources */,
 				8F559A0E25A0AE1C00D7A39F /* ServerSetupNavigation.swift in Sources */,
 				8F5A8449259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift in Sources */,
@@ -804,7 +799,7 @@
 				8F118755253C9EE10019FECA /* EntriesPage.swift in Sources */,
 				8F77DA5D25699F8900CFDA8D /* CopyToast.swift in Sources */,
 				8F513A63256064E9001C6EF9 /* ServerSetupPage.swift in Sources */,
-				8F52EFD225B1FA3C00DCFAC1 /* UIPasteboard+privateString.swift in Sources */,
+				8F52EFD225B1FA3C00DCFAC1 /* UIPasteboard+PrivateString.swift in Sources */,
 				8F560E69258F54A900C896EE /* OccludeModifier.swift in Sources */,
 				8F55564A25716BD200F5D805 /* DeletePasswordRequest.swift in Sources */,
 				8FBE43B9258D599E003F7F34 /* Date+FormattedString.swift in Sources */,
@@ -850,7 +845,6 @@
 				8F559A2325A0B23E00D7A39F /* MainView.swift in Sources */,
 				8FC361C625827E5500785371 /* Entry.swift in Sources */,
 				8FC361CD25827E5D00785371 /* CreateFolderRequest.swift in Sources */,
-				8F09585E25D19D280082D438 /* String+Identifiable.swift in Sources */,
 				8F559A1425A0AE2700D7A39F /* SettingsNavigation.swift in Sources */,
 				8F559A0F25A0AE1C00D7A39F /* ServerSetupNavigation.swift in Sources */,
 				8FC361BF25827E5200785371 /* ServerSetupController.swift in Sources */,
@@ -868,7 +862,7 @@
 				8FBE43D3258D5A8C003F7F34 /* String+Localized.swift in Sources */,
 				8FC361BB25827E4C00785371 /* SearchBar.swift in Sources */,
 				8FC361B725827E4C00785371 /* PasswordDetailPage.swift in Sources */,
-				8F52EFD325B1FA3C00DCFAC1 /* UIPasteboard+privateString.swift in Sources */,
+				8F52EFD325B1FA3C00DCFAC1 /* UIPasteboard+PrivateString.swift in Sources */,
 				8F560E6C258F5AD400C896EE /* OccludeModifier.swift in Sources */,
 				8FC361B525827E4C00785371 /* SettingsPage.swift in Sources */,
 				8FC361D325827E5D00785371 /* DeletePasswordRequest.swift in Sources */,
