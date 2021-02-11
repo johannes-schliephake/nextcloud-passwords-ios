@@ -7,9 +7,9 @@ struct MainView: View {
     @EnvironmentObject private var autoFillController: AutoFillController
     
     @StateObject private var authenticationChallengeController = AuthenticationChallengeController.default
-    @StateObject private var biometricAuthenticationController = ProcessInfo.processInfo.environment["TEST"] == "true" ? BiometricAuthenticationController.mock : BiometricAuthenticationController()
-    @StateObject private var credentialsController = ProcessInfo.processInfo.environment["TEST"] == "true" ? CredentialsController.mock : CredentialsController.default
-    @StateObject private var tipController = ProcessInfo.processInfo.environment["TEST"] == "true" ? TipController.mock : TipController()
+    @StateObject private var biometricAuthenticationController = Configuration.isTestEnvironment ? BiometricAuthenticationController.mock : BiometricAuthenticationController()
+    @StateObject private var credentialsController = Configuration.isTestEnvironment ? CredentialsController.mock : CredentialsController.default
+    @StateObject private var tipController = Configuration.isTestEnvironment ? TipController.mock : TipController()
     
     // MARK: Views
     

@@ -12,20 +12,18 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
     private var acceptedCertificateHash: String? {
         didSet {
             guard let acceptedCertificateHash = acceptedCertificateHash else {
-                keychain.remove(key: "acceptedCertificateHash")
+                Keychain.default.remove(key: "acceptedCertificateHash")
                 return
             }
-            keychain.store(key: "acceptedCertificateHash", value: acceptedCertificateHash)
+            Keychain.default.store(key: "acceptedCertificateHash", value: acceptedCertificateHash)
         }
     }
     private var subscriptions = Set<AnyCancellable>()
     
-    private let keychain = Keychain(service: Configuration.appService, accessGroup: Configuration.appGroup)
-    
     override private init() {
         super.init()
         
-        acceptedCertificateHash = keychain.load(key: "acceptedCertificateHash")
+        acceptedCertificateHash = Keychain.default.load(key: "acceptedCertificateHash")
         CredentialsController.default.$credentials.sink(receiveValue: clearAcceptedCertificateHash).store(in: &subscriptions)
     }
     

@@ -8,23 +8,21 @@ final class CredentialsController: ObservableObject {
     @Published var credentials: Credentials? {
         didSet {
             guard let credentials = credentials else {
-                keychain.remove(key: "server")
-                keychain.remove(key: "user")
-                keychain.remove(key: "password")
+                Keychain.default.remove(key: "server")
+                Keychain.default.remove(key: "user")
+                Keychain.default.remove(key: "password")
                 return
             }
-            keychain.store(key: "server", value: credentials.server)
-            keychain.store(key: "user", value: credentials.user)
-            keychain.store(key: "password", value: credentials.password)
+            Keychain.default.store(key: "server", value: credentials.server)
+            Keychain.default.store(key: "user", value: credentials.user)
+            Keychain.default.store(key: "password", value: credentials.password)
         }
     }
     
-    private let keychain = Keychain(service: Configuration.appService, accessGroup: Configuration.appGroup)
-    
     private init() {
-        guard let server = keychain.load(key: "server"),
-              let user = keychain.load(key: "user"),
-              let password = keychain.load(key: "password") else {
+        guard let server = Keychain.default.load(key: "server"),
+              let user = Keychain.default.load(key: "user"),
+              let password = Keychain.default.load(key: "password") else {
             return
         }
         credentials = Credentials(server: server, user: user, password: password)
