@@ -53,8 +53,15 @@ struct EditPasswordPage: View {
                 editPasswordController.generatePassword()
             }
             label: {
-                Label("_generatePassword", systemImage: "key")
+                HStack {
+                    Label("_generatePassword", systemImage: "key")
+                    if editPasswordController.showProgressView {
+                        Spacer()
+                        ProgressView()
+                    }
+                }
             }
+            .disabled(editPasswordController.showProgressView)
             .alert(isPresented: $editPasswordController.showErrorAlert) {
                 Alert(title: Text("_error"), message: Text("_passwordServiceErrorMessage"))
             }
