@@ -5,7 +5,7 @@ struct EntriesNavigation: View {
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
-    @StateObject private var entriesController = ProcessInfo.processInfo.environment["TEST"] == "true" ? EntriesController.mock : EntriesController()
+    @StateObject private var entriesController = Configuration.isTestEnvironment ? EntriesController.mock : EntriesController()
     
     // MARK: Views
     

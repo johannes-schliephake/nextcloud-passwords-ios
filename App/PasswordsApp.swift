@@ -4,7 +4,7 @@ import SwiftUI
 @main
 struct PasswordsApp: App {
     
-    @StateObject private var autoFillController = ProcessInfo.processInfo.environment["TEST"] == "true" ? AutoFillController.mock : AutoFillController()
+    @StateObject private var autoFillController = Configuration.isTestEnvironment ? AutoFillController.mock : AutoFillController()
     
     // MARK: Views
     

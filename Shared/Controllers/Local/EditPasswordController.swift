@@ -8,19 +8,19 @@ final class EditPasswordController: ObservableObject {
     private let addPassword: () -> Void
     private let updatePassword: () -> Void
     
-    @AppStorage("generatorNumbers", store: UserDefaults(suiteName: Configuration.appGroup)!) var generatorNumbers = true {
+    @AppStorage("generatorNumbers", store: Configuration.userDefaults) var generatorNumbers = true {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
         }
     }
-    @AppStorage("generatorSpecial", store: UserDefaults(suiteName: Configuration.appGroup)!) var generatorSpecial = true {
+    @AppStorage("generatorSpecial", store: Configuration.userDefaults) var generatorSpecial = true {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
         }
     }
-    @AppStorage("generatorLength", store: UserDefaults(suiteName: Configuration.appGroup)!) var generatorLength = 36.0 {
+    @AppStorage("generatorLength", store: Configuration.userDefaults) var generatorLength = 36.0 {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
@@ -68,7 +68,6 @@ final class EditPasswordController: ObservableObject {
         if password.password != passwordPassword {
             password.edited = Date()
             password.hash = Insecure.SHA1.hash(data: passwordPassword.data(using: .utf8)!).map { String(format: "%02x", $0) }.joined()
-            print(password.hash)
         }
         password.updated = Date()
         
