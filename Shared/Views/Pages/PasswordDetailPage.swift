@@ -100,6 +100,7 @@ struct PasswordDetailPage: View {
                 label: {
                     Label("_editPassword", systemImage: "pencil")
                 }
+                .disabled(password.revision.isEmpty)
             }
         }
         label: {
@@ -255,6 +256,7 @@ struct PasswordDetailPage: View {
             }, label: {
                 Text("_edit")
             })
+            .disabled(password.revision.isEmpty)
         }
     }
     

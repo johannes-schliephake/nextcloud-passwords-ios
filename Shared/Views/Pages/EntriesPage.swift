@@ -301,11 +301,13 @@ struct EntriesPage: View {
             }) {
                 Label("_createFolder", systemImage: "folder")
             }
+            .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
             Button(action: {
                 passwordForEditing = Password(folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
             }) {
                 Label("_createPassword", systemImage: "key")
             }
+            .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
         }
         label: {
             Spacer()
@@ -364,6 +366,7 @@ extension EntriesPage {
                     label: {
                         Label("_edit", systemImage: "pencil")
                     }
+                    .disabled(folder.revision.isEmpty)
                     Divider()
                     Button {
                         deleteFolder()
@@ -526,6 +529,7 @@ extension EntriesPage {
                         label: {
                             Label("_edit", systemImage: "pencil")
                         }
+                        .disabled(password.revision.isEmpty)
                     }
                     Divider()
                     Button {
