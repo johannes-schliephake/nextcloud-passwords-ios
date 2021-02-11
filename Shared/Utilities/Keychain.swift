@@ -4,7 +4,7 @@ import Foundation
 /// Functions for managing key-value string pairs in keychain
 final class Keychain {
     
-    static let `default` = Keychain(service: Configuration.appService, accessGroup: Configuration.appGroup)
+    static let `default` = Keychain(service: Configuration.appService, accessGroup: Configuration.appKeychain)
     
     private let service: String
     private let accessGroup: String
