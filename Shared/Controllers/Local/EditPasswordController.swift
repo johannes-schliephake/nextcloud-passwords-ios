@@ -32,6 +32,7 @@ final class EditPasswordController: ObservableObject {
     @Published var passwordUrl: String
     @Published var passwordNotes: String
     @Published var showErrorAlert = false
+    @Published var showProgressView = false
     
     init(password: Password, addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
         self.password = password
@@ -50,8 +51,10 @@ final class EditPasswordController: ObservableObject {
             return
         }
         
+        showProgressView = true
         PasswordServiceRequest(credentials: credentials, numbers: generatorNumbers, special: generatorSpecial).send {
             [weak self] password in
+            self?.showProgressView = false
             guard let password = password,
                   let generatorLength = self?.generatorLength else {
                 self?.showErrorAlert = true
