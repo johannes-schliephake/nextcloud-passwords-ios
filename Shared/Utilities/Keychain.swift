@@ -14,15 +14,17 @@ final class Keychain {
         self.accessGroup = accessGroup
         
         /// This section will be improved in a future version
-        if load(key: "clearKeychain") == nil {
+        if !Configuration.userDefaults.bool(forKey: "appDidLaunch") {
             Configuration.userDefaults.set(true, forKey: "appDidLaunch")
-            store(key: "clearKeychain", value: "true")
-        }
-        else if !Configuration.userDefaults.bool(forKey: "appDidLaunch") {
-            remove(key: "server")
-            remove(key: "user")
-            remove(key: "password")
-            remove(key: "acceptedCertificateHash")
+            if load(key: "clearKeychain") == nil {
+                store(key: "clearKeychain", value: "true")
+            }
+            else {
+                remove(key: "server")
+                remove(key: "user")
+                remove(key: "password")
+                remove(key: "acceptedCertificateHash")
+            }
         }
     }
     
