@@ -34,20 +34,24 @@ struct PasswordDetailPage: View {
     }
     
     private func mainStack() -> some View {
-        VStack(spacing: 0) {
-            listView()
-            if let complete = autoFillController.complete {
-                Divider()
-                selectView(complete: complete)
+        GeometryReader {
+            geometry in
+            VStack(spacing: 0) {
+                listView()
+                if let complete = autoFillController.complete {
+                    Divider()
+                    selectView(geometry: geometry, complete: complete)
+                }
+                EmptyView()
+                    .sheet(isPresented: $showEditPasswordView, content: {
+                        EditPasswordNavigation(password: password, addPassword: {}, updatePassword: updatePassword)
+                            .environmentObject(autoFillController)
+                            .environmentObject(biometricAuthenticationController)
+                            .environmentObject(credentialsController)
+                            .environmentObject(tipController)
+                    })
             }
-            EmptyView()
-                .sheet(isPresented: $showEditPasswordView, content: {
-                    EditPasswordNavigation(password: password, addPassword: {}, updatePassword: updatePassword)
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(credentialsController)
-                        .environmentObject(tipController)
-                })
+            .edgesIgnoringSafeArea(autoFillController.complete != nil ? .bottom : [])
         }
     }
     
@@ -96,6 +100,7 @@ struct PasswordDetailPage: View {
                 label: {
                     Label("_editPassword", systemImage: "pencil")
                 }
+                .disabled(password.revision.isEmpty)
             }
         }
         label: {
@@ -222,14 +227,17 @@ struct PasswordDetailPage: View {
         }
     }
     
-    private func selectView(complete: @escaping (String, String) -> Void) -> some View {
+    private func selectView(geometry: GeometryProxy, complete: @escaping (String, String) -> Void) -> some View {
         VStack {
-            Button("_select") {
-                complete(password.username, password.password)
+            VStack {
+                Button("_select") {
+                    complete(password.username, password.password)
+                }
+                .buttonStyle(ActionButtonStyle())
             }
-            .buttonStyle(ActionButtonStyle())
+            .padding()
         }
-        .padding()
+        .padding(EdgeInsets(top: 0, leading: 0, bottom: geometry.safeAreaInsets.bottom, trailing: 0))
         .background(Color(UIColor.systemGroupedBackground))
     }
     
@@ -248,6 +256,7 @@ struct PasswordDetailPage: View {
             }, label: {
                 Text("_edit")
             })
+            .disabled(password.revision.isEmpty)
         }
     }
     

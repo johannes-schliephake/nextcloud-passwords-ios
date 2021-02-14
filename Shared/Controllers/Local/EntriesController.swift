@@ -29,7 +29,7 @@ final class EntriesController: ObservableObject {
             }
         }
     }
-    @AppStorage("filterBy", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var filterBy: Filter = .folders {
+    @AppStorage("filterBy", store: Configuration.userDefaults) var filterBy: Filter = .folders {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
@@ -41,7 +41,7 @@ final class EntriesController: ObservableObject {
             }
         }
     }
-    @AppStorage("sortBy", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var sortBy: Sorting = .label {
+    @AppStorage("sortBy", store: Configuration.userDefaults) var sortBy: Sorting = .label {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
@@ -52,7 +52,7 @@ final class EntriesController: ObservableObject {
             }
         }
     }
-    @AppStorage("reversed", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var reversed = false {
+    @AppStorage("reversed", store: Configuration.userDefaults) var reversed = false {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
@@ -65,9 +65,7 @@ final class EntriesController: ObservableObject {
     
     init() {
         CredentialsController.default.$credentials.sink(receiveValue: requestEntries).store(in: &subscriptions)
-        if let credentials = CredentialsController.default.credentials {
-            requestEntries(credentials: credentials)
-        }
+        requestEntries(credentials: CredentialsController.default.credentials)
     }
     
     private init(folders: [Folder], passwords: [Password]) {

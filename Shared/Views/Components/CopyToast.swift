@@ -56,7 +56,7 @@ struct CopyToast<Content: View>: View {
 
 extension CopyToast {
     
-    class CopyToastController: ObservableObject {
+    final class CopyToastController: ObservableObject {
         
         @Published private(set) var isShowing = false
         

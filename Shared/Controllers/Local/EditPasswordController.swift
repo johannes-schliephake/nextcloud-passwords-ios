@@ -1,4 +1,5 @@
 import SwiftUI
+import CryptoKit
 
 
 final class EditPasswordController: ObservableObject {
@@ -7,19 +8,19 @@ final class EditPasswordController: ObservableObject {
     private let addPassword: () -> Void
     private let updatePassword: () -> Void
     
-    @AppStorage("generatorNumbers", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var generatorNumbers = true {
+    @AppStorage("generatorNumbers", store: Configuration.userDefaults) var generatorNumbers = true {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
         }
     }
-    @AppStorage("generatorSpecial", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var generatorSpecial = true {
+    @AppStorage("generatorSpecial", store: Configuration.userDefaults) var generatorSpecial = true {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
         }
     }
-    @AppStorage("generatorLength", store: UserDefaults(suiteName: (Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String))!) var generatorLength = 36.0 {
+    @AppStorage("generatorLength", store: Configuration.userDefaults) var generatorLength = 36.0 {
         willSet {
             /// Extend @AppStorage behaviour to be more similar to @Published
             objectWillChange.send()
@@ -31,6 +32,7 @@ final class EditPasswordController: ObservableObject {
     @Published var passwordUrl: String
     @Published var passwordNotes: String
     @Published var showErrorAlert = false
+    @Published var showProgressView = false
     
     init(password: Password, addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
         self.password = password
@@ -49,8 +51,10 @@ final class EditPasswordController: ObservableObject {
             return
         }
         
+        showProgressView = true
         PasswordServiceRequest(credentials: credentials, numbers: generatorNumbers, special: generatorSpecial).send {
             [weak self] password in
+            self?.showProgressView = false
             guard let password = password,
                   let generatorLength = self?.generatorLength else {
                 self?.showErrorAlert = true
@@ -66,6 +70,7 @@ final class EditPasswordController: ObservableObject {
         }
         if password.password != passwordPassword {
             password.edited = Date()
+            password.hash = Insecure.SHA1.hash(data: passwordPassword.data(using: .utf8)!).map { String(format: "%02x", $0) }.joined()
         }
         password.updated = Date()
         

@@ -40,8 +40,9 @@ extension LoginFlowPage {
             let configuration = WKWebViewConfiguration()
             configuration.setURLSchemeHandler(schemeHandler, forURLScheme: "nc")
             let webView = BottomlessWKWebView(frame: .zero, configuration: configuration)
-            webView.customUserAgent = "\(Bundle.main.infoDictionary?["CFBundleName"] as! String) (iOS)"
+            webView.customUserAgent = Configuration.clientName
             webView.isOpaque = false
+            webView.navigationDelegate = AuthenticationChallengeController.default
             return webView
         }
         
@@ -63,7 +64,7 @@ extension LoginFlowPage {
 
 extension LoginFlowPage {
     
-    class BottomlessWKWebView: WKWebView { /// Funny, right?
+    final class BottomlessWKWebView: WKWebView { /// Funny, right?
         
         override var safeAreaInsets: UIEdgeInsets {
             var edgeInsets = super.safeAreaInsets

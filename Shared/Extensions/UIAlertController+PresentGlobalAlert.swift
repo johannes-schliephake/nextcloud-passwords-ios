@@ -3,12 +3,18 @@ import SwiftUI
 
 extension UIAlertController {
     
-    static func presentGlobalAlert(title: String? = nil, message: String? = nil, dismiss: String? = nil, handler: (() -> Void)? = nil) {
+    static func presentGlobalAlert(title: String? = nil, message: String? = nil, dismissText: String? = nil, dismissHandler: (() -> Void)? = nil, confirmText: String? = nil, confirmHandler: (() -> Void)? = nil, destructive: Bool = false) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: dismiss ?? "_dismiss".localized, style: .default, handler: {
+        alertController.addAction(UIAlertAction(title: dismissText ?? "_dismiss".localized, style: .default, handler: {
             _ in
-            handler?()
+            dismissHandler?()
         }))
+        if let confirmText = confirmText {
+            alertController.addAction(UIAlertAction(title: confirmText, style: destructive ? .destructive : .default, handler: {
+                _ in
+                confirmHandler?()
+            }))
+        }
         
         /// Present alert with top view controller
         guard let shared = UIApplication.safeShared,

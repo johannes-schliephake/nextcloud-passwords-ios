@@ -68,44 +68,6 @@ struct EntriesPage: View {
                         .environmentObject(credentialsController)
                         .environmentObject(tipController)
                 }
-            EmptyView()
-                .sheet(item: $folderForEditing) {
-                    folder in
-                    EditFolderNavigation(folder: folder, addFolder: {
-                        entriesController.add(folder: folder)
-                    }, updateFolder: {
-                        entriesController.update(folder: folder)
-                    })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(credentialsController)
-                    .environmentObject(tipController)
-                }
-                .actionSheet(item: $folderForDeletion) {
-                    folder in
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
-                        entriesController.delete(folder: folder)
-                    }])
-                }
-            EmptyView()
-                .sheet(item: $passwordForEditing) {
-                    password in
-                    EditPasswordNavigation(password: password, addPassword: {
-                        entriesController.add(password: password)
-                    }, updatePassword: {
-                        entriesController.update(password: password)
-                    })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(credentialsController)
-                    .environmentObject(tipController)
-                }
-                .actionSheet(item: $passwordForDeletion) {
-                    password in
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                        entriesController.delete(password: password)
-                    }])
-                }
         }
     }
     
@@ -152,6 +114,44 @@ struct EntriesPage: View {
                 }
                 .listStyle(PlainListStyle())
             }
+            EmptyView()
+                .sheet(item: $folderForEditing) {
+                    folder in
+                    EditFolderNavigation(folder: folder, addFolder: {
+                        entriesController.add(folder: folder)
+                    }, updateFolder: {
+                        entriesController.update(folder: folder)
+                    })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(credentialsController)
+                    .environmentObject(tipController)
+                }
+                .actionSheet(item: $folderForDeletion) {
+                    folder in
+                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
+                        entriesController.delete(folder: folder)
+                    }])
+                }
+            EmptyView()
+                .sheet(item: $passwordForEditing) {
+                    password in
+                    EditPasswordNavigation(password: password, addPassword: {
+                        entriesController.add(password: password)
+                    }, updatePassword: {
+                        entriesController.update(password: password)
+                    })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(credentialsController)
+                    .environmentObject(tipController)
+                }
+                .actionSheet(item: $passwordForDeletion) {
+                    password in
+                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                        entriesController.delete(password: password)
+                    }])
+                }
         }
     }
     
@@ -291,21 +291,23 @@ struct EntriesPage: View {
             Image(systemName: "arrow.up.arrow.down")
             Spacer()
         }
-        .onChange(of: entriesController.filterBy, perform: filterByDidChange)
+        .onChange(of: entriesController.filterBy, perform: didChange)
     }
     
     private func createMenu() -> some View {
         Menu {
             Button(action: {
-                folderForEditing = Folder(parent: folder.id, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                folderForEditing = Folder(parent: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
             }) {
                 Label("_createFolder", systemImage: "folder")
             }
+            .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
             Button(action: {
-                passwordForEditing = Password(folder: folder.id, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                passwordForEditing = Password(folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
             }) {
                 Label("_createPassword", systemImage: "key")
             }
+            .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
         }
         label: {
             Spacer()
@@ -326,7 +328,7 @@ struct EntriesPage: View {
         }
     }
     
-    private func filterByDidChange(filterBy: EntriesController.Filter) {
+    private func didChange(filterBy: EntriesController.Filter) {
         if !folder.isBaseFolder,
            filterBy != .folders {
             presentationMode.wrappedValue.dismiss()
@@ -364,6 +366,7 @@ extension EntriesPage {
                     label: {
                         Label("_edit", systemImage: "pencil")
                     }
+                    .disabled(folder.revision.isEmpty)
                     Divider()
                     Button {
                         deleteFolder()
@@ -526,6 +529,7 @@ extension EntriesPage {
                         label: {
                             Label("_edit", systemImage: "pencil")
                         }
+                        .disabled(password.revision.isEmpty)
                     }
                     Divider()
                     Button {
