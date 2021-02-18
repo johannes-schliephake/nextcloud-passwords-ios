@@ -298,15 +298,15 @@ struct EntriesPage: View {
         Menu {
             Button(action: {
                 folderForEditing = Folder(parent: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
-            }) {
+            }, label: {
                 Label("_createFolder", systemImage: "folder")
-            }
+            })
             .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
             Button(action: {
                 passwordForEditing = Password(folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
-            }) {
+            }, label: {
                 Label("_createPassword", systemImage: "key")
-            }
+            })
             .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
         }
         label: {

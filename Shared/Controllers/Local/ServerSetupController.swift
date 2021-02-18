@@ -30,7 +30,7 @@ final class ServerSetupController: ObservableObject {
                 request.addValue("true", forHTTPHeaderField: "OCS-APIREQUEST")
                 
                 URLSession(configuration: .default, delegate: AuthenticationChallengeController.default, delegateQueue: .main).dataTask(with: request) {
-                    data, response, error in
+                    data, _, _ in
                     guard let serverAddress = self?.serverAddress,
                           URL(string: serverAddress) == url else {
                         return

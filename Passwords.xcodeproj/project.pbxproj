@@ -167,6 +167,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F0136FF25DE903E009455D7 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		8F09585025D159F10082D438 /* AuthenticationChallengeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationChallengeController.swift; sourceTree = "<group>"; };
 		8F11874F253C9EE10019FECA /* Passwords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passwords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F118752253C9EE10019FECA /* PasswordsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordsApp.swift; sourceTree = "<group>"; };
@@ -344,6 +345,7 @@
 				8FCBF8BB25AE152500F75B33 /* Snapshot */,
 				8F118751253C9EE10019FECA /* Shared */,
 				8FD1039625A7BFFC0055A8F3 /* .gitignore */,
+				8F0136FF25DE903E009455D7 /* .swiftlint.yml */,
 				8FD1038C25A790EC0055A8F3 /* README.md */,
 				8FD1038625A790B00055A8F3 /* LICENSE */,
 				8F580AF325A85D8A0047E484 /* PRIVACY */,
@@ -647,6 +649,7 @@
 			buildConfigurationList = 8F11875E253C9EE30019FECA /* Build configuration list for PBXNativeTarget "Passwords" */;
 			buildPhases = (
 				8F11874B253C9EE10019FECA /* Sources */,
+				8F0136FA25DE8DED009455D7 /* ShellScript */,
 				8F11874C253C9EE10019FECA /* Frameworks */,
 				8F11874D253C9EE10019FECA /* Resources */,
 				8F11877B253CA2C90019FECA /* Embed App Extensions */,
@@ -666,6 +669,7 @@
 			buildConfigurationList = 8FC361A52582762600785371 /* Build configuration list for PBXNativeTarget "Provider" */;
 			buildPhases = (
 				8FC361942582762600785371 /* Sources */,
+				8F0136FB25DE8E9A009455D7 /* ShellScript */,
 				8FC361952582762600785371 /* Frameworks */,
 				8FC361962582762600785371 /* Resources */,
 			);
@@ -767,6 +771,43 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8F0136FA25DE8DED009455D7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		8F0136FB25DE8E9A009455D7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8F11874B253C9EE10019FECA /* Sources */ = {

@@ -233,10 +233,7 @@ final class EntriesController: ObservableObject {
                 else {
                     let foldersInFavoriteFolders = folders.filter {
                         folder in
-                        favoriteFolders.reduce(false) {
-                            isDescendent, favoriteFolder in
-                            isDescendent || folder.isDescendentOf(folder: favoriteFolder, in: folders)
-                        }
+                        favoriteFolders.contains { folder.isDescendentOf(folder: $0, in: folders) }
                     }
                     folders = favoriteFolders + foldersInFavoriteFolders
                 }
@@ -266,10 +263,7 @@ final class EntriesController: ObservableObject {
                     let favoriteFolders = folders.filter { $0.favorite }
                     let passwordsInFavoriteFolders = passwords.filter {
                         password in
-                        favoriteFolders.reduce(false) {
-                            isDescendent, favoriteFolder in
-                            isDescendent || password.isDescendentOf(folder: favoriteFolder, in: folders)
-                        }
+                        favoriteFolders.contains { password.isDescendentOf(folder: $0, in: folders) }
                     }
                     passwords = favoritePasswords + passwordsInFavoriteFolders
                 }
