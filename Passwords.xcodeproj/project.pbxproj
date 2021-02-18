@@ -168,6 +168,7 @@
 
 /* Begin PBXFileReference section */
 		8F0136FF25DE903E009455D7 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		8F01371225DE9EAD009455D7 /* IAP.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = IAP.storekit; sourceTree = "<group>"; };
 		8F09585025D159F10082D438 /* AuthenticationChallengeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationChallengeController.swift; sourceTree = "<group>"; };
 		8F11874F253C9EE10019FECA /* Passwords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passwords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F118752253C9EE10019FECA /* PasswordsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordsApp.swift; sourceTree = "<group>"; };
@@ -432,6 +433,7 @@
 			children = (
 				8F118762253CA2980019FECA /* Passwords.entitlements */,
 				8F52F3E125937B2700B4EFCE /* IAP.plist */,
+				8F01371225DE9EAD009455D7 /* IAP.storekit */,
 				8F11875B253C9EE30019FECA /* Info.plist */,
 				8F118752253C9EE10019FECA /* PasswordsApp.swift */,
 				8F118756253C9EE30019FECA /* Assets.xcassets */,
