@@ -47,8 +47,8 @@
 		8F55D99F2582D0DE00CE4FC2 /* AutoFillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55D9992582D04200CE4FC2 /* AutoFillController.swift */; };
 		8F55F71625727CB600E00B28 /* DeleteFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55F71525727CB600E00B28 /* DeleteFolderRequest.swift */; };
 		8F55FBD72570276800CC6920 /* CredentialsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55FBD62570276800CC6920 /* CredentialsController.swift */; };
-		8F560E69258F54A900C896EE /* OccludeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* OccludeModifier.swift */; };
-		8F560E6C258F5AD400C896EE /* OccludeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* OccludeModifier.swift */; };
+		8F560E69258F54A900C896EE /* View+Occlude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* View+Occlude.swift */; };
+		8F560E6C258F5AD400C896EE /* View+Occlude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* View+Occlude.swift */; };
 		8F561EBE258D26CC008AE12B /* NCPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */; };
 		8F561EC3258D2759008AE12B /* NCPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */; };
 		8F5637C62562C57800A0BF9D /* FaviconServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */; };
@@ -202,7 +202,7 @@
 		8F55D9992582D04200CE4FC2 /* AutoFillController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFillController.swift; sourceTree = "<group>"; };
 		8F55F71525727CB600E00B28 /* DeleteFolderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFolderRequest.swift; sourceTree = "<group>"; };
 		8F55FBD62570276800CC6920 /* CredentialsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsController.swift; sourceTree = "<group>"; };
-		8F560E68258F54A900C896EE /* OccludeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccludeModifier.swift; sourceTree = "<group>"; };
+		8F560E68258F54A900C896EE /* View+Occlude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Occlude.swift"; sourceTree = "<group>"; };
 		8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCPasswordsRequest.swift; sourceTree = "<group>"; };
 		8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaviconServiceRequest.swift; sourceTree = "<group>"; };
 		8F5662DB25B366C500C829E7 /* AppIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon@1x.png"; sourceTree = "<group>"; };
@@ -422,7 +422,7 @@
 			children = (
 				8F59F520256AE65800D9FE40 /* ActionButtonStyle.swift */,
 				8F77DA5C25699F8900CFDA8D /* CopyToast.swift */,
-				8F560E68258F54A900C896EE /* OccludeModifier.swift */,
+				8F560E68258F54A900C896EE /* View+Occlude.swift */,
 				8F59888825799C3200843696 /* SearchBar.swift */,
 			);
 			path = Components;
@@ -848,7 +848,7 @@
 				8F118755253C9EE10019FECA /* EntriesPage.swift in Sources */,
 				8F77DA5D25699F8900CFDA8D /* CopyToast.swift in Sources */,
 				8F513A63256064E9001C6EF9 /* ServerSetupPage.swift in Sources */,
-				8F560E69258F54A900C896EE /* OccludeModifier.swift in Sources */,
+				8F560E69258F54A900C896EE /* View+Occlude.swift in Sources */,
 				8F55564A25716BD200F5D805 /* DeletePasswordRequest.swift in Sources */,
 				8FBE43B9258D599E003F7F34 /* Date+FormattedString.swift in Sources */,
 				8F513A5F2560624F001C6EF9 /* Credentials.swift in Sources */,
@@ -912,7 +912,7 @@
 				8FBE43D3258D5A8C003F7F34 /* String+Localized.swift in Sources */,
 				8FC361BB25827E4C00785371 /* SearchBar.swift in Sources */,
 				8FC361B725827E4C00785371 /* PasswordDetailPage.swift in Sources */,
-				8F560E6C258F5AD400C896EE /* OccludeModifier.swift in Sources */,
+				8F560E6C258F5AD400C896EE /* View+Occlude.swift in Sources */,
 				8FC361B525827E4C00785371 /* SettingsPage.swift in Sources */,
 				8FC361D325827E5D00785371 /* DeletePasswordRequest.swift in Sources */,
 				8FC361C925827E5500785371 /* Credentials.swift in Sources */,
