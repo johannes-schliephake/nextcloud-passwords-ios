@@ -1,0 +1,21 @@
+disabled_rules:
+  - function_parameter_count
+  - line_length
+  - function_body_length
+  - type_body_length
+  - file_length
+  - vertical_whitespace
+  - cyclomatic_complexity
+  - statement_position
+  - closure_parameter_position
+  - orphaned_doc_comment
+
+excluded:
+  - Snapshot/SnapshotHelper.swift
+
+identifier_name:
+  excluded:
+    - id
+
+trailing_whitespace:
+  ignores_empty_lines: true

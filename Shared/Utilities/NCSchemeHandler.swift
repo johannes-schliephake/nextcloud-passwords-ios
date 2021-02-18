@@ -3,9 +3,9 @@ import WebKit
 
 final class NCSchemeHandler: NSObject {
     
-    private let perform: (String, String, String) -> () /// Arguments: server, username & password
+    private let perform: (String, String, String) -> Void /// Arguments: server, username & password
     
-    init(perform: @escaping (String, String, String) -> ()) {
+    init(perform: @escaping (String, String, String) -> Void) {
         self.perform = perform
     }
     
