@@ -18,7 +18,7 @@ extension UIAlertController {
         
         /// Present alert with top view controller
         guard let shared = UIApplication.safeShared,
-              var topViewController = shared.windows.filter({ $0.isKeyWindow }).first?.rootViewController else {
+              var topViewController = shared.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
             return
         }
         while let presentedViewController = topViewController.presentedViewController,

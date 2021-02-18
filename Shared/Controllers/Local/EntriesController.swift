@@ -297,7 +297,7 @@ final class EntriesController: ObservableObject {
             passwords.sort { $0.updated > $1.updated }
         case .username:
             passwords.sort { $0.username.lowercased() < $1.username.lowercased() }
-            passwords.sort { $0.username != "" && $1.username == "" }
+            passwords.sort { !$0.username.isEmpty && $1.username.isEmpty }
         case .url:
             passwords.sort { $0.url.lowercased() < $1.url.lowercased() }
             passwords.sort { !$0.url.isEmpty && $1.url.isEmpty }
