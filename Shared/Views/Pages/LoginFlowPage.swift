@@ -47,10 +47,11 @@ extension LoginFlowPage {
         }
         
         func updateUIView(_ webView: BottomlessWKWebView, context: Context) {
-            guard let url = URL(string: "index.php/login/flow", relativeTo: serverUrl),
-                  let language = NSLocale.preferredLanguages.first else {
+            guard let language = NSLocale.preferredLanguages.first else {
                 return
             }
+            
+            let url = serverUrl.appendingPathComponent("index.php/login/flow")
             var request = URLRequest(url: url)
             request.addValue("true", forHTTPHeaderField: "OCS-APIREQUEST")
             request.addValue(language, forHTTPHeaderField: "Accept-Language")
