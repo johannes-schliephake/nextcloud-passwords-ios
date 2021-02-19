@@ -65,7 +65,6 @@ final class EntriesController: ObservableObject {
     
     init() {
         CredentialsController.default.$credentials.sink(receiveValue: requestEntries).store(in: &subscriptions)
-        requestEntries(credentials: CredentialsController.default.credentials)
     }
     
     private init(folders: [Folder], passwords: [Password]) {
