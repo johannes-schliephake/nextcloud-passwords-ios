@@ -47,8 +47,8 @@
 		8F55D99F2582D0DE00CE4FC2 /* AutoFillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55D9992582D04200CE4FC2 /* AutoFillController.swift */; };
 		8F55F71625727CB600E00B28 /* DeleteFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55F71525727CB600E00B28 /* DeleteFolderRequest.swift */; };
 		8F55FBD72570276800CC6920 /* CredentialsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55FBD62570276800CC6920 /* CredentialsController.swift */; };
-		8F560E69258F54A900C896EE /* OccludeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* OccludeModifier.swift */; };
-		8F560E6C258F5AD400C896EE /* OccludeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* OccludeModifier.swift */; };
+		8F560E69258F54A900C896EE /* View+Occlude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* View+Occlude.swift */; };
+		8F560E6C258F5AD400C896EE /* View+Occlude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* View+Occlude.swift */; };
 		8F561EBE258D26CC008AE12B /* NCPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */; };
 		8F561EC3258D2759008AE12B /* NCPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */; };
 		8F5637C62562C57800A0BF9D /* FaviconServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */; };
@@ -167,6 +167,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F0136FF25DE903E009455D7 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		8F01371225DE9EAD009455D7 /* IAP.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = IAP.storekit; sourceTree = "<group>"; };
 		8F09585025D159F10082D438 /* AuthenticationChallengeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationChallengeController.swift; sourceTree = "<group>"; };
 		8F11874F253C9EE10019FECA /* Passwords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passwords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F118752253C9EE10019FECA /* PasswordsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordsApp.swift; sourceTree = "<group>"; };
@@ -200,7 +202,7 @@
 		8F55D9992582D04200CE4FC2 /* AutoFillController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFillController.swift; sourceTree = "<group>"; };
 		8F55F71525727CB600E00B28 /* DeleteFolderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFolderRequest.swift; sourceTree = "<group>"; };
 		8F55FBD62570276800CC6920 /* CredentialsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsController.swift; sourceTree = "<group>"; };
-		8F560E68258F54A900C896EE /* OccludeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccludeModifier.swift; sourceTree = "<group>"; };
+		8F560E68258F54A900C896EE /* View+Occlude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Occlude.swift"; sourceTree = "<group>"; };
 		8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCPasswordsRequest.swift; sourceTree = "<group>"; };
 		8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaviconServiceRequest.swift; sourceTree = "<group>"; };
 		8F5662DB25B366C500C829E7 /* AppIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon@1x.png"; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				8FCBF8BB25AE152500F75B33 /* Snapshot */,
 				8F118751253C9EE10019FECA /* Shared */,
 				8FD1039625A7BFFC0055A8F3 /* .gitignore */,
+				8F0136FF25DE903E009455D7 /* .swiftlint.yml */,
 				8FD1038C25A790EC0055A8F3 /* README.md */,
 				8FD1038625A790B00055A8F3 /* LICENSE */,
 				8F580AF325A85D8A0047E484 /* PRIVACY */,
@@ -419,7 +422,7 @@
 			children = (
 				8F59F520256AE65800D9FE40 /* ActionButtonStyle.swift */,
 				8F77DA5C25699F8900CFDA8D /* CopyToast.swift */,
-				8F560E68258F54A900C896EE /* OccludeModifier.swift */,
+				8F560E68258F54A900C896EE /* View+Occlude.swift */,
 				8F59888825799C3200843696 /* SearchBar.swift */,
 			);
 			path = Components;
@@ -430,6 +433,7 @@
 			children = (
 				8F118762253CA2980019FECA /* Passwords.entitlements */,
 				8F52F3E125937B2700B4EFCE /* IAP.plist */,
+				8F01371225DE9EAD009455D7 /* IAP.storekit */,
 				8F11875B253C9EE30019FECA /* Info.plist */,
 				8F118752253C9EE10019FECA /* PasswordsApp.swift */,
 				8F118756253C9EE30019FECA /* Assets.xcassets */,
@@ -647,6 +651,7 @@
 			buildConfigurationList = 8F11875E253C9EE30019FECA /* Build configuration list for PBXNativeTarget "Passwords" */;
 			buildPhases = (
 				8F11874B253C9EE10019FECA /* Sources */,
+				8F0136FA25DE8DED009455D7 /* ShellScript */,
 				8F11874C253C9EE10019FECA /* Frameworks */,
 				8F11874D253C9EE10019FECA /* Resources */,
 				8F11877B253CA2C90019FECA /* Embed App Extensions */,
@@ -666,6 +671,7 @@
 			buildConfigurationList = 8FC361A52582762600785371 /* Build configuration list for PBXNativeTarget "Provider" */;
 			buildPhases = (
 				8FC361942582762600785371 /* Sources */,
+				8F0136FB25DE8E9A009455D7 /* ShellScript */,
 				8FC361952582762600785371 /* Frameworks */,
 				8FC361962582762600785371 /* Resources */,
 			);
@@ -768,6 +774,43 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8F0136FA25DE8DED009455D7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		8F0136FB25DE8E9A009455D7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8F11874B253C9EE10019FECA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -805,7 +848,7 @@
 				8F118755253C9EE10019FECA /* EntriesPage.swift in Sources */,
 				8F77DA5D25699F8900CFDA8D /* CopyToast.swift in Sources */,
 				8F513A63256064E9001C6EF9 /* ServerSetupPage.swift in Sources */,
-				8F560E69258F54A900C896EE /* OccludeModifier.swift in Sources */,
+				8F560E69258F54A900C896EE /* View+Occlude.swift in Sources */,
 				8F55564A25716BD200F5D805 /* DeletePasswordRequest.swift in Sources */,
 				8FBE43B9258D599E003F7F34 /* Date+FormattedString.swift in Sources */,
 				8F513A5F2560624F001C6EF9 /* Credentials.swift in Sources */,
@@ -869,7 +912,7 @@
 				8FBE43D3258D5A8C003F7F34 /* String+Localized.swift in Sources */,
 				8FC361BB25827E4C00785371 /* SearchBar.swift in Sources */,
 				8FC361B725827E4C00785371 /* PasswordDetailPage.swift in Sources */,
-				8F560E6C258F5AD400C896EE /* OccludeModifier.swift in Sources */,
+				8F560E6C258F5AD400C896EE /* View+Occlude.swift in Sources */,
 				8FC361B525827E4C00785371 /* SettingsPage.swift in Sources */,
 				8FC361D325827E5D00785371 /* DeletePasswordRequest.swift in Sources */,
 				8FC361C925827E5500785371 /* Credentials.swift in Sources */,
@@ -1079,7 +1122,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -1089,7 +1132,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -1106,7 +1149,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -1116,7 +1159,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -1130,16 +1173,16 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1153,16 +1196,16 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1177,7 +1220,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Snapshot/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1197,7 +1240,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Snapshot/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

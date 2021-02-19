@@ -6,6 +6,8 @@ class ScreenshotGenerator: XCTestCase {
     private var app: XCUIApplication!
     
     override func setUpWithError() throws {
+        try super.setUpWithError()
+        
         continueAfterFailure = false
         
         app = XCUIApplication()
@@ -13,8 +15,6 @@ class ScreenshotGenerator: XCTestCase {
         setupSnapshot(app)
         app.launch()
     }
-    
-    override func tearDownWithError() throws {}
     
     func test_entriesPage_searchBarVisible_filterByFolders() throws {
         /// Swipe down to show search bar, filter by folders

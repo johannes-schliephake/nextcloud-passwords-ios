@@ -1,0 +1,74 @@
+{
+  "products" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "DE8B0C8E",
+      "localizations" : [
+        {
+          "description" : "Awesome tip for the developer",
+          "displayName" : "Awesome Tip",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Großartiges Trinkgeld für den Entwickler",
+          "displayName" : "Großartiges Trinkgeld",
+          "locale" : "de"
+        }
+      ],
+      "productID" : "de.cdslash.Passwords.iap.tip.tier1",
+      "referenceName" : "Tip Tier 1",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "DB859365",
+      "localizations" : [
+        {
+          "description" : "Fantastic tip for the developer",
+          "displayName" : "Fantastic Tip",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Fantastisches Trinkgeld für den Entwickler",
+          "displayName" : "Fantastisches Trinkgeld",
+          "locale" : "de"
+        }
+      ],
+      "productID" : "de.cdslash.Passwords.iap.tip.tier2",
+      "referenceName" : "Tip Tier 2",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "8.99",
+      "familyShareable" : false,
+      "internalID" : "D1D78DF0",
+      "localizations" : [
+        {
+          "description" : "Incredible tip for the developer",
+          "displayName" : "Incredible Tip",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Unglaubliches Trinkgeld für den Entwickler",
+          "displayName" : "Unglaubliches Trinkgeld",
+          "locale" : "de"
+        }
+      ],
+      "productID" : "de.cdslash.Passwords.iap.tip.tier3",
+      "referenceName" : "Tip Tier 3",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 0
+  }
+}

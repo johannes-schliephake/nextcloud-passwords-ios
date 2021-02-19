@@ -74,7 +74,7 @@ final class Folder: ObservableObject, Identifiable {
         }
         /// Add folder to folders because base folder is not stored in folders
         let folders = folders + [folder]
-        return folders.filter { [self] in $0.id == parent }.first?.isDescendentOf(folder: folder, in: folders) ?? false
+        return folders.first { [self] in $0.id == parent }?.isDescendentOf(folder: folder, in: folders) ?? false
     }
     
 }

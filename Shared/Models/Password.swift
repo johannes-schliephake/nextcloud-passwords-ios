@@ -99,7 +99,7 @@ final class Password: ObservableObject, Identifiable {
     func isDescendentOf(folder: Folder, in folders: [Folder]) -> Bool {
         /// Add folder to folders because base folder is not stored in folders
         let folders = folders + [folder]
-        return folders.filter { [self] in $0.id == self.folder }.first?.isDescendentOf(folder: folder, in: folders) ?? false
+        return folders.first { [self] in $0.id == self.folder }?.isDescendentOf(folder: folder, in: folders) ?? false
     }
     
 }
