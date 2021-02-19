@@ -40,12 +40,12 @@ extension NCPasswordsRequest {
     
     private func send(action: String, method: String, credentials: Credentials, completion: @escaping (ResultType?) -> Void) {
         guard let authorizationData = "\(credentials.user):\(credentials.password)".data(using: .utf8),
-              let apiUrl = URL(string: credentials.server)?.appendingPathComponent("index.php/apps/passwords/api/1.0", isDirectory: true),
-              let url = URL(string: action, relativeTo: apiUrl) else {
+              let serverUrl = URL(string: credentials.server) else {
             completion(nil)
             return
         }
         
+        let url = serverUrl.appendingPathComponent("index.php/apps/passwords/api/1.0").appendingPathComponent(action)
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
