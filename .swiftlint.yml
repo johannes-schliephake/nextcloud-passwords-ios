@@ -9,7 +9,7 @@ disabled_rules:
   - statement_position
   - closure_parameter_position
   - orphaned_doc_comment
-  
+
 opt_in_rules:
   - file_types_order
   - overridden_super_call
@@ -29,6 +29,14 @@ opt_in_rules:
   - legacy_multiple
   - operator_usage_whitespace
   - redundant_type_annotation
+
+custom_rules:
+  print:
+    included: ".*\\.swift"
+    name: "Print"
+    regex: "((\\bprint)|(Swift\\.print))\\s*\\("
+    message: "Prints should be removed"
+    severity: warning
 
 excluded:
   - Snapshot/SnapshotHelper.swift
