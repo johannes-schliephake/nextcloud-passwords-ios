@@ -102,7 +102,8 @@ struct EditPasswordPage: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 Spacer()
-                TextField("-", text: $editPasswordController.passwordNotes)
+                TextView("-", text: $editPasswordController.passwordNotes)
+                    .frame(height: 100)
             }
         }
     }
