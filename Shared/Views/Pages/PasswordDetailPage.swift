@@ -192,7 +192,14 @@ struct PasswordDetailPage: View {
                     .buttonStyle(BorderlessButtonStyle())
                 }
             }
-            row(subheadline: "_notes", text: password.notes, copiable: false)
+            VStack(alignment: .leading) {
+                Text("_notes")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Spacer()
+                TextView(!password.notes.isEmpty ? password.notes : "-", isSelectable: !password.notes.isEmpty)
+                    .frame(height: 100)
+                }
         }
     }
     
