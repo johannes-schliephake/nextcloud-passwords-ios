@@ -180,8 +180,10 @@ struct PasswordDetailPage: View {
             row(subheadline: "_username", text: password.username, copiable: true)
             HStack {
                 row(subheadline: "_url", text: password.url, copiable: true)
-                if let open = UIApplication.safeOpen,
-                   let url = URL(string: password.url) {
+                if let url = URL(string: password.url),
+                   let canOpenURL = UIApplication.safeCanOpenURL,
+                   canOpenURL(url),
+                   let open = UIApplication.safeOpen {
                     Spacer()
                     Button {
                         open(url)

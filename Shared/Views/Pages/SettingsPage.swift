@@ -103,9 +103,12 @@ struct SettingsPage: View {
     private func aboutSection() -> some View {
         Section(header: Text("_about")) {
             row(subheadline: "_version", text: Configuration.shortVersionString)
-            if let open = UIApplication.safeOpen {
+            if let url = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios"),
+               let canOpenURL = UIApplication.safeCanOpenURL,
+               canOpenURL(url),
+               let open = UIApplication.safeOpen {
                 Button {
-                    open(URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios")!)
+                    open(url)
                 }
                 label: {
                     Label("_sourceCode", systemImage: "curlybraces")
