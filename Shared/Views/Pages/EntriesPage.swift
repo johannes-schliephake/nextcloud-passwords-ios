@@ -506,8 +506,10 @@ extension EntriesPage {
                             Label("_copyUsername", systemImage: "doc.on.doc")
                         }
                     }
-                    if let open = UIApplication.safeOpen,
-                       let url = URL(string: password.url) {
+                    if let url = URL(string: password.url),
+                       let canOpenURL = UIApplication.safeCanOpenURL,
+                       canOpenURL(url),
+                       let open = UIApplication.safeOpen {
                         Button {
                             open(url)
                         }
