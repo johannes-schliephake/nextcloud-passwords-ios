@@ -22,6 +22,9 @@ struct MainView: View {
             .environmentObject(biometricAuthenticationController)
             .environmentObject(credentialsController)
             .environmentObject(tipController)
+            .onAppear {
+                biometricAuthenticationController.autoFillController = autoFillController
+            }
     }
     
     // MARK: Functions
