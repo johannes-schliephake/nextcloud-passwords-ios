@@ -201,7 +201,7 @@ struct PasswordDetailPage: View {
                 Spacer()
                 TextView(!password.notes.isEmpty ? password.notes : "-", isSelectable: !password.notes.isEmpty)
                     .frame(height: 100)
-                }
+            }
         }
     }
     
