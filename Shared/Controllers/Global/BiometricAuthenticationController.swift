@@ -5,6 +5,8 @@ import SwiftUI
 
 final class BiometricAuthenticationController: ObservableObject {
     
+    var autoFillController: AutoFillController?
+    
     @Published private(set) var isUnlocked = false {
         didSet {
             if isUnlocked {
@@ -47,7 +49,12 @@ final class BiometricAuthenticationController: ObservableObject {
             guard success else {
                 if let laError = error as? LAError,
                    laError.code == .userCancel {
-                    self?.unlockApp()
+                    if let cancelAutoFill = self?.autoFillController?.cancel {
+                        cancelAutoFill()
+                    }
+                    else {
+                        self?.unlockApp()
+                    }
                 }
                 return
             }
