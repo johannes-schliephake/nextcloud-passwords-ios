@@ -76,6 +76,7 @@ struct EntriesPage: View {
             Button("_connectToServer") {
                 showServerSetupView = true
             }
+            .frame(maxWidth: 600)
             .buttonStyle(ActionButtonStyle())
             EmptyView()
                 .sheet(isPresented: $showServerSetupView) {
@@ -381,6 +382,7 @@ extension EntriesPage {
             NavigationLink(destination: EntriesPage(entriesController: entriesController, folder: folder)) {
                 mainStack()
             }
+            .isDetailLink(false)
         }
         
         private func mainStack() -> some View {
@@ -567,6 +569,7 @@ extension EntriesPage {
                     }, deletePassword: {
                         entriesController.delete(password: password)
                     }), isActive: $showPasswordDetailView) {}
+                    .isDetailLink(true)
                     .frame(width: 0, height: 0)
                     .opacity(0)
                 }
@@ -578,6 +581,7 @@ extension EntriesPage {
                     })) {
                         mainStack()
                     }
+                    .isDetailLink(true)
                 }
             }
         }
@@ -708,7 +712,7 @@ struct EntriesPagePreview: PreviewProvider {
             NavigationView {
                 EntriesPage(entriesController: EntriesController.mock)
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .showColumns(true)
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
             .environmentObject(CredentialsController.mock)

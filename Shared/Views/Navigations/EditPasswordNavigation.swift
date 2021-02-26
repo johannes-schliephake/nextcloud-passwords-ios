@@ -15,7 +15,7 @@ struct EditPasswordNavigation: View {
         NavigationView {
             EditPasswordPage(password: password, addPassword: addPassword, updatePassword: updatePassword)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .showColumns(false)
         .occlude(!biometricAuthenticationController.isUnlocked)
     }
     

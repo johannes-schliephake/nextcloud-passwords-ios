@@ -31,6 +31,7 @@ struct ServerSetupPage: View {
             .listStyle(InsetGroupedListStyle())
             if let serverUrl = serverSetupController.validServerUrl {
                 NavigationLink(destination: LoginFlowPage(serverUrl: serverUrl), isActive: $showLoginFlowPage) {}
+                    .isDetailLink(false)
             }
         }
     }
@@ -83,7 +84,7 @@ struct ServerSetupPagePreview: PreviewProvider {
             NavigationView {
                 ServerSetupPage()
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .showColumns(false)
         }
     }
     

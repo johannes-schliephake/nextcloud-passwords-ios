@@ -246,7 +246,7 @@ struct PasswordDetailPage: View {
             }
             .padding()
         }
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: geometry.safeAreaInsets.bottom, trailing: 0))
+        .padding(.bottom, geometry.safeAreaInsets.bottom)
         .background(Color(UIColor.systemGroupedBackground))
     }
     
@@ -352,7 +352,7 @@ struct PasswordDetailPagePreview: PreviewProvider {
             NavigationView {
                 PasswordDetailPage(password: Password.mock, updatePassword: {}, deletePassword: {})
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .showColumns(false)
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
             .environmentObject(CredentialsController.mock)

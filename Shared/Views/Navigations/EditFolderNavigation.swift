@@ -15,7 +15,7 @@ struct EditFolderNavigation: View {
         NavigationView {
             EditFolderPage(folder: folder, addFolder: addFolder, updateFolder: updateFolder)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .showColumns(false)
         .occlude(!biometricAuthenticationController.isUnlocked)
     }
     

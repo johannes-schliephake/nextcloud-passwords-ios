@@ -11,7 +11,7 @@ struct SettingsNavigation: View {
         NavigationView {
             SettingsPage()
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .showColumns(false)
         .occlude(!biometricAuthenticationController.isUnlocked)
     }
     
