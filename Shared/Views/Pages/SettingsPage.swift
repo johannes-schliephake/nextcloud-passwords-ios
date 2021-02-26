@@ -172,7 +172,7 @@ struct SettingsPagePreview: PreviewProvider {
             NavigationView {
                 SettingsPage()
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .showColumns(false)
             .environmentObject(CredentialsController.mock)
             .environmentObject(TipController.mock)
         }

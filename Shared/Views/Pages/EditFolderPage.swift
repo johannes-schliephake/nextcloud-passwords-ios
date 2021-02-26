@@ -73,7 +73,7 @@ struct EditFolderPagePreview: PreviewProvider {
             NavigationView {
                 EditFolderPage(folder: Folder.mock, addFolder: {}, updateFolder: {})
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .showColumns(false)
         }
     }
     

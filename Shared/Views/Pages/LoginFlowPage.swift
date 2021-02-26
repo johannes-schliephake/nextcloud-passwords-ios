@@ -85,7 +85,7 @@ struct LoginFlowPagePreview: PreviewProvider {
             NavigationView {
                 LoginFlowPage(serverUrl: URL(string: "https://example.com")!)
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .showColumns(false)
         }
     }
     
