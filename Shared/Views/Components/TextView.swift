@@ -59,12 +59,12 @@ extension TextView {
         private let textView: TextView
         
         let uiLabel: UILabel
-        let uiTextView: UITextView
+        let uiTextView: BetterCopyUITextView
         
         init(textView: TextView) {
             self.textView = textView
             uiLabel = UILabel()
-            uiTextView = UITextView()
+            uiTextView = BetterCopyUITextView()
             super.init()
             
             let textColor = UIColor(Color.primary)
@@ -81,11 +81,41 @@ extension TextView {
             uiTextView.delegate = self
             uiTextView.isEditable = textView.isEditable
             uiTextView.isSelectable = textView.isSelectable
+            
+            if !uiTextView.isEditable {
+                uiTextView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap)))
+            }
         }
         
         func textViewDidChange(_ uiTextView: UITextView) {
             uiLabel.isHidden = !uiTextView.text.isEmpty
             textView.text = uiTextView.text
+        }
+        
+        @objc func didTap(sender: UITapGestureRecognizer) {
+            if uiTextView.selectedRange.length == 0 {
+                uiTextView.selectAll(sender)
+            }
+        }
+        
+    }
+    
+}
+
+
+extension TextView {
+    
+    final class BetterCopyUITextView: UITextView {
+        
+        override var canBecomeFirstResponder: Bool {
+            true
+        }
+        
+        override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+            if isEditable {
+                return super.canPerformAction(action, withSender: sender)
+            }
+            return action == #selector(UIResponderStandardEditActions.copy)
         }
         
     }
