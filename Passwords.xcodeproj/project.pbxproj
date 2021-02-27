@@ -431,9 +431,9 @@
 			children = (
 				8F59F520256AE65800D9FE40 /* ActionButtonStyle.swift */,
 				8F77DA5C25699F8900CFDA8D /* CopyToast.swift */,
-				8F560E68258F54A900C896EE /* View+Occlude.swift */,
 				8F59888825799C3200843696 /* SearchBar.swift */,
 				8F65736925E3C4F200139163 /* TextView.swift */,
+				8F560E68258F54A900C896EE /* View+Occlude.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -624,8 +624,8 @@
 				8FBE43C4258D5A09003F7F34 /* String+Localized.swift */,
 				8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */,
 				8FBE43C8258D5A2D003F7F34 /* UIApplication+IsExtension.swift */,
-				8FBE43CC258D5A5D003F7F34 /* UIApplication+SafeOpen.swift */,
 				8F202ABD25E685060018A4F8 /* UIApplication+SafeCanOpenURL.swift */,
+				8FBE43CC258D5A5D003F7F34 /* UIApplication+SafeOpen.swift */,
 				8F5A843F259A4FA700BFDF29 /* UIApplication+SafeShared.swift */,
 				8FB645F125D6949900A0F316 /* UIPasteboard+PrivateString.swift */,
 			);
