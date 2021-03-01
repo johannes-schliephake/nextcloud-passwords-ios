@@ -10,6 +10,13 @@ class ScreenshotGenerator: XCTestCase {
         
         continueAfterFailure = false
         
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            XCUIDevice.shared.orientation = .landscapeLeft
+        default:
+            XCUIDevice.shared.orientation = .portrait
+        }
+        
         app = XCUIApplication()
         app.launchEnvironment = ["TEST": "true"]
         setupSnapshot(app)
@@ -39,7 +46,7 @@ class ScreenshotGenerator: XCTestCase {
         /// Filter by favorites, long tap last entry (has to be a password)
         app.navigationBars.firstMatch.buttons["arrow.up.arrow.down"].tap()
         app.collectionViews.buttons.element(boundBy: 2).tap()
-        app.tables.buttons.element(boundBy: app.tables.buttons.count - 1).press(forDuration: 1)
+        app.tables.buttons.lastMatch.press(forDuration: 1)
         
         snapshot("3")
     }
@@ -48,7 +55,7 @@ class ScreenshotGenerator: XCTestCase {
         /// Filter by favorites, open last entry (has to be a password)
         app.navigationBars.firstMatch.buttons["arrow.up.arrow.down"].tap()
         app.collectionViews.buttons.element(boundBy: 2).tap()
-        app.tables.buttons.element(boundBy: app.tables.buttons.count - 1).tap()
+        app.tables.buttons.lastMatch.tap()
         
         snapshot("4")
     }
@@ -57,8 +64,8 @@ class ScreenshotGenerator: XCTestCase {
         /// Filter by favorites, open last entry (has to be a password), open edit page
         app.navigationBars.firstMatch.buttons["arrow.up.arrow.down"].tap()
         app.collectionViews.buttons.element(boundBy: 2).tap()
-        app.tables.buttons.element(boundBy: app.tables.buttons.count - 1).tap()
-        app.navigationBars.firstMatch.buttons.element(boundBy: app.navigationBars.firstMatch.buttons.count - 1).tap()
+        app.tables.buttons.lastMatch.tap()
+        app.navigationBars.lastMatch.buttons.lastMatch.tap()
         
         snapshot("5")
     }

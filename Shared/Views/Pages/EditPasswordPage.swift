@@ -4,6 +4,7 @@ import SwiftUI
 struct EditPasswordPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     @StateObject private var editPasswordController: EditPasswordController
     @ScaledMetric private var sliderLabelWidth: CGFloat = 87
@@ -41,13 +42,24 @@ struct EditPasswordPage: View {
                 .font(.system(.body, design: .monospaced))
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
-            Toggle("_numbers", isOn: $editPasswordController.generatorNumbers)
-            Toggle("_specialCharacters", isOn: $editPasswordController.generatorSpecial)
+            if horizontalSizeClass == .regular {
+                HStack {
+                    Toggle("_numbers", isOn: $editPasswordController.generatorNumbers)
+                    Divider()
+                        .padding(.horizontal)
+                    Toggle("_specialCharacters", isOn: $editPasswordController.generatorSpecial)
+                }
+            }
+            else {
+                Toggle("_numbers", isOn: $editPasswordController.generatorNumbers)
+                Toggle("_specialCharacters", isOn: $editPasswordController.generatorSpecial)
+            }
             HStack {
                 Text(String(format: "_length(length)".localized, String(Int(editPasswordController.generatorLength))))
                     .frame(width: sliderLabelWidth, alignment: .leading)
                 Spacer()
                 Slider(value: $editPasswordController.generatorLength, in: 1...36, step: 1)
+                    .frame(maxWidth: 400)
             }
             Button {
                 editPasswordController.generatePassword()
@@ -102,7 +114,8 @@ struct EditPasswordPage: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 Spacer()
-                TextField("-", text: $editPasswordController.passwordNotes)
+                TextView("-", text: $editPasswordController.passwordNotes)
+                    .frame(height: 100)
             }
         }
     }
@@ -137,7 +150,7 @@ struct EditPasswordPagePreview: PreviewProvider {
             NavigationView {
                 EditPasswordPage(password: Password.mock, addPassword: {}, updatePassword: {})
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .showColumns(false)
         }
     }
     

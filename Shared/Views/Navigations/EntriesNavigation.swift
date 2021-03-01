@@ -4,6 +4,7 @@ import SwiftUI
 struct EntriesNavigation: View {
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
+    @EnvironmentObject private var credentialsController: CredentialsController
     
     @StateObject private var entriesController = Configuration.isTestEnvironment ? EntriesController.mock : EntriesController()
     
@@ -13,7 +14,7 @@ struct EntriesNavigation: View {
         NavigationView {
             EntriesPage(entriesController: entriesController)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .showColumns(credentialsController.credentials != nil)
         .occlude(!biometricAuthenticationController.isUnlocked)
     }
     

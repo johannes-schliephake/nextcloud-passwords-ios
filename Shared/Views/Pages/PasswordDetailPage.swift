@@ -180,8 +180,10 @@ struct PasswordDetailPage: View {
             row(subheadline: "_username", text: password.username, copiable: true)
             HStack {
                 row(subheadline: "_url", text: password.url, copiable: true)
-                if let open = UIApplication.safeOpen,
-                   let url = URL(string: password.url) {
+                if let url = URL(string: password.url),
+                   let canOpenURL = UIApplication.safeCanOpenURL,
+                   canOpenURL(url),
+                   let open = UIApplication.safeOpen {
                     Spacer()
                     Button {
                         open(url)
@@ -192,7 +194,14 @@ struct PasswordDetailPage: View {
                     .buttonStyle(BorderlessButtonStyle())
                 }
             }
-            row(subheadline: "_notes", text: password.notes, copiable: false)
+            VStack(alignment: .leading) {
+                Text("_notes")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Spacer()
+                TextView(!password.notes.isEmpty ? password.notes : "-", isSelectable: !password.notes.isEmpty)
+                    .frame(height: 100)
+            }
         }
     }
     
@@ -237,7 +246,7 @@ struct PasswordDetailPage: View {
             }
             .padding()
         }
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: geometry.safeAreaInsets.bottom, trailing: 0))
+        .padding(.bottom, geometry.safeAreaInsets.bottom)
         .background(Color(UIColor.systemGroupedBackground))
     }
     
@@ -343,7 +352,7 @@ struct PasswordDetailPagePreview: PreviewProvider {
             NavigationView {
                 PasswordDetailPage(password: Password.mock, updatePassword: {}, deletePassword: {})
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .showColumns(false)
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
             .environmentObject(CredentialsController.mock)

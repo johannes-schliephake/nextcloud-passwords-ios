@@ -43,7 +43,7 @@ struct CopyToast<Content: View>: View {
                 .font(.footnote)
                 .fontWeight(.medium)
                 .frame(height: 50)
-                .padding(EdgeInsets(top: 0, leading: 25, bottom: 0, trailing: 25))
+                .padding(.horizontal, 25)
                 .background(Color(UIColor.secondarySystemGroupedBackground))
                 .foregroundColor(Color.primary)
                 .cornerRadius(25)

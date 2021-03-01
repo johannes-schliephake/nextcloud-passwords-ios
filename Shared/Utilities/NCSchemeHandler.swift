@@ -34,9 +34,15 @@ extension NCSchemeHandler: WKURLSchemeHandler {
             return
         }
         
-        let server = String(urlString[Range(match.range(at: 1), in: urlString)!])
-        let user = String(urlString[Range(match.range(at: 2), in: urlString)!])
-        let password = String(urlString[Range(match.range(at: 3), in: urlString)!])
+        let encodedServer = String(urlString[Range(match.range(at: 1), in: urlString)!])
+        let encodedUser = String(urlString[Range(match.range(at: 2), in: urlString)!])
+        let encodedPassword = String(urlString[Range(match.range(at: 3), in: urlString)!])
+        guard let server = encodedServer.replacingOccurrences(of: "+", with: " ").removingPercentEncoding,
+              let user = encodedUser.replacingOccurrences(of: "+", with: " ").removingPercentEncoding,
+              let password = encodedPassword.replacingOccurrences(of: "+", with: " ").removingPercentEncoding else {
+            urlSchemeTask.didFailWithError(NCSchemeHandlerError.credentialsParseError)
+            return
+        }
         perform(server, user, password)
         
         urlSchemeTask.didReceive(URLResponse(url: url, mimeType: "text/html", expectedContentLength: -1, textEncodingName: nil))
