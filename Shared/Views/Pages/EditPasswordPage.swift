@@ -36,6 +36,46 @@ struct EditPasswordPage: View {
         .listStyle(InsetGroupedListStyle())
     }
     
+    private func accountSection() -> some View {
+        Section(header: Text("_account")) {
+            VStack(alignment: .leading) {
+                Text("_name")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Spacer()
+                TextField("-", text: $editPasswordController.passwordLabel)
+            }
+            VStack(alignment: .leading) {
+                Text("_username")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Spacer()
+                TextField("-", text: $editPasswordController.passwordUsername)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textContentType(.emailAddress)
+            }
+            VStack(alignment: .leading) {
+                Text("_url")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Spacer()
+                TextField("-", text: $editPasswordController.passwordUrl)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textContentType(.URL)
+            }
+            VStack(alignment: .leading) {
+                Text("_notes")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Spacer()
+                TextView("-", text: $editPasswordController.passwordNotes)
+                    .frame(height: 100)
+            }
+        }
+    }
+    
     private func passwordSection() -> some View {
         Section(header: Text("_password")) {
             TextField("-", text: $editPasswordController.passwordPassword)
@@ -76,46 +116,6 @@ struct EditPasswordPage: View {
             .disabled(editPasswordController.showProgressView)
             .alert(isPresented: $editPasswordController.showErrorAlert) {
                 Alert(title: Text("_error"), message: Text("_passwordServiceErrorMessage"))
-            }
-        }
-    }
-    
-    private func accountSection() -> some View {
-        Section(header: Text("_account")) {
-            VStack(alignment: .leading) {
-                Text("_name")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                TextField("-", text: $editPasswordController.passwordLabel)
-            }
-            VStack(alignment: .leading) {
-                Text("_username")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                TextField("-", text: $editPasswordController.passwordUsername)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .textContentType(.emailAddress)
-            }
-            VStack(alignment: .leading) {
-                Text("_url")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                TextField("-", text: $editPasswordController.passwordUrl)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .textContentType(.URL)
-            }
-            VStack(alignment: .leading) {
-                Text("_notes")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                TextView("-", text: $editPasswordController.passwordNotes)
-                    .frame(height: 100)
             }
         }
     }
