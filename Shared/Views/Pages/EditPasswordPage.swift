@@ -30,8 +30,8 @@ struct EditPasswordPage: View {
     
     private func listView() -> some View {
         List {
-            passwordSection()
             accountSection()
+            passwordSection()
         }
         .listStyle(InsetGroupedListStyle())
     }
