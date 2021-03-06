@@ -38,4 +38,10 @@ final class ProviderViewController: ASCredentialProviderViewController {
         autoFillController.serviceURLs = serviceIdentifiers.compactMap { URL(string: $0.identifier) }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
 }

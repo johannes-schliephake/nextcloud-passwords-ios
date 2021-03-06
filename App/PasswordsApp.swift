@@ -12,6 +12,9 @@ struct PasswordsApp: App {
         WindowGroup {
             MainView()
                 .environmentObject(autoFillController)
+                .onAppear {
+                    NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: UIApplication.shared)
+                }
         }
     }
     
