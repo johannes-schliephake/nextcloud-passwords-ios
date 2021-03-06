@@ -19,11 +19,8 @@ final class BiometricAuthenticationController: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
-        if !UIApplication.isExtension {
-            NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification).sink(receiveValue: unlockApp).store(in: &subscriptions)
-            NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification).sink(receiveValue: lockApp).store(in: &subscriptions)
-        }
-        unlockApp()
+        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification).sink(receiveValue: unlockApp).store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification).sink(receiveValue: lockApp).store(in: &subscriptions)
     }
     
     private init(isUnlocked: Bool) {
