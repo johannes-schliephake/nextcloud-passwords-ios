@@ -73,6 +73,10 @@ final class BiometricAuthenticationController: ObservableObject {
         isUnlocked = false
     }
     
+    func invalidate() {
+        subscriptions.removeAll()
+    }
+    
 }
 
 
