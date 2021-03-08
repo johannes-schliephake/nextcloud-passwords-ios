@@ -71,6 +71,7 @@
 		8F5A8449259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */; };
 		8F5A844C259A67AE00BFDF29 /* UIAlertController+PresentGlobalAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */; };
 		8F5AB3C2256304CF00B8FB68 /* PasswordDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */; };
+		8F5BBC8E25F2B6D3001271F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8F5BBC9025F2B6D3001271F7 /* InfoPlist.strings */; };
 		8F5C1A84257D7D5F009FF66F /* BiometricAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C1A83257D7D5F009FF66F /* BiometricAuthenticationController.swift */; };
 		8F5E120825D3CC33007A2166 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E120725D3CC33007A2166 /* Configuration.swift */; };
 		8F5E120925D3CC33007A2166 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E120725D3CC33007A2166 /* Configuration.swift */; };
@@ -231,6 +232,8 @@
 		8F5A843F259A4FA700BFDF29 /* UIApplication+SafeShared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+SafeShared.swift"; sourceTree = "<group>"; };
 		8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+PresentGlobalAlert.swift"; sourceTree = "<group>"; };
 		8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDetailPage.swift; sourceTree = "<group>"; };
+		8F5BBC8F25F2B6D3001271F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8F5BBC9125F2B6DF001271F7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8F5C1A83257D7D5F009FF66F /* BiometricAuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthenticationController.swift; sourceTree = "<group>"; };
 		8F5E120725D3CC33007A2166 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		8F63617B25A741A400C832C9 /* PreviewDevice+Generate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewDevice+Generate.swift"; sourceTree = "<group>"; };
@@ -740,6 +743,7 @@
 				8FC361A12582762600785371 /* Provider.entitlements */,
 				8FC361A02582762600785371 /* Info.plist */,
 				8FC361EF258284F400785371 /* ProviderViewController.swift */,
+				8F5BBC9025F2B6D3001271F7 /* InfoPlist.strings */,
 				8FE5BCFA258370E7007993F5 /* ProviderView.storyboard */,
 			);
 			path = Provider;
@@ -876,6 +880,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FC361E325827E6700785371 /* Localizable.strings in Resources */,
+				8F5BBC8E25F2B6D3001271F7 /* InfoPlist.strings in Resources */,
 				8FE5BCFC258370E7007993F5 /* ProviderView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1105,6 +1110,15 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		8F5BBC9025F2B6D3001271F7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F5BBC8F25F2B6D3001271F7 /* en */,
+				8F5BBC9125F2B6DF001271F7 /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		8FE5BCFA258370E7007993F5 /* ProviderView.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1244,7 +1258,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -1254,7 +1268,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -1271,7 +1285,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -1281,7 +1295,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -1295,7 +1309,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1304,7 +1318,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1318,7 +1332,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1327,7 +1341,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

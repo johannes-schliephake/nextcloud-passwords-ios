@@ -7,23 +7,14 @@ final class BiometricAuthenticationController: ObservableObject {
     
     var autoFillController: AutoFillController?
     
-    @Published private(set) var isUnlocked = false {
-        didSet {
-            if isUnlocked {
-                unlockDate = Date()
-            }
-        }
-    }
+    @Published private(set) var isUnlocked = false
     
-    private var unlockDate: Date?
     private var subscriptions = Set<AnyCancellable>()
+    private let semaphore = DispatchSemaphore(value: 1)
     
     init() {
-        if !UIApplication.isExtension {
-            NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification).sink(receiveValue: unlockApp).store(in: &subscriptions)
-            NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification).sink(receiveValue: lockApp).store(in: &subscriptions)
-        }
-        unlockApp()
+        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification).sink(receiveValue: unlockApp).store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification).sink(receiveValue: lockApp).store(in: &subscriptions)
     }
     
     private init(isUnlocked: Bool) {
@@ -31,47 +22,59 @@ final class BiometricAuthenticationController: ObservableObject {
     }
     
     private func unlockApp(_: Notification? = nil) {
-        guard !isUnlocked else {
-            return
-        }
-        
-        let context = LAContext()
-        let policy = LAPolicy.deviceOwnerAuthentication
-        var error: NSError?
-        guard CredentialsController.default.credentials != nil,
-              context.canEvaluatePolicy(policy, error: &error) else {
-            isUnlocked = true
-            return
-        }
-        
-        context.evaluatePolicy(policy, localizedReason: "_unlockApp".localized) {
-            [weak self] success, error in
-            guard success else {
-                if let laError = error as? LAError,
-                   laError.code == .userCancel {
-                    if let cancelAutoFill = self?.autoFillController?.cancel {
-                        cancelAutoFill()
-                    }
-                    else {
-                        self?.unlockApp()
-                    }
+        DispatchQueue.global(qos: .userInteractive).async {
+            [self] in
+            semaphore.wait()
+            
+            guard !isUnlocked else {
+                semaphore.signal()
+                return
+            }
+            
+            let context = LAContext()
+            let policy = LAPolicy.deviceOwnerAuthentication
+            var error: NSError?
+            guard CredentialsController.default.credentials != nil,
+                  context.canEvaluatePolicy(policy, error: &error) else {
+                DispatchQueue.main.async {
+                    isUnlocked = true
+                    semaphore.signal()
                 }
                 return
             }
             
-            DispatchQueue.main.async {
-                self?.isUnlocked = true
+            context.evaluatePolicy(policy, localizedReason: "_unlockApp".localized) {
+                [weak self] success, error in
+                guard success else {
+                    guard let laError = error as? LAError,
+                          laError.code == .userCancel else {
+                        self?.semaphore.signal()
+                        return
+                    }
+                    if let cancelAutoFill = self?.autoFillController?.cancel {
+                        cancelAutoFill()
+                    }
+                    else {
+                        self?.semaphore.signal()
+                        self?.unlockApp()
+                    }
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self?.isUnlocked = true
+                    self?.semaphore.signal()
+                }
             }
         }
     }
     
     private func lockApp(_: Notification) {
-        if let timeSinceUnlock = unlockDate?.distance(to: Date()) {
-            if timeSinceUnlock < 0.5 {
-                return
-            }
-        }
         isUnlocked = false
+    }
+    
+    func invalidate() {
+        subscriptions.removeAll()
     }
     
 }
