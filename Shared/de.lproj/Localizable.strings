@@ -50,6 +50,7 @@
 "_numbers" = "Zahlen";
 "_openUrl" = "URL öffnen";
 "_password" = "Passwort";
+"_passwordGenerator" = "Passwortgenerator";
 "_passwords" = "Passwörter";
 "_passwordServiceErrorMessage" = "Beim Generieren des Passworts ist ein Fehler aufgetreten.";
 "_passwordStatusBreachedMessage1" = "Dieses Passwort wurde kompromittiert.";
@@ -63,6 +64,7 @@
 "_reject" = "Ablehnen";
 "_security" = "Sicherheit";
 "_select" = "Auswählen";
+"_service" = "Dienst";
 "_settings" = "Einstellungen";
 "_showPassword" = "Passwort anzeigen";
 "_sourceCode" = "Quellcode";

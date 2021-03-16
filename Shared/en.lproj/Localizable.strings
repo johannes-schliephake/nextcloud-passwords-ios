@@ -50,6 +50,7 @@
 "_numbers" = "Numbers";
 "_openUrl" = "Open URL";
 "_password" = "Password";
+"_passwordGenerator" = "Password Generator";
 "_passwords" = "Passwords";
 "_passwordServiceErrorMessage" = "An error occurred while generating the password.";
 "_passwordStatusBreachedMessage1" = "This password has been compromised.";
@@ -63,6 +64,7 @@
 "_reject" = "Deny";
 "_security" = "Security";
 "_select" = "Select";
+"_service" = "Service";
 "_settings" = "Settings";
 "_showPassword" = "Show Password";
 "_sourceCode" = "Source Code";

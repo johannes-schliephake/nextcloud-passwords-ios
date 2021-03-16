@@ -30,18 +30,63 @@ struct EditPasswordPage: View {
     
     private func listView() -> some View {
         List {
-            passwordSection()
+            serviceSection()
             accountSection()
+            passwordGeneratorSection()
+            notesSection()
         }
         .listStyle(InsetGroupedListStyle())
     }
     
-    private func passwordSection() -> some View {
-        Section(header: Text("_password")) {
-            TextField("-", text: $editPasswordController.passwordPassword)
-                .font(.system(.body, design: .monospaced))
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
+    private func serviceSection() -> some View {
+        Section(header: Text("_service")) {
+            VStack(alignment: .leading) {
+                Text("_name")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Spacer()
+                TextField("-", text: $editPasswordController.passwordLabel)
+            }
+            VStack(alignment: .leading) {
+                Text("_url")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Spacer()
+                TextField("-", text: $editPasswordController.passwordUrl)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textContentType(.URL)
+            }
+        }
+    }
+    
+    private func accountSection() -> some View {
+        Section(header: Text("_account")) {
+            VStack(alignment: .leading) {
+                Text("_username")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Spacer()
+                TextField("-", text: $editPasswordController.passwordUsername)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textContentType(.emailAddress)
+            }
+            VStack(alignment: .leading) {
+                Text("_password")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Spacer()
+                TextField("-", text: $editPasswordController.passwordPassword)
+                    .font(.system(.body, design: .monospaced))
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+            }
+        }
+    }
+    
+    private func passwordGeneratorSection() -> some View {
+        Section(header: Text("_passwordGenerator")) {
             if horizontalSizeClass == .regular {
                 HStack {
                     Toggle("_numbers", isOn: $editPasswordController.generatorNumbers)
@@ -80,43 +125,10 @@ struct EditPasswordPage: View {
         }
     }
     
-    private func accountSection() -> some View {
-        Section(header: Text("_account")) {
-            VStack(alignment: .leading) {
-                Text("_name")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                TextField("-", text: $editPasswordController.passwordLabel)
-            }
-            VStack(alignment: .leading) {
-                Text("_username")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                TextField("-", text: $editPasswordController.passwordUsername)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .textContentType(.emailAddress)
-            }
-            VStack(alignment: .leading) {
-                Text("_url")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                TextField("-", text: $editPasswordController.passwordUrl)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .textContentType(.URL)
-            }
-            VStack(alignment: .leading) {
-                Text("_notes")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                TextView("-", text: $editPasswordController.passwordNotes)
-                    .frame(height: 100)
-            }
+    private func notesSection() -> some View {
+        Section(header: Text("_notes")) {
+            TextView("-", text: $editPasswordController.passwordNotes)
+                .frame(height: 100)
         }
     }
     
