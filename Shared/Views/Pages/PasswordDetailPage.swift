@@ -174,26 +174,9 @@ struct PasswordDetailPage: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 Spacer()
-                if hidePassword {
-                    Button {
-                        UIPasteboard.general.privateString = password.password
-                    }
-                    label: {
-                        Text("••••••••••••")
-                            .foregroundColor(.primary)
-                            .font(.system(.body, design: .monospaced))
-                    }
-                }
-                else {
-                    Button {
-                        UIPasteboard.general.privateString = password.password
-                    }
-                    label: {
-                        Text(password.password)
-                            .foregroundColor(.primary)
-                            .font(.system(.body, design: .monospaced))
-                    }
-                }
+                Text(hidePassword ? "••••••••••••" : password.password)
+                    .foregroundColor(.primary)
+                    .font(.system(.body, design: .monospaced))
             }
             Button {
                 hidePassword.toggle()
