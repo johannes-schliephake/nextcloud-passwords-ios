@@ -8,6 +8,7 @@ struct EditPasswordPage: View {
     
     @StateObject private var editPasswordController: EditPasswordController
     @ScaledMetric private var sliderLabelWidth: CGFloat = 87
+    @State private var hidePassword = true
     
     init(password: Password, addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
         _editPasswordController = StateObject(wrappedValue: EditPasswordController(password: password, addPassword: addPassword, updatePassword: updatePassword))
@@ -77,10 +78,24 @@ struct EditPasswordPage: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 Spacer()
-                TextField("-", text: $editPasswordController.passwordPassword)
-                    .font(.system(.body, design: .monospaced))
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
+                if hidePassword {
+                    TextField("", text: .constant(editPasswordController.passwordPassword.isEmpty ? "-" : "••••••••••••"))
+                        .foregroundColor(.primary)
+                        .font(.system(.body, design: .monospaced))
+                        .disabled(true)
+                }
+                else {
+                    TextField("-", text: $editPasswordController.passwordPassword)
+                        .font(.system(.body, design: .monospaced))
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                }
+            }
+            Button {
+                hidePassword.toggle()
+            }
+            label: {
+                Label(hidePassword ? "_showPassword" : "_hidePassword", systemImage: hidePassword ? "eye" : "eye.slash")
             }
         }
     }
