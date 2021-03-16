@@ -34,7 +34,6 @@
 "_folders" = "Folders";
 "_generatePassword" = "Generate Password";
 "_giveATip" = "Give A Tip";
-"_hidePassword" = "Hide Password";
 "_highFive" = "High Five! 👏";
 "_integration" = "Integration";
 "_invalidCertificate" = "Invalid Certificate";
@@ -66,7 +65,6 @@
 "_select" = "Select";
 "_service" = "Service";
 "_settings" = "Settings";
-"_showPassword" = "Show Password";
 "_sourceCode" = "Source Code";
 "_specialCharacters" = "Special Characters";
 "_suggestions" = "Suggestions";

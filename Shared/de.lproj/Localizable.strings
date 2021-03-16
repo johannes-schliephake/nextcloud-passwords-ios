@@ -34,7 +34,6 @@
 "_folders" = "Ordner";
 "_generatePassword" = "Passwort generieren";
 "_giveATip" = "Trinkgeld geben";
-"_hidePassword" = "Passwort verstecken";
 "_highFive" = "High Five! 👏";
 "_integration" = "Integration";
 "_invalidCertificate" = "Ungültiges Zertifikat";
@@ -66,7 +65,6 @@
 "_select" = "Auswählen";
 "_service" = "Dienst";
 "_settings" = "Einstellungen";
-"_showPassword" = "Passwort anzeigen";
 "_sourceCode" = "Quellcode";
 "_specialCharacters" = "Sonderzeichen";
 "_suggestions" = "Vorschläge";

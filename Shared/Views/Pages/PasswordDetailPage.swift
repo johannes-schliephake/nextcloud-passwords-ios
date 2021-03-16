@@ -169,20 +169,29 @@ struct PasswordDetailPage: View {
     private func accountSection() -> some View {
         Section(header: Text("_account")) {
             row(subheadline: "_username", text: password.username, copiable: true)
-            VStack(alignment: .leading) {
-                Text("_password")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+            HStack {
+                Button {
+                    UIPasteboard.general.privateString = password.password
+                }
+                label: {
+                    VStack(alignment: .leading) {
+                        Text("_password")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Spacer()
+                        Text(hidePassword ? "••••••••••••" : password.password)
+                            .foregroundColor(.primary)
+                            .font(.system(.body, design: .monospaced))
+                    }
+                }
                 Spacer()
-                Text(hidePassword ? "••••••••••••" : password.password)
-                    .foregroundColor(.primary)
-                    .font(.system(.body, design: .monospaced))
-            }
-            Button {
-                hidePassword.toggle()
-            }
-            label: {
-                Label(hidePassword ? "_showPassword" : "_hidePassword", systemImage: hidePassword ? "eye" : "eye.slash")
+                Button {
+                    hidePassword.toggle()
+                }
+                label: {
+                    Image(systemName: hidePassword ? "eye" : "eye.slash")
+                }
+                .buttonStyle(BorderlessButtonStyle())
             }
         }
     }

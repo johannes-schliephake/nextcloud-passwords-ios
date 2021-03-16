@@ -73,29 +73,33 @@ struct EditPasswordPage: View {
                     .disableAutocorrection(true)
                     .textContentType(.emailAddress)
             }
-            VStack(alignment: .leading) {
-                Text("_password")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("_password")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                    Spacer()
+                    if hidePassword {
+                        TextField("", text: .constant(editPasswordController.passwordPassword.isEmpty ? "-" : "••••••••••••"))
+                            .foregroundColor(.primary)
+                            .font(.system(.body, design: .monospaced))
+                            .disabled(true)
+                    }
+                    else {
+                        TextField("-", text: $editPasswordController.passwordPassword)
+                            .font(.system(.body, design: .monospaced))
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                    }
+                }
                 Spacer()
-                if hidePassword {
-                    TextField("", text: .constant(editPasswordController.passwordPassword.isEmpty ? "-" : "••••••••••••"))
-                        .foregroundColor(.primary)
-                        .font(.system(.body, design: .monospaced))
-                        .disabled(true)
+                Button {
+                    hidePassword.toggle()
                 }
-                else {
-                    TextField("-", text: $editPasswordController.passwordPassword)
-                        .font(.system(.body, design: .monospaced))
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
+                label: {
+                    Image(systemName: hidePassword ? "eye" : "eye.slash")
                 }
-            }
-            Button {
-                hidePassword.toggle()
-            }
-            label: {
-                Label(hidePassword ? "_showPassword" : "_hidePassword", systemImage: hidePassword ? "eye" : "eye.slash")
+                .buttonStyle(BorderlessButtonStyle())
             }
         }
     }
