@@ -99,11 +99,21 @@ struct EntriesPage: View {
             }
             else {
                 List {
-                    if folder.isBaseFolder,
-                       let suggestions = suggestions,
-                       !suggestions.isEmpty {
+                    if let suggestions = suggestions,
+                       suggestions.isEmpty || folder.isBaseFolder {
                         Section(header: Text("_suggestions")) {
-                            suggestionRows(suggestions: suggestions)
+                            if !suggestions.isEmpty {
+                                suggestionRows(suggestions: suggestions)
+                            }
+                            else {
+                                Button(action: {
+                                    passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                                }, label: {
+                                    Text("_createPassword")
+                                })
+                                .buttonStyle(ActionButtonStyle())
+                                .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
+                            }
                         }
                         Section(header: Text("_all")) {
                             entryRows(entries: entries)
@@ -304,7 +314,7 @@ struct EntriesPage: View {
             })
             .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
             Button(action: {
-                passwordForEditing = Password(folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
             }, label: {
                 Label("_createPassword", systemImage: "key")
             })
