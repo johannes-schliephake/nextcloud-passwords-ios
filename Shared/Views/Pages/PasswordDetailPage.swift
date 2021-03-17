@@ -131,6 +131,10 @@ struct PasswordDetailPage: View {
             .onAppear {
                 requestFavicon()
             }
+            .onChange(of: password.url) {
+                _ in
+                requestFavicon()
+            }
     }
     
     private func favoriteButton() -> some View {
