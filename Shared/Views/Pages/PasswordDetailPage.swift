@@ -67,8 +67,9 @@ struct PasswordDetailPage: View {
                 Spacer()
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
-            passwordSection()
+            serviceSection()
             accountSection()
+            notesSection()
             metadataSection()
             deleteButton()
         }
@@ -143,41 +144,9 @@ struct PasswordDetailPage: View {
         .buttonStyle(BorderlessButtonStyle())
     }
     
-    private func passwordSection() -> some View {
-        Section(header: Text("_password")) {
-            if hidePassword {
-                Button {
-                    UIPasteboard.general.privateString = password.password
-                }
-                label: {
-                    Text("••••••••••••")
-                        .foregroundColor(.primary)
-                        .font(.system(.body, design: .monospaced))
-                }
-            }
-            else {
-                Button {
-                    UIPasteboard.general.privateString = password.password
-                }
-                label: {
-                    Text(password.password)
-                        .foregroundColor(.primary)
-                        .font(.system(.body, design: .monospaced))
-                }
-            }
-            Button {
-                hidePassword.toggle()
-            }
-            label: {
-                Label(hidePassword ? "_showPassword" : "_hidePassword", systemImage: hidePassword ? "eye" : "eye.slash")
-            }
-        }
-    }
-    
-    private func accountSection() -> some View {
-        Section(header: Text("_account")) {
+    private func serviceSection() -> some View {
+        Section(header: Text("_service")) {
             row(subheadline: "_name", text: password.label, copiable: true)
-            row(subheadline: "_username", text: password.username, copiable: true)
             HStack {
                 row(subheadline: "_url", text: password.url, copiable: true)
                 if let url = URL(string: password.url),
@@ -194,14 +163,43 @@ struct PasswordDetailPage: View {
                     .buttonStyle(BorderlessButtonStyle())
                 }
             }
-            VStack(alignment: .leading) {
-                Text("_notes")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+        }
+    }
+    
+    private func accountSection() -> some View {
+        Section(header: Text("_account")) {
+            row(subheadline: "_username", text: password.username, copiable: true)
+            HStack {
+                Button {
+                    UIPasteboard.general.privateString = password.password
+                }
+                label: {
+                    VStack(alignment: .leading) {
+                        Text("_password")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Spacer()
+                        Text(hidePassword ? "••••••••••••" : password.password)
+                            .foregroundColor(.primary)
+                            .font(.system(.body, design: .monospaced))
+                    }
+                }
                 Spacer()
-                TextView(!password.notes.isEmpty ? password.notes : "-", isSelectable: !password.notes.isEmpty)
-                    .frame(height: 100)
+                Button {
+                    hidePassword.toggle()
+                }
+                label: {
+                    Image(systemName: hidePassword ? "eye" : "eye.slash")
+                }
+                .buttonStyle(BorderlessButtonStyle())
             }
+        }
+    }
+    
+    private func notesSection() -> some View {
+        Section(header: Text("_notes")) {
+            TextView(!password.notes.isEmpty ? password.notes : "-", isSelectable: !password.notes.isEmpty)
+                .frame(height: 100)
         }
     }
     
