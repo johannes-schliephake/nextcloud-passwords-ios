@@ -9,9 +9,11 @@ struct EditPasswordPage: View {
     @StateObject private var editPasswordController: EditPasswordController
     @ScaledMetric private var sliderLabelWidth: CGFloat = 87
     @State private var hidePassword = true
+    @State private var showPasswordGenerator: Bool
     
     init(password: Password, addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
         _editPasswordController = StateObject(wrappedValue: EditPasswordController(password: password, addPassword: addPassword, updatePassword: updatePassword))
+        _showPasswordGenerator = State(initialValue: password.id.isEmpty)
     }
     
     // MARK: Views
@@ -80,7 +82,7 @@ struct EditPasswordPage: View {
                         .foregroundColor(.gray)
                     Spacer()
                     if hidePassword {
-                        TextField("", text: .constant(editPasswordController.passwordPassword.isEmpty ? "-" : "••••••••••••"))
+                        TextField("-", text: .constant("••••••••••••"))
                             .foregroundColor(.primary)
                             .font(.system(.body, design: .monospaced))
                             .disabled(true)
@@ -105,7 +107,7 @@ struct EditPasswordPage: View {
     }
     
     private func passwordGeneratorSection() -> some View {
-        Section(header: Text("_passwordGenerator")) {
+        DisclosureGroup("_passwordGenerator", isExpanded: $showPasswordGenerator) {
             if horizontalSizeClass == .regular {
                 HStack {
                     Toggle("_numbers", isOn: $editPasswordController.generatorNumbers)
