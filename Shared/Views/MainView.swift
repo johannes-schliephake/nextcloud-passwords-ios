@@ -22,6 +22,13 @@ struct MainView: View {
             .environmentObject(biometricAuthenticationController)
             .environmentObject(credentialsController)
             .environmentObject(tipController)
+            .onAppear {
+                biometricAuthenticationController.autoFillController = autoFillController
+            }
+            .onDisappear {
+                /// In some specific situations SwiftUI doesn't reliably deallocate StateObjects. Most of the time this "just" is a memory leak, but in case of the BiometricAuthenticationController it also results in unwanted biometric evaluation calls. Therefore all notification subscriptions have to be manually cancelled through the invalidate function.
+                biometricAuthenticationController.invalidate()
+            }
     }
     
     // MARK: Functions

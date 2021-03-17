@@ -3,11 +3,7 @@ import SwiftUI
 
 struct SearchBar: UIViewControllerRepresentable {
     
-    @Binding private var searchTerm: String
-    
-    init(searchTerm: Binding<String>) {
-        _searchTerm = searchTerm
-    }
+    @Binding var searchTerm: String
     
     func makeCoordinator() -> Coordinator {
         Coordinator(searchBar: self)

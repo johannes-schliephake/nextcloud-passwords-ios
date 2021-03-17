@@ -34,20 +34,24 @@ struct PasswordDetailPage: View {
     }
     
     private func mainStack() -> some View {
-        VStack(spacing: 0) {
-            listView()
-            if let complete = autoFillController.complete {
-                Divider()
-                selectView(complete: complete)
+        GeometryReader {
+            geometry in
+            VStack(spacing: 0) {
+                listView()
+                if let complete = autoFillController.complete {
+                    Divider()
+                    selectView(geometry: geometry, complete: complete)
+                }
+                EmptyView()
+                    .sheet(isPresented: $showEditPasswordView, content: {
+                        EditPasswordNavigation(password: password, addPassword: {}, updatePassword: updatePassword)
+                            .environmentObject(autoFillController)
+                            .environmentObject(biometricAuthenticationController)
+                            .environmentObject(credentialsController)
+                            .environmentObject(tipController)
+                    })
             }
-            EmptyView()
-                .sheet(isPresented: $showEditPasswordView, content: {
-                    EditPasswordNavigation(password: password, addPassword: {}, updatePassword: updatePassword)
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(credentialsController)
-                        .environmentObject(tipController)
-                })
+            .edgesIgnoringSafeArea(autoFillController.complete != nil ? .bottom : [])
         }
     }
     
@@ -63,8 +67,9 @@ struct PasswordDetailPage: View {
                 Spacer()
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
-            passwordSection()
+            serviceSection()
             accountSection()
+            notesSection()
             metadataSection()
             deleteButton()
         }
@@ -96,6 +101,7 @@ struct PasswordDetailPage: View {
                 label: {
                     Label("_editPassword", systemImage: "pencil")
                 }
+                .disabled(password.revision.isEmpty)
             }
         }
         label: {
@@ -125,6 +131,10 @@ struct PasswordDetailPage: View {
             .onAppear {
                 requestFavicon()
             }
+            .onChange(of: password.url) {
+                _ in
+                requestFavicon()
+            }
     }
     
     private func favoriteButton() -> some View {
@@ -138,45 +148,15 @@ struct PasswordDetailPage: View {
         .buttonStyle(BorderlessButtonStyle())
     }
     
-    private func passwordSection() -> some View {
-        Section(header: Text("_password")) {
-            if hidePassword {
-                Button {
-                    UIPasteboard.general.privateString = password.password
-                }
-                label: {
-                    Text("••••••••••••")
-                        .foregroundColor(.primary)
-                        .font(.system(.body, design: .monospaced))
-                }
-            }
-            else {
-                Button {
-                    UIPasteboard.general.privateString = password.password
-                }
-                label: {
-                    Text(password.password)
-                        .foregroundColor(.primary)
-                        .font(.system(.body, design: .monospaced))
-                }
-            }
-            Button {
-                hidePassword.toggle()
-            }
-            label: {
-                Label(hidePassword ? "_showPassword" : "_hidePassword", systemImage: hidePassword ? "eye" : "eye.slash")
-            }
-        }
-    }
-    
-    private func accountSection() -> some View {
-        Section(header: Text("_account")) {
+    private func serviceSection() -> some View {
+        Section(header: Text("_service")) {
             row(subheadline: "_name", text: password.label, copiable: true)
-            row(subheadline: "_username", text: password.username, copiable: true)
             HStack {
                 row(subheadline: "_url", text: password.url, copiable: true)
-                if let open = UIApplication.safeOpen,
-                   let url = URL(string: password.url) {
+                if let url = URL(string: password.url),
+                   let canOpenURL = UIApplication.safeCanOpenURL,
+                   canOpenURL(url),
+                   let open = UIApplication.safeOpen {
                     Spacer()
                     Button {
                         open(url)
@@ -187,7 +167,43 @@ struct PasswordDetailPage: View {
                     .buttonStyle(BorderlessButtonStyle())
                 }
             }
-            row(subheadline: "_notes", text: password.notes, copiable: false)
+        }
+    }
+    
+    private func accountSection() -> some View {
+        Section(header: Text("_account")) {
+            row(subheadline: "_username", text: password.username, copiable: true)
+            HStack {
+                Button {
+                    UIPasteboard.general.privateString = password.password
+                }
+                label: {
+                    VStack(alignment: .leading) {
+                        Text("_password")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Spacer()
+                        Text(hidePassword ? "••••••••••••" : password.password)
+                            .foregroundColor(.primary)
+                            .font(.system(.body, design: .monospaced))
+                    }
+                }
+                Spacer()
+                Button {
+                    hidePassword.toggle()
+                }
+                label: {
+                    Image(systemName: hidePassword ? "eye" : "eye.slash")
+                }
+                .buttonStyle(BorderlessButtonStyle())
+            }
+        }
+    }
+    
+    private func notesSection() -> some View {
+        Section(header: Text("_notes")) {
+            TextView(!password.notes.isEmpty ? password.notes : "-", isSelectable: !password.notes.isEmpty)
+                .frame(height: 100)
         }
     }
     
@@ -222,14 +238,17 @@ struct PasswordDetailPage: View {
         }
     }
     
-    private func selectView(complete: @escaping (String, String) -> Void) -> some View {
+    private func selectView(geometry: GeometryProxy, complete: @escaping (String, String) -> Void) -> some View {
         VStack {
-            Button("_select") {
-                complete(password.username, password.password)
+            VStack {
+                Button("_select") {
+                    complete(password.username, password.password)
+                }
+                .buttonStyle(ActionButtonStyle())
             }
-            .buttonStyle(ActionButtonStyle())
+            .padding()
         }
-        .padding()
+        .padding(.bottom, geometry.safeAreaInsets.bottom)
         .background(Color(UIColor.systemGroupedBackground))
     }
     
@@ -248,6 +267,7 @@ struct PasswordDetailPage: View {
             }, label: {
                 Text("_edit")
             })
+            .disabled(password.revision.isEmpty)
         }
     }
     
@@ -334,7 +354,7 @@ struct PasswordDetailPagePreview: PreviewProvider {
             NavigationView {
                 PasswordDetailPage(password: Password.mock, updatePassword: {}, deletePassword: {})
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .showColumns(false)
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
             .environmentObject(CredentialsController.mock)

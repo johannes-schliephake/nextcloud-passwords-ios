@@ -30,7 +30,7 @@ final class Password: ObservableObject, Identifiable {
     @Published var updated: Date
     @Published var error: Entry.EntryError?
     
-    init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: String = "", status: Int = 0, statusCode: StatusCode = .good, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
+    init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: String = "[]", status: Int = 0, statusCode: StatusCode = .good, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
         self.id = id
         self.label = label
         self.username = username
@@ -99,7 +99,7 @@ final class Password: ObservableObject, Identifiable {
     func isDescendentOf(folder: Folder, in folders: [Folder]) -> Bool {
         /// Add folder to folders because base folder is not stored in folders
         let folders = folders + [folder]
-        return folders.filter { [self] in $0.id == self.folder }.first?.isDescendentOf(folder: folder, in: folders) ?? false
+        return folders.first { [self] in $0.id == self.folder }?.isDescendentOf(folder: folder, in: folders) ?? false
     }
     
 }

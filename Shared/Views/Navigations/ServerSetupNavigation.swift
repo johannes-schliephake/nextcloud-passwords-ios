@@ -11,7 +11,7 @@ struct ServerSetupNavigation: View {
         NavigationView {
             ServerSetupPage()
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .showColumns(false)
         .occlude(!biometricAuthenticationController.isUnlocked)
     }
     

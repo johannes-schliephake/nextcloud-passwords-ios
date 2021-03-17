@@ -76,6 +76,7 @@ struct EntriesPage: View {
             Button("_connectToServer") {
                 showServerSetupView = true
             }
+            .frame(maxWidth: 600)
             .buttonStyle(ActionButtonStyle())
             EmptyView()
                 .sheet(isPresented: $showServerSetupView) {
@@ -98,11 +99,21 @@ struct EntriesPage: View {
             }
             else {
                 List {
-                    if folder.isBaseFolder,
-                       let suggestions = suggestions,
-                       !suggestions.isEmpty {
+                    if let suggestions = suggestions,
+                       suggestions.isEmpty || folder.isBaseFolder {
                         Section(header: Text("_suggestions")) {
-                            suggestionRows(suggestions: suggestions)
+                            if !suggestions.isEmpty {
+                                suggestionRows(suggestions: suggestions)
+                            }
+                            else {
+                                Button(action: {
+                                    passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                                }, label: {
+                                    Text("_createPassword")
+                                })
+                                .buttonStyle(ActionButtonStyle())
+                                .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
+                            }
                         }
                         Section(header: Text("_all")) {
                             entryRows(entries: entries)
@@ -298,14 +309,16 @@ struct EntriesPage: View {
         Menu {
             Button(action: {
                 folderForEditing = Folder(parent: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
-            }) {
+            }, label: {
                 Label("_createFolder", systemImage: "folder")
-            }
+            })
+            .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
             Button(action: {
-                passwordForEditing = Password(folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
-            }) {
+                passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+            }, label: {
                 Label("_createPassword", systemImage: "key")
-            }
+            })
+            .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
         }
         label: {
             Spacer()
@@ -364,6 +377,7 @@ extension EntriesPage {
                     label: {
                         Label("_edit", systemImage: "pencil")
                     }
+                    .disabled(folder.revision.isEmpty)
                     Divider()
                     Button {
                         deleteFolder()
@@ -378,6 +392,7 @@ extension EntriesPage {
             NavigationLink(destination: EntriesPage(entriesController: entriesController, folder: folder)) {
                 mainStack()
             }
+            .isDetailLink(false)
         }
         
         private func mainStack() -> some View {
@@ -503,8 +518,10 @@ extension EntriesPage {
                             Label("_copyUsername", systemImage: "doc.on.doc")
                         }
                     }
-                    if let open = UIApplication.safeOpen,
-                       let url = URL(string: password.url) {
+                    if let url = URL(string: password.url),
+                       let canOpenURL = UIApplication.safeCanOpenURL,
+                       canOpenURL(url),
+                       let open = UIApplication.safeOpen {
                         Button {
                             open(url)
                         }
@@ -526,6 +543,7 @@ extension EntriesPage {
                         label: {
                             Label("_edit", systemImage: "pencil")
                         }
+                        .disabled(password.revision.isEmpty)
                     }
                     Divider()
                     Button {
@@ -561,6 +579,7 @@ extension EntriesPage {
                     }, deletePassword: {
                         entriesController.delete(password: password)
                     }), isActive: $showPasswordDetailView) {}
+                    .isDetailLink(true)
                     .frame(width: 0, height: 0)
                     .opacity(0)
                 }
@@ -572,6 +591,7 @@ extension EntriesPage {
                     })) {
                         mainStack()
                     }
+                    .isDetailLink(true)
                 }
             }
         }
@@ -605,6 +625,10 @@ extension EntriesPage {
                 .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
                 .cornerRadius(3.75)
                 .onAppear {
+                    requestFavicon()
+                }
+                .onChange(of: password.url) {
+                    _ in
                     requestFavicon()
                 }
         }
@@ -702,7 +726,7 @@ struct EntriesPagePreview: PreviewProvider {
             NavigationView {
                 EntriesPage(entriesController: EntriesController.mock)
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .showColumns(true)
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
             .environmentObject(CredentialsController.mock)

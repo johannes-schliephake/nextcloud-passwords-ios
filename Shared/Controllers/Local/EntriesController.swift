@@ -65,7 +65,6 @@ final class EntriesController: ObservableObject {
     
     init() {
         CredentialsController.default.$credentials.sink(receiveValue: requestEntries).store(in: &subscriptions)
-        requestEntries(credentials: CredentialsController.default.credentials)
     }
     
     private init(folders: [Folder], passwords: [Password]) {
@@ -233,10 +232,7 @@ final class EntriesController: ObservableObject {
                 else {
                     let foldersInFavoriteFolders = folders.filter {
                         folder in
-                        favoriteFolders.reduce(false) {
-                            isDescendent, favoriteFolder in
-                            isDescendent || folder.isDescendentOf(folder: favoriteFolder, in: folders)
-                        }
+                        favoriteFolders.contains { folder.isDescendentOf(folder: $0, in: folders) }
                     }
                     folders = favoriteFolders + foldersInFavoriteFolders
                 }
@@ -266,10 +262,7 @@ final class EntriesController: ObservableObject {
                     let favoriteFolders = folders.filter { $0.favorite }
                     let passwordsInFavoriteFolders = passwords.filter {
                         password in
-                        favoriteFolders.reduce(false) {
-                            isDescendent, favoriteFolder in
-                            isDescendent || password.isDescendentOf(folder: favoriteFolder, in: folders)
-                        }
+                        favoriteFolders.contains { password.isDescendentOf(folder: $0, in: folders) }
                     }
                     passwords = favoritePasswords + passwordsInFavoriteFolders
                 }
@@ -303,7 +296,7 @@ final class EntriesController: ObservableObject {
             passwords.sort { $0.updated > $1.updated }
         case .username:
             passwords.sort { $0.username.lowercased() < $1.username.lowercased() }
-            passwords.sort { $0.username != "" && $1.username == "" }
+            passwords.sort { !$0.username.isEmpty && $1.username.isEmpty }
         case .url:
             passwords.sort { $0.url.lowercased() < $1.url.lowercased() }
             passwords.sort { !$0.url.isEmpty && $1.url.isEmpty }
