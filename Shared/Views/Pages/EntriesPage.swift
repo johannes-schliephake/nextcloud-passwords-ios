@@ -617,6 +617,10 @@ extension EntriesPage {
                 .onAppear {
                     requestFavicon()
                 }
+                .onChange(of: password.url) {
+                    _ in
+                    requestFavicon()
+                }
         }
         
         private func labelStack() -> some View {
