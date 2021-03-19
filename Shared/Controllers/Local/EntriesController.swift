@@ -5,6 +5,7 @@ import SwiftUI
 final class EntriesController: ObservableObject {
     
     @Published private(set) var error = false
+    @Published private(set) var challengeAvailable = false
     @Published private(set) var folders: [Folder]? {
         /// Extend @Published behaviour to array elements
         willSet {
@@ -62,9 +63,14 @@ final class EntriesController: ObservableObject {
     private var foldersSubscriptions = Set<AnyCancellable>()
     private var passwordsSubscriptions = Set<AnyCancellable>()
     private var subscriptions = Set<AnyCancellable>()
+    private var challenge: Crypto.PWDv1r1.Challenge? {
+        didSet {
+            challengeAvailable = challenge != nil
+        }
+    }
     
     init() {
-        CredentialsController.default.$credentials.sink(receiveValue: requestEntries).store(in: &subscriptions)
+        CredentialsController.default.$credentials.sink(receiveValue: requestSession).store(in: &subscriptions)
     }
     
     private init(folders: [Folder], passwords: [Password]) {
@@ -72,30 +78,72 @@ final class EntriesController: ObservableObject {
         self.passwords = passwords
     }
     
-    private func requestEntries(credentials: Credentials?) {
+    private func requestSession(credentials: Credentials?) {
         guard let credentials = credentials else {
             folders = nil
             passwords = nil
             return
         }
         
-        ListFoldersRequest(credentials: credentials).send {
-            [weak self] folders in
-            guard let folders = folders else {
+        RequestSessionRequest(credentials: credentials).send {
+            [weak self] response in
+            guard let challenge = response?.challenge else {
                 self?.error = true
                 return
             }
-            self?.error = false
-            self?.folders = folders
+            self?.challenge = challenge
+            
+            if let challengePassword = Keychain.default.load(key: "challengePassword") {
+                self?.solveChallenge(password: challengePassword)
+            }
         }
-        ListPasswordsRequest(credentials: credentials).send {
-            [weak self] passwords in
-            guard let passwords = passwords else {
-                self?.error = true
+        // TODO: close
+        // TODO: keepalive
+        // TODO: session without e2e
+    }
+    
+    func solveChallenge(password: String, store: Bool = false) {
+        challengeAvailable = false
+        
+        guard let credentials = CredentialsController.default.credentials,
+              let challenge = challenge,
+              let solution = Crypto.PWDv1r1.solve(challenge: challenge, password: password) else {
+            error = true
+            return
+        }
+        
+        OpenSessionRequest(credentials: credentials, solution: solution).send {
+            [weak self] response in
+            guard let response = response,
+                  response.success,
+                  let keys = response.keys?["CSEv1r1"] else {
+                self?.challengeAvailable = true
+                Keychain.default.remove(key: "challengePassword")
+                UIAlertController.presentGlobalAlert(title: "_incorrectPassword", message: "_incorrectPasswordMessage")
                 return
             }
-            self?.error = false
-            self?.passwords = passwords
+            let keychain = Crypto.CSEv1r1.decrypt(keys: keys, password: password)
+            CredentialsController.default.credentials?.keychain = keychain
+            if store {
+                Keychain.default.store(key: "challengePassword", value: password)
+            }
+            
+            ListFoldersRequest(credentials: credentials).send {
+                folders in
+                guard let folders = folders else {
+                    self?.error = true
+                    return
+                }
+                self?.folders = folders
+            }
+            ListPasswordsRequest(credentials: credentials).send {
+                passwords in
+                guard let passwords = passwords else {
+                    self?.error = true
+                    return
+                }
+                self?.passwords = passwords
+            }
         }
     }
     

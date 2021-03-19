@@ -34,6 +34,7 @@ final class CredentialsController: ObservableObject {
     
     func logout() {
         credentials = nil
+        Keychain.default.remove(key: "challengePassword")
     }
     
 }

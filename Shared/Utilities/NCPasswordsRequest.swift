@@ -50,16 +50,24 @@ extension NCPasswordsRequest {
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Basic \(authorizationData.base64EncodedString())", forHTTPHeaderField: "Authorization")
+        request.setValue(CredentialsController.default.credentials?.session, forHTTPHeaderField: "X-Api-Session")
         request.httpShouldHandleCookies = false
         request.httpBody = encode()
         
-        URLSession(configuration: .default, delegate: AuthenticationChallengeController.default, delegateQueue: .main).dataTask(with: request) {
-            [self] data, _, _ in
-            guard let data = data else {
-                completion(nil)
+        URLSession(configuration: .default, delegate: AuthenticationChallengeController.default, delegateQueue: nil).dataTask(with: request) {
+            [self] data, response, _ in
+            guard let data = data,
+                  let response = response as? HTTPURLResponse else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
                 return
             }
-            completion(decode(data: data))
+            CredentialsController.default.credentials?.session = CredentialsController.default.credentials?.session ?? response.value(forHTTPHeaderField: "X-Api-Session")
+            let result = decode(data: data)
+            DispatchQueue.main.async {
+                completion(result)
+            }
         }
         .resume()
     }

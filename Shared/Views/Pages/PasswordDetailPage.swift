@@ -288,6 +288,8 @@ struct PasswordDetailPage: View {
                 return Alert(title: Text("_error"), message: Text("_editPasswordErrorMessage"))
             case .deleteError:
                 return Alert(title: Text("_error"), message: Text("_deletePasswordErrorMessage"))
+            case .decryptError:
+                return Alert(title: Text("_error"), message: Text("_decryptPasswordErrorMessage"))
             }
         }
     }

@@ -58,6 +58,21 @@ final class Folder: ObservableObject, Identifiable {
         edited = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .edited))
         created = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .created))
         updated = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .updated))
+        
+        if cseType != "none" {
+            switch cseType {
+            case "CSEv1r1":
+                guard let keychain = CredentialsController.default.credentials?.keychain,
+                      let key = keychain.keys[cseKey],
+                      let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key) else {
+                    error = .decryptError
+                    return
+                }
+                label = decryptedLabel
+            default:
+                error = .decryptError
+            }
+        }
     }
     
     var isBaseFolder: Bool {
@@ -100,6 +115,8 @@ extension Folder: Codable {
     }
     
     func encode(to encoder: Encoder) throws {
+        // TODO: encrypt
+        
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encode(id, forKey: .id)

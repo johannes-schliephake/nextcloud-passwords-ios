@@ -20,6 +20,8 @@ struct EntriesPage: View {
     @State private var passwordForDeletion: Password?
     @State private var searchTerm = ""
     @State private var showErrorAlert = false
+    @State private var challengePassword = ""
+    @State private var storeChallengePassword = false
     
     init(entriesController: EntriesController, folder: Folder? = nil) {
         self.entriesController = entriesController
@@ -52,6 +54,9 @@ struct EntriesPage: View {
             }
             else if entriesController.error {
                 errorView()
+            }
+            else if entriesController.challengeAvailable {
+                challengeView()
             }
             else if let entries = entries {
                 listView(entries: entries, suggestions: suggestions)
@@ -88,6 +93,42 @@ struct EntriesPage: View {
                 }
         }
         .padding()
+    }
+    
+    private func errorView() -> some View {
+        VStack {
+            Text("_anErrorOccurred")
+                .foregroundColor(.gray)
+                .padding()
+        }
+    }
+    
+    private func challengeView() -> some View {
+        List {
+            Section(header: Text("_e2ePassword")) {
+                SecureField("-", text: $challengePassword, onCommit: {
+                    solveChallenge()
+                })
+                .frame(maxWidth: 600)
+                .onAppear {
+                    challengePassword = ""
+                }
+            }
+            Section {
+                Toggle("_storePassword", isOn: $storeChallengePassword)
+                    .frame(maxWidth: 600)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
+                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+            }
+            Button("_logIn") {
+                solveChallenge()
+            }
+            .frame(maxWidth: 600)
+            .buttonStyle(ActionButtonStyle())
+            .listRowInsets(EdgeInsets())
+            .disabled(challengePassword.isEmpty)
+        }
+        .listStyle(InsetGroupedListStyle())
     }
     
     private func listView(entries: [Entry], suggestions: [Password]?) -> some View {
@@ -205,14 +246,6 @@ struct EntriesPage: View {
         }
     }
     
-    private func errorView() -> some View {
-        VStack {
-            Text("_anErrorOccurred")
-                .foregroundColor(.gray)
-                .padding()
-        }
-    }
-    
     private func leadingToolbarView() -> some View {
         HStack {
             if folder.isBaseFolder {
@@ -263,6 +296,8 @@ struct EntriesPage: View {
                 return Alert(title: Text("_error"), message: Text("_editFolderErrorMessage"))
             case .deleteError:
                 return Alert(title: Text("_error"), message: Text("_deleteFolderErrorMessage"))
+            case .decryptError:
+                return Alert(title: Text("_error"), message: Text("_decryptFolderErrorMessage"))
             }
         }
     }
@@ -327,6 +362,12 @@ struct EntriesPage: View {
     }
     
     // MARK: Functions
+    
+    private func solveChallenge() {
+        if !challengePassword.isEmpty {
+            entriesController.solveChallenge(password: challengePassword, store: storeChallengePassword)
+        }
+    }
     
     private func onDeleteEntry(entry: Entry?) {
         switch entry {
@@ -446,6 +487,8 @@ extension EntriesPage {
                     return Alert(title: Text("_error"), message: Text("_editFolderErrorMessage"))
                 case .deleteError:
                     return Alert(title: Text("_error"), message: Text("_deleteFolderErrorMessage"))
+                case .decryptError:
+                    return Alert(title: Text("_error"), message: Text("_decryptFolderErrorMessage"))
                 }
             }
         }
@@ -661,6 +704,8 @@ extension EntriesPage {
                     return Alert(title: Text("_error"), message: Text("_editPasswordErrorMessage"))
                 case .deleteError:
                     return Alert(title: Text("_error"), message: Text("_deletePasswordErrorMessage"))
+                case .decryptError:
+                    return Alert(title: Text("_error"), message: Text("_decryptPasswordErrorMessage"))
                 }
             }
         }

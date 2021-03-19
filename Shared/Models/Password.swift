@@ -87,6 +87,31 @@ final class Password: ObservableObject, Identifiable {
         edited = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .edited))
         created = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .created))
         updated = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .updated))
+        
+        if cseType != "none" {
+            switch cseType {
+            case "CSEv1r1":
+                guard let keychain = CredentialsController.default.credentials?.keychain,
+                      let key = keychain.keys[cseKey],
+                      let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key),
+                      let decryptedUsername = Crypto.CSEv1r1.decrypt(payload: username, key: key),
+                      let decryptedPassword = Crypto.CSEv1r1.decrypt(payload: password, key: key),
+                      let decryptedUrl = Crypto.CSEv1r1.decrypt(payload: url, key: key),
+                      let decryptedNotes = Crypto.CSEv1r1.decrypt(payload: notes, key: key),
+                      let decryptedCustomFields = Crypto.CSEv1r1.decrypt(payload: customFields, key: key) else {
+                    error = .decryptError
+                    return
+                }
+                label = decryptedLabel
+                username = decryptedUsername
+                password = decryptedPassword
+                url = decryptedUrl
+                notes = decryptedNotes
+                customFields = decryptedCustomFields
+            default:
+                error = .decryptError
+            }
+        }
     }
     
     func matches(searchTerm: String) -> Bool {
@@ -136,6 +161,8 @@ extension Password: Codable {
     }
     
     func encode(to encoder: Encoder) throws {
+        // TODO: encrypt
+        
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encode(id, forKey: .id)
@@ -171,6 +198,7 @@ extension Password: Codable {
 extension Password {
     
     enum StatusCode: String, Codable, Comparable {
+        
         case good = "GOOD"
         case outdated = "OUTDATED"
         case duplicate = "DUPLICATE"
@@ -180,6 +208,7 @@ extension Password {
             let order: [StatusCode] = [.good, .outdated, .duplicate, .breached]
             return order.firstIndex(of: lhs)! < order.firstIndex(of: rhs)!
         }
+        
     }
     
 }

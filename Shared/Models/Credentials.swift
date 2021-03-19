@@ -3,6 +3,8 @@ final class Credentials {
     let server: String
     let user: String
     let password: String
+    var keychain: Crypto.Keychain?
+    var session: String?
     
     init(server: String, user: String, password: String) {
         self.server = server
