@@ -12,8 +12,8 @@ struct PasswordServiceRequest {
 
 extension PasswordServiceRequest: NCPasswordsRequest {
     
-    func encode() -> Data? {
-        try? JSONEncoder().encode(Request(strength: 4, numbers: numbers, special: special))
+    func encode() throws -> Data? {
+        try JSONEncoder().encode(Request(strength: 4, numbers: numbers, special: special))
     }
     
     func send(completion: @escaping (String?) -> Void) {

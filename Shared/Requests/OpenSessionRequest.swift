@@ -11,8 +11,8 @@ struct OpenSessionRequest {
 
 extension OpenSessionRequest: NCPasswordsRequest {
     
-    func encode() -> Data? {
-        try? JSONEncoder().encode(Request(challenge: solution))
+    func encode() throws -> Data? {
+        try JSONEncoder().encode(Request(challenge: solution))
     }
     
     func send(completion: @escaping (Response?) -> Void) {

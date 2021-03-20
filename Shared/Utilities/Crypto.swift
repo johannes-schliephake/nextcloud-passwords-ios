@@ -96,6 +96,18 @@ extension Crypto {
             // TODO: payload might be base64 encoded
         }
         
+        static func encrypt(unencrypted: String, key: Bytes) -> String? {
+            guard !unencrypted.isEmpty else {
+                return ""
+            }
+            guard let nonce = sodium.randomBytes.buf(length: sodium.secretBox.NonceBytes),
+                  let encryptedBytes = sodium.secretBox.seal(message: unencrypted.bytes, secretKey: key, nonce: nonce) else {
+                return nil
+            }
+            let message = nonce + encryptedBytes
+            return sodium.utils.bin2hex(message)
+        }
+        
     }
     
 }

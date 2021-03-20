@@ -11,8 +11,8 @@ struct DeletePasswordRequest {
 
 extension DeletePasswordRequest: NCPasswordsRequest {
     
-    func encode() -> Data? {
-        try? JSONEncoder().encode(password)
+    func encode() throws -> Data? {
+        try JSONEncoder().encode(password)
     }
     
     func send(completion: @escaping (Response?) -> Void) {

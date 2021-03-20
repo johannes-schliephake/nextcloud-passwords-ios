@@ -11,8 +11,8 @@ struct DeleteFolderRequest {
 
 extension DeleteFolderRequest: NCPasswordsRequest {
     
-    func encode() -> Data? {
-        try? JSONEncoder().encode(folder)
+    func encode() throws -> Data? {
+        try JSONEncoder().encode(folder)
     }
     
     func send(completion: @escaping (Response?) -> Void) {

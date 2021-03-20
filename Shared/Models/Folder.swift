@@ -59,19 +59,19 @@ final class Folder: ObservableObject, Identifiable {
         created = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .created))
         updated = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .updated))
         
-        if cseType != "none" {
-            switch cseType {
-            case "CSEv1r1":
-                guard let keychain = CredentialsController.default.credentials?.keychain,
-                      let key = keychain.keys[cseKey],
-                      let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key) else {
-                    error = .decryptError
-                    return
-                }
-                label = decryptedLabel
-            default:
+        switch cseType {
+        case "none":
+            break
+        case "CSEv1r1":
+            guard let keychain = CredentialsController.default.credentials?.keychain,
+                  let key = keychain.keys[cseKey],
+                  let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key) else {
                 error = .decryptError
+                return
             }
+            label = decryptedLabel
+        default:
+            error = .decryptError
         }
     }
     
@@ -115,12 +115,22 @@ extension Folder: Codable {
     }
     
     func encode(to encoder: Encoder) throws {
-        // TODO: encrypt
-        
         var container = encoder.container(keyedBy: CodingKeys.self)
         
+        if let keychain = CredentialsController.default.credentials?.keychain {
+            guard let key = keychain.keys[keychain.current],
+                  let encryptedLabel = Crypto.CSEv1r1.encrypt(unencrypted: label, key: key) else {
+                throw EncodingError.invalidValue(self, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Encryption failed"))
+            }
+            try container.encode(encryptedLabel, forKey: .label)
+            cseType = "CSEv1r1"
+            cseKey = keychain.current
+        }
+        else {
+            try container.encode(label, forKey: .label)
+        }
+        
         try container.encode(id, forKey: .id)
-        try container.encode(label, forKey: .label)
         try container.encode(parent, forKey: .parent)
         try container.encode(Int64(edited.timeIntervalSince1970), forKey: .edited)
         try container.encode(Int64(created.timeIntervalSince1970), forKey: .created)

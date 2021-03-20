@@ -4,7 +4,7 @@ import Foundation
 protocol NCPasswordsRequest {
     
     associatedtype ResultType
-    func encode() -> Data?
+    func encode() throws -> Data?
     func send(completion: @escaping (ResultType?) -> Void)
     func decode(data: Data) -> ResultType?
     
@@ -39,6 +39,14 @@ extension NCPasswordsRequest {
     }
     
     private func send(action: String, method: String, credentials: Credentials, completion: @escaping (ResultType?) -> Void) {
+        let body: Data?
+        do {
+            body = try encode()
+        }
+        catch {
+            completion(nil)
+            return
+        }
         guard let authorizationData = "\(credentials.user):\(credentials.password)".data(using: .utf8),
               let serverUrl = URL(string: credentials.server) else {
             completion(nil)
@@ -52,7 +60,7 @@ extension NCPasswordsRequest {
         request.setValue("Basic \(authorizationData.base64EncodedString())", forHTTPHeaderField: "Authorization")
         request.setValue(CredentialsController.default.credentials?.session, forHTTPHeaderField: "X-Api-Session")
         request.httpShouldHandleCookies = false
-        request.httpBody = encode()
+        request.httpBody = body
         
         URLSession(configuration: .default, delegate: AuthenticationChallengeController.default, delegateQueue: nil).dataTask(with: request) {
             [self] data, response, _ in

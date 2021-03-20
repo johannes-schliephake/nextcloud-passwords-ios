@@ -568,8 +568,8 @@
 		8F56D34A2561CC1400FBCB1B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				8F582BFD255EAD7000F1E3DA /* Keychain.swift */,
 				8F74244526039BD600B73646 /* Crypto.swift */,
+				8F582BFD255EAD7000F1E3DA /* Keychain.swift */,
 				8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */,
 				8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */,
 				8F582BF5255EA30100F1E3DA /* NCSchemeHandler.swift */,
