@@ -4,7 +4,7 @@ import Foundation
 struct OpenSessionRequest {
     
     let credentials: Credentials
-    let solution: String
+    let solution: String?
     
 }
 
@@ -30,8 +30,7 @@ extension OpenSessionRequest {
     
     struct Request: Encodable {
         
-        let challenge: String
-        // TODO: token
+        let challenge: String?
         
     }
     
@@ -43,7 +42,20 @@ extension OpenSessionRequest {
     struct Response: Decodable {
         
         let success: Bool
-        let keys: [String: String]?
+        let keys: [String: String]
+        
+        /// Manually decode to account for empty keys dictionary being sent as empty array
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            success = try container.decode(Bool.self, forKey: .success)
+            keys = (try? container.decode([String: String].self, forKey: .keys)) ?? [:]
+        }
+        
+        enum CodingKeys: String, CodingKey { // swiftlint:disable:this nesting
+            case success
+            case keys
+        }
         
     }
     

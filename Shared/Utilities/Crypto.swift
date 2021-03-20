@@ -69,31 +69,29 @@ extension Crypto {
     
     enum CSEv1r1 {
         
-        static func decrypt(keys: String, password: String) -> Keychain? {
-            guard let keys = sodium.utils.hex2bin(keys) else {
-                return nil
+        static func decrypt(keys: String, password: String, retryWithBase64: Bool = false) -> Keychain? {
+            guard let encryptedBytes = retryWithBase64 ? sodium.utils.base642bin(keys) : sodium.utils.hex2bin(keys) else {
+                return retryWithBase64 ? nil : decrypt(keys: keys, password: password, retryWithBase64: true)
             }
-            let salt = Bytes(keys[..<sodium.pwHash.SaltBytes])
-            let payload = Bytes(keys[sodium.pwHash.SaltBytes...])
+            let salt = Bytes(encryptedBytes[..<sodium.pwHash.SaltBytes])
+            let payload = Bytes(encryptedBytes[sodium.pwHash.SaltBytes...])
             
             guard let secretKey = sodium.pwHash.hash(outputLength: sodium.box.SeedBytes, passwd: password.bytes, salt: salt, opsLimit: sodium.pwHash.OpsLimitInteractive, memLimit: sodium.pwHash.MemLimitInteractive, alg: .Default),
                   let json = sodium.secretBox.open(nonceAndAuthenticatedCipherText: payload, secretKey: secretKey) else {
-                return nil
+                return retryWithBase64 ? nil : decrypt(keys: keys, password: password, retryWithBase64: true)
             }
             return try? JSONDecoder().decode(Keychain.self, from: Data(json))
-            // TODO: keychain might be base64 encoded
         }
         
-        static func decrypt(payload: String, key: Bytes) -> String? {
+        static func decrypt(payload: String, key: Bytes, retryWithBase64: Bool = false) -> String? {
             guard !payload.isEmpty else {
                 return ""
             }
-            guard let encryptedBytes = sodium.utils.hex2bin(payload),
+            guard let encryptedBytes = retryWithBase64 ? sodium.utils.base642bin(payload) : sodium.utils.hex2bin(payload),
                   let decryptedBytes = sodium.secretBox.open(nonceAndAuthenticatedCipherText: encryptedBytes, secretKey: key) else {
-                return nil
+                return retryWithBase64 ? nil : decrypt(payload: payload, key: key, retryWithBase64: true)
             }
             return decryptedBytes.utf8String
-            // TODO: payload might be base64 encoded
         }
         
         static func encrypt(unencrypted: String, key: Bytes) -> String? {

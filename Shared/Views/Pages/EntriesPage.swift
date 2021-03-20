@@ -126,7 +126,7 @@ struct EntriesPage: View {
             .frame(maxWidth: 600)
             .buttonStyle(ActionButtonStyle())
             .listRowInsets(EdgeInsets())
-            .disabled(challengePassword.isEmpty)
+            .disabled(challengePassword.count < 12)
         }
         .listStyle(InsetGroupedListStyle())
     }

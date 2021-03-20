@@ -87,8 +87,21 @@ final class EntriesController: ObservableObject {
         
         RequestSessionRequest(credentials: credentials).send {
             [weak self] response in
-            guard let challenge = response?.challenge else {
+            guard let response = response else {
                 self?.error = true
+                return
+            }
+            
+            guard let challenge = response.challenge else {
+                OpenSessionRequest(credentials: credentials, solution: nil).send {
+                    [weak self] response in
+                    guard let response = response,
+                          response.success else {
+                        self?.error = true
+                        return
+                    }
+                    self?.requestEntries(credentials: credentials)
+                }
                 return
             }
             self?.challenge = challenge
@@ -99,7 +112,6 @@ final class EntriesController: ObservableObject {
         }
         // TODO: close
         // TODO: keepalive
-        // TODO: session without e2e
     }
     
     func solveChallenge(password: String, store: Bool = false) {
@@ -116,10 +128,10 @@ final class EntriesController: ObservableObject {
             [weak self] response in
             guard let response = response,
                   response.success,
-                  let keys = response.keys?["CSEv1r1"] else {
+                  let keys = response.keys["CSEv1r1"] else {
                 self?.challengeAvailable = true
                 Keychain.default.remove(key: "challengePassword")
-                UIAlertController.presentGlobalAlert(title: "_incorrectPassword", message: "_incorrectPasswordMessage")
+                UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
                 return
             }
             let keychain = Crypto.CSEv1r1.decrypt(keys: keys, password: password)
@@ -128,22 +140,26 @@ final class EntriesController: ObservableObject {
                 Keychain.default.store(key: "challengePassword", value: password)
             }
             
-            ListFoldersRequest(credentials: credentials).send {
-                folders in
-                guard let folders = folders else {
-                    self?.error = true
-                    return
-                }
-                self?.folders = folders
+            self?.requestEntries(credentials: credentials)
+        }
+    }
+    
+    private func requestEntries(credentials: Credentials) {
+        ListFoldersRequest(credentials: credentials).send {
+            [weak self] folders in
+            guard let folders = folders else {
+                self?.error = true
+                return
             }
-            ListPasswordsRequest(credentials: credentials).send {
-                passwords in
-                guard let passwords = passwords else {
-                    self?.error = true
-                    return
-                }
-                self?.passwords = passwords
+            self?.folders = folders
+        }
+        ListPasswordsRequest(credentials: credentials).send {
+            [weak self] passwords in
+            guard let passwords = passwords else {
+                self?.error = true
+                return
             }
+            self?.passwords = passwords
         }
     }
     

@@ -25,8 +25,7 @@ extension RequestSessionRequest {
     
     struct Response: Decodable {
         
-        let challenge: Crypto.PWDv1r1.Challenge
-        // TODO: token
+        let challenge: Crypto.PWDv1r1.Challenge?
         
     }
     
