@@ -68,6 +68,7 @@ final class EntriesController: ObservableObject {
             challengeAvailable = challenge != nil
         }
     }
+    private var keepaliveTimer: Timer?
     
     init() {
         CredentialsController.default.$credentials.sink(receiveValue: requestSession).store(in: &subscriptions)
@@ -93,15 +94,7 @@ final class EntriesController: ObservableObject {
             }
             
             guard let challenge = response.challenge else {
-                OpenSessionRequest(credentials: credentials, solution: nil).send {
-                    [weak self] response in
-                    guard let response = response,
-                          response.success else {
-                        self?.error = true
-                        return
-                    }
-                    self?.requestEntries(credentials: credentials)
-                }
+                self?.openSession(credentials: credentials)
                 return
             }
             self?.challenge = challenge
@@ -110,8 +103,6 @@ final class EntriesController: ObservableObject {
                 self?.solveChallenge(password: challengePassword)
             }
         }
-        // TODO: close
-        // TODO: keepalive
     }
     
     func solveChallenge(password: String, store: Bool = false) {
@@ -124,42 +115,76 @@ final class EntriesController: ObservableObject {
             return
         }
         
+        openSession(credentials: credentials, password: password, solution: solution, store: store)
+    }
+    
+    private func openSession(credentials: Credentials, password: String? = nil, solution: String? = nil, store: Bool? = nil) {
         OpenSessionRequest(credentials: credentials, solution: solution).send {
             [weak self] response in
-            guard let response = response,
-                  response.success,
-                  let keys = response.keys["CSEv1r1"] else {
-                self?.challengeAvailable = true
-                Keychain.default.remove(key: "challengePassword")
-                UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
+            guard let response = response else {
+                self?.error = true
                 return
             }
-            let keychain = Crypto.CSEv1r1.decrypt(keys: keys, password: password)
-            CredentialsController.default.credentials?.keychain = keychain
-            if store {
-                Keychain.default.store(key: "challengePassword", value: password)
+            
+            if let password = password,
+               solution != nil,
+               let store = store {
+                guard response.success,
+                      let keys = response.keys["CSEv1r1"] else {
+                    self?.challengeAvailable = true
+                    Keychain.default.remove(key: "challengePassword")
+                    UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
+                    return
+                }
+                let keychain = Crypto.CSEv1r1.decrypt(keys: keys, password: password)
+                CredentialsController.default.credentials?.keychain = keychain
+                if store {
+                    Keychain.default.store(key: "challengePassword", value: password)
+                }
+            }
+            else {
+                guard response.success else {
+                    self?.error = true
+                    return
+                }
             }
             
-            self?.requestEntries(credentials: credentials)
+            self?.keepaliveSession()
+            
+            ListFoldersRequest(credentials: credentials).send {
+                [weak self] folders in
+                guard let folders = folders else {
+                    self?.error = true
+                    return
+                }
+                self?.folders = folders
+            }
+            ListPasswordsRequest(credentials: credentials).send {
+                [weak self] passwords in
+                guard let passwords = passwords else {
+                    self?.error = true
+                    return
+                }
+                self?.passwords = passwords
+            }
         }
     }
     
-    private func requestEntries(credentials: Credentials) {
-        ListFoldersRequest(credentials: credentials).send {
-            [weak self] folders in
-            guard let folders = folders else {
-                self?.error = true
+    private func keepaliveSession() {
+        keepaliveTimer?.invalidate()
+        keepaliveTimer = Timer.scheduledTimer(withTimeInterval: 9 * 60, repeats: false) {
+            _ in
+            guard let credentials = CredentialsController.default.credentials else {
                 return
             }
-            self?.folders = folders
-        }
-        ListPasswordsRequest(credentials: credentials).send {
-            [weak self] passwords in
-            guard let passwords = passwords else {
-                self?.error = true
-                return
+            KeepaliveSessionRequest(credentials: credentials).send {
+                [weak self] response in
+                guard let response = response,
+                      response.success else {
+                    return
+                }
+                self?.keepaliveSession()
             }
-            self?.passwords = passwords
         }
     }
     

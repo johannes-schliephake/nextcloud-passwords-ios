@@ -33,7 +33,11 @@ final class CredentialsController: ObservableObject {
     }
     
     func logout() {
-        credentials = nil
+        guard let credentials = credentials else {
+            return
+        }
+        CloseSessionRequest(credentials: credentials).send { _ in }
+        self.credentials = nil
         Keychain.default.remove(key: "challengePassword")
     }
     
