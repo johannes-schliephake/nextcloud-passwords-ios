@@ -3,7 +3,7 @@ import Foundation
 
 struct CreatePasswordRequest {
     
-    let credentials: Credentials
+    let session: Session
     let password: Password
     
 }
@@ -16,7 +16,7 @@ extension CreatePasswordRequest: NCPasswordsRequest {
     }
     
     func send(completion: @escaping (Response?) -> Void) {
-        post(action: "password/create", credentials: credentials, completion: completion)
+        post(action: "password/create", session: session, completion: completion)
     }
     
     func decode(data: Data) -> Response? {

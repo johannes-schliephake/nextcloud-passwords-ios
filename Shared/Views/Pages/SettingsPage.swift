@@ -4,7 +4,7 @@ import SwiftUI
 struct SettingsPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var credentialsController: CredentialsController
+    @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
     @State private var showLogoutAlert = false
@@ -23,8 +23,8 @@ struct SettingsPage: View {
     
     private func listView() -> some View {
         List {
-            if let credentials = credentialsController.credentials {
-                credentialsSection(credentials: credentials)
+            if let session = sessionController.session {
+                credentialsSection(session: session)
             }
             enableProviderSection()
             supportThisProjectSection()
@@ -34,10 +34,10 @@ struct SettingsPage: View {
         .listStyle(InsetGroupedListStyle())
     }
     
-    private func credentialsSection(credentials: Credentials) -> some View {
+    private func credentialsSection(session: Session) -> some View {
         Section(header: Text("_credentials")) {
-            row(subheadline: "_nextcloudServerAddress", text: credentials.server)
-            row(subheadline: "_username", text: credentials.user)
+            row(subheadline: "_nextcloudServerAddress", text: session.server)
+            row(subheadline: "_username", text: session.user)
             Button {
                 showLogoutAlert = true
             }
@@ -158,7 +158,7 @@ struct SettingsPage: View {
     // MARK: Functions
     
     private func logoutAndDismiss() {
-        credentialsController.logout()
+        sessionController.logout()
         presentationMode.wrappedValue.dismiss()
     }
     
@@ -173,7 +173,7 @@ struct SettingsPagePreview: PreviewProvider {
                 SettingsPage()
             }
             .showColumns(false)
-            .environmentObject(CredentialsController.mock)
+            .environmentObject(SessionController.mock)
             .environmentObject(TipController.mock)
         }
     }

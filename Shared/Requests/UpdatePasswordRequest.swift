@@ -3,7 +3,7 @@ import Foundation
 
 struct UpdatePasswordRequest {
     
-    let credentials: Credentials
+    let session: Session
     let password: Password
     
 }
@@ -16,7 +16,7 @@ extension UpdatePasswordRequest: NCPasswordsRequest {
     }
     
     func send(completion: @escaping (Response?) -> Void) {
-        patch(action: "password/update", credentials: credentials, completion: completion)
+        patch(action: "password/update", session: session, completion: completion)
     }
     
     func decode(data: Data) -> Response? {

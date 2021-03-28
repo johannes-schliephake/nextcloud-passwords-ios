@@ -3,15 +3,19 @@ import Foundation
 
 struct CloseSessionRequest {
     
-    let credentials: Credentials
+    let session: Session
     
 }
 
 
 extension CloseSessionRequest: NCPasswordsRequest {
     
+    var requiresSession: Bool {
+        false
+    }
+    
     func send(completion: @escaping (Response?) -> Void) {
-        get(action: "session/close", credentials: credentials, completion: completion)
+        get(action: "session/close", session: session, completion: completion)
     }
     
     func decode(data: Data) -> Response? {

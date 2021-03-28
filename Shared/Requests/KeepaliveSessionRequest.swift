@@ -3,15 +3,19 @@ import Foundation
 
 struct KeepaliveSessionRequest {
     
-    let credentials: Credentials
+    let session: Session
     
 }
 
 
 extension KeepaliveSessionRequest: NCPasswordsRequest {
     
+    var requiresSession: Bool {
+        false
+    }
+    
     func send(completion: @escaping (Response?) -> Void) {
-        get(action: "session/keepalive", credentials: credentials, completion: completion)
+        get(action: "session/keepalive", session: session, completion: completion)
     }
     
     func decode(data: Data) -> Response? {

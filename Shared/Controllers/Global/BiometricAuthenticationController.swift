@@ -34,7 +34,7 @@ final class BiometricAuthenticationController: ObservableObject {
             let context = LAContext()
             let policy = LAPolicy.deviceOwnerAuthentication
             var error: NSError?
-            guard CredentialsController.default.credentials != nil,
+            guard SessionController.default.session != nil,
                   context.canEvaluatePolicy(policy, error: &error) else {
                 DispatchQueue.main.async {
                     isUnlocked = true

@@ -1,9 +1,19 @@
 import Foundation
 
 
+struct NCPasswordsRequestErrorResponse: Decodable {
+    
+    let status: String
+    let id: String
+    let message: String
+    
+}
+
+
 protocol NCPasswordsRequest {
     
     associatedtype ResultType
+    var requiresSession: Bool { get }
     func encode() throws -> Data?
     func send(completion: @escaping (ResultType?) -> Void)
     func decode(data: Data) -> ResultType?
@@ -12,6 +22,10 @@ protocol NCPasswordsRequest {
 
 
 extension NCPasswordsRequest {
+    
+    var requiresSession: Bool {
+        true
+    }
     
     func encode() -> Data? {
         nil
@@ -22,33 +36,44 @@ extension NCPasswordsRequest {
 
 extension NCPasswordsRequest {
     
-    func get(action: String, credentials: Credentials, completion: @escaping (ResultType?) -> Void) {
-        send(action: action, method: "GET", credentials: credentials, completion: completion)
+    func get(action: String, session: Session, completion: @escaping (ResultType?) -> Void) {
+        send(action: action, method: "GET", session: session, completion: completion)
     }
     
-    func post(action: String, credentials: Credentials, completion: @escaping (ResultType?) -> Void) {
-        send(action: action, method: "POST", credentials: credentials, completion: completion)
+    func post(action: String, session: Session, completion: @escaping (ResultType?) -> Void) {
+        send(action: action, method: "POST", session: session, completion: completion)
     }
     
-    func patch(action: String, credentials: Credentials, completion: @escaping (ResultType?) -> Void) {
-        send(action: action, method: "PATCH", credentials: credentials, completion: completion)
+    func patch(action: String, session: Session, completion: @escaping (ResultType?) -> Void) {
+        send(action: action, method: "PATCH", session: session, completion: completion)
     }
     
-    func delete(action: String, credentials: Credentials, completion: @escaping (ResultType?) -> Void) {
-        send(action: action, method: "DELETE", credentials: credentials, completion: completion)
+    func delete(action: String, session: Session, completion: @escaping (ResultType?) -> Void) {
+        send(action: action, method: "DELETE", session: session, completion: completion)
     }
     
-    private func send(action: String, method: String, credentials: Credentials, completion: @escaping (ResultType?) -> Void) {
+    private func send(action: String, method: String, session: Session, completion: @escaping (ResultType?) -> Void) {
+        guard session.isValid else {
+            completion(nil)
+            return
+        }
+        guard !requiresSession || session.sessionID != nil else {
+            session.append {
+                send(completion: completion)
+            }
+            return
+        }
+        
+        guard let authorizationData = "\(session.user):\(session.password)".data(using: .utf8),
+              let serverUrl = URL(string: session.server) else {
+            completion(nil)
+            return
+        }
         let body: Data?
         do {
             body = try encode()
         }
         catch {
-            completion(nil)
-            return
-        }
-        guard let authorizationData = "\(credentials.user):\(credentials.password)".data(using: .utf8),
-              let serverUrl = URL(string: credentials.server) else {
             completion(nil)
             return
         }
@@ -58,11 +83,11 @@ extension NCPasswordsRequest {
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Basic \(authorizationData.base64EncodedString())", forHTTPHeaderField: "Authorization")
-        request.setValue(CredentialsController.default.credentials?.session, forHTTPHeaderField: "X-Api-Session")
+        request.setValue(session.sessionID, forHTTPHeaderField: "X-Api-Session")
         request.httpShouldHandleCookies = false
         request.httpBody = body
         
-        URLSession(configuration: .default, delegate: AuthenticationChallengeController.default, delegateQueue: nil).dataTask(with: request) {
+        NetworkClient.default.dataTask(with: request) {
             [self] data, response, _ in
             guard let data = data,
                   let response = response as? HTTPURLResponse else {
@@ -71,7 +96,23 @@ extension NCPasswordsRequest {
                 }
                 return
             }
-            CredentialsController.default.credentials?.session = CredentialsController.default.credentials?.session ?? response.value(forHTTPHeaderField: "X-Api-Session")
+            
+            if let errorResponse = try? JSONDecoder().decode(NCPasswordsRequestErrorResponse.self, from: data) {
+                switch (errorResponse.status, errorResponse.id) {
+                case ("error", "4ad27488"),
+                     ("error", "f84f93d3"):
+                    session.append {
+                        send(completion: completion)
+                    }
+                    return
+                default:
+                    break
+                }
+            }
+            if let sessionID = response.value(forHTTPHeaderField: "X-Api-Session") {
+                session.sessionID = sessionID
+            }
+            
             let result = decode(data: data)
             DispatchQueue.main.async {
                 completion(result)

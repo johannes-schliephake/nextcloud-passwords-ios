@@ -3,7 +3,7 @@ import Foundation
 
 struct DeletePasswordRequest {
     
-    let credentials: Credentials
+    let session: Session
     let password: Password
     
 }
@@ -16,7 +16,7 @@ extension DeletePasswordRequest: NCPasswordsRequest {
     }
     
     func send(completion: @escaping (Response?) -> Void) {
-        delete(action: "password/delete", credentials: credentials, completion: completion)
+        delete(action: "password/delete", session: session, completion: completion)
     }
     
     func decode(data: Data) -> Response? {

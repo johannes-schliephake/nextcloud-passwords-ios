@@ -63,7 +63,7 @@ final class Folder: ObservableObject, Identifiable {
         case "none":
             break
         case "CSEv1r1":
-            guard let keychain = CredentialsController.default.credentials?.keychain,
+            guard let keychain = SessionController.default.session?.keychain,
                   let key = keychain.keys[cseKey],
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key) else {
                 error = .decryptError
@@ -117,7 +117,7 @@ extension Folder: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        if let keychain = CredentialsController.default.credentials?.keychain {
+        if let keychain = SessionController.default.session?.keychain {
             guard let key = keychain.keys[keychain.current],
                   let encryptedLabel = Crypto.CSEv1r1.encrypt(unencrypted: label, key: key) else {
                 throw EncodingError.invalidValue(self, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Encryption failed"))

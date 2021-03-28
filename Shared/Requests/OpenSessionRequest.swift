@@ -3,7 +3,7 @@ import Foundation
 
 struct OpenSessionRequest {
     
-    let credentials: Credentials
+    let session: Session
     let solution: String?
     
 }
@@ -11,16 +11,31 @@ struct OpenSessionRequest {
 
 extension OpenSessionRequest: NCPasswordsRequest {
     
+    var requiresSession: Bool {
+        false
+    }
+    
     func encode() throws -> Data? {
         try JSONEncoder().encode(Request(challenge: solution))
     }
     
     func send(completion: @escaping (Response?) -> Void) {
-        post(action: "session/open", credentials: credentials, completion: completion)
+        post(action: "session/open", session: session, completion: completion)
     }
     
     func decode(data: Data) -> Response? {
-        try? JSONDecoder().decode(Response.self, from: data)
+        if let response = try? JSONDecoder().decode(Response.self, from: data) {
+            return response
+        }
+        if let errorResponse = try? JSONDecoder().decode(NCPasswordsRequestErrorResponse.self, from: data) {
+            switch (errorResponse.status, errorResponse.id) {
+            case ("error", "a361c427"):
+                return Response(success: false, keys: [:])
+            default:
+                break
+            }
+        }
+        return nil
     }
     
 }
@@ -43,6 +58,11 @@ extension OpenSessionRequest {
         
         let success: Bool
         let keys: [String: String]
+        
+        init(success: Bool, keys: [String: String]) {
+            self.success = success
+            self.keys = keys
+        }
         
         /// Manually decode to account for empty keys dictionary being sent as empty array
         init(from decoder: Decoder) throws {

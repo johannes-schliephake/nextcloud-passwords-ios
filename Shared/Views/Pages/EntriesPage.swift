@@ -9,10 +9,10 @@ struct EntriesPage: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    @EnvironmentObject private var credentialsController: CredentialsController
+    @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
-    @State private var showServerSetupView = CredentialsController.default.credentials == nil
+    @State private var showServerSetupView = SessionController.default.session == nil
     @State private var showSettingsView = false
     @State private var folderForEditing: Folder?
     @State private var passwordForEditing: Password?
@@ -49,13 +49,13 @@ struct EntriesPage: View {
     
     private func mainStack(entries: [Entry]?, suggestions: [Password]?) -> some View {
         VStack {
-            if credentialsController.credentials == nil {
+            if sessionController.session == nil {
                 connectView()
             }
-            else if entriesController.error {
+            else if entriesController.error || sessionController.error {
                 errorView()
             }
-            else if entriesController.challengeAvailable {
+            else if sessionController.challengeAvailable {
                 challengeView()
             }
             else if let entries = entries {
@@ -70,7 +70,7 @@ struct EntriesPage: View {
                     SettingsNavigation()
                         .environmentObject(autoFillController)
                         .environmentObject(biometricAuthenticationController)
-                        .environmentObject(credentialsController)
+                        .environmentObject(sessionController)
                         .environmentObject(tipController)
                 }
         }
@@ -88,7 +88,7 @@ struct EntriesPage: View {
                     ServerSetupNavigation()
                         .environmentObject(autoFillController)
                         .environmentObject(biometricAuthenticationController)
-                        .environmentObject(credentialsController)
+                        .environmentObject(sessionController)
                         .environmentObject(tipController)
                 }
         }
@@ -176,7 +176,7 @@ struct EntriesPage: View {
                     })
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
-                    .environmentObject(credentialsController)
+                    .environmentObject(sessionController)
                     .environmentObject(tipController)
                 }
                 .actionSheet(item: $folderForDeletion) {
@@ -195,7 +195,7 @@ struct EntriesPage: View {
                     })
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
-                    .environmentObject(credentialsController)
+                    .environmentObject(sessionController)
                     .environmentObject(tipController)
                 }
                 .actionSheet(item: $passwordForDeletion) {
@@ -365,7 +365,7 @@ struct EntriesPage: View {
     
     private func solveChallenge() {
         if !challengePassword.isEmpty {
-            entriesController.solveChallenge(password: challengePassword, store: storeChallengePassword)
+            sessionController.solveChallenge(password: challengePassword, store: storeChallengePassword)
         }
     }
     
@@ -501,12 +501,12 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
-            guard let credentials = CredentialsController.default.credentials else {
+            guard let session = SessionController.default.session else {
                 return
             }
             folder.favorite.toggle()
             
-            UpdateFolderRequest(credentials: credentials, folder: folder).send {
+            UpdateFolderRequest(session: session, folder: folder).send {
                 response in
                 guard let response = response else {
                     folder.favorite.toggle()
@@ -536,7 +536,7 @@ extension EntriesPage {
         let deletePassword: () -> Void
         
         @EnvironmentObject private var autoFillController: AutoFillController
-        @EnvironmentObject private var credentialsController: CredentialsController
+        @EnvironmentObject private var sessionController: SessionController
         
         @State private var favicon: UIImage?
         @State private var showPasswordDetailView = false
@@ -732,12 +732,12 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
-            guard let credentials = CredentialsController.default.credentials else {
+            guard let session = SessionController.default.session else {
                 return
             }
             password.favorite.toggle()
             
-            UpdatePasswordRequest(credentials: credentials, password: password).send {
+            UpdatePasswordRequest(session: session, password: password).send {
                 response in
                 guard let response = response else {
                     password.favorite.toggle()
@@ -753,10 +753,10 @@ extension EntriesPage {
         private func requestFavicon() {
             guard let url = URL(string: password.url),
                   let domain = url.host,
-                  let credentials = credentialsController.credentials else {
+                  let session = sessionController.session else {
                 return
             }
-            FaviconServiceRequest(credentials: credentials, domain: domain).send { favicon = $0 }
+            FaviconServiceRequest(session: session, domain: domain).send { favicon = $0 }
         }
         
     }
@@ -774,7 +774,7 @@ struct EntriesPagePreview: PreviewProvider {
             .showColumns(true)
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
-            .environmentObject(CredentialsController.mock)
+            .environmentObject(SessionController.mock)
             .environmentObject(TipController.mock)
         }
     }

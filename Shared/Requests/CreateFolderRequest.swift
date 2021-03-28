@@ -3,7 +3,7 @@ import Foundation
 
 struct CreateFolderRequest {
     
-    let credentials: Credentials
+    let session: Session
     let folder: Folder
     
 }
@@ -16,7 +16,7 @@ extension CreateFolderRequest: NCPasswordsRequest {
     }
     
     func send(completion: @escaping (Response?) -> Void) {
-        post(action: "folder/create", credentials: credentials, completion: completion)
+        post(action: "folder/create", session: session, completion: completion)
     }
     
     func decode(data: Data) -> Response? {
