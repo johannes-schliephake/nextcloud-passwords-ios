@@ -22,6 +22,7 @@ struct EntriesPage: View {
     @State private var showErrorAlert = false
     @State private var challengePassword = ""
     @State private var storeChallengePassword = false
+    @State private var showStorePasswordMessage = false
     
     init(entriesController: EntriesController, folder: Folder? = nil) {
         self.entriesController = entriesController
@@ -115,10 +116,24 @@ struct EntriesPage: View {
                 }
             }
             Section {
-                Toggle("_storePassword", isOn: $storeChallengePassword)
-                    .frame(maxWidth: 600)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
-                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+                Toggle(isOn: $storeChallengePassword) {
+                    HStack {
+                        Text("_storePassword")
+                        Button {
+                            showStorePasswordMessage = true
+                        }
+                        label: {
+                            Image(systemName: "questionmark.circle")
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                        .alert(isPresented: $showStorePasswordMessage) {
+                            Alert(title: Text("_storePassword"), message: Text("_storePasswordMessage"))
+                        }
+                    }
+                }
+                .frame(maxWidth: 600)
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
+                .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
             Button("_logIn") {
                 solveChallenge()

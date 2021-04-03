@@ -39,7 +39,7 @@
 "_giveATip" = "Trinkgeld geben";
 "_highFive" = "High Five! 👏";
 "_incorrectPassword" = "Falsches Passwort";
-"_incorrectPasswordMessage" = "TODO";
+"_incorrectPasswordMessage" = "Bitte erneut versuchen.";
 "_integration" = "Integration";
 "_invalidCertificate" = "Ungültiges Zertifikat";
 "_invalidCertificateMessage(hash)" = "Das Zertifikat des Servers ist ungültig. Eine sichere Verbindung kann nicht garantiert werden. Soll das Zertifikat dennoch akzeptiert werden?\n\nSHA-256 des Zertifikats:\n%@";
@@ -73,6 +73,7 @@
 "_sourceCode" = "Quellcode";
 "_specialCharacters" = "Sonderzeichen";
 "_storePassword" = "Passwort speichern";
+"_storePasswordMessage" = "Wenn diese Option aktiviert ist, wird das E2E Passwort verschlüsselt im Schlüsselbund des Geräts gespeichert.";
 "_suggestions" = "Vorschläge";
 "_supportThisProject" = "Dieses Projekt unterstützen";
 "_thanksMessage" = "Vielen Dank an die gesamte Nextcloud-Community und alle Beteiligten, die dieses großartige Ökosystem möglich machen. Ich hoffe, dass ich mit dieser App etwas beitragen kann.";

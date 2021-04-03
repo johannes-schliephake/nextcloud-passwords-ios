@@ -39,7 +39,7 @@
 "_giveATip" = "Give A Tip";
 "_highFive" = "High Five! 👏";
 "_incorrectPassword" = "Incorrect Password";
-"_incorrectPasswordMessage" = "TODO";
+"_incorrectPasswordMessage" = "Please try again.";
 "_integration" = "Integration";
 "_invalidCertificate" = "Invalid Certificate";
 "_invalidCertificateMessage(hash)" = "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%@";
@@ -73,6 +73,7 @@
 "_sourceCode" = "Source Code";
 "_specialCharacters" = "Special Characters";
 "_storePassword" = "Store Password";
+"_storePasswordMessage" = "If this option is enabled, the E2E password is stored encrypted in your device's keychain.";
 "_suggestions" = "Suggestions";
 "_supportThisProject" = "Support This Project";
 "_thanksMessage" = "Thanks to the entire Nextcloud community and everybody involved for enabling such an amazing ecosystem. I hope that I can contribute something with this app.";
