@@ -3,6 +3,8 @@
 "_account" = "Account";
 "_all" = "Alle";
 "_anErrorOccurred" = "Es ist ein Fehler aufgetreten ...";
+"_appDeauthorized" = "App deautorisiert";
+"_appDeauthorizedMessage" = "Aufgrund zu vieler fehlgeschlagener Anmeldeversuche wurde diese App vom Server deautorisiert. Bitte später erneut versuchen.";
 "_cancel" = "Abbrechen";
 "_confirmAction" = "Aktion bestätigen";
 "_connect" = "Verbinden";

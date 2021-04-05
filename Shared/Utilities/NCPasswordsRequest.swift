@@ -10,6 +10,13 @@ struct NCPasswordsRequestErrorResponse: Decodable {
 }
 
 
+struct NCPasswordsRequestMessageResponse: Decodable {
+    
+    let message: String
+    
+}
+
+
 protocol NCPasswordsRequest {
     
     associatedtype ResultType
@@ -99,11 +106,22 @@ extension NCPasswordsRequest {
             
             if let errorResponse = try? JSONDecoder().decode(NCPasswordsRequestErrorResponse.self, from: data) {
                 switch (errorResponse.status, errorResponse.id) {
-                case ("error", "4ad27488"),
-                     ("error", "f84f93d3"):
+                case ("error", "4ad27488"): /// "Authorized session required"
                     session.append {
                         send(completion: completion)
                     }
+                    return
+                case ("error", "b927b225"): /// "Too many failed login attempts"
+                    session.invalidate(reason: .deauthorization)
+                    return
+                default:
+                    break
+                }
+            }
+            else if let messageResponse = try? JSONDecoder().decode(NCPasswordsRequestMessageResponse.self, from: data) {
+                switch messageResponse.message {
+                case "Password login forbidden, use token instead":
+                    session.invalidate(reason: .deauthorization)
                     return
                 default:
                     break

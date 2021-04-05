@@ -8,10 +8,10 @@ final class Session: ObservableObject {
     let password: String
     
     @Published private(set) var pendingRequestsAvailable = false
+    @Published private(set) var invalidationReason: InvalidationReason?
     
     var sessionID: String?
     var keychain: Crypto.Keychain?
-    private(set) var isValid = true
     
     private var pendingRequests = [() -> Void]() {
         didSet {
@@ -22,6 +22,10 @@ final class Session: ObservableObject {
                 pendingRequestsAvailable = false
             }
         }
+    }
+    
+    var isValid: Bool {
+        invalidationReason == nil
     }
     
     init(server: String, user: String, password: String) {
@@ -39,8 +43,21 @@ final class Session: ObservableObject {
         pendingRequests.removeAll()
     }
     
-    func invalidate() {
-        isValid = false
+    func invalidate(reason: InvalidationReason) {
+        DispatchQueue.main.async {
+            [self] in
+            invalidationReason = reason
+        }
+    }
+    
+}
+
+
+extension Session {
+    
+    enum InvalidationReason {
+        case logout
+        case deauthorization
     }
     
 }

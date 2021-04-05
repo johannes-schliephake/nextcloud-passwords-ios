@@ -19,12 +19,28 @@ final class SessionController: ObservableObject {
             Keychain.default.store(key: "user", value: session.user)
             Keychain.default.store(key: "password", value: session.password)
             
-            session.$pendingRequestsAvailable.sink {
-                [weak self] pendingRequestsAvailable in
-                if pendingRequestsAvailable {
-                    self?.requestSession()
+            session.$pendingRequestsAvailable
+                .sink {
+                    [weak self] pendingRequestsAvailable in
+                    if pendingRequestsAvailable {
+                        self?.requestSession()
+                    }
                 }
-            }.store(in: &subscriptions)
+                .store(in: &subscriptions)
+            session.$invalidationReason
+                .sink {
+                    [weak self] invalidationReason in
+                    guard let invalidationReason = invalidationReason else {
+                        return
+                    }
+                    self?.session = nil
+                    if invalidationReason == .deauthorization {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                            UIAlertController.presentGlobalAlert(title: "_appDeauthorized".localized, message: "_appDeauthorizedMessage".localized)
+                        }
+                    }
+                }
+                .store(in: &subscriptions)
         }
     }
     @Published private(set) var challengeAvailable = false
@@ -150,8 +166,7 @@ final class SessionController: ObservableObject {
             return
         }
         CloseSessionRequest(session: session).send { _ in }
-        session.invalidate()
-        self.session = nil
+        session.invalidate(reason: .logout)
         Keychain.default.remove(key: "challengePassword")
     }
     

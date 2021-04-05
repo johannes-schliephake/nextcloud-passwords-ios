@@ -29,7 +29,7 @@ extension OpenSessionRequest: NCPasswordsRequest {
         }
         if let errorResponse = try? JSONDecoder().decode(NCPasswordsRequestErrorResponse.self, from: data) {
             switch (errorResponse.status, errorResponse.id) {
-            case ("error", "a361c427"):
+            case ("error", "a361c427"): /// "Password invalid"
                 return Response(success: false, keys: [:])
             default:
                 break
