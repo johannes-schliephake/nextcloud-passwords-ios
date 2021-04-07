@@ -785,8 +785,7 @@ extension EntriesPage {
         }
         
         private func requestFavicon() {
-            guard let url = URL(string: password.url),
-                  let domain = url.host,
+            guard let domain = URL(string: password.url)?.host ?? URL(string: "https://\(password.url)")?.host,
                   let session = sessionController.session else {
                 return
             }
