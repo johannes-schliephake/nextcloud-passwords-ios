@@ -107,7 +107,7 @@ struct PasswordDetailPage: View {
                 label: {
                     Label("_editPassword", systemImage: "pencil")
                 }
-                .disabled(password.revision.isEmpty)
+                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             }
         }
         label: {
@@ -152,6 +152,7 @@ struct PasswordDetailPage: View {
                 .font(.title)
         }
         .buttonStyle(BorderlessButtonStyle())
+        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
     private func serviceSection() -> some View {
@@ -260,12 +261,13 @@ struct PasswordDetailPage: View {
     
     private func trailingToolbarView() -> some View {
         HStack {
-            if password.revision.isEmpty {
-                ProgressView()
-                Spacer()
-            }
-            else if let error = password.error {
-                errorButton(error: error)
+            if let state = password.state {
+                if state.isError {
+                    errorButton(state: state)
+                }
+                else if state.isProcessing {
+                    ProgressView()
+                }
                 Spacer()
             }
             Button(action: {
@@ -273,29 +275,31 @@ struct PasswordDetailPage: View {
             }, label: {
                 Text("_edit")
             })
-            .disabled(password.revision.isEmpty)
+            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
     }
     
-    private func errorButton(error: Entry.EntryError) -> some View {
+    private func errorButton(state: Entry.State) -> some View {
         Button {
             showErrorAlert = true
         }
         label: {
             Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundColor(error == .deleteError ? .gray : .red)
+                .foregroundColor(state == .deletionFailed ? .gray : .red)
         }
         .buttonStyle(BorderlessButtonStyle())
         .alert(isPresented: $showErrorAlert) {
-            switch error {
-            case .createError:
+            switch state {
+            case .creationFailed:
                 return Alert(title: Text("_error"), message: Text("_createPasswordErrorMessage"))
-            case .editError:
+            case .updateFailed:
                 return Alert(title: Text("_error"), message: Text("_editPasswordErrorMessage"))
-            case .deleteError:
+            case .deletionFailed:
                 return Alert(title: Text("_error"), message: Text("_deletePasswordErrorMessage"))
-            case .decryptError:
+            case .decryptionFailed:
                 return Alert(title: Text("_error"), message: Text("_decryptPasswordErrorMessage"))
+            default:
+                return Alert(title: Text("_error"))
             }
         }
     }
@@ -329,7 +333,10 @@ struct PasswordDetailPage: View {
     }
     
     private func toggleFavorite() {
+        password.state = .updating
+        
         guard let session = sessionController.session else {
+            password.state = .updateFailed
             return
         }
         password.favorite.toggle()
@@ -337,14 +344,14 @@ struct PasswordDetailPage: View {
         UpdatePasswordRequest(session: session, password: password).send {
             response in
             guard let response = response else {
+                password.state = .updateFailed
                 password.favorite.toggle()
                 return
             }
-            password.error = nil
+            password.state = nil
             password.revision = response.revision
             password.updated = Date()
         }
-        password.revision = ""
     }
     
     private func deleteAndDismiss() {

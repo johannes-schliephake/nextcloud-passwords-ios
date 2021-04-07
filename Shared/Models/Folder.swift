@@ -17,7 +17,8 @@ final class Folder: ObservableObject, Identifiable {
     var hidden: Bool
     let trashed: Bool
     @Published var favorite: Bool
-    @Published var error: Entry.EntryError?
+    
+    @Published var state: Entry.State?
     
     convenience init() {
         self.init(id: Entry.baseId, label: "_passwords".localized, parent: nil)
@@ -66,12 +67,12 @@ final class Folder: ObservableObject, Identifiable {
             guard let keychain = SessionController.default.session?.keychain,
                   let key = keychain.keys[cseKey],
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key) else {
-                error = .decryptError
+                state = .decryptionFailed
                 return
             }
             label = decryptedLabel
         default:
-            error = .decryptError
+            state = .decryptionFailed
         }
     }
     
