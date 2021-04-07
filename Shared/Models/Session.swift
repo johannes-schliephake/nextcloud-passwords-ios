@@ -16,10 +16,16 @@ final class Session: ObservableObject {
     private var pendingRequests = [() -> Void]() {
         didSet {
             if oldValue.isEmpty && !pendingRequests.isEmpty {
-                pendingRequestsAvailable = true
+                DispatchQueue.main.async {
+                    [self] in
+                    pendingRequestsAvailable = true
+                }
             }
             else if !oldValue.isEmpty && pendingRequests.isEmpty {
-                pendingRequestsAvailable = false
+                DispatchQueue.main.async {
+                    [self] in
+                    pendingRequestsAvailable = false
+                }
             }
         }
     }

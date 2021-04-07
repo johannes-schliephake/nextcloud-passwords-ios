@@ -79,7 +79,10 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
         }, deny: {
             completionHandler(.performDefaultHandling, nil)
         })
-        certificateConfirmationRequests.append(certificateConfirmationRequest)
+        DispatchQueue.main.async {
+            [self] in
+            certificateConfirmationRequests.append(certificateConfirmationRequest)
+        }
     }
     
 }

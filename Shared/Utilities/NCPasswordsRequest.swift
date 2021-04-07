@@ -60,83 +60,91 @@ extension NCPasswordsRequest {
     }
     
     private func send(action: String, method: String, session: Session, completion: @escaping (ResultType?) -> Void) {
-        guard session.isValid else {
-            completion(nil)
-            return
-        }
-        guard !requiresSession || session.sessionID != nil else {
-            session.append {
-                send(completion: completion)
+        DispatchQueue.global(qos: .utility).async {
+            guard session.isValid else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+                return
             }
-            return
-        }
-        
-        guard let authorizationData = "\(session.user):\(session.password)".data(using: .utf8),
-              let serverUrl = URL(string: session.server) else {
-            completion(nil)
-            return
-        }
-        let body: Data?
-        do {
-            body = try encode()
-        }
-        catch {
-            completion(nil)
-            return
-        }
-        
-        let url = serverUrl.appendingPathComponent("index.php/apps/passwords/api/1.0").appendingPathComponent(action)
-        var request = URLRequest(url: url)
-        request.httpMethod = method
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Basic \(authorizationData.base64EncodedString())", forHTTPHeaderField: "Authorization")
-        request.setValue(session.sessionID, forHTTPHeaderField: "X-Api-Session")
-        request.httpShouldHandleCookies = false
-        request.httpBody = body
-        
-        NetworkClient.default.dataTask(with: request) {
-            [self] data, response, _ in
-            guard let data = data,
-                  let response = response as? HTTPURLResponse else {
+            guard !requiresSession || session.sessionID != nil else {
+                session.append {
+                    send(completion: completion)
+                }
+                return
+            }
+            
+            guard let authorizationData = "\(session.user):\(session.password)".data(using: .utf8),
+                  let serverUrl = URL(string: session.server) else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+                return
+            }
+            let body: Data?
+            do {
+                body = try encode()
+            }
+            catch {
                 DispatchQueue.main.async {
                     completion(nil)
                 }
                 return
             }
             
-            if let errorResponse = try? JSONDecoder().decode(NCPasswordsRequestErrorResponse.self, from: data) {
-                switch (errorResponse.status, errorResponse.id) {
-                case ("error", "4ad27488"): /// "Authorized session required"
-                    session.append {
-                        send(completion: completion)
+            let url = serverUrl.appendingPathComponent("index.php/apps/passwords/api/1.0").appendingPathComponent(action)
+            var request = URLRequest(url: url)
+            request.httpMethod = method
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Basic \(authorizationData.base64EncodedString())", forHTTPHeaderField: "Authorization")
+            request.setValue(session.sessionID, forHTTPHeaderField: "X-Api-Session")
+            request.httpShouldHandleCookies = false
+            request.httpBody = body
+            
+            NetworkClient.default.dataTask(with: request) {
+                [self] data, response, _ in
+                guard let data = data,
+                      let response = response as? HTTPURLResponse else {
+                    DispatchQueue.main.async {
+                        completion(nil)
                     }
                     return
-                case ("error", "b927b225"): /// "Too many failed login attempts"
-                    session.invalidate(reason: .deauthorization)
-                    return
-                default:
-                    break
+                }
+                
+                if let errorResponse = try? JSONDecoder().decode(NCPasswordsRequestErrorResponse.self, from: data) {
+                    switch (errorResponse.status, errorResponse.id) {
+                    case ("error", "4ad27488"): /// "Authorized session required"
+                        session.append {
+                            send(completion: completion)
+                        }
+                        return
+                    case ("error", "b927b225"): /// "Too many failed login attempts"
+                        session.invalidate(reason: .deauthorization)
+                        return
+                    default:
+                        break
+                    }
+                }
+                else if let messageResponse = try? JSONDecoder().decode(NCPasswordsRequestMessageResponse.self, from: data) {
+                    switch messageResponse.message {
+                    case "Password login forbidden, use token instead":
+                        session.invalidate(reason: .deauthorization)
+                        return
+                    default:
+                        break
+                    }
+                }
+                if let sessionID = response.value(forHTTPHeaderField: "X-Api-Session") {
+                    session.sessionID = sessionID
+                }
+                
+                let result = decode(data: data)
+                DispatchQueue.main.async {
+                    completion(result)
                 }
             }
-            else if let messageResponse = try? JSONDecoder().decode(NCPasswordsRequestMessageResponse.self, from: data) {
-                switch messageResponse.message {
-                case "Password login forbidden, use token instead":
-                    session.invalidate(reason: .deauthorization)
-                    return
-                default:
-                    break
-                }
-            }
-            if let sessionID = response.value(forHTTPHeaderField: "X-Api-Session") {
-                session.sessionID = sessionID
-            }
-            
-            let result = decode(data: data)
-            DispatchQueue.main.async {
-                completion(result)
-            }
+            .resume()
         }
-        .resume()
     }
     
 }
