@@ -3,6 +3,8 @@
 "_account" = "Account";
 "_all" = "All";
 "_anErrorOccurred" = "An error occurred ...";
+"_appDeauthorized" = "App Deauthorized";
+"_appDeauthorizedMessage" = "Because of too many failed login attempts this app was deauthorized by the server. Please try again later.";
 "_cancel" = "Cancel";
 "_confirmAction" = "Confirm Action";
 "_connect" = "Connect";
@@ -16,6 +18,8 @@
 "_createPassword" = "Create Password";
 "_createPasswordErrorMessage" = "An error occurred while creating the password. Please save the password again.";
 "_credentials" = "Credentials";
+"_decryptFolderErrorMessage" = "An error occurred while decrypting the folder.";
+"_decryptPasswordErrorMessage" = "An error occurred while decrypting the password.";
 "_delete" = "Delete";
 "_deleteFolder" = "Delete Folder";
 "_deleteFolderErrorMessage" = "An error occurred while deleting the folder. Please delete the folder again.";
@@ -23,6 +27,7 @@
 "_deletePasswordErrorMessage" = "An error occurred while deleting the password. Please delete the password again.";
 "_dismiss" = "Dismiss";
 "_done" = "Done";
+"_e2ePassword" = "E2E Password";
 "_edit" = "Edit";
 "_editFolderErrorMessage" = "An error occurred while editing the folder. Please save the folder again.";
 "_editPassword" = "Edit Password";
@@ -35,6 +40,8 @@
 "_generatePassword" = "Generate Password";
 "_giveATip" = "Give A Tip";
 "_highFive" = "High Five! 👏";
+"_incorrectPassword" = "Incorrect Password";
+"_incorrectPasswordMessage" = "Please try again.";
 "_integration" = "Integration";
 "_invalidCertificate" = "Invalid Certificate";
 "_invalidCertificateMessage(hash)" = "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%@";
@@ -67,6 +74,8 @@
 "_settings" = "Settings";
 "_sourceCode" = "Source Code";
 "_specialCharacters" = "Special Characters";
+"_storePassword" = "Store Password";
+"_storePasswordMessage" = "If this option is enabled, the E2E password is stored encrypted in your device's keychain.";
 "_suggestions" = "Suggestions";
 "_supportThisProject" = "Support This Project";
 "_thanksMessage" = "Thanks to the entire Nextcloud community and everybody involved for enabling such an amazing ecosystem. I hope that I can contribute something with this app.";

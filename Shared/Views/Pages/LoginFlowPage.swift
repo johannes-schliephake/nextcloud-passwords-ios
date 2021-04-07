@@ -35,7 +35,7 @@ extension LoginFlowPage {
         func makeUIView(context: Context) -> BottomlessWKWebView {
             let schemeHandler = NCSchemeHandler(perform: {
                 server, user, password in
-                CredentialsController.default.credentials = Credentials(server: server, user: user, password: password)
+                SessionController.default.session = Session(server: server, user: user, password: password)
             })
             let configuration = WKWebViewConfiguration()
             configuration.setURLSchemeHandler(schemeHandler, forURLScheme: "nc")

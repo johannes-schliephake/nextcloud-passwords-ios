@@ -3,7 +3,7 @@ import Foundation
 
 struct ListPasswordsRequest {
     
-    let credentials: Credentials
+    let session: Session
     
 }
 
@@ -11,7 +11,7 @@ struct ListPasswordsRequest {
 extension ListPasswordsRequest: NCPasswordsRequest {
     
     func send(completion: @escaping ([Password]?) -> Void) {
-        get(action: "password/list", credentials: credentials, completion: completion)
+        get(action: "password/list", session: session, completion: completion)
     }
     
     func decode(data: Data) -> [Password]? {

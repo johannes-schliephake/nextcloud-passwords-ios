@@ -9,10 +9,10 @@ struct EntriesPage: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    @EnvironmentObject private var credentialsController: CredentialsController
+    @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
-    @State private var showServerSetupView = CredentialsController.default.credentials == nil
+    @State private var showServerSetupView = SessionController.default.session == nil
     @State private var showSettingsView = false
     @State private var folderForEditing: Folder?
     @State private var passwordForEditing: Password?
@@ -20,6 +20,9 @@ struct EntriesPage: View {
     @State private var passwordForDeletion: Password?
     @State private var searchTerm = ""
     @State private var showErrorAlert = false
+    @State private var challengePassword = ""
+    @State private var storeChallengePassword = false
+    @State private var showStorePasswordMessage = false
     
     init(entriesController: EntriesController, folder: Folder? = nil) {
         self.entriesController = entriesController
@@ -47,11 +50,14 @@ struct EntriesPage: View {
     
     private func mainStack(entries: [Entry]?, suggestions: [Password]?) -> some View {
         VStack {
-            if credentialsController.credentials == nil {
+            if sessionController.session == nil {
                 connectView()
             }
-            else if entriesController.error {
+            else if entriesController.error || sessionController.error {
                 errorView()
+            }
+            else if sessionController.challengeAvailable {
+                challengeView()
             }
             else if let entries = entries {
                 listView(entries: entries, suggestions: suggestions)
@@ -65,7 +71,7 @@ struct EntriesPage: View {
                     SettingsNavigation()
                         .environmentObject(autoFillController)
                         .environmentObject(biometricAuthenticationController)
-                        .environmentObject(credentialsController)
+                        .environmentObject(sessionController)
                         .environmentObject(tipController)
                 }
         }
@@ -83,11 +89,62 @@ struct EntriesPage: View {
                     ServerSetupNavigation()
                         .environmentObject(autoFillController)
                         .environmentObject(biometricAuthenticationController)
-                        .environmentObject(credentialsController)
+                        .environmentObject(sessionController)
                         .environmentObject(tipController)
                 }
         }
         .padding()
+    }
+    
+    private func errorView() -> some View {
+        VStack {
+            Text("_anErrorOccurred")
+                .foregroundColor(.gray)
+                .padding()
+        }
+    }
+    
+    private func challengeView() -> some View {
+        List {
+            Section(header: Text("_e2ePassword")) {
+                SecureField("-", text: $challengePassword, onCommit: {
+                    solveChallenge()
+                })
+                .frame(maxWidth: 600)
+                .onAppear {
+                    challengePassword = ""
+                }
+            }
+            Section {
+                Toggle(isOn: $storeChallengePassword) {
+                    HStack {
+                        Text("_storePassword")
+                        Button {
+                            showStorePasswordMessage = true
+                        }
+                        label: {
+                            Image(systemName: "questionmark.circle")
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                        .alert(isPresented: $showStorePasswordMessage) {
+                            Alert(title: Text("_storePassword"), message: Text("_storePasswordMessage"))
+                        }
+                    }
+                }
+                .frame(maxWidth: 600)
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
+                .listRowBackground(Color(UIColor.systemGroupedBackground))
+            }
+            Button("_logIn") {
+                solveChallenge()
+            }
+            .frame(maxWidth: 600)
+            .buttonStyle(ActionButtonStyle())
+            .listRowInsets(EdgeInsets())
+            .disabled(challengePassword.count < 12)
+        }
+        .listStyle(InsetGroupedListStyle())
+        .frame(maxWidth: 600)
     }
     
     private func listView(entries: [Entry], suggestions: [Password]?) -> some View {
@@ -135,7 +192,7 @@ struct EntriesPage: View {
                     })
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
-                    .environmentObject(credentialsController)
+                    .environmentObject(sessionController)
                     .environmentObject(tipController)
                 }
                 .actionSheet(item: $folderForDeletion) {
@@ -154,7 +211,7 @@ struct EntriesPage: View {
                     })
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
-                    .environmentObject(credentialsController)
+                    .environmentObject(sessionController)
                     .environmentObject(tipController)
                 }
                 .actionSheet(item: $passwordForDeletion) {
@@ -202,14 +259,6 @@ struct EntriesPage: View {
         .onDelete {
             indices in
             onDeleteEntry(entry: entries[safe: indices.first])
-        }
-    }
-    
-    private func errorView() -> some View {
-        VStack {
-            Text("_anErrorOccurred")
-                .foregroundColor(.gray)
-                .padding()
         }
     }
     
@@ -263,6 +312,8 @@ struct EntriesPage: View {
                 return Alert(title: Text("_error"), message: Text("_editFolderErrorMessage"))
             case .deleteError:
                 return Alert(title: Text("_error"), message: Text("_deleteFolderErrorMessage"))
+            case .decryptError:
+                return Alert(title: Text("_error"), message: Text("_decryptFolderErrorMessage"))
             }
         }
     }
@@ -327,6 +378,12 @@ struct EntriesPage: View {
     }
     
     // MARK: Functions
+    
+    private func solveChallenge() {
+        if !challengePassword.isEmpty {
+            sessionController.solveChallenge(password: challengePassword, store: storeChallengePassword)
+        }
+    }
     
     private func onDeleteEntry(entry: Entry?) {
         switch entry {
@@ -446,6 +503,8 @@ extension EntriesPage {
                     return Alert(title: Text("_error"), message: Text("_editFolderErrorMessage"))
                 case .deleteError:
                     return Alert(title: Text("_error"), message: Text("_deleteFolderErrorMessage"))
+                case .decryptError:
+                    return Alert(title: Text("_error"), message: Text("_decryptFolderErrorMessage"))
                 }
             }
         }
@@ -458,12 +517,12 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
-            guard let credentials = CredentialsController.default.credentials else {
+            guard let session = SessionController.default.session else {
                 return
             }
             folder.favorite.toggle()
             
-            UpdateFolderRequest(credentials: credentials, folder: folder).send {
+            UpdateFolderRequest(session: session, folder: folder).send {
                 response in
                 guard let response = response else {
                     folder.favorite.toggle()
@@ -493,7 +552,7 @@ extension EntriesPage {
         let deletePassword: () -> Void
         
         @EnvironmentObject private var autoFillController: AutoFillController
-        @EnvironmentObject private var credentialsController: CredentialsController
+        @EnvironmentObject private var sessionController: SessionController
         
         @State private var favicon: UIImage?
         @State private var showPasswordDetailView = false
@@ -661,6 +720,8 @@ extension EntriesPage {
                     return Alert(title: Text("_error"), message: Text("_editPasswordErrorMessage"))
                 case .deleteError:
                     return Alert(title: Text("_error"), message: Text("_deletePasswordErrorMessage"))
+                case .decryptError:
+                    return Alert(title: Text("_error"), message: Text("_decryptPasswordErrorMessage"))
                 }
             }
         }
@@ -687,12 +748,12 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
-            guard let credentials = CredentialsController.default.credentials else {
+            guard let session = SessionController.default.session else {
                 return
             }
             password.favorite.toggle()
             
-            UpdatePasswordRequest(credentials: credentials, password: password).send {
+            UpdatePasswordRequest(session: session, password: password).send {
                 response in
                 guard let response = response else {
                     password.favorite.toggle()
@@ -708,10 +769,10 @@ extension EntriesPage {
         private func requestFavicon() {
             guard let url = URL(string: password.url),
                   let domain = url.host,
-                  let credentials = credentialsController.credentials else {
+                  let session = sessionController.session else {
                 return
             }
-            FaviconServiceRequest(credentials: credentials, domain: domain).send { favicon = $0 }
+            FaviconServiceRequest(session: session, domain: domain).send { favicon = $0 }
         }
         
     }
@@ -729,7 +790,7 @@ struct EntriesPagePreview: PreviewProvider {
             .showColumns(true)
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
-            .environmentObject(CredentialsController.mock)
+            .environmentObject(SessionController.mock)
             .environmentObject(TipController.mock)
         }
     }

@@ -10,7 +10,7 @@ struct PasswordDetailPage: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    @EnvironmentObject private var credentialsController: CredentialsController
+    @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
     @State private var favicon: UIImage?
@@ -31,6 +31,12 @@ struct PasswordDetailPage: View {
                     }
                 }
             }
+            .onChange(of: sessionController.challengeAvailable) {
+                challengeAvailable in
+                if challengeAvailable {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }
     }
     
     private func mainStack() -> some View {
@@ -47,7 +53,7 @@ struct PasswordDetailPage: View {
                         EditPasswordNavigation(password: password, addPassword: {}, updatePassword: updatePassword)
                             .environmentObject(autoFillController)
                             .environmentObject(biometricAuthenticationController)
-                            .environmentObject(credentialsController)
+                            .environmentObject(sessionController)
                             .environmentObject(tipController)
                     })
             }
@@ -288,6 +294,8 @@ struct PasswordDetailPage: View {
                 return Alert(title: Text("_error"), message: Text("_editPasswordErrorMessage"))
             case .deleteError:
                 return Alert(title: Text("_error"), message: Text("_deletePasswordErrorMessage"))
+            case .decryptError:
+                return Alert(title: Text("_error"), message: Text("_decryptPasswordErrorMessage"))
             }
         }
     }
@@ -314,19 +322,19 @@ struct PasswordDetailPage: View {
     private func requestFavicon() {
         guard let url = URL(string: password.url),
               let domain = url.host,
-              let credentials = credentialsController.credentials else {
+              let session = sessionController.session else {
             return
         }
-        FaviconServiceRequest(credentials: credentials, domain: domain).send { favicon = $0 }
+        FaviconServiceRequest(session: session, domain: domain).send { favicon = $0 }
     }
     
     private func toggleFavorite() {
-        guard let credentials = credentialsController.credentials else {
+        guard let session = sessionController.session else {
             return
         }
         password.favorite.toggle()
         
-        UpdatePasswordRequest(credentials: credentials, password: password).send {
+        UpdatePasswordRequest(session: session, password: password).send {
             response in
             guard let response = response else {
                 password.favorite.toggle()
@@ -357,7 +365,7 @@ struct PasswordDetailPagePreview: PreviewProvider {
             .showColumns(false)
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
-            .environmentObject(CredentialsController.mock)
+            .environmentObject(SessionController.mock)
             .environmentObject(TipController.mock)
         }
     }

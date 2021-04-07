@@ -87,6 +87,31 @@ final class Password: ObservableObject, Identifiable {
         edited = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .edited))
         created = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .created))
         updated = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .updated))
+        
+        switch cseType {
+        case "none":
+            break
+        case "CSEv1r1":
+            guard let keychain = SessionController.default.session?.keychain,
+                  let key = keychain.keys[cseKey],
+                  let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key),
+                  let decryptedUsername = Crypto.CSEv1r1.decrypt(payload: username, key: key),
+                  let decryptedPassword = Crypto.CSEv1r1.decrypt(payload: password, key: key),
+                  let decryptedUrl = Crypto.CSEv1r1.decrypt(payload: url, key: key),
+                  let decryptedNotes = Crypto.CSEv1r1.decrypt(payload: notes, key: key),
+                  let decryptedCustomFields = Crypto.CSEv1r1.decrypt(payload: customFields, key: key) else {
+                error = .decryptError
+                return
+            }
+            label = decryptedLabel
+            username = decryptedUsername
+            password = decryptedPassword
+            url = decryptedUrl
+            notes = decryptedNotes
+            customFields = decryptedCustomFields
+        default:
+            error = .decryptError
+        }
     }
     
     func matches(searchTerm: String) -> Bool {
@@ -138,13 +163,35 @@ extension Password: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
+        if let keychain = SessionController.default.session?.keychain {
+            guard let key = keychain.keys[keychain.current],
+                  let encryptedLabel = Crypto.CSEv1r1.encrypt(unencrypted: label, key: key),
+                  let encryptedUsername = Crypto.CSEv1r1.encrypt(unencrypted: username, key: key),
+                  let encryptedPassword = Crypto.CSEv1r1.encrypt(unencrypted: password, key: key),
+                  let encryptedUrl = Crypto.CSEv1r1.encrypt(unencrypted: url, key: key),
+                  let encryptedNotes = Crypto.CSEv1r1.encrypt(unencrypted: notes, key: key),
+                  let encryptedCustomFields = Crypto.CSEv1r1.encrypt(unencrypted: customFields, key: key) else {
+                throw EncodingError.invalidValue(self, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Encryption failed"))
+            }
+            try container.encode(encryptedLabel, forKey: .label)
+            try container.encode(encryptedUsername, forKey: .username)
+            try container.encode(encryptedPassword, forKey: .password)
+            try container.encode(encryptedUrl, forKey: .url)
+            try container.encode(encryptedNotes, forKey: .notes)
+            try container.encode(encryptedCustomFields, forKey: .customFields)
+            cseType = "CSEv1r1"
+            cseKey = keychain.current
+        }
+        else {
+            try container.encode(label, forKey: .label)
+            try container.encode(username, forKey: .username)
+            try container.encode(password, forKey: .password)
+            try container.encode(url, forKey: .url)
+            try container.encode(notes, forKey: .notes)
+            try container.encode(customFields, forKey: .customFields)
+        }
+        
         try container.encode(id, forKey: .id)
-        try container.encode(label, forKey: .label)
-        try container.encode(username, forKey: .username)
-        try container.encode(password, forKey: .password)
-        try container.encode(url, forKey: .url)
-        try container.encode(notes, forKey: .notes)
-        try container.encode(customFields, forKey: .customFields)
         try container.encode(status, forKey: .status)
         try container.encode(statusCode, forKey: .statusCode)
         try container.encode(hash, forKey: .hash)
@@ -171,6 +218,7 @@ extension Password: Codable {
 extension Password {
     
     enum StatusCode: String, Codable, Comparable {
+        
         case good = "GOOD"
         case outdated = "OUTDATED"
         case duplicate = "DUPLICATE"
@@ -180,6 +228,7 @@ extension Password {
             let order: [StatusCode] = [.good, .outdated, .duplicate, .breached]
             return order.firstIndex(of: lhs)! < order.firstIndex(of: rhs)!
         }
+        
     }
     
 }

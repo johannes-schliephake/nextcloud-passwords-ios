@@ -3,7 +3,7 @@ import Foundation
 
 struct UpdateFolderRequest {
     
-    let credentials: Credentials
+    let session: Session
     let folder: Folder
     
 }
@@ -11,12 +11,12 @@ struct UpdateFolderRequest {
 
 extension UpdateFolderRequest: NCPasswordsRequest {
     
-    func encode() -> Data? {
-        try? JSONEncoder().encode(folder)
+    func encode() throws -> Data? {
+        try JSONEncoder().encode(folder)
     }
     
     func send(completion: @escaping (Response?) -> Void) {
-        patch(action: "folder/update", credentials: credentials, completion: completion)
+        patch(action: "folder/update", session: session, completion: completion)
     }
     
     func decode(data: Data) -> Response? {

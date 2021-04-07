@@ -64,7 +64,7 @@ final class EntriesController: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
-        CredentialsController.default.$credentials.sink(receiveValue: requestEntries).store(in: &subscriptions)
+        SessionController.default.$session.sink(receiveValue: requestEntries).store(in: &subscriptions)
     }
     
     private init(folders: [Folder], passwords: [Password]) {
@@ -72,41 +72,39 @@ final class EntriesController: ObservableObject {
         self.passwords = passwords
     }
     
-    private func requestEntries(credentials: Credentials?) {
-        guard let credentials = credentials else {
+    private func requestEntries(session: Session?) {
+        guard let session = session else {
             folders = nil
             passwords = nil
             return
         }
         
-        ListFoldersRequest(credentials: credentials).send {
+        ListFoldersRequest(session: session).send {
             [weak self] folders in
             guard let folders = folders else {
                 self?.error = true
                 return
             }
-            self?.error = false
             self?.folders = folders
         }
-        ListPasswordsRequest(credentials: credentials).send {
+        ListPasswordsRequest(session: session).send {
             [weak self] passwords in
             guard let passwords = passwords else {
                 self?.error = true
                 return
             }
-            self?.error = false
             self?.passwords = passwords
         }
     }
     
     func add(folder: Folder) {
-        guard let credentials = CredentialsController.default.credentials else {
+        guard let session = SessionController.default.session else {
             folder.error = .createError
             return
         }
         folders?.append(folder)
         
-        CreateFolderRequest(credentials: credentials, folder: folder).send {
+        CreateFolderRequest(session: session, folder: folder).send {
             response in
             guard let response = response else {
                 folder.error = .createError
@@ -120,13 +118,13 @@ final class EntriesController: ObservableObject {
     }
     
     func add(password: Password) {
-        guard let credentials = CredentialsController.default.credentials else {
+        guard let session = SessionController.default.session else {
             password.error = .createError
             return
         }
         passwords?.append(password)
         
-        CreatePasswordRequest(credentials: credentials, password: password).send {
+        CreatePasswordRequest(session: session, password: password).send {
             response in
             guard let response = response else {
                 password.error = .createError
@@ -140,12 +138,12 @@ final class EntriesController: ObservableObject {
     }
     
     func update(folder: Folder) {
-        guard let credentials = CredentialsController.default.credentials else {
+        guard let session = SessionController.default.session else {
             folder.error = .editError
             return
         }
         
-        UpdateFolderRequest(credentials: credentials, folder: folder).send {
+        UpdateFolderRequest(session: session, folder: folder).send {
             response in
             guard let response = response else {
                 folder.error = .editError
@@ -159,12 +157,12 @@ final class EntriesController: ObservableObject {
     }
     
     func update(password: Password) {
-        guard let credentials = CredentialsController.default.credentials else {
+        guard let session = SessionController.default.session else {
             password.error = .editError
             return
         }
         
-        UpdatePasswordRequest(credentials: credentials, password: password).send {
+        UpdatePasswordRequest(session: session, password: password).send {
             response in
             guard let response = response else {
                 password.error = .editError
@@ -178,13 +176,13 @@ final class EntriesController: ObservableObject {
     }
     
     func delete(folder: Folder) {
-        guard let credentials = CredentialsController.default.credentials else {
+        guard let session = SessionController.default.session else {
             folder.error = .deleteError
             return
         }
         folders?.removeAll { $0 === folder }
         
-        DeleteFolderRequest(credentials: credentials, folder: folder).send {
+        DeleteFolderRequest(session: session, folder: folder).send {
             [weak self] response in
             guard response != nil else {
                 self?.folders?.append(folder)
@@ -196,13 +194,13 @@ final class EntriesController: ObservableObject {
     }
     
     func delete(password: Password) {
-        guard let credentials = CredentialsController.default.credentials else {
+        guard let session = SessionController.default.session else {
             password.error = .deleteError
             return
         }
         passwords?.removeAll { $0 === password }
         
-        DeletePasswordRequest(credentials: credentials, password: password).send {
+        DeletePasswordRequest(session: session, password: password).send {
             [weak self] response in
             guard response != nil else {
                 self?.passwords?.append(password)

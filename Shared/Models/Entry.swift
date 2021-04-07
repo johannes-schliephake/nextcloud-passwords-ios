@@ -37,6 +37,7 @@ extension Entry {
         case createError
         case editError
         case deleteError
+        case decryptError
     }
     
 }

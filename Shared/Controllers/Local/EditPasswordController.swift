@@ -46,13 +46,13 @@ final class EditPasswordController: ObservableObject {
     }
     
     func generatePassword() {
-        guard let credentials = CredentialsController.default.credentials else {
+        guard let session = SessionController.default.session else {
             showErrorAlert = true
             return
         }
         
         showProgressView = true
-        PasswordServiceRequest(credentials: credentials, numbers: generatorNumbers, special: generatorSpecial).send {
+        PasswordServiceRequest(session: session, numbers: generatorNumbers, special: generatorSpecial).send {
             [weak self] password in
             self?.showProgressView = false
             guard let password = password,
