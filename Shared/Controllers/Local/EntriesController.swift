@@ -98,8 +98,10 @@ final class EntriesController: ObservableObject {
     }
     
     func add(folder: Folder) {
+        folder.state = .creating
+        
         guard let session = SessionController.default.session else {
-            folder.error = .createError
+            folder.state = .creationFailed
             return
         }
         folders?.append(folder)
@@ -107,19 +109,21 @@ final class EntriesController: ObservableObject {
         CreateFolderRequest(session: session, folder: folder).send {
             response in
             guard let response = response else {
-                folder.error = .createError
+                folder.state = .creationFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createFolderErrorMessage".localized)
                 return
             }
-            folder.error = nil
+            folder.state = nil
             folder.id = response.id
             folder.revision = response.revision
         }
     }
     
     func add(password: Password) {
+        password.state = .creating
+        
         guard let session = SessionController.default.session else {
-            password.error = .createError
+            password.state = .creationFailed
             return
         }
         passwords?.append(password)
@@ -127,57 +131,61 @@ final class EntriesController: ObservableObject {
         CreatePasswordRequest(session: session, password: password).send {
             response in
             guard let response = response else {
-                password.error = .createError
+                password.state = .creationFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
                 return
             }
-            password.error = nil
+            password.state = nil
             password.id = response.id
             password.revision = response.revision
         }
     }
     
     func update(folder: Folder) {
+        folder.state = .updating
+        
         guard let session = SessionController.default.session else {
-            folder.error = .editError
+            folder.state = .updateFailed
             return
         }
         
         UpdateFolderRequest(session: session, folder: folder).send {
             response in
             guard let response = response else {
-                folder.error = .editError
+                folder.state = .updateFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editFolderErrorMessage".localized)
                 return
             }
-            folder.error = nil
+            folder.state = nil
             folder.revision = response.revision
         }
-        folder.revision = ""
     }
     
     func update(password: Password) {
+        password.state = .updating
+        
         guard let session = SessionController.default.session else {
-            password.error = .editError
+            password.state = .updateFailed
             return
         }
         
         UpdatePasswordRequest(session: session, password: password).send {
             response in
             guard let response = response else {
-                password.error = .editError
+                password.state = .updateFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
                 return
             }
-            password.error = nil
+            password.state = nil
             password.revision = response.revision
         }
-        password.revision = ""
     }
     
     func delete(folder: Folder) {
+        folder.state = .deleting
+        
         guard let session = SessionController.default.session else {
-            folder.error = .deleteError
+            folder.state = .deletionFailed
             return
         }
         folders?.removeAll { $0 === folder }
@@ -186,7 +194,7 @@ final class EntriesController: ObservableObject {
             [weak self] response in
             guard response != nil else {
                 self?.folders?.append(folder)
-                folder.error = .deleteError
+                folder.state = .deletionFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_deleteFolderErrorMessage".localized)
                 return
             }
@@ -194,8 +202,10 @@ final class EntriesController: ObservableObject {
     }
     
     func delete(password: Password) {
+        password.state = .deleting
+        
         guard let session = SessionController.default.session else {
-            password.error = .deleteError
+            password.state = .deletionFailed
             return
         }
         passwords?.removeAll { $0 === password }
@@ -204,7 +214,7 @@ final class EntriesController: ObservableObject {
             [weak self] response in
             guard response != nil else {
                 self?.passwords?.append(password)
-                password.error = .deleteError
+                password.state = .deletionFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_deletePasswordErrorMessage".localized)
                 return
             }

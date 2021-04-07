@@ -28,7 +28,8 @@ final class Password: ObservableObject, Identifiable {
     @Published var edited: Date
     @Published var created: Date
     @Published var updated: Date
-    @Published var error: Entry.EntryError?
+    
+    @Published var state: Entry.State?
     
     init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: String = "[]", status: Int = 0, statusCode: StatusCode = .good, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
         self.id = id
@@ -100,7 +101,7 @@ final class Password: ObservableObject, Identifiable {
                   let decryptedUrl = Crypto.CSEv1r1.decrypt(payload: url, key: key),
                   let decryptedNotes = Crypto.CSEv1r1.decrypt(payload: notes, key: key),
                   let decryptedCustomFields = Crypto.CSEv1r1.decrypt(payload: customFields, key: key) else {
-                error = .decryptError
+                state = .decryptionFailed
                 return
             }
             label = decryptedLabel
@@ -110,7 +111,7 @@ final class Password: ObservableObject, Identifiable {
             notes = decryptedNotes
             customFields = decryptedCustomFields
         default:
-            error = .decryptError
+            state = .decryptionFailed
         }
     }
     

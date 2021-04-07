@@ -169,7 +169,7 @@ struct EntriesPage: View {
                                     Text("_createPassword")
                                 })
                                 .buttonStyle(ActionButtonStyle())
-                                .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
+                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                             }
                         }
                         Section(header: Text("_all")) {
@@ -281,13 +281,13 @@ struct EntriesPage: View {
     
     private func trailingToolbarView(entries: [Entry]) -> some View {
         HStack {
-            if !folder.isBaseFolder,
-               folder.revision.isEmpty {
-                ProgressView()
-                Spacer()
-            }
-            else if let error = folder.error {
-                errorButton(error: error)
+            if let state = folder.state {
+                if state.isError {
+                    errorButton(state: state)
+                }
+                else if state.isProcessing {
+                    ProgressView()
+                }
                 Spacer()
             }
             filterSortMenu()
@@ -295,25 +295,27 @@ struct EntriesPage: View {
         }
     }
     
-    private func errorButton(error: Entry.EntryError) -> some View {
+    private func errorButton(state: Entry.State) -> some View {
         Button {
             showErrorAlert = true
         }
         label: {
             Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundColor(error == .deleteError ? .gray : .red)
+                .foregroundColor(state == .deletionFailed ? .gray : .red)
         }
         .buttonStyle(BorderlessButtonStyle())
         .alert(isPresented: $showErrorAlert) {
-            switch error {
-            case .createError:
+            switch state {
+            case .creationFailed:
                 return Alert(title: Text("_error"), message: Text("_createFolderErrorMessage"))
-            case .editError:
+            case .updateFailed:
                 return Alert(title: Text("_error"), message: Text("_editFolderErrorMessage"))
-            case .deleteError:
+            case .deletionFailed:
                 return Alert(title: Text("_error"), message: Text("_deleteFolderErrorMessage"))
-            case .decryptError:
+            case .decryptionFailed:
                 return Alert(title: Text("_error"), message: Text("_decryptFolderErrorMessage"))
+            default:
+                return Alert(title: Text("_error"))
             }
         }
     }
@@ -363,13 +365,13 @@ struct EntriesPage: View {
             }, label: {
                 Label("_createFolder", systemImage: "folder")
             })
-            .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
+            .disabled(folder.state?.isProcessing ?? false)
             Button(action: {
                 passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
             }, label: {
                 Label("_createPassword", systemImage: "key")
             })
-            .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
+            .disabled(folder.state?.isProcessing ?? false)
         }
         label: {
             Spacer()
@@ -428,13 +430,14 @@ extension EntriesPage {
                     label: {
                         Label("_favorite", systemImage: folder.favorite ? "star.fill" : "star")
                     }
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Button {
                         editFolder()
                     }
                     label: {
                         Label("_edit", systemImage: "pencil")
                     }
-                    .disabled(folder.revision.isEmpty)
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Divider()
                     Button {
                         deleteFolder()
@@ -458,11 +461,13 @@ extension EntriesPage {
                 labelText()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
-                    if folder.revision.isEmpty {
-                        ProgressView()
-                    }
-                    else if let error = folder.error {
-                        errorButton(error: error)
+                    if let state = folder.state {
+                        if state.isError {
+                            errorButton(state: state)
+                        }
+                        else if state.isProcessing {
+                            ProgressView()
+                        }
                     }
                     if folder.favorite {
                         favoriteImage()
@@ -486,25 +491,27 @@ extension EntriesPage {
             }
         }
         
-        private func errorButton(error: Entry.EntryError) -> some View {
+        private func errorButton(state: Entry.State) -> some View {
             Button {
                 showErrorAlert = true
             }
             label: {
                 Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(error == .deleteError ? .gray : .red)
+                    .foregroundColor(state == .deletionFailed ? .gray : .red)
             }
             .buttonStyle(BorderlessButtonStyle())
             .alert(isPresented: $showErrorAlert) {
-                switch error {
-                case .createError:
+                switch state {
+                case .creationFailed:
                     return Alert(title: Text("_error"), message: Text("_createFolderErrorMessage"))
-                case .editError:
+                case .updateFailed:
                     return Alert(title: Text("_error"), message: Text("_editFolderErrorMessage"))
-                case .deleteError:
+                case .deletionFailed:
                     return Alert(title: Text("_error"), message: Text("_deleteFolderErrorMessage"))
-                case .decryptError:
+                case .decryptionFailed:
                     return Alert(title: Text("_error"), message: Text("_decryptFolderErrorMessage"))
+                default:
+                    return Alert(title: Text("_error"))
                 }
             }
         }
@@ -517,7 +524,10 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
+            folder.state = .updating
+            
             guard let session = SessionController.default.session else {
+                folder.state = .updateFailed
                 return
             }
             folder.favorite.toggle()
@@ -525,15 +535,15 @@ extension EntriesPage {
             UpdateFolderRequest(session: session, folder: folder).send {
                 response in
                 guard let response = response else {
+                    folder.state = .updateFailed
                     folder.favorite.toggle()
                     return
                 }
-                folder.error = nil
+                folder.state = nil
                 folder.revision = response.revision
                 folder.edited = Date()
                 folder.updated = Date()
             }
-            folder.revision = ""
         }
         
     }
@@ -595,6 +605,7 @@ extension EntriesPage {
                     label: {
                         Label("_favorite", systemImage: password.favorite ? "star.fill" : "star")
                     }
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     if password.editable {
                         Button {
                             editPassword()
@@ -602,7 +613,7 @@ extension EntriesPage {
                         label: {
                             Label("_edit", systemImage: "pencil")
                         }
-                        .disabled(password.revision.isEmpty)
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
                     Divider()
                     Button {
@@ -661,11 +672,13 @@ extension EntriesPage {
                 labelStack()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
-                    if password.revision.isEmpty {
-                        ProgressView()
-                    }
-                    else if let error = password.error {
-                        errorButton(error: error)
+                    if let state = password.state {
+                        if state.isError {
+                            errorButton(state: state)
+                        }
+                        else if state.isProcessing {
+                            ProgressView()
+                        }
                     }
                     if password.favorite {
                         favoriteImage()
@@ -703,25 +716,27 @@ extension EntriesPage {
             }
         }
         
-        private func errorButton(error: Entry.EntryError) -> some View {
+        private func errorButton(state: Entry.State) -> some View {
             Button {
                 showErrorAlert = true
             }
             label: {
                 Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(error == .deleteError ? .gray : .red)
+                    .foregroundColor(state == .deletionFailed ? .gray : .red)
             }
             .buttonStyle(BorderlessButtonStyle())
             .alert(isPresented: $showErrorAlert) {
-                switch error {
-                case .createError:
+                switch state {
+                case .creationFailed:
                     return Alert(title: Text("_error"), message: Text("_createPasswordErrorMessage"))
-                case .editError:
+                case .updateFailed:
                     return Alert(title: Text("_error"), message: Text("_editPasswordErrorMessage"))
-                case .deleteError:
+                case .deletionFailed:
                     return Alert(title: Text("_error"), message: Text("_deletePasswordErrorMessage"))
-                case .decryptError:
+                case .decryptionFailed:
                     return Alert(title: Text("_error"), message: Text("_decryptPasswordErrorMessage"))
+                default:
+                    return Alert(title: Text("_error"))
                 }
             }
         }
@@ -748,7 +763,10 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
+            password.state = .updating
+            
             guard let session = SessionController.default.session else {
+                password.state = .updateFailed
                 return
             }
             password.favorite.toggle()
@@ -756,14 +774,14 @@ extension EntriesPage {
             UpdatePasswordRequest(session: session, password: password).send {
                 response in
                 guard let response = response else {
+                    password.state = .updateFailed
                     password.favorite.toggle()
                     return
                 }
-                password.error = nil
+                password.state = nil
                 password.revision = response.revision
                 password.updated = Date()
             }
-            password.revision = ""
         }
         
         private func requestFavicon() {
