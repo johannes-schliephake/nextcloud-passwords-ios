@@ -14,7 +14,7 @@ struct EntriesNavigation: View {
         NavigationView {
             EntriesPage(entriesController: entriesController)
         }
-        .showColumns(sessionController.session != nil)
+        .showColumns(sessionController.session != nil && !sessionController.challengeAvailable)
         .occlude(!biometricAuthenticationController.isUnlocked)
     }
     

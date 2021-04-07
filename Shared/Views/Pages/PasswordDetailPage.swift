@@ -31,6 +31,12 @@ struct PasswordDetailPage: View {
                     }
                 }
             }
+            .onChange(of: sessionController.challengeAvailable) {
+                challengeAvailable in
+                if challengeAvailable {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }
     }
     
     private func mainStack() -> some View {

@@ -144,6 +144,7 @@ struct EntriesPage: View {
             .disabled(challengePassword.count < 12)
         }
         .listStyle(InsetGroupedListStyle())
+        .frame(maxWidth: 600)
     }
     
     private func listView(entries: [Entry], suggestions: [Password]?) -> some View {

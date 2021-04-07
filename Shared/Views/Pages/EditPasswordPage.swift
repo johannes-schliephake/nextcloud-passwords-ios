@@ -5,6 +5,7 @@ struct EditPasswordPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @EnvironmentObject private var sessionController: SessionController
     
     @StateObject private var editPasswordController: EditPasswordController
     @ScaledMetric private var sliderLabelWidth: CGFloat = 87
@@ -27,6 +28,12 @@ struct EditPasswordPage: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
+                }
+            }
+            .onChange(of: sessionController.challengeAvailable) {
+                challengeAvailable in
+                if challengeAvailable {
+                    presentationMode.wrappedValue.dismiss()
                 }
             }
     }
