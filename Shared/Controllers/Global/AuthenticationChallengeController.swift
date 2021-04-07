@@ -24,7 +24,9 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
         super.init()
         
         acceptedCertificateHash = Keychain.default.load(key: "acceptedCertificateHash")
-        SessionController.default.$session.sink(receiveValue: clearAcceptedCertificateHash).store(in: &subscriptions)
+        SessionController.default.$session
+            .sink(receiveValue: clearAcceptedCertificateHash)
+            .store(in: &subscriptions)
     }
     
     func clearAcceptedCertificateHash(session: Session? = nil) {

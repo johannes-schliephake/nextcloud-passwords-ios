@@ -13,7 +13,9 @@ final class EntriesController: ObservableObject {
         didSet {
             folders?.forEach {
                 folder in
-                folder.objectWillChange.sink { [weak self] in self?.objectWillChange.send() }.store(in: &foldersSubscriptions)
+                folder.objectWillChange
+                    .sink { [weak self] in self?.objectWillChange.send() }
+                    .store(in: &foldersSubscriptions)
             }
         }
     }
@@ -25,7 +27,9 @@ final class EntriesController: ObservableObject {
         didSet {
             passwords?.forEach {
                 password in
-                password.objectWillChange.sink { [weak self] in self?.objectWillChange.send() }.store(in: &passwordsSubscriptions)
+                password.objectWillChange
+                    .sink { [weak self] in self?.objectWillChange.send() }
+                    .store(in: &passwordsSubscriptions)
             }
         }
     }
@@ -64,7 +68,9 @@ final class EntriesController: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
-        SessionController.default.$session.sink(receiveValue: requestEntries).store(in: &subscriptions)
+        SessionController.default.$session
+            .sink(receiveValue: requestEntries)
+            .store(in: &subscriptions)
     }
     
     private init(folders: [Folder], passwords: [Password]) {

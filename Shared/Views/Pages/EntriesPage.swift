@@ -40,7 +40,10 @@ struct EntriesPage: View {
                     leadingToolbarView()
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if let entries = entries {
+                    if sessionController.session != nil,
+                       !entriesController.error && !sessionController.error,
+                       !sessionController.challengeAvailable,
+                       let entries = entries {
                         trailingToolbarView(entries: entries)
                     }
                 }
