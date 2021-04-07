@@ -89,10 +89,13 @@ struct EditPasswordPage: View {
                         .foregroundColor(.gray)
                     Spacer()
                     if hidePassword {
-                        TextField("-", text: .constant("••••••••••••"))
-                            .foregroundColor(.primary)
-                            .font(.system(.body, design: .monospaced))
-                            .disabled(true)
+                        ZStack(alignment: .leading) {
+                            TextField("", text: .constant(""))
+                                .font(.system(.body, design: .monospaced))
+                                .disabled(true)
+                            SecureField("-", text: $editPasswordController.passwordPassword)
+                                .foregroundColor(.primary)
+                        }
                     }
                     else {
                         TextField("-", text: $editPasswordController.passwordPassword)
@@ -101,6 +104,7 @@ struct EditPasswordPage: View {
                             .disableAutocorrection(true)
                     }
                 }
+                .animation(nil)
                 Spacer()
                 Button {
                     hidePassword.toggle()
