@@ -21,6 +21,7 @@
 "_decryptFolderErrorMessage" = "An error occurred while decrypting the folder.";
 "_decryptPasswordErrorMessage" = "An error occurred while decrypting the password.";
 "_delete" = "Delete";
+"_deletedPasswordMessage" = "This password was deleted.";
 "_deleteFolder" = "Delete Folder";
 "_deleteFolderErrorMessage" = "An error occurred while deleting the folder. Please delete the folder again.";
 "_deletePassword" = "Delete Password";

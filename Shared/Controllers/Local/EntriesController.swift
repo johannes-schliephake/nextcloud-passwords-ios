@@ -215,6 +215,7 @@ final class EntriesController: ObservableObject {
             return
         }
         passwords?.removeAll { $0 === password }
+        NotificationCenter.default.post(name: Notification.Name("deletePassword"), object: password)
         
         DeletePasswordRequest(session: session, password: password).send {
             [weak self] response in

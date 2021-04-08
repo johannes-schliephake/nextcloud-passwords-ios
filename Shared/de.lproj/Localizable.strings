@@ -21,6 +21,7 @@
 "_decryptFolderErrorMessage" = "Beim Entschlüsseln des Ordners ist ein Fehler aufgetreten.";
 "_decryptPasswordErrorMessage" = "Beim Entschlüsseln des Passworts ist ein Fehler aufgetreten.";
 "_delete" = "Löschen";
+"_deletedPasswordMessage" = "Dieses Passwort wurde gelöscht.";
 "_deleteFolder" = "Ordner löschen";
 "_deleteFolderErrorMessage" = "Beim Löschen des Ordners ist ein Fehler aufgetreten. Bitte lösche den Ordner nochmals.";
 "_deletePassword" = "Passwort löschen";
