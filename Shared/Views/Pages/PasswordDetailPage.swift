@@ -18,25 +18,45 @@ struct PasswordDetailPage: View {
     @State private var showDeleteAlert = false
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
+    @State private var passwordDeleted = false
     
     // MARK: Views
     
     var body: some View {
-        mainStack()
-            .navigationTitle(password.label)
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    if password.editable {
-                        trailingToolbarView()
+        if passwordDeleted && UIDevice.current.userInterfaceIdiom == .pad {
+            deletedView()
+        }
+        else {
+            mainStack()
+                .navigationTitle(password.label)
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        if password.editable {
+                            trailingToolbarView()
+                        }
                     }
                 }
-            }
-            .onChange(of: sessionController.challengeAvailable) {
-                challengeAvailable in
-                if challengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
+                .onChange(of: sessionController.challengeAvailable) {
+                    challengeAvailable in
+                    if challengeAvailable {
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }
-            }
+                .onReceive(NotificationCenter.default.publisher(for: Notification.Name("deletePassword"), object: password)) {
+                    _ in
+                    /// Clear password detail page on iPad when password was deleted (SwiftUI doesn't close view when NavigationLink is removed)
+                    /// This has to be done with a notification because a password can also be deleted from the EntriesPage
+                    passwordDeleted = true
+                }
+        }
+    }
+    
+    private func deletedView() -> some View {
+        VStack {
+            Text("_deletedPasswordMessage")
+                .foregroundColor(.gray)
+                .padding()
+        }
     }
     
     private func mainStack() -> some View {
