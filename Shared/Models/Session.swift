@@ -16,16 +16,10 @@ final class Session: ObservableObject {
     private var pendingRequests = [() -> Void]() {
         didSet {
             if oldValue.isEmpty && !pendingRequests.isEmpty {
-                DispatchQueue.main.async {
-                    [self] in
-                    pendingRequestsAvailable = true
-                }
+                pendingRequestsAvailable = true
             }
             else if !oldValue.isEmpty && pendingRequests.isEmpty {
-                DispatchQueue.main.async {
-                    [self] in
-                    pendingRequestsAvailable = false
-                }
+                pendingRequestsAvailable = false
             }
         }
     }
@@ -41,7 +35,10 @@ final class Session: ObservableObject {
     }
     
     func append(pendingRequest: @escaping () -> Void) {
-        pendingRequests.append(pendingRequest)
+        DispatchQueue.main.async {
+            [self] in
+            pendingRequests.append(pendingRequest)
+        }
     }
     
     func runPendingRequests() {
