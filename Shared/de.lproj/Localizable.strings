@@ -71,6 +71,7 @@
 "_reject" = "Ablehnen";
 "_security" = "Sicherheit";
 "_select" = "Auswählen";
+"_serverAddressFieldMessage" = "Eine HTTPS-Verbindung ist erforderlich.";
 "_service" = "Dienst";
 "_settings" = "Einstellungen";
 "_sourceCode" = "Quellcode";

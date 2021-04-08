@@ -71,6 +71,7 @@
 "_reject" = "Deny";
 "_security" = "Security";
 "_select" = "Select";
+"_serverAddressFieldMessage" = "An HTTPS connection is required.";
 "_service" = "Service";
 "_settings" = "Settings";
 "_sourceCode" = "Source Code";
