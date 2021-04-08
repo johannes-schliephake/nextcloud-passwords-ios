@@ -37,7 +37,7 @@ struct ServerSetupPage: View {
     }
     
     private func serverAddressField() -> some View {
-        Section(header: Text("_nextcloudServerAddress")) {
+        Section(header: Text("_nextcloudServerAddress"), footer: serverAddressFieldFooter()) {
             HStack {
                 TextField("-", text: $serverSetupController.serverAddress, onCommit: {
                     openLoginFlowPage()
@@ -51,6 +51,13 @@ struct ServerSetupPage: View {
                 }
             }
         }
+    }
+    
+    private func serverAddressFieldFooter() -> some View {
+        Text("_serverAddressFieldMessage")
+            .font(.footnote)
+            .foregroundColor(.gray)
+            .padding(.vertical, 6)
     }
     
     private func cancelButton() -> some View {

@@ -43,20 +43,19 @@ extension LoginFlowPage {
             webView.customUserAgent = Configuration.clientName
             webView.isOpaque = false
             webView.navigationDelegate = AuthenticationChallengeController.default
-            return webView
-        }
-        
-        func updateUIView(_ webView: BottomlessWKWebView, context: Context) {
-            guard let language = NSLocale.preferredLanguages.first else {
-                return
-            }
             
             let url = serverUrl.appendingPathComponent("index.php/login/flow")
             var request = URLRequest(url: url)
             request.addValue("true", forHTTPHeaderField: "OCS-APIREQUEST")
-            request.addValue(language, forHTTPHeaderField: "Accept-Language")
+            if let language = NSLocale.preferredLanguages.first {
+                request.addValue(language, forHTTPHeaderField: "Accept-Language")
+            }
             webView.load(request)
+            
+            return webView
         }
+        
+        func updateUIView(_ webView: BottomlessWKWebView, context: Context) {}
         
     }
     
