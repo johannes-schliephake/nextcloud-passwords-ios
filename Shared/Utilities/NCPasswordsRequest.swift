@@ -60,13 +60,13 @@ extension NCPasswordsRequest {
     }
     
     private func send(action: String, method: String, session: Session, completion: @escaping (ResultType?) -> Void) {
-        DispatchQueue.global(qos: .utility).async {
-            guard session.isValid else {
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-                return
+        guard session.isValid else {
+            DispatchQueue.main.async {
+                completion(nil)
             }
+            return
+        }
+        DispatchQueue.global(qos: .utility).async {
             guard !requiresSession || session.sessionID != nil else {
                 session.append {
                     send(completion: completion)

@@ -35,6 +35,7 @@ final class SessionController: ObservableObject {
                     }
                     self?.session = nil
                     if invalidationReason == .deauthorization {
+                        AuthenticationChallengeController.default.clearAcceptedCertificateHash()
                         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                             UIAlertController.presentGlobalAlert(title: "_appDeauthorized".localized, message: "_appDeauthorizedMessage".localized)
                         }
@@ -165,7 +166,7 @@ final class SessionController: ObservableObject {
         guard let session = session else {
             return
         }
-        CloseSessionRequest(session: session).send { _ in }
+        CloseSessionRequest(session: session).send { _ in AuthenticationChallengeController.default.clearAcceptedCertificateHash() }
         session.invalidate(reason: .logout)
         Keychain.default.remove(key: "challengePassword")
     }
