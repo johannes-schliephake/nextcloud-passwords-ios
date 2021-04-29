@@ -10,6 +10,7 @@ struct SettingsPage: View {
     @EnvironmentObject private var tipController: TipController
     
     @AppStorage("storeOffline", store: Configuration.userDefaults) private var storeOffline = Configuration.defaults["storeOffline"] as! Bool // swiftlint:disable:this force_cast
+    @AppStorage("automaticallyGeneratePasswords", store: Configuration.userDefaults) private var automaticallyGeneratePasswords = Configuration.defaults["automaticallyGeneratePasswords"] as! Bool // swiftlint:disable:this force_cast
     @State private var showLogoutAlert = false
     
     // MARK: Views
@@ -71,6 +72,7 @@ struct SettingsPage: View {
     private func optionsSection() -> some View {
         Section(header: Text("_options")) {
             Toggle("_encryptedOfflineStorage", isOn: $storeOffline)
+            Toggle("_automaticallyGeneratePasswords", isOn: $automaticallyGeneratePasswords)
         }
     }
     

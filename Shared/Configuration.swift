@@ -4,6 +4,7 @@ import Foundation
 enum Configuration {
     
     static let defaults: [String: Any] = [
+        "automaticallyGeneratePasswords": true,
         "storeOffline": true
     ]
     
