@@ -12,7 +12,9 @@ struct CreatePasswordRequest {
 extension CreatePasswordRequest: NCPasswordsRequest {
     
     func encode() throws -> Data? {
-        try JSONEncoder().encode(password)
+        let encoder = JSONEncoder()
+        encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] = true
+        return try encoder.encode(password)
     }
     
     func send(completion: @escaping (Response?) -> Void) {

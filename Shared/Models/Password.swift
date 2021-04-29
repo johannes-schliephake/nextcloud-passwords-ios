@@ -10,26 +10,31 @@ final class Password: ObservableObject, Identifiable {
     @Published var url: String
     @Published var notes: String
     var customFields: String
-    let status: Int
-    let statusCode: StatusCode
+    var status: Int
+    var statusCode: StatusCode
     var hash: String
     var folder: String
-    @Published var revision: String
-    let share: String?
-    let shared: Bool
+    var revision: String {
+        didSet {
+            updateOfflineContainer()
+        }
+    }
+    var share: String?
+    var shared: Bool
     var cseType: String
     var cseKey: String
-    let sseType: String
-    let client: String
+    var sseType: String
+    var client: String
     var hidden: Bool
-    let trashed: Bool
+    var trashed: Bool
     @Published var favorite: Bool
-    let editable: Bool
+    var editable: Bool
     @Published var edited: Date
     @Published var created: Date
     @Published var updated: Date
     
     @Published var state: Entry.State?
+    var offlineContainer: OfflineContainer?
     
     init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: String = "[]", status: Int = 0, statusCode: StatusCode = .good, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
         self.id = id
@@ -128,6 +133,54 @@ final class Password: ObservableObject, Identifiable {
         return folders.first { [self] in $0.id == self.folder }?.isDescendentOf(folder: folder, in: folders) ?? false
     }
     
+    func update(from password: Password) {
+        guard id == password.id,
+              revision != password.revision else {
+            return
+        }
+        
+        label = password.label
+        username = password.username
+        self.password = password.password
+        url = password.url
+        notes = password.notes
+        customFields = password.customFields
+        status = password.status
+        statusCode = password.statusCode
+        hash = password.hash
+        folder = password.folder
+        share = password.share
+        shared = password.shared
+        cseType = password.cseType
+        cseKey = password.cseKey
+        sseType = password.sseType
+        client = password.client
+        hidden = password.hidden
+        trashed = password.trashed
+        favorite = password.favorite
+        editable = password.editable
+        edited = password.edited
+        created = password.created
+        updated = password.updated
+        
+        state = password.state
+        revision = password.revision
+    }
+    
+    func updateOfflineContainer() {
+        if revision.isEmpty || !Configuration.userDefaults.bool(forKey: "storeOffline") {
+            CoreData.default.delete(offlineContainer)
+            offlineContainer = nil
+        }
+        else if let offlineContainer = offlineContainer {
+            offlineContainer.update(from: self)
+        }
+        else {
+            offlineContainer = OfflineContainer(context: CoreData.default.context, password: self)
+        }
+        CoreData.default.save()
+    }
+    
 }
 
 
@@ -164,7 +217,11 @@ extension Password: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        if let keychain = SessionController.default.session?.keychain {
+        
+        
+        if let keychain = SessionController.default.session?.keychain,
+           state != .decryptionFailed,
+           cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true {
             guard let key = keychain.keys[keychain.current],
                   let encryptedLabel = Crypto.CSEv1r1.encrypt(unencrypted: label, key: key),
                   let encryptedUsername = Crypto.CSEv1r1.encrypt(unencrypted: username, key: key),

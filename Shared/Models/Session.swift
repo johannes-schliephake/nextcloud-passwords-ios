@@ -8,10 +8,11 @@ final class Session: ObservableObject {
     let password: String
     
     @Published private(set) var pendingRequestsAvailable = false
+    @Published private(set) var pendingCompletionsAvailable = false
     @Published private(set) var invalidationReason: InvalidationReason?
     
     var sessionID: String?
-    var keychain: Crypto.Keychain?
+    var keychain: Crypto.CSEv1r1.Keychain?
     
     private var pendingRequests = [() -> Void]() {
         didSet {
@@ -20,6 +21,16 @@ final class Session: ObservableObject {
             }
             else if !oldValue.isEmpty && pendingRequests.isEmpty {
                 pendingRequestsAvailable = false
+            }
+        }
+    }
+    private var pendingCompletions = [() -> Void]() {
+        didSet {
+            if oldValue.isEmpty && !pendingRequests.isEmpty {
+                pendingCompletionsAvailable = true
+            }
+            else if !oldValue.isEmpty && pendingRequests.isEmpty {
+                pendingCompletionsAvailable = false
             }
         }
     }
@@ -41,9 +52,23 @@ final class Session: ObservableObject {
         }
     }
     
+    func append(pendingCompletion: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            [self] in
+            pendingCompletions.append(pendingCompletion)
+        }
+    }
+    
     func runPendingRequests() {
         pendingRequests.forEach { $0() }
         pendingRequests.removeAll()
+        pendingCompletions.forEach { $0() }
+        pendingCompletions.removeAll()
+    }
+    
+    func runPendingCompletions() {
+        pendingCompletions.forEach { $0() }
+        pendingCompletions.removeAll()
     }
     
     func invalidate(reason: InvalidationReason) {

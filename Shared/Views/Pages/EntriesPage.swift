@@ -41,8 +41,9 @@ struct EntriesPage: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if sessionController.session != nil,
-                       !entriesController.error && !sessionController.error,
+                       entriesController.state != .error && (!sessionController.error || entriesController.state == .offline),
                        !sessionController.challengeAvailable,
+                       entriesController.state == .offline || entriesController.state == .online,
                        let entries = entries {
                         trailingToolbarView(entries: entries)
                     }
@@ -56,13 +57,14 @@ struct EntriesPage: View {
             if sessionController.session == nil {
                 connectView()
             }
-            else if entriesController.error || sessionController.error {
+            else if entriesController.state == .error || sessionController.error && entriesController.state != .offline {
                 errorView()
             }
             else if sessionController.challengeAvailable {
                 challengeView()
             }
-            else if let entries = entries {
+            else if entriesController.state == .offline || entriesController.state == .online,
+                    let entries = entries {
                 listView(entries: entries, suggestions: suggestions)
                     .searchBar(term: $searchTerm)
             }
@@ -71,11 +73,13 @@ struct EntriesPage: View {
             }
             EmptyView()
                 .sheet(isPresented: $showSettingsView) {
-                    SettingsNavigation()
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(sessionController)
-                        .environmentObject(tipController)
+                    SettingsNavigation(updateOfflineContainers: {
+                        entriesController.updateOfflineContainers()
+                    })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(tipController)
                 }
         }
     }
@@ -234,6 +238,7 @@ struct EntriesPage: View {
             }, deletePassword: {
                 passwordForDeletion = password
             })
+            .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
         .onDelete {
             indices in
@@ -246,17 +251,21 @@ struct EntriesPage: View {
             entry -> AnyView in
             switch entry {
             case .folder(let folder):
-                return AnyView(FolderRow(entriesController: entriesController, folder: folder, editFolder: {
+                let folderRow = FolderRow(entriesController: entriesController, folder: folder, editFolder: {
                     folderForEditing = folder
                 }, deleteFolder: {
                     folderForDeletion = folder
-                }))
+                })
+                .deleteDisabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                return AnyView(folderRow)
             case .password(let password):
-                return AnyView(PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
+                let passwordRow = PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
                     passwordForEditing = password
                 }, deletePassword: {
                     passwordForDeletion = password
-                }))
+                })
+                .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                return AnyView(passwordRow)
             }
         }
         .onDelete {
@@ -368,18 +377,17 @@ struct EntriesPage: View {
             }, label: {
                 Label("_createFolder", systemImage: "folder")
             })
-            .disabled(folder.state?.isProcessing ?? false)
             Button(action: {
                 passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
             }, label: {
                 Label("_createPassword", systemImage: "key")
             })
-            .disabled(folder.state?.isProcessing ?? false)
         }
         label: {
             Spacer()
             Image(systemName: "plus")
         }
+        .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
     }
     
     // MARK: Functions
@@ -433,14 +441,14 @@ extension EntriesPage {
                     label: {
                         Label("_favorite", systemImage: folder.favorite ? "star.fill" : "star")
                     }
-                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Button {
                         editFolder()
                     }
                     label: {
                         Label("_edit", systemImage: "pencil")
                     }
-                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Divider()
                     Button {
                         deleteFolder()
@@ -448,6 +456,7 @@ extension EntriesPage {
                     label: {
                         Label("_delete", systemImage: "trash")
                     }
+                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 }
         }
         
@@ -608,7 +617,7 @@ extension EntriesPage {
                     label: {
                         Label("_favorite", systemImage: password.favorite ? "star.fill" : "star")
                     }
-                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     if password.editable {
                         Button {
                             editPassword()
@@ -616,7 +625,7 @@ extension EntriesPage {
                         label: {
                             Label("_edit", systemImage: "pencil")
                         }
-                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
                     Divider()
                     Button {
@@ -625,6 +634,7 @@ extension EntriesPage {
                     label: {
                         Label("_delete", systemImage: "trash")
                     }
+                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
         }
         
@@ -647,7 +657,7 @@ extension EntriesPage {
                         Image(systemName: "info.circle")
                     }
                     .buttonStyle(BorderlessButtonStyle())
-                    NavigationLink(destination: PasswordDetailPage(password: password, updatePassword: {
+                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
                         entriesController.update(password: password)
                     }, deletePassword: {
                         entriesController.delete(password: password)
@@ -657,7 +667,7 @@ extension EntriesPage {
                     .opacity(0)
                 }
                 else {
-                    NavigationLink(destination: PasswordDetailPage(password: password, updatePassword: {
+                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
                         entriesController.update(password: password)
                     }, deletePassword: {
                         entriesController.delete(password: password)

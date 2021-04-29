@@ -12,7 +12,13 @@ final class SessionController: ObservableObject {
                 Keychain.default.remove(key: "server")
                 Keychain.default.remove(key: "user")
                 Keychain.default.remove(key: "password")
+                challengeAvailable = false
+                error = false
+                challenge = nil
+                cachedChallengePassword = nil
                 subscriptions.removeAll()
+                Keychain.default.remove(key: "challengePassword")
+                Keychain.default.remove(key: "offlineKeychain")
                 return
             }
             Keychain.default.store(key: "server", value: session.server)
@@ -24,6 +30,14 @@ final class SessionController: ObservableObject {
                     [weak self] pendingRequestsAvailable in
                     if pendingRequestsAvailable {
                         self?.requestSession()
+                    }
+                }
+                .store(in: &subscriptions)
+            session.$pendingCompletionsAvailable
+                .sink {
+                    [weak self] pendingCompletionsAvailable in
+                    if pendingCompletionsAvailable {
+                        self?.requestKeychain()
                     }
                 }
                 .store(in: &subscriptions)
@@ -48,6 +62,17 @@ final class SessionController: ObservableObject {
     @Published private(set) var error = false
     
     private var challenge: Crypto.PWDv1r1.Challenge?
+    private var cachedChallengePassword: String? {
+        willSet {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(15)) {
+                [weak self] in
+                guard newValue == self?.cachedChallengePassword else {
+                    return
+                }
+                self?.cachedChallengePassword = nil
+            }
+        }
+    }
     private var keepaliveTimer: Timer?
     private var subscriptions = Set<AnyCancellable>()
     
@@ -85,22 +110,60 @@ final class SessionController: ObservableObject {
             self?.challenge = challenge
             self?.challengeAvailable = true
             
-            if let challengePassword = Keychain.default.load(key: "challengePassword") {
+            if let challengePassword = Keychain.default.load(key: "challengePassword") ?? self?.cachedChallengePassword {
                 self?.solveChallenge(password: challengePassword)
             }
         }
     }
     
-    func solveChallenge(password: String, store: Bool = false) {
-        challengeAvailable = false
+    private func requestKeychain() {
+        guard let session = session else {
+            return
+        }
         
-        guard let challenge = challenge,
-              let solution = Crypto.PWDv1r1.solve(challenge: challenge, password: password) else {
+        guard session.keychain == nil,
+              Keychain.default.load(key: "offlineKeychain") != nil else {
+            session.runPendingCompletions()
+            return
+        }
+        
+        challengeAvailable = true
+        
+        if let challengePassword = Keychain.default.load(key: "challengePassword") ?? cachedChallengePassword {
+            solveChallenge(password: challengePassword)
+        }
+    }
+    
+    func solveChallenge(password: String, store: Bool = false) {
+        guard let session = session else {
             error = true
             return
         }
         
-        openSession(password: password, solution: solution, store: store)
+        challengeAvailable = false
+        
+        if let challenge = challenge {
+            guard let solution = Crypto.PWDv1r1.solve(challenge: challenge, password: password) else {
+                error = true
+                return
+            }
+            openSession(password: password, solution: solution, store: store)
+        }
+        else if let offlineKeychain = Keychain.default.load(key: "offlineKeychain") {
+            guard let keychain = Crypto.CSEv1r1.decrypt(keys: offlineKeychain, password: password) else {
+                challengeAvailable = true
+                Keychain.default.remove(key: "challengePassword")
+                UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
+                return
+            }
+            session.keychain = keychain
+            cachedChallengePassword = password
+            if store {
+                Keychain.default.store(key: "challengePassword", value: password)
+            }
+            
+            session.runPendingCompletions()
+        }
     }
     
     private func openSession(password: String? = nil, solution: String? = nil, store: Bool? = nil) {
@@ -125,8 +188,10 @@ final class SessionController: ObservableObject {
                     UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
                     return
                 }
+                Keychain.default.store(key: "offlineKeychain", value: keys)
                 let keychain = Crypto.CSEv1r1.decrypt(keys: keys, password: password)
                 session.keychain = keychain
+                self?.cachedChallengePassword = password
                 if store {
                     Keychain.default.store(key: "challengePassword", value: password)
                 }
@@ -168,7 +233,6 @@ final class SessionController: ObservableObject {
         }
         CloseSessionRequest(session: session).send { _ in AuthenticationChallengeController.default.clearAcceptedCertificateHash() }
         session.invalidate(reason: .logout)
-        Keychain.default.remove(key: "challengePassword")
     }
     
 }
