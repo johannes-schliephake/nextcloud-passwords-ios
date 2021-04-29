@@ -4,7 +4,7 @@ import SwiftUI
 
 final class EntriesController: ObservableObject {
     
-    @Published private(set) var error = false
+    @Published private(set) var state: State = .loading
     @Published private(set) var folders: [Folder]? {
         /// Extend @Published behaviour to array elements
         willSet {
@@ -82,25 +82,201 @@ final class EntriesController: ObservableObject {
         guard let session = session else {
             folders = nil
             passwords = nil
+            state = .loading
+            Crypto.AES256.removeKey(named: "offlineKey")
+            CoreData.default.clear(type: OfflineContainer.self)
             return
         }
         
-        ListFoldersRequest(session: session).send {
-            [weak self] folders in
-            guard let folders = folders else {
-                self?.error = true
+        let listFoldersRequest = Future<[Folder], NCPasswordsRequestError> {
+            promise in
+            ListFoldersRequest(session: session).send {
+                folders in
+                guard let folders = folders else {
+                    promise(.failure(.requestError))
+                    return
+                }
+                promise(.success(folders))
+            }
+        }
+        let listPasswordsRequest = Future<[Password], NCPasswordsRequestError> {
+            promise in
+            ListPasswordsRequest(session: session).send {
+                passwords in
+                guard let passwords = passwords else {
+                    promise(.failure(.requestError))
+                    return
+                }
+                promise(.success(passwords))
+            }
+        }
+        Publishers.Zip(listFoldersRequest, listPasswordsRequest).sink(receiveCompletion: {
+            [weak self] result in
+            switch result {
+            case .failure(.requestError):
+                if self?.state != .offline {
+                    self?.state = .error
+                }
+            default:
+                break
+            }
+        }, receiveValue: {
+            [weak self] folders, passwords in
+            self?.merge(folders: folders, passwords: passwords)
+        })
+        .store(in: &subscriptions)
+        
+        session.append(pendingCompletion: {
+            [weak self] in
+            self?.fetchOfflineEntries()
+        })
+    }
+    
+    private func fetchOfflineEntries() {
+        DispatchQueue.global(qos: .utility).async {
+            [weak self] in
+            let request = OfflineContainer.request()
+            guard let offlineContainers = CoreData.default.fetch(request: request) else {
+                DispatchQueue.main.async {
+                    CoreData.default.clear(type: OfflineContainer.self)
+                    self?.merge(folders: [], passwords: [], offline: true)
+                }
                 return
             }
-            self?.folders = folders
-        }
-        ListPasswordsRequest(session: session).send {
-            [weak self] passwords in
-            guard let passwords = passwords else {
-                self?.error = true
-                return
+            
+            let key = Crypto.AES256.getKey(named: "offlineKey")
+            let entries = try? Crypto.AES256.decrypt(offlineContainers: offlineContainers, key: key)
+            
+            DispatchQueue.main.async {
+                guard let (folders, passwords) = entries else {
+                    CoreData.default.clear(type: OfflineContainer.self)
+                    self?.merge(folders: [], passwords: [], offline: true)
+                    return
+                }
+                self?.merge(folders: folders, passwords: passwords, offline: true)
             }
-            self?.passwords = passwords
         }
+    }
+    
+    private func merge(folders: [Folder], passwords: [Password], offline: Bool = false) {
+        guard SessionController.default.session != nil else {
+            return
+        }
+        
+        if !offline {
+            state = .online
+        }
+        else if state != .online,
+                !folders.isEmpty || !passwords.isEmpty {
+            state = .offline
+        }
+        
+        if self.folders == nil {
+            self.folders = folders
+        }
+        else if let existingFolders = self.folders {
+            let onlineFolders = offline ? existingFolders : folders
+            let offlineFolders = offline ? folders : existingFolders
+            
+            let onlineFolderIDs = Set(onlineFolders.map { $0.id })
+            let offlineFolderIDs = Set(offlineFolders.map { $0.id })
+            
+            let deletedFolderIDs = offlineFolderIDs.subtracting(onlineFolderIDs)
+            let updatedFolderIDs = onlineFolderIDs.intersection(offlineFolderIDs)
+            let addedFolderIDs = onlineFolderIDs.subtracting(offlineFolderIDs)
+            
+            let deletedFolders = offlineFolders.filter { deletedFolderIDs.contains($0.id) }
+            let updatedFolderPairs = zip(offlineFolders.filter { updatedFolderIDs.contains($0.id) }, onlineFolders.filter { updatedFolderIDs.contains($0.id) })
+            let addedFolders = onlineFolders.filter { addedFolderIDs.contains($0.id) }
+            
+            if offline {
+                deletedFolders.forEach {
+                    offlineFolder in
+                    offlineFolder.revision = ""
+                }
+                updatedFolderPairs.forEach {
+                    offlineFolder, onlineFolder in
+                    onlineFolder.offlineContainer = offlineFolder.offlineContainer
+                    onlineFolder.updateOfflineContainer()
+                }
+                addedFolders.forEach {
+                    onlineFolder in
+                    onlineFolder.updateOfflineContainer()
+                }
+            }
+            else {
+                deletedFolders.forEach {
+                    offlineFolder in
+                    self.folders?.removeAll { $0 === offlineFolder }
+                    offlineFolder.revision = ""
+                }
+                updatedFolderPairs.forEach {
+                    offlineFolder, onlineFolder in
+                    offlineFolder.update(from: onlineFolder)
+                }
+                self.folders?.append(contentsOf: addedFolders)
+                addedFolders.forEach {
+                    onlineFolder in
+                    onlineFolder.updateOfflineContainer()
+                }
+            }
+        }
+        
+        if self.passwords == nil {
+            self.passwords = passwords
+        }
+        else if let existingPasswords = self.passwords {
+            let onlinePasswords = offline ? existingPasswords : passwords
+            let offlinePasswords = offline ? passwords : existingPasswords
+            
+            let onlinePasswordIDs = Set(onlinePasswords.map { $0.id })
+            let offlinePasswordIDs = Set(offlinePasswords.map { $0.id })
+            
+            let deletedPasswordIDs = offlinePasswordIDs.subtracting(onlinePasswordIDs)
+            let updatedPasswordIDs = onlinePasswordIDs.intersection(offlinePasswordIDs)
+            let addedPasswordIDs = onlinePasswordIDs.subtracting(offlinePasswordIDs)
+            
+            let deletedPasswords = offlinePasswords.filter { deletedPasswordIDs.contains($0.id) }
+            let updatedPasswordPairs = zip(offlinePasswords.filter { updatedPasswordIDs.contains($0.id) }, onlinePasswords.filter { updatedPasswordIDs.contains($0.id) })
+            let addedPasswords = onlinePasswords.filter { addedPasswordIDs.contains($0.id) }
+            
+            if offline {
+                deletedPasswords.forEach {
+                    offlinePassword in
+                    offlinePassword.revision = ""
+                }
+                updatedPasswordPairs.forEach {
+                    offlinePassword, onlinePassword in
+                    onlinePassword.offlineContainer = offlinePassword.offlineContainer
+                    onlinePassword.updateOfflineContainer()
+                }
+                addedPasswords.forEach {
+                    onlinePassword in
+                    onlinePassword.updateOfflineContainer()
+                }
+            }
+            else {
+                deletedPasswords.forEach {
+                    offlinePassword in
+                    self.passwords?.removeAll { $0 === offlinePassword }
+                    offlinePassword.revision = ""
+                }
+                updatedPasswordPairs.forEach {
+                    offlinePassword, onlinePassword in
+                    offlinePassword.update(from: onlinePassword)
+                }
+                self.passwords?.append(contentsOf: addedPasswords)
+                addedPasswords.forEach {
+                    onlinePassword in
+                    onlinePassword.updateOfflineContainer()
+                }
+            }
+        }
+    }
+    
+    func updateOfflineContainers() {
+        folders?.forEach { $0.updateOfflineContainer() }
+        passwords?.forEach { $0.updateOfflineContainer() }
     }
     
     func add(folder: Folder) {
@@ -204,6 +380,7 @@ final class EntriesController: ObservableObject {
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_deleteFolderErrorMessage".localized)
                 return
             }
+            folder.revision = ""
         }
     }
     
@@ -225,6 +402,7 @@ final class EntriesController: ObservableObject {
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_deletePasswordErrorMessage".localized)
                 return
             }
+            password.revision = ""
         }
     }
     
@@ -375,6 +553,18 @@ final class EntriesController: ObservableObject {
             }
         }
         return otherMatches
+    }
+    
+}
+
+
+extension EntriesController {
+    
+    enum State {
+        case loading
+        case offline
+        case online
+        case error
     }
     
 }

@@ -6,6 +6,7 @@
 "_appDeauthorized" = "App deautorisiert";
 "_appDeauthorizedMessage" = "Aufgrund zu vieler fehlgeschlagener Anmeldeversuche wurde diese App vom Server deautorisiert. Bitte später erneut versuchen.";
 "_cancel" = "Abbrechen";
+"_clientSide" = "Client-seitig";
 "_confirmAction" = "Aktion bestätigen";
 "_connect" = "Verbinden";
 "_connectToServer" = "Mit Server verbinden";
@@ -33,6 +34,8 @@
 "_editFolderErrorMessage" = "Beim Bearbeiten des Ordners ist ein Fehler aufgetreten. Bitte speichere den Ordner nochmals.";
 "_editPassword" = "Passwort bearbeiten";
 "_editPasswordErrorMessage" = "Beim Bearbeiten des Passworts ist ein Fehler aufgetreten. Bitte speichere das Passwort nochmals.";
+"_encryptedOfflineStorage" = "Verschlüsselte Offline-Speicherung";
+"_encryption" = "Verschlüsselung";
 "_error" = "Fehler";
 "_favorite" = "Favorit";
 "_favorites" = "Favoriten";
@@ -56,6 +59,7 @@
 "_nothingToSeeHere" = "Hier gibt es nichts zu sehen ...";
 "_numbers" = "Zahlen";
 "_openUrl" = "URL öffnen";
+"_options" = "Optionen";
 "_password" = "Passwort";
 "_passwordGenerator" = "Passwortgenerator";
 "_passwords" = "Passwörter";
@@ -72,6 +76,7 @@
 "_security" = "Sicherheit";
 "_select" = "Auswählen";
 "_serverAddressFieldMessage" = "Eine HTTPS-Verbindung ist erforderlich.";
+"_serverSide" = "Server-seitig";
 "_service" = "Dienst";
 "_settings" = "Einstellungen";
 "_sourceCode" = "Quellcode";

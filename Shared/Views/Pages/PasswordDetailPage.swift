@@ -3,6 +3,7 @@ import SwiftUI
 
 struct PasswordDetailPage: View {
     
+    @ObservedObject var entriesController: EntriesController
     @ObservedObject var password: Password
     let updatePassword: () -> Void
     let deletePassword: () -> Void
@@ -127,7 +128,7 @@ struct PasswordDetailPage: View {
                 label: {
                     Label("_editPassword", systemImage: "pencil")
                 }
-                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             }
         }
         label: {
@@ -172,7 +173,7 @@ struct PasswordDetailPage: View {
                 .font(.title)
         }
         .buttonStyle(BorderlessButtonStyle())
-        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
     private func serviceSection() -> some View {
@@ -243,6 +244,18 @@ struct PasswordDetailPage: View {
                 row(subheadline: "_updated", text: password.updated.formattedString, copiable: false)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            switch (password.cseType, password.sseType) {
+            case ("none", "none"),
+                 ("none", "unknown"):
+                row(subheadline: "_encryption", text: "-", copiable: false)
+            case (_, "none"),
+                 (_, "unknown"):
+                row(subheadline: "_encryption", text: "_clientSide".localized, copiable: false)
+            case ("none", _):
+                row(subheadline: "_encryption", text: "_serverSide".localized, copiable: false)
+            case (_, _):
+                row(subheadline: "_encryption", text: "\("_clientSide".localized) & \("_serverSide".localized)", copiable: false)
+            }
         }
     }
     
@@ -258,6 +271,7 @@ struct PasswordDetailPage: View {
                 Spacer()
             }
         }
+        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         .actionSheet(isPresented: $showDeleteAlert) {
             ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
                 deleteAndDismiss()
@@ -295,7 +309,7 @@ struct PasswordDetailPage: View {
             }, label: {
                 Text("_edit")
             })
-            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
     }
     
@@ -386,7 +400,7 @@ struct PasswordDetailPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                PasswordDetailPage(password: Password.mock, updatePassword: {}, deletePassword: {})
+                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, updatePassword: {}, deletePassword: {})
             }
             .showColumns(false)
             .environmentObject(AutoFillController.mock)

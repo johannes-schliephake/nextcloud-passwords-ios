@@ -3,10 +3,13 @@ import SwiftUI
 
 struct SettingsPage: View {
     
+    let updateOfflineContainers: () -> Void
+    
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
+    @AppStorage("storeOffline", store: Configuration.userDefaults) private var storeOffline = Configuration.defaults["storeOffline"] as! Bool // swiftlint:disable:this force_cast
     @State private var showLogoutAlert = false
     
     // MARK: Views
@@ -19,6 +22,13 @@ struct SettingsPage: View {
                     doneButton()
                 }
             }
+            .onChange(of: storeOffline) {
+                storeOffline in
+                if !storeOffline {
+                    Crypto.AES256.removeKey(named: "offlineKey")
+                }
+                updateOfflineContainers()
+            }
     }
     
     private func listView() -> some View {
@@ -26,6 +36,7 @@ struct SettingsPage: View {
             if let session = sessionController.session {
                 credentialsSection(session: session)
             }
+            optionsSection()
             enableProviderSection()
             supportThisProjectSection()
             aboutSection()
@@ -54,6 +65,12 @@ struct SettingsPage: View {
                     logoutAndDismiss()
                 }])
             }
+        }
+    }
+    
+    private func optionsSection() -> some View {
+        Section(header: Text("_options")) {
+            Toggle("_encryptedOfflineStorage", isOn: $storeOffline)
         }
     }
     
@@ -170,7 +187,7 @@ struct SettingsPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                SettingsPage()
+                SettingsPage(updateOfflineContainers: {})
             }
             .showColumns(false)
             .environmentObject(SessionController.mock)

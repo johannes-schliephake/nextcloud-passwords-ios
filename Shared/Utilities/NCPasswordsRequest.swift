@@ -1,6 +1,13 @@
 import Foundation
 
 
+enum NCPasswordsRequestError: Error {
+    
+    case requestError
+    
+}
+
+
 struct NCPasswordsRequestErrorResponse: Decodable {
     
     let status: String
@@ -68,9 +75,9 @@ extension NCPasswordsRequest {
         }
         DispatchQueue.global(qos: .utility).async {
             guard !requiresSession || session.sessionID != nil else {
-                session.append {
+                session.append(pendingRequest: {
                     send(completion: completion)
-                }
+                })
                 return
             }
             
@@ -114,9 +121,9 @@ extension NCPasswordsRequest {
                 if let errorResponse = try? JSONDecoder().decode(NCPasswordsRequestErrorResponse.self, from: data) {
                     switch (errorResponse.status, errorResponse.id) {
                     case ("error", "4ad27488"): /// "Authorized session required"
-                        session.append {
+                        session.append(pendingRequest: {
                             send(completion: completion)
-                        }
+                        })
                         return
                     case ("error", "b927b225"): /// "Too many failed login attempts"
                         session.invalidate(reason: .deauthorization)

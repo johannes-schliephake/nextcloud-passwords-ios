@@ -1,34 +1,11 @@
 import Foundation
 import Sodium
+import CryptoKit
 
 
 enum Crypto {
     
     private static let sodium = Sodium()
-    
-}
-
-
-extension Crypto {
-    
-    final class Keychain: Decodable {
-        
-        let current: String
-        let keys: [String: Bytes]
-        
-        required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            current = try container.decode(String.self, forKey: .current)
-            keys = try container.decode([String: String].self, forKey: .keys).compactMapValues { sodium.utils.hex2bin($0) }
-        }
-        
-        enum CodingKeys: String, CodingKey { // swiftlint:disable:this nesting
-            case current
-            case keys
-        }
-        
-    }
     
 }
 
@@ -69,6 +46,25 @@ extension Crypto {
     
     enum CSEv1r1 {
         
+        final class Keychain: Codable { // swiftlint:disable:this nesting
+            
+            let current: String
+            let keys: [String: Bytes]
+            
+            required init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                
+                current = try container.decode(String.self, forKey: .current)
+                keys = try container.decode([String: String].self, forKey: .keys).compactMapValues { sodium.utils.hex2bin($0) }
+            }
+            
+            enum CodingKeys: String, CodingKey { // swiftlint:disable:this nesting
+                case current
+                case keys
+            }
+            
+        }
+        
         static func decrypt(keys: String, password: String, retryWithBase64: Bool = false) -> Keychain? {
             guard let encryptedBytes = retryWithBase64 ? sodium.utils.base642bin(keys) : sodium.utils.hex2bin(keys) else {
                 return retryWithBase64 ? nil : decrypt(keys: keys, password: password, retryWithBase64: true)
@@ -104,6 +100,79 @@ extension Crypto {
             }
             let message = nonce + encryptedBytes
             return sodium.utils.bin2hex(message)
+        }
+        
+    }
+    
+}
+
+
+extension Crypto {
+    
+    enum AES256 {
+        
+        static func getKey(named keyName: String) -> SymmetricKey {
+            if let key = Keychain.default.load(key: keyName),
+               let data = Data(base64Encoded: key) {
+                return SymmetricKey(data: data)
+            }
+            let key = SymmetricKey(size: .bits256)
+            Keychain.default.store(key: keyName, value: key.withUnsafeBytes { Data($0).base64EncodedString() })
+            return key
+        }
+        
+        static func removeKey(named keyName: String) {
+            Keychain.default.remove(key: keyName)
+        }
+        
+        static func decrypt(offlineContainers: [OfflineContainer], key: SymmetricKey) throws -> ([Folder], [Password]) {
+            let decoder = JSONDecoder()
+            
+            let folderOfflineContainers = offlineContainers
+                .filter { $0.type == .folder }
+            let passwordOfflineContainers = offlineContainers
+                .filter { $0.type == .password }
+            
+            let folders = try folderOfflineContainers
+                .map { $0.data }
+                .map { try AES.GCM.SealedBox(combined: $0) }
+                .map { try AES.GCM.open($0, using: key) }
+                .map { try decoder.decode(Folder.self, from: $0) }
+                .zip(with: folderOfflineContainers)
+                .map {
+                    folder, offlineContainer -> Folder in
+                    folder.offlineContainer = offlineContainer
+                    return folder
+                }
+            let passwords = try passwordOfflineContainers
+                .map { $0.data }
+                .map { try AES.GCM.SealedBox(combined: $0) }
+                .map { try AES.GCM.open($0, using: key) }
+                .map { try decoder.decode(Password.self, from: $0) }
+                .zip(with: passwordOfflineContainers)
+                .map {
+                    password, offlineContainer -> Password in
+                    password.offlineContainer = offlineContainer
+                    return password
+                }
+            
+            return (folders, passwords)
+        }
+        
+        static func encrypt(folder: Folder, key: SymmetricKey) -> Data? {
+            guard let encoded = try? JSONEncoder().encode(folder),
+                  let encrypted = try? AES.GCM.seal(encoded, using: key, nonce: AES.GCM.Nonce()) else {
+                return nil
+            }
+            return encrypted.combined
+        }
+        
+        static func encrypt(password: Password, key: SymmetricKey) -> Data? {
+            guard let encoded = try? JSONEncoder().encode(password),
+                  let encrypted = try? AES.GCM.seal(encoded, using: key, nonce: AES.GCM.Nonce()) else {
+                return nil
+            }
+            return encrypted.combined
         }
         
     }
