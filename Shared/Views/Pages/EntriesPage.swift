@@ -156,38 +156,41 @@ struct EntriesPage: View {
     
     private func listView(entries: [Entry], suggestions: [Password]?) -> some View {
         VStack {
-            if entries.isEmpty && suggestions?.isEmpty ?? true {
-                Text("_nothingToSeeHere")
-                    .foregroundColor(.gray)
-                    .padding()
-            }
-            else {
+            if let suggestions = suggestions,
+               suggestions.isEmpty || folder.isBaseFolder {
                 List {
-                    if let suggestions = suggestions,
-                       suggestions.isEmpty || folder.isBaseFolder {
-                        Section(header: Text("_suggestions")) {
-                            if !suggestions.isEmpty {
-                                suggestionRows(suggestions: suggestions)
-                            }
-                            else {
-                                Button(action: {
-                                    passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
-                                }, label: {
-                                    Text("_createPassword")
-                                })
-                                .buttonStyle(ActionButtonStyle())
-                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
-                            }
+                    Section(header: Text("_suggestions")) {
+                        if !suggestions.isEmpty {
+                            suggestionRows(suggestions: suggestions)
                         }
+                        else {
+                            Button(action: {
+                                passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                            }, label: {
+                                Text("_createPassword")
+                            })
+                            .buttonStyle(ActionButtonStyle())
+                            .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                        }
+                    }
+                    if !entries.isEmpty {
                         Section(header: Text("_all")) {
                             entryRows(entries: entries)
                         }
                     }
-                    else {
-                        entryRows(entries: entries)
-                    }
                 }
                 .listStyle(PlainListStyle())
+            }
+            else if !entries.isEmpty {
+                List {
+                    entryRows(entries: entries)
+                }
+                .listStyle(PlainListStyle())
+            }
+            else {
+                Text("_nothingToSeeHere")
+                    .foregroundColor(.gray)
+                    .padding()
             }
             EmptyView()
                 .sheet(item: $folderForEditing) {
