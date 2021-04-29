@@ -1,4 +1,3 @@
-import CryptoKit
 import WebKit
 import Combine
 
@@ -64,7 +63,7 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
             return
         }
         let certificateData = SecCertificateCopyData(certificate) as Data
-        let certificateHash = SHA256.hash(data: certificateData).map { String(format: "%02X", $0) }.joined(separator: ":")
+        let certificateHash = Crypto.SHA256.hash(certificateData, humanReadable: true)
         
         /// Check certificate hash against accepted hash
         if certificateHash == acceptedCertificateHash {
