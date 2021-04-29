@@ -5,6 +5,7 @@
 "_anErrorOccurred" = "An error occurred ...";
 "_appDeauthorized" = "App Deauthorized";
 "_appDeauthorizedMessage" = "Because of too many failed login attempts this app was deauthorized by the server. Please try again later.";
+"_automaticallyGeneratePasswords" = "Automatically Generate Passwords";
 "_cancel" = "Cancel";
 "_clientSide" = "Client Side";
 "_confirmAction" = "Confirm Action";

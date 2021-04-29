@@ -14,7 +14,7 @@ struct EditPasswordPage: View {
     
     init(password: Password, addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
         _editPasswordController = StateObject(wrappedValue: EditPasswordController(password: password, addPassword: addPassword, updatePassword: updatePassword))
-        _showPasswordGenerator = State(initialValue: password.id.isEmpty)
+        _showPasswordGenerator = State(initialValue: password.id.isEmpty && !Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
     }
     
     // MARK: Views
@@ -34,6 +34,12 @@ struct EditPasswordPage: View {
                 challengeAvailable in
                 if challengeAvailable {
                     presentationMode.wrappedValue.dismiss()
+                }
+            }
+            .onAppear {
+                if editPasswordController.password.id.isEmpty,
+                   Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords") {
+                    editPasswordController.generatePassword()
                 }
             }
     }
