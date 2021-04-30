@@ -368,6 +368,7 @@ struct EntriesPage: View {
         label: {
             Spacer()
             Image(systemName: "arrow.up.arrow.down")
+                .accessibility(identifier: "filterSortMenu")
             Spacer()
         }
         .onChange(of: entriesController.filterBy, perform: didChange)

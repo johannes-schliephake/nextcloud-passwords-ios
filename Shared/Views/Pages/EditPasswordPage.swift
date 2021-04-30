@@ -117,6 +117,7 @@ struct EditPasswordPage: View {
                 }
                 label: {
                     Image(systemName: hidePassword ? "eye" : "eye.slash")
+                        .accessibility(identifier: "showPasswordButton")
                 }
                 .buttonStyle(BorderlessButtonStyle())
             }
@@ -161,6 +162,7 @@ struct EditPasswordPage: View {
                 Alert(title: Text("_error"), message: Text("_passwordServiceErrorMessage"))
             }
         }
+        .accessibility(identifier: "passwordGenerator")
     }
     
     private func notesSection() -> some View {

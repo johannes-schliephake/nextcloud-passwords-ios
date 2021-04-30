@@ -76,6 +76,7 @@ final class EntriesController: ObservableObject {
     private init(folders: [Folder], passwords: [Password]) {
         self.folders = folders
         self.passwords = passwords
+        state = .online
     }
     
     private func requestEntries(session: Session?) {

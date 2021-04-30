@@ -26,7 +26,7 @@ class ScreenshotGenerator: XCTestCase {
     func test_entriesPage_searchBarVisible_filterByFolders() throws {
         /// Swipe down to show search bar, filter by folders
         app.tables.buttons.firstMatch.swipeDown()
-        app.navigationBars.firstMatch.buttons["arrow.up.arrow.down"].tap()
+        app.navigationBars.firstMatch.buttons["filterSortMenu"].tap()
         app.collectionViews.buttons.element(boundBy: 1).tap()
         
         snapshot("1")
@@ -35,16 +35,16 @@ class ScreenshotGenerator: XCTestCase {
     func test_entriesPage_searchBarVisible_filterByFavorites_sortingOptionsVisible() throws {
         /// Swipe down to show search bar, filter by favorites, show sort menu again
         app.tables.buttons.firstMatch.swipeDown()
-        app.navigationBars.firstMatch.buttons["arrow.up.arrow.down"].tap()
+        app.navigationBars.firstMatch.buttons["filterSortMenu"].tap()
         app.collectionViews.buttons.element(boundBy: 2).tap()
-        app.navigationBars.firstMatch.buttons["arrow.up.arrow.down"].tap()
+        app.navigationBars.firstMatch.buttons["filterSortMenu"].tap()
         
         snapshot("2")
     }
     
     func test_entriesPage_filterByFavorites_passwordContextMenuVisible() throws {
         /// Filter by favorites, long tap last entry (has to be a password)
-        app.navigationBars.firstMatch.buttons["arrow.up.arrow.down"].tap()
+        app.navigationBars.firstMatch.buttons["filterSortMenu"].tap()
         app.collectionViews.buttons.element(boundBy: 2).tap()
         app.tables.buttons.lastMatch.press(forDuration: 1)
         
@@ -53,7 +53,7 @@ class ScreenshotGenerator: XCTestCase {
     
     func test_passwordDetailPage() throws {
         /// Filter by favorites, open last entry (has to be a password)
-        app.navigationBars.firstMatch.buttons["arrow.up.arrow.down"].tap()
+        app.navigationBars.firstMatch.buttons["filterSortMenu"].tap()
         app.collectionViews.buttons.element(boundBy: 2).tap()
         app.tables.buttons.lastMatch.tap()
         
@@ -61,11 +61,14 @@ class ScreenshotGenerator: XCTestCase {
     }
     
     func test_editPasswordPage() throws {
-        /// Filter by favorites, open last entry (has to be a password), open edit page
-        app.navigationBars.firstMatch.buttons["arrow.up.arrow.down"].tap()
+        /// Filter by favorites, open last entry (has to be a password), open edit page, show password and password generator, scroll down
+        app.navigationBars.firstMatch.buttons["filterSortMenu"].tap()
         app.collectionViews.buttons.element(boundBy: 2).tap()
         app.tables.buttons.lastMatch.tap()
         app.navigationBars.lastMatch.buttons.lastMatch.tap()
+        app.tables.buttons["showPasswordButton"].tap()
+        app.tables.buttons["passwordGenerator"].tap()
+        app.tables.firstMatch.swipeUp()
         
         snapshot("5")
     }
