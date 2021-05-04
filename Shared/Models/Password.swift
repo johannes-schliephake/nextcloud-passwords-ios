@@ -217,8 +217,6 @@ extension Password: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        
-        
         if let keychain = SessionController.default.session?.keychain,
            state != .decryptionFailed,
            cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true {
