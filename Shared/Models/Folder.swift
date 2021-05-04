@@ -9,15 +9,21 @@ final class Folder: ObservableObject, Identifiable {
     @Published var edited: Date
     @Published var created: Date
     @Published var updated: Date
-    @Published var revision: String
+    var revision: String {
+        didSet {
+            updateOfflineContainer()
+        }
+    }
     var cseType: String
     var cseKey: String
-    let sseType: String
-    let client: String
+    var sseType: String
+    var client: String
     var hidden: Bool
-    let trashed: Bool
+    var trashed: Bool
     @Published var favorite: Bool
-    @Published var error: Entry.EntryError?
+    
+    @Published var state: Entry.State?
+    var offlineContainer: OfflineContainer?
     
     convenience init() {
         self.init(id: Entry.baseId, label: "_passwords".localized, parent: nil)
@@ -58,6 +64,21 @@ final class Folder: ObservableObject, Identifiable {
         edited = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .edited))
         created = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .created))
         updated = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .updated))
+        
+        switch cseType {
+        case "none":
+            break
+        case "CSEv1r1":
+            guard let keychain = SessionController.default.session?.keychain,
+                  let key = keychain.keys[cseKey],
+                  let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key) else {
+                state = .decryptionFailed
+                return
+            }
+            label = decryptedLabel
+        default:
+            state = .decryptionFailed
+        }
     }
     
     var isBaseFolder: Bool {
@@ -75,6 +96,43 @@ final class Folder: ObservableObject, Identifiable {
         /// Add folder to folders because base folder is not stored in folders
         let folders = folders + [folder]
         return folders.first { [self] in $0.id == parent }?.isDescendentOf(folder: folder, in: folders) ?? false
+    }
+    
+    func update(from folder: Folder) {
+        guard id == folder.id,
+              revision != folder.revision else {
+            return
+        }
+        
+        label = folder.label
+        parent = folder.parent
+        edited = folder.edited
+        created = folder.created
+        updated = folder.updated
+        cseType = folder.cseType
+        cseKey = folder.cseKey
+        sseType = folder.sseType
+        client = folder.client
+        hidden = folder.hidden
+        trashed = folder.trashed
+        favorite = folder.favorite
+        
+        state = folder.state
+        revision = folder.revision
+    }
+    
+    func updateOfflineContainer() {
+        if revision.isEmpty || !Configuration.userDefaults.bool(forKey: "storeOffline") {
+            CoreData.default.delete(offlineContainer)
+            offlineContainer = nil
+        }
+        else if let offlineContainer = offlineContainer {
+            offlineContainer.update(from: self)
+        }
+        else {
+            offlineContainer = OfflineContainer(context: CoreData.default.context, folder: self)
+        }
+        CoreData.default.save()
     }
     
 }
@@ -102,8 +160,22 @@ extension Folder: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
+        if let keychain = SessionController.default.session?.keychain,
+           state != .decryptionFailed,
+           cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true {
+            guard let key = keychain.keys[keychain.current],
+                  let encryptedLabel = Crypto.CSEv1r1.encrypt(unencrypted: label, key: key) else {
+                throw EncodingError.invalidValue(self, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Encryption failed"))
+            }
+            try container.encode(encryptedLabel, forKey: .label)
+            cseType = "CSEv1r1"
+            cseKey = keychain.current
+        }
+        else {
+            try container.encode(label, forKey: .label)
+        }
+        
         try container.encode(id, forKey: .id)
-        try container.encode(label, forKey: .label)
         try container.encode(parent, forKey: .parent)
         try container.encode(Int64(edited.timeIntervalSince1970), forKey: .edited)
         try container.encode(Int64(created.timeIntervalSince1970), forKey: .created)

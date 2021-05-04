@@ -13,8 +13,12 @@ final class BiometricAuthenticationController: ObservableObject {
     private let semaphore = DispatchSemaphore(value: 1)
     
     init() {
-        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification).sink(receiveValue: unlockApp).store(in: &subscriptions)
-        NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification).sink(receiveValue: lockApp).store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+            .sink(receiveValue: unlockApp)
+            .store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)
+            .sink(receiveValue: lockApp)
+            .store(in: &subscriptions)
     }
     
     private init(isUnlocked: Bool) {
@@ -34,7 +38,7 @@ final class BiometricAuthenticationController: ObservableObject {
             let context = LAContext()
             let policy = LAPolicy.deviceOwnerAuthentication
             var error: NSError?
-            guard CredentialsController.default.credentials != nil,
+            guard SessionController.default.session != nil,
                   context.canEvaluatePolicy(policy, error: &error) else {
                 DispatchQueue.main.async {
                     isUnlocked = true

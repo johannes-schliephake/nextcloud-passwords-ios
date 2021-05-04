@@ -3,13 +3,17 @@ import SwiftUI
 
 struct FaviconServiceRequest {
     
-    let credentials: Credentials
+    let session: Session
     let domain: String
     
 }
 
 
 extension FaviconServiceRequest: NCPasswordsRequest {
+    
+    var requiresSession: Bool {
+        false
+    }
     
     func send(completion: @escaping (UIImage?) -> Void) {
         let size = Int(64 * UIScreen.main.scale)
@@ -26,7 +30,7 @@ extension FaviconServiceRequest: NCPasswordsRequest {
             }
             return
         }
-        get(action: "service/favicon/\(domain)/\(size)", credentials: credentials, completion: completion)
+        get(action: "service/favicon/\(domain)/\(size)", session: session, completion: completion)
     }
     
     func decode(data: Data) -> UIImage? {

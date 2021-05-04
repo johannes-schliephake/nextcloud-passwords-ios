@@ -9,10 +9,10 @@ struct EntriesPage: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    @EnvironmentObject private var credentialsController: CredentialsController
+    @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
-    @State private var showServerSetupView = CredentialsController.default.credentials == nil
+    @State private var showServerSetupView = SessionController.default.session == nil
     @State private var showSettingsView = false
     @State private var folderForEditing: Folder?
     @State private var passwordForEditing: Password?
@@ -20,6 +20,9 @@ struct EntriesPage: View {
     @State private var passwordForDeletion: Password?
     @State private var searchTerm = ""
     @State private var showErrorAlert = false
+    @State private var challengePassword = ""
+    @State private var storeChallengePassword = false
+    @State private var showStorePasswordMessage = false
     
     init(entriesController: EntriesController, folder: Folder? = nil) {
         self.entriesController = entriesController
@@ -37,7 +40,11 @@ struct EntriesPage: View {
                     leadingToolbarView()
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if let entries = entries {
+                    if sessionController.session != nil,
+                       entriesController.state != .error && (sessionController.state != .error || entriesController.state == .offline),
+                       !sessionController.state.isChallengeAvailable,
+                       entriesController.state == .offline || entriesController.state == .online,
+                       let entries = entries {
                         trailingToolbarView(entries: entries)
                     }
                 }
@@ -47,13 +54,18 @@ struct EntriesPage: View {
     
     private func mainStack(entries: [Entry]?, suggestions: [Password]?) -> some View {
         VStack {
-            if credentialsController.credentials == nil {
+            if sessionController.session == nil {
                 connectView()
             }
-            else if entriesController.error {
+            else if entriesController.state == .error || sessionController.state == .error {
                 errorView()
             }
-            else if let entries = entries {
+            else if sessionController.state.isChallengeAvailable {
+                challengeView()
+            }
+            else if entriesController.state == .offline || entriesController.state == .online,
+                    sessionController.state == .offline || sessionController.state == .online,
+                    let entries = entries {
                 listView(entries: entries, suggestions: suggestions)
                     .searchBar(term: $searchTerm)
             }
@@ -62,11 +74,13 @@ struct EntriesPage: View {
             }
             EmptyView()
                 .sheet(isPresented: $showSettingsView) {
-                    SettingsNavigation()
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(credentialsController)
-                        .environmentObject(tipController)
+                    SettingsNavigation(updateOfflineContainers: {
+                        entriesController.updateOfflineContainers()
+                    })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(tipController)
                 }
         }
     }
@@ -83,37 +97,101 @@ struct EntriesPage: View {
                     ServerSetupNavigation()
                         .environmentObject(autoFillController)
                         .environmentObject(biometricAuthenticationController)
-                        .environmentObject(credentialsController)
+                        .environmentObject(sessionController)
                         .environmentObject(tipController)
                 }
         }
         .padding()
     }
     
+    private func errorView() -> some View {
+        VStack {
+            Text("_anErrorOccurred")
+                .foregroundColor(.gray)
+                .padding()
+        }
+    }
+    
+    private func challengeView() -> some View {
+        List {
+            Section(header: Text("_e2ePassword")) {
+                SecureField("-", text: $challengePassword, onCommit: {
+                    solveChallenge()
+                })
+                .frame(maxWidth: 600)
+                .onAppear {
+                    challengePassword = ""
+                }
+            }
+            Section {
+                Toggle(isOn: $storeChallengePassword) {
+                    HStack {
+                        Text("_storePassword")
+                        Button {
+                            showStorePasswordMessage = true
+                        }
+                        label: {
+                            Image(systemName: "questionmark.circle")
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                        .alert(isPresented: $showStorePasswordMessage) {
+                            Alert(title: Text("_storePassword"), message: Text("_storePasswordMessage"))
+                        }
+                    }
+                }
+                .frame(maxWidth: 600)
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
+                .listRowBackground(Color(UIColor.systemGroupedBackground))
+            }
+            Button("_logIn") {
+                solveChallenge()
+            }
+            .frame(maxWidth: 600)
+            .buttonStyle(ActionButtonStyle())
+            .listRowInsets(EdgeInsets())
+            .disabled(challengePassword.count < 12)
+        }
+        .listStyle(InsetGroupedListStyle())
+        .frame(maxWidth: 600)
+    }
+    
     private func listView(entries: [Entry], suggestions: [Password]?) -> some View {
         VStack {
-            if entries.isEmpty && suggestions?.isEmpty ?? true {
-                Text("_nothingToSeeHere")
-                    .foregroundColor(.gray)
-                    .padding()
-            }
-            else {
+            if let suggestions = suggestions,
+               suggestions.isEmpty || folder.isBaseFolder {
                 List {
-                    if folder.isBaseFolder,
-                       let suggestions = suggestions,
-                       !suggestions.isEmpty {
-                        Section(header: Text("_suggestions")) {
+                    Section(header: Text("_suggestions")) {
+                        if !suggestions.isEmpty {
                             suggestionRows(suggestions: suggestions)
                         }
+                        else {
+                            Button(action: {
+                                passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                            }, label: {
+                                Text("_createPassword")
+                            })
+                            .buttonStyle(ActionButtonStyle())
+                            .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                        }
+                    }
+                    if !entries.isEmpty {
                         Section(header: Text("_all")) {
                             entryRows(entries: entries)
                         }
                     }
-                    else {
-                        entryRows(entries: entries)
-                    }
                 }
                 .listStyle(PlainListStyle())
+            }
+            else if !entries.isEmpty {
+                List {
+                    entryRows(entries: entries)
+                }
+                .listStyle(PlainListStyle())
+            }
+            else {
+                Text("_nothingToSeeHere")
+                    .foregroundColor(.gray)
+                    .padding()
             }
             EmptyView()
                 .sheet(item: $folderForEditing) {
@@ -125,7 +203,7 @@ struct EntriesPage: View {
                     })
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
-                    .environmentObject(credentialsController)
+                    .environmentObject(sessionController)
                     .environmentObject(tipController)
                 }
                 .actionSheet(item: $folderForDeletion) {
@@ -144,7 +222,7 @@ struct EntriesPage: View {
                     })
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
-                    .environmentObject(credentialsController)
+                    .environmentObject(sessionController)
                     .environmentObject(tipController)
                 }
                 .actionSheet(item: $passwordForDeletion) {
@@ -164,6 +242,7 @@ struct EntriesPage: View {
             }, deletePassword: {
                 passwordForDeletion = password
             })
+            .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
         .onDelete {
             indices in
@@ -176,30 +255,26 @@ struct EntriesPage: View {
             entry -> AnyView in
             switch entry {
             case .folder(let folder):
-                return AnyView(FolderRow(entriesController: entriesController, folder: folder, editFolder: {
+                let folderRow = FolderRow(entriesController: entriesController, folder: folder, editFolder: {
                     folderForEditing = folder
                 }, deleteFolder: {
                     folderForDeletion = folder
-                }))
+                })
+                .deleteDisabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                return AnyView(folderRow)
             case .password(let password):
-                return AnyView(PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
+                let passwordRow = PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
                     passwordForEditing = password
                 }, deletePassword: {
                     passwordForDeletion = password
-                }))
+                })
+                .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                return AnyView(passwordRow)
             }
         }
         .onDelete {
             indices in
             onDeleteEntry(entry: entries[safe: indices.first])
-        }
-    }
-    
-    private func errorView() -> some View {
-        VStack {
-            Text("_anErrorOccurred")
-                .foregroundColor(.gray)
-                .padding()
         }
     }
     
@@ -222,13 +297,13 @@ struct EntriesPage: View {
     
     private func trailingToolbarView(entries: [Entry]) -> some View {
         HStack {
-            if !folder.isBaseFolder,
-               folder.revision.isEmpty {
-                ProgressView()
-                Spacer()
-            }
-            else if let error = folder.error {
-                errorButton(error: error)
+            if let state = folder.state {
+                if state.isError {
+                    errorButton(state: state)
+                }
+                else if state.isProcessing {
+                    ProgressView()
+                }
                 Spacer()
             }
             filterSortMenu()
@@ -236,23 +311,27 @@ struct EntriesPage: View {
         }
     }
     
-    private func errorButton(error: Entry.EntryError) -> some View {
+    private func errorButton(state: Entry.State) -> some View {
         Button {
             showErrorAlert = true
         }
         label: {
             Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundColor(error == .deleteError ? .gray : .red)
+                .foregroundColor(state == .deletionFailed ? .gray : .red)
         }
         .buttonStyle(BorderlessButtonStyle())
         .alert(isPresented: $showErrorAlert) {
-            switch error {
-            case .createError:
+            switch state {
+            case .creationFailed:
                 return Alert(title: Text("_error"), message: Text("_createFolderErrorMessage"))
-            case .editError:
+            case .updateFailed:
                 return Alert(title: Text("_error"), message: Text("_editFolderErrorMessage"))
-            case .deleteError:
+            case .deletionFailed:
                 return Alert(title: Text("_error"), message: Text("_deleteFolderErrorMessage"))
+            case .decryptionFailed:
+                return Alert(title: Text("_error"), message: Text("_decryptFolderErrorMessage"))
+            default:
+                return Alert(title: Text("_error"))
             }
         }
     }
@@ -290,6 +369,7 @@ struct EntriesPage: View {
         label: {
             Spacer()
             Image(systemName: "arrow.up.arrow.down")
+                .accessibility(identifier: "filterSortMenu")
             Spacer()
         }
         .onChange(of: entriesController.filterBy, perform: didChange)
@@ -302,21 +382,26 @@ struct EntriesPage: View {
             }, label: {
                 Label("_createFolder", systemImage: "folder")
             })
-            .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
             Button(action: {
-                passwordForEditing = Password(folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
             }, label: {
                 Label("_createPassword", systemImage: "key")
             })
-            .disabled(folder.revision.isEmpty && !folder.isBaseFolder)
         }
         label: {
             Spacer()
             Image(systemName: "plus")
         }
+        .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
     }
     
     // MARK: Functions
+    
+    private func solveChallenge() {
+        if !challengePassword.isEmpty {
+            sessionController.solveChallenge(password: challengePassword, store: storeChallengePassword)
+        }
+    }
     
     private func onDeleteEntry(entry: Entry?) {
         switch entry {
@@ -361,13 +446,14 @@ extension EntriesPage {
                     label: {
                         Label("_favorite", systemImage: folder.favorite ? "star.fill" : "star")
                     }
+                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Button {
                         editFolder()
                     }
                     label: {
                         Label("_edit", systemImage: "pencil")
                     }
-                    .disabled(folder.revision.isEmpty)
+                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Divider()
                     Button {
                         deleteFolder()
@@ -375,6 +461,7 @@ extension EntriesPage {
                     label: {
                         Label("_delete", systemImage: "trash")
                     }
+                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 }
         }
         
@@ -391,11 +478,13 @@ extension EntriesPage {
                 labelText()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
-                    if folder.revision.isEmpty {
-                        ProgressView()
-                    }
-                    else if let error = folder.error {
-                        errorButton(error: error)
+                    if let state = folder.state {
+                        if state.isError {
+                            errorButton(state: state)
+                        }
+                        else if state.isProcessing {
+                            ProgressView()
+                        }
                     }
                     if folder.favorite {
                         favoriteImage()
@@ -419,23 +508,27 @@ extension EntriesPage {
             }
         }
         
-        private func errorButton(error: Entry.EntryError) -> some View {
+        private func errorButton(state: Entry.State) -> some View {
             Button {
                 showErrorAlert = true
             }
             label: {
                 Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(error == .deleteError ? .gray : .red)
+                    .foregroundColor(state == .deletionFailed ? .gray : .red)
             }
             .buttonStyle(BorderlessButtonStyle())
             .alert(isPresented: $showErrorAlert) {
-                switch error {
-                case .createError:
+                switch state {
+                case .creationFailed:
                     return Alert(title: Text("_error"), message: Text("_createFolderErrorMessage"))
-                case .editError:
+                case .updateFailed:
                     return Alert(title: Text("_error"), message: Text("_editFolderErrorMessage"))
-                case .deleteError:
+                case .deletionFailed:
                     return Alert(title: Text("_error"), message: Text("_deleteFolderErrorMessage"))
+                case .decryptionFailed:
+                    return Alert(title: Text("_error"), message: Text("_decryptFolderErrorMessage"))
+                default:
+                    return Alert(title: Text("_error"))
                 }
             }
         }
@@ -448,23 +541,26 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
-            guard let credentials = CredentialsController.default.credentials else {
+            folder.state = .updating
+            
+            guard let session = SessionController.default.session else {
+                folder.state = .updateFailed
                 return
             }
             folder.favorite.toggle()
             
-            UpdateFolderRequest(credentials: credentials, folder: folder).send {
+            UpdateFolderRequest(session: session, folder: folder).send {
                 response in
                 guard let response = response else {
+                    folder.state = .updateFailed
                     folder.favorite.toggle()
                     return
                 }
-                folder.error = nil
+                folder.state = nil
                 folder.revision = response.revision
                 folder.edited = Date()
                 folder.updated = Date()
             }
-            folder.revision = ""
         }
         
     }
@@ -483,7 +579,7 @@ extension EntriesPage {
         let deletePassword: () -> Void
         
         @EnvironmentObject private var autoFillController: AutoFillController
-        @EnvironmentObject private var credentialsController: CredentialsController
+        @EnvironmentObject private var sessionController: SessionController
         
         @State private var favicon: UIImage?
         @State private var showPasswordDetailView = false
@@ -526,6 +622,7 @@ extension EntriesPage {
                     label: {
                         Label("_favorite", systemImage: password.favorite ? "star.fill" : "star")
                     }
+                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     if password.editable {
                         Button {
                             editPassword()
@@ -533,7 +630,7 @@ extension EntriesPage {
                         label: {
                             Label("_edit", systemImage: "pencil")
                         }
-                        .disabled(password.revision.isEmpty)
+                        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
                     Divider()
                     Button {
@@ -542,6 +639,7 @@ extension EntriesPage {
                     label: {
                         Label("_delete", systemImage: "trash")
                     }
+                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
         }
         
@@ -564,7 +662,7 @@ extension EntriesPage {
                         Image(systemName: "info.circle")
                     }
                     .buttonStyle(BorderlessButtonStyle())
-                    NavigationLink(destination: PasswordDetailPage(password: password, updatePassword: {
+                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
                         entriesController.update(password: password)
                     }, deletePassword: {
                         entriesController.delete(password: password)
@@ -574,7 +672,7 @@ extension EntriesPage {
                     .opacity(0)
                 }
                 else {
-                    NavigationLink(destination: PasswordDetailPage(password: password, updatePassword: {
+                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
                         entriesController.update(password: password)
                     }, deletePassword: {
                         entriesController.delete(password: password)
@@ -592,11 +690,13 @@ extension EntriesPage {
                 labelStack()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
-                    if password.revision.isEmpty {
-                        ProgressView()
-                    }
-                    else if let error = password.error {
-                        errorButton(error: error)
+                    if let state = password.state {
+                        if state.isError {
+                            errorButton(state: state)
+                        }
+                        else if state.isProcessing {
+                            ProgressView()
+                        }
                     }
                     if password.favorite {
                         favoriteImage()
@@ -617,6 +717,10 @@ extension EntriesPage {
                 .onAppear {
                     requestFavicon()
                 }
+                .onChange(of: password.url) {
+                    _ in
+                    requestFavicon()
+                }
         }
         
         private func labelStack() -> some View {
@@ -630,23 +734,27 @@ extension EntriesPage {
             }
         }
         
-        private func errorButton(error: Entry.EntryError) -> some View {
+        private func errorButton(state: Entry.State) -> some View {
             Button {
                 showErrorAlert = true
             }
             label: {
                 Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(error == .deleteError ? .gray : .red)
+                    .foregroundColor(state == .deletionFailed ? .gray : .red)
             }
             .buttonStyle(BorderlessButtonStyle())
             .alert(isPresented: $showErrorAlert) {
-                switch error {
-                case .createError:
+                switch state {
+                case .creationFailed:
                     return Alert(title: Text("_error"), message: Text("_createPasswordErrorMessage"))
-                case .editError:
+                case .updateFailed:
                     return Alert(title: Text("_error"), message: Text("_editPasswordErrorMessage"))
-                case .deleteError:
+                case .deletionFailed:
                     return Alert(title: Text("_error"), message: Text("_deletePasswordErrorMessage"))
+                case .decryptionFailed:
+                    return Alert(title: Text("_error"), message: Text("_decryptPasswordErrorMessage"))
+                default:
+                    return Alert(title: Text("_error"))
                 }
             }
         }
@@ -673,31 +781,33 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
-            guard let credentials = CredentialsController.default.credentials else {
+            password.state = .updating
+            
+            guard let session = SessionController.default.session else {
+                password.state = .updateFailed
                 return
             }
             password.favorite.toggle()
             
-            UpdatePasswordRequest(credentials: credentials, password: password).send {
+            UpdatePasswordRequest(session: session, password: password).send {
                 response in
                 guard let response = response else {
+                    password.state = .updateFailed
                     password.favorite.toggle()
                     return
                 }
-                password.error = nil
+                password.state = nil
                 password.revision = response.revision
                 password.updated = Date()
             }
-            password.revision = ""
         }
         
         private func requestFavicon() {
-            guard let url = URL(string: password.url),
-                  let domain = url.host,
-                  let credentials = credentialsController.credentials else {
+            guard let domain = URL(string: password.url)?.host ?? URL(string: "https://\(password.url)")?.host,
+                  let session = sessionController.session else {
                 return
             }
-            FaviconServiceRequest(credentials: credentials, domain: domain).send { favicon = $0 }
+            FaviconServiceRequest(session: session, domain: domain).send { favicon = $0 }
         }
         
     }
@@ -715,7 +825,7 @@ struct EntriesPagePreview: PreviewProvider {
             .showColumns(true)
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
-            .environmentObject(CredentialsController.mock)
+            .environmentObject(SessionController.mock)
             .environmentObject(TipController.mock)
         }
     }

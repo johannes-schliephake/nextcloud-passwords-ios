@@ -4,6 +4,7 @@ import SwiftUI
 struct EditFolderPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var sessionController: SessionController
     
     @StateObject private var editFolderController: EditFolderController
     
@@ -22,6 +23,12 @@ struct EditFolderPage: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
+                }
+            }
+            .onChange(of: sessionController.state) {
+                state in
+                if state.isChallengeAvailable {
+                    presentationMode.wrappedValue.dismiss()
                 }
             }
     }

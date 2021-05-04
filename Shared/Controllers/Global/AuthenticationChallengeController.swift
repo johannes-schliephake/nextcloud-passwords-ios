@@ -1,4 +1,3 @@
-import CryptoKit
 import WebKit
 import Combine
 
@@ -24,11 +23,10 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
         super.init()
         
         acceptedCertificateHash = Keychain.default.load(key: "acceptedCertificateHash")
-        CredentialsController.default.$credentials.sink(receiveValue: clearAcceptedCertificateHash).store(in: &subscriptions)
     }
     
-    func clearAcceptedCertificateHash(credentials: Credentials? = nil) {
-        guard credentials == nil else {
+    func clearAcceptedCertificateHash(session: Session? = nil) {
+        guard session == nil else {
             return
         }
         acceptedCertificateHash = nil
@@ -43,7 +41,7 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
     }
     
     func deny(certificateHash: String) {
-        CredentialsController.default.logout()
+        SessionController.default.logout()
         
         let deniedCertificateConfirmationRequests = certificateConfirmationRequests.filter { $0.hash == certificateHash }
         certificateConfirmationRequests.removeAll { deniedCertificateConfirmationRequests.contains($0) }
@@ -65,7 +63,7 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
             return
         }
         let certificateData = SecCertificateCopyData(certificate) as Data
-        let certificateHash = SHA256.hash(data: certificateData).map { String(format: "%02X", $0) }.joined(separator: ":")
+        let certificateHash = Crypto.SHA256.hash(certificateData, humanReadable: true)
         
         /// Check certificate hash against accepted hash
         if certificateHash == acceptedCertificateHash {
@@ -79,7 +77,10 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
         }, deny: {
             completionHandler(.performDefaultHandling, nil)
         })
-        certificateConfirmationRequests.append(certificateConfirmationRequest)
+        DispatchQueue.main.async {
+            [self] in
+            certificateConfirmationRequests.append(certificateConfirmationRequest)
+        }
     }
     
 }

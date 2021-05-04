@@ -3,7 +3,7 @@ import Foundation
 
 struct DeleteFolderRequest {
     
-    let credentials: Credentials
+    let session: Session
     let folder: Folder
     
 }
@@ -11,12 +11,14 @@ struct DeleteFolderRequest {
 
 extension DeleteFolderRequest: NCPasswordsRequest {
     
-    func encode() -> Data? {
-        try? JSONEncoder().encode(folder)
+    func encode() throws -> Data? {
+        let encoder = JSONEncoder()
+        encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] = true
+        return try encoder.encode(folder)
     }
     
     func send(completion: @escaping (Response?) -> Void) {
-        delete(action: "folder/delete", credentials: credentials, completion: completion)
+        delete(action: "folder/delete", session: session, completion: completion)
     }
     
     func decode(data: Data) -> Response? {

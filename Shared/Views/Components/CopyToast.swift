@@ -64,7 +64,9 @@ extension CopyToast {
         private var subscriptions = Set<AnyCancellable>()
         
         init() {
-            NotificationCenter.default.publisher(for: UIPasteboard.changedNotification).sink(receiveValue: showCopyToast).store(in: &subscriptions)
+            NotificationCenter.default.publisher(for: UIPasteboard.changedNotification)
+                .sink(receiveValue: showCopyToast)
+                .store(in: &subscriptions)
         }
         
         private func showCopyToast(_: Notification) {

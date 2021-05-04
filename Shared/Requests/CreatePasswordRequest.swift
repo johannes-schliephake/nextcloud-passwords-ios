@@ -3,7 +3,7 @@ import Foundation
 
 struct CreatePasswordRequest {
     
-    let credentials: Credentials
+    let session: Session
     let password: Password
     
 }
@@ -11,12 +11,14 @@ struct CreatePasswordRequest {
 
 extension CreatePasswordRequest: NCPasswordsRequest {
     
-    func encode() -> Data? {
-        try? JSONEncoder().encode(password)
+    func encode() throws -> Data? {
+        let encoder = JSONEncoder()
+        encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] = true
+        return try encoder.encode(password)
     }
     
     func send(completion: @escaping (Response?) -> Void) {
-        post(action: "password/create", credentials: credentials, completion: completion)
+        post(action: "password/create", session: session, completion: completion)
     }
     
     func decode(data: Data) -> Response? {

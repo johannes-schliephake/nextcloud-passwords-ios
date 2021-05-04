@@ -33,10 +33,24 @@ extension Entry: Identifiable {
 
 extension Entry {
     
-    enum EntryError: Error {
-        case createError
-        case editError
-        case deleteError
+    enum State {
+        
+        case creating
+        case updating
+        case deleting
+        case creationFailed
+        case updateFailed
+        case deletionFailed
+        case decryptionFailed
+        
+        var isProcessing: Bool {
+            [.creating, .updating, .deleting].contains(self)
+        }
+        
+        var isError: Bool {
+            [.creationFailed, .updateFailed, .deletionFailed, .decryptionFailed].contains(self)
+        }
+        
     }
     
 }

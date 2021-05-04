@@ -4,7 +4,7 @@ import SwiftUI
 
 final class EntriesController: ObservableObject {
     
-    @Published private(set) var error = false
+    @Published private(set) var state: State = .loading
     @Published private(set) var folders: [Folder]? {
         /// Extend @Published behaviour to array elements
         willSet {
@@ -13,7 +13,9 @@ final class EntriesController: ObservableObject {
         didSet {
             folders?.forEach {
                 folder in
-                folder.objectWillChange.sink { [weak self] in self?.objectWillChange.send() }.store(in: &foldersSubscriptions)
+                folder.objectWillChange
+                    .sink { [weak self] in self?.objectWillChange.send() }
+                    .store(in: &foldersSubscriptions)
             }
         }
     }
@@ -25,7 +27,9 @@ final class EntriesController: ObservableObject {
         didSet {
             passwords?.forEach {
                 password in
-                password.objectWillChange.sink { [weak self] in self?.objectWillChange.send() }.store(in: &passwordsSubscriptions)
+                password.objectWillChange
+                    .sink { [weak self] in self?.objectWillChange.send() }
+                    .store(in: &passwordsSubscriptions)
             }
         }
     }
@@ -64,152 +68,342 @@ final class EntriesController: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
-        CredentialsController.default.$credentials.sink(receiveValue: requestEntries).store(in: &subscriptions)
+        SessionController.default.$session
+            .sink(receiveValue: requestEntries)
+            .store(in: &subscriptions)
     }
     
     private init(folders: [Folder], passwords: [Password]) {
         self.folders = folders
         self.passwords = passwords
+        state = .online
     }
     
-    private func requestEntries(credentials: Credentials?) {
-        guard let credentials = credentials else {
+    private func requestEntries(session: Session?) {
+        guard let session = session else {
             folders = nil
             passwords = nil
+            state = .loading
+            Crypto.AES256.removeKey(named: "offlineKey")
+            CoreData.default.clear(type: OfflineContainer.self)
             return
         }
         
-        ListFoldersRequest(credentials: credentials).send {
-            [weak self] folders in
-            guard let folders = folders else {
-                self?.error = true
-                return
+        let listFoldersRequest = Future<[Folder], NCPasswordsRequestError> {
+            promise in
+            ListFoldersRequest(session: session).send {
+                folders in
+                guard let folders = folders else {
+                    promise(.failure(.requestError))
+                    return
+                }
+                promise(.success(folders))
             }
-            self?.error = false
-            self?.folders = folders
         }
-        ListPasswordsRequest(credentials: credentials).send {
-            [weak self] passwords in
-            guard let passwords = passwords else {
-                self?.error = true
+        let listPasswordsRequest = Future<[Password], NCPasswordsRequestError> {
+            promise in
+            ListPasswordsRequest(session: session).send {
+                passwords in
+                guard let passwords = passwords else {
+                    promise(.failure(.requestError))
+                    return
+                }
+                promise(.success(passwords))
+            }
+        }
+        Publishers.Zip(listFoldersRequest, listPasswordsRequest).sink(receiveCompletion: {
+            [weak self] result in
+            switch result {
+            case .failure(.requestError):
+                if self?.state != .offline {
+                    self?.state = .error
+                }
+            default:
+                break
+            }
+        }, receiveValue: {
+            [weak self] folders, passwords in
+            self?.merge(folders: folders, passwords: passwords)
+        })
+        .store(in: &subscriptions)
+        
+        session.append(pendingCompletion: {
+            [weak self] in
+            self?.fetchOfflineEntries()
+        })
+    }
+    
+    private func fetchOfflineEntries() {
+        DispatchQueue.global(qos: .utility).async {
+            [weak self] in
+            let request = OfflineContainer.request()
+            guard let offlineContainers = CoreData.default.fetch(request: request) else {
+                DispatchQueue.main.async {
+                    CoreData.default.clear(type: OfflineContainer.self)
+                    self?.merge(folders: [], passwords: [], offline: true)
+                }
                 return
             }
-            self?.error = false
-            self?.passwords = passwords
+            
+            let key = Crypto.AES256.getKey(named: "offlineKey")
+            let entries = try? Crypto.AES256.decrypt(offlineContainers: offlineContainers, key: key)
+            
+            DispatchQueue.main.async {
+                guard let entries = entries else {
+                    CoreData.default.clear(type: OfflineContainer.self)
+                    self?.merge(folders: [], passwords: [], offline: true)
+                    return
+                }
+                self?.merge(folders: entries.folders, passwords: entries.passwords, offline: true)
+            }
         }
     }
     
+    private func merge(folders: [Folder], passwords: [Password], offline: Bool = false) {
+        guard SessionController.default.session != nil else {
+            return
+        }
+        
+        if !offline {
+            state = .online
+        }
+        else if state != .online,
+                !folders.isEmpty || !passwords.isEmpty {
+            state = .offline
+        }
+        
+        if self.folders == nil {
+            self.folders = folders
+        }
+        else if let existingFolders = self.folders {
+            let onlineFolders = offline ? existingFolders : folders
+            let offlineFolders = offline ? folders : existingFolders
+            
+            let onlineFolderIDs = Set(onlineFolders.map { $0.id })
+            let offlineFolderIDs = Set(offlineFolders.map { $0.id })
+            
+            let deletedFolderIDs = offlineFolderIDs.subtracting(onlineFolderIDs)
+            let updatedFolderIDs = onlineFolderIDs.intersection(offlineFolderIDs)
+            let addedFolderIDs = onlineFolderIDs.subtracting(offlineFolderIDs)
+            
+            let deletedFolders = offlineFolders.filter { deletedFolderIDs.contains($0.id) }
+            let updatedFolderPairs = zip(offlineFolders.filter { updatedFolderIDs.contains($0.id) }, onlineFolders.filter { updatedFolderIDs.contains($0.id) })
+            let addedFolders = onlineFolders.filter { addedFolderIDs.contains($0.id) }
+            
+            if offline {
+                deletedFolders.forEach {
+                    offlineFolder in
+                    offlineFolder.revision = ""
+                }
+                updatedFolderPairs.forEach {
+                    offlineFolder, onlineFolder in
+                    onlineFolder.offlineContainer = offlineFolder.offlineContainer
+                    onlineFolder.updateOfflineContainer()
+                }
+                addedFolders.forEach {
+                    onlineFolder in
+                    onlineFolder.updateOfflineContainer()
+                }
+            }
+            else {
+                deletedFolders.forEach {
+                    offlineFolder in
+                    self.folders?.removeAll { $0 === offlineFolder }
+                    offlineFolder.revision = ""
+                }
+                updatedFolderPairs.forEach {
+                    offlineFolder, onlineFolder in
+                    offlineFolder.update(from: onlineFolder)
+                }
+                self.folders?.append(contentsOf: addedFolders)
+                addedFolders.forEach {
+                    onlineFolder in
+                    onlineFolder.updateOfflineContainer()
+                }
+            }
+        }
+        
+        if self.passwords == nil {
+            self.passwords = passwords
+        }
+        else if let existingPasswords = self.passwords {
+            let onlinePasswords = offline ? existingPasswords : passwords
+            let offlinePasswords = offline ? passwords : existingPasswords
+            
+            let onlinePasswordIDs = Set(onlinePasswords.map { $0.id })
+            let offlinePasswordIDs = Set(offlinePasswords.map { $0.id })
+            
+            let deletedPasswordIDs = offlinePasswordIDs.subtracting(onlinePasswordIDs)
+            let updatedPasswordIDs = onlinePasswordIDs.intersection(offlinePasswordIDs)
+            let addedPasswordIDs = onlinePasswordIDs.subtracting(offlinePasswordIDs)
+            
+            let deletedPasswords = offlinePasswords.filter { deletedPasswordIDs.contains($0.id) }
+            let updatedPasswordPairs = zip(offlinePasswords.filter { updatedPasswordIDs.contains($0.id) }, onlinePasswords.filter { updatedPasswordIDs.contains($0.id) })
+            let addedPasswords = onlinePasswords.filter { addedPasswordIDs.contains($0.id) }
+            
+            if offline {
+                deletedPasswords.forEach {
+                    offlinePassword in
+                    offlinePassword.revision = ""
+                }
+                updatedPasswordPairs.forEach {
+                    offlinePassword, onlinePassword in
+                    onlinePassword.offlineContainer = offlinePassword.offlineContainer
+                    onlinePassword.updateOfflineContainer()
+                }
+                addedPasswords.forEach {
+                    onlinePassword in
+                    onlinePassword.updateOfflineContainer()
+                }
+            }
+            else {
+                deletedPasswords.forEach {
+                    offlinePassword in
+                    self.passwords?.removeAll { $0 === offlinePassword }
+                    offlinePassword.revision = ""
+                }
+                updatedPasswordPairs.forEach {
+                    offlinePassword, onlinePassword in
+                    offlinePassword.update(from: onlinePassword)
+                }
+                self.passwords?.append(contentsOf: addedPasswords)
+                addedPasswords.forEach {
+                    onlinePassword in
+                    onlinePassword.updateOfflineContainer()
+                }
+            }
+        }
+    }
+    
+    func updateOfflineContainers() {
+        folders?.forEach { $0.updateOfflineContainer() }
+        passwords?.forEach { $0.updateOfflineContainer() }
+    }
+    
     func add(folder: Folder) {
-        guard let credentials = CredentialsController.default.credentials else {
-            folder.error = .createError
+        folder.state = .creating
+        
+        guard let session = SessionController.default.session else {
+            folder.state = .creationFailed
             return
         }
         folders?.append(folder)
         
-        CreateFolderRequest(credentials: credentials, folder: folder).send {
+        CreateFolderRequest(session: session, folder: folder).send {
             response in
             guard let response = response else {
-                folder.error = .createError
+                folder.state = .creationFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createFolderErrorMessage".localized)
                 return
             }
-            folder.error = nil
+            folder.state = nil
             folder.id = response.id
             folder.revision = response.revision
         }
     }
     
     func add(password: Password) {
-        guard let credentials = CredentialsController.default.credentials else {
-            password.error = .createError
+        password.state = .creating
+        
+        guard let session = SessionController.default.session else {
+            password.state = .creationFailed
             return
         }
         passwords?.append(password)
         
-        CreatePasswordRequest(credentials: credentials, password: password).send {
+        CreatePasswordRequest(session: session, password: password).send {
             response in
             guard let response = response else {
-                password.error = .createError
+                password.state = .creationFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
                 return
             }
-            password.error = nil
+            password.state = nil
             password.id = response.id
             password.revision = response.revision
         }
     }
     
     func update(folder: Folder) {
-        guard let credentials = CredentialsController.default.credentials else {
-            folder.error = .editError
+        folder.state = .updating
+        
+        guard let session = SessionController.default.session else {
+            folder.state = .updateFailed
             return
         }
         
-        UpdateFolderRequest(credentials: credentials, folder: folder).send {
+        UpdateFolderRequest(session: session, folder: folder).send {
             response in
             guard let response = response else {
-                folder.error = .editError
+                folder.state = .updateFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editFolderErrorMessage".localized)
                 return
             }
-            folder.error = nil
+            folder.state = nil
             folder.revision = response.revision
         }
-        folder.revision = ""
     }
     
     func update(password: Password) {
-        guard let credentials = CredentialsController.default.credentials else {
-            password.error = .editError
+        password.state = .updating
+        
+        guard let session = SessionController.default.session else {
+            password.state = .updateFailed
             return
         }
         
-        UpdatePasswordRequest(credentials: credentials, password: password).send {
+        UpdatePasswordRequest(session: session, password: password).send {
             response in
             guard let response = response else {
-                password.error = .editError
+                password.state = .updateFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
                 return
             }
-            password.error = nil
+            password.state = nil
             password.revision = response.revision
         }
-        password.revision = ""
     }
     
     func delete(folder: Folder) {
-        guard let credentials = CredentialsController.default.credentials else {
-            folder.error = .deleteError
+        folder.state = .deleting
+        
+        guard let session = SessionController.default.session else {
+            folder.state = .deletionFailed
             return
         }
         folders?.removeAll { $0 === folder }
         
-        DeleteFolderRequest(credentials: credentials, folder: folder).send {
+        DeleteFolderRequest(session: session, folder: folder).send {
             [weak self] response in
             guard response != nil else {
                 self?.folders?.append(folder)
-                folder.error = .deleteError
+                folder.state = .deletionFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_deleteFolderErrorMessage".localized)
                 return
             }
+            folder.revision = ""
         }
     }
     
     func delete(password: Password) {
-        guard let credentials = CredentialsController.default.credentials else {
-            password.error = .deleteError
+        password.state = .deleting
+        
+        guard let session = SessionController.default.session else {
+            password.state = .deletionFailed
             return
         }
         passwords?.removeAll { $0 === password }
+        NotificationCenter.default.post(name: Notification.Name("deletePassword"), object: password)
         
-        DeletePasswordRequest(credentials: credentials, password: password).send {
+        DeletePasswordRequest(session: session, password: password).send {
             [weak self] response in
             guard response != nil else {
                 self?.passwords?.append(password)
-                password.error = .deleteError
+                password.state = .deletionFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_deletePasswordErrorMessage".localized)
                 return
             }
+            password.revision = ""
         }
     }
     
@@ -360,6 +554,18 @@ final class EntriesController: ObservableObject {
             }
         }
         return otherMatches
+    }
+    
+}
+
+
+extension EntriesController {
+    
+    enum State {
+        case loading
+        case offline
+        case online
+        case error
     }
     
 }

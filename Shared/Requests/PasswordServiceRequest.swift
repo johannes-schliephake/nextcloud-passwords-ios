@@ -3,7 +3,7 @@ import Foundation
 
 struct PasswordServiceRequest {
     
-    let credentials: Credentials
+    let session: Session
     let numbers: Bool
     let special: Bool
     
@@ -12,12 +12,12 @@ struct PasswordServiceRequest {
 
 extension PasswordServiceRequest: NCPasswordsRequest {
     
-    func encode() -> Data? {
-        try? JSONEncoder().encode(Request(strength: 4, numbers: numbers, special: special))
+    func encode() throws -> Data? {
+        try JSONEncoder().encode(Request(strength: 4, numbers: numbers, special: special))
     }
     
     func send(completion: @escaping (String?) -> Void) {
-        post(action: "service/password", credentials: credentials, completion: completion)
+        post(action: "service/password", session: session, completion: completion)
     }
     
     func decode(data: Data) -> String? {

@@ -1,5 +1,4 @@
 import SwiftUI
-import CryptoKit
 
 
 final class EditPasswordController: ObservableObject {
@@ -46,13 +45,13 @@ final class EditPasswordController: ObservableObject {
     }
     
     func generatePassword() {
-        guard let credentials = CredentialsController.default.credentials else {
+        guard let session = SessionController.default.session else {
             showErrorAlert = true
             return
         }
         
         showProgressView = true
-        PasswordServiceRequest(credentials: credentials, numbers: generatorNumbers, special: generatorSpecial).send {
+        PasswordServiceRequest(session: session, numbers: generatorNumbers, special: generatorSpecial).send {
             [weak self] password in
             self?.showProgressView = false
             guard let password = password,
@@ -70,7 +69,7 @@ final class EditPasswordController: ObservableObject {
         }
         if password.password != passwordPassword {
             password.edited = Date()
-            password.hash = Insecure.SHA1.hash(data: passwordPassword.data(using: .utf8)!).map { String(format: "%02x", $0) }.joined()
+            password.hash = Crypto.SHA1.hash(passwordPassword.data(using: .utf8)!)
         }
         password.updated = Date()
         

@@ -3,6 +3,7 @@ import SwiftUI
 
 struct PasswordDetailPage: View {
     
+    @ObservedObject var entriesController: EntriesController
     @ObservedObject var password: Password
     let updatePassword: () -> Void
     let deletePassword: () -> Void
@@ -10,7 +11,7 @@ struct PasswordDetailPage: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    @EnvironmentObject private var credentialsController: CredentialsController
+    @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
     @State private var favicon: UIImage?
@@ -18,19 +19,45 @@ struct PasswordDetailPage: View {
     @State private var showDeleteAlert = false
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
+    @State private var passwordDeleted = false
     
     // MARK: Views
     
     var body: some View {
-        mainStack()
-            .navigationTitle(password.label)
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    if password.editable {
-                        trailingToolbarView()
+        if passwordDeleted && UIDevice.current.userInterfaceIdiom == .pad {
+            deletedView()
+        }
+        else {
+            mainStack()
+                .navigationTitle(password.label)
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        if password.editable {
+                            trailingToolbarView()
+                        }
                     }
                 }
-            }
+                .onChange(of: sessionController.state) {
+                    state in
+                    if state.isChallengeAvailable {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: Notification.Name("deletePassword"), object: password)) {
+                    _ in
+                    /// Clear password detail page on iPad when password was deleted (SwiftUI doesn't close view when NavigationLink is removed)
+                    /// This has to be done with a notification because a password can also be deleted from the EntriesPage
+                    passwordDeleted = true
+                }
+        }
+    }
+    
+    private func deletedView() -> some View {
+        VStack {
+            Text("_deletedPasswordMessage")
+                .foregroundColor(.gray)
+                .padding()
+        }
     }
     
     private func mainStack() -> some View {
@@ -47,7 +74,7 @@ struct PasswordDetailPage: View {
                         EditPasswordNavigation(password: password, addPassword: {}, updatePassword: updatePassword)
                             .environmentObject(autoFillController)
                             .environmentObject(biometricAuthenticationController)
-                            .environmentObject(credentialsController)
+                            .environmentObject(sessionController)
                             .environmentObject(tipController)
                     })
             }
@@ -67,8 +94,9 @@ struct PasswordDetailPage: View {
                 Spacer()
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
-            passwordSection()
+            serviceSection()
             accountSection()
+            notesSection()
             metadataSection()
             deleteButton()
         }
@@ -100,7 +128,7 @@ struct PasswordDetailPage: View {
                 label: {
                     Label("_editPassword", systemImage: "pencil")
                 }
-                .disabled(password.revision.isEmpty)
+                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             }
         }
         label: {
@@ -130,6 +158,10 @@ struct PasswordDetailPage: View {
             .onAppear {
                 requestFavicon()
             }
+            .onChange(of: password.url) {
+                _ in
+                requestFavicon()
+            }
     }
     
     private func favoriteButton() -> some View {
@@ -141,43 +173,12 @@ struct PasswordDetailPage: View {
                 .font(.title)
         }
         .buttonStyle(BorderlessButtonStyle())
+        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
-    private func passwordSection() -> some View {
-        Section(header: Text("_password")) {
-            if hidePassword {
-                Button {
-                    UIPasteboard.general.privateString = password.password
-                }
-                label: {
-                    Text("••••••••••••")
-                        .foregroundColor(.primary)
-                        .font(.system(.body, design: .monospaced))
-                }
-            }
-            else {
-                Button {
-                    UIPasteboard.general.privateString = password.password
-                }
-                label: {
-                    Text(password.password)
-                        .foregroundColor(.primary)
-                        .font(.system(.body, design: .monospaced))
-                }
-            }
-            Button {
-                hidePassword.toggle()
-            }
-            label: {
-                Label(hidePassword ? "_showPassword" : "_hidePassword", systemImage: hidePassword ? "eye" : "eye.slash")
-            }
-        }
-    }
-    
-    private func accountSection() -> some View {
-        Section(header: Text("_account")) {
+    private func serviceSection() -> some View {
+        Section(header: Text("_service")) {
             row(subheadline: "_name", text: password.label, copiable: true)
-            row(subheadline: "_username", text: password.username, copiable: true)
             HStack {
                 row(subheadline: "_url", text: password.url, copiable: true)
                 if let url = URL(string: password.url),
@@ -194,14 +195,43 @@ struct PasswordDetailPage: View {
                     .buttonStyle(BorderlessButtonStyle())
                 }
             }
-            VStack(alignment: .leading) {
-                Text("_notes")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+        }
+    }
+    
+    private func accountSection() -> some View {
+        Section(header: Text("_account")) {
+            row(subheadline: "_username", text: password.username, copiable: true)
+            HStack {
+                Button {
+                    UIPasteboard.general.privateString = password.password
+                }
+                label: {
+                    VStack(alignment: .leading) {
+                        Text("_password")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Spacer()
+                        Text(hidePassword ? "••••••••••••" : password.password)
+                            .foregroundColor(.primary)
+                            .font(.system(.body, design: .monospaced))
+                    }
+                }
                 Spacer()
-                TextView(!password.notes.isEmpty ? password.notes : "-", isSelectable: !password.notes.isEmpty)
-                    .frame(height: 100)
+                Button {
+                    hidePassword.toggle()
+                }
+                label: {
+                    Image(systemName: hidePassword ? "eye" : "eye.slash")
+                }
+                .buttonStyle(BorderlessButtonStyle())
             }
+        }
+    }
+    
+    private func notesSection() -> some View {
+        Section(header: Text("_notes")) {
+            TextView(!password.notes.isEmpty ? password.notes : "-", isSelectable: !password.notes.isEmpty)
+                .frame(height: 100)
         }
     }
     
@@ -213,6 +243,18 @@ struct PasswordDetailPage: View {
                 Divider()
                 row(subheadline: "_updated", text: password.updated.formattedString, copiable: false)
                     .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            switch (password.cseType, password.sseType) {
+            case ("none", "none"),
+                 ("none", "unknown"):
+                row(subheadline: "_encryption", text: "-", copiable: false)
+            case (_, "none"),
+                 (_, "unknown"):
+                row(subheadline: "_encryption", text: "_clientSide".localized, copiable: false)
+            case ("none", _):
+                row(subheadline: "_encryption", text: "_serverSide".localized, copiable: false)
+            case (_, _):
+                row(subheadline: "_encryption", text: "\("_clientSide".localized) & \("_serverSide".localized)", copiable: false)
             }
         }
     }
@@ -229,6 +271,7 @@ struct PasswordDetailPage: View {
                 Spacer()
             }
         }
+        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         .actionSheet(isPresented: $showDeleteAlert) {
             ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
                 deleteAndDismiss()
@@ -252,12 +295,13 @@ struct PasswordDetailPage: View {
     
     private func trailingToolbarView() -> some View {
         HStack {
-            if password.revision.isEmpty {
-                ProgressView()
-                Spacer()
-            }
-            else if let error = password.error {
-                errorButton(error: error)
+            if let state = password.state {
+                if state.isError {
+                    errorButton(state: state)
+                }
+                else if state.isProcessing {
+                    ProgressView()
+                }
                 Spacer()
             }
             Button(action: {
@@ -265,27 +309,31 @@ struct PasswordDetailPage: View {
             }, label: {
                 Text("_edit")
             })
-            .disabled(password.revision.isEmpty)
+            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
     }
     
-    private func errorButton(error: Entry.EntryError) -> some View {
+    private func errorButton(state: Entry.State) -> some View {
         Button {
             showErrorAlert = true
         }
         label: {
             Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundColor(error == .deleteError ? .gray : .red)
+                .foregroundColor(state == .deletionFailed ? .gray : .red)
         }
         .buttonStyle(BorderlessButtonStyle())
         .alert(isPresented: $showErrorAlert) {
-            switch error {
-            case .createError:
+            switch state {
+            case .creationFailed:
                 return Alert(title: Text("_error"), message: Text("_createPasswordErrorMessage"))
-            case .editError:
+            case .updateFailed:
                 return Alert(title: Text("_error"), message: Text("_editPasswordErrorMessage"))
-            case .deleteError:
+            case .deletionFailed:
                 return Alert(title: Text("_error"), message: Text("_deletePasswordErrorMessage"))
+            case .decryptionFailed:
+                return Alert(title: Text("_error"), message: Text("_decryptPasswordErrorMessage"))
+            default:
+                return Alert(title: Text("_error"))
             }
         }
     }
@@ -310,31 +358,33 @@ struct PasswordDetailPage: View {
     // MARK: Functions
     
     private func requestFavicon() {
-        guard let url = URL(string: password.url),
-              let domain = url.host,
-              let credentials = credentialsController.credentials else {
+        guard let domain = URL(string: password.url)?.host ?? URL(string: "https://\(password.url)")?.host,
+              let session = sessionController.session else {
             return
         }
-        FaviconServiceRequest(credentials: credentials, domain: domain).send { favicon = $0 }
+        FaviconServiceRequest(session: session, domain: domain).send { favicon = $0 }
     }
     
     private func toggleFavorite() {
-        guard let credentials = credentialsController.credentials else {
+        password.state = .updating
+        
+        guard let session = sessionController.session else {
+            password.state = .updateFailed
             return
         }
         password.favorite.toggle()
         
-        UpdatePasswordRequest(credentials: credentials, password: password).send {
+        UpdatePasswordRequest(session: session, password: password).send {
             response in
             guard let response = response else {
+                password.state = .updateFailed
                 password.favorite.toggle()
                 return
             }
-            password.error = nil
+            password.state = nil
             password.revision = response.revision
             password.updated = Date()
         }
-        password.revision = ""
     }
     
     private func deleteAndDismiss() {
@@ -350,12 +400,12 @@ struct PasswordDetailPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                PasswordDetailPage(password: Password.mock, updatePassword: {}, deletePassword: {})
+                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, updatePassword: {}, deletePassword: {})
             }
             .showColumns(false)
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
-            .environmentObject(CredentialsController.mock)
+            .environmentObject(SessionController.mock)
             .environmentObject(TipController.mock)
         }
     }

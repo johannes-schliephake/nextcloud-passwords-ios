@@ -3,7 +3,7 @@ import Foundation
 
 struct CreateFolderRequest {
     
-    let credentials: Credentials
+    let session: Session
     let folder: Folder
     
 }
@@ -11,12 +11,14 @@ struct CreateFolderRequest {
 
 extension CreateFolderRequest: NCPasswordsRequest {
     
-    func encode() -> Data? {
-        try? JSONEncoder().encode(folder)
+    func encode() throws -> Data? {
+        let encoder = JSONEncoder()
+        encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] = true
+        return try encoder.encode(folder)
     }
     
     func send(completion: @escaping (Response?) -> Void) {
-        post(action: "folder/create", credentials: credentials, completion: completion)
+        post(action: "folder/create", session: session, completion: completion)
     }
     
     func decode(data: Data) -> Response? {
