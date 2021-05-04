@@ -41,8 +41,8 @@ struct EntriesPage: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if sessionController.session != nil,
-                       entriesController.state != .error && (!sessionController.error || entriesController.state == .offline),
-                       !sessionController.challengeAvailable,
+                       entriesController.state != .error && (sessionController.state != .error || entriesController.state == .offline),
+                       !sessionController.state.isChallengeAvailable,
                        entriesController.state == .offline || entriesController.state == .online,
                        let entries = entries {
                         trailingToolbarView(entries: entries)
@@ -57,13 +57,14 @@ struct EntriesPage: View {
             if sessionController.session == nil {
                 connectView()
             }
-            else if entriesController.state == .error || sessionController.error && entriesController.state != .offline {
+            else if entriesController.state == .error || sessionController.state == .error {
                 errorView()
             }
-            else if sessionController.challengeAvailable {
+            else if sessionController.state.isChallengeAvailable {
                 challengeView()
             }
             else if entriesController.state == .offline || entriesController.state == .online,
+                    sessionController.state == .offline || sessionController.state == .online,
                     let entries = entries {
                 listView(entries: entries, suggestions: suggestions)
                     .searchBar(term: $searchTerm)

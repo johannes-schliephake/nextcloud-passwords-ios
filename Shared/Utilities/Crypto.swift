@@ -157,7 +157,7 @@ extension Crypto {
             Keychain.default.remove(key: keyName)
         }
         
-        static func decrypt(offlineContainers: [OfflineContainer], key: SymmetricKey) throws -> ([Folder], [Password]) {
+        static func decrypt(offlineContainers: [OfflineContainer], key: SymmetricKey) throws -> (folders: [Folder], passwords: [Password]) {
             let decoder = JSONDecoder()
             
             let folderOfflineContainers = offlineContainers

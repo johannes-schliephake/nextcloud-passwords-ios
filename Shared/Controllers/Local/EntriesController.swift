@@ -149,12 +149,12 @@ final class EntriesController: ObservableObject {
             let entries = try? Crypto.AES256.decrypt(offlineContainers: offlineContainers, key: key)
             
             DispatchQueue.main.async {
-                guard let (folders, passwords) = entries else {
+                guard let entries = entries else {
                     CoreData.default.clear(type: OfflineContainer.self)
                     self?.merge(folders: [], passwords: [], offline: true)
                     return
                 }
-                self?.merge(folders: folders, passwords: passwords, offline: true)
+                self?.merge(folders: entries.folders, passwords: entries.passwords, offline: true)
             }
         }
     }

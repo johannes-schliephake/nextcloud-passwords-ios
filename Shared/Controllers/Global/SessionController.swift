@@ -6,14 +6,14 @@ final class SessionController: ObservableObject {
     
     static let `default` = SessionController()
     
+    @Published private(set) var state: State = .loading
     @Published var session: Session? {
         didSet {
             guard let session = session else {
                 Keychain.default.remove(key: "server")
                 Keychain.default.remove(key: "user")
                 Keychain.default.remove(key: "password")
-                challengeAvailable = false
-                error = false
+                state = .loading
                 challenge = nil
                 cachedChallengePassword = nil
                 subscriptions.removeAll()
@@ -58,8 +58,6 @@ final class SessionController: ObservableObject {
                 .store(in: &subscriptions)
         }
     }
-    @Published private(set) var challengeAvailable = false
-    @Published private(set) var error = false
     
     private var challenge: Crypto.PWDv1r1.Challenge?
     private var cachedChallengePassword: String? {
@@ -99,7 +97,9 @@ final class SessionController: ObservableObject {
         RequestSessionRequest(session: session).send {
             [weak self] response in
             guard let response = response else {
-                self?.error = true
+                if self?.state != .offline && self?.state != .offlineChallengeAvailable {
+                    self?.state = .error
+                }
                 return
             }
             
@@ -108,7 +108,7 @@ final class SessionController: ObservableObject {
                 return
             }
             self?.challenge = challenge
-            self?.challengeAvailable = true
+            self?.state = .onlineChallengeAvailable
             
             if let challengePassword = Keychain.default.load(key: "challengePassword") ?? self?.cachedChallengePassword {
                 self?.solveChallenge(password: challengePassword)
@@ -123,11 +123,16 @@ final class SessionController: ObservableObject {
         
         guard session.keychain == nil,
               Keychain.default.load(key: "offlineKeychain") != nil else {
+            if state != .online {
+                state = .offline
+            }
             session.runPendingCompletions()
             return
         }
         
-        challengeAvailable = true
+        if state != .onlineChallengeAvailable {
+            state = .offlineChallengeAvailable
+        }
         
         if let challengePassword = Keychain.default.load(key: "challengePassword") ?? cachedChallengePassword {
             solveChallenge(password: challengePassword)
@@ -136,22 +141,21 @@ final class SessionController: ObservableObject {
     
     func solveChallenge(password: String, store: Bool = false) {
         guard let session = session else {
-            error = true
             return
         }
         
-        challengeAvailable = false
+        state = .loading
         
         if let challenge = challenge {
             guard let solution = Crypto.PWDv1r1.solve(challenge: challenge, password: password) else {
-                error = true
+                state = .error
                 return
             }
             openSession(password: password, solution: solution, store: store)
         }
         else if let offlineKeychain = Keychain.default.load(key: "offlineKeychain") {
             guard let keychain = Crypto.CSEv1r1.decrypt(keys: offlineKeychain, password: password) else {
-                challengeAvailable = true
+                state = .offlineChallengeAvailable
                 Keychain.default.remove(key: "challengePassword")
                 UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
                 return
@@ -162,6 +166,9 @@ final class SessionController: ObservableObject {
                 Keychain.default.store(key: "challengePassword", value: password)
             }
             
+            if state != .online {
+                state = .offline
+            }
             session.runPendingCompletions()
         }
     }
@@ -174,7 +181,9 @@ final class SessionController: ObservableObject {
         OpenSessionRequest(session: session, solution: solution).send {
             [weak self] response in
             guard let response = response else {
-                self?.error = true
+                if self?.state != .offline && self?.state != .offlineChallengeAvailable {
+                    self?.state = .error
+                }
                 return
             }
             
@@ -183,7 +192,7 @@ final class SessionController: ObservableObject {
                let store = store {
                 guard response.success,
                       let keys = response.keys["CSEv1r1"] else {
-                    self?.challengeAvailable = true
+                    self?.state = .onlineChallengeAvailable
                     Keychain.default.remove(key: "challengePassword")
                     UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
                     return
@@ -198,13 +207,14 @@ final class SessionController: ObservableObject {
             }
             else {
                 guard response.success else {
-                    self?.error = true
+                    self?.state = .error
                     return
                 }
             }
             
             self?.keepaliveSession()
             
+            self?.state = .online
             session.runPendingRequests()
         }
     }
@@ -233,6 +243,26 @@ final class SessionController: ObservableObject {
         }
         CloseSessionRequest(session: session).send { _ in AuthenticationChallengeController.default.clearAcceptedCertificateHash() }
         session.invalidate(reason: .logout)
+    }
+    
+}
+
+
+extension SessionController {
+    
+    enum State {
+        
+        case loading
+        case offlineChallengeAvailable
+        case onlineChallengeAvailable
+        case offline
+        case online
+        case error
+        
+        var isChallengeAvailable: Bool {
+            [.offlineChallengeAvailable, .onlineChallengeAvailable].contains(self)
+        }
+        
     }
     
 }

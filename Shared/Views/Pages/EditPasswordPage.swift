@@ -30,9 +30,9 @@ struct EditPasswordPage: View {
                     confirmButton()
                 }
             }
-            .onChange(of: sessionController.challengeAvailable) {
-                challengeAvailable in
-                if challengeAvailable {
+            .onChange(of: sessionController.state) {
+                state in
+                if state.isChallengeAvailable {
                     presentationMode.wrappedValue.dismiss()
                 }
             }
