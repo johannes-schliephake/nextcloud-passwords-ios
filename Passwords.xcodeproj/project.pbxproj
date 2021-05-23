@@ -85,6 +85,10 @@
 		8F63618225A7438700C832C9 /* PreviewDevice+Generate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F63617B25A741A400C832C9 /* PreviewDevice+Generate.swift */; };
 		8F65736A25E3C4F200139163 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F65736925E3C4F200139163 /* TextView.swift */; };
 		8F65736B25E3C4F200139163 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F65736925E3C4F200139163 /* TextView.swift */; };
+		8F68D73F26495AE200FF192C /* ShowPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D73E26495AE200FF192C /* ShowPasswordRequest.swift */; };
+		8F68D74026495AE200FF192C /* ShowPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D73E26495AE200FF192C /* ShowPasswordRequest.swift */; };
+		8F68D74226495BD100FF192C /* ShowFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D74126495BD100FF192C /* ShowFolderRequest.swift */; };
+		8F68D74326495BD100FF192C /* ShowFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D74126495BD100FF192C /* ShowFolderRequest.swift */; };
 		8F696B4125E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */; };
 		8F696B4225E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */; };
 		8F703BFC26245C6100CC7018 /* Array+Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F703BFB26245C6100CC7018 /* Array+Zip.swift */; };
@@ -263,6 +267,8 @@
 		8F5E120725D3CC33007A2166 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		8F63617B25A741A400C832C9 /* PreviewDevice+Generate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewDevice+Generate.swift"; sourceTree = "<group>"; };
 		8F65736925E3C4F200139163 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		8F68D73E26495AE200FF192C /* ShowPasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPasswordRequest.swift; sourceTree = "<group>"; };
+		8F68D74126495BD100FF192C /* ShowFolderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFolderRequest.swift; sourceTree = "<group>"; };
 		8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationView+ShowColumns.swift"; sourceTree = "<group>"; };
 		8F703BFB26245C6100CC7018 /* Array+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Zip.swift"; sourceTree = "<group>"; };
 		8F71A821260762DC00863C27 /* KeepaliveSessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepaliveSessionRequest.swift; sourceTree = "<group>"; };
@@ -584,6 +590,8 @@
 				8F10C6502602C4AB00FA5B1D /* OpenSessionRequest.swift */,
 				8F997FAA2573043400B5F784 /* PasswordServiceRequest.swift */,
 				8F79AE0B260287DE00308A33 /* RequestSessionRequest.swift */,
+				8F68D74126495BD100FF192C /* ShowFolderRequest.swift */,
+				8F68D73E26495AE200FF192C /* ShowPasswordRequest.swift */,
 				8F553383257A47D0003987E6 /* UpdateFolderRequest.swift */,
 				8F997F8C2572C2FB00B5F784 /* UpdatePasswordRequest.swift */,
 			);
@@ -1007,6 +1015,7 @@
 				8F57A5BA2562699A00BC1CA0 /* Password.swift in Sources */,
 				8F5A8440259A4FA700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
 				8F59888925799C3200843696 /* SearchBar.swift in Sources */,
+				8F68D73F26495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
 				8F854E6D26239457008885C3 /* OfflineContainer.swift in Sources */,
 				8F74244626039BD600B73646 /* Crypto.swift in Sources */,
 				8F582BF6255EA30100F1E3DA /* NCSchemeHandler.swift in Sources */,
@@ -1050,6 +1059,8 @@
 				8F997F8D2572C2FB00B5F784 /* UpdatePasswordRequest.swift in Sources */,
 				8F52EFC925B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
 				8F552956259CAF4900419233 /* Folder.swift in Sources */,
+				8F68D74226495BD100FF192C /* ShowFolderRequest.swift in Sources */,
+				8F72379A2651468700832A88 /* Collection+Avg.swift in Sources */,
 				8F703BFC26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				8F5C1A84257D7D5F009FF66F /* BiometricAuthenticationController.swift in Sources */,
 				8F63617C25A741A400C832C9 /* PreviewDevice+Generate.swift in Sources */,
@@ -1084,6 +1095,7 @@
 				8F5A8445259A501700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
 				8FC361D525827E5D00785371 /* PasswordServiceRequest.swift in Sources */,
 				8FC361C825827E5500785371 /* Password.swift in Sources */,
+				8F68D74026495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
 				8F854E6E26239457008885C3 /* OfflineContainer.swift in Sources */,
 				8F74244726039BD600B73646 /* Crypto.swift in Sources */,
 				8FC361D225827E5D00785371 /* ListFoldersRequest.swift in Sources */,
@@ -1127,6 +1139,8 @@
 				8FBE43D2258D5A8C003F7F34 /* UIApplication+IsExtension.swift in Sources */,
 				8F52EFCA25B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
 				8F552959259CAF4E00419233 /* Folder.swift in Sources */,
+				8F68D74326495BD100FF192C /* ShowFolderRequest.swift in Sources */,
+				8F72379B2651468700832A88 /* Collection+Avg.swift in Sources */,
 				8F703BFD26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				8FC361F0258284F500785371 /* ProviderViewController.swift in Sources */,
 				8F63618225A7438700C832C9 /* PreviewDevice+Generate.swift in Sources */,

@@ -539,26 +539,10 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
-            folder.state = .updating
-            
-            guard let session = SessionController.default.session else {
-                folder.state = .updateFailed
-                return
-            }
+            folder.edited = Date()
+            folder.updated = Date()
             folder.favorite.toggle()
-            
-            UpdateFolderRequest(session: session, folder: folder).send {
-                response in
-                guard let response = response else {
-                    folder.state = .updateFailed
-                    folder.favorite.toggle()
-                    return
-                }
-                folder.state = nil
-                folder.revision = response.revision
-                folder.edited = Date()
-                folder.updated = Date()
-            }
+            entriesController.update(folder: folder)
         }
         
     }
@@ -779,25 +763,9 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
-            password.state = .updating
-            
-            guard let session = SessionController.default.session else {
-                password.state = .updateFailed
-                return
-            }
+            password.updated = Date()
             password.favorite.toggle()
-            
-            UpdatePasswordRequest(session: session, password: password).send {
-                response in
-                guard let response = response else {
-                    password.state = .updateFailed
-                    password.favorite.toggle()
-                    return
-                }
-                password.state = nil
-                password.revision = response.revision
-                password.updated = Date()
-            }
+            entriesController.update(password: password)
         }
         
         private func requestFavicon() {
