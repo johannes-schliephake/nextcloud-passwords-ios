@@ -303,9 +303,16 @@ final class EntriesController: ObservableObject {
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createFolderErrorMessage".localized)
                 return
             }
-            folder.state = nil
-            folder.id = response.id
-            folder.revision = response.revision
+            ShowFolderRequest(session: session, id: response.id).send {
+                response in
+                guard let response = response else {
+                    folder.state = .creationFailed
+                    UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createFolderErrorMessage".localized)
+                    return
+                }
+                folder.id = response.id
+                folder.update(from: response)
+            }
         }
     }
     
@@ -325,9 +332,16 @@ final class EntriesController: ObservableObject {
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
                 return
             }
-            password.state = nil
-            password.id = response.id
-            password.revision = response.revision
+            ShowPasswordRequest(session: session, id: response.id).send {
+                response in
+                guard let response = response else {
+                    password.state = .creationFailed
+                    UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
+                    return
+                }
+                password.id = response.id
+                password.update(from: response)
+            }
         }
     }
     
@@ -346,8 +360,15 @@ final class EntriesController: ObservableObject {
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editFolderErrorMessage".localized)
                 return
             }
-            folder.state = nil
-            folder.revision = response.revision
+            ShowFolderRequest(session: session, id: response.id).send {
+                response in
+                guard let response = response else {
+                    folder.state = .updateFailed
+                    UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editFolderErrorMessage".localized)
+                    return
+                }
+                folder.update(from: response)
+            }
         }
     }
     
@@ -366,8 +387,15 @@ final class EntriesController: ObservableObject {
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
                 return
             }
-            password.state = nil
-            password.revision = response.revision
+            ShowPasswordRequest(session: session, id: response.id).send {
+                response in
+                guard let response = response else {
+                    password.state = .updateFailed
+                    UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
+                    return
+                }
+                password.update(from: response)
+            }
         }
     }
     
