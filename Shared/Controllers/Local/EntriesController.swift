@@ -54,6 +54,10 @@ final class EntriesController: ObservableObject {
             if oldValue == sortBy {
                 reversed.toggle()
             }
+            else if filterBy == .folders,
+                    sortBy != .label && sortBy != .updated {
+                filterBy = .all
+            }
         }
     }
     @AppStorage("reversed", store: Configuration.userDefaults) var reversed = false {
@@ -83,6 +87,9 @@ final class EntriesController: ObservableObject {
         guard let session = session else {
             folders = nil
             passwords = nil
+            filterBy = .folders
+            sortBy = .label
+            reversed = false
             state = .loading
             Crypto.AES256.removeKey(named: "offlineKey")
             CoreData.default.clear(type: OfflineContainer.self)

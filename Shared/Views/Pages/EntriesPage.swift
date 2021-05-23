@@ -353,17 +353,15 @@ struct EntriesPage: View {
                 Label("_updated", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
                     .showIcon(entriesController.sortBy == .updated)
                     .tag(EntriesController.Sorting.updated)
-                if entriesController.filterBy != .folders {
-                    Label("_username", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
-                        .showIcon(entriesController.sortBy == .username)
-                        .tag(EntriesController.Sorting.username)
-                    Label("_url", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
-                        .showIcon(entriesController.sortBy == .url)
-                        .tag(EntriesController.Sorting.url)
-                    Label("_security", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
-                        .showIcon(entriesController.sortBy == .status)
-                        .tag(EntriesController.Sorting.status)
-                }
+                Label("_username", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
+                    .showIcon(entriesController.sortBy == .username)
+                    .tag(EntriesController.Sorting.username)
+                Label("_url", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
+                    .showIcon(entriesController.sortBy == .url)
+                    .tag(EntriesController.Sorting.url)
+                Label("_security", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
+                    .showIcon(entriesController.sortBy == .status)
+                    .tag(EntriesController.Sorting.status)
             }
         }
         label: {
