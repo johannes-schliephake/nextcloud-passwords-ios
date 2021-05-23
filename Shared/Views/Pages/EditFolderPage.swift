@@ -65,6 +65,9 @@ struct EditFolderPage: View {
     
     private func applyAndDismiss() {
         if !editFolderController.folderLabel.isEmpty {
+            guard editFolderController.folder.state?.isProcessing != true else {
+                return
+            }
             editFolderController.applyToFolder()
             presentationMode.wrappedValue.dismiss()
         }

@@ -188,6 +188,9 @@ struct EditPasswordPage: View {
     // MARK: Functions
     
     private func applyAndDismiss() {
+        guard editPasswordController.password.state?.isProcessing != true else {
+            return
+        }
         editPasswordController.applyToPassword()
         presentationMode.wrappedValue.dismiss()
     }
