@@ -158,6 +158,7 @@ struct EntriesPage: View {
     private func listView(entries: [Entry], suggestions: [Password]?) -> some View {
         VStack {
             if let suggestions = suggestions,
+               searchTerm.isEmpty,
                suggestions.isEmpty || folder.isBaseFolder {
                 List {
                     Section(header: Text("_suggestions")) {

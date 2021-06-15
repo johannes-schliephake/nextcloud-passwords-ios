@@ -120,11 +120,24 @@ final class Password: ObservableObject, Identifiable {
         }
     }
     
-    func matches(searchTerm: String) -> Bool {
-        label.lowercased().contains(searchTerm.lowercased()) ||
-            username.lowercased().contains(searchTerm.lowercased()) ||
-            url.lowercased().contains(searchTerm.lowercased()) ||
-            notes.lowercased().contains(searchTerm.lowercased())
+    func score(searchTerm: String) -> Double {
+        var scores = [label.score(searchTerm: searchTerm, penalty: 0.3),
+                      username.score(searchTerm: searchTerm, penalty: 0.9) * 0.6,
+                      notes.score(searchTerm: searchTerm, penalty: 0.01) * 0.7]
+        let urlUrl = URL(string: url)
+        let searchUrl = URL(string: searchTerm)
+        if let url = urlUrl?.scheme != nil ? urlUrl : URL(string: "https://\(url)"),
+           let searchUrl = searchUrl?.scheme != nil ? searchUrl : URL(string: "https://\(searchTerm)") {
+            scores.append(url.score(searchUrl: searchUrl))
+        }
+        else {
+            scores.append(url.score(searchTerm: searchTerm) * 0.7)
+        }
+        return scores
+            .sorted { $0 > $1 }
+            .enumerated()
+            .map { $1 * pow(0.5, Double($0)) }
+            .reduce(0.0, +)
     }
     
     func isDescendentOf(folder: Folder, in folders: [Folder]) -> Bool {

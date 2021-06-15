@@ -447,6 +447,7 @@ final class EntriesController: ObservableObject {
               var folders = folders else {
             return nil
         }
+        let searchTerm = searchTerm.trimmingCharacters(in: .whitespacesAndNewlines)
         
         /// Apply filter to folders
         switch filterBy {
@@ -544,7 +545,12 @@ final class EntriesController: ObservableObject {
         if searchTerm.isEmpty {
             return unsearchedEntries
         }
-        return unsearchedEntries.filter { $0.matches(searchTerm: searchTerm) }
+        return unsearchedEntries
+            .map { $0.score(searchTerm: searchTerm) }
+            .zip(with: unsearchedEntries)
+            .filter { $0.0 > 0.5 }
+            .sorted { $0.0 > $1.0 }
+            .map { $0.1 }
     }
     
     static func processSuggestions(passwords: [Password]?, serviceURLs: [URL]?) -> [Password]? {
@@ -553,42 +559,18 @@ final class EntriesController: ObservableObject {
             return nil
         }
         
-        /// Search for perfectly matching URLs
-        let perfectMatches = passwords.filter {
-            password in
-            serviceURLs.contains {
-                serviceURL in
-                URL(string: password.url) == serviceURL
+        return passwords
+            .map {
+                password -> Double in
+                serviceURLs
+                    .map { password.score(searchTerm: $0.absoluteString) }
+                    .reduce(0.0, +)
             }
-        }
-        if !perfectMatches.isEmpty {
-            return perfectMatches
-        }
-        
-        /// Search for URLs with the same host
-        let hostMatches = passwords.filter {
-            password in
-            serviceURLs.contains {
-                serviceURL in
-                URL(string: password.url)?.host == serviceURL.host
-            }
-        }
-        if !hostMatches.isEmpty {
-            return hostMatches
-        }
-        
-        /// Search with search function
-        let otherMatches = passwords.filter {
-            password in
-            serviceURLs.contains {
-                serviceURL in
-                guard let host = serviceURL.host else {
-                    return false
-                }
-                return password.matches(searchTerm: host)
-            }
-        }
-        return otherMatches
+            .zip(with: passwords)
+            .filter { $0.0 > 0.5 }
+            .sorted { $0.0 > $1.0 }
+            .prefix(5)
+            .map { $0.1 }
     }
     
 }
