@@ -15,6 +15,9 @@ struct SearchBar: UIViewControllerRepresentable {
     
     func updateUIViewController(_ overlayViewController: OverlayViewController, context: Context) {
         overlayViewController.searchController = context.coordinator.searchController
+        guard overlayViewController.searchController?.searchBar.text != searchTerm else {
+            return
+        }
         overlayViewController.searchController?.searchBar.text = searchTerm
     }
     
@@ -45,7 +48,8 @@ extension SearchBar {
         }
         
         func updateSearchResults(for searchController: UISearchController) {
-            guard let searchTerm = searchController.searchBar.text else {
+            guard let searchTerm = searchController.searchBar.text,
+                  searchBar.searchTerm != searchTerm else {
                 return
             }
             DispatchQueue.main.async {

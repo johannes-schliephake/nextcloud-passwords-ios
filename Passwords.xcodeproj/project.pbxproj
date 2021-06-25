@@ -113,6 +113,8 @@
 		8F74244726039BD600B73646 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F74244526039BD600B73646 /* Crypto.swift */; };
 		8F77DA5D25699F8900CFDA8D /* CopyToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F77DA5C25699F8900CFDA8D /* CopyToast.swift */; };
 		8F77DA6325699FB300CFDA8D /* EntriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F77DA6225699FB300CFDA8D /* EntriesController.swift */; };
+		8F781F52267CC8B400BD3DC1 /* FolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F781F51267CC8B400BD3DC1 /* FolderController.swift */; };
+		8F781F53267CC8B400BD3DC1 /* FolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F781F51267CC8B400BD3DC1 /* FolderController.swift */; };
 		8F79AE0C260287DE00308A33 /* RequestSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE0B260287DE00308A33 /* RequestSessionRequest.swift */; };
 		8F79AE0D260287DE00308A33 /* RequestSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE0B260287DE00308A33 /* RequestSessionRequest.swift */; };
 		8F7A73A32677493500FCA15F /* URL+RelativeReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A73A22677493500FCA15F /* URL+RelativeReference.swift */; };
@@ -411,6 +413,7 @@
 		8F74244526039BD600B73646 /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		8F77DA5C25699F8900CFDA8D /* CopyToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyToast.swift; sourceTree = "<group>"; };
 		8F77DA6225699FB300CFDA8D /* EntriesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesController.swift; sourceTree = "<group>"; };
+		8F781F51267CC8B400BD3DC1 /* FolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderController.swift; sourceTree = "<group>"; };
 		8F79AE0B260287DE00308A33 /* RequestSessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSessionRequest.swift; sourceTree = "<group>"; };
 		8F7A73A22677493500FCA15F /* URL+RelativeReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+RelativeReference.swift"; sourceTree = "<group>"; };
 		8F854E65262390FA008885C3 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -679,6 +682,7 @@
 				8F997FA02572F40D00B5F784 /* EditFolderController.swift */,
 				8F51428E2573F91800DD96C0 /* EditPasswordController.swift */,
 				8F77DA6225699FB300CFDA8D /* EntriesController.swift */,
+				8F781F51267CC8B400BD3DC1 /* FolderController.swift */,
 				8F59F524256B1EFB00D9FE40 /* ServerSetupController.swift */,
 			);
 			path = Local;
@@ -1160,6 +1164,7 @@
 				8F582BFA255EA63D00F1E3DA /* LoginFlowPage.swift in Sources */,
 				8F71A822260762DC00863C27 /* KeepaliveSessionRequest.swift in Sources */,
 				8F09585125D159F10082D438 /* AuthenticationChallengeController.swift in Sources */,
+				8F781F52267CC8B400BD3DC1 /* FolderController.swift in Sources */,
 				8F59F525256B1EFB00D9FE40 /* ServerSetupController.swift in Sources */,
 				8F997F9D2572ED7800B5F784 /* CreateFolderRequest.swift in Sources */,
 				8F561EBE258D26CC008AE12B /* NCPasswordsRequest.swift in Sources */,
@@ -1257,6 +1262,7 @@
 				8F52F3D22593784B00B4EFCE /* TipController.swift in Sources */,
 				8F71A823260762DC00863C27 /* KeepaliveSessionRequest.swift in Sources */,
 				8F09585225D159F10082D438 /* AuthenticationChallengeController.swift in Sources */,
+				8F781F53267CC8B400BD3DC1 /* FolderController.swift in Sources */,
 				8FC361C225827E5200785371 /* EditPasswordController.swift in Sources */,
 				8FC361B425827E4C00785371 /* EditPasswordPage.swift in Sources */,
 				8F561EC3258D2759008AE12B /* NCPasswordsRequest.swift in Sources */,

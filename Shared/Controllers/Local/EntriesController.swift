@@ -442,7 +442,7 @@ final class EntriesController: ObservableObject {
         }
     }
     
-    static func processEntries(passwords: [Password]?, folders: [Folder]?, folder: Folder, searchTerm: String, filterBy: EntriesController.Filter, sortBy: EntriesController.Sorting, reversed: Bool) -> [Entry]? {
+    func processEntries(folder: Folder, searchTerm: String) -> [Entry]? {
         guard var passwords = passwords,
               var folders = folders else {
             return nil
@@ -553,7 +553,7 @@ final class EntriesController: ObservableObject {
             .map { $0.1 }
     }
     
-    static func processSuggestions(passwords: [Password]?, serviceURLs: [URL]?) -> [Password]? {
+    func processSuggestions(serviceURLs: [URL]?) -> [Password]? {
         guard let passwords = passwords,
               let serviceURLs = serviceURLs else {
             return nil
