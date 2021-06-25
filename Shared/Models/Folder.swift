@@ -85,8 +85,8 @@ final class Folder: ObservableObject, Identifiable {
         id == Entry.baseId
     }
     
-    func matches(searchTerm: String) -> Bool {
-        label.lowercased().contains(searchTerm.lowercased())
+    func score(searchTerm: String) -> Double {
+        label.score(searchTerm: searchTerm, penalty: 0.3)
     }
     
     func isDescendentOf(folder: Folder, in folders: [Folder]) -> Bool {

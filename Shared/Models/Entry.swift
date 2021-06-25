@@ -5,12 +5,12 @@ enum Entry {
     
     static let baseId = "00000000-0000-0000-0000-000000000000"
     
-    func matches(searchTerm: String) -> Bool {
+    func score(searchTerm: String) -> Double {
         switch self {
         case .folder(let folder):
-            return folder.matches(searchTerm: searchTerm)
+            return folder.score(searchTerm: searchTerm)
         case .password(let password):
-            return password.matches(searchTerm: searchTerm)
+            return password.score(searchTerm: searchTerm)
         }
     }
     
