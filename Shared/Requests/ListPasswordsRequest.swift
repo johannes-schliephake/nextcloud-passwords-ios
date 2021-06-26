@@ -15,7 +15,7 @@ extension ListPasswordsRequest: NCPasswordsRequest {
     }
     
     func decode(data: Data) -> [Password]? {
-        try? JSONDecoder().decode([Password].self, from: data)
+        try? Configuration.jsonDecoder.decode([Password].self, from: data)
     }
     
 }

@@ -12,9 +12,7 @@ struct DeletePasswordRequest {
 extension DeletePasswordRequest: NCPasswordsRequest {
     
     func encode() throws -> Data? {
-        let encoder = JSONEncoder()
-        encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] = true
-        return try encoder.encode(password)
+        try Configuration.updatingJsonEncoder.encode(password)
     }
     
     func send(completion: @escaping (Response?) -> Void) {
@@ -22,7 +20,7 @@ extension DeletePasswordRequest: NCPasswordsRequest {
     }
     
     func decode(data: Data) -> Response? {
-        try? JSONDecoder().decode(Response.self, from: data)
+        try? Configuration.jsonDecoder.decode(Response.self, from: data)
     }
     
 }

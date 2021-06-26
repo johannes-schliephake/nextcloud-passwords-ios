@@ -12,7 +12,7 @@ struct ShowFolderRequest {
 extension ShowFolderRequest: NCPasswordsRequest {
     
     func encode() throws -> Data? {
-        try JSONEncoder().encode(Request(id: id))
+        try Configuration.nonUpdatingJsonEncoder.encode(Request(id: id))
     }
     
     func send(completion: @escaping (Folder?) -> Void) {
@@ -20,7 +20,7 @@ extension ShowFolderRequest: NCPasswordsRequest {
     }
     
     func decode(data: Data) -> Folder? {
-        try? JSONDecoder().decode(Folder.self, from: data)
+        try? Configuration.jsonDecoder.decode(Folder.self, from: data)
     }
     
 }

@@ -13,7 +13,7 @@ struct PasswordServiceRequest {
 extension PasswordServiceRequest: NCPasswordsRequest {
     
     func encode() throws -> Data? {
-        try JSONEncoder().encode(Request(strength: 4, numbers: numbers, special: special))
+        try Configuration.nonUpdatingJsonEncoder.encode(Request(strength: 4, numbers: numbers, special: special))
     }
     
     func send(completion: @escaping (String?) -> Void) {
@@ -21,7 +21,7 @@ extension PasswordServiceRequest: NCPasswordsRequest {
     }
     
     func decode(data: Data) -> String? {
-        try? JSONDecoder().decode(Response.self, from: data).password
+        try? Configuration.jsonDecoder.decode(Response.self, from: data).password
     }
     
 }

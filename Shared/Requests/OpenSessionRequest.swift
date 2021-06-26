@@ -16,7 +16,7 @@ extension OpenSessionRequest: NCPasswordsRequest {
     }
     
     func encode() throws -> Data? {
-        try JSONEncoder().encode(Request(challenge: solution))
+        try Configuration.nonUpdatingJsonEncoder.encode(Request(challenge: solution))
     }
     
     func send(completion: @escaping (Response?) -> Void) {
@@ -24,10 +24,10 @@ extension OpenSessionRequest: NCPasswordsRequest {
     }
     
     func decode(data: Data) -> Response? {
-        if let response = try? JSONDecoder().decode(Response.self, from: data) {
+        if let response = try? Configuration.jsonDecoder.decode(Response.self, from: data) {
             return response
         }
-        if let errorResponse = try? JSONDecoder().decode(NCPasswordsRequestErrorResponse.self, from: data) {
+        if let errorResponse = try? Configuration.jsonDecoder.decode(NCPasswordsRequestErrorResponse.self, from: data) {
             switch (errorResponse.status, errorResponse.id) {
             case ("error", "a361c427"): /// "Password invalid"
                 return Response(success: false, keys: [:])
