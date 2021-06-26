@@ -194,7 +194,7 @@ final class EntriesController: ObservableObject {
             let addedFolderIDs = onlineFolderIDs.subtracting(offlineFolderIDs)
             
             let deletedFolders = offlineFolders.filter { deletedFolderIDs.contains($0.id) }
-            let updatedFolderPairs = zip(offlineFolders.filter { updatedFolderIDs.contains($0.id) }, onlineFolders.filter { updatedFolderIDs.contains($0.id) })
+            let updatedFolderPairs = zip(offlineFolders.filter { updatedFolderIDs.contains($0.id) }.sorted { $0.id < $1.id }, onlineFolders.filter { updatedFolderIDs.contains($0.id) }.sorted { $0.id < $1.id })
             let addedFolders = onlineFolders.filter { addedFolderIDs.contains($0.id) }
             
             if offline {
@@ -245,7 +245,7 @@ final class EntriesController: ObservableObject {
             let addedPasswordIDs = onlinePasswordIDs.subtracting(offlinePasswordIDs)
             
             let deletedPasswords = offlinePasswords.filter { deletedPasswordIDs.contains($0.id) }
-            let updatedPasswordPairs = zip(offlinePasswords.filter { updatedPasswordIDs.contains($0.id) }, onlinePasswords.filter { updatedPasswordIDs.contains($0.id) })
+            let updatedPasswordPairs = zip(offlinePasswords.filter { updatedPasswordIDs.contains($0.id) }.sorted { $0.id < $1.id }, onlinePasswords.filter { updatedPasswordIDs.contains($0.id) }.sorted { $0.id < $1.id })
             let addedPasswords = onlinePasswords.filter { addedPasswordIDs.contains($0.id) }
             
             if offline {

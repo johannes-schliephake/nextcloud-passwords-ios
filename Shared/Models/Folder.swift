@@ -98,7 +98,8 @@ final class Folder: ObservableObject, Identifiable {
     }
     
     func update(from folder: Folder) {
-        guard revision != folder.revision else {
+        guard id == folder.id,
+              revision != folder.revision else {
             return
         }
         
