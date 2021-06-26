@@ -147,7 +147,8 @@ final class Password: ObservableObject, Identifiable {
     }
     
     func update(from password: Password) {
-        guard revision != password.revision else {
+        guard id == password.id,
+              revision != password.revision else {
             return
         }
         
