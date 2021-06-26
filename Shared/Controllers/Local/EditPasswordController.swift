@@ -30,6 +30,7 @@ final class EditPasswordController: ObservableObject {
     @Published var passwordUsername: String
     @Published var passwordUrl: String
     @Published var passwordNotes: String
+    @Published var passwordFavorite: Bool
     @Published var showErrorAlert = false
     @Published var showProgressView = false
     
@@ -42,6 +43,7 @@ final class EditPasswordController: ObservableObject {
         passwordUsername = password.username
         passwordUrl = password.url
         passwordNotes = password.notes
+        passwordFavorite = password.favorite
     }
     
     func generatePassword() {
@@ -78,6 +80,7 @@ final class EditPasswordController: ObservableObject {
         password.username = passwordUsername
         password.url = passwordUrl
         password.notes = passwordNotes
+        password.favorite = passwordFavorite
         
         if password.id.isEmpty {
             addPassword()
