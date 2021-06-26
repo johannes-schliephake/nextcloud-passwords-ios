@@ -50,6 +50,9 @@ struct EditPasswordPage: View {
             accountSection()
             passwordGeneratorSection()
             notesSection()
+            if editPasswordController.password.id.isEmpty {
+                favoriteButton()
+            }
         }
         .listStyle(InsetGroupedListStyle())
     }
@@ -169,6 +172,15 @@ struct EditPasswordPage: View {
         Section(header: Text("_notes")) {
             TextView("-", text: $editPasswordController.passwordNotes)
                 .frame(height: 100)
+        }
+    }
+    
+    private func favoriteButton() -> some View {
+        Button {
+            editPasswordController.passwordFavorite.toggle()
+        }
+        label: {
+            Label("_favorite", systemImage: editPasswordController.passwordFavorite ? "star.fill" : "star")
         }
     }
     
