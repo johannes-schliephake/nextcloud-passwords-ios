@@ -90,9 +90,9 @@ final class Password: ObservableObject, Identifiable {
         favorite = try container.decode(Bool.self, forKey: .favorite)
         editable = try container.decode(Bool.self, forKey: .editable)
         /// Decode dates to double and call init manually to avoid wrong reference year (defaults to 2001, but 1970 is needed)
-        edited = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .edited))
-        created = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .created))
-        updated = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .updated))
+        edited = try container.decode(Date.self, forKey: .edited)
+        created = try container.decode(Date.self, forKey: .created)
+        updated = try container.decode(Date.self, forKey: .updated)
         
         switch cseType {
         case "none":
@@ -147,8 +147,7 @@ final class Password: ObservableObject, Identifiable {
     }
     
     func update(from password: Password) {
-        guard id == password.id,
-              revision != password.revision else {
+        guard revision != password.revision else {
             return
         }
         
@@ -276,9 +275,9 @@ extension Password: Codable {
         try container.encode(trashed, forKey: .trashed)
         try container.encode(favorite, forKey: .favorite)
         try container.encode(editable, forKey: .editable)
-        try container.encode(Int64(edited.timeIntervalSince1970), forKey: .edited)
-        try container.encode(Int64(created.timeIntervalSince1970), forKey: .created)
-        try container.encode(Int64(updated.timeIntervalSince1970), forKey: .updated)
+        try container.encode(edited, forKey: .edited)
+        try container.encode(created, forKey: .created)
+        try container.encode(updated, forKey: .updated)
     }
     
 }

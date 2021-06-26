@@ -118,7 +118,7 @@ extension NCPasswordsRequest {
                     return
                 }
                 
-                if let errorResponse = try? JSONDecoder().decode(NCPasswordsRequestErrorResponse.self, from: data) {
+                if let errorResponse = try? Configuration.jsonDecoder.decode(NCPasswordsRequestErrorResponse.self, from: data) {
                     switch (errorResponse.status, errorResponse.id) {
                     case ("error", "4ad27488"): /// "Authorized session required"
                         session.append(pendingRequest: {
@@ -132,7 +132,7 @@ extension NCPasswordsRequest {
                         break
                     }
                 }
-                else if let messageResponse = try? JSONDecoder().decode(NCPasswordsRequestMessageResponse.self, from: data) {
+                else if let messageResponse = try? Configuration.jsonDecoder.decode(NCPasswordsRequestMessageResponse.self, from: data) {
                     switch messageResponse.message {
                     case "Password login forbidden, use token instead":
                         session.invalidate(reason: .deauthorization)

@@ -76,7 +76,7 @@ extension Crypto {
                   let json = sodium.secretBox.open(nonceAndAuthenticatedCipherText: payload, secretKey: secretKey) else {
                 return retryWithBase64 ? nil : decrypt(keys: keys, password: password, retryWithBase64: true)
             }
-            return try? JSONDecoder().decode(Keychain.self, from: Data(json))
+            return try? Configuration.jsonDecoder.decode(Keychain.self, from: Data(json))
         }
         
         static func decrypt(payload: String, key: Bytes, retryWithBase64: Bool = false) -> String? {
@@ -158,8 +158,6 @@ extension Crypto {
         }
         
         static func decrypt(offlineContainers: [OfflineContainer], key: SymmetricKey) throws -> (folders: [Folder], passwords: [Password]) {
-            let decoder = JSONDecoder()
-            
             let folderOfflineContainers = offlineContainers
                 .filter { $0.type == .folder }
             let passwordOfflineContainers = offlineContainers
@@ -169,7 +167,7 @@ extension Crypto {
                 .map { $0.data }
                 .map { try AES.GCM.SealedBox(combined: $0) }
                 .map { try AES.GCM.open($0, using: key) }
-                .map { try decoder.decode(Folder.self, from: $0) }
+                .map { try Configuration.jsonDecoder.decode(Folder.self, from: $0) }
                 .zip(with: folderOfflineContainers)
                 .map {
                     folder, offlineContainer -> Folder in
@@ -180,7 +178,7 @@ extension Crypto {
                 .map { $0.data }
                 .map { try AES.GCM.SealedBox(combined: $0) }
                 .map { try AES.GCM.open($0, using: key) }
-                .map { try decoder.decode(Password.self, from: $0) }
+                .map { try Configuration.jsonDecoder.decode(Password.self, from: $0) }
                 .zip(with: passwordOfflineContainers)
                 .map {
                     password, offlineContainer -> Password in
@@ -192,7 +190,7 @@ extension Crypto {
         }
         
         static func encrypt(folder: Folder, key: SymmetricKey) -> Data? {
-            guard let encoded = try? JSONEncoder().encode(folder),
+            guard let encoded = try? Configuration.nonUpdatingJsonEncoder.encode(folder),
                   let encrypted = try? AES.GCM.seal(encoded, using: key, nonce: AES.GCM.Nonce()) else {
                 return nil
             }
@@ -200,7 +198,7 @@ extension Crypto {
         }
         
         static func encrypt(password: Password, key: SymmetricKey) -> Data? {
-            guard let encoded = try? JSONEncoder().encode(password),
+            guard let encoded = try? Configuration.nonUpdatingJsonEncoder.encode(password),
                   let encrypted = try? AES.GCM.seal(encoded, using: key, nonce: AES.GCM.Nonce()) else {
                 return nil
             }

@@ -12,9 +12,7 @@ struct UpdateFolderRequest {
 extension UpdateFolderRequest: NCPasswordsRequest {
     
     func encode() throws -> Data? {
-        let encoder = JSONEncoder()
-        encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] = true
-        return try encoder.encode(folder)
+        try Configuration.updatingJsonEncoder.encode(folder)
     }
     
     func send(completion: @escaping (Response?) -> Void) {
@@ -22,7 +20,7 @@ extension UpdateFolderRequest: NCPasswordsRequest {
     }
     
     func decode(data: Data) -> Response? {
-        try? JSONDecoder().decode(Response.self, from: data)
+        try? Configuration.jsonDecoder.decode(Response.self, from: data)
     }
     
 }
