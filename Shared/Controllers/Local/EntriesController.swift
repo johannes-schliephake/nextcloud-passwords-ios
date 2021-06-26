@@ -511,7 +511,7 @@ final class EntriesController: ObservableObject {
         /// Sort folders
         switch sortBy {
         case .label:
-            folders.sort { $0.label.lowercased() < $1.label.lowercased() }
+            folders.sort { $0.label.compare($1.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
         case .updated:
             folders.sort { $0.updated > $1.updated }
         default:
@@ -521,11 +521,11 @@ final class EntriesController: ObservableObject {
         /// Sort passwords
         switch sortBy {
         case .label:
-            passwords.sort { $0.label.lowercased() < $1.label.lowercased() }
+            passwords.sort { $0.label.compare($1.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
         case .updated:
             passwords.sort { $0.updated > $1.updated }
         case .username:
-            passwords.sort { $0.username.lowercased() < $1.username.lowercased() }
+            passwords.sort { $0.username.compare($1.username, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
             passwords.sort { !$0.username.isEmpty && $1.username.isEmpty }
         case .url:
             passwords.sort { $0.url.lowercased() < $1.url.lowercased() }
