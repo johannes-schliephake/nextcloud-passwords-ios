@@ -4,7 +4,7 @@ import WebKit
 
 struct LoginFlowPage: View {
     
-    let serverUrl: URL
+    let serverSetupResponse: ServerSetupController.Response
     
     // MARK: Views
     
@@ -15,7 +15,7 @@ struct LoginFlowPage: View {
     }
     
     private func webView() -> some View {
-        LoginFlowWebView(serverUrl: serverUrl)
+        LoginFlowWebView(serverSetupResponse: serverSetupResponse)
             .edgesIgnoringSafeArea(.bottom)
     }
     
@@ -26,27 +26,20 @@ extension LoginFlowPage {
     
     struct LoginFlowWebView: UIViewRepresentable {
         
-        let serverUrl: URL
+        private let loginUrl: URL
+        private let loginFlowNavigationController: LoginFlowNavigationController
         
-        init(serverUrl: URL) {
-            self.serverUrl = serverUrl
+        init(serverSetupResponse: ServerSetupController.Response) {
+            self.loginUrl = serverSetupResponse.login
+            loginFlowNavigationController = LoginFlowNavigationController(poll: serverSetupResponse.poll)
         }
         
         func makeUIView(context: Context) -> BottomlessWKWebView {
-            let schemeHandler = NCSchemeHandler(perform: {
-                server, user, password in
-                SessionController.default.session = Session(server: server, user: user, password: password)
-            })
-            let configuration = WKWebViewConfiguration()
-            configuration.setURLSchemeHandler(schemeHandler, forURLScheme: "nc")
-            let webView = BottomlessWKWebView(frame: .zero, configuration: configuration)
-            webView.customUserAgent = Configuration.clientName
+            let webView = BottomlessWKWebView()
             webView.isOpaque = false
-            webView.navigationDelegate = AuthenticationChallengeController.default
+            webView.navigationDelegate = loginFlowNavigationController
             
-            let url = serverUrl.appendingPathComponent("index.php/login/flow")
-            var request = URLRequest(url: url)
-            request.addValue("true", forHTTPHeaderField: "OCS-APIREQUEST")
+            var request = URLRequest(url: loginUrl)
             if let language = NSLocale.preferredLanguages.first {
                 request.addValue(language, forHTTPHeaderField: "Accept-Language")
             }
@@ -82,7 +75,7 @@ struct LoginFlowPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                LoginFlowPage(serverUrl: URL(string: "https://example.com")!)
+                LoginFlowPage(serverSetupResponse: ServerSetupController.Response.mock)
             }
             .showColumns(false)
         }

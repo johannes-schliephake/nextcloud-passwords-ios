@@ -87,6 +87,13 @@ final class SessionController: ObservableObject {
         self.session = session
     }
     
+    func attachSessionPublisher(_ sessionPublisher: AnyPublisher<Session, Never>) {
+        sessionPublisher
+            .sink { [weak self] in self?.session = $0 }
+            .store(in: &subscriptions)
+        
+    }
+    
     private func requestSession() {
         guard let session = session else {
             return

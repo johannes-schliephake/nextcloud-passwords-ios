@@ -29,8 +29,8 @@ struct ServerSetupPage: View {
                 serverAddressField()
             }
             .listStyle(InsetGroupedListStyle())
-            if let serverUrl = serverSetupController.validServerUrl {
-                NavigationLink(destination: LoginFlowPage(serverUrl: serverUrl), isActive: $showLoginFlowPage) {}
+            if let serverSetupResponse = serverSetupController.response {
+                NavigationLink(destination: LoginFlowPage(serverSetupResponse: serverSetupResponse), isActive: $showLoginFlowPage) {}
                     .isDetailLink(false)
             }
         }
@@ -70,13 +70,13 @@ struct ServerSetupPage: View {
         Button("_connect") {
             openLoginFlowPage()
         }
-        .disabled(serverSetupController.validServerUrl == nil)
+        .disabled(serverSetupController.response == nil)
     }
     
     // MARK: Functions
     
     private func openLoginFlowPage() {
-        if serverSetupController.validServerUrl != nil {
+        if serverSetupController.response != nil {
             showLoginFlowPage = true
         }
     }

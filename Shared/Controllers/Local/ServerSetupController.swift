@@ -1,13 +1,14 @@
 import Foundation
+import Combine
 
 
 final class ServerSetupController: ObservableObject {
     
     @Published private(set) var isValidating = false
-    @Published private(set) var validServerUrl: URL?
+    @Published private(set) var response: Response?
     @Published var serverAddress = "https://" {
         didSet {
-            validServerUrl = nil
+            response = nil
             isValidating = false
             guard let url = URL(string: serverAddress),
                   url.host != nil,
@@ -23,30 +24,55 @@ final class ServerSetupController: ObservableObject {
                     return
                 }
                 
-                /// Check if url hosts a Nextcloud instance 1.5 seconds after last user input
                 AuthenticationChallengeController.default.clearAcceptedCertificateHash()
-                let capabilitiesUrl = url.appendingPathComponent("ocs/v1.php/cloud/capabilities")
-                var request = URLRequest(url: capabilitiesUrl)
-                request.addValue("true", forHTTPHeaderField: "OCS-APIREQUEST")
+                let loginFlowUrl = url.appendingPathComponent("index.php/login/v2")
+                var request = URLRequest(url: loginFlowUrl)
+                request.httpMethod = "POST"
                 
-                URLSession(configuration: .default, delegate: AuthenticationChallengeController.default, delegateQueue: .main).dataTask(with: request) {
+                NetworkClient.default.dataTask(with: request) {
                     data, _, _ in
                     guard let serverAddress = self?.serverAddress,
                           URL(string: serverAddress) == url else {
                         return
                     }
-                    self?.isValidating = false
+                    DispatchQueue.main.async {
+                        self?.isValidating = false
+                    }
                     
                     guard let data = data,
-                          let body = String(data: data, encoding: .utf8),
-                          body.hasPrefix("<?xml version=\"1.0\"?>\n<ocs>") else {
+                          let response = try? Configuration.jsonDecoder.decode(Response.self, from: data) else {
                         return
                     }
-                    self?.validServerUrl = url
+                    DispatchQueue.main.async {
+                        self?.response = response
+                    }
                 }
                 .resume()
             }
         }
+    }
+    
+}
+
+
+extension ServerSetupController {
+    
+    struct Response: Decodable, MockObject {
+        
+        let poll: Poll
+        let login: URL
+        
+        struct Poll: Decodable { // swiftlint:disable:this nesting
+            
+            let token: String
+            let endpoint: URL
+            
+        }
+        
+        static var mock: Response {
+            Response(poll: ServerSetupController.Response.Poll(token: "", endpoint: URL(string: "https://example.com")!), login: URL(string: "https://example.com")!)
+        }
+        
     }
     
 }
