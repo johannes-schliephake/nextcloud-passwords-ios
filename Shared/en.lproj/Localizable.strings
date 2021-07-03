@@ -56,6 +56,8 @@
 "_metadata" = "Metadata";
 "_name" = "Name";
 "_nextcloudServerAddress" = "Nextcloud Server Address";
+"_noConnection" = "No Connection";
+"_noConnectionMessage" = "Could not connect to the Nextcloud Passwords app.";
 "_notes" = "Notes";
 "_nothingToSeeHere" = "Nothing to see here ...";
 "_numbers" = "Numbers";

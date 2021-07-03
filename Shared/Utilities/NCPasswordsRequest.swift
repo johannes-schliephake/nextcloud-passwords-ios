@@ -137,6 +137,9 @@ extension NCPasswordsRequest {
                     case "Password login forbidden, use token instead":
                         session.invalidate(reason: .deauthorization)
                         return
+                    case "Current user is not logged in":
+                        session.invalidate(reason: .noConnection)
+                        return
                     default:
                         break
                     }
