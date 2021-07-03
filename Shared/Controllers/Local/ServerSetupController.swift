@@ -6,50 +6,62 @@ final class ServerSetupController: ObservableObject {
     
     @Published private(set) var isValidating = false
     @Published private(set) var response: Response?
-    @Published var serverAddress = "https://" {
-        didSet {
-            response = nil
-            isValidating = false
-            guard let url = URL(string: serverAddress),
-                  url.host != nil,
-                  url.scheme?.lowercased() == "https" else {
-                return
-            }
-            isValidating = true
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) {
-                [weak self] in
-                guard let serverAddress = self?.serverAddress,
-                      URL(string: serverAddress) == url else {
-                    return
+    @Published var serverAddress = "https://"
+    
+    init() {
+        $serverAddress
+            .handleEvents(receiveOutput: {
+                [weak self] _ in
+                self?.response = nil
+                self?.isValidating = false
+            })
+            .compactMap {
+                serverAddress -> URL? in
+                guard let url = URL(string: serverAddress),
+                      url.host != nil,
+                      url.scheme?.lowercased() == "https" else {
+                    return nil
                 }
-                
+                return url
+            }
+            .handleEvents(receiveOutput: {
+                [weak self] _ in
+                self?.isValidating = true
+            })
+            .debounce(for: 1.5, scheduler: DispatchQueue.global(qos: .userInitiated))
+            .handleEvents(receiveOutput: {
+                _ in
                 AuthenticationChallengeController.default.clearAcceptedCertificateHash()
+            })
+            .map {
+                url -> URLRequest in
                 let loginFlowUrl = url.appendingPathComponent("index.php/login/v2")
                 var request = URLRequest(url: loginFlowUrl)
                 request.httpMethod = "POST"
-                
-                NetworkClient.default.dataTask(with: request) {
-                    data, _, _ in
-                    guard let serverAddress = self?.serverAddress,
-                          URL(string: serverAddress) == url else {
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self?.isValidating = false
-                    }
-                    
-                    guard let data = data,
-                          let response = try? Configuration.jsonDecoder.decode(Response.self, from: data) else {
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self?.response = response
-                    }
-                }
-                .resume()
+                return request
             }
-        }
+            .flatMap {
+                [weak self] request in
+                NetworkClient.default.dataTaskPublisher(for: request)
+                    .compactMap {
+                        [weak self] result -> Data? in
+                        guard let serverAddress = self?.serverAddress,
+                              let testUrl = URL(string: serverAddress)?.appendingPathComponent("index.php/login/v2"),
+                              testUrl == result.response.url else {
+                            return nil
+                        }
+                        return result.data
+                    }
+                    .decode(type: Response?.self, decoder: Configuration.jsonDecoder)
+                    .replaceError(with: nil)
+            }
+            .receive(on: DispatchQueue.main)
+            .handleEvents(receiveOutput: {
+                [weak self] _ in
+                self?.isValidating = false
+            })
+            .compactMap { $0 }
+            .assign(to: &$response)
     }
     
 }
