@@ -35,28 +35,26 @@ final class EntriesController: ObservableObject {
     }
     @AppStorage("filterBy", store: Configuration.userDefaults) var filterBy: Filter = .folders {
         willSet {
-            /// Extend @AppStorage behaviour to be more similar to @Published
-            objectWillChange.send()
-        }
-        didSet {
-            if filterBy == .folders,
+            if newValue == .folders,
                sortBy != .label && sortBy != .updated {
                 sortBy = .label
+            }
+            else {
+                objectWillChange.send()
             }
         }
     }
     @AppStorage("sortBy", store: Configuration.userDefaults) var sortBy: Sorting = .label {
         willSet {
-            /// Extend @AppStorage behaviour to be more similar to @Published
-            objectWillChange.send()
-        }
-        didSet {
-            if oldValue == sortBy {
+            if sortBy == newValue {
                 reversed.toggle()
             }
             else if filterBy == .folders,
-                    sortBy != .label && sortBy != .updated {
+                    newValue != .label && newValue != .updated {
                 filterBy = .all
+            }
+            else {
+                objectWillChange.send()
             }
         }
     }

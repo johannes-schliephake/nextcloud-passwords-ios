@@ -17,7 +17,6 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
             Keychain.default.store(key: "acceptedCertificateHash", value: acceptedCertificateHash)
         }
     }
-    private var subscriptions = Set<AnyCancellable>()
     
     override private init() {
         super.init()
