@@ -7,22 +7,19 @@ final class EditPasswordController: ObservableObject {
     private let addPassword: () -> Void
     private let updatePassword: () -> Void
     
-    @AppStorage("generatorNumbers", store: Configuration.userDefaults) var generatorNumbers = true {
+    @Published var generatorNumbers = Configuration.userDefaults.object(forKey: "generatorNumbers") as? Bool ?? true {
         willSet {
-            /// Extend @AppStorage behaviour to be more similar to @Published
-            objectWillChange.send()
+            Configuration.userDefaults.set(newValue, forKey: "generatorNumbers")
         }
     }
-    @AppStorage("generatorSpecial", store: Configuration.userDefaults) var generatorSpecial = true {
+    @Published var generatorSpecial = Configuration.userDefaults.object(forKey: "generatorSpecial") as? Bool ?? true {
         willSet {
-            /// Extend @AppStorage behaviour to be more similar to @Published
-            objectWillChange.send()
+            Configuration.userDefaults.set(newValue, forKey: "generatorSpecial")
         }
     }
-    @AppStorage("generatorLength", store: Configuration.userDefaults) var generatorLength = 36.0 {
+    @Published var generatorLength = Configuration.userDefaults.object(forKey: "generatorLength") as? Double ?? 36.0 {
         willSet {
-            /// Extend @AppStorage behaviour to be more similar to @Published
-            objectWillChange.send()
+            Configuration.userDefaults.set(newValue, forKey: "generatorLength")
         }
     }
     @Published var passwordPassword: String
