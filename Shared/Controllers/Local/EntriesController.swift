@@ -33,35 +33,34 @@ final class EntriesController: ObservableObject {
             }
         }
     }
-    @AppStorage("filterBy", store: Configuration.userDefaults) var filterBy: Filter = .folders {
+    @Published var filterBy = Filter(rawValue: Configuration.userDefaults.integer(forKey: "filterBy")) ?? .folders {
         willSet {
-            if newValue == .folders,
+            Configuration.userDefaults.set(newValue.rawValue, forKey: "filterBy")
+        }
+        didSet {
+            if filterBy == .folders,
                sortBy != .label && sortBy != .updated {
                 sortBy = .label
             }
-            else {
-                objectWillChange.send()
-            }
         }
     }
-    @AppStorage("sortBy", store: Configuration.userDefaults) var sortBy: Sorting = .label {
+    @Published var sortBy = Sorting(rawValue: Configuration.userDefaults.integer(forKey: "sortBy")) ?? .label {
         willSet {
-            if sortBy == newValue {
+            Configuration.userDefaults.set(newValue.rawValue, forKey: "sortBy")
+        }
+        didSet {
+            if oldValue == sortBy {
                 reversed.toggle()
             }
             else if filterBy == .folders,
-                    newValue != .label && newValue != .updated {
+                    sortBy != .label && sortBy != .updated {
                 filterBy = .all
-            }
-            else {
-                objectWillChange.send()
             }
         }
     }
-    @AppStorage("reversed", store: Configuration.userDefaults) var reversed = false {
+    @Published var reversed = Configuration.userDefaults.object(forKey: "reversed") as? Bool ?? false {
         willSet {
-            /// Extend @AppStorage behaviour to be more similar to @Published
-            objectWillChange.send()
+            Configuration.userDefaults.set(newValue, forKey: "reversed")
         }
     }
     
