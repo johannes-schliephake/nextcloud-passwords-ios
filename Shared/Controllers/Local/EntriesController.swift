@@ -36,9 +36,7 @@ final class EntriesController: ObservableObject {
     @Published var filterBy = Filter(rawValue: Configuration.userDefaults.integer(forKey: "filterBy")) ?? .folders {
         willSet {
             Configuration.userDefaults.set(newValue.rawValue, forKey: "filterBy")
-        }
-        didSet {
-            if filterBy == .folders,
+            if newValue == .folders,
                sortBy != .label && sortBy != .updated {
                 sortBy = .label
             }
@@ -47,13 +45,11 @@ final class EntriesController: ObservableObject {
     @Published var sortBy = Sorting(rawValue: Configuration.userDefaults.integer(forKey: "sortBy")) ?? .label {
         willSet {
             Configuration.userDefaults.set(newValue.rawValue, forKey: "sortBy")
-        }
-        didSet {
-            if oldValue == sortBy {
+            if sortBy == newValue {
                 reversed.toggle()
             }
             else if filterBy == .folders,
-                    sortBy != .label && sortBy != .updated {
+                    newValue != .label && newValue != .updated {
                 filterBy = .all
             }
         }
