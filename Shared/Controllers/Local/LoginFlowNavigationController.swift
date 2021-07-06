@@ -18,7 +18,8 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         decisionHandler(.allow)
-        guard navigationAction.request.url?.relativeReference == "/index.php/login/v2/grant" else {
+        guard let relativeReference = navigationAction.request.url?.relativeReference,
+              relativeReference.hasSuffix("/login/v2/grant") else {
             return
         }
         
