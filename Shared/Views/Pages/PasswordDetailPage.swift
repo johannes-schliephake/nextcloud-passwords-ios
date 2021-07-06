@@ -366,25 +366,9 @@ struct PasswordDetailPage: View {
     }
     
     private func toggleFavorite() {
-        password.state = .updating
-        
-        guard let session = sessionController.session else {
-            password.state = .updateFailed
-            return
-        }
+        password.updated = Date()
         password.favorite.toggle()
-        
-        UpdatePasswordRequest(session: session, password: password).send {
-            response in
-            guard let response = response else {
-                password.state = .updateFailed
-                password.favorite.toggle()
-                return
-            }
-            password.state = nil
-            password.revision = response.revision
-            password.updated = Date()
-        }
+        entriesController.update(password: password)
     }
     
     private func deleteAndDismiss() {

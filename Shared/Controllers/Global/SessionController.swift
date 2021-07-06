@@ -48,10 +48,18 @@ final class SessionController: ObservableObject {
                         return
                     }
                     self?.session = nil
-                    if invalidationReason == .deauthorization {
+                    switch invalidationReason {
+                    case .logout:
+                        break
+                    case .deauthorization:
                         AuthenticationChallengeController.default.clearAcceptedCertificateHash()
                         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                             UIAlertController.presentGlobalAlert(title: "_appDeauthorized".localized, message: "_appDeauthorizedMessage".localized)
+                        }
+                    case .noConnection:
+                        AuthenticationChallengeController.default.clearAcceptedCertificateHash()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                            UIAlertController.presentGlobalAlert(title: "_noConnection".localized, message: "_noConnectionMessage".localized)
                         }
                     }
                 }
@@ -85,6 +93,13 @@ final class SessionController: ObservableObject {
     
     private init(session: Session) {
         self.session = session
+    }
+    
+    func attachSessionPublisher(_ sessionPublisher: AnyPublisher<Session, Never>) {
+        sessionPublisher
+            .sink { [weak self] in self?.session = $0 }
+            .store(in: &subscriptions)
+        
     }
     
     private func requestSession() {

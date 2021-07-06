@@ -36,6 +36,9 @@ struct EditFolderPage: View {
     private func listView() -> some View {
         List {
             folderLabelField()
+            if editFolderController.folder.id.isEmpty {
+                favoriteButton()
+            }
         }
         .listStyle(InsetGroupedListStyle())
     }
@@ -45,6 +48,15 @@ struct EditFolderPage: View {
             TextField("-", text: $editFolderController.folderLabel, onCommit: {
                 applyAndDismiss()
             })
+        }
+    }
+    
+    private func favoriteButton() -> some View {
+        Button {
+            editFolderController.folderFavorite.toggle()
+        }
+        label: {
+            Label("_favorite", systemImage: editFolderController.folderFavorite ? "star.fill" : "star")
         }
     }
     
@@ -65,6 +77,9 @@ struct EditFolderPage: View {
     
     private func applyAndDismiss() {
         if !editFolderController.folderLabel.isEmpty {
+            guard editFolderController.folder.state?.isProcessing != true else {
+                return
+            }
             editFolderController.applyToFolder()
             presentationMode.wrappedValue.dismiss()
         }

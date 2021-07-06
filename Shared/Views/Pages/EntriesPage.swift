@@ -4,7 +4,6 @@ import SwiftUI
 struct EntriesPage: View {
     
     @ObservedObject var entriesController: EntriesController
-    @ObservedObject var folder: Folder
     
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
@@ -12,29 +11,28 @@ struct EntriesPage: View {
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
+    @StateObject private var folderController: FolderController
+    
     @State private var showServerSetupView = SessionController.default.session == nil
     @State private var showSettingsView = false
+    @State private var challengePassword = ""
+    @State private var storeChallengePassword = false
+    @State private var showStorePasswordMessage = false
     @State private var folderForEditing: Folder?
     @State private var passwordForEditing: Password?
     @State private var folderForDeletion: Folder?
     @State private var passwordForDeletion: Password?
-    @State private var searchTerm = ""
     @State private var showErrorAlert = false
-    @State private var challengePassword = ""
-    @State private var storeChallengePassword = false
-    @State private var showStorePasswordMessage = false
     
     init(entriesController: EntriesController, folder: Folder? = nil) {
         self.entriesController = entriesController
-        self.folder = folder ?? Folder()
+        _folderController = StateObject(wrappedValue: FolderController(entriesController: entriesController, folder: folder))
     }
     
     // MARK: Views
     
     var body: some View {
-        let entries = EntriesController.processEntries(passwords: entriesController.passwords, folders: entriesController.folders, folder: folder, searchTerm: searchTerm, filterBy: entriesController.filterBy, sortBy: entriesController.sortBy, reversed: entriesController.reversed)
-        let suggestions = EntriesController.processSuggestions(passwords: entriesController.passwords, serviceURLs: autoFillController.serviceURLs)
-        return mainStack(entries: entries, suggestions: suggestions)
+        mainStack()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     leadingToolbarView()
@@ -44,15 +42,18 @@ struct EntriesPage: View {
                        entriesController.state != .error && (sessionController.state != .error || entriesController.state == .offline),
                        !sessionController.state.isChallengeAvailable,
                        entriesController.state == .offline || entriesController.state == .online,
-                       let entries = entries {
+                       let entries = folderController.entries {
                         trailingToolbarView(entries: entries)
                     }
                 }
             }
-            .navigationTitle(folder.label)
+            .navigationTitle(folderController.folder.label)
+            .onAppear {
+                folderController.autoFillController = autoFillController
+            }
     }
     
-    private func mainStack(entries: [Entry]?, suggestions: [Password]?) -> some View {
+    private func mainStack() -> some View {
         VStack {
             if sessionController.session == nil {
                 connectView()
@@ -65,9 +66,9 @@ struct EntriesPage: View {
             }
             else if entriesController.state == .offline || entriesController.state == .online,
                     sessionController.state == .offline || sessionController.state == .online,
-                    let entries = entries {
-                listView(entries: entries, suggestions: suggestions)
-                    .searchBar(term: $searchTerm)
+                    let entries = folderController.entries {
+                listView(entries: entries)
+                    .searchBar(term: $folderController.searchTerm)
             }
             else {
                 ProgressView()
@@ -155,10 +156,11 @@ struct EntriesPage: View {
         .frame(maxWidth: 600)
     }
     
-    private func listView(entries: [Entry], suggestions: [Password]?) -> some View {
+    private func listView(entries: [Entry]) -> some View {
         VStack {
-            if let suggestions = suggestions,
-               suggestions.isEmpty || folder.isBaseFolder {
+            if let suggestions = folderController.suggestions,
+               folderController.searchTerm.isEmpty,
+               suggestions.isEmpty || folderController.folder.isBaseFolder {
                 List {
                     Section(header: Text("_suggestions")) {
                         if !suggestions.isEmpty {
@@ -166,12 +168,12 @@ struct EntriesPage: View {
                         }
                         else {
                             Button(action: {
-                                passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                                passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)
                             }, label: {
                                 Text("_createPassword")
                             })
                             .buttonStyle(ActionButtonStyle())
-                            .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                            .disabled(entriesController.state != .online || folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
                         }
                     }
                     if !entries.isEmpty {
@@ -280,7 +282,7 @@ struct EntriesPage: View {
     
     private func leadingToolbarView() -> some View {
         HStack {
-            if folder.isBaseFolder {
+            if folderController.folder.isBaseFolder {
                 if let cancel = autoFillController.cancel {
                     Button("_cancel") {
                         cancel()
@@ -297,7 +299,7 @@ struct EntriesPage: View {
     
     private func trailingToolbarView(entries: [Entry]) -> some View {
         HStack {
-            if let state = folder.state {
+            if let state = folderController.folder.state {
                 if state.isError {
                     errorButton(state: state)
                 }
@@ -353,17 +355,15 @@ struct EntriesPage: View {
                 Label("_updated", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
                     .showIcon(entriesController.sortBy == .updated)
                     .tag(EntriesController.Sorting.updated)
-                if entriesController.filterBy != .folders {
-                    Label("_username", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
-                        .showIcon(entriesController.sortBy == .username)
-                        .tag(EntriesController.Sorting.username)
-                    Label("_url", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
-                        .showIcon(entriesController.sortBy == .url)
-                        .tag(EntriesController.Sorting.url)
-                    Label("_security", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
-                        .showIcon(entriesController.sortBy == .status)
-                        .tag(EntriesController.Sorting.status)
-                }
+                Label("_username", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
+                    .showIcon(entriesController.sortBy == .username)
+                    .tag(EntriesController.Sorting.username)
+                Label("_url", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
+                    .showIcon(entriesController.sortBy == .url)
+                    .tag(EntriesController.Sorting.url)
+                Label("_security", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
+                    .showIcon(entriesController.sortBy == .status)
+                    .tag(EntriesController.Sorting.status)
             }
         }
         label: {
@@ -378,12 +378,12 @@ struct EntriesPage: View {
     private func createMenu() -> some View {
         Menu {
             Button(action: {
-                folderForEditing = Folder(parent: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                folderForEditing = Folder(parent: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)
             }, label: {
                 Label("_createFolder", systemImage: "folder")
             })
             Button(action: {
-                passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folder.id, client: Configuration.clientName, favorite: folder.isBaseFolder && entriesController.filterBy == .favorites)
+                passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)
             }, label: {
                 Label("_createPassword", systemImage: "key")
             })
@@ -392,7 +392,7 @@ struct EntriesPage: View {
             Spacer()
             Image(systemName: "plus")
         }
-        .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+        .disabled(entriesController.state != .online || folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
     }
     
     // MARK: Functions
@@ -415,7 +415,7 @@ struct EntriesPage: View {
     }
     
     private func didChange(filterBy: EntriesController.Filter) {
-        if !folder.isBaseFolder,
+        if !folderController.folder.isBaseFolder,
            filterBy != .folders {
             presentationMode.wrappedValue.dismiss()
         }
@@ -541,26 +541,10 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
-            folder.state = .updating
-            
-            guard let session = SessionController.default.session else {
-                folder.state = .updateFailed
-                return
-            }
+            folder.edited = Date()
+            folder.updated = Date()
             folder.favorite.toggle()
-            
-            UpdateFolderRequest(session: session, folder: folder).send {
-                response in
-                guard let response = response else {
-                    folder.state = .updateFailed
-                    folder.favorite.toggle()
-                    return
-                }
-                folder.state = nil
-                folder.revision = response.revision
-                folder.edited = Date()
-                folder.updated = Date()
-            }
+            entriesController.update(folder: folder)
         }
         
     }
@@ -781,25 +765,9 @@ extension EntriesPage {
         // MARK: Functions
         
         private func toggleFavorite() {
-            password.state = .updating
-            
-            guard let session = SessionController.default.session else {
-                password.state = .updateFailed
-                return
-            }
+            password.updated = Date()
             password.favorite.toggle()
-            
-            UpdatePasswordRequest(session: session, password: password).send {
-                response in
-                guard let response = response else {
-                    password.state = .updateFailed
-                    password.favorite.toggle()
-                    return
-                }
-                password.state = nil
-                password.revision = response.revision
-                password.updated = Date()
-            }
+            entriesController.update(password: password)
         }
         
         private func requestFavicon() {

@@ -19,5 +19,21 @@ enum Configuration {
         userDefaults.register(defaults: defaults)
         return userDefaults
     }()
+    static let jsonDecoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+        return decoder
+    }()
+    static let nonUpdatingJsonEncoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .secondsSince1970
+        return encoder
+    }()
+    static let updatingJsonEncoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .secondsSince1970
+        encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] = true
+        return encoder
+    }()
     
 }

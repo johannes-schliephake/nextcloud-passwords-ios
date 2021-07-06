@@ -86,6 +86,7 @@ extension Session {
     enum InvalidationReason {
         case logout
         case deauthorization
+        case noConnection
     }
     
 }

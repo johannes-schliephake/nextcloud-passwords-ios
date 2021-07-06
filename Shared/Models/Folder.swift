@@ -60,10 +60,9 @@ final class Folder: ObservableObject, Identifiable {
         hidden = try container.decode(Bool.self, forKey: .hidden)
         trashed = try container.decode(Bool.self, forKey: .trashed)
         favorite = try container.decode(Bool.self, forKey: .favorite)
-        /// Decode dates to double and call init manually to avoid wrong reference year (defaults to 2001, but 1970 is needed)
-        edited = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .edited))
-        created = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .created))
-        updated = Date(timeIntervalSince1970: try container.decode(Double.self, forKey: .updated))
+        edited = try container.decode(Date.self, forKey: .edited)
+        created = try container.decode(Date.self, forKey: .created)
+        updated = try container.decode(Date.self, forKey: .updated)
         
         switch cseType {
         case "none":
@@ -85,8 +84,8 @@ final class Folder: ObservableObject, Identifiable {
         id == Entry.baseId
     }
     
-    func matches(searchTerm: String) -> Bool {
-        label.lowercased().contains(searchTerm.lowercased())
+    func score(searchTerm: String) -> Double {
+        label.score(searchTerm: searchTerm, penalty: 0.3)
     }
     
     func isDescendentOf(folder: Folder, in folders: [Folder]) -> Bool {
@@ -177,9 +176,9 @@ extension Folder: Codable {
         
         try container.encode(id, forKey: .id)
         try container.encode(parent, forKey: .parent)
-        try container.encode(Int64(edited.timeIntervalSince1970), forKey: .edited)
-        try container.encode(Int64(created.timeIntervalSince1970), forKey: .created)
-        try container.encode(Int64(updated.timeIntervalSince1970), forKey: .updated)
+        try container.encode(edited, forKey: .edited)
+        try container.encode(created, forKey: .created)
+        try container.encode(updated, forKey: .updated)
         try container.encode(revision, forKey: .revision)
         try container.encode(cseType, forKey: .cseType)
         try container.encode(cseKey, forKey: .cseKey)

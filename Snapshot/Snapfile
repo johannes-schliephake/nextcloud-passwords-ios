@@ -5,7 +5,6 @@ clear_previous_screenshots(true)
 override_status_bar(true)
 number_of_retries(0)
 
-ios_version("14.4")
 devices([
     "iPhone 11 Pro Max",
     "iPhone 11 Pro",

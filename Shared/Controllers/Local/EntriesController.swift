@@ -33,33 +33,30 @@ final class EntriesController: ObservableObject {
             }
         }
     }
-    @AppStorage("filterBy", store: Configuration.userDefaults) var filterBy: Filter = .folders {
+    @Published var filterBy = Filter(rawValue: Configuration.userDefaults.integer(forKey: "filterBy")) ?? .folders {
         willSet {
-            /// Extend @AppStorage behaviour to be more similar to @Published
-            objectWillChange.send()
-        }
-        didSet {
-            if filterBy == .folders,
+            Configuration.userDefaults.set(newValue.rawValue, forKey: "filterBy")
+            if newValue == .folders,
                sortBy != .label && sortBy != .updated {
                 sortBy = .label
             }
         }
     }
-    @AppStorage("sortBy", store: Configuration.userDefaults) var sortBy: Sorting = .label {
+    @Published var sortBy = Sorting(rawValue: Configuration.userDefaults.integer(forKey: "sortBy")) ?? .label {
         willSet {
-            /// Extend @AppStorage behaviour to be more similar to @Published
-            objectWillChange.send()
-        }
-        didSet {
-            if oldValue == sortBy {
+            Configuration.userDefaults.set(newValue.rawValue, forKey: "sortBy")
+            if sortBy == newValue {
                 reversed.toggle()
+            }
+            else if filterBy == .folders,
+                    newValue != .label && newValue != .updated {
+                filterBy = .all
             }
         }
     }
-    @AppStorage("reversed", store: Configuration.userDefaults) var reversed = false {
+    @Published var reversed = Configuration.userDefaults.object(forKey: "reversed") as? Bool ?? false {
         willSet {
-            /// Extend @AppStorage behaviour to be more similar to @Published
-            objectWillChange.send()
+            Configuration.userDefaults.set(newValue, forKey: "reversed")
         }
     }
     
@@ -83,6 +80,9 @@ final class EntriesController: ObservableObject {
         guard let session = session else {
             folders = nil
             passwords = nil
+            filterBy = .folders
+            sortBy = .label
+            reversed = false
             state = .loading
             Crypto.AES256.removeKey(named: "offlineKey")
             CoreData.default.clear(type: OfflineContainer.self)
@@ -187,7 +187,7 @@ final class EntriesController: ObservableObject {
             let addedFolderIDs = onlineFolderIDs.subtracting(offlineFolderIDs)
             
             let deletedFolders = offlineFolders.filter { deletedFolderIDs.contains($0.id) }
-            let updatedFolderPairs = zip(offlineFolders.filter { updatedFolderIDs.contains($0.id) }, onlineFolders.filter { updatedFolderIDs.contains($0.id) })
+            let updatedFolderPairs = zip(offlineFolders.filter { updatedFolderIDs.contains($0.id) }.sorted { $0.id < $1.id }, onlineFolders.filter { updatedFolderIDs.contains($0.id) }.sorted { $0.id < $1.id })
             let addedFolders = onlineFolders.filter { addedFolderIDs.contains($0.id) }
             
             if offline {
@@ -238,7 +238,7 @@ final class EntriesController: ObservableObject {
             let addedPasswordIDs = onlinePasswordIDs.subtracting(offlinePasswordIDs)
             
             let deletedPasswords = offlinePasswords.filter { deletedPasswordIDs.contains($0.id) }
-            let updatedPasswordPairs = zip(offlinePasswords.filter { updatedPasswordIDs.contains($0.id) }, onlinePasswords.filter { updatedPasswordIDs.contains($0.id) })
+            let updatedPasswordPairs = zip(offlinePasswords.filter { updatedPasswordIDs.contains($0.id) }.sorted { $0.id < $1.id }, onlinePasswords.filter { updatedPasswordIDs.contains($0.id) }.sorted { $0.id < $1.id })
             let addedPasswords = onlinePasswords.filter { addedPasswordIDs.contains($0.id) }
             
             if offline {
@@ -296,9 +296,16 @@ final class EntriesController: ObservableObject {
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createFolderErrorMessage".localized)
                 return
             }
-            folder.state = nil
-            folder.id = response.id
-            folder.revision = response.revision
+            ShowFolderRequest(session: session, id: response.id).send {
+                response in
+                guard let response = response else {
+                    folder.state = .creationFailed
+                    UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createFolderErrorMessage".localized)
+                    return
+                }
+                folder.id = response.id
+                folder.update(from: response)
+            }
         }
     }
     
@@ -318,9 +325,16 @@ final class EntriesController: ObservableObject {
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
                 return
             }
-            password.state = nil
-            password.id = response.id
-            password.revision = response.revision
+            ShowPasswordRequest(session: session, id: response.id).send {
+                response in
+                guard let response = response else {
+                    password.state = .creationFailed
+                    UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
+                    return
+                }
+                password.id = response.id
+                password.update(from: response)
+            }
         }
     }
     
@@ -339,8 +353,15 @@ final class EntriesController: ObservableObject {
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editFolderErrorMessage".localized)
                 return
             }
-            folder.state = nil
-            folder.revision = response.revision
+            ShowFolderRequest(session: session, id: response.id).send {
+                response in
+                guard let response = response else {
+                    folder.state = .updateFailed
+                    UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editFolderErrorMessage".localized)
+                    return
+                }
+                folder.update(from: response)
+            }
         }
     }
     
@@ -359,8 +380,15 @@ final class EntriesController: ObservableObject {
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
                 return
             }
-            password.state = nil
-            password.revision = response.revision
+            ShowPasswordRequest(session: session, id: response.id).send {
+                response in
+                guard let response = response else {
+                    password.state = .updateFailed
+                    UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
+                    return
+                }
+                password.update(from: response)
+            }
         }
     }
     
@@ -407,11 +435,12 @@ final class EntriesController: ObservableObject {
         }
     }
     
-    static func processEntries(passwords: [Password]?, folders: [Folder]?, folder: Folder, searchTerm: String, filterBy: EntriesController.Filter, sortBy: EntriesController.Sorting, reversed: Bool) -> [Entry]? {
+    func processEntries(folder: Folder, searchTerm: String) -> [Entry]? {
         guard var passwords = passwords,
               var folders = folders else {
             return nil
         }
+        let searchTerm = searchTerm.trimmingCharacters(in: .whitespacesAndNewlines)
         
         /// Apply filter to folders
         switch filterBy {
@@ -475,7 +504,7 @@ final class EntriesController: ObservableObject {
         /// Sort folders
         switch sortBy {
         case .label:
-            folders.sort { $0.label.lowercased() < $1.label.lowercased() }
+            folders.sort { $0.label.compare($1.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
         case .updated:
             folders.sort { $0.updated > $1.updated }
         default:
@@ -485,11 +514,11 @@ final class EntriesController: ObservableObject {
         /// Sort passwords
         switch sortBy {
         case .label:
-            passwords.sort { $0.label.lowercased() < $1.label.lowercased() }
+            passwords.sort { $0.label.compare($1.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
         case .updated:
             passwords.sort { $0.updated > $1.updated }
         case .username:
-            passwords.sort { $0.username.lowercased() < $1.username.lowercased() }
+            passwords.sort { $0.username.compare($1.username, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
             passwords.sort { !$0.username.isEmpty && $1.username.isEmpty }
         case .url:
             passwords.sort { $0.url.lowercased() < $1.url.lowercased() }
@@ -509,51 +538,32 @@ final class EntriesController: ObservableObject {
         if searchTerm.isEmpty {
             return unsearchedEntries
         }
-        return unsearchedEntries.filter { $0.matches(searchTerm: searchTerm) }
+        return unsearchedEntries
+            .map { $0.score(searchTerm: searchTerm) }
+            .zip(with: unsearchedEntries)
+            .filter { $0.0 > 0.5 }
+            .sorted { $0.0 > $1.0 }
+            .map { $0.1 }
     }
     
-    static func processSuggestions(passwords: [Password]?, serviceURLs: [URL]?) -> [Password]? {
+    func processSuggestions(serviceURLs: [URL]?) -> [Password]? {
         guard let passwords = passwords,
               let serviceURLs = serviceURLs else {
             return nil
         }
         
-        /// Search for perfectly matching URLs
-        let perfectMatches = passwords.filter {
-            password in
-            serviceURLs.contains {
-                serviceURL in
-                URL(string: password.url) == serviceURL
+        return passwords
+            .map {
+                password -> Double in
+                serviceURLs
+                    .map { password.score(searchTerm: $0.absoluteString) }
+                    .reduce(0.0, +)
             }
-        }
-        if !perfectMatches.isEmpty {
-            return perfectMatches
-        }
-        
-        /// Search for URLs with the same host
-        let hostMatches = passwords.filter {
-            password in
-            serviceURLs.contains {
-                serviceURL in
-                URL(string: password.url)?.host == serviceURL.host
-            }
-        }
-        if !hostMatches.isEmpty {
-            return hostMatches
-        }
-        
-        /// Search with search function
-        let otherMatches = passwords.filter {
-            password in
-            serviceURLs.contains {
-                serviceURL in
-                guard let host = serviceURL.host else {
-                    return false
-                }
-                return password.matches(searchTerm: host)
-            }
-        }
-        return otherMatches
+            .zip(with: passwords)
+            .filter { $0.0 > 0.5 }
+            .sorted { $0.0 > $1.0 }
+            .prefix(5)
+            .map { $0.1 }
     }
     
 }

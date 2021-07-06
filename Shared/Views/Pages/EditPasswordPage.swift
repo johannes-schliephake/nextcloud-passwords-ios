@@ -50,6 +50,9 @@ struct EditPasswordPage: View {
             accountSection()
             passwordGeneratorSection()
             notesSection()
+            if editPasswordController.password.id.isEmpty {
+                favoriteButton()
+            }
         }
         .listStyle(InsetGroupedListStyle())
     }
@@ -172,6 +175,15 @@ struct EditPasswordPage: View {
         }
     }
     
+    private func favoriteButton() -> some View {
+        Button {
+            editPasswordController.passwordFavorite.toggle()
+        }
+        label: {
+            Label("_favorite", systemImage: editPasswordController.passwordFavorite ? "star.fill" : "star")
+        }
+    }
+    
     private func cancelButton() -> some View {
         Button("_cancel") {
             presentationMode.wrappedValue.dismiss()
@@ -188,6 +200,9 @@ struct EditPasswordPage: View {
     // MARK: Functions
     
     private func applyAndDismiss() {
+        guard editPasswordController.password.state?.isProcessing != true else {
+            return
+        }
         editPasswordController.applyToPassword()
         presentationMode.wrappedValue.dismiss()
     }
