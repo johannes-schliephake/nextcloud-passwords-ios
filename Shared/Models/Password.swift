@@ -9,7 +9,7 @@ final class Password: ObservableObject, Identifiable {
     @Published var password: String
     @Published var url: String
     @Published var notes: String
-    var customFields: String
+    @Published var customFields: [CustomField]
     var status: Int
     var statusCode: StatusCode
     var hash: String
@@ -36,7 +36,7 @@ final class Password: ObservableObject, Identifiable {
     @Published var state: Entry.State?
     var offlineContainer: OfflineContainer?
     
-    init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: String = "[]", status: Int = 0, statusCode: StatusCode = .good, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
+    init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: [CustomField] = [], status: Int = 0, statusCode: StatusCode = .good, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
         self.id = id
         self.label = label
         self.username = username
@@ -73,7 +73,8 @@ final class Password: ObservableObject, Identifiable {
         password = try container.decode(String.self, forKey: .password)
         url = try container.decode(String.self, forKey: .url)
         notes = try container.decode(String.self, forKey: .notes)
-        customFields = try container.decode(String.self, forKey: .customFields)
+        var customFieldsString = try container.decode(String.self, forKey: .customFields)
+        customFields = []
         status = try container.decode(Int.self, forKey: .status)
         statusCode = try container.decode(StatusCode.self, forKey: .statusCode)
         hash = try container.decode(String.self, forKey: .hash)
@@ -89,7 +90,6 @@ final class Password: ObservableObject, Identifiable {
         trashed = try container.decode(Bool.self, forKey: .trashed)
         favorite = try container.decode(Bool.self, forKey: .favorite)
         editable = try container.decode(Bool.self, forKey: .editable)
-        /// Decode dates to double and call init manually to avoid wrong reference year (defaults to 2001, but 1970 is needed)
         edited = try container.decode(Date.self, forKey: .edited)
         created = try container.decode(Date.self, forKey: .created)
         updated = try container.decode(Date.self, forKey: .updated)
@@ -105,7 +105,7 @@ final class Password: ObservableObject, Identifiable {
                   let decryptedPassword = Crypto.CSEv1r1.decrypt(payload: password, key: key),
                   let decryptedUrl = Crypto.CSEv1r1.decrypt(payload: url, key: key),
                   let decryptedNotes = Crypto.CSEv1r1.decrypt(payload: notes, key: key),
-                  let decryptedCustomFields = Crypto.CSEv1r1.decrypt(payload: customFields, key: key) else {
+                  let decryptedCustomFieldsString = Crypto.CSEv1r1.decrypt(payload: customFieldsString, key: key) else {
                 state = .decryptionFailed
                 return
             }
@@ -114,25 +114,47 @@ final class Password: ObservableObject, Identifiable {
             password = decryptedPassword
             url = decryptedUrl
             notes = decryptedNotes
-            customFields = decryptedCustomFields
+            customFieldsString = decryptedCustomFieldsString
         default:
             state = .decryptionFailed
         }
+        
+        if customFieldsString.isEmpty {
+            customFieldsString = "[]"
+        }
+        guard let customFieldsData = customFieldsString.data(using: .utf8) else {
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed"))
+        }
+        customFields = try Configuration.jsonDecoder.decode([CustomField].self, from: customFieldsData)
     }
     
     func score(searchTerm: String) -> Double {
         var scores = [label.score(searchTerm: searchTerm, penalty: 0.3),
                       username.score(searchTerm: searchTerm, penalty: 0.9) * 0.6,
-                      notes.score(searchTerm: searchTerm, penalty: 0.01) * 0.7]
-        let urlUrl = URL(string: url)
-        let searchUrl = URL(string: searchTerm)
-        if let url = urlUrl?.scheme != nil ? urlUrl : URL(string: "https://\(url)"),
-           let searchUrl = searchUrl?.scheme != nil ? searchUrl : URL(string: "https://\(searchTerm)") {
-            scores.append(url.score(searchUrl: searchUrl))
-        }
-        else {
-            scores.append(url.score(searchTerm: searchTerm) * 0.7)
-        }
+                      notes.score(searchTerm: searchTerm, penalty: 0.01) * 0.7,
+                      scoreUrlString(url, searchTerm: searchTerm)]
+        
+        scores += customFields
+            .map {
+                customField in
+                let labelScore = customField.label.score(searchTerm: searchTerm, penalty: 0.9) * 0.6
+                switch customField.type {
+                case .text:
+                    return labelScore + customField.value.score(searchTerm: searchTerm, penalty: 0.3)
+                case .secret:
+                    return labelScore
+                case .email:
+                    return labelScore + customField.value.score(searchTerm: searchTerm, penalty: 0.9) * 0.6
+                case .url:
+                    return labelScore + scoreUrlString(customField.value, searchTerm: searchTerm)
+                case .file:
+                    return labelScore + customField.value.score(searchTerm: searchTerm, penalty: 0.4) * 0.85
+                default:
+                    return 0.0
+                }
+            }
+            .map { $0 * 0.8 }
+        
         return scores
             .sorted { $0 > $1 }
             .enumerated()
@@ -194,6 +216,18 @@ final class Password: ObservableObject, Identifiable {
         CoreData.default.save()
     }
     
+    private func scoreUrlString(_ urlString: String, searchTerm: String) -> Double {
+        let url = URL(string: urlString)
+        let searchUrl = URL(string: searchTerm)
+        if let url = url?.scheme != nil ? url : URL(string: "https://\(urlString)"),
+           let searchUrl = searchUrl?.scheme != nil ? searchUrl : URL(string: "https://\(searchTerm)") {
+            return url.score(searchUrl: searchUrl)
+        }
+        else {
+            return urlString.score(searchTerm: searchTerm) * 0.7
+        }
+    }
+    
 }
 
 
@@ -230,6 +264,11 @@ extension Password: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
+        let customFieldsData = try Configuration.nonUpdatingJsonEncoder.encode(customFields)
+        guard let customFieldsString = String(data: customFieldsData, encoding: .utf8) else {
+            throw EncodingError.invalidValue(self, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Custom fields encoding failed"))
+        }
+        
         if let keychain = SessionController.default.session?.keychain,
            state != .decryptionFailed,
            cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true {
@@ -239,7 +278,7 @@ extension Password: Codable {
                   let encryptedPassword = Crypto.CSEv1r1.encrypt(unencrypted: password, key: key),
                   let encryptedUrl = Crypto.CSEv1r1.encrypt(unencrypted: url, key: key),
                   let encryptedNotes = Crypto.CSEv1r1.encrypt(unencrypted: notes, key: key),
-                  let encryptedCustomFields = Crypto.CSEv1r1.encrypt(unencrypted: customFields, key: key) else {
+                  let encryptedCustomFields = Crypto.CSEv1r1.encrypt(unencrypted: customFieldsString, key: key) else {
                 throw EncodingError.invalidValue(self, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Encryption failed"))
             }
             try container.encode(encryptedLabel, forKey: .label)
@@ -257,7 +296,7 @@ extension Password: Codable {
             try container.encode(password, forKey: .password)
             try container.encode(url, forKey: .url)
             try container.encode(notes, forKey: .notes)
-            try container.encode(customFields, forKey: .customFields)
+            try container.encode(customFieldsString, forKey: .customFields)
         }
         
         try container.encode(id, forKey: .id)
@@ -296,6 +335,58 @@ extension Password {
         static func < (lhs: Password.StatusCode, rhs: Password.StatusCode) -> Bool {
             let order: [StatusCode] = [.good, .outdated, .duplicate, .breached]
             return order.firstIndex(of: lhs)! < order.firstIndex(of: rhs)!
+        }
+        
+    }
+    
+}
+
+
+extension Password {
+    
+    struct CustomField: Identifiable, Codable {
+        
+        let id = UUID()
+        var label: String
+        var type: CustomFieldType
+        var value: String
+        
+        enum CodingKeys: CodingKey { // swiftlint:disable:this nesting
+            case label
+            case type
+            case value
+        }
+        
+        enum CustomFieldType: String, Identifiable, Codable, CaseIterable { // swiftlint:disable:this nesting
+            
+            case text
+            case secret
+            case email
+            case url
+            case file
+            case data
+            
+            var id: String {
+                rawValue
+            }
+            
+            var systemName: String {
+                switch self {
+                case .text:
+                    return "text.alignleft"
+                case .secret:
+                    return "key"
+                case .email:
+                    return "envelope"
+                case .url:
+                    return "safari"
+                case .file:
+                    return "doc"
+                default:
+                    return "terminal"
+                }
+            }
+            
         }
         
     }

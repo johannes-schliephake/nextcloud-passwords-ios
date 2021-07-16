@@ -78,6 +78,18 @@ final class Session: ObservableObject {
         }
     }
     
+    func generateFileLink(for filePath: String) -> URL? {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "nextcloud"
+        urlComponents.host = "open-file"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "user", value: user),
+            URLQueryItem(name: "link", value: server),
+            URLQueryItem(name: "path", value: String(filePath.dropFirst(filePath.hasPrefix("/") ? 1 : 0)))
+        ]
+        return urlComponents.url
+    }
+    
 }
 
 

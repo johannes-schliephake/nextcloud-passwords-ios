@@ -1,6 +1,7 @@
 "_about" = "About";
 "_accept" = "Accept";
 "_account" = "Account";
+"_addCustomField" = "Add Custom Field";
 "_all" = "All";
 "_anErrorOccurred" = "An error occurred ...";
 "_appDeauthorized" = "App Deauthorized";
@@ -20,6 +21,7 @@
 "_createPassword" = "Create Password";
 "_createPasswordErrorMessage" = "An error occurred while creating the password. Please save the password again.";
 "_credentials" = "Credentials";
+"_customFields" = "Custom Fields";
 "_decryptFolderErrorMessage" = "An error occurred while decrypting the folder.";
 "_decryptPasswordErrorMessage" = "An error occurred while decrypting the password.";
 "_delete" = "Delete";
@@ -35,11 +37,13 @@
 "_editFolderErrorMessage" = "An error occurred while editing the folder. Please save the folder again.";
 "_editPassword" = "Edit Password";
 "_editPasswordErrorMessage" = "An error occurred while editing the password. Please save the password again.";
+"_email" = "Email";
 "_encryptedOfflineStorage" = "Encrypted Offline Storage";
 "_encryption" = "Encryption";
 "_error" = "Error";
 "_favorite" = "Favorite";
 "_favorites" = "Favorites";
+"_file" = "File";
 "_folder" = "Folder";
 "_folders" = "Folders";
 "_generatePassword" = "Generate Password";
@@ -76,6 +80,7 @@
 "_passwordStatusOutdatedMessage" = "This password has reached the maximum age.";
 "_providerInstructionsMessage" = "This app supports Password AutoFill. The feature has to be enabled in iOS's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap AutoFill Passwords\n4. Enable AutoFill Passwords\n5. Enable this app";
 "_reject" = "Deny";
+"_secret" = "Secret";
 "_security" = "Security";
 "_select" = "Select";
 "_serverAddressFieldMessage" = "An HTTPS connection is required.";
@@ -88,6 +93,7 @@
 "_storePasswordMessage" = "If this option is enabled, the E2E password is stored encrypted in your device's keychain.";
 "_suggestions" = "Suggestions";
 "_supportThisProject" = "Support This Project";
+"_text" = "Text";
 "_thanksMessage" = "Thanks to the entire Nextcloud community and everybody involved for enabling such an amazing ecosystem. I hope that I can contribute something with this app.";
 "_tipDeferred" = "Tip Deferred";
 "_tipDeferredMessage" = "Your tip is now waiting for approval.";

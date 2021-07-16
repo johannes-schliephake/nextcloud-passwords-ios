@@ -48,8 +48,8 @@ struct SettingsPage: View {
     
     private func credentialsSection(session: Session) -> some View {
         Section(header: Text("_credentials")) {
-            row(subheadline: "_nextcloudServerAddress", text: session.server)
-            row(subheadline: "_username", text: session.user)
+            LabeledRow(type: .text, label: "_nextcloudServerAddress" as LocalizedStringKey, value: session.server)
+            LabeledRow(type: .text, label: "_username" as LocalizedStringKey, value: session.user)
             Button {
                 showLogoutAlert = true
             }
@@ -121,7 +121,7 @@ struct SettingsPage: View {
     
     private func aboutSection() -> some View {
         Section(header: Text("_about")) {
-            row(subheadline: "_version", text: Configuration.shortVersionString)
+            LabeledRow(type: .text, label: "_version" as LocalizedStringKey, value: Configuration.shortVersionString)
             if let url = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios"),
                let canOpenURL = UIApplication.safeCanOpenURL,
                canOpenURL(url),
@@ -160,17 +160,6 @@ struct SettingsPage: View {
     private func doneButton() -> some View {
         Button("_done") {
             presentationMode.wrappedValue.dismiss()
-        }
-    }
-    
-    private func row(subheadline: LocalizedStringKey, text: String) -> some View {
-        VStack(alignment: .leading) {
-            Text(subheadline)
-                .font(.subheadline)
-                .foregroundColor(.gray)
-            Spacer()
-            Text(text)
-                .foregroundColor(.primary)
         }
     }
     
