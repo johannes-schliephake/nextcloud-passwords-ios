@@ -26,6 +26,7 @@ final class EditPasswordController: ObservableObject {
     @Published var passwordLabel: String
     @Published var passwordUsername: String
     @Published var passwordUrl: String
+    @Published var passwordCustomFields: [Password.CustomField]
     @Published var passwordNotes: String
     @Published var passwordFavorite: Bool
     @Published var showErrorAlert = false
@@ -39,6 +40,7 @@ final class EditPasswordController: ObservableObject {
         passwordLabel = password.label
         passwordUsername = password.username
         passwordUrl = password.url
+        passwordCustomFields = password.customFields
         passwordNotes = password.notes
         passwordFavorite = password.favorite
     }
@@ -76,6 +78,7 @@ final class EditPasswordController: ObservableObject {
         password.label = passwordLabel
         password.username = passwordUsername
         password.url = passwordUrl
+        password.customFields = passwordCustomFields
         password.notes = passwordNotes
         password.favorite = passwordFavorite
         

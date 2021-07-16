@@ -9,8 +9,9 @@ struct EditPasswordPage: View {
     
     @StateObject private var editPasswordController: EditPasswordController
     @ScaledMetric private var sliderLabelWidth: CGFloat = 87
-    @State private var hidePassword = true
+    @ScaledMetric private var customFieldTypeIconWidth: CGFloat = 30
     @State private var showPasswordGenerator: Bool
+    @State private var editMode = false
     
     init(password: Password, addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
         _editPasswordController = StateObject(wrappedValue: EditPasswordController(password: password, addPassword: addPassword, updatePassword: updatePassword))
@@ -42,6 +43,7 @@ struct EditPasswordPage: View {
                     editPasswordController.generatePassword()
                 }
             }
+            .environment(\.editMode, .constant(editMode ? .active : .inactive))
     }
     
     private func listView() -> some View {
@@ -49,6 +51,7 @@ struct EditPasswordPage: View {
             serviceSection()
             accountSection()
             passwordGeneratorSection()
+            customFieldsSection()
             notesSection()
             if editPasswordController.password.id.isEmpty {
                 favoriteButton()
@@ -59,71 +62,15 @@ struct EditPasswordPage: View {
     
     private func serviceSection() -> some View {
         Section(header: Text("_service")) {
-            VStack(alignment: .leading) {
-                Text("_name")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                TextField("-", text: $editPasswordController.passwordLabel)
-            }
-            VStack(alignment: .leading) {
-                Text("_url")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                TextField("-", text: $editPasswordController.passwordUrl)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .textContentType(.URL)
-            }
+            EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $editPasswordController.passwordLabel)
+            EditLabeledRow(type: .url, label: "_url" as LocalizedStringKey, value: $editPasswordController.passwordUrl)
         }
     }
     
     private func accountSection() -> some View {
         Section(header: Text("_account")) {
-            VStack(alignment: .leading) {
-                Text("_username")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                TextField("-", text: $editPasswordController.passwordUsername)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .textContentType(.emailAddress)
-            }
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("_password")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    Spacer()
-                    if hidePassword {
-                        ZStack(alignment: .leading) {
-                            TextField("", text: .constant(""))
-                                .font(.system(.body, design: .monospaced))
-                                .disabled(true)
-                            SecureField("-", text: $editPasswordController.passwordPassword)
-                                .foregroundColor(.primary)
-                        }
-                    }
-                    else {
-                        TextField("-", text: $editPasswordController.passwordPassword)
-                            .font(.system(.body, design: .monospaced))
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
-                    }
-                }
-                .animation(nil)
-                Spacer()
-                Button {
-                    hidePassword.toggle()
-                }
-                label: {
-                    Image(systemName: hidePassword ? "eye" : "eye.slash")
-                        .accessibility(identifier: "showPasswordButton")
-                }
-                .buttonStyle(BorderlessButtonStyle())
-            }
+            EditLabeledRow(type: .email, label: "_username" as LocalizedStringKey, value: $editPasswordController.passwordUsername)
+            EditLabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: $editPasswordController.passwordPassword)
         }
     }
     
@@ -168,6 +115,64 @@ struct EditPasswordPage: View {
         .accessibility(identifier: "passwordGenerator")
     }
     
+    private func customFieldsSection() -> some View {
+        Section(header: HStack {
+            Text("_customFields")
+            Spacer()
+            Button {
+                editMode.toggle()
+            }
+            label: {
+                Text(editMode ? "_done" : "_edit")
+            }
+        }) {
+            ForEach(editPasswordController.passwordCustomFields.indices.filter { editPasswordController.passwordCustomFields[$0].type != .data }, id: \.self) {
+                index in
+                HStack {
+                    Menu {
+                        Picker("", selection: $editPasswordController.passwordCustomFields[index].type) {
+                            Label("_text", systemImage: Password.CustomField.CustomFieldType.text.systemName)
+                                .tag(Password.CustomField.CustomFieldType.text)
+                            Label("_secret", systemImage: Password.CustomField.CustomFieldType.secret.systemName)
+                                .tag(Password.CustomField.CustomFieldType.secret)
+                            Label("_email", systemImage: Password.CustomField.CustomFieldType.email.systemName)
+                                .tag(Password.CustomField.CustomFieldType.email)
+                            Label("_url", systemImage: Password.CustomField.CustomFieldType.url.systemName)
+                                .tag(Password.CustomField.CustomFieldType.url)
+                            Label("_file", systemImage: Password.CustomField.CustomFieldType.file.systemName)
+                                .tag(Password.CustomField.CustomFieldType.file)
+                        }
+                    }
+                    label: {
+                        Image(systemName: editPasswordController.passwordCustomFields[index].type.systemName)
+                            .frame(minWidth: customFieldTypeIconWidth, maxHeight: .infinity, alignment: .leading)
+                    }
+                    Spacer()
+                    VStack {
+                        EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $editPasswordController.passwordCustomFields[index].label)
+                        Divider()
+                        EditLabeledRow(type: LabeledRow.RowType(rawValue: editPasswordController.passwordCustomFields[index].type.rawValue) ?? .text, label: "_\(editPasswordController.passwordCustomFields[index].type)".localized, value: $editPasswordController.passwordCustomFields[index].value)
+                    }
+                }
+                .id(editPasswordController.passwordCustomFields[index].id)
+            }
+            .onMove {
+                indices, offset in
+                editPasswordController.passwordCustomFields.move(fromOffsets: indices, toOffset: offset)
+            }
+            .onDelete {
+                indices in
+                editPasswordController.passwordCustomFields.remove(atOffsets: indices)
+            }
+            Button {
+                editPasswordController.passwordCustomFields.append(Password.CustomField(label: "", type: .text, value: ""))
+            }
+            label: {
+                Label("_addCustomField", systemImage: "plus.circle")
+            }
+        }
+    }
+    
     private func notesSection() -> some View {
         Section(header: Text("_notes")) {
             TextView("-", text: $editPasswordController.passwordNotes)
@@ -194,7 +199,7 @@ struct EditPasswordPage: View {
         Button(editPasswordController.password.id.isEmpty ? "_create" : "_done") {
             applyAndDismiss()
         }
-        .disabled(editPasswordController.passwordPassword.isEmpty || editPasswordController.passwordLabel.isEmpty)
+        .disabled(editPasswordController.passwordPassword.isEmpty || editPasswordController.passwordLabel.isEmpty || editPasswordController.passwordCustomFields.count > 20 || editPasswordController.passwordCustomFields.filter { $0.type != .data }.map { $0.label.isEmpty || $0.label.count > 48 || $0.value.isEmpty || $0.value.count > 320 }.contains(true))
     }
     
     // MARK: Functions

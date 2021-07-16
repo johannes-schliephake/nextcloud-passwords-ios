@@ -15,7 +15,6 @@ struct PasswordDetailPage: View {
     @EnvironmentObject private var tipController: TipController
     
     @State private var favicon: UIImage?
-    @State private var hidePassword = true
     @State private var showDeleteAlert = false
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
@@ -96,6 +95,9 @@ struct PasswordDetailPage: View {
             .listRowBackground(Color(UIColor.systemGroupedBackground))
             serviceSection()
             accountSection()
+            if !password.customFields.isEmpty {
+                customFieldsSection()
+            }
             notesSection()
             metadataSection()
             deleteButton()
@@ -178,52 +180,23 @@ struct PasswordDetailPage: View {
     
     private func serviceSection() -> some View {
         Section(header: Text("_service")) {
-            row(subheadline: "_name", text: password.label, copiable: true)
-            HStack {
-                row(subheadline: "_url", text: password.url, copiable: true)
-                if let url = URL(string: password.url),
-                   let canOpenURL = UIApplication.safeCanOpenURL,
-                   canOpenURL(url),
-                   let open = UIApplication.safeOpen {
-                    Spacer()
-                    Button {
-                        open(url)
-                    }
-                    label: {
-                        Image(systemName: "safari")
-                    }
-                    .buttonStyle(BorderlessButtonStyle())
-                }
-            }
+            LabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: password.label, copiable: true)
+            LabeledRow(type: .url, label: "_url" as LocalizedStringKey, value: password.url, copiable: true)
         }
     }
     
     private func accountSection() -> some View {
         Section(header: Text("_account")) {
-            row(subheadline: "_username", text: password.username, copiable: true)
-            HStack {
-                Button {
-                    UIPasteboard.general.privateString = password.password
-                }
-                label: {
-                    VStack(alignment: .leading) {
-                        Text("_password")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                        Spacer()
-                        Text(hidePassword ? "••••••••••••" : password.password)
-                            .foregroundColor(.primary)
-                            .font(.system(.body, design: .monospaced))
-                    }
-                }
-                Spacer()
-                Button {
-                    hidePassword.toggle()
-                }
-                label: {
-                    Image(systemName: hidePassword ? "eye" : "eye.slash")
-                }
-                .buttonStyle(BorderlessButtonStyle())
+            LabeledRow(type: .text, label: "_username" as LocalizedStringKey, value: password.username, copiable: true)
+            LabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: password.password, copiable: true)
+        }
+    }
+    
+    private func customFieldsSection() -> some View {
+        Section(header: Text("_customFields")) {
+            ForEach(password.customFields.filter { $0.type != .data }) {
+                customField in
+                LabeledRow(type: LabeledRow.RowType(rawValue: customField.type.rawValue) ?? .text, label: customField.label, value: customField.value, copiable: true)
             }
         }
     }
@@ -238,23 +211,23 @@ struct PasswordDetailPage: View {
     private func metadataSection() -> some View {
         Section(header: Text("_metadata")) {
             HStack {
-                row(subheadline: "_created", text: password.created.formattedString, copiable: false)
+                LabeledRow(type: .text, label: "_created" as LocalizedStringKey, value: password.created.formattedString)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Divider()
-                row(subheadline: "_updated", text: password.updated.formattedString, copiable: false)
+                LabeledRow(type: .text, label: "_updated" as LocalizedStringKey, value: password.updated.formattedString)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             switch (password.cseType, password.sseType) {
             case ("none", "none"),
                  ("none", "unknown"):
-                row(subheadline: "_encryption", text: "-", copiable: false)
+                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "-")
             case (_, "none"),
                  (_, "unknown"):
-                row(subheadline: "_encryption", text: "_clientSide".localized, copiable: false)
+                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "_clientSide".localized)
             case ("none", _):
-                row(subheadline: "_encryption", text: "_serverSide".localized, copiable: false)
+                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "_serverSide".localized)
             case (_, _):
-                row(subheadline: "_encryption", text: "\("_clientSide".localized) & \("_serverSide".localized)", copiable: false)
+                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "\("_clientSide".localized) & \("_serverSide".localized)")
             }
         }
     }
@@ -336,23 +309,6 @@ struct PasswordDetailPage: View {
                 return Alert(title: Text("_error"))
             }
         }
-    }
-    
-    private func row(subheadline: LocalizedStringKey, text: String, copiable: Bool) -> some View {
-        Button {
-            UIPasteboard.general.string = text
-        }
-        label: {
-            VStack(alignment: .leading) {
-                Text(subheadline)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                Spacer()
-                Text(!text.isEmpty ? text : "-")
-                    .foregroundColor(.primary)
-            }
-        }
-        .disabled(!copiable || text.isEmpty)
     }
     
     // MARK: Functions

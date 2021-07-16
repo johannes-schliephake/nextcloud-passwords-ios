@@ -2,9 +2,7 @@ import Foundation
 
 
 enum NCPasswordsRequestError: Error {
-    
     case requestError
-    
 }
 
 
