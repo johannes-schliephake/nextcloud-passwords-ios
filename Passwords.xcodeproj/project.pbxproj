@@ -417,6 +417,9 @@
 		8F77DA5C25699F8900CFDA8D /* CopyToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyToast.swift; sourceTree = "<group>"; };
 		8F77DA6225699FB300CFDA8D /* EntriesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesController.swift; sourceTree = "<group>"; };
 		8F781F51267CC8B400BD3DC1 /* FolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderController.swift; sourceTree = "<group>"; };
+		8F78232826ACAE8E00137B77 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8F78232926ACAE8E00137B77 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8F78232A26ACAE8E00137B77 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8F79AE0B260287DE00308A33 /* RequestSessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSessionRequest.swift; sourceTree = "<group>"; };
 		8F7A73A22677493500FCA15F /* URL+RelativeReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+RelativeReference.swift"; sourceTree = "<group>"; };
 		8F854E65262390FA008885C3 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -1003,6 +1006,7 @@
 				en,
 				de,
 				Base,
+				cs,
 			);
 			mainGroup = 8F118746253C9EE10019FECA;
 			packageReferences = (
@@ -1354,6 +1358,7 @@
 			children = (
 				8F5331A925605B9400AB6FED /* en */,
 				8F5331AD25605BAC00AB6FED /* de */,
+				8F78232A26ACAE8E00137B77 /* cs */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1363,6 +1368,7 @@
 			children = (
 				8F5757E525671EA4003F1E9F /* en */,
 				8F5757E925671EA8003F1E9F /* de */,
+				8F78232826ACAE8E00137B77 /* cs */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1372,6 +1378,7 @@
 			children = (
 				8F5BBC8F25F2B6D3001271F7 /* en */,
 				8F5BBC9125F2B6DF001271F7 /* de */,
+				8F78232926ACAE8E00137B77 /* cs */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
