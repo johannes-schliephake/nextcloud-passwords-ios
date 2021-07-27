@@ -453,6 +453,9 @@
 		8FD1038625A790B00055A8F3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		8FD1038C25A790EC0055A8F3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8FD1039625A7BFFC0055A8F3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		9F5B819C26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9F5B819D26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9F5B819E26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLabeledRow.swift; sourceTree = "<group>"; };
 		DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1007,6 +1010,7 @@
 				de,
 				Base,
 				cs,
+				fr,
 			);
 			mainGroup = 8F118746253C9EE10019FECA;
 			packageReferences = (
@@ -1359,6 +1363,7 @@
 				8F5331A925605B9400AB6FED /* en */,
 				8F5331AD25605BAC00AB6FED /* de */,
 				8F78232A26ACAE8E00137B77 /* cs */,
+				9F5B819E26AF27490020B199 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1369,6 +1374,7 @@
 				8F5757E525671EA4003F1E9F /* en */,
 				8F5757E925671EA8003F1E9F /* de */,
 				8F78232826ACAE8E00137B77 /* cs */,
+				9F5B819C26AF27490020B199 /* fr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1379,6 +1385,7 @@
 				8F5BBC8F25F2B6D3001271F7 /* en */,
 				8F5BBC9125F2B6DF001271F7 /* de */,
 				8F78232926ACAE8E00137B77 /* cs */,
+				9F5B819D26AF27490020B199 /* fr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
