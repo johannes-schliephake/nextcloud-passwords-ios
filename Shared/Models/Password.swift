@@ -13,7 +13,7 @@ final class Password: ObservableObject, Identifiable {
     var status: Int
     var statusCode: StatusCode
     var hash: String
-    var folder: String
+    @Published var folder: String
     var revision: String {
         didSet {
             updateOfflineContainer()
