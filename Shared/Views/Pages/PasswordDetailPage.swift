@@ -5,6 +5,7 @@ struct PasswordDetailPage: View {
     
     @ObservedObject var entriesController: EntriesController
     @ObservedObject var password: Password
+    let folders: [Folder]
     let updatePassword: () -> Void
     let deletePassword: () -> Void
     
@@ -70,7 +71,7 @@ struct PasswordDetailPage: View {
                 }
                 EmptyView()
                     .sheet(isPresented: $showEditPasswordView, content: {
-                        EditPasswordNavigation(password: password, addPassword: {}, updatePassword: updatePassword)
+                        EditPasswordNavigation(password: password, folders: folders, addPassword: {}, updatePassword: updatePassword)
                             .environmentObject(autoFillController)
                             .environmentObject(biometricAuthenticationController)
                             .environmentObject(sessionController)
@@ -340,7 +341,7 @@ struct PasswordDetailPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, updatePassword: {}, deletePassword: {})
+                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, folders: Folder.mocks, updatePassword: {}, deletePassword: {})
             }
             .showColumns(false)
             .environmentObject(AutoFillController.mock)

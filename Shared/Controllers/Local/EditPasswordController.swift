@@ -4,6 +4,7 @@ import SwiftUI
 final class EditPasswordController: ObservableObject {
     
     let password: Password
+    let folders: [Folder]
     private let addPassword: () -> Void
     private let updatePassword: () -> Void
     
@@ -29,11 +30,13 @@ final class EditPasswordController: ObservableObject {
     @Published var passwordCustomFields: [Password.CustomField]
     @Published var passwordNotes: String
     @Published var passwordFavorite: Bool
+    @Published var passwordFolder: String
     @Published var showErrorAlert = false
     @Published var showProgressView = false
     
-    init(password: Password, addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
+    init(password: Password, folders: [Folder], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
         self.password = password
+        self.folders = folders
         self.addPassword = addPassword
         self.updatePassword = updatePassword
         passwordPassword = password.password
@@ -43,6 +46,7 @@ final class EditPasswordController: ObservableObject {
         passwordCustomFields = password.customFields
         passwordNotes = password.notes
         passwordFavorite = password.favorite
+        passwordFolder = password.folder
     }
     
     func generatePassword() {
@@ -81,6 +85,7 @@ final class EditPasswordController: ObservableObject {
         password.customFields = passwordCustomFields
         password.notes = passwordNotes
         password.favorite = passwordFavorite
+        password.folder = passwordFolder
         
         if password.id.isEmpty {
             addPassword()

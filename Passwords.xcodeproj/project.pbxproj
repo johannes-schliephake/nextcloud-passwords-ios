@@ -191,6 +191,12 @@
 		DD4A9E8A269F84B9007268E2 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
 		DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
 		DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
+		DD9FAD5826A3793A00770FEA /* SelectFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */; };
+		DD9FAD5926A3793A00770FEA /* SelectFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */; };
+		DD9FAD5B26A3796500770FEA /* SelectFolderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */; };
+		DD9FAD5C26A3796500770FEA /* SelectFolderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */; };
+		DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
+		DDC98D0E26AFEE1E006058B6 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -458,6 +464,9 @@
 		9F5B819E26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLabeledRow.swift; sourceTree = "<group>"; };
 		DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledRow.swift; sourceTree = "<group>"; };
+		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
+		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
+		DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -562,6 +571,7 @@
 				8F997FA4257300A600B5F784 /* EditPasswordPage.swift */,
 				8F118754253C9EE10019FECA /* EntriesPage.swift */,
 				8F582BF9255EA63D00F1E3DA /* LoginFlowPage.swift */,
+				DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */,
 				8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */,
 				8F513A62256064E9001C6EF9 /* ServerSetupPage.swift */,
 				8F57B425256C0DD600329B05 /* SettingsPage.swift */,
@@ -575,6 +585,7 @@
 				8F559A1725A0AE3300D7A39F /* EditFolderNavigation.swift */,
 				8F559A1C25A0AE3E00D7A39F /* EditPasswordNavigation.swift */,
 				8FC361FB25828AE600785371 /* EntriesNavigation.swift */,
+				DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */,
 				8F559A0D25A0AE1C00D7A39F /* ServerSetupNavigation.swift */,
 				8F559A1225A0AE2700D7A39F /* SettingsNavigation.swift */,
 			);
@@ -696,8 +707,9 @@
 				8F51428E2573F91800DD96C0 /* EditPasswordController.swift */,
 				8F77DA6225699FB300CFDA8D /* EntriesController.swift */,
 				8F781F51267CC8B400BD3DC1 /* FolderController.swift */,
-				8F59F524256B1EFB00D9FE40 /* ServerSetupController.swift */,
 				8FBC049B268B9DD1006D4CB7 /* LoginFlowNavigationController.swift */,
+				DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */,
+				8F59F524256B1EFB00D9FE40 /* ServerSetupController.swift */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -1161,6 +1173,7 @@
 				8F854E6D26239457008885C3 /* OfflineContainer.swift in Sources */,
 				8F7A73A32677493500FCA15F /* URL+RelativeReference.swift in Sources */,
 				8F74244626039BD600B73646 /* Crypto.swift in Sources */,
+				DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */,
 				8F559A2225A0B23E00D7A39F /* MainView.swift in Sources */,
 				8F77DA6325699FB300CFDA8D /* EntriesController.swift in Sources */,
 				8F57B426256C0DD600329B05 /* SettingsPage.swift in Sources */,
@@ -1182,6 +1195,7 @@
 				8F09585125D159F10082D438 /* AuthenticationChallengeController.swift in Sources */,
 				8F781F52267CC8B400BD3DC1 /* FolderController.swift in Sources */,
 				8F59F525256B1EFB00D9FE40 /* ServerSetupController.swift in Sources */,
+				DD9FAD5826A3793A00770FEA /* SelectFolderNavigation.swift in Sources */,
 				8F997F9D2572ED7800B5F784 /* CreateFolderRequest.swift in Sources */,
 				DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */,
 				8F561EBE258D26CC008AE12B /* NCPasswordsRequest.swift in Sources */,
@@ -1196,6 +1210,7 @@
 				8F696B4125E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
 				8F513A5F2560624F001C6EF9 /* Session.swift in Sources */,
 				8F559A1825A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
+				DD9FAD5B26A3796500770FEA /* SelectFolderPage.swift in Sources */,
 				8F55FBD72570276800CC6920 /* SessionController.swift in Sources */,
 				8F997FA5257300A600B5F784 /* EditPasswordPage.swift in Sources */,
 				8F997FAB2573043400B5F784 /* PasswordServiceRequest.swift in Sources */,
@@ -1261,6 +1276,7 @@
 				8F7A73A42677493500FCA15F /* URL+RelativeReference.swift in Sources */,
 				8F74244726039BD600B73646 /* Crypto.swift in Sources */,
 				8FC361D225827E5D00785371 /* ListFoldersRequest.swift in Sources */,
+				DDC98D0E26AFEE1E006058B6 /* SelectFolderController.swift in Sources */,
 				8F559A2325A0B23E00D7A39F /* MainView.swift in Sources */,
 				8FC361C625827E5500785371 /* Entry.swift in Sources */,
 				8FC361CD25827E5D00785371 /* CreateFolderRequest.swift in Sources */,
@@ -1282,6 +1298,7 @@
 				8F09585225D159F10082D438 /* AuthenticationChallengeController.swift in Sources */,
 				8F781F53267CC8B400BD3DC1 /* FolderController.swift in Sources */,
 				8FC361C225827E5200785371 /* EditPasswordController.swift in Sources */,
+				DD9FAD5926A3793A00770FEA /* SelectFolderNavigation.swift in Sources */,
 				8FC361B425827E4C00785371 /* EditPasswordPage.swift in Sources */,
 				DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */,
 				8F561EC3258D2759008AE12B /* NCPasswordsRequest.swift in Sources */,
@@ -1296,6 +1313,7 @@
 				8F696B4225E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
 				8FC361C925827E5500785371 /* Session.swift in Sources */,
 				8F559A1925A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
+				DD9FAD5C26A3796500770FEA /* SelectFolderPage.swift in Sources */,
 				8FC361B925827E4C00785371 /* ServerSetupPage.swift in Sources */,
 				8FC361C325827E5200785371 /* BiometricAuthenticationController.swift in Sources */,
 				8FC361D425827E5D00785371 /* CreatePasswordRequest.swift in Sources */,

@@ -58,6 +58,7 @@
 "_logIn" = "Log In";
 "_logOut" = "Log Out";
 "_metadata" = "Metadata";
+"_move" = "Move";
 "_name" = "Name";
 "_nextcloudServerAddress" = "Nextcloud Server Address";
 "_noConnection" = "No Connection";

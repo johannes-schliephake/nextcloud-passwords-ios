@@ -6,6 +6,7 @@ struct EditFolderNavigation: View {
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
     let folder: Folder
+    let folders: [Folder]
     let addFolder: () -> Void
     let updateFolder: () -> Void
     
@@ -13,7 +14,7 @@ struct EditFolderNavigation: View {
     
     var body: some View {
         NavigationView {
-            EditFolderPage(folder: folder, addFolder: addFolder, updateFolder: updateFolder)
+            EditFolderPage(folder: folder, folders: folders, addFolder: addFolder, updateFolder: updateFolder)
         }
         .showColumns(false)
         .occlude(!biometricAuthenticationController.isUnlocked)

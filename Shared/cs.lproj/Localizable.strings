@@ -58,6 +58,7 @@
 "_logIn" = "Přihlásit";
 "_logOut" = "Odhlásit";
 "_metadata" = "Metadata";
+"_move" = "TODO";
 "_name" = "Název";
 "_nextcloudServerAddress" = "Adresa Nextcloud serveru";
 "_noConnection" = "Žádné připojení";

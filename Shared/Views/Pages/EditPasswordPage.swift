@@ -5,16 +5,20 @@ struct EditPasswordPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @EnvironmentObject private var autoFillController: AutoFillController
+    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
+    @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editPasswordController: EditPasswordController
     @ScaledMetric private var sliderLabelWidth: CGFloat = 87
     @ScaledMetric private var customFieldTypeIconWidth: CGFloat = 30
     @State private var showPasswordGenerator: Bool
     @State private var editMode = false
+    @State private var showSelectFolderView = false
     
-    init(password: Password, addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
-        _editPasswordController = StateObject(wrappedValue: EditPasswordController(password: password, addPassword: addPassword, updatePassword: updatePassword))
+    init(password: Password, folders: [Folder], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
+        _editPasswordController = StateObject(wrappedValue: EditPasswordController(password: password, folders: folders, addPassword: addPassword, updatePassword: updatePassword))
         _showPasswordGenerator = State(initialValue: password.id.isEmpty && !Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
     }
     
@@ -47,17 +51,31 @@ struct EditPasswordPage: View {
     }
     
     private func listView() -> some View {
-        List {
-            serviceSection()
-            accountSection()
-            passwordGeneratorSection()
-            customFieldsSection()
-            notesSection()
-            if editPasswordController.password.id.isEmpty {
-                favoriteButton()
+        VStack {
+            List {
+                serviceSection()
+                accountSection()
+                passwordGeneratorSection()
+                customFieldsSection()
+                notesSection()
+                if editPasswordController.password.id.isEmpty {
+                    favoriteButton()
+                }
+                moveSection()
             }
+            .listStyle(InsetGroupedListStyle())
+            EmptyView()
+                .sheet(isPresented: $showSelectFolderView) {
+                    SelectFolderNavigation(entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), folders: editPasswordController.folders, selectFolder: {
+                        parent in
+                        editPasswordController.passwordFolder = parent.id
+                    })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(tipController)
+                }
         }
-        .listStyle(InsetGroupedListStyle())
     }
     
     private func serviceSection() -> some View {
@@ -180,6 +198,17 @@ struct EditPasswordPage: View {
         }
     }
     
+    private func moveSection() -> some View {
+        Section(header: Text("_folder")) {
+            Button {
+                showSelectFolderView = true
+            }
+            label: {
+                Label(editPasswordController.folders.first(where: { $0.id == editPasswordController.passwordFolder })?.label ?? "_passwords".localized, systemImage: "folder")
+            }
+        }
+    }
+    
     private func favoriteButton() -> some View {
         Button {
             editPasswordController.passwordFavorite.toggle()
@@ -220,7 +249,7 @@ struct EditPasswordPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                EditPasswordPage(password: Password.mock, addPassword: {}, updatePassword: {})
+                EditPasswordPage(password: Password.mock, folders: Folder.mocks, addPassword: {}, updatePassword: {})
             }
             .showColumns(false)
         }

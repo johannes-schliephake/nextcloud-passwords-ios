@@ -4,18 +4,22 @@ import Foundation
 final class EditFolderController: ObservableObject {
     
     let folder: Folder
+    let folders: [Folder]
     private let addFolder: () -> Void
     private let updateFolder: () -> Void
     
     @Published var folderLabel: String
     @Published var folderFavorite: Bool
+    @Published var folderParent: String?
     
-    init(folder: Folder, addFolder: @escaping () -> Void, updateFolder: @escaping () -> Void) {
+    init(folder: Folder, folders: [Folder], addFolder: @escaping () -> Void, updateFolder: @escaping () -> Void) {
         self.folder = folder
+        self.folders = folders
         self.addFolder = addFolder
         self.updateFolder = updateFolder
         folderLabel = folder.label
         folderFavorite = folder.favorite
+        folderParent = folder.parent
     }
     
     func applyToFolder() {
@@ -27,6 +31,7 @@ final class EditFolderController: ObservableObject {
         
         folder.label = folderLabel
         folder.favorite = folderFavorite
+        folder.parent = folderParent
         
         if folder.id.isEmpty {
             addFolder()

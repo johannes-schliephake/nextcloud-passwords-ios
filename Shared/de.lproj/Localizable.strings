@@ -58,6 +58,7 @@
 "_logIn" = "Anmelden";
 "_logOut" = "Abmelden";
 "_metadata" = "Metadaten";
+"_move" = "Bewegen";
 "_name" = "Name";
 "_nextcloudServerAddress" = "Nextcloud-Serveradresse";
 "_noConnection" = "Keine Verbindung";

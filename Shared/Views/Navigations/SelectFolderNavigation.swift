@@ -1,20 +1,20 @@
 import SwiftUI
 
 
-struct EditPasswordNavigation: View {
+struct SelectFolderNavigation: View {
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
-    let password: Password
+    let entry: Entry
+    let temporaryEntry: SelectFolderController.TemporaryEntry
     let folders: [Folder]
-    let addPassword: () -> Void
-    let updatePassword: () -> Void
+    let selectFolder: (Folder) -> Void
     
     // MARK: Views
     
     var body: some View {
         NavigationView {
-            EditPasswordPage(password: password, folders: folders, addPassword: addPassword, updatePassword: updatePassword)
+            SelectFolderPage(entry: entry, temporaryEntry: temporaryEntry, folders: folders, selectFolder: selectFolder)
         }
         .showColumns(false)
         .occlude(!biometricAuthenticationController.isUnlocked)
