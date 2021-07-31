@@ -130,21 +130,21 @@ final class Password: ObservableObject, Identifiable {
     
     func score(searchTerm: String) -> Double {
         var scores = [label.score(searchTerm: searchTerm, penalty: 0.3),
-                      username.score(searchTerm: searchTerm, penalty: 0.9) * 0.6,
+                      username.score(searchTerm: searchTerm, penalty: 0.9) * 0.7,
                       notes.score(searchTerm: searchTerm, penalty: 0.01) * 0.7,
                       scoreUrlString(url, searchTerm: searchTerm)]
         
         scores += customFields
             .map {
                 customField in
-                let labelScore = customField.label.score(searchTerm: searchTerm, penalty: 0.9) * 0.6
+                let labelScore = customField.label.score(searchTerm: searchTerm, penalty: 0.9) * 0.7
                 switch customField.type {
                 case .text:
                     return labelScore + customField.value.score(searchTerm: searchTerm, penalty: 0.3)
                 case .secret:
                     return labelScore
                 case .email:
-                    return labelScore + customField.value.score(searchTerm: searchTerm, penalty: 0.9) * 0.6
+                    return labelScore + customField.value.score(searchTerm: searchTerm, penalty: 0.9) * 0.7
                 case .url:
                     return labelScore + scoreUrlString(customField.value, searchTerm: searchTerm)
                 case .file:

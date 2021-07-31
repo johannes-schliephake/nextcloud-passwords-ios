@@ -62,12 +62,12 @@ struct PasswordDetailPage: View {
     
     private func mainStack() -> some View {
         GeometryReader {
-            geometry in
+            geometryProxy in
             VStack(spacing: 0) {
                 listView()
                 if let complete = autoFillController.complete {
                     Divider()
-                    selectView(geometry: geometry, complete: complete)
+                    selectView(geometryProxy: geometryProxy, complete: complete)
                 }
                 EmptyView()
                     .sheet(isPresented: $showEditPasswordView, content: {
@@ -253,7 +253,7 @@ struct PasswordDetailPage: View {
         }
     }
     
-    private func selectView(geometry: GeometryProxy, complete: @escaping (String, String) -> Void) -> some View {
+    private func selectView(geometryProxy: GeometryProxy, complete: @escaping (String, String) -> Void) -> some View {
         VStack {
             VStack {
                 Button("_select") {
@@ -263,7 +263,7 @@ struct PasswordDetailPage: View {
             }
             .padding()
         }
-        .padding(.bottom, geometry.safeAreaInsets.bottom)
+        .padding(.bottom, geometryProxy.safeAreaInsets.bottom)
         .background(Color(UIColor.systemGroupedBackground))
     }
     

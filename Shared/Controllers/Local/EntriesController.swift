@@ -113,13 +113,9 @@ final class EntriesController: ObservableObject {
         }
         Publishers.Zip(listFoldersRequest, listPasswordsRequest).sink(receiveCompletion: {
             [weak self] result in
-            switch result {
-            case .failure(.requestError):
-                if self?.state != .offline {
-                    self?.state = .error
-                }
-            default:
-                break
+            if case .failure(.requestError) = result,
+               self?.state != .offline {
+                self?.state = .error
             }
         }, receiveValue: {
             [weak self] folders, passwords in
