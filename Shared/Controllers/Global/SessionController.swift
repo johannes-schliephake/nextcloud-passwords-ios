@@ -99,7 +99,6 @@ final class SessionController: ObservableObject {
         sessionPublisher
             .sink { [weak self] in self?.session = $0 }
             .store(in: &subscriptions)
-        
     }
     
     private func requestSession() {
