@@ -93,6 +93,7 @@ final class SessionController: ObservableObject {
     
     private init(session: Session) {
         self.session = session
+        state = .online
     }
     
     func attachSessionPublisher(_ sessionPublisher: AnyPublisher<Session, Never>) {
