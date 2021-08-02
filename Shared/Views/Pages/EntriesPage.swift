@@ -44,7 +44,9 @@ struct EntriesPage: View {
                        entriesController.state != .error && (sessionController.state != .error || entriesController.state == .offline),
                        !sessionController.state.isChallengeAvailable,
                        entriesController.state == .offline || entriesController.state == .online,
-                       let entries = folderController.entries {
+                       sessionController.state == .offline || sessionController.state == .online,
+                       let entries = folderController.entries,
+                       entriesController.folders != nil {
                         trailingToolbarView(entries: entries)
                     }
                 }
