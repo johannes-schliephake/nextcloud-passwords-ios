@@ -81,7 +81,7 @@ struct SelectFolderPage: View {
         Button("_done") {
             applyAndDismiss()
         }
-        .disabled(selectFolderController.entry.parent == selectFolderController.selection.id)
+        .disabled(selectFolderController.temporaryEntry.parent == selectFolderController.selection.id)
     }
     
     // MARK: Functions
