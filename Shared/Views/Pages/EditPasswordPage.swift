@@ -89,6 +89,7 @@ struct EditPasswordPage: View {
         Section(header: Text("_account")) {
             EditLabeledRow(type: .email, label: "_username" as LocalizedStringKey, value: $editPasswordController.passwordUsername)
             EditLabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: $editPasswordController.passwordPassword)
+                .accessibility(identifier: "showPasswordButton")
         }
     }
     
