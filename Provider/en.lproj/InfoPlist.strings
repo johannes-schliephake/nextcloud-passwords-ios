@@ -1,1 +1,1 @@
-"NSFaceIDUsageDescription" = "Unlock App";
+"NSFaceIDUsageDescription" = "Unlock App"; // Shown when user is asked for Face ID permissions, same as "_unlockApp" in Localizable.strings and "NSFaceIDUsageDescription" in App/Info.plist
