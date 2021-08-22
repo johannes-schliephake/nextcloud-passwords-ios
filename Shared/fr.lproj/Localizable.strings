@@ -58,7 +58,7 @@
 "_logIn" = "Connexion";
 "_logOut" = "Déconnexion";
 "_metadata" = "Métadata";
-"_move" = "TODO";
+"_move" = "Déplacer";
 "_name" = "Nom";
 "_nextcloudServerAddress" = "Adresse du serveur Nextcloud";
 "_noConnection" = "Aucune Connexion";
