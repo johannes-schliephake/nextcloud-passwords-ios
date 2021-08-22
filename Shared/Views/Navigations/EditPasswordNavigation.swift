@@ -6,6 +6,7 @@ struct EditPasswordNavigation: View {
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
     let password: Password
+    let folders: [Folder]
     let addPassword: () -> Void
     let updatePassword: () -> Void
     
@@ -13,7 +14,7 @@ struct EditPasswordNavigation: View {
     
     var body: some View {
         NavigationView {
-            EditPasswordPage(password: password, addPassword: addPassword, updatePassword: updatePassword)
+            EditPasswordPage(password: password, folders: folders, addPassword: addPassword, updatePassword: updatePassword)
         }
         .showColumns(false)
         .occlude(!biometricAuthenticationController.isUnlocked)

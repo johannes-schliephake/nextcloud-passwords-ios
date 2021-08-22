@@ -20,6 +20,8 @@ struct EntriesPage: View {
     @State private var showStorePasswordMessage = false
     @State private var folderForEditing: Folder?
     @State private var passwordForEditing: Password?
+    @State private var folderForMoving: Folder?
+    @State private var passwordForMoving: Password?
     @State private var folderForDeletion: Folder?
     @State private var passwordForDeletion: Password?
     @State private var showErrorAlert = false
@@ -42,7 +44,9 @@ struct EntriesPage: View {
                        entriesController.state != .error && (sessionController.state != .error || entriesController.state == .offline),
                        !sessionController.state.isChallengeAvailable,
                        entriesController.state == .offline || entriesController.state == .online,
-                       let entries = folderController.entries {
+                       sessionController.state == .offline || sessionController.state == .online,
+                       let entries = folderController.entries,
+                       entriesController.folders != nil {
                         trailingToolbarView(entries: entries)
                     }
                 }
@@ -66,8 +70,9 @@ struct EntriesPage: View {
             }
             else if entriesController.state == .offline || entriesController.state == .online,
                     sessionController.state == .offline || sessionController.state == .online,
-                    let entries = folderController.entries {
-                listView(entries: entries)
+                    let entries = folderController.entries,
+                    let folders = entriesController.folders {
+                listView(entries: entries, folders: folders)
                     .searchBar(term: $folderController.searchTerm)
             }
             else {
@@ -156,7 +161,7 @@ struct EntriesPage: View {
         .frame(maxWidth: 600)
     }
     
-    private func listView(entries: [Entry]) -> some View {
+    private func listView(entries: [Entry], folders: [Folder]) -> some View {
         VStack {
             if let suggestions = folderController.suggestions,
                folderController.searchTerm.isEmpty,
@@ -198,7 +203,7 @@ struct EntriesPage: View {
             EmptyView()
                 .sheet(item: $folderForEditing) {
                     folder in
-                    EditFolderNavigation(folder: folder, addFolder: {
+                    EditFolderNavigation(folder: folder, folders: folders, addFolder: {
                         entriesController.add(folder: folder)
                     }, updateFolder: {
                         entriesController.update(folder: folder)
@@ -217,7 +222,7 @@ struct EntriesPage: View {
             EmptyView()
                 .sheet(item: $passwordForEditing) {
                     password in
-                    EditPasswordNavigation(password: password, addPassword: {
+                    EditPasswordNavigation(password: password, folders: folders, addPassword: {
                         entriesController.add(password: password)
                     }, updatePassword: {
                         entriesController.update(password: password)
@@ -233,6 +238,32 @@ struct EntriesPage: View {
                         entriesController.delete(password: password)
                     }])
                 }
+            EmptyView()
+                .sheet(item: $folderForMoving) {
+                    folder in
+                    SelectFolderNavigation(entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), folders: folders, selectFolder: {
+                        parent in
+                        folder.parent = parent.id
+                        entriesController.update(folder: folder)
+                    })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(tipController)
+                }
+            EmptyView()
+                .sheet(item: $passwordForMoving) {
+                    password in
+                    SelectFolderNavigation(entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), folders: folders, selectFolder: {
+                        parent in
+                        password.folder = parent.id
+                        entriesController.update(password: password)
+                    })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(tipController)
+                }
         }
     }
     
@@ -241,6 +272,8 @@ struct EntriesPage: View {
             password in
             PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
                 passwordForEditing = password
+            }, movePassword: {
+                passwordForMoving = password
             }, deletePassword: {
                 passwordForDeletion = password
             })
@@ -259,6 +292,8 @@ struct EntriesPage: View {
             case .folder(let folder):
                 let folderRow = FolderRow(entriesController: entriesController, folder: folder, editFolder: {
                     folderForEditing = folder
+                }, moveFolder: {
+                    folderForMoving = folder
                 }, deleteFolder: {
                     folderForDeletion = folder
                 })
@@ -267,6 +302,8 @@ struct EntriesPage: View {
             case .password(let password):
                 let passwordRow = PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
                     passwordForEditing = password
+                }, movePassword: {
+                    passwordForMoving = password
                 }, deletePassword: {
                     passwordForDeletion = password
                 })
@@ -431,6 +468,7 @@ extension EntriesPage {
         @ObservedObject var entriesController: EntriesController
         @ObservedObject var folder: Folder
         let editFolder: () -> Void
+        let moveFolder: () -> Void
         let deleteFolder: () -> Void
         
         @State private var showErrorAlert = false
@@ -441,6 +479,13 @@ extension EntriesPage {
             entriesPageLink()
                 .contextMenu {
                     Button {
+                        editFolder()
+                    }
+                    label: {
+                        Label("_edit", systemImage: "pencil")
+                    }
+                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    Button {
                         toggleFavorite()
                     }
                     label: {
@@ -448,10 +493,10 @@ extension EntriesPage {
                     }
                     .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Button {
-                        editFolder()
+                        moveFolder()
                     }
                     label: {
-                        Label("_edit", systemImage: "pencil")
+                        Label("_move", systemImage: "folder")
                     }
                     .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Divider()
@@ -560,6 +605,7 @@ extension EntriesPage {
         @ObservedObject var password: Password
         let showStatus: Bool
         let editPassword: () -> Void
+        let movePassword: () -> Void
         let deletePassword: () -> Void
         
         @EnvironmentObject private var autoFillController: AutoFillController
@@ -600,13 +646,6 @@ extension EntriesPage {
                         }
                     }
                     Divider()
-                    Button {
-                        toggleFavorite()
-                    }
-                    label: {
-                        Label("_favorite", systemImage: password.favorite ? "star.fill" : "star")
-                    }
-                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     if password.editable {
                         Button {
                             editPassword()
@@ -616,6 +655,20 @@ extension EntriesPage {
                         }
                         .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
+                    Button {
+                        toggleFavorite()
+                    }
+                    label: {
+                        Label("_favorite", systemImage: password.favorite ? "star.fill" : "star")
+                    }
+                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    Button {
+                        movePassword()
+                    }
+                    label: {
+                        Label("_move", systemImage: "folder")
+                    }
+                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     Divider()
                     Button {
                         deletePassword()
@@ -629,41 +682,44 @@ extension EntriesPage {
         
         private func wrapperStack() -> some View {
             HStack {
-                if let complete = autoFillController.complete {
-                    Button {
-                        complete(password.username, password.password)
+                if let folders = entriesController.folders {
+                    if let complete = autoFillController.complete {
+                        Button {
+                            complete(password.username, password.password)
+                        }
+                        label: {
+                            mainStack()
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .frame(maxWidth: .infinity)
+                        Spacer()
+                        Button {
+                            showPasswordDetailView = true
+                        }
+                        label: {
+                            Image(systemName: "info.circle")
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, updatePassword: {
+                            entriesController.update(password: password)
+                        }, deletePassword: {
+                            entriesController.delete(password: password)
+                        }), isActive: $showPasswordDetailView) {}
+                        .isDetailLink(true)
+                        .frame(width: 0, height: 0)
+                        .opacity(0)
                     }
-                    label: {
-                        mainStack()
+                    else {
+                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, updatePassword: {
+                            entriesController.update(password: password)
+                        }, deletePassword: {
+                            entriesController.delete(password: password)
+                        })) {
+                            mainStack()
+                        }
+                        .isDetailLink(true)
                     }
-                    .buttonStyle(PlainButtonStyle())
-                    .frame(maxWidth: .infinity)
-                    Spacer()
-                    Button {
-                        showPasswordDetailView = true
-                    }
-                    label: {
-                        Image(systemName: "info.circle")
-                    }
-                    .buttonStyle(BorderlessButtonStyle())
-                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
-                        entriesController.update(password: password)
-                    }, deletePassword: {
-                        entriesController.delete(password: password)
-                    }), isActive: $showPasswordDetailView) {}
-                    .isDetailLink(true)
-                    .frame(width: 0, height: 0)
-                    .opacity(0)
-                }
-                else {
-                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
-                        entriesController.update(password: password)
-                    }, deletePassword: {
-                        entriesController.delete(password: password)
-                    })) {
-                        mainStack()
-                    }
-                    .isDetailLink(true)
                 }
             }
         }

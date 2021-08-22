@@ -93,13 +93,13 @@ final class SessionController: ObservableObject {
     
     private init(session: Session) {
         self.session = session
+        state = .online
     }
     
     func attachSessionPublisher(_ sessionPublisher: AnyPublisher<Session, Never>) {
         sessionPublisher
             .sink { [weak self] in self?.session = $0 }
             .store(in: &subscriptions)
-        
     }
     
     private func requestSession() {

@@ -13,13 +13,24 @@ final class FolderController: ObservableObject {
     
     private var entriesPipelineUuid: UUID?
     private var suggestionsPipelineUuid: UUID?
+    private let entriesControllerDidChange = PassthroughSubject<Void, Never>()
+    private var subscriptions = Set<AnyCancellable>()
     
     init(entriesController: EntriesController, folder: Folder?) {
         let folder = folder ?? Folder()
         self.folder = folder
         
+        entriesController.objectWillChange
+            .sink {
+                [weak self] in
+                DispatchQueue.main.async {
+                    self?.entriesControllerDidChange.send()
+                }
+            }
+            .store(in: &subscriptions)
+        
         Publishers.Merge(
-            entriesController.objectWillChange
+            entriesControllerDidChange
                 .compactMap { [weak self] in self?.searchTerm }
                 .receive(on: DispatchQueue.global(qos: .userInitiated)),
             $searchTerm

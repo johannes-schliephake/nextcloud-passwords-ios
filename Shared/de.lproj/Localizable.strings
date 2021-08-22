@@ -1,6 +1,7 @@
 "_about" = "Über";
 "_accept" = "Akzeptieren";
 "_account" = "Account";
+"_addCustomField" = "Benutzerdefiniertes Feld hinzufügen";
 "_all" = "Alle";
 "_anErrorOccurred" = "Es ist ein Fehler aufgetreten ...";
 "_appDeauthorized" = "App deautorisiert";
@@ -20,6 +21,7 @@
 "_createPassword" = "Passwort hinzufügen";
 "_createPasswordErrorMessage" = "Beim Erstellen des Passworts ist ein Fehler aufgetreten. Bitte speichere das Passwort nochmals.";
 "_credentials" = "Anmeldedaten";
+"_customFields" = "Benutzerdefinierte Felder";
 "_decryptFolderErrorMessage" = "Beim Entschlüsseln des Ordners ist ein Fehler aufgetreten.";
 "_decryptPasswordErrorMessage" = "Beim Entschlüsseln des Passworts ist ein Fehler aufgetreten.";
 "_delete" = "Löschen";
@@ -35,11 +37,13 @@
 "_editFolderErrorMessage" = "Beim Bearbeiten des Ordners ist ein Fehler aufgetreten. Bitte speichere den Ordner nochmals.";
 "_editPassword" = "Passwort bearbeiten";
 "_editPasswordErrorMessage" = "Beim Bearbeiten des Passworts ist ein Fehler aufgetreten. Bitte speichere das Passwort nochmals.";
+"_email" = "E-Mail";
 "_encryptedOfflineStorage" = "Verschlüsselte Offline-Speicherung";
 "_encryption" = "Verschlüsselung";
 "_error" = "Fehler";
 "_favorite" = "Favorit";
 "_favorites" = "Favoriten";
+"_file" = "Datei";
 "_folder" = "Ordner";
 "_folders" = "Ordner";
 "_generatePassword" = "Passwort generieren";
@@ -54,6 +58,7 @@
 "_logIn" = "Anmelden";
 "_logOut" = "Abmelden";
 "_metadata" = "Metadaten";
+"_move" = "Bewegen";
 "_name" = "Name";
 "_nextcloudServerAddress" = "Nextcloud-Serveradresse";
 "_noConnection" = "Keine Verbindung";
@@ -76,6 +81,7 @@
 "_passwordStatusOutdatedMessage" = "Dieses Passwort hat das maximale Alter erreicht.";
 "_providerInstructionsMessage" = "Diese App unterstützt Password AutoFill. Das Feature muss in der iOS Einstellungen App aktiviert werden:\n1. Öffne die Einstellungen App\n2. Tippe auf Passwörter\n3. Tippe auf Automatisch ausfüllen\n4. Aktiviere Automatisch ausfüllen\n5. Aktiviere diese App";
 "_reject" = "Ablehnen";
+"_secret" = "Geheimnis";
 "_security" = "Sicherheit";
 "_select" = "Auswählen";
 "_serverAddressFieldMessage" = "Eine HTTPS-Verbindung ist erforderlich.";
@@ -88,6 +94,7 @@
 "_storePasswordMessage" = "Wenn diese Option aktiviert ist, wird das E2E Passwort verschlüsselt im Schlüsselbund des Geräts gespeichert.";
 "_suggestions" = "Vorschläge";
 "_supportThisProject" = "Dieses Projekt unterstützen";
+"_text" = "Text";
 "_thanksMessage" = "Vielen Dank an die gesamte Nextcloud-Community und alle Beteiligten, die dieses großartige Ökosystem möglich machen. Ich hoffe, dass ich mit dieser App etwas beitragen kann.";
 "_tipDeferred" = "Trinkgeld zurückgehalten";
 "_tipDeferredMessage" = "Dein Trinkgeld wartet nun auf die Genehmigung.";

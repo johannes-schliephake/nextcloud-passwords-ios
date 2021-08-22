@@ -4,12 +4,16 @@ import SwiftUI
 struct EditFolderPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var autoFillController: AutoFillController
+    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
+    @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editFolderController: EditFolderController
+    @State private var showSelectFolderView = false
     
-    init(folder: Folder, addFolder: @escaping () -> Void, updateFolder: @escaping () -> Void) {
-        _editFolderController = StateObject(wrappedValue: EditFolderController(folder: folder, addFolder: addFolder, updateFolder: updateFolder))
+    init(folder: Folder, folders: [Folder], addFolder: @escaping () -> Void, updateFolder: @escaping () -> Void) {
+        _editFolderController = StateObject(wrappedValue: EditFolderController(folder: folder, folders: folders, addFolder: addFolder, updateFolder: updateFolder))
     }
     
     // MARK: Views
@@ -34,13 +38,27 @@ struct EditFolderPage: View {
     }
     
     private func listView() -> some View {
-        List {
-            folderLabelField()
-            if editFolderController.folder.id.isEmpty {
-                favoriteButton()
+        VStack {
+            List {
+                folderLabelField()
+                if editFolderController.folder.id.isEmpty {
+                    favoriteButton()
+                }
+                moveSection()
             }
+            .listStyle(InsetGroupedListStyle())
+            EmptyView()
+                .sheet(isPresented: $showSelectFolderView) {
+                    SelectFolderNavigation(entry: .folder(editFolderController.folder), temporaryEntry: .folder(label: editFolderController.folderLabel, parent: editFolderController.folderParent), folders: editFolderController.folders, selectFolder: {
+                        parent in
+                        editFolderController.folderParent = parent.id
+                    })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(tipController)
+                }
         }
-        .listStyle(InsetGroupedListStyle())
     }
     
     private func folderLabelField() -> some View {
@@ -48,6 +66,17 @@ struct EditFolderPage: View {
             TextField("-", text: $editFolderController.folderLabel, onCommit: {
                 applyAndDismiss()
             })
+        }
+    }
+    
+    private func moveSection() -> some View {
+        Section(header: Text("_folder")) {
+            Button {
+                showSelectFolderView = true
+            }
+            label: {
+                Label(editFolderController.folders.first(where: { $0.id == editFolderController.folderParent })?.label ?? "_passwords".localized, systemImage: "folder")
+            }
         }
     }
     
@@ -93,7 +122,7 @@ struct EditFolderPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                EditFolderPage(folder: Folder.mock, addFolder: {}, updateFolder: {})
+                EditFolderPage(folder: Folder.mocks.first!, folders: Folder.mocks, addFolder: {}, updateFolder: {})
             }
             .showColumns(false)
         }
