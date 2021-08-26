@@ -69,16 +69,15 @@ struct PasswordDetailPage: View {
                     Divider()
                     selectView(geometryProxy: geometryProxy, complete: complete)
                 }
-                EmptyView()
-                    .sheet(isPresented: $showEditPasswordView, content: {
-                        EditPasswordNavigation(password: password, folders: folders, addPassword: {}, updatePassword: updatePassword)
-                            .environmentObject(autoFillController)
-                            .environmentObject(biometricAuthenticationController)
-                            .environmentObject(sessionController)
-                            .environmentObject(tipController)
-                    })
             }
             .edgesIgnoringSafeArea(autoFillController.complete != nil ? .bottom : [])
+            .sheet(isPresented: $showEditPasswordView, content: {
+                EditPasswordNavigation(password: password, folders: folders, addPassword: {}, updatePassword: updatePassword)
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(tipController)
+            })
         }
     }
     
