@@ -395,10 +395,11 @@ struct EntriesPage: View {
             }
         }
         label: {
-            Spacer()
-            Image(systemName: "arrow.up.arrow.down")
-                .accessibility(identifier: "filterSortMenu")
-            Spacer()
+            HStack {
+                Spacer()
+                Image(systemName: "arrow.up.arrow.down")
+                    .accessibility(identifier: "filterSortMenu")
+            }
         }
         .onChange(of: entriesController.filterBy, perform: didChange)
     }
@@ -417,8 +418,10 @@ struct EntriesPage: View {
             })
         }
         label: {
-            Spacer()
-            Image(systemName: "plus")
+            HStack {
+                Spacer()
+                Image(systemName: "plus")
+            }
         }
         .disabled(entriesController.state != .online || folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
     }
