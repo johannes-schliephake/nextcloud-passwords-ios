@@ -1093,8 +1093,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellPath = /bin/zsh;
+			shellScript = "if which swiftlint >/dev/null; then\n  setopt extendedglob\n  for folder in ^(Provider)/; do\n    swiftlint --path $folder\n  done\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		8F0136FB25DE8E9A009455D7 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1111,8 +1111,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellPath = /bin/zsh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint --path Provider\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		8FC70F132675086600AC5956 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1128,7 +1128,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
+			shellPath = /bin/zsh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		8FC70F142675087A00AC5956 /* ShellScript */ = {
@@ -1145,7 +1145,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
+			shellPath = /bin/zsh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
