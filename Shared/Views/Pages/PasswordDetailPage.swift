@@ -71,14 +71,14 @@ struct PasswordDetailPage: View {
                 }
             }
             .edgesIgnoringSafeArea(autoFillController.complete != nil ? .bottom : [])
-            .sheet(isPresented: $showEditPasswordView, content: {
-                EditPasswordNavigation(password: password, folders: folders, addPassword: {}, updatePassword: updatePassword)
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(tipController)
-            })
         }
+        .sheet(isPresented: $showEditPasswordView, content: {
+            EditPasswordNavigation(password: password, folders: folders, addPassword: {}, updatePassword: updatePassword)
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
+        })
     }
     
     private func listView() -> some View {

@@ -75,6 +75,21 @@ struct EntriesPage: View {
                 ProgressView()
             }
         }
+        .background(
+            /// This hack is necessary because the toolbar, where this sheet would actually belong, is buggy, iOS 14 can't stack sheets (not even throughout the view hierarchy) and iOS 15 can't use sheets on EmptyView (previous hack)
+            Rectangle()
+                .fill(Color.clear)
+                .frame(width: 0, height: 0)
+                .sheet(isPresented: $showSettingsView) {
+                    SettingsNavigation(updateOfflineContainers: {
+                        entriesController.updateOfflineContainers()
+                    })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(tipController)
+                }
+        )
     }
     
     private func connectView() -> some View {
@@ -179,69 +194,69 @@ struct EntriesPage: View {
                     entryRows(entries: entries)
                 }
                 .listStyle(PlainListStyle())
-                .sheet(item: $sheetItem) {
-                    item in
-                    switch item {
-                    case .edit(.folder(let folder)):
-                        EditFolderNavigation(folder: folder, folders: folders, addFolder: {
-                            entriesController.add(folder: folder)
-                        }, updateFolder: {
-                            entriesController.update(folder: folder)
-                        })
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(sessionController)
-                        .environmentObject(tipController)
-                    case .edit(.password(let password)):
-                        EditPasswordNavigation(password: password, folders: folders, addPassword: {
-                            entriesController.add(password: password)
-                        }, updatePassword: {
-                            entriesController.update(password: password)
-                        })
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(sessionController)
-                        .environmentObject(tipController)
-                    case .move(.folder(let folder)):
-                        SelectFolderNavigation(entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), folders: folders, selectFolder: {
-                            parent in
-                            folder.parent = parent.id
-                            entriesController.update(folder: folder)
-                        })
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(sessionController)
-                        .environmentObject(tipController)
-                    case .move(.password(let password)):
-                        SelectFolderNavigation(entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), folders: folders, selectFolder: {
-                            parent in
-                            password.folder = parent.id
-                            entriesController.update(password: password)
-                        })
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(sessionController)
-                        .environmentObject(tipController)
-                    }
-                }
-                .actionSheet(item: $actionSheetItem) {
-                    item in
-                    switch item {
-                    case .delete(.folder(let folder)):
-                        return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
-                            entriesController.delete(folder: folder)
-                        }])
-                    case .delete(.password(let password)):
-                        return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                            entriesController.delete(password: password)
-                        }])
-                    }
-                }
             }
             else {
                 Text("_nothingToSeeHere")
                     .foregroundColor(.gray)
                     .padding()
+            }
+        }
+        .sheet(item: $sheetItem) {
+            item in
+            switch item {
+            case .edit(.folder(let folder)):
+                EditFolderNavigation(folder: folder, folders: folders, addFolder: {
+                    entriesController.add(folder: folder)
+                }, updateFolder: {
+                    entriesController.update(folder: folder)
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
+            case .edit(.password(let password)):
+                EditPasswordNavigation(password: password, folders: folders, addPassword: {
+                    entriesController.add(password: password)
+                }, updatePassword: {
+                    entriesController.update(password: password)
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
+            case .move(.folder(let folder)):
+                SelectFolderNavigation(entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), folders: folders, selectFolder: {
+                    parent in
+                    folder.parent = parent.id
+                    entriesController.update(folder: folder)
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
+            case .move(.password(let password)):
+                SelectFolderNavigation(entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), folders: folders, selectFolder: {
+                    parent in
+                    password.folder = parent.id
+                    entriesController.update(password: password)
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
+            }
+        }
+        .actionSheet(item: $actionSheetItem) {
+            item in
+            switch item {
+            case .delete(.folder(let folder)):
+                return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
+                    entriesController.delete(folder: folder)
+                }])
+            case .delete(.password(let password)):
+                return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                    entriesController.delete(password: password)
+                }])
             }
         }
     }
@@ -310,15 +325,6 @@ struct EntriesPage: View {
                 else {
                     Button("_settings") {
                         showSettingsView = true
-                    }
-                    .sheet(isPresented: $showSettingsView) {
-                        SettingsNavigation(updateOfflineContainers: {
-                            entriesController.updateOfflineContainers()
-                        })
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(sessionController)
-                        .environmentObject(tipController)
                     }
                 }
             }
