@@ -18,12 +18,8 @@ struct EntriesPage: View {
     @State private var challengePassword = ""
     @State private var storeChallengePassword = false
     @State private var showStorePasswordMessage = false
-    @State private var folderForEditing: Folder?
-    @State private var passwordForEditing: Password?
-    @State private var folderForMoving: Folder?
-    @State private var passwordForMoving: Password?
-    @State private var folderForDeletion: Folder?
-    @State private var passwordForDeletion: Password?
+    @State private var sheetItem: SheetItem?
+    @State private var actionSheetItem: ActionSheetItem?
     @State private var showErrorAlert = false
     
     init(entriesController: EntriesController, folder: Folder? = nil) {
@@ -78,7 +74,12 @@ struct EntriesPage: View {
             else {
                 ProgressView()
             }
-            EmptyView()
+        }
+        .background(
+            /// This hack is necessary because the toolbar, where this sheet would actually belong, is buggy, iOS 14 can't stack sheets (not even throughout the view hierarchy) and iOS 15 can't use sheets on EmptyView (previous hack)
+            Rectangle()
+                .fill(Color.clear)
+                .frame(width: 0, height: 0)
                 .sheet(isPresented: $showSettingsView) {
                     SettingsNavigation(updateOfflineContainers: {
                         entriesController.updateOfflineContainers()
@@ -88,7 +89,7 @@ struct EntriesPage: View {
                     .environmentObject(sessionController)
                     .environmentObject(tipController)
                 }
-        }
+        )
     }
     
     private func connectView() -> some View {
@@ -98,14 +99,13 @@ struct EntriesPage: View {
             }
             .frame(maxWidth: 600)
             .buttonStyle(ActionButtonStyle())
-            EmptyView()
-                .sheet(isPresented: $showServerSetupView) {
-                    ServerSetupNavigation()
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(sessionController)
-                        .environmentObject(tipController)
-                }
+            .sheet(isPresented: $showServerSetupView) {
+                ServerSetupNavigation()
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(tipController)
+            }
         }
         .padding()
     }
@@ -173,7 +173,7 @@ struct EntriesPage: View {
                         }
                         else {
                             Button(action: {
-                                passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)
+                                sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)))
                             }, label: {
                                 Text("_createPassword")
                             })
@@ -200,70 +200,64 @@ struct EntriesPage: View {
                     .foregroundColor(.gray)
                     .padding()
             }
-            EmptyView()
-                .sheet(item: $folderForEditing) {
-                    folder in
-                    EditFolderNavigation(folder: folder, folders: folders, addFolder: {
-                        entriesController.add(folder: folder)
-                    }, updateFolder: {
-                        entriesController.update(folder: folder)
-                    })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(tipController)
-                }
-                .actionSheet(item: $folderForDeletion) {
-                    folder in
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
-                        entriesController.delete(folder: folder)
-                    }])
-                }
-            EmptyView()
-                .sheet(item: $passwordForEditing) {
-                    password in
-                    EditPasswordNavigation(password: password, folders: folders, addPassword: {
-                        entriesController.add(password: password)
-                    }, updatePassword: {
-                        entriesController.update(password: password)
-                    })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(tipController)
-                }
-                .actionSheet(item: $passwordForDeletion) {
-                    password in
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                        entriesController.delete(password: password)
-                    }])
-                }
-            EmptyView()
-                .sheet(item: $folderForMoving) {
-                    folder in
-                    SelectFolderNavigation(entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), folders: folders, selectFolder: {
-                        parent in
-                        folder.parent = parent.id
-                        entriesController.update(folder: folder)
-                    })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(tipController)
-                }
-            EmptyView()
-                .sheet(item: $passwordForMoving) {
-                    password in
-                    SelectFolderNavigation(entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), folders: folders, selectFolder: {
-                        parent in
-                        password.folder = parent.id
-                        entriesController.update(password: password)
-                    })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(tipController)
-                }
+        }
+        .sheet(item: $sheetItem) {
+            item in
+            switch item {
+            case .edit(.folder(let folder)):
+                EditFolderNavigation(folder: folder, folders: folders, addFolder: {
+                    entriesController.add(folder: folder)
+                }, updateFolder: {
+                    entriesController.update(folder: folder)
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
+            case .edit(.password(let password)):
+                EditPasswordNavigation(password: password, folders: folders, addPassword: {
+                    entriesController.add(password: password)
+                }, updatePassword: {
+                    entriesController.update(password: password)
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
+            case .move(.folder(let folder)):
+                SelectFolderNavigation(entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), folders: folders, selectFolder: {
+                    parent in
+                    folder.parent = parent.id
+                    entriesController.update(folder: folder)
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
+            case .move(.password(let password)):
+                SelectFolderNavigation(entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), folders: folders, selectFolder: {
+                    parent in
+                    password.folder = parent.id
+                    entriesController.update(password: password)
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
+            }
+        }
+        .actionSheet(item: $actionSheetItem) {
+            item in
+            switch item {
+            case .delete(.folder(let folder)):
+                return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
+                    entriesController.delete(folder: folder)
+                }])
+            case .delete(.password(let password)):
+                return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                    entriesController.delete(password: password)
+                }])
+            }
         }
     }
     
@@ -271,17 +265,20 @@ struct EntriesPage: View {
         ForEach(suggestions) {
             password in
             PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
-                passwordForEditing = password
+                sheetItem = .edit(entry: .password(password))
             }, movePassword: {
-                passwordForMoving = password
+                sheetItem = .move(entry: .password(password))
             }, deletePassword: {
-                passwordForDeletion = password
+                actionSheetItem = .delete(entry: .password(password))
             })
             .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
         .onDelete {
             indices in
-            passwordForDeletion = suggestions[safe: indices.first]
+            guard let password = suggestions[safe: indices.first] else {
+                return
+            }
+            actionSheetItem = .delete(entry: .password(password))
         }
     }
     
@@ -291,21 +288,21 @@ struct EntriesPage: View {
             switch entry {
             case .folder(let folder):
                 let folderRow = FolderRow(entriesController: entriesController, folder: folder, editFolder: {
-                    folderForEditing = folder
+                    sheetItem = .edit(entry: .folder(folder))
                 }, moveFolder: {
-                    folderForMoving = folder
+                    sheetItem = .move(entry: .folder(folder))
                 }, deleteFolder: {
-                    folderForDeletion = folder
+                    actionSheetItem = .delete(entry: .folder(folder))
                 })
                 .deleteDisabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 return AnyView(folderRow)
             case .password(let password):
                 let passwordRow = PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
-                    passwordForEditing = password
+                    sheetItem = .edit(entry: .password(password))
                 }, movePassword: {
-                    passwordForMoving = password
+                    sheetItem = .move(entry: .password(password))
                 }, deletePassword: {
-                    passwordForDeletion = password
+                    actionSheetItem = .delete(entry: .password(password))
                 })
                 .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 return AnyView(passwordRow)
@@ -404,10 +401,11 @@ struct EntriesPage: View {
             }
         }
         label: {
-            Spacer()
-            Image(systemName: "arrow.up.arrow.down")
-                .accessibility(identifier: "filterSortMenu")
-            Spacer()
+            HStack {
+                Spacer()
+                Image(systemName: "arrow.up.arrow.down")
+                    .accessibility(identifier: "filterSortMenu")
+            }
         }
         .onChange(of: entriesController.filterBy, perform: didChange)
     }
@@ -415,19 +413,21 @@ struct EntriesPage: View {
     private func createMenu() -> some View {
         Menu {
             Button(action: {
-                folderForEditing = Folder(parent: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)
+                sheetItem = .edit(entry: .folder(Folder(parent: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)))
             }, label: {
                 Label("_createFolder", systemImage: "folder")
             })
             Button(action: {
-                passwordForEditing = Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)
+                sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)))
             }, label: {
                 Label("_createPassword", systemImage: "key")
             })
         }
         label: {
-            Spacer()
-            Image(systemName: "plus")
+            HStack {
+                Spacer()
+                Image(systemName: "plus")
+            }
         }
         .disabled(entriesController.state != .online || folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
     }
@@ -443,9 +443,9 @@ struct EntriesPage: View {
     private func onDeleteEntry(entry: Entry?) {
         switch entry {
         case .folder(let folder):
-            folderForDeletion = folder
+            actionSheetItem = .delete(entry: .folder(folder))
         case .password(let password):
-            passwordForDeletion = password
+            actionSheetItem = .delete(entry: .password(password))
         case .none:
             break
         }
@@ -456,6 +456,43 @@ struct EntriesPage: View {
            filterBy != .folders {
             presentationMode.wrappedValue.dismiss()
         }
+    }
+    
+}
+
+
+extension EntriesPage {
+    
+    enum SheetItem: Identifiable {
+        
+        case edit(entry: Entry)
+        case move(entry: Entry)
+        
+        var id: String {
+            switch self {
+            case .edit(let entry), .move(let entry):
+                return entry.id
+            }
+        }
+        
+    }
+    
+}
+
+
+extension EntriesPage {
+    
+    enum ActionSheetItem: Identifiable {
+        
+        case delete(entry: Entry)
+        
+        var id: String {
+            switch self {
+            case .delete(let entry):
+                return entry.id
+            }
+        }
+        
     }
     
 }
