@@ -232,23 +232,43 @@ struct PasswordDetailPage: View {
         }
     }
     
-    private func deleteButton() -> some View {
-        Button {
-            showDeleteAlert = true
-        }
-        label: {
-            HStack {
-                Spacer()
-                Text("_deletePassword")
-                    .foregroundColor(.red)
-                Spacer()
+    @ViewBuilder private func deleteButton() -> some View {
+        if #available(iOS 15.0, *) {
+            Button(role: .destructive) {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deletePassword")
+                    Spacer()
+                }
+            }
+            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                    deleteAndDismiss()
+                }])
             }
         }
-        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-        .actionSheet(isPresented: $showDeleteAlert) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                deleteAndDismiss()
-            }])
+        else {
+            Button {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deletePassword")
+                        .foregroundColor(.red)
+                    Spacer()
+                }
+            }
+            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                    deleteAndDismiss()
+                }])
+            }
         }
     }
     

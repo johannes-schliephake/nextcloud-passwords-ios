@@ -60,9 +60,16 @@ struct ServerSetupPage: View {
             .padding(.vertical, 6)
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel") {
-            presentationMode.wrappedValue.dismiss()
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 15.0, *) {
+            Button("_cancel", role: .cancel) {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+        else {
+            Button("_cancel") {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
     

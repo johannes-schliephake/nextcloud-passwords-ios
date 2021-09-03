@@ -318,8 +318,15 @@ struct EntriesPage: View {
         HStack {
             if folderController.folder.isBaseFolder {
                 if let cancel = autoFillController.cancel {
-                    Button("_cancel") {
-                        cancel()
+                    if #available(iOS 15.0, *) {
+                        Button("_cancel", role: .cancel) {
+                            cancel()
+                        }
+                    }
+                    else {
+                        Button("_cancel") {
+                            cancel()
+                        }
                     }
                 }
                 else {
@@ -537,13 +544,24 @@ extension EntriesPage {
                     }
                     .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Divider()
-                    Button {
-                        deleteFolder()
+                    if #available(iOS 15.0, *) {
+                        Button(role: .destructive) {
+                            deleteFolder()
+                        }
+                        label: {
+                            Label("_delete", systemImage: "trash")
+                        }
+                        .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     }
-                    label: {
-                        Label("_delete", systemImage: "trash")
+                    else {
+                        Button {
+                            deleteFolder()
+                        }
+                        label: {
+                            Label("_delete", systemImage: "trash")
+                        }
+                        .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     }
-                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 }
         }
         
@@ -707,13 +725,24 @@ extension EntriesPage {
                     }
                     .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     Divider()
-                    Button {
-                        deletePassword()
+                    if #available(iOS 15.0, *) {
+                        Button(role: .destructive) {
+                            deletePassword()
+                        }
+                        label: {
+                            Label("_delete", systemImage: "trash")
+                        }
+                        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
-                    label: {
-                        Label("_delete", systemImage: "trash")
+                    else {
+                        Button {
+                            deletePassword()
+                        }
+                        label: {
+                            Label("_delete", systemImage: "trash")
+                        }
+                        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
-                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
         }
         
