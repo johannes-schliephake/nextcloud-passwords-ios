@@ -273,7 +273,7 @@ struct EntriesPage: View {
             })
             .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
-        .onDelete {
+        .onDelete { // when not #available(iOS 15.0, *)
             indices in
             guard let password = suggestions[safe: indices.first] else {
                 return
@@ -308,7 +308,7 @@ struct EntriesPage: View {
                 return AnyView(passwordRow)
             }
         }
-        .onDelete {
+        .onDelete { // when not #available(iOS 15.0, *)
             indices in
             onDeleteEntry(entry: entries[safe: indices.first])
         }
@@ -521,6 +521,47 @@ extension EntriesPage {
         
         var body: some View {
             entriesPageLink()
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                Button {
+                                    toggleFavorite()
+                                }
+                                label: {
+                                    Label("_favorite", systemImage: folder.favorite ? "star.slash.fill" : "star.fill")
+                                }
+                                .tint(.yellow)
+                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                Button {
+                                    editFolder()
+                                }
+                                label: {
+                                    Label("_edit", systemImage: "pencil")
+                                }
+                                .tint(.blue)
+                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    deleteFolder()
+                                }
+                                label: {
+                                    Label("_delete", systemImage: "trash")
+                                }
+                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                Button {
+                                    moveFolder()
+                                }
+                                label: {
+                                    Label("_move", systemImage: "folder")
+                                }
+                                .tint(.purple)
+                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                            }
+                    }
+                }
                 .contextMenu {
                     Button {
                         editFolder()
@@ -674,6 +715,49 @@ extension EntriesPage {
         
         var body: some View {
             wrapperStack()
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                Button {
+                                    toggleFavorite()
+                                }
+                                label: {
+                                    Label("_favorite", systemImage: password.favorite ? "star.slash.fill" : "star.fill")
+                                }
+                                .tint(.yellow)
+                                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                if password.editable {
+                                    Button {
+                                        editPassword()
+                                    }
+                                    label: {
+                                        Label("_edit", systemImage: "pencil")
+                                    }
+                                    .tint(.blue)
+                                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                }
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    deletePassword()
+                                }
+                                label: {
+                                    Label("_delete", systemImage: "trash")
+                                }
+                                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                Button {
+                                    movePassword()
+                                }
+                                label: {
+                                    Label("_move", systemImage: "folder")
+                                }
+                                .tint(.purple)
+                                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                            }
+                    }
+                }
                 .contextMenu {
                     Button {
                         UIPasteboard.general.privateString = password.password
