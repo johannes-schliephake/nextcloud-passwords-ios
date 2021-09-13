@@ -166,7 +166,7 @@ struct SettingsPage: View {
                     Spacer()
                     Text("Johannes Schliephake")
                         .font(.footnote)
-                        .fontWeight(.bold)
+                        .bold()
                         .foregroundColor(.gray)
                     Spacer()
                 }

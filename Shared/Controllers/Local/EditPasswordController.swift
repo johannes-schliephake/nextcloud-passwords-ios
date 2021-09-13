@@ -27,12 +27,14 @@ final class EditPasswordController: ObservableObject {
     @Published var passwordLabel: String
     @Published var passwordUsername: String
     @Published var passwordUrl: String
-    @Published var passwordCustomFields: [Password.CustomField]
+    @Published var passwordCustomUserFields: [Password.CustomField]
     @Published var passwordNotes: String
     @Published var passwordFavorite: Bool
     @Published var passwordFolder: String
     @Published var showErrorAlert = false
     @Published var showProgressView = false
+    
+    let passwordCustomDataFields: [Password.CustomField]
     
     init(password: Password, folders: [Folder], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
         self.password = password
@@ -43,7 +45,8 @@ final class EditPasswordController: ObservableObject {
         passwordLabel = password.label
         passwordUsername = password.username
         passwordUrl = password.url
-        passwordCustomFields = password.customFields
+        passwordCustomUserFields = password.customFields.filter { $0.type != .data }
+        passwordCustomDataFields = password.customFields.filter { $0.type == .data }
         passwordNotes = password.notes
         passwordFavorite = password.favorite
         passwordFolder = password.folder
@@ -82,7 +85,7 @@ final class EditPasswordController: ObservableObject {
         password.label = passwordLabel
         password.username = passwordUsername
         password.url = passwordUrl
-        password.customFields = passwordCustomFields
+        password.customFields = passwordCustomUserFields + passwordCustomDataFields
         password.notes = passwordNotes
         password.favorite = passwordFavorite
         password.folder = passwordFolder

@@ -10,6 +10,7 @@ struct EditFolderPage: View {
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editFolderController: EditFolderController
+    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showSelectFolderView = false
     
     init(folder: Folder, folders: [Folder], addFolder: @escaping () -> Void, updateFolder: @escaping () -> Void) {
@@ -35,6 +36,13 @@ struct EditFolderPage: View {
                     presentationMode.wrappedValue.dismiss()
                 }
             }
+            .apply {
+                view in
+                if #available(iOS 15, *) {
+                    view
+                        .initialize(focus: $focusedField, with: editFolderController.folder.id.isEmpty ? .folderLabel : nil)
+                }
+            }
     }
     
     private func listView() -> some View {
@@ -46,6 +54,24 @@ struct EditFolderPage: View {
             moveSection()
         }
         .listStyle(InsetGroupedListStyle())
+        .apply {
+            view in
+            if #available(iOS 15, *) {
+                view
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button {
+                                focusedField = nil
+                            }
+                            label: {
+                                Text("_dismiss")
+                                    .bold()
+                            }
+                        }
+                    }
+            }
+        }
     }
     
     private func folderLabelField() -> some View {
@@ -53,6 +79,14 @@ struct EditFolderPage: View {
             TextField("-", text: $editFolderController.folderLabel, onCommit: {
                 applyAndDismiss()
             })
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .focused($focusedField, equals: .folderLabel)
+                            .submitLabel(.done)
+                    }
+                }
         }
     }
     
@@ -109,13 +143,23 @@ struct EditFolderPage: View {
     // MARK: Functions
     
     private func applyAndDismiss() {
-        if !editFolderController.folderLabel.isEmpty {
-            guard editFolderController.folder.state?.isProcessing != true else {
-                return
-            }
-            editFolderController.applyToFolder()
-            presentationMode.wrappedValue.dismiss()
+        guard !editFolderController.folderLabel.isEmpty else {
+            return
         }
+        guard editFolderController.folder.state?.isProcessing != true else {
+            return
+        }
+        editFolderController.applyToFolder()
+        presentationMode.wrappedValue.dismiss()
+    }
+    
+}
+
+
+extension EditFolderPage {
+    
+    enum FocusField: Hashable {
+        case folderLabel
     }
     
 }

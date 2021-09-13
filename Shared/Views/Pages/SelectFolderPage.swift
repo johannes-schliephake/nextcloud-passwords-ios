@@ -95,6 +95,9 @@ struct SelectFolderPage: View {
     // MARK: Functions
     
     private func applyAndDismiss() {
+        guard !(selectFolderController.temporaryEntry.parent == selectFolderController.selection.id) else {
+            return
+        }
         selectFolderController.selectFolder(selectFolderController.selection)
         presentationMode.wrappedValue.dismiss()
     }

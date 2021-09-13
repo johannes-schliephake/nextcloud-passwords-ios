@@ -12,7 +12,7 @@ struct EntriesPage: View {
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var folderController: FolderController
-    
+    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showServerSetupView = SessionController.default.session == nil
     @State private var showSettingsView = false
     @State private var challengePassword = ""
@@ -125,6 +125,14 @@ struct EntriesPage: View {
                     solveChallenge()
                 })
                 .frame(maxWidth: 600)
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .focused($focusedField, equals: .challengePassword)
+                            .submitLabel(.done)
+                    }
+                }
                 .onAppear {
                     challengePassword = ""
                 }
@@ -159,6 +167,25 @@ struct EntriesPage: View {
         }
         .listStyle(InsetGroupedListStyle())
         .frame(maxWidth: 600)
+        .apply {
+            view in
+            if #available(iOS 15, *) {
+                view
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button {
+                                focusedField = nil
+                            }
+                            label: {
+                                Text("_dismiss")
+                                    .bold()
+                            }
+                        }
+                    }
+                    .initialize(focus: $focusedField, with: .challengePassword)
+            }
+        }
     }
     
     private func listView(entries: [Entry], folders: [Folder]) -> some View {
@@ -500,6 +527,15 @@ extension EntriesPage {
             }
         }
         
+    }
+    
+}
+
+
+extension EntriesPage {
+    
+    enum FocusField: Hashable {
+        case challengePassword
     }
     
 }
