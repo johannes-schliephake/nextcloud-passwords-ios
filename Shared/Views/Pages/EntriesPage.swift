@@ -69,7 +69,17 @@ struct EntriesPage: View {
                     let entries = folderController.entries,
                     let folders = entriesController.folders {
                 listView(entries: entries, folders: folders)
-                    .searchBar(term: $folderController.searchTerm)
+                    .apply {
+                        view in
+                        if #available(iOS 15, *) {
+                            view
+                                .searchable(text: $folderController.searchTerm)
+                        }
+                        else {
+                            view
+                                .searchBar(term: $folderController.searchTerm)
+                        }
+                    }
             }
             else {
                 ProgressView()
