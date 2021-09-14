@@ -165,7 +165,7 @@ extension SelectFolderPage {
                     .frame(width: 40, height: 40)
                     .foregroundColor(Color.accentColor)
                 VStack(alignment: .leading) {
-                    Text(label)
+                    Text(!label.isEmpty ? label : "-")
                         .lineLimit(1)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

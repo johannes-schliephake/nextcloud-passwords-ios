@@ -11,8 +11,8 @@ struct EditPasswordPage: View {
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editPasswordController: EditPasswordController
-    @ScaledMetric private var sliderLabelWidth: CGFloat = 87
-    @ScaledMetric private var customFieldTypeIconWidth: CGFloat = 30
+    @ScaledMetric private var sliderLabelWidth: Double = 87
+    @ScaledMetric private var customFieldTypeIconWidth: Double = 30
     @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showPasswordGenerator: Bool
     @State private var editMode = false

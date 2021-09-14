@@ -31,7 +31,7 @@ struct CopyToast<Content: View>: View {
             ZStack(alignment: .bottom) {
                 content()
                 toast()
-                    .offset(x: 0, y: CGFloat(Double(geometryProxy.safeAreaInsets.bottom + 50 + 10) * (1 - visibility) - 10))
+                    .offset(x: 0, y: Double(geometryProxy.safeAreaInsets.bottom + 50 + 10) * (1 - visibility) - 10)
                     .opacity(visibility * 5)
             }
         }
