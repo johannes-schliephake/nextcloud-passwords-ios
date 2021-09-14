@@ -36,7 +36,7 @@ struct ServerSetupPage: View {
             List {
                 serverAddressField()
             }
-            .listStyle(InsetGroupedListStyle())
+            .listStyle(.insetGrouped)
             .apply {
                 view in
                 if #available(iOS 15, *) {

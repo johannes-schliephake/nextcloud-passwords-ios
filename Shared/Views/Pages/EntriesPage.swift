@@ -98,7 +98,7 @@ struct EntriesPage: View {
                 showServerSetupView = true
             }
             .frame(maxWidth: 600)
-            .buttonStyle(ActionButtonStyle())
+            .buttonStyle(.action)
             .sheet(isPresented: $showServerSetupView) {
                 ServerSetupNavigation()
                     .environmentObject(autoFillController)
@@ -147,7 +147,7 @@ struct EntriesPage: View {
                         label: {
                             Image(systemName: "questionmark.circle")
                         }
-                        .buttonStyle(BorderlessButtonStyle())
+                        .buttonStyle(.borderless)
                         .alert(isPresented: $showStorePasswordMessage) {
                             Alert(title: Text("_storePassword"), message: Text("_storePasswordMessage"))
                         }
@@ -161,11 +161,11 @@ struct EntriesPage: View {
                 solveChallenge()
             }
             .frame(maxWidth: 600)
-            .buttonStyle(ActionButtonStyle())
+            .buttonStyle(.action)
             .listRowInsets(EdgeInsets())
             .disabled(challengePassword.count < 12)
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(.insetGrouped)
         .frame(maxWidth: 600)
         .apply {
             view in
@@ -204,7 +204,7 @@ struct EntriesPage: View {
                             }, label: {
                                 Text("_createPassword")
                             })
-                            .buttonStyle(ActionButtonStyle())
+                                .buttonStyle(.action)
                             .disabled(entriesController.state != .online || folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
                         }
                     }
@@ -214,13 +214,13 @@ struct EntriesPage: View {
                         }
                     }
                 }
-                .listStyle(PlainListStyle())
+                .listStyle(.plain)
             }
             else if !entries.isEmpty {
                 List {
                     entryRows(entries: entries)
                 }
-                .listStyle(PlainListStyle())
+                .listStyle(.plain)
             }
             else {
                 Text("_nothingToSeeHere")
@@ -389,7 +389,7 @@ struct EntriesPage: View {
             Image(systemName: "exclamationmark.triangle.fill")
                 .foregroundColor(state == .deletionFailed ? .gray : .red)
         }
-        .buttonStyle(BorderlessButtonStyle())
+        .buttonStyle(.borderless)
         .alert(isPresented: $showErrorAlert) {
             switch state {
             case .creationFailed:
@@ -693,7 +693,7 @@ extension EntriesPage {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .foregroundColor(state == .deletionFailed ? .gray : .red)
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .buttonStyle(.borderless)
             .alert(isPresented: $showErrorAlert) {
                 switch state {
                 case .creationFailed:
@@ -877,7 +877,7 @@ extension EntriesPage {
                             mainStack()
                                 .contentShape(Rectangle())
                         }
-                        .buttonStyle(PlainButtonStyle())
+                        .buttonStyle(.plain)
                         .frame(maxWidth: .infinity)
                         Spacer()
                         Button {
@@ -886,7 +886,7 @@ extension EntriesPage {
                         label: {
                             Image(systemName: "info.circle")
                         }
-                        .buttonStyle(BorderlessButtonStyle())
+                        .buttonStyle(.borderless)
                         NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, updatePassword: {
                             entriesController.update(password: password)
                         }, deletePassword: {
@@ -968,7 +968,7 @@ extension EntriesPage {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .foregroundColor(state == .deletionFailed ? .gray : .red)
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .buttonStyle(.borderless)
             .alert(isPresented: $showErrorAlert) {
                 switch state {
                 case .creationFailed:

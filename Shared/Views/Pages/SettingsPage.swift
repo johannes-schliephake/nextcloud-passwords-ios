@@ -43,7 +43,7 @@ struct SettingsPage: View {
             aboutSection()
             thanksSection()
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(.insetGrouped)
     }
     
     private func credentialsSection(session: Session) -> some View {

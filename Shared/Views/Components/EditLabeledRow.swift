@@ -54,7 +54,7 @@ struct EditLabeledRow: View {
             label: {
                 Image(systemName: hideSecret ? "eye" : "eye.slash")
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .buttonStyle(.borderless)
         }
     }
     

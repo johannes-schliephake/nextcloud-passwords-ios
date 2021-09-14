@@ -63,7 +63,7 @@ struct SelectFolderPage: View {
             List {
                 FolderGroup(folder: selectFolderController.baseFolder, folders: selectFolderController.folders, selection: $selectFolderController.selection, isExpanded: true)
             }
-            .listStyle(PlainListStyle())
+            .listStyle(.plain)
             .onAppear {
                 withAnimation {
                     scrollViewProxy.scrollTo(selectFolderController.selection.id, anchor: .center)

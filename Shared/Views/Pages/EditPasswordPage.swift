@@ -70,7 +70,7 @@ struct EditPasswordPage: View {
             }
             moveSection()
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(.insetGrouped)
         .apply {
             view in
             if #available(iOS 15, *) {

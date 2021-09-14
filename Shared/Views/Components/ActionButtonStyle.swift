@@ -32,3 +32,12 @@ extension ActionButtonStyle {
     }
     
 }
+
+
+extension ButtonStyle where Self == ActionButtonStyle {
+    
+    static var action: ActionButtonStyle {
+        ActionButtonStyle()
+    }
+    
+}
