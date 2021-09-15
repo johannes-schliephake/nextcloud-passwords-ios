@@ -5,10 +5,10 @@ extension Label {
     
     @ViewBuilder func showIcon(_ show: Bool) -> some View {
         if show {
-            labelStyle(DefaultLabelStyle())
+            labelStyle(.automatic)
         }
         else {
-            labelStyle(TitleOnlyLabelStyle())
+            labelStyle(.titleOnly)
         }
     }
     

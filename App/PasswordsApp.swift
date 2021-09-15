@@ -1,8 +1,7 @@
 import SwiftUI
 
 
-@main
-struct PasswordsApp: App {
+@main struct PasswordsApp: App {
     
     @StateObject private var autoFillController = Configuration.isTestEnvironment ? AutoFillController.mock : AutoFillController()
     

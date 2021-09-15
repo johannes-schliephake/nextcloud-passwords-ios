@@ -54,7 +54,7 @@ struct EditLabeledRow: View {
             label: {
                 Image(systemName: hideSecret ? "eye" : "eye.slash")
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .buttonStyle(.borderless)
         }
     }
     
@@ -101,6 +101,7 @@ struct EditLabeledRow: View {
                     TextField("-", text: $value)
                         .font(.system(.body, design: .monospaced))
                         .autocapitalization(.none)
+                        .keyboardType(.alphabet)
                         .disableAutocorrection(true)
                 }
             }

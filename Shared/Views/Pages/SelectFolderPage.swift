@@ -63,7 +63,7 @@ struct SelectFolderPage: View {
             List {
                 FolderGroup(folder: selectFolderController.baseFolder, folders: selectFolderController.folders, selection: $selectFolderController.selection, isExpanded: true)
             }
-            .listStyle(PlainListStyle())
+            .listStyle(.plain)
             .onAppear {
                 withAnimation {
                     scrollViewProxy.scrollTo(selectFolderController.selection.id, anchor: .center)
@@ -72,9 +72,16 @@ struct SelectFolderPage: View {
         }
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel") {
-            presentationMode.wrappedValue.dismiss()
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 15.0, *) {
+            Button("_cancel", role: .cancel) {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+        else {
+            Button("_cancel") {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
     
@@ -88,6 +95,9 @@ struct SelectFolderPage: View {
     // MARK: Functions
     
     private func applyAndDismiss() {
+        guard !(selectFolderController.temporaryEntry.parent == selectFolderController.selection.id) else {
+            return
+        }
         selectFolderController.selectFolder(selectFolderController.selection)
         presentationMode.wrappedValue.dismiss()
     }
@@ -99,17 +109,10 @@ extension SelectFolderPage {
     
     struct FolderGroup: View {
         
-        private let folder: Folder
-        private let folders: [Folder]
-        @Binding private var selection: Folder
-        @State private var isExpanded: Bool
-        
-        init(folder: Folder, folders: [Folder], selection: Binding<Folder>, isExpanded: Bool) {
-            self.folder = folder
-            self.folders = folders
-            _selection = selection
-            _isExpanded = State(wrappedValue: isExpanded)
-        }
+        let folder: Folder
+        let folders: [Folder]
+        @Binding var selection: Folder
+        @State var isExpanded: Bool
         
         var body: some View {
             Group {
@@ -125,10 +128,10 @@ extension SelectFolderPage {
                     }
                     label: {
                         FolderRow(label: folder.label)
-                            .id(folder.id)
                     }
                 }
             }
+            .id(folder.id)
             .contentShape(Rectangle())
             .listRowBackground(selection === folder ? Color(white: 0.5, opacity: 0.35) : Color.clear)
             .onTapGesture {
@@ -155,7 +158,7 @@ extension SelectFolderPage {
                     .frame(width: 40, height: 40)
                     .foregroundColor(Color.accentColor)
                 VStack(alignment: .leading) {
-                    Text(label)
+                    Text(!label.isEmpty ? label : "-")
                         .lineLimit(1)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

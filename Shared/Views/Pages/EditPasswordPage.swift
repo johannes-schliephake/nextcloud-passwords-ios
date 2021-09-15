@@ -11,8 +11,9 @@ struct EditPasswordPage: View {
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editPasswordController: EditPasswordController
-    @ScaledMetric private var sliderLabelWidth: CGFloat = 87
-    @ScaledMetric private var customFieldTypeIconWidth: CGFloat = 30
+    @ScaledMetric private var sliderLabelWidth: Double = 87
+    @ScaledMetric private var customFieldTypeIconWidth: Double = 30
+    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showPasswordGenerator: Bool
     @State private var editMode = false
     @State private var showSelectFolderView = false
@@ -41,6 +42,13 @@ struct EditPasswordPage: View {
                     presentationMode.wrappedValue.dismiss()
                 }
             }
+            .apply {
+                view in
+                if #available(iOS 15, *) {
+                    view
+                        .initialize(focus: $focusedField, with: editPasswordController.password.id.isEmpty ? .passwordLabel : nil)
+                }
+            }
             .onAppear {
                 if editPasswordController.password.id.isEmpty,
                    Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords") {
@@ -62,20 +70,92 @@ struct EditPasswordPage: View {
             }
             moveSection()
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(.insetGrouped)
+        .apply {
+            view in
+            if #available(iOS 15, *) {
+                view
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Button {
+                                focusedField = focusedField?.previous()
+                            }
+                            label: {
+                                Image(systemName: "chevron.up")
+                            }
+                            .disabled(focusedField?.previous() == nil)
+                            Button {
+                                focusedField = focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count)
+                            }
+                            label: {
+                                Image(systemName: "chevron.down")
+                            }
+                            .disabled(focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) == nil)
+                            Spacer()
+                            Button {
+                                focusedField = nil
+                            }
+                            label: {
+                                Text("_dismiss")
+                                    .bold()
+                            }
+                        }
+                    }
+                    .onSubmit {
+                        if let next = focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) {
+                            focusedField = next
+                        }
+                        else {
+                            applyAndDismiss()
+                        }
+                    }
+            }
+        }
     }
     
     private func serviceSection() -> some View {
         Section(header: Text("_service")) {
             EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $editPasswordController.passwordLabel)
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .focused($focusedField, equals: .passwordLabel)
+                            .submitLabel(.next)
+                    }
+                }
             EditLabeledRow(type: .url, label: "_url" as LocalizedStringKey, value: $editPasswordController.passwordUrl)
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .focused($focusedField, equals: .passwordUrl)
+                            .submitLabel(.next)
+                    }
+                }
         }
     }
     
     private func accountSection() -> some View {
         Section(header: Text("_account")) {
             EditLabeledRow(type: .email, label: "_username" as LocalizedStringKey, value: $editPasswordController.passwordUsername)
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .focused($focusedField, equals: .passwordUsername)
+                            .submitLabel(.next)
+                    }
+                }
             EditLabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: $editPasswordController.passwordPassword)
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .focused($focusedField, equals: .passwordPassword)
+                            .submitLabel(FocusField.passwordPassword.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) != nil ? .next : .done)
+                    }
+                }
                 .accessibility(identifier: "showPasswordButton")
         }
     }
@@ -129,14 +209,19 @@ struct EditPasswordPage: View {
                 editMode.toggle()
             }
             label: {
-                Text(editMode ? "_done" : "_edit")
+                if editMode {
+                    Text("_done")
+                }
+                else {
+                    Text("_edit")
+                }
             }
         }) {
-            ForEach(editPasswordController.passwordCustomFields.indices.filter { editPasswordController.passwordCustomFields[$0].type != .data }, id: \.self) {
-                index in
+            ForEach(editPasswordController.passwordCustomUserFields.indices, id: \.self) {
+                customUserFieldIndex in
                 HStack {
                     Menu {
-                        Picker("", selection: $editPasswordController.passwordCustomFields[index].type) {
+                        Picker("", selection: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].type) {
                             Label("_text", systemImage: Password.CustomField.CustomFieldType.text.systemName)
                                 .tag(Password.CustomField.CustomFieldType.text)
                             Label("_secret", systemImage: Password.CustomField.CustomFieldType.secret.systemName)
@@ -150,28 +235,44 @@ struct EditPasswordPage: View {
                         }
                     }
                     label: {
-                        Image(systemName: editPasswordController.passwordCustomFields[index].type.systemName)
+                        Image(systemName: editPasswordController.passwordCustomUserFields[customUserFieldIndex].type.systemName)
                             .frame(minWidth: customFieldTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     }
                     Spacer()
                     VStack {
-                        EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $editPasswordController.passwordCustomFields[index].label)
+                        EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].label)
+                            .apply {
+                                view in
+                                if #available(iOS 15, *) {
+                                    view
+                                        .focused($focusedField, equals: .passwordCustomFields(index: customUserFieldIndex, row: .label))
+                                        .submitLabel(.next)
+                                }
+                            }
                         Divider()
-                        EditLabeledRow(type: LabeledRow.RowType(rawValue: editPasswordController.passwordCustomFields[index].type.rawValue) ?? .text, label: "_\(editPasswordController.passwordCustomFields[index].type)".localized, value: $editPasswordController.passwordCustomFields[index].value)
+                        EditLabeledRow(type: LabeledRow.RowType(rawValue: editPasswordController.passwordCustomUserFields[customUserFieldIndex].type.rawValue) ?? .text, label: "_\(editPasswordController.passwordCustomUserFields[customUserFieldIndex].type)".localized, value: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].value)
+                            .apply {
+                                view in
+                                if #available(iOS 15, *) {
+                                    view
+                                        .focused($focusedField, equals: .passwordCustomFields(index: customUserFieldIndex, row: .value))
+                                        .submitLabel(FocusField.passwordCustomFields(index: customUserFieldIndex, row: .value).next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) != nil ? .next : .done)
+                                }
+                            }
                     }
                 }
-                .id(editPasswordController.passwordCustomFields[index].id)
+                .id(editPasswordController.passwordCustomUserFields[customUserFieldIndex].id)
             }
             .onMove {
                 indices, offset in
-                editPasswordController.passwordCustomFields.move(fromOffsets: indices, toOffset: offset)
+                editPasswordController.passwordCustomUserFields.move(fromOffsets: indices, toOffset: offset)
             }
             .onDelete {
                 indices in
-                editPasswordController.passwordCustomFields.remove(atOffsets: indices)
+                editPasswordController.passwordCustomUserFields.remove(atOffsets: indices)
             }
             Button {
-                editPasswordController.passwordCustomFields.append(Password.CustomField(label: "", type: .text, value: ""))
+                editPasswordController.passwordCustomUserFields.append(Password.CustomField(label: "", type: .text, value: ""))
             }
             label: {
                 Label("_addCustomField", systemImage: "plus.circle")
@@ -216,9 +317,16 @@ struct EditPasswordPage: View {
         }
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel") {
-            presentationMode.wrappedValue.dismiss()
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 15.0, *) {
+            Button("_cancel", role: .cancel) {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+        else {
+            Button("_cancel") {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
     
@@ -226,17 +334,80 @@ struct EditPasswordPage: View {
         Button(editPasswordController.password.id.isEmpty ? "_create" : "_done") {
             applyAndDismiss()
         }
-        .disabled(editPasswordController.passwordPassword.isEmpty || editPasswordController.passwordLabel.isEmpty || editPasswordController.passwordCustomFields.count > 20 || editPasswordController.passwordCustomFields.filter { $0.type != .data }.map { $0.label.isEmpty || $0.label.count > 48 || $0.value.isEmpty || $0.value.count > 320 }.contains(true))
+        .disabled(editPasswordController.passwordPassword.isEmpty || editPasswordController.passwordLabel.isEmpty || editPasswordController.passwordCustomUserFields.count + editPasswordController.passwordCustomDataFields.count > 20 || editPasswordController.passwordCustomUserFields.map { $0.label.isEmpty || $0.label.count > 48 || $0.value.isEmpty || $0.value.count > 320 }.contains(true))
     }
     
     // MARK: Functions
     
     private func applyAndDismiss() {
+        guard !(editPasswordController.passwordPassword.isEmpty || editPasswordController.passwordLabel.isEmpty || editPasswordController.passwordCustomUserFields.count + editPasswordController.passwordCustomDataFields.count > 20 || editPasswordController.passwordCustomUserFields.map { $0.label.isEmpty || $0.label.count > 48 || $0.value.isEmpty || $0.value.count > 320 }.contains(true)) else {
+            return
+        }
         guard editPasswordController.password.state?.isProcessing != true else {
             return
         }
         editPasswordController.applyToPassword()
         presentationMode.wrappedValue.dismiss()
+    }
+    
+}
+
+
+extension EditPasswordPage {
+    
+    enum FocusField: Hashable {
+        
+        enum CustomFieldRow { // swiftlint:disable:this nesting
+            case label
+            case value
+        }
+        
+        case passwordLabel
+        case passwordUrl
+        case passwordUsername
+        case passwordPassword
+        case passwordCustomFields(index: Int, row: CustomFieldRow)
+        
+        func previous() -> Self? {
+            switch self {
+            case .passwordLabel:
+                return nil
+            case .passwordUrl:
+                return .passwordLabel
+            case .passwordUsername:
+                return .passwordUrl
+            case .passwordPassword:
+                return .passwordUsername
+            case .passwordCustomFields(let index, let row):
+                switch row {
+                case .label:
+                    return index - 1 >= 0 ? .passwordCustomFields(index: index - 1, row: .value) : .passwordPassword
+                case .value:
+                    return .passwordCustomFields(index: index, row: .label)
+                }
+            }
+        }
+        
+        func next(customUserFieldsCount: Int) -> Self? {
+            switch self {
+            case .passwordLabel:
+                return .passwordUrl
+            case .passwordUrl:
+                return .passwordUsername
+            case .passwordUsername:
+                return .passwordPassword
+            case .passwordPassword:
+                return customUserFieldsCount > 0 ? .passwordCustomFields(index: 0, row: .label) : nil
+            case .passwordCustomFields(let index, let row):
+                switch row {
+                case .label:
+                    return .passwordCustomFields(index: index, row: .value)
+                case .value:
+                    return index + 1 < customUserFieldsCount ? .passwordCustomFields(index: index + 1, row: .label) : nil
+                }
+            }
+        }
+        
     }
     
 }
