@@ -62,7 +62,7 @@
 "_name" = "Name"; // This refers to the noun ("the name")
 "_nextcloudServerAddress" = "Nextcloud Server Address";
 "_noConnection" = "No Connection";
-"_noConnectionMessage" = "Could not connect to the Nextcloud Passwords app.";
+"_noConnectionMessage" = "Could not connect to the Nextcloud Passwords instance.";
 "_notes" = "Notes"; // This refers to the noun ("the notes")
 "_nothingToSeeHere" = "Nothing to see here ..."; // Shown in empty lists
 "_numbers" = "Numbers"; // This is a label for a password generator toggle

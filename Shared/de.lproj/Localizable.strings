@@ -62,7 +62,7 @@
 "_name" = "Name";
 "_nextcloudServerAddress" = "Nextcloud-Serveradresse";
 "_noConnection" = "Keine Verbindung";
-"_noConnectionMessage" = "Es konnte keine Verbindung zur Nextcloud-Passwörter-App hergestellt werden.";
+"_noConnectionMessage" = "Es konnte keine Verbindung zur Nextcloud-Passwörter-Instanz hergestellt werden.";
 "_notes" = "Notizen";
 "_nothingToSeeHere" = "Hier gibt es nichts zu sehen ...";
 "_numbers" = "Zahlen";
