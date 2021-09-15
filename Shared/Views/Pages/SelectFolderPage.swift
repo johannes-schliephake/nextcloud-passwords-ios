@@ -109,17 +109,10 @@ extension SelectFolderPage {
     
     struct FolderGroup: View {
         
-        private let folder: Folder
-        private let folders: [Folder]
-        @Binding private var selection: Folder
-        @State private var isExpanded: Bool
-        
-        init(folder: Folder, folders: [Folder], selection: Binding<Folder>, isExpanded: Bool) {
-            self.folder = folder
-            self.folders = folders
-            _selection = selection
-            _isExpanded = State(wrappedValue: isExpanded)
-        }
+        let folder: Folder
+        let folders: [Folder]
+        @Binding var selection: Folder
+        @State var isExpanded: Bool
         
         var body: some View {
             Group {
@@ -135,10 +128,10 @@ extension SelectFolderPage {
                     }
                     label: {
                         FolderRow(label: folder.label)
-                            .id(folder.id)
                     }
                 }
             }
+            .id(folder.id)
             .contentShape(Rectangle())
             .listRowBackground(selection === folder ? Color(white: 0.5, opacity: 0.35) : Color.clear)
             .onTapGesture {
