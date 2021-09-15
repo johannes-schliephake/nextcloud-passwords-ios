@@ -38,27 +38,14 @@ struct EditFolderPage: View {
     }
     
     private func listView() -> some View {
-        VStack {
-            List {
-                folderLabelField()
-                if editFolderController.folder.id.isEmpty {
-                    favoriteButton()
-                }
-                moveSection()
+        List {
+            folderLabelField()
+            if editFolderController.folder.id.isEmpty {
+                favoriteButton()
             }
-            .listStyle(InsetGroupedListStyle())
-            EmptyView()
-                .sheet(isPresented: $showSelectFolderView) {
-                    SelectFolderNavigation(entry: .folder(editFolderController.folder), temporaryEntry: .folder(label: editFolderController.folderLabel, parent: editFolderController.folderParent), folders: editFolderController.folders, selectFolder: {
-                        parent in
-                        editFolderController.folderParent = parent.id
-                    })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(tipController)
-                }
+            moveSection()
         }
+        .listStyle(InsetGroupedListStyle())
     }
     
     private func folderLabelField() -> some View {
@@ -76,6 +63,16 @@ struct EditFolderPage: View {
             }
             label: {
                 Label(editFolderController.folders.first(where: { $0.id == editFolderController.folderParent })?.label ?? "_passwords".localized, systemImage: "folder")
+            }
+            .sheet(isPresented: $showSelectFolderView) {
+                SelectFolderNavigation(entry: .folder(editFolderController.folder), temporaryEntry: .folder(label: editFolderController.folderLabel, parent: editFolderController.folderParent), folders: editFolderController.folders, selectFolder: {
+                    parent in
+                    editFolderController.folderParent = parent.id
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
             }
         }
     }

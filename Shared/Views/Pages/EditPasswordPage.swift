@@ -51,31 +51,18 @@ struct EditPasswordPage: View {
     }
     
     private func listView() -> some View {
-        VStack {
-            List {
-                serviceSection()
-                accountSection()
-                passwordGeneratorSection()
-                customFieldsSection()
-                notesSection()
-                if editPasswordController.password.id.isEmpty {
-                    favoriteButton()
-                }
-                moveSection()
+        List {
+            serviceSection()
+            accountSection()
+            passwordGeneratorSection()
+            customFieldsSection()
+            notesSection()
+            if editPasswordController.password.id.isEmpty {
+                favoriteButton()
             }
-            .listStyle(InsetGroupedListStyle())
-            EmptyView()
-                .sheet(isPresented: $showSelectFolderView) {
-                    SelectFolderNavigation(entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), folders: editPasswordController.folders, selectFolder: {
-                        parent in
-                        editPasswordController.passwordFolder = parent.id
-                    })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(tipController)
-                }
+            moveSection()
         }
+        .listStyle(InsetGroupedListStyle())
     }
     
     private func serviceSection() -> some View {
@@ -206,6 +193,16 @@ struct EditPasswordPage: View {
             }
             label: {
                 Label(editPasswordController.folders.first(where: { $0.id == editPasswordController.passwordFolder })?.label ?? "_passwords".localized, systemImage: "folder")
+            }
+            .sheet(isPresented: $showSelectFolderView) {
+                SelectFolderNavigation(entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), folders: editPasswordController.folders, selectFolder: {
+                    parent in
+                    editPasswordController.passwordFolder = parent.id
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
             }
         }
     }
