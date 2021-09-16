@@ -68,9 +68,10 @@ struct ServerSetupPage: View {
                 TextField("-", text: $serverSetupController.serverAddress, onCommit: {
                     openLoginFlowPage()
                 })
+                .textContentType(.URL)
+                .keyboardType(.URL)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
-                .textContentType(.URL)
                 .apply {
                     view in
                     if #available(iOS 15, *) {
