@@ -448,9 +448,9 @@ struct EntriesPage: View {
             HStack {
                 Spacer()
                 Image(systemName: "arrow.up.arrow.down")
-                    .accessibility(identifier: "filterSortMenu")
             }
         }
+        .accessibility(identifier: "filterSortMenu")
         .onChange(of: entriesController.filterBy, perform: didChange)
     }
     

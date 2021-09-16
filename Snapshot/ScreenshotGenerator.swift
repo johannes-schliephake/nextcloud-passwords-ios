@@ -46,7 +46,6 @@ class ScreenshotGenerator: XCTestCase {
         /// Filter by favorites, long tap last entry (has to be a password)
         app.navigationBars.buttons["filterSortMenu"].tap()
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        app.tables.firstMatch.pinch(withScale: 0.5, velocity: -0.5) /// Temporary fix for iPad
         app.tables.firstMatch.cells.lastMatch.press(forDuration: 1)
         
         snapshot("3")
@@ -56,7 +55,6 @@ class ScreenshotGenerator: XCTestCase {
         /// Filter by favorites, open last entry (has to be a password)
         app.navigationBars.buttons["filterSortMenu"].tap()
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        app.tables.firstMatch.pinch(withScale: 0.5, velocity: -0.5) /// Temporary fix for iPad
         app.tables.firstMatch.cells.lastMatch.tap()
         
         snapshot("4")
@@ -66,7 +64,6 @@ class ScreenshotGenerator: XCTestCase {
         /// Filter by favorites, open last entry (has to be a password), open edit page, show password and password generator, scroll down
         app.navigationBars.buttons["filterSortMenu"].tap()
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        app.tables.firstMatch.pinch(withScale: 0.5, velocity: -0.5) /// Temporary fix for iPad
         app.tables.firstMatch.cells.lastMatch.tap()
         app.navigationBars.lastMatch.buttons.lastMatch.tap()
         app.tables.buttons["showPasswordButton"].tap()
