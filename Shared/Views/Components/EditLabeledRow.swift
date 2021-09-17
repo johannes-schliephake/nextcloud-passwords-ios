@@ -93,6 +93,7 @@ struct EditLabeledRow: View {
                         TextField("", text: .constant(""))
                             .font(.system(.body, design: .monospaced))
                             .disabled(true)
+                            .hidden()
                         SecureField("-", text: $value)
                             .foregroundColor(.primary)
                     }
