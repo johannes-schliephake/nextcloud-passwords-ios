@@ -12,7 +12,12 @@ struct EntriesNavigation: View {
     
     var body: some View {
         NavigationView {
-            EntriesPage(entriesController: entriesController)
+            if #available(iOS 15, *) { /// This insanely dumb workaround (duplicated view) prevents a crash on iOS 14 when an attribute is marked with `@available(iOS 15, *) @FocusState`
+                EntriesPage(entriesController: entriesController)
+            }
+            else {
+                EntriesPageFallback(entriesController: entriesController)
+            }
         }
         .showColumns(sessionController.session != nil && !sessionController.state.isChallengeAvailable)
         .occlude(!biometricAuthenticationController.isUnlocked)
