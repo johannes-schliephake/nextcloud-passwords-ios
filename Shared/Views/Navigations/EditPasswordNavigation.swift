@@ -14,7 +14,12 @@ struct EditPasswordNavigation: View {
     
     var body: some View {
         NavigationView {
-            EditPasswordPage(password: password, folders: folders, addPassword: addPassword, updatePassword: updatePassword)
+            if #available(iOS 15, *) { /// This insanely dumb workaround (duplicated view) prevents a crash on iOS 14 when an attribute is marked with `@available(iOS 15, *) @FocusState`
+                EditPasswordPage(password: password, folders: folders, addPassword: addPassword, updatePassword: updatePassword)
+            }
+            else {
+                EditPasswordPageFallback(password: password, folders: folders, addPassword: addPassword, updatePassword: updatePassword)
+            }
         }
         .showColumns(false)
         .occlude(!biometricAuthenticationController.isUnlocked)
