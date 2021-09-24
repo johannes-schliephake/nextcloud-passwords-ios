@@ -102,7 +102,7 @@ struct PasswordDetailPage: View {
             metadataSection()
             deleteButton()
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(.insetGrouped)
     }
     
     private func passwordStatusMenu() -> some View {
@@ -174,7 +174,7 @@ struct PasswordDetailPage: View {
             Image(systemName: password.favorite ? "star.fill" : "star")
                 .font(.title)
         }
-        .buttonStyle(BorderlessButtonStyle())
+        .buttonStyle(.borderless)
         .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
@@ -232,23 +232,43 @@ struct PasswordDetailPage: View {
         }
     }
     
-    private func deleteButton() -> some View {
-        Button {
-            showDeleteAlert = true
-        }
-        label: {
-            HStack {
-                Spacer()
-                Text("_deletePassword")
-                    .foregroundColor(.red)
-                Spacer()
+    @ViewBuilder private func deleteButton() -> some View {
+        if #available(iOS 15.0, *) {
+            Button(role: .destructive) {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deletePassword")
+                    Spacer()
+                }
+            }
+            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                    deleteAndDismiss()
+                }])
             }
         }
-        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-        .actionSheet(isPresented: $showDeleteAlert) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                deleteAndDismiss()
-            }])
+        else {
+            Button {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deletePassword")
+                        .foregroundColor(.red)
+                    Spacer()
+                }
+            }
+            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                    deleteAndDismiss()
+                }])
+            }
         }
     }
     
@@ -258,7 +278,7 @@ struct PasswordDetailPage: View {
                 Button("_select") {
                     complete(password.username, password.password)
                 }
-                .buttonStyle(ActionButtonStyle())
+                .buttonStyle(.action)
             }
             .padding()
         }
@@ -294,7 +314,7 @@ struct PasswordDetailPage: View {
             Image(systemName: "exclamationmark.triangle.fill")
                 .foregroundColor(state == .deletionFailed ? .gray : .red)
         }
-        .buttonStyle(BorderlessButtonStyle())
+        .buttonStyle(.borderless)
         .alert(isPresented: $showErrorAlert) {
             switch state {
             case .creationFailed:

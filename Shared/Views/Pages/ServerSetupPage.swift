@@ -6,6 +6,7 @@ struct ServerSetupPage: View {
     @Environment(\.presentationMode) private var presentationMode
     
     @StateObject private var serverSetupController = ServerSetupController()
+    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showLoginFlowPage = false
     
     // MARK: Views
@@ -21,6 +22,13 @@ struct ServerSetupPage: View {
                     connectButton()
                 }
             }
+            .apply {
+                view in
+                if #available(iOS 15, *) {
+                    view
+                        .initialize(focus: $focusedField, with: .serverAddress)
+                }
+            }
     }
     
     private func listView() -> some View {
@@ -28,7 +36,25 @@ struct ServerSetupPage: View {
             List {
                 serverAddressField()
             }
-            .listStyle(InsetGroupedListStyle())
+            .listStyle(.insetGrouped)
+            .apply {
+                view in
+                if #available(iOS 15, *) {
+                    view
+                        .toolbar {
+                            ToolbarItemGroup(placement: .keyboard) {
+                                Spacer()
+                                Button {
+                                    focusedField = nil
+                                }
+                                label: {
+                                    Text("_dismiss")
+                                        .bold()
+                                }
+                            }
+                        }
+                }
+            }
             if let serverSetupResponse = serverSetupController.response {
                 NavigationLink(destination: LoginFlowPage(serverSetupResponse: serverSetupResponse), isActive: $showLoginFlowPage) {}
                     .isDetailLink(false)
@@ -42,9 +68,18 @@ struct ServerSetupPage: View {
                 TextField("-", text: $serverSetupController.serverAddress, onCommit: {
                     openLoginFlowPage()
                 })
+                .textContentType(.URL)
+                .keyboardType(.URL)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
-                .textContentType(.URL)
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .focused($focusedField, equals: .serverAddress)
+                            .submitLabel(.done)
+                    }
+                }
                 if serverSetupController.isValidating {
                     Spacer()
                     ProgressView()
@@ -60,9 +95,16 @@ struct ServerSetupPage: View {
             .padding(.vertical, 6)
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel") {
-            presentationMode.wrappedValue.dismiss()
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 15.0, *) {
+            Button("_cancel", role: .cancel) {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+        else {
+            Button("_cancel") {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
     
@@ -79,6 +121,15 @@ struct ServerSetupPage: View {
         if serverSetupController.response != nil {
             showLoginFlowPage = true
         }
+    }
+    
+}
+
+
+extension ServerSetupPage {
+    
+    enum FocusField: Hashable {
+        case serverAddress
     }
     
 }

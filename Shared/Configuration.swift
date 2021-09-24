@@ -15,7 +15,7 @@ enum Configuration {
     static let clientName = "\(Bundle.main.infoDictionary?["CFBundleName"] as! String) (iOS\(appService.hasSuffix("debug") ? ", Debug" : ""))" // swiftlint:disable:this force_cast
     static let isTestEnvironment = ProcessInfo.processInfo.environment["TEST"] == "true"
     static let userDefaults: UserDefaults = {
-        let userDefaults = UserDefaults(suiteName: Configuration.appGroup)!
+        let userDefaults = UserDefaults(suiteName: isTestEnvironment ? "test.\(Configuration.appGroup)" : Configuration.appGroup)!
         userDefaults.register(defaults: defaults)
         return userDefaults
     }()

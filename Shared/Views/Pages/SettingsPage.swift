@@ -43,28 +43,47 @@ struct SettingsPage: View {
             aboutSection()
             thanksSection()
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(.insetGrouped)
     }
     
     private func credentialsSection(session: Session) -> some View {
         Section(header: Text("_credentials")) {
             LabeledRow(type: .text, label: "_nextcloudServerAddress" as LocalizedStringKey, value: session.server)
             LabeledRow(type: .text, label: "_username" as LocalizedStringKey, value: session.user)
-            Button {
-                showLogoutAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_logOut")
-                        .foregroundColor(.red)
-                    Spacer()
+            if #available(iOS 15.0, *) {
+                Button(role: .destructive) {
+                    showLogoutAlert = true
+                }
+                label: {
+                    HStack {
+                        Spacer()
+                        Text("_logOut")
+                        Spacer()
+                    }
+                }
+                .actionSheet(isPresented: $showLogoutAlert) {
+                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
+                        logoutAndDismiss()
+                    }])
                 }
             }
-            .actionSheet(isPresented: $showLogoutAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
-                    logoutAndDismiss()
-                }])
+            else {
+                Button {
+                    showLogoutAlert = true
+                }
+                label: {
+                    HStack {
+                        Spacer()
+                        Text("_logOut")
+                            .foregroundColor(.red)
+                        Spacer()
+                    }
+                }
+                .actionSheet(isPresented: $showLogoutAlert) {
+                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
+                        logoutAndDismiss()
+                    }])
+                }
             }
         }
     }
@@ -147,7 +166,7 @@ struct SettingsPage: View {
                     Spacer()
                     Text("Johannes Schliephake")
                         .font(.footnote)
-                        .fontWeight(.bold)
+                        .bold()
                         .foregroundColor(.gray)
                     Spacer()
                 }

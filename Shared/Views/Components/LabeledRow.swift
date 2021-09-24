@@ -56,7 +56,7 @@ struct LabeledRow: View {
             label: {
                 Image(systemName: hideSecret ? "eye" : "eye.slash")
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .buttonStyle(.borderless)
         }
     }
     
@@ -74,7 +74,7 @@ struct LabeledRow: View {
                 label: {
                     Image(systemName: Password.CustomField.CustomFieldType.email.systemName)
                 }
-                .buttonStyle(BorderlessButtonStyle())
+                .buttonStyle(.borderless)
             }
         }
     }
@@ -93,7 +93,7 @@ struct LabeledRow: View {
                 label: {
                     Image(systemName: Password.CustomField.CustomFieldType.url.systemName)
                 }
-                .buttonStyle(BorderlessButtonStyle())
+                .buttonStyle(.borderless)
             }
         }
     }
@@ -113,7 +113,7 @@ struct LabeledRow: View {
                 label: {
                     Image(systemName: Password.CustomField.CustomFieldType.file.systemName)
                 }
-                .buttonStyle(BorderlessButtonStyle())
+                .buttonStyle(.borderless)
             }
         }
     }

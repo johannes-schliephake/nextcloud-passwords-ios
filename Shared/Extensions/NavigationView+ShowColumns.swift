@@ -5,10 +5,15 @@ extension NavigationView {
     
     @ViewBuilder func showColumns(_ show: Bool) -> some View {
         if show {
-            navigationViewStyle(DoubleColumnNavigationViewStyle())
+            if #available(iOS 15, *) {
+                navigationViewStyle(.columns)
+            }
+            else {
+                navigationViewStyle(DoubleColumnNavigationViewStyle())
+            }
         }
         else {
-            navigationViewStyle(StackNavigationViewStyle())
+            navigationViewStyle(.stack)
         }
     }
     

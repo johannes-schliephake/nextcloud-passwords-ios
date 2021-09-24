@@ -12,7 +12,7 @@ struct EntriesPage: View {
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var folderController: FolderController
-    
+    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showServerSetupView = SessionController.default.session == nil
     @State private var showSettingsView = false
     @State private var challengePassword = ""
@@ -69,7 +69,17 @@ struct EntriesPage: View {
                     let entries = folderController.entries,
                     let folders = entriesController.folders {
                 listView(entries: entries, folders: folders)
-                    .searchBar(term: $folderController.searchTerm)
+                    .apply {
+                        view in
+                        if #available(iOS 15, *) {
+                            view
+                                .searchable(text: $folderController.searchTerm)
+                        }
+                        else {
+                            view
+                                .searchBar(term: $folderController.searchTerm)
+                        }
+                    }
             }
             else {
                 ProgressView()
@@ -98,7 +108,7 @@ struct EntriesPage: View {
                 showServerSetupView = true
             }
             .frame(maxWidth: 600)
-            .buttonStyle(ActionButtonStyle())
+            .buttonStyle(.action)
             .sheet(isPresented: $showServerSetupView) {
                 ServerSetupNavigation()
                     .environmentObject(autoFillController)
@@ -125,6 +135,14 @@ struct EntriesPage: View {
                     solveChallenge()
                 })
                 .frame(maxWidth: 600)
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .focused($focusedField, equals: .challengePassword)
+                            .submitLabel(.done)
+                    }
+                }
                 .onAppear {
                     challengePassword = ""
                 }
@@ -139,7 +157,7 @@ struct EntriesPage: View {
                         label: {
                             Image(systemName: "questionmark.circle")
                         }
-                        .buttonStyle(BorderlessButtonStyle())
+                        .buttonStyle(.borderless)
                         .alert(isPresented: $showStorePasswordMessage) {
                             Alert(title: Text("_storePassword"), message: Text("_storePasswordMessage"))
                         }
@@ -153,12 +171,31 @@ struct EntriesPage: View {
                 solveChallenge()
             }
             .frame(maxWidth: 600)
-            .buttonStyle(ActionButtonStyle())
+            .buttonStyle(.action)
             .listRowInsets(EdgeInsets())
             .disabled(challengePassword.count < 12)
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(.insetGrouped)
         .frame(maxWidth: 600)
+        .apply {
+            view in
+            if #available(iOS 15, *) {
+                view
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button {
+                                focusedField = nil
+                            }
+                            label: {
+                                Text("_dismiss")
+                                    .bold()
+                            }
+                        }
+                    }
+                    .initialize(focus: $focusedField, with: .challengePassword)
+            }
+        }
     }
     
     private func listView(entries: [Entry], folders: [Folder]) -> some View {
@@ -177,7 +214,7 @@ struct EntriesPage: View {
                             }, label: {
                                 Text("_createPassword")
                             })
-                            .buttonStyle(ActionButtonStyle())
+                                .buttonStyle(.action)
                             .disabled(entriesController.state != .online || folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
                         }
                     }
@@ -187,13 +224,13 @@ struct EntriesPage: View {
                         }
                     }
                 }
-                .listStyle(PlainListStyle())
+                .listStyle(.plain)
             }
             else if !entries.isEmpty {
                 List {
                     entryRows(entries: entries)
                 }
-                .listStyle(PlainListStyle())
+                .listStyle(.plain)
             }
             else {
                 Text("_nothingToSeeHere")
@@ -273,7 +310,7 @@ struct EntriesPage: View {
             })
             .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
-        .onDelete {
+        .onDelete { // when not #available(iOS 15.0, *)
             indices in
             guard let password = suggestions[safe: indices.first] else {
                 return
@@ -308,7 +345,7 @@ struct EntriesPage: View {
                 return AnyView(passwordRow)
             }
         }
-        .onDelete {
+        .onDelete { // when not #available(iOS 15.0, *)
             indices in
             onDeleteEntry(entry: entries[safe: indices.first])
         }
@@ -318,8 +355,15 @@ struct EntriesPage: View {
         HStack {
             if folderController.folder.isBaseFolder {
                 if let cancel = autoFillController.cancel {
-                    Button("_cancel") {
-                        cancel()
+                    if #available(iOS 15.0, *) {
+                        Button("_cancel", role: .cancel) {
+                            cancel()
+                        }
+                    }
+                    else {
+                        Button("_cancel") {
+                            cancel()
+                        }
                     }
                 }
                 else {
@@ -355,7 +399,7 @@ struct EntriesPage: View {
             Image(systemName: "exclamationmark.triangle.fill")
                 .foregroundColor(state == .deletionFailed ? .gray : .red)
         }
-        .buttonStyle(BorderlessButtonStyle())
+        .buttonStyle(.borderless)
         .alert(isPresented: $showErrorAlert) {
             switch state {
             case .creationFailed:
@@ -404,9 +448,9 @@ struct EntriesPage: View {
             HStack {
                 Spacer()
                 Image(systemName: "arrow.up.arrow.down")
-                    .accessibility(identifier: "filterSortMenu")
             }
         }
+        .accessibility(identifier: "filterSortMenu")
         .onChange(of: entriesController.filterBy, perform: didChange)
     }
     
@@ -500,6 +544,15 @@ extension EntriesPage {
 
 extension EntriesPage {
     
+    enum FocusField: Hashable {
+        case challengePassword
+    }
+    
+}
+
+
+extension EntriesPage {
+    
     struct FolderRow: View {
         
         @ObservedObject var entriesController: EntriesController
@@ -514,6 +567,47 @@ extension EntriesPage {
         
         var body: some View {
             entriesPageLink()
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                Button {
+                                    toggleFavorite()
+                                }
+                                label: {
+                                    Label("_favorite", systemImage: folder.favorite ? "star.slash.fill" : "star.fill")
+                                }
+                                .tint(.yellow)
+                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                Button {
+                                    editFolder()
+                                }
+                                label: {
+                                    Label("_edit", systemImage: "pencil")
+                                }
+                                .tint(.blue)
+                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    deleteFolder()
+                                }
+                                label: {
+                                    Label("_delete", systemImage: "trash")
+                                }
+                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                Button {
+                                    moveFolder()
+                                }
+                                label: {
+                                    Label("_move", systemImage: "folder")
+                                }
+                                .tint(.purple)
+                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                            }
+                    }
+                }
                 .contextMenu {
                     Button {
                         editFolder()
@@ -537,13 +631,24 @@ extension EntriesPage {
                     }
                     .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Divider()
-                    Button {
-                        deleteFolder()
+                    if #available(iOS 15.0, *) {
+                        Button(role: .destructive) {
+                            deleteFolder()
+                        }
+                        label: {
+                            Label("_delete", systemImage: "trash")
+                        }
+                        .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     }
-                    label: {
-                        Label("_delete", systemImage: "trash")
+                    else {
+                        Button {
+                            deleteFolder()
+                        }
+                        label: {
+                            Label("_delete", systemImage: "trash")
+                        }
+                        .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     }
-                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 }
         }
         
@@ -598,7 +703,7 @@ extension EntriesPage {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .foregroundColor(state == .deletionFailed ? .gray : .red)
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .buttonStyle(.borderless)
             .alert(isPresented: $showErrorAlert) {
                 switch state {
                 case .creationFailed:
@@ -656,6 +761,49 @@ extension EntriesPage {
         
         var body: some View {
             wrapperStack()
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                Button {
+                                    toggleFavorite()
+                                }
+                                label: {
+                                    Label("_favorite", systemImage: password.favorite ? "star.slash.fill" : "star.fill")
+                                }
+                                .tint(.yellow)
+                                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                if password.editable {
+                                    Button {
+                                        editPassword()
+                                    }
+                                    label: {
+                                        Label("_edit", systemImage: "pencil")
+                                    }
+                                    .tint(.blue)
+                                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                }
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    deletePassword()
+                                }
+                                label: {
+                                    Label("_delete", systemImage: "trash")
+                                }
+                                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                Button {
+                                    movePassword()
+                                }
+                                label: {
+                                    Label("_move", systemImage: "folder")
+                                }
+                                .tint(.purple)
+                                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                            }
+                    }
+                }
                 .contextMenu {
                     Button {
                         UIPasteboard.general.privateString = password.password
@@ -707,13 +855,24 @@ extension EntriesPage {
                     }
                     .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     Divider()
-                    Button {
-                        deletePassword()
+                    if #available(iOS 15.0, *) {
+                        Button(role: .destructive) {
+                            deletePassword()
+                        }
+                        label: {
+                            Label("_delete", systemImage: "trash")
+                        }
+                        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
-                    label: {
-                        Label("_delete", systemImage: "trash")
+                    else {
+                        Button {
+                            deletePassword()
+                        }
+                        label: {
+                            Label("_delete", systemImage: "trash")
+                        }
+                        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
-                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
         }
         
@@ -728,7 +887,7 @@ extension EntriesPage {
                             mainStack()
                                 .contentShape(Rectangle())
                         }
-                        .buttonStyle(PlainButtonStyle())
+                        .buttonStyle(.plain)
                         .frame(maxWidth: .infinity)
                         Spacer()
                         Button {
@@ -737,7 +896,7 @@ extension EntriesPage {
                         label: {
                             Image(systemName: "info.circle")
                         }
-                        .buttonStyle(BorderlessButtonStyle())
+                        .buttonStyle(.borderless)
                         NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, updatePassword: {
                             entriesController.update(password: password)
                         }, deletePassword: {
@@ -819,7 +978,7 @@ extension EntriesPage {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .foregroundColor(state == .deletionFailed ? .gray : .red)
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .buttonStyle(.borderless)
             .alert(isPresented: $showErrorAlert) {
                 switch state {
                 case .creationFailed:

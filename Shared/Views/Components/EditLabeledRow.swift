@@ -54,7 +54,7 @@ struct EditLabeledRow: View {
             label: {
                 Image(systemName: hideSecret ? "eye" : "eye.slash")
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .buttonStyle(.borderless)
         }
     }
     
@@ -93,6 +93,7 @@ struct EditLabeledRow: View {
                         TextField("", text: .constant(""))
                             .font(.system(.body, design: .monospaced))
                             .disabled(true)
+                            .hidden()
                         SecureField("-", text: $value)
                             .foregroundColor(.primary)
                     }
@@ -100,21 +101,24 @@ struct EditLabeledRow: View {
                 else {
                     TextField("-", text: $value)
                         .font(.system(.body, design: .monospaced))
+                        .keyboardType(.alphabet)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                 }
             }
             else if type == .email {
                 TextField("-", text: $value)
+                    .textContentType(.emailAddress)
+                    .keyboardType(.emailAddress)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-                    .textContentType(.emailAddress)
             }
             else if type == .url || type == .file {
                 TextField("-", text: $value)
+                    .textContentType(.URL)
+                    .keyboardType(.URL)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-                    .textContentType(.URL)
             }
             else {
                 TextField("-", text: $value)
