@@ -5,17 +5,15 @@ struct TextView: UIViewRepresentable {
     
     private let title: String
     @Binding private var text: String
-    private var isSelectable = true
     private var isEditable = true
     
     init(_ title: String, text: Binding<String>) {
-        _text = text
         self.title = title
+        _text = text
     }
     
-    init(_ text: String, isSelectable: Bool = true) {
+    init(_ text: String) {
         self.init("", text: .constant(text))
-        self.isSelectable = isSelectable
         isEditable = false
     }
     
@@ -80,7 +78,6 @@ extension TextView {
             uiTextView.textContainer.lineFragmentPadding = 0
             uiTextView.delegate = self
             uiTextView.isEditable = textView.isEditable
-            uiTextView.isSelectable = textView.isSelectable
             
             if !uiTextView.isEditable {
                 uiTextView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap)))

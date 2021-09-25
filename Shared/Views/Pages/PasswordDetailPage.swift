@@ -98,7 +98,9 @@ struct PasswordDetailPage: View {
             if !password.customFields.isEmpty {
                 customFieldsSection()
             }
-            notesSection()
+            if !password.notes.isEmpty {
+                notesSection()
+            }
             metadataSection()
             deleteButton()
         }
@@ -203,7 +205,7 @@ struct PasswordDetailPage: View {
     
     private func notesSection() -> some View {
         Section(header: Text("_notes")) {
-            TextView(!password.notes.isEmpty ? password.notes : "-", isSelectable: !password.notes.isEmpty)
+            TextView(password.notes)
                 .frame(height: 100)
         }
     }
