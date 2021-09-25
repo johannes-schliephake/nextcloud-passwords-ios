@@ -62,6 +62,13 @@ struct SelectFolderPage: View {
             scrollViewProxy in
             List {
                 FolderGroup(folder: selectFolderController.baseFolder, folders: selectFolderController.folders, selection: $selectFolderController.selection, isExpanded: true)
+                    .apply {
+                        view in
+                        if #available(iOS 15, *) {
+                            view
+                                .listSectionSeparator(.hidden, edges: .top)
+                        }
+                    }
             }
             .listStyle(.plain)
             .onAppear {
