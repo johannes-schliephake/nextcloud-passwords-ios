@@ -479,6 +479,9 @@
 		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
 		DDA4FE7526E755C000D6F92E /* View+Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Initialize.swift"; sourceTree = "<group>"; };
+		DDBD6EA12702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDBD6EA22702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDBD6EA32702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderController.swift; sourceTree = "<group>"; };
 		DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesPageFallback.swift; sourceTree = "<group>"; };
 		DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderPageFallback.swift; sourceTree = "<group>"; };
@@ -1055,6 +1058,7 @@
 				Base,
 				cs,
 				fr,
+				ru,
 			);
 			mainGroup = 8F118746253C9EE10019FECA;
 			packageReferences = (
@@ -1426,6 +1430,7 @@
 				8F5331AD25605BAC00AB6FED /* de */,
 				8F78232A26ACAE8E00137B77 /* cs */,
 				9F5B819E26AF27490020B199 /* fr */,
+				DDBD6EA32702F708003A747D /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1437,6 +1442,7 @@
 				8F5757E925671EA8003F1E9F /* de */,
 				8F78232826ACAE8E00137B77 /* cs */,
 				9F5B819C26AF27490020B199 /* fr */,
+				DDBD6EA12702F708003A747D /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1448,6 +1454,7 @@
 				8F5BBC9125F2B6DF001271F7 /* de */,
 				8F78232926ACAE8E00137B77 /* cs */,
 				9F5B819D26AF27490020B199 /* fr */,
+				DDBD6EA22702F708003A747D /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
