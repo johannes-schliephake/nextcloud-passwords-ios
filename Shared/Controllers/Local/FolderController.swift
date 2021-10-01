@@ -11,8 +11,8 @@ final class FolderController: ObservableObject {
     @Published private(set) var entries: [Entry]?
     @Published private(set) var suggestions: [Password]?
     
-    private var entriesPipelineUuid: UUID?
-    private var suggestionsPipelineUuid: UUID?
+    private var entriesPipeline: AnyCancellable?
+    private var suggestionsPipeline: AnyCancellable?
     private let entriesControllerDidChange = PassthroughSubject<Void, Never>()
     private var subscriptions = Set<AnyCancellable>()
     
@@ -29,7 +29,7 @@ final class FolderController: ObservableObject {
             }
             .store(in: &subscriptions)
         
-        Publishers.Merge(
+        entriesPipeline = Publishers.Merge(
             entriesControllerDidChange
                 .compactMap { [weak self] in self?.searchTerm }
                 .receive(on: DispatchQueue.global(qos: .userInitiated)),
@@ -37,26 +37,20 @@ final class FolderController: ObservableObject {
                 .throttle(for: 0.5, scheduler: DispatchQueue.global(qos: .userInitiated), latest: true)
                 .removeDuplicates { [weak self] in self?.entries != nil && $0 == $1 }
         )
-        .map { ($0, UUID()) }
-        .handleEvents(receiveOutput: { [weak self] _, uuid in self?.entriesPipelineUuid = uuid })
-        .map { (entriesController.processEntries(folder: folder, searchTerm: $0.0), $0.1) }
-        .compactMap { [weak self] entries, uuid in uuid == self?.entriesPipelineUuid ? entries : nil }
+        .map { entriesController.processEntries(folder: folder, searchTerm: $0) }
         .receive(on: DispatchQueue.main)
-        .assign(to: &$entries)
+        .sink { [weak self] in self?.entries = $0 }
         
-        Publishers.Merge(
+        suggestionsPipeline = Publishers.Merge(
             entriesController.objectWillChange
                 .compactMap { [weak self] in self?.autoFillController?.serviceURLs },
             $autoFillController
                 .compactMap { $0?.serviceURLs }
         )
         .receive(on: DispatchQueue.global(qos: .userInitiated))
-        .map { ($0, UUID()) }
-        .handleEvents(receiveOutput: { [weak self] _, uuid in self?.suggestionsPipelineUuid = uuid })
-        .map { (entriesController.processSuggestions(serviceURLs: $0.0), $0.1) }
-        .compactMap { [weak self] suggestions, uuid in uuid == self?.suggestionsPipelineUuid ? suggestions : nil }
+        .map { entriesController.processSuggestions(serviceURLs: $0) }
         .receive(on: DispatchQueue.main)
-        .assign(to: &$suggestions)
+        .sink { [weak self] in self?.suggestions = $0 }
     }
     
 }
