@@ -662,6 +662,7 @@ extension EntriesPageFallback {
                 folderImage()
                 labelText()
                     .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
                 HStack {
                     if let state = folder.state {
                         if state.isError {
@@ -669,12 +670,14 @@ extension EntriesPageFallback {
                         }
                         else if state.isProcessing {
                             ProgressView()
+                            Spacer()
                         }
                     }
                     if folder.favorite {
                         favoriteImage()
                     }
                 }
+                .fixedSize()
             }
         }
         
@@ -917,6 +920,7 @@ extension EntriesPageFallback {
                 faviconImage()
                 labelStack()
                     .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
                 HStack {
                     if let state = password.state {
                         if state.isError {
@@ -924,6 +928,7 @@ extension EntriesPageFallback {
                         }
                         else if state.isProcessing {
                             ProgressView()
+                            Spacer()
                         }
                     }
                     if password.favorite {
@@ -933,6 +938,7 @@ extension EntriesPageFallback {
                         statusImage()
                     }
                 }
+                .fixedSize()
             }
         }
         
