@@ -33,7 +33,7 @@ struct PasswordDetailPage: View {
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
                         if password.editable {
-                            trailingToolbarView()
+                            primaryActionToolbarView()
                         }
                     }
                 }
@@ -288,7 +288,7 @@ struct PasswordDetailPage: View {
         .background(Color(UIColor.systemGroupedBackground))
     }
     
-    private func trailingToolbarView() -> some View {
+    private func primaryActionToolbarView() -> some View {
         HStack {
             if let state = password.state {
                 if state.isError {
