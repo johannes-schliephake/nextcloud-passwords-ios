@@ -12,7 +12,7 @@ import SwiftUI
             MainView()
                 .environmentObject(autoFillController)
                 .onAppear {
-                    NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: UIApplication.shared)
+                    NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
                 }
         }
     }

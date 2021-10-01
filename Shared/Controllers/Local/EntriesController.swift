@@ -60,6 +60,7 @@ final class EntriesController: ObservableObject {
         }
     }
     
+    private var fetchOnlineEntriesDate: Date? = Date()
     private var foldersSubscriptions = Set<AnyCancellable>()
     private var passwordsSubscriptions = Set<AnyCancellable>()
     private var subscriptions = Set<AnyCancellable>()
@@ -67,6 +68,9 @@ final class EntriesController: ObservableObject {
     init() {
         SessionController.default.$session
             .sink(receiveValue: requestEntries)
+            .store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+            .sink(receiveValue: refresh)
             .store(in: &subscriptions)
     }
     
@@ -116,7 +120,18 @@ final class EntriesController: ObservableObject {
         fetchOnlineEntries(session: session)
     }
     
+    private func refresh(_: Notification) {
+        if let fetchOnlineEntriesDate = fetchOnlineEntriesDate {
+            guard fetchOnlineEntriesDate.advanced(by: 5 * 60) < Date() else {
+                return
+            }
+        }
+        refresh()
+    }
+    
     private func fetchOnlineEntries(session: Session, completion: (() -> Void)? = nil) {
+        fetchOnlineEntriesDate = Date()
+        
         if state == .error {
             state = .loading
         }
@@ -149,6 +164,7 @@ final class EntriesController: ObservableObject {
                 if case .failure(.requestError) = result,
                    self?.state != .offline {
                     self?.state = .error
+                    self?.fetchOnlineEntriesDate = nil
                 }
                 completion?()
             }, receiveValue: {
