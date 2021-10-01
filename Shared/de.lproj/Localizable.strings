@@ -102,6 +102,7 @@
 "_tipFailedMessage" = "Es ist ein Fehler während der Verarbeitung deines Trinksgeldes aufgetreten.";
 "_tipReceived" = "Trinkgeld erhalten";
 "_tipReceivedMessage" = "Danke, dass du dieses Projekt mit deinem Trinkgeld unterstützt!";
+"_tryAgain" = "Erneut versuchen";
 "_unlockApp" = "App entsperren";
 "_updated" = "Geändert";
 "_url" = "URL";

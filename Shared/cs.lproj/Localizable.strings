@@ -102,6 +102,7 @@
 "_tipFailedMessage" = "Došlo k chybě při zpracovávání vašeho příspěvku.";
 "_tipReceived" = "Příspěvek obdržen";
 "_tipReceivedMessage" = "Děkujeme za podporu tohoto projektu vaším příspěvkem!";
+"_tryAgain" = "TODO";
 "_unlockApp" = "Odemknout aplikaci";
 "_updated" = "Aktualizováno";
 "_url" = "URL adresa";

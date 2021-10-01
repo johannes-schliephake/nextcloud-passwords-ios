@@ -69,17 +69,6 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                     let entries = folderController.entries,
                     let folders = entriesController.folders {
                 listView(entries: entries, folders: folders)
-                    .apply {
-                        view in
-                        if #available(iOS 15, *) {
-                            view
-                                .searchable(text: $folderController.searchTerm)
-                        }
-                        else {
-                            view
-                                .searchBar(term: $folderController.searchTerm)
-                        }
-                    }
             }
             else {
                 ProgressView()
@@ -119,10 +108,31 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
     }
     
     private func errorView() -> some View {
-        VStack {
-            Text("_anErrorOccurred")
-                .foregroundColor(.gray)
-                .padding()
+        List {
+            VStack(alignment: .center) {
+                Text("_anErrorOccurred")
+                    .foregroundColor(.gray)
+                    .padding()
+                Spacer()
+                Button {
+                    entriesController.refresh()
+                }
+                label: {
+                    Label("_tryAgain", systemImage: "arrow.clockwise")
+                }
+                .buttonStyle(.borderless)
+            }
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color(UIColor.systemGroupedBackground))
+        }
+        .apply {
+            view in
+            if #available(iOS 15, *) {
+                view
+                    .refreshable {
+                        await entriesController.refresh()
+                    }
+            }
         }
     }
     
@@ -231,9 +241,29 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 .listStyle(.plain)
             }
             else {
-                Text("_nothingToSeeHere")
-                    .foregroundColor(.gray)
-                    .padding()
+                List {
+                    VStack(alignment: .center) {
+                        Text("_nothingToSeeHere")
+                            .foregroundColor(.gray)
+                            .padding()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+                }
+            }
+        }
+        .apply {
+            view in
+            if #available(iOS 15, *) {
+                view
+                    .searchable(text: $folderController.searchTerm)
+                    .refreshable {
+                        await entriesController.refresh()
+                    }
+            }
+            else {
+                view
+                    .searchBar(term: $folderController.searchTerm)
             }
         }
         .sheet(item: $sheetItem) {

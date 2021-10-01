@@ -89,6 +89,38 @@ final class EntriesController: ObservableObject {
             return
         }
         
+        fetchOnlineEntries(session: session)
+        
+        session.append(pendingCompletion: {
+            [weak self] in
+            self?.fetchOfflineEntries()
+        })
+    }
+    
+    @available(iOS 15, *) func refresh() async {
+        guard let session = SessionController.default.session else {
+            return
+        }
+        await withCheckedContinuation {
+            continuation in
+            fetchOnlineEntries(session: session) {
+                continuation.resume()
+            }
+        }
+    }
+    
+    func refresh() {
+        guard let session = SessionController.default.session else {
+            return
+        }
+        fetchOnlineEntries(session: session)
+    }
+    
+    private func fetchOnlineEntries(session: Session, completion: (() -> Void)? = nil) {
+        if state == .error {
+            state = .loading
+        }
+        
         let listFoldersRequest = Future<[Folder], NCPasswordsRequestError> {
             promise in
             ListFoldersRequest(session: session).send {
@@ -111,22 +143,19 @@ final class EntriesController: ObservableObject {
                 promise(.success(passwords))
             }
         }
-        Publishers.Zip(listFoldersRequest, listPasswordsRequest).sink(receiveCompletion: {
-            [weak self] result in
-            if case .failure(.requestError) = result,
-               self?.state != .offline {
-                self?.state = .error
-            }
-        }, receiveValue: {
-            [weak self] folders, passwords in
-            self?.merge(folders: folders, passwords: passwords)
-        })
-        .store(in: &subscriptions)
-        
-        session.append(pendingCompletion: {
-            [weak self] in
-            self?.fetchOfflineEntries()
-        })
+        Publishers.Zip(listFoldersRequest, listPasswordsRequest)
+            .sink(receiveCompletion: {
+                [weak self] result in
+                if case .failure(.requestError) = result,
+                   self?.state != .offline {
+                    self?.state = .error
+                }
+                completion?()
+            }, receiveValue: {
+                [weak self] folders, passwords in
+                self?.merge(folders: folders, passwords: passwords)
+            })
+            .store(in: &subscriptions)
     }
     
     private func fetchOfflineEntries() {
