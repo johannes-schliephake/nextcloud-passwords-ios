@@ -271,7 +271,7 @@ extension Password: Codable {
         
         if let keychain = SessionController.default.session?.keychain,
            state != .decryptionFailed,
-           cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true {
+           (cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true) && !shared {
             guard let key = keychain.keys[keychain.current],
                   let encryptedLabel = Crypto.CSEv1r1.encrypt(unencrypted: label, key: key),
                   let encryptedUsername = Crypto.CSEv1r1.encrypt(unencrypted: username, key: key),
