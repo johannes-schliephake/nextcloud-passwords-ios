@@ -8,6 +8,8 @@ final class ServerSetupController: ObservableObject {
     @Published private(set) var response: Response?
     @Published var serverAddress = "https://"
     
+    private var subscriptions = Set<AnyCancellable>()
+    
     init() {
         $serverAddress
             .handleEvents(receiveOutput: {
@@ -61,7 +63,8 @@ final class ServerSetupController: ObservableObject {
                 self?.isValidating = false
             })
             .compactMap { $0 }
-            .assign(to: &$response)
+            .sink { [weak self] in self?.response = $0 }
+            .store(in: &subscriptions)
     }
     
 }

@@ -87,9 +87,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
         }
         .background(
             /// This hack is necessary because the toolbar, where this sheet would actually belong, is buggy, iOS 14 can't stack sheets (not even throughout the view hierarchy) and iOS 15 can't use sheets on EmptyView (previous hack)
-            Rectangle()
-                .fill(Color.clear)
-                .frame(width: 0, height: 0)
+            Color.clear
                 .sheet(isPresented: $showSettingsView) {
                     SettingsNavigation(updateOfflineContainers: {
                         entriesController.updateOfflineContainers()
@@ -819,14 +817,8 @@ extension EntriesPageFallback {
                             Label("_copyUsername", systemImage: "doc.on.doc")
                         }
                     }
-                    if let url = URL(string: password.url),
-                       let canOpenURL = UIApplication.safeCanOpenURL,
-                       canOpenURL(url),
-                       let open = UIApplication.safeOpen {
-                        Button {
-                            open(url)
-                        }
-                        label: {
+                    if let url = URL(string: password.url) {
+                        Link(destination: url) {
                             Label("_openUrl", systemImage: "safari")
                         }
                     }

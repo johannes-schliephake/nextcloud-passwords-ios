@@ -11,7 +11,7 @@
 "_clientSide" = "Client Side"; // Possible value for "Encryption" field on password detail page, other key is "_serverSide"
 "_confirmAction" = "Confirm Action"; // E.g. confirm deletion or confirm log out
 "_connect" = "Connect"; // I.e. connect to server
-"_connectToServer" = "Connect To Server";
+"_connectToServer" = "Connect to Server";
 "_copyPassword" = "Copy Password";
 "_copyUsername" = "Copy Username";
 "_create" = "Create"; // I.e. create folder or password
@@ -47,7 +47,7 @@
 "_folder" = "Folder";
 "_folders" = "Folders";
 "_generatePassword" = "Generate Password";
-"_giveATip" = "Give A Tip"; // This is the label for starting an In-App purchase
+"_giveATip" = "Give a Tip"; // This is the label for starting an In-App purchase
 "_highFive" = "High Five! 👏"; // Keep this in English
 "_incorrectPassword" = "Incorrect Password";
 "_incorrectPasswordMessage" = "Please try again.";
