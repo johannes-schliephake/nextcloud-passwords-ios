@@ -103,7 +103,16 @@ struct SettingsPage: View {
                     .foregroundColor(.gray)
             }
         }
-        .listRowInsets(EdgeInsets())
+        .apply {
+            view in
+            if #available(iOS 15, *) {
+                view
+            }
+            else {
+                view
+                    .listRowInsets(EdgeInsets())
+            }
+        }
         .listRowBackground(Color(UIColor.systemGroupedBackground))
     }
     
@@ -166,7 +175,16 @@ struct SettingsPage: View {
                 }
             }
         }
-        .listRowInsets(EdgeInsets())
+        .apply {
+            view in
+            if #available(iOS 15, *) {
+                view
+            }
+            else {
+                view
+                    .listRowInsets(EdgeInsets())
+            }
+        }
         .listRowBackground(Color(UIColor.systemGroupedBackground))
     }
     

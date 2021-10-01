@@ -123,10 +123,12 @@ final class SessionController: ObservableObject {
                 return
             }
             self?.challenge = challenge
-            self?.state = .onlineChallengeAvailable
             
             if let challengePassword = Keychain.default.load(key: "challengePassword") ?? self?.cachedChallengePassword {
                 self?.solveChallenge(password: challengePassword)
+            }
+            else {
+                self?.state = .onlineChallengeAvailable
             }
         }
     }
@@ -145,12 +147,11 @@ final class SessionController: ObservableObject {
             return
         }
         
-        if state != .onlineChallengeAvailable {
-            state = .offlineChallengeAvailable
-        }
-        
         if let challengePassword = Keychain.default.load(key: "challengePassword") ?? cachedChallengePassword {
             solveChallenge(password: challengePassword)
+        }
+        else if state != .onlineChallengeAvailable {
+            state = .offlineChallengeAvailable
         }
     }
     
