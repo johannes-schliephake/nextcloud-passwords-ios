@@ -819,14 +819,8 @@ extension EntriesPageFallback {
                             Label("_copyUsername", systemImage: "doc.on.doc")
                         }
                     }
-                    if let url = URL(string: password.url),
-                       let canOpenURL = UIApplication.safeCanOpenURL,
-                       canOpenURL(url),
-                       let open = UIApplication.safeOpen {
-                        Button {
-                            open(url)
-                        }
-                        label: {
+                    if let url = URL(string: password.url) {
+                        Link(destination: url) {
                             Label("_openUrl", systemImage: "safari")
                         }
                     }

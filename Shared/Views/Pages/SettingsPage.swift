@@ -141,14 +141,8 @@ struct SettingsPage: View {
     private func aboutSection() -> some View {
         Section(header: Text("_about")) {
             LabeledRow(type: .text, label: "_version" as LocalizedStringKey, value: Configuration.shortVersionString)
-            if let url = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios"),
-               let canOpenURL = UIApplication.safeCanOpenURL,
-               canOpenURL(url),
-               let open = UIApplication.safeOpen {
-                Button {
-                    open(url)
-                }
-                label: {
+            if let url = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios") {
+                Link(destination: url) {
                     Label("_sourceCode", systemImage: "curlybraces")
                 }
             }
