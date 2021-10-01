@@ -9,6 +9,8 @@ final class ProviderViewController: ASCredentialProviderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIAlertController.rootViewController = self
+        
         autoFillController.complete = {
             [self] username, password in
             let passwordCredential = ASPasswordCredential(user: username, password: password)
