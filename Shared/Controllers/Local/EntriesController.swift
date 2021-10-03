@@ -113,11 +113,11 @@ final class EntriesController: ObservableObject {
         }
     }
     
-    func refresh() {
+    func refresh(completion: (() -> Void)? = nil) {
         guard let session = SessionController.default.session else {
             return
         }
-        fetchOnlineEntries(session: session)
+        fetchOnlineEntries(session: session, completion: completion)
     }
     
     private func refresh(_: Notification) {

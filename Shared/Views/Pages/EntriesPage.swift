@@ -133,6 +133,15 @@ struct EntriesPage: View {
                         await entriesController.refresh()
                     }
             }
+            else {
+                view
+                    .refreshGesture {
+                        endRefreshing in
+                        entriesController.refresh {
+                            endRefreshing()
+                        }
+                    }
+            }
         }
     }
     
@@ -264,6 +273,12 @@ struct EntriesPage: View {
             else {
                 view
                     .searchBar(term: $folderController.searchTerm)
+                    .refreshGesture {
+                        endRefreshing in
+                        entriesController.refresh {
+                            endRefreshing()
+                        }
+                    }
             }
         }
         .sheet(item: $sheetItem) {

@@ -133,6 +133,15 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                         await entriesController.refresh()
                     }
             }
+            else {
+                view
+                    .refreshGesture {
+                        endRefreshing in
+                        entriesController.refresh {
+                            endRefreshing()
+                        }
+                    }
+            }
         }
     }
     
@@ -264,6 +273,12 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
             else {
                 view
                     .searchBar(term: $folderController.searchTerm)
+                    .refreshGesture {
+                        endRefreshing in
+                        entriesController.refresh {
+                            endRefreshing()
+                        }
+                    }
             }
         }
         .sheet(item: $sheetItem) {
