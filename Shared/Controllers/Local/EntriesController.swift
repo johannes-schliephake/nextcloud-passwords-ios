@@ -60,6 +60,7 @@ final class EntriesController: ObservableObject {
         }
     }
     
+    private var fetchOnlineEntriesDate: Date? = Date()
     private var foldersSubscriptions = Set<AnyCancellable>()
     private var passwordsSubscriptions = Set<AnyCancellable>()
     private var subscriptions = Set<AnyCancellable>()
@@ -67,6 +68,9 @@ final class EntriesController: ObservableObject {
     init() {
         SessionController.default.$session
             .sink(receiveValue: requestEntries)
+            .store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+            .sink(receiveValue: refresh)
             .store(in: &subscriptions)
     }
     
@@ -87,6 +91,49 @@ final class EntriesController: ObservableObject {
             Crypto.AES256.removeKey(named: "offlineKey")
             CoreData.default.clear(type: OfflineContainer.self)
             return
+        }
+        
+        fetchOnlineEntries(session: session)
+        
+        session.append(pendingCompletion: {
+            [weak self] in
+            self?.fetchOfflineEntries()
+        })
+    }
+    
+    @available(iOS 15, *) func refresh() async {
+        guard let session = SessionController.default.session else {
+            return
+        }
+        await withCheckedContinuation {
+            continuation in
+            fetchOnlineEntries(session: session) {
+                continuation.resume()
+            }
+        }
+    }
+    
+    func refresh(completion: (() -> Void)? = nil) {
+        guard let session = SessionController.default.session else {
+            return
+        }
+        fetchOnlineEntries(session: session, completion: completion)
+    }
+    
+    private func refresh(_: Notification) {
+        if let fetchOnlineEntriesDate = fetchOnlineEntriesDate {
+            guard fetchOnlineEntriesDate.advanced(by: 5 * 60) < Date() else {
+                return
+            }
+        }
+        refresh()
+    }
+    
+    private func fetchOnlineEntries(session: Session, completion: (() -> Void)? = nil) {
+        fetchOnlineEntriesDate = Date()
+        
+        if state == .error {
+            state = .loading
         }
         
         let listFoldersRequest = Future<[Folder], NCPasswordsRequestError> {
@@ -111,22 +158,20 @@ final class EntriesController: ObservableObject {
                 promise(.success(passwords))
             }
         }
-        Publishers.Zip(listFoldersRequest, listPasswordsRequest).sink(receiveCompletion: {
-            [weak self] result in
-            if case .failure(.requestError) = result,
-               self?.state != .offline {
-                self?.state = .error
-            }
-        }, receiveValue: {
-            [weak self] folders, passwords in
-            self?.merge(folders: folders, passwords: passwords)
-        })
-        .store(in: &subscriptions)
-        
-        session.append(pendingCompletion: {
-            [weak self] in
-            self?.fetchOfflineEntries()
-        })
+        Publishers.Zip(listFoldersRequest, listPasswordsRequest)
+            .sink(receiveCompletion: {
+                [weak self] result in
+                if case .failure(.requestError) = result,
+                   self?.state != .offline {
+                    self?.state = .error
+                    self?.fetchOnlineEntriesDate = nil
+                }
+                completion?()
+            }, receiveValue: {
+                [weak self] folders, passwords in
+                self?.merge(folders: folders, passwords: passwords)
+            })
+            .store(in: &subscriptions)
     }
     
     private func fetchOfflineEntries() {
