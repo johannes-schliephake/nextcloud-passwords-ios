@@ -30,6 +30,7 @@
 "_deleteFolderErrorMessage" = "Une erreur est survenue durant la suppression du dossier. Veuillez le supprimer à nouveau.";
 "_deletePassword" = "Supprimer le mot de passe";
 "_deletePasswordErrorMessage" = "Une erreur est survenue durant la suppression du mot de passe. Veuillez le supprimer à nouveau.";
+"_discardChanges" = "TODO";
 "_dismiss" = "Rejeter";
 "_done" = "Fait";
 "_e2ePassword" = "Mot de passe E2E";

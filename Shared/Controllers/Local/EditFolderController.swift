@@ -22,6 +22,12 @@ final class EditFolderController: ObservableObject {
         folderParent = folder.parent
     }
     
+    var hasChanges: Bool {
+        folderLabel != folder.label ||
+        folderFavorite != folder.favorite ||
+        folderParent != folder.parent
+    }
+    
     func applyToFolder() {
         if folder.id.isEmpty {
             folder.created = Date()

@@ -52,6 +52,17 @@ final class EditPasswordController: ObservableObject {
         passwordFolder = password.folder
     }
     
+    var hasChanges: Bool {
+        passwordPassword != password.password ||
+        passwordLabel != password.label ||
+        passwordUsername != password.username ||
+        passwordUrl != password.url ||
+        passwordCustomUserFields != password.customFields ||
+        passwordNotes != password.notes ||
+        passwordFavorite != password.favorite ||
+        passwordFolder != password.folder
+    }
+    
     func generatePassword() {
         guard let session = SessionController.default.session else {
             showErrorAlert = true

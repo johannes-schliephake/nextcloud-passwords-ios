@@ -30,6 +30,7 @@
 "_deleteFolderErrorMessage" = "Beim Löschen des Ordners ist ein Fehler aufgetreten. Bitte lösche den Ordner nochmals.";
 "_deletePassword" = "Passwort löschen";
 "_deletePasswordErrorMessage" = "Beim Löschen des Passworts ist ein Fehler aufgetreten. Bitte lösche das Passwort nochmals.";
+"_discardChanges" = "Änderungen verwerfen";
 "_dismiss" = "Schließen";
 "_done" = "Fertig";
 "_e2ePassword" = "E2E Passwort";
