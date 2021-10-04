@@ -344,7 +344,7 @@ extension Password {
 
 extension Password {
     
-    struct CustomField: Identifiable, Codable {
+    struct CustomField: Identifiable, Equatable, Codable {
         
         let id = UUID()
         var label: String
@@ -387,6 +387,12 @@ extension Password {
                 }
             }
             
+        }
+        
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            lhs.label == rhs.label ||
+            lhs.type == rhs.type ||
+            lhs.value == rhs.value
         }
         
     }

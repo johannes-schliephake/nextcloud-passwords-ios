@@ -30,6 +30,7 @@
 "_deleteFolderErrorMessage" = "Při mazání složky došlo k chybě. Smažte ji znovu.";
 "_deletePassword" = "Smazat heslo";
 "_deletePasswordErrorMessage" = "Při mazání hesla doško k chybě. Smažte ho znovu.";
+"_discardChanges" = "TODO";
 "_dismiss" = "Zahodit";
 "_done" = "Hotovo";
 "_e2ePassword" = "E2E heslo";

@@ -30,6 +30,7 @@
 "_deleteFolderErrorMessage" = "An error occurred while deleting the folder. Please delete the folder again.";
 "_deletePassword" = "Delete Password";
 "_deletePasswordErrorMessage" = "An error occurred while deleting the password. Please delete the password again.";
+"_discardChanges" = "Discard Changes";
 "_dismiss" = "Dismiss"; // Use the same wording Apple uses across iOS
 "_done" = "Done"; // Use the same wording Apple uses across iOS
 "_e2ePassword" = "E2E Password"; // I.e. end-to-end password

@@ -30,6 +30,7 @@
 "_deleteFolderErrorMessage" = "При удалении папки произошла ошибка. Пожалуйста, попробуйте еще раз.";
 "_deletePassword" = "Удалить пароль";
 "_deletePasswordErrorMessage" = "Произошла ошибка при удалении пароля. Пожалуйста, попробуйте еще раз.";
+"_discardChanges" = "TODO";
 "_dismiss" = "Закрыть";
 "_done" = "Готово";
 "_e2ePassword" = "Пароль E2E"; 

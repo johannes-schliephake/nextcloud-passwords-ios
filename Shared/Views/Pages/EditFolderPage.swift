@@ -12,6 +12,7 @@ struct EditFolderPage: View {
     @StateObject private var editFolderController: EditFolderController
     @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showSelectFolderView = false
+    @State private var showCancelAlert = false
     
     init(folder: Folder, folders: [Folder], addFolder: @escaping () -> Void, updateFolder: @escaping () -> Void) {
         _editFolderController = StateObject(wrappedValue: EditFolderController(folder: folder, folders: folders, addFolder: addFolder, updateFolder: updateFolder))
@@ -41,6 +42,7 @@ struct EditFolderPage: View {
                 if #available(iOS 15, *) {
                     view
                         .initialize(focus: $focusedField, with: editFolderController.folder.id.isEmpty ? .folderLabel : nil)
+                        .interactiveDismissDisabled(editFolderController.hasChanges)
                 }
             }
     }
@@ -123,12 +125,22 @@ struct EditFolderPage: View {
     @ViewBuilder private func cancelButton() -> some View {
         if #available(iOS 15.0, *) {
             Button("_cancel", role: .cancel) {
-                presentationMode.wrappedValue.dismiss()
+                cancelAndDismiss()
+            }
+            .actionSheet(isPresented: $showCancelAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                    presentationMode.wrappedValue.dismiss()
+                }])
             }
         }
         else {
             Button("_cancel") {
-                presentationMode.wrappedValue.dismiss()
+                cancelAndDismiss()
+            }
+            .actionSheet(isPresented: $showCancelAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                    presentationMode.wrappedValue.dismiss()
+                }])
             }
         }
     }
@@ -141,6 +153,15 @@ struct EditFolderPage: View {
     }
     
     // MARK: Functions
+    
+    private func cancelAndDismiss() {
+        if editFolderController.hasChanges {
+            showCancelAlert = true
+        }
+        else {
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
     
     private func applyAndDismiss() {
         guard !editFolderController.folderLabel.isEmpty else {
