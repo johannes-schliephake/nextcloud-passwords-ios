@@ -66,9 +66,6 @@ extension NCPasswordsRequest {
     
     private func send(action: String, method: String, session: Session, completion: @escaping (ResultType?) -> Void) {
         guard session.isValid else {
-            DispatchQueue.main.async {
-                completion(nil)
-            }
             return
         }
         DispatchQueue.global(qos: .utility).async {
@@ -125,9 +122,6 @@ extension NCPasswordsRequest {
                         return
                     case ("error", "b927b225"): /// "Too many failed login attempts"
                         session.invalidate(reason: .deauthorization)
-                        DispatchQueue.main.async {
-                            completion(nil)
-                        }
                         return
                     default:
                         break
@@ -137,15 +131,9 @@ extension NCPasswordsRequest {
                     switch messageResponse.message {
                     case "Password login forbidden, use token instead":
                         session.invalidate(reason: .deauthorization)
-                        DispatchQueue.main.async {
-                            completion(nil)
-                        }
                         return
                     case "Current user is not logged in":
                         session.invalidate(reason: .noConnection)
-                        DispatchQueue.main.async {
-                            completion(nil)
-                        }
                         return
                     default:
                         break
