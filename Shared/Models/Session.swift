@@ -26,10 +26,10 @@ final class Session: ObservableObject {
     }
     private var pendingCompletions = [() -> Void]() {
         didSet {
-            if oldValue.isEmpty && !pendingRequests.isEmpty {
+            if oldValue.isEmpty && !pendingCompletions.isEmpty {
                 pendingCompletionsAvailable = true
             }
-            else if !oldValue.isEmpty && pendingRequests.isEmpty {
+            else if !oldValue.isEmpty && pendingCompletions.isEmpty {
                 pendingCompletionsAvailable = false
             }
         }
