@@ -21,6 +21,7 @@ struct EntriesPage: View {
     @State private var sheetItem: SheetItem?
     @State private var actionSheetItem: ActionSheetItem?
     @State private var showErrorAlert = false
+    @State private var showOfflineText = false
     
     init(entriesController: EntriesController, folder: Folder? = nil) {
         self.entriesController = entriesController
@@ -43,6 +44,9 @@ struct EntriesPage: View {
                        let entries = folderController.entries {
                         trailingToolbarView(entries: entries)
                     }
+                }
+                ToolbarItem(placement: .principal) {
+                    principalToolbarView()
                 }
             }
             .navigationTitle(folderController.folder.label)
@@ -429,6 +433,34 @@ struct EntriesPage: View {
             filterSortMenu()
             createMenu()
         }
+    }
+    
+    private func principalToolbarView() -> some View {
+        ZStack {
+            if entriesController.state == .offline || sessionController.state == .offline || sessionController.state == .offlineChallengeAvailable {
+                if showOfflineText {
+                    Text("_offline")
+                }
+                else {
+                    Button {
+                        withAnimation {
+                            showOfflineText = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2200)) {
+                            withAnimation {
+                                showOfflineText = false
+                            }
+                        }
+                    }
+                    label: {
+                        Image(systemName: "bolt.horizontal.fill")
+                    }
+                }
+            }
+        }
+        .fixedSize()
+        .animation(.easeInOut(duration: 0.2))
+        .foregroundColor(Color(UIColor.systemGray3))
     }
     
     private func errorButton(state: Entry.State) -> some View {
