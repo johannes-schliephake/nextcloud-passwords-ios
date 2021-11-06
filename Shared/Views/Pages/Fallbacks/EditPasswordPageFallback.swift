@@ -346,7 +346,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
         Button(editPasswordController.password.id.isEmpty ? "_create" : "_done") {
             applyAndDismiss()
         }
-        .disabled(editPasswordController.passwordPassword.isEmpty || editPasswordController.passwordLabel.isEmpty || editPasswordController.passwordCustomUserFields.count + editPasswordController.passwordCustomDataFields.count > 20 || editPasswordController.passwordCustomUserFields.map { $0.label.isEmpty || $0.label.count > 48 || $0.value.isEmpty || $0.value.count > 320 }.contains(true))
+        .disabled(!editPasswordController.editIsValid)
     }
     
     // MARK: Functions
@@ -361,10 +361,8 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     }
     
     private func applyAndDismiss() {
-        guard !(editPasswordController.passwordPassword.isEmpty || editPasswordController.passwordLabel.isEmpty || editPasswordController.passwordCustomUserFields.count + editPasswordController.passwordCustomDataFields.count > 20 || editPasswordController.passwordCustomUserFields.map { $0.label.isEmpty || $0.label.count > 48 || $0.value.isEmpty || $0.value.count > 320 }.contains(true)) else {
-            return
-        }
-        guard editPasswordController.password.state?.isProcessing != true else {
+        guard editPasswordController.editIsValid,
+              editPasswordController.password.state?.isProcessing != true else {
             return
         }
         editPasswordController.applyToPassword()

@@ -149,7 +149,7 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
         Button(editFolderController.folder.id.isEmpty ? "_create" : "_done") {
             applyAndDismiss()
         }
-        .disabled(editFolderController.folderLabel.isEmpty)
+        .disabled(!editFolderController.editIsValid)
     }
     
     // MARK: Functions
@@ -164,10 +164,8 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
     }
     
     private func applyAndDismiss() {
-        guard !editFolderController.folderLabel.isEmpty else {
-            return
-        }
-        guard editFolderController.folder.state?.isProcessing != true else {
+        guard editFolderController.editIsValid,
+              editFolderController.folder.state?.isProcessing != true else {
             return
         }
         editFolderController.applyToFolder()
