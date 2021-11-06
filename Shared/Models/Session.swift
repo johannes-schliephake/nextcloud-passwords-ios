@@ -14,7 +14,7 @@ final class Session: ObservableObject {
     var sessionID: String?
     var keychain: Crypto.CSEv1r1.Keychain?
     
-    private var pendingRequests = [() -> Void]() {
+    private var pendingRequests = [(() -> Void, () -> Void)]() {
         didSet {
             if oldValue.isEmpty && !pendingRequests.isEmpty {
                 pendingRequestsAvailable = true
@@ -45,10 +45,10 @@ final class Session: ObservableObject {
         self.password = password
     }
     
-    func append(pendingRequest: @escaping () -> Void) {
+    func append(pendingRequest: @escaping () -> Void, failure: @escaping () -> Void) {
         DispatchQueue.main.async {
             [self] in
-            pendingRequests.append(pendingRequest)
+            pendingRequests.append((pendingRequest, failure))
         }
     }
     
@@ -60,10 +60,15 @@ final class Session: ObservableObject {
     }
     
     func runPendingRequests() {
-        pendingRequests.forEach { $0() }
+        pendingRequests.forEach { $0.0() }
         pendingRequests.removeAll()
-        pendingCompletions.forEach { $0() }
-        pendingCompletions.removeAll()
+        runPendingCompletions()
+    }
+    
+    func runPendingRequestFailures() {
+        pendingRequests.forEach { $0.1() }
+        pendingRequests.removeAll()
+        runPendingCompletions()
     }
     
     func runPendingCompletions() {

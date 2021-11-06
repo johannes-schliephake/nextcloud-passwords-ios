@@ -16,6 +16,8 @@ final class SessionController: ObservableObject {
                 state = .loading
                 challenge = nil
                 cachedChallengePassword = nil
+                keepaliveTimer?.invalidate()
+                keepaliveTimer = nil
                 subscriptions.removeAll()
                 Keychain.default.remove(key: "challengePassword")
                 Keychain.default.remove(key: "offlineKeychain")
@@ -108,6 +110,7 @@ final class SessionController: ObservableObject {
         }
         
         session.sessionID = nil
+        state = .loading
         
         RequestSessionRequest(session: session).send {
             [weak self] response in
@@ -115,6 +118,7 @@ final class SessionController: ObservableObject {
                 if self?.state != .offline && self?.state != .offlineChallengeAvailable {
                     self?.state = .error
                 }
+                session.runPendingRequestFailures()
                 return
             }
             
@@ -138,11 +142,16 @@ final class SessionController: ObservableObject {
             return
         }
         
+        guard state != .onlineChallengeAvailable else {
+            return
+        }
+        guard state != .online else {
+            session.runPendingCompletions()
+            return
+        }
         guard session.keychain == nil,
               Keychain.default.load(key: "offlineKeychain") != nil else {
-            if state != .online {
-                state = .offline
-            }
+            state = .offline
             session.runPendingCompletions()
             return
         }
@@ -150,7 +159,7 @@ final class SessionController: ObservableObject {
         if let challengePassword = Keychain.default.load(key: "challengePassword") ?? cachedChallengePassword {
             solveChallenge(password: challengePassword)
         }
-        else if state != .onlineChallengeAvailable {
+        else {
             state = .offlineChallengeAvailable
         }
     }
@@ -165,6 +174,7 @@ final class SessionController: ObservableObject {
         if let challenge = challenge {
             guard let solution = Crypto.PWDv1r1.solve(challenge: challenge, password: password) else {
                 state = .error
+                session.runPendingRequestFailures()
                 return
             }
             openSession(password: password, solution: solution, store: store)
@@ -182,9 +192,7 @@ final class SessionController: ObservableObject {
                 Keychain.default.store(key: "challengePassword", value: password)
             }
             
-            if state != .online {
-                state = .offline
-            }
+            state = .offline
             session.runPendingCompletions()
         }
     }
@@ -200,6 +208,7 @@ final class SessionController: ObservableObject {
                 if self?.state != .offline && self?.state != .offlineChallengeAvailable {
                     self?.state = .error
                 }
+                session.runPendingRequestFailures()
                 return
             }
             
@@ -220,17 +229,18 @@ final class SessionController: ObservableObject {
                 if store {
                     Keychain.default.store(key: "challengePassword", value: password)
                 }
+                self?.challenge = nil
             }
             else {
                 guard response.success else {
                     self?.state = .error
+                    session.runPendingRequestFailures()
                     return
                 }
             }
             
-            self?.keepaliveSession()
-            
             self?.state = .online
+            self?.keepaliveSession()
             session.runPendingRequests()
         }
     }

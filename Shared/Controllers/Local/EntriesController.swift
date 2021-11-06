@@ -60,7 +60,8 @@ final class EntriesController: ObservableObject {
         }
     }
     
-    private var fetchOnlineEntriesDate: Date? = Date()
+    private var fetchOnlineEntriesDate: Date?
+    private var didMergeOfflineEntries = false
     private var foldersSubscriptions = Set<AnyCancellable>()
     private var passwordsSubscriptions = Set<AnyCancellable>()
     private var subscriptions = Set<AnyCancellable>()
@@ -82,23 +83,24 @@ final class EntriesController: ObservableObject {
     
     private func requestEntries(session: Session?) {
         guard let session = session else {
+            state = .loading
             folders = nil
             passwords = nil
             filterBy = .folders
             sortBy = .label
             reversed = false
-            state = .loading
+            fetchOnlineEntriesDate = nil
+            didMergeOfflineEntries = false
             Crypto.AES256.removeKey(named: "offlineKey")
             CoreData.default.clear(type: OfflineContainer.self)
             return
         }
         
-        fetchOnlineEntries(session: session)
-        
         session.append(pendingCompletion: {
             [weak self] in
             self?.fetchOfflineEntries()
         })
+        fetchOnlineEntries(session: session)
     }
     
     @available(iOS 15, *) func refresh() async {
@@ -115,6 +117,7 @@ final class EntriesController: ObservableObject {
     
     func refresh(completion: (() -> Void)? = nil) {
         guard let session = SessionController.default.session else {
+            completion?()
             return
         }
         fetchOnlineEntries(session: session, completion: completion)
@@ -125,6 +128,9 @@ final class EntriesController: ObservableObject {
             guard fetchOnlineEntriesDate.advanced(by: 5 * 60) < Date() else {
                 return
             }
+        }
+        if state == .online {
+            state = .offline
         }
         refresh()
     }
@@ -161,9 +167,13 @@ final class EntriesController: ObservableObject {
         Publishers.Zip(listFoldersRequest, listPasswordsRequest)
             .sink(receiveCompletion: {
                 [weak self] result in
-                if case .failure(.requestError) = result,
-                   self?.state != .offline {
-                    self?.state = .error
+                if case .failure(.requestError) = result {
+                    if self?.state == .loading {
+                        self?.state = .error
+                    }
+                    else {
+                        self?.state = .offline
+                    }
                     self?.fetchOnlineEntriesDate = nil
                 }
                 completion?()
@@ -213,7 +223,11 @@ final class EntriesController: ObservableObject {
             state = .offline
         }
         
-        if self.folders == nil {
+        if offline {
+            didMergeOfflineEntries = true
+        }
+        
+        if self.folders == nil || !offline && !didMergeOfflineEntries {
             self.folders = folders
         }
         else if let existingFolders = self.folders {
@@ -264,7 +278,7 @@ final class EntriesController: ObservableObject {
             }
         }
         
-        if self.passwords == nil {
+        if self.passwords == nil || !offline && didMergeOfflineEntries {
             self.passwords = passwords
         }
         else if let existingPasswords = self.passwords {

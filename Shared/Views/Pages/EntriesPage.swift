@@ -37,12 +37,10 @@ struct EntriesPage: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if sessionController.session != nil,
-                       entriesController.state != .error && (sessionController.state != .error || entriesController.state == .offline),
+                       entriesController.state != .error && sessionController.state != .error,
                        !sessionController.state.isChallengeAvailable,
                        entriesController.state == .offline || entriesController.state == .online,
-                       sessionController.state == .offline || sessionController.state == .online,
-                       let entries = folderController.entries,
-                       entriesController.folders != nil {
+                       let entries = folderController.entries {
                         trailingToolbarView(entries: entries)
                     }
                 }
@@ -65,7 +63,6 @@ struct EntriesPage: View {
                 challengeView()
             }
             else if entriesController.state == .offline || entriesController.state == .online,
-                    sessionController.state == .offline || sessionController.state == .online,
                     let entries = folderController.entries,
                     let folders = entriesController.folders {
                 listView(entries: entries, folders: folders)
@@ -232,7 +229,7 @@ struct EntriesPage: View {
                                 Text("_createPassword")
                             })
                                 .buttonStyle(.action)
-                            .disabled(entriesController.state != .online || folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
+                            .disabled(folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
                         }
                     }
                     if !entries.isEmpty {
@@ -351,7 +348,7 @@ struct EntriesPage: View {
             }, deletePassword: {
                 actionSheetItem = .delete(entry: .password(password))
             })
-            .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .deleteDisabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
         .onDelete { // when not #available(iOS 15.0, *)
             indices in
@@ -374,7 +371,7 @@ struct EntriesPage: View {
                 }, deleteFolder: {
                     actionSheetItem = .delete(entry: .folder(folder))
                 })
-                .deleteDisabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                .deleteDisabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 return AnyView(folderRow)
             case .password(let password):
                 let passwordRow = PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
@@ -384,7 +381,7 @@ struct EntriesPage: View {
                 }, deletePassword: {
                     actionSheetItem = .delete(entry: .password(password))
                 })
-                .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                .deleteDisabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 return AnyView(passwordRow)
             }
         }
@@ -516,7 +513,7 @@ struct EntriesPage: View {
                 Image(systemName: "plus")
             }
         }
-        .disabled(entriesController.state != .online || folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
+        .disabled(folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
     }
     
     // MARK: Functions
@@ -622,7 +619,7 @@ extension EntriesPage {
                                     Label("_favorite", systemImage: folder.favorite ? "star.slash.fill" : "star.fill")
                                 }
                                 .tint(.yellow)
-                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                                 Button {
                                     editFolder()
                                 }
@@ -630,7 +627,7 @@ extension EntriesPage {
                                     Label("_edit", systemImage: "pencil")
                                 }
                                 .tint(.blue)
-                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                             }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
@@ -639,7 +636,7 @@ extension EntriesPage {
                                 label: {
                                     Label("_delete", systemImage: "trash")
                                 }
-                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                                 Button {
                                     moveFolder()
                                 }
@@ -647,7 +644,7 @@ extension EntriesPage {
                                     Label("_move", systemImage: "folder")
                                 }
                                 .tint(.purple)
-                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                             }
                     }
                 }
@@ -658,21 +655,21 @@ extension EntriesPage {
                     label: {
                         Label("_edit", systemImage: "pencil")
                     }
-                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Button {
                         toggleFavorite()
                     }
                     label: {
                         Label("_favorite", systemImage: folder.favorite ? "star.fill" : "star")
                     }
-                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Button {
                         moveFolder()
                     }
                     label: {
                         Label("_move", systemImage: "folder")
                     }
-                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Divider()
                     if #available(iOS 15.0, *) {
                         Button(role: .destructive) {
@@ -681,7 +678,7 @@ extension EntriesPage {
                         label: {
                             Label("_delete", systemImage: "trash")
                         }
-                        .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                        .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     }
                     else {
                         Button {
@@ -690,7 +687,7 @@ extension EntriesPage {
                         label: {
                             Label("_delete", systemImage: "trash")
                         }
-                        .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                        .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     }
                 }
         }
