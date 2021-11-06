@@ -62,6 +62,7 @@ final class EntriesController: ObservableObject {
     
     private var fetchOnlineEntriesDate: Date?
     private var didMergeOfflineEntries = false
+    private var listRequestsSubscription: AnyCancellable?
     private var foldersSubscriptions = Set<AnyCancellable>()
     private var passwordsSubscriptions = Set<AnyCancellable>()
     private var subscriptions = Set<AnyCancellable>()
@@ -91,6 +92,7 @@ final class EntriesController: ObservableObject {
             reversed = false
             fetchOnlineEntriesDate = nil
             didMergeOfflineEntries = false
+            listRequestsSubscription = nil
             Crypto.AES256.removeKey(named: "offlineKey")
             CoreData.default.clear(type: OfflineContainer.self)
             return
@@ -164,7 +166,7 @@ final class EntriesController: ObservableObject {
                 promise(.success(passwords))
             }
         }
-        Publishers.Zip(listFoldersRequest, listPasswordsRequest)
+        listRequestsSubscription = Publishers.Zip(listFoldersRequest, listPasswordsRequest)
             .sink(receiveCompletion: {
                 [weak self] result in
                 if case .failure(.requestError) = result {
@@ -181,7 +183,6 @@ final class EntriesController: ObservableObject {
                 [weak self] folders, passwords in
                 self?.merge(folders: folders, passwords: passwords)
             })
-            .store(in: &subscriptions)
     }
     
     private func fetchOfflineEntries() {
