@@ -28,6 +28,10 @@ final class EditFolderController: ObservableObject {
         folderParent != folder.parent
     }
     
+    var editIsValid: Bool {
+        1...48 ~= folderLabel.count
+    }
+    
     func applyToFolder() {
         if folder.id.isEmpty {
             folder.created = Date()
