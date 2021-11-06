@@ -67,6 +67,7 @@
 "_notes" = "Notes"; // This refers to the noun ("the notes")
 "_nothingToSeeHere" = "Nothing to see here ..."; // Shown in empty lists
 "_numbers" = "Numbers"; // This is a label for a password generator toggle
+"_offline" = "Offline"; // I.e. the app has no connection to the server and is offline
 "_openUrl" = "Open URL";
 "_options" = "Options"; // I.e. settings options
 "_password" = "Password";
