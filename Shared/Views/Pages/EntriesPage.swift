@@ -37,7 +37,7 @@ struct EntriesPage: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if sessionController.session != nil,
-                       entriesController.state != .error && (sessionController.state != .error || entriesController.state == .offline),
+                       entriesController.state != .error && sessionController.state != .error,
                        !sessionController.state.isChallengeAvailable,
                        entriesController.state == .offline || entriesController.state == .online,
                        let entries = folderController.entries {
@@ -56,7 +56,7 @@ struct EntriesPage: View {
             if sessionController.session == nil {
                 connectView()
             }
-            else if entriesController.state == .error || sessionController.state == .error && entriesController.state != .offline {
+            else if entriesController.state == .error || sessionController.state == .error {
                 errorView()
             }
             else if sessionController.state.isChallengeAvailable {

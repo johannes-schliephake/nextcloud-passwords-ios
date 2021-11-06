@@ -72,6 +72,10 @@ extension NCPasswordsRequest {
             guard !requiresSession || session.sessionID != nil else {
                 session.append(pendingRequest: {
                     send(completion: completion)
+                }, failure: {
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
                 })
                 return
             }
@@ -118,6 +122,10 @@ extension NCPasswordsRequest {
                     case ("error", "4ad27488"): /// "Authorized session required"
                         session.append(pendingRequest: {
                             send(completion: completion)
+                        }, failure: {
+                            DispatchQueue.main.async {
+                                completion(nil)
+                            }
                         })
                         return
                     case ("error", "b927b225"): /// "Too many failed login attempts"
