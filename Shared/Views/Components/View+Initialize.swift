@@ -36,7 +36,7 @@ import SwiftUI
                 await MainActor.run {
                     binding.wrappedValue = initial
                 }
-                await Task.sleep(100_000_000)
+                try await Task.sleep(nanoseconds: 100_000_000)
             }
         }
     }
