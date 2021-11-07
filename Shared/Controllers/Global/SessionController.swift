@@ -110,7 +110,9 @@ final class SessionController: ObservableObject {
         }
         
         session.sessionID = nil
-        state = .loading
+        if state == .error {
+            state = .loading
+        }
         
         RequestSessionRequest(session: session).send {
             [weak self] response in
