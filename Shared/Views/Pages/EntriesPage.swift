@@ -46,7 +46,9 @@ struct EntriesPage: View {
                     }
                 }
                 ToolbarItem(placement: .principal) {
-                    principalToolbarView()
+                    if entriesController.state == .offline || sessionController.state == .offline || sessionController.state == .offlineChallengeAvailable {
+                        principalToolbarView()
+                    }
                 }
             }
             .navigationTitle(folderController.folder.label)
@@ -437,24 +439,22 @@ struct EntriesPage: View {
     
     private func principalToolbarView() -> some View {
         ZStack {
-            if entriesController.state == .offline || sessionController.state == .offline || sessionController.state == .offlineChallengeAvailable {
-                if showOfflineText {
-                    Text("_offline")
-                }
-                else {
-                    Button {
+            if showOfflineText {
+                Text("_offline")
+            }
+            else {
+                Button {
+                    withAnimation {
+                        showOfflineText = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2200)) {
                         withAnimation {
-                            showOfflineText = true
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2200)) {
-                            withAnimation {
-                                showOfflineText = false
-                            }
+                            showOfflineText = false
                         }
                     }
-                    label: {
-                        Image(systemName: "bolt.horizontal.fill")
-                    }
+                }
+                label: {
+                    Image(systemName: "bolt.horizontal.fill")
                 }
             }
         }
