@@ -30,7 +30,7 @@
 "_deleteFolderErrorMessage" = "При удалении папки произошла ошибка. Пожалуйста, попробуйте еще раз.";
 "_deletePassword" = "Удалить пароль";
 "_deletePasswordErrorMessage" = "Произошла ошибка при удалении пароля. Пожалуйста, попробуйте еще раз.";
-"_discardChanges" = "TODO";
+"_discardChanges" = "Отменить изменения";
 "_dismiss" = "Закрыть";
 "_done" = "Готово";
 "_e2ePassword" = "Пароль E2E";
@@ -60,14 +60,14 @@
 "_logOut" = "Выйти";
 "_metadata" = "Метаданные";
 "_move" = "Переместить";
-"_name" = "Имя";
+"_name" = "Название";
 "_nextcloudServerAddress" = "Адрес сервера Nextcloud";
 "_noConnection" = "Нет соединения";
 "_noConnectionMessage" = "Не удалось подключиться к экземпляру Nextcloud Passwords.";
 "_notes" = "Заметки";
 "_nothingToSeeHere" = "Вы пока не создали ни одной записи...";
 "_numbers" = "Числа";
-"_offline" = "TODO";
+"_offline" = "Вне сети";
 "_openUrl" = "Открыть URL";
 "_options" = "Опции";
 "_password" = "Пароль";
@@ -104,7 +104,7 @@
 "_tipFailedMessage" = "При обработке вашего пожервования произошла ошибка.";
 "_tipReceived" = "Пожертвование получено";
 "_tipReceivedMessage" = "Спасибо, что поддержали проект!";
-"_tryAgain" = "TODO";
+"_tryAgain" = "Попытаться заново";
 "_unlockApp" = "Разблокировать приложение";
 "_updated" = "Обновлен";
 "_url" = "URL";
