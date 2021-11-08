@@ -46,7 +46,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                     }
                 }
                 ToolbarItem(placement: .principal) {
-                    if entriesController.state == .offline || sessionController.state == .offline || sessionController.state == .offlineChallengeAvailable {
+                    if entriesController.state == .offline || sessionController.state == .offlineChallengeAvailable {
                         principalToolbarView()
                     }
                 }
