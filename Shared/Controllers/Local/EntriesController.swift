@@ -279,7 +279,7 @@ final class EntriesController: ObservableObject {
             }
         }
         
-        if self.passwords == nil || !offline && didMergeOfflineEntries {
+        if self.passwords == nil || !offline && !didMergeOfflineEntries {
             self.passwords = passwords
         }
         else if let existingPasswords = self.passwords {
