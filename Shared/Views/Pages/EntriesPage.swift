@@ -46,8 +46,10 @@ struct EntriesPage: View {
                     }
                 }
                 ToolbarItem(placement: .principal) {
-                    if entriesController.state == .offline || sessionController.state == .offlineChallengeAvailable {
-                        principalToolbarView()
+                    if #available(iOS 15, *) {
+                        if entriesController.state == .offline || sessionController.state == .offlineChallengeAvailable {
+                            principalToolbarView()
+                        }
                     }
                 }
             }

@@ -50,6 +50,14 @@ struct EditPasswordPage: View {
                         .initialize(focus: $focusedField, with: editPasswordController.password.id.isEmpty ? .passwordLabel : nil)
                         .interactiveDismissDisabled(editPasswordController.hasChanges)
                 }
+                else {
+                    view
+                        .actionSheet(isPresented: $showCancelAlert) {
+                            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                                presentationMode.wrappedValue.dismiss()
+                            }])
+                        }
+                }
             }
             .onAppear {
                 if editPasswordController.password.id.isEmpty,
@@ -333,11 +341,6 @@ struct EditPasswordPage: View {
         else {
             Button("_cancel") {
                 cancelAndDismiss()
-            }
-            .actionSheet(isPresented: $showCancelAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                    presentationMode.wrappedValue.dismiss()
-                }])
             }
         }
     }
