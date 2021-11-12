@@ -44,6 +44,14 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
                         // .initialize(focus: $focusedField, with: editFolderController.folder.id.isEmpty ? .folderLabel : nil)
                         .interactiveDismissDisabled(editFolderController.hasChanges)
                 }
+                else {
+                    view
+                        .actionSheet(isPresented: $showCancelAlert) {
+                            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                                presentationMode.wrappedValue.dismiss()
+                            }])
+                        }
+                }
             }
     }
     
@@ -136,11 +144,6 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
         else {
             Button("_cancel") {
                 cancelAndDismiss()
-            }
-            .actionSheet(isPresented: $showCancelAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                    presentationMode.wrappedValue.dismiss()
-                }])
             }
         }
     }
