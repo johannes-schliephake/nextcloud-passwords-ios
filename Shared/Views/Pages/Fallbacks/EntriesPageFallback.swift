@@ -21,6 +21,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
     @State private var sheetItem: SheetItem?
     @State private var actionSheetItem: ActionSheetItem?
     @State private var showErrorAlert = false
+    @State private var showOfflineText = false
     
     init(entriesController: EntriesController, folder: Folder? = nil) {
         self.entriesController = entriesController
@@ -37,13 +38,18 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if sessionController.session != nil,
-                       entriesController.state != .error && (sessionController.state != .error || entriesController.state == .offline),
+                       entriesController.state != .error && sessionController.state != .error,
                        !sessionController.state.isChallengeAvailable,
                        entriesController.state == .offline || entriesController.state == .online,
-                       sessionController.state == .offline || sessionController.state == .online,
-                       let entries = folderController.entries,
-                       entriesController.folders != nil {
+                       let entries = folderController.entries {
                         trailingToolbarView(entries: entries)
+                    }
+                }
+                ToolbarItem(placement: .principal) {
+                    if #available(iOS 15, *) {
+                        if entriesController.state == .offline || sessionController.state == .offlineChallengeAvailable {
+                            principalToolbarView()
+                        }
                     }
                 }
             }
@@ -65,21 +71,9 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 challengeView()
             }
             else if entriesController.state == .offline || entriesController.state == .online,
-                    sessionController.state == .offline || sessionController.state == .online,
                     let entries = folderController.entries,
                     let folders = entriesController.folders {
                 listView(entries: entries, folders: folders)
-                    .apply {
-                        view in
-                        if #available(iOS 15, *) {
-                            view
-                                .searchable(text: $folderController.searchTerm)
-                        }
-                        else {
-                            view
-                                .searchBar(term: $folderController.searchTerm)
-                        }
-                    }
             }
             else {
                 ProgressView()
@@ -87,9 +81,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
         }
         .background(
             /// This hack is necessary because the toolbar, where this sheet would actually belong, is buggy, iOS 14 can't stack sheets (not even throughout the view hierarchy) and iOS 15 can't use sheets on EmptyView (previous hack)
-            Rectangle()
-                .fill(Color.clear)
-                .frame(width: 0, height: 0)
+            Color.clear
                 .sheet(isPresented: $showSettingsView) {
                     SettingsNavigation(updateOfflineContainers: {
                         entriesController.updateOfflineContainers()
@@ -121,10 +113,40 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
     }
     
     private func errorView() -> some View {
-        VStack {
-            Text("_anErrorOccurred")
-                .foregroundColor(.gray)
-                .padding()
+        List {
+            VStack(alignment: .center) {
+                Text("_anErrorOccurred")
+                    .foregroundColor(.gray)
+                    .padding()
+                Spacer()
+                Button {
+                    entriesController.refresh()
+                }
+                label: {
+                    Label("_tryAgain", systemImage: "arrow.clockwise")
+                }
+                .buttonStyle(.borderless)
+            }
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color(UIColor.systemGroupedBackground))
+        }
+        .apply {
+            view in
+            if #available(iOS 15, *) {
+                view
+                    .refreshable {
+                        await entriesController.refresh()
+                    }
+            }
+            else {
+                view
+                    .refreshGesture {
+                        endRefreshing in
+                        entriesController.refresh {
+                            endRefreshing()
+                        }
+                    }
+            }
         }
     }
     
@@ -215,7 +237,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                                 Text("_createPassword")
                             })
                                 .buttonStyle(.action)
-                            .disabled(entriesController.state != .online || folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
+                            .disabled(folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
                         }
                     }
                     if !entries.isEmpty {
@@ -233,9 +255,35 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 .listStyle(.plain)
             }
             else {
-                Text("_nothingToSeeHere")
-                    .foregroundColor(.gray)
-                    .padding()
+                List {
+                    VStack(alignment: .center) {
+                        Text("_nothingToSeeHere")
+                            .foregroundColor(.gray)
+                            .padding()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+                }
+            }
+        }
+        .apply {
+            view in
+            if #available(iOS 15, *) {
+                view
+                    .searchable(text: $folderController.searchTerm)
+                    .refreshable {
+                        await entriesController.refresh()
+                    }
+            }
+            else {
+                view
+                    .searchBar(term: $folderController.searchTerm)
+                    .refreshGesture {
+                        endRefreshing in
+                        entriesController.refresh {
+                            endRefreshing()
+                        }
+                    }
             }
         }
         .sheet(item: $sheetItem) {
@@ -308,7 +356,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
             }, deletePassword: {
                 actionSheetItem = .delete(entry: .password(password))
             })
-            .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .deleteDisabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
         .onDelete { // when not #available(iOS 15.0, *)
             indices in
@@ -331,7 +379,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 }, deleteFolder: {
                     actionSheetItem = .delete(entry: .folder(folder))
                 })
-                .deleteDisabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                .deleteDisabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 return AnyView(folderRow)
             case .password(let password):
                 let passwordRow = PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
@@ -341,7 +389,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 }, deletePassword: {
                     actionSheetItem = .delete(entry: .password(password))
                 })
-                .deleteDisabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                .deleteDisabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 return AnyView(passwordRow)
             }
         }
@@ -389,6 +437,32 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
             filterSortMenu()
             createMenu()
         }
+    }
+    
+    private func principalToolbarView() -> some View {
+        ZStack {
+            if showOfflineText {
+                Text("_offline")
+            }
+            else {
+                Button {
+                    withAnimation {
+                        showOfflineText = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2200)) {
+                        withAnimation {
+                            showOfflineText = false
+                        }
+                    }
+                }
+                label: {
+                    Image(systemName: "bolt.horizontal.fill")
+                }
+            }
+        }
+        .fixedSize()
+        .animation(.easeInOut(duration: 0.2))
+        .foregroundColor(Color(UIColor.systemGray3))
     }
     
     private func errorButton(state: Entry.State) -> some View {
@@ -473,7 +547,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 Image(systemName: "plus")
             }
         }
-        .disabled(entriesController.state != .online || folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
+        .disabled(folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
     }
     
     // MARK: Functions
@@ -579,7 +653,7 @@ extension EntriesPageFallback {
                                     Label("_favorite", systemImage: folder.favorite ? "star.slash.fill" : "star.fill")
                                 }
                                 .tint(.yellow)
-                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                                 Button {
                                     editFolder()
                                 }
@@ -587,7 +661,7 @@ extension EntriesPageFallback {
                                     Label("_edit", systemImage: "pencil")
                                 }
                                 .tint(.blue)
-                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                             }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
@@ -596,7 +670,7 @@ extension EntriesPageFallback {
                                 label: {
                                     Label("_delete", systemImage: "trash")
                                 }
-                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                                 Button {
                                     moveFolder()
                                 }
@@ -604,7 +678,7 @@ extension EntriesPageFallback {
                                     Label("_move", systemImage: "folder")
                                 }
                                 .tint(.purple)
-                                .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                             }
                     }
                 }
@@ -615,21 +689,21 @@ extension EntriesPageFallback {
                     label: {
                         Label("_edit", systemImage: "pencil")
                     }
-                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Button {
                         toggleFavorite()
                     }
                     label: {
                         Label("_favorite", systemImage: folder.favorite ? "star.fill" : "star")
                     }
-                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Button {
                         moveFolder()
                     }
                     label: {
                         Label("_move", systemImage: "folder")
                     }
-                    .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Divider()
                     if #available(iOS 15.0, *) {
                         Button(role: .destructive) {
@@ -638,7 +712,7 @@ extension EntriesPageFallback {
                         label: {
                             Label("_delete", systemImage: "trash")
                         }
-                        .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                        .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     }
                     else {
                         Button {
@@ -647,7 +721,7 @@ extension EntriesPageFallback {
                         label: {
                             Label("_delete", systemImage: "trash")
                         }
-                        .disabled(entriesController.state != .online || folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                        .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     }
                 }
         }
@@ -664,6 +738,7 @@ extension EntriesPageFallback {
                 folderImage()
                 labelText()
                     .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
                 HStack {
                     if let state = folder.state {
                         if state.isError {
@@ -671,12 +746,14 @@ extension EntriesPageFallback {
                         }
                         else if state.isProcessing {
                             ProgressView()
+                            Spacer()
                         }
                     }
                     if folder.favorite {
                         favoriteImage()
                     }
                 }
+                .fixedSize()
             }
         }
         
@@ -819,14 +896,8 @@ extension EntriesPageFallback {
                             Label("_copyUsername", systemImage: "doc.on.doc")
                         }
                     }
-                    if let url = URL(string: password.url),
-                       let canOpenURL = UIApplication.safeCanOpenURL,
-                       canOpenURL(url),
-                       let open = UIApplication.safeOpen {
-                        Button {
-                            open(url)
-                        }
-                        label: {
+                    if let url = URL(string: password.url) {
+                        Link(destination: url) {
                             Label("_openUrl", systemImage: "safari")
                         }
                     }
@@ -925,6 +996,7 @@ extension EntriesPageFallback {
                 faviconImage()
                 labelStack()
                     .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
                 HStack {
                     if let state = password.state {
                         if state.isError {
@@ -932,6 +1004,7 @@ extension EntriesPageFallback {
                         }
                         else if state.isProcessing {
                             ProgressView()
+                            Spacer()
                         }
                     }
                     if password.favorite {
@@ -941,6 +1014,7 @@ extension EntriesPageFallback {
                         statusImage()
                     }
                 }
+                .fixedSize()
             }
         }
         

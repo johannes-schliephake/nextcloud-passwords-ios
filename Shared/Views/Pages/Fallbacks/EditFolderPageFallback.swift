@@ -12,6 +12,7 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
     @StateObject private var editFolderController: EditFolderController
     // @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showSelectFolderView = false
+    @State private var showCancelAlert = false
     
     init(folder: Folder, folders: [Folder], addFolder: @escaping () -> Void, updateFolder: @escaping () -> Void) {
         _editFolderController = StateObject(wrappedValue: EditFolderController(folder: folder, folders: folders, addFolder: addFolder, updateFolder: updateFolder))
@@ -41,6 +42,15 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
                 if #available(iOS 15, *) {
                     view
                         // .initialize(focus: $focusedField, with: editFolderController.folder.id.isEmpty ? .folderLabel : nil)
+                        .interactiveDismissDisabled(editFolderController.hasChanges)
+                }
+                else {
+                    view
+                        .actionSheet(isPresented: $showCancelAlert) {
+                            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                                presentationMode.wrappedValue.dismiss()
+                            }])
+                        }
                 }
             }
     }
@@ -123,12 +133,17 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
     @ViewBuilder private func cancelButton() -> some View {
         if #available(iOS 15.0, *) {
             Button("_cancel", role: .cancel) {
-                presentationMode.wrappedValue.dismiss()
+                cancelAndDismiss()
+            }
+            .actionSheet(isPresented: $showCancelAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                    presentationMode.wrappedValue.dismiss()
+                }])
             }
         }
         else {
             Button("_cancel") {
-                presentationMode.wrappedValue.dismiss()
+                cancelAndDismiss()
             }
         }
     }
@@ -137,16 +152,23 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
         Button(editFolderController.folder.id.isEmpty ? "_create" : "_done") {
             applyAndDismiss()
         }
-        .disabled(editFolderController.folderLabel.isEmpty)
+        .disabled(!editFolderController.editIsValid)
     }
     
     // MARK: Functions
     
-    private func applyAndDismiss() {
-        guard !editFolderController.folderLabel.isEmpty else {
-            return
+    private func cancelAndDismiss() {
+        if editFolderController.hasChanges {
+            showCancelAlert = true
         }
-        guard editFolderController.folder.state?.isProcessing != true else {
+        else {
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+    
+    private func applyAndDismiss() {
+        guard editFolderController.editIsValid,
+              editFolderController.folder.state?.isProcessing != true else {
             return
         }
         editFolderController.applyToFolder()

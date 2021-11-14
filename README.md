@@ -15,3 +15,4 @@ This app requires a Nextcloud server with the Passwords app installed.
 ## Contributors
 - Czech translation: [Pavel Borecki](https://github.com/p-bo)
 - French translation: [Maxime Killinger](https://github.com/maxime-killinger)
+- Russian translation: [jensaymoo](https://github.com/jensaymoo)

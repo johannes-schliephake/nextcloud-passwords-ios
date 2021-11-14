@@ -30,6 +30,7 @@
 "_deleteFolderErrorMessage" = "Une erreur est survenue durant la suppression du dossier. Veuillez le supprimer à nouveau.";
 "_deletePassword" = "Supprimer le mot de passe";
 "_deletePasswordErrorMessage" = "Une erreur est survenue durant la suppression du mot de passe. Veuillez le supprimer à nouveau.";
+"_discardChanges" = "Annuler les changements";
 "_dismiss" = "Rejeter";
 "_done" = "Fait";
 "_e2ePassword" = "Mot de passe E2E";
@@ -66,6 +67,7 @@
 "_notes" = "Notes";
 "_nothingToSeeHere" = "Rien à voir ici ...";
 "_numbers" = "Nombres";
+"_offline" = "Hors ligne";
 "_openUrl" = "Ouvrir l'URL";
 "_options" = "Options";
 "_password" = "Mot de passe";
@@ -102,6 +104,7 @@
 "_tipFailedMessage" = "Une erreur est survenue durant le pourboire.";
 "_tipReceived" = "Pourboire bien reçu";
 "_tipReceivedMessage" = "Merci pour votre support avec ce pourboire!";
+"_tryAgain" = "Réessayer";
 "_unlockApp" = "Déverrouiller l'application";
 "_updated" = "Mis à jour";
 "_url" = "URL";

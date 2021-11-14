@@ -52,6 +52,27 @@ final class EditPasswordController: ObservableObject {
         passwordFolder = password.folder
     }
     
+    var hasChanges: Bool {
+        passwordPassword != password.password ||
+        passwordLabel != password.label ||
+        passwordUsername != password.username ||
+        passwordUrl != password.url ||
+        passwordCustomUserFields != password.customFields ||
+        passwordNotes != password.notes ||
+        passwordFavorite != password.favorite ||
+        passwordFolder != password.folder
+    }
+    
+    var editIsValid: Bool {
+        1...64 ~= passwordLabel.count &&
+        passwordUsername.count <= 64 &&
+        1...256 ~= passwordPassword.count &&
+        passwordUrl.count <= 2048 &&
+        passwordNotes.count <= 4096 &&
+        passwordCustomUserFields.count + passwordCustomDataFields.count <= 20 &&
+        passwordCustomUserFields.allSatisfy { 1...48 ~= $0.label.count && 1...320 ~= $0.value.count }
+    }
+    
     func generatePassword() {
         guard let session = SessionController.default.session else {
             showErrorAlert = true

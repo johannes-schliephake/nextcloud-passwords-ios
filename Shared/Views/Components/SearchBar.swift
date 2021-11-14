@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-struct SearchBar: UIViewControllerRepresentable {
+private struct SearchBar: UIViewControllerRepresentable {
     
     @Binding var searchTerm: String
     
@@ -69,14 +69,17 @@ extension SearchBar {
         
         var searchController: UISearchController? {
             willSet {
-                if newValue == nil {
+                if newValue == nil,
+                   parent?.navigationItem.searchController == searchController {
                     parent?.navigationItem.searchController = nil
                 }
             }
             didSet {
                 DispatchQueue.main.async {
                     [self] in
-                    parent?.navigationItem.searchController = searchController
+                    if searchController != nil {
+                        parent?.navigationItem.searchController = searchController
+                    }
                 }
             }
         }
@@ -88,9 +91,11 @@ extension SearchBar {
 
 extension View {
     
-    @ViewBuilder func searchBar(term: Binding<String>) -> some View {
-        overlay(SearchBar(searchTerm: term)
-                    .frame(width: 0, height: 0))
+    func searchBar(term: Binding<String>) -> some View {
+        overlay(
+            SearchBar(searchTerm: term)
+                .frame(width: 0, height: 0)
+        )
     }
     
 }

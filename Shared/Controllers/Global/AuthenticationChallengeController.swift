@@ -94,7 +94,7 @@ extension AuthenticationChallengeController {
         let accept: () -> Void
         let deny: () -> Void
         
-        static func == (lhs: CertificateConfirmationRequest, rhs: CertificateConfirmationRequest) -> Bool {
+        static func == (lhs: Self, rhs: Self) -> Bool {
             lhs.id == rhs.id
         }
         

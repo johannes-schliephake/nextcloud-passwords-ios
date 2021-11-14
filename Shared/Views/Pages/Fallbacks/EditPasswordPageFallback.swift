@@ -17,6 +17,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     @State private var showPasswordGenerator: Bool
     @State private var editMode = false
     @State private var showSelectFolderView = false
+    @State private var showCancelAlert = false
     
     init(password: Password, folders: [Folder], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
         _editPasswordController = StateObject(wrappedValue: EditPasswordController(password: password, folders: folders, addPassword: addPassword, updatePassword: updatePassword))
@@ -47,6 +48,15 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 if #available(iOS 15, *) {
                     view
                         // .initialize(focus: $focusedField, with: editPasswordController.password.id.isEmpty ? .passwordLabel : nil)
+                        .interactiveDismissDisabled(editPasswordController.hasChanges)
+                }
+                else {
+                    view
+                        .actionSheet(isPresented: $showCancelAlert) {
+                            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                                presentationMode.wrappedValue.dismiss()
+                            }])
+                        }
                 }
             }
             .onAppear {
@@ -320,12 +330,17 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     @ViewBuilder private func cancelButton() -> some View {
         if #available(iOS 15.0, *) {
             Button("_cancel", role: .cancel) {
-                presentationMode.wrappedValue.dismiss()
+                cancelAndDismiss()
+            }
+            .actionSheet(isPresented: $showCancelAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                    presentationMode.wrappedValue.dismiss()
+                }])
             }
         }
         else {
             Button("_cancel") {
-                presentationMode.wrappedValue.dismiss()
+                cancelAndDismiss()
             }
         }
     }
@@ -334,16 +349,23 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
         Button(editPasswordController.password.id.isEmpty ? "_create" : "_done") {
             applyAndDismiss()
         }
-        .disabled(editPasswordController.passwordPassword.isEmpty || editPasswordController.passwordLabel.isEmpty || editPasswordController.passwordCustomUserFields.count + editPasswordController.passwordCustomDataFields.count > 20 || editPasswordController.passwordCustomUserFields.map { $0.label.isEmpty || $0.label.count > 48 || $0.value.isEmpty || $0.value.count > 320 }.contains(true))
+        .disabled(!editPasswordController.editIsValid)
     }
     
     // MARK: Functions
     
-    private func applyAndDismiss() {
-        guard !(editPasswordController.passwordPassword.isEmpty || editPasswordController.passwordLabel.isEmpty || editPasswordController.passwordCustomUserFields.count + editPasswordController.passwordCustomDataFields.count > 20 || editPasswordController.passwordCustomUserFields.map { $0.label.isEmpty || $0.label.count > 48 || $0.value.isEmpty || $0.value.count > 320 }.contains(true)) else {
-            return
+    private func cancelAndDismiss() {
+        if editPasswordController.hasChanges {
+            showCancelAlert = true
         }
-        guard editPasswordController.password.state?.isProcessing != true else {
+        else {
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+    
+    private func applyAndDismiss() {
+        guard editPasswordController.editIsValid,
+              editPasswordController.password.state?.isProcessing != true else {
             return
         }
         editPasswordController.applyToPassword()

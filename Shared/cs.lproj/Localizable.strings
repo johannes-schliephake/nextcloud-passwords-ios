@@ -30,6 +30,7 @@
 "_deleteFolderErrorMessage" = "Při mazání složky došlo k chybě. Smažte ji znovu.";
 "_deletePassword" = "Smazat heslo";
 "_deletePasswordErrorMessage" = "Při mazání hesla doško k chybě. Smažte ho znovu.";
+"_discardChanges" = "Zahodit změny";
 "_dismiss" = "Zahodit";
 "_done" = "Hotovo";
 "_e2ePassword" = "E2E heslo";
@@ -66,6 +67,7 @@
 "_notes" = "Poznámky";
 "_nothingToSeeHere" = "Tady není nic k vidění…";
 "_numbers" = "Číslice";
+"_offline" = "Nepřipojeno k serveru";
 "_openUrl" = "Otevřít URL";
 "_options" = "Předvolby";
 "_password" = "Heslo";
@@ -102,6 +104,7 @@
 "_tipFailedMessage" = "Došlo k chybě při zpracovávání vašeho příspěvku.";
 "_tipReceived" = "Příspěvek obdržen";
 "_tipReceivedMessage" = "Děkujeme za podporu tohoto projektu vaším příspěvkem!";
+"_tryAgain" = "Zkusit znovu";
 "_unlockApp" = "Odemknout aplikaci";
 "_updated" = "Aktualizováno";
 "_url" = "URL adresa";

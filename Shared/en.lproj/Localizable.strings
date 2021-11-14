@@ -11,7 +11,7 @@
 "_clientSide" = "Client Side"; // Possible value for "Encryption" field on password detail page, other key is "_serverSide"
 "_confirmAction" = "Confirm Action"; // E.g. confirm deletion or confirm log out
 "_connect" = "Connect"; // I.e. connect to server
-"_connectToServer" = "Connect To Server";
+"_connectToServer" = "Connect to Server";
 "_copyPassword" = "Copy Password";
 "_copyUsername" = "Copy Username";
 "_create" = "Create"; // I.e. create folder or password
@@ -30,6 +30,7 @@
 "_deleteFolderErrorMessage" = "An error occurred while deleting the folder. Please delete the folder again.";
 "_deletePassword" = "Delete Password";
 "_deletePasswordErrorMessage" = "An error occurred while deleting the password. Please delete the password again.";
+"_discardChanges" = "Discard Changes";
 "_dismiss" = "Dismiss"; // Use the same wording Apple uses across iOS
 "_done" = "Done"; // Use the same wording Apple uses across iOS
 "_e2ePassword" = "E2E Password"; // I.e. end-to-end password
@@ -47,7 +48,7 @@
 "_folder" = "Folder";
 "_folders" = "Folders";
 "_generatePassword" = "Generate Password";
-"_giveATip" = "Give A Tip"; // This is the label for starting an In-App purchase
+"_giveATip" = "Give a Tip"; // This is the label for starting an In-App purchase
 "_highFive" = "High Five! 👏"; // Keep this in English
 "_incorrectPassword" = "Incorrect Password";
 "_incorrectPasswordMessage" = "Please try again.";
@@ -66,6 +67,7 @@
 "_notes" = "Notes"; // This refers to the noun ("the notes")
 "_nothingToSeeHere" = "Nothing to see here ..."; // Shown in empty lists
 "_numbers" = "Numbers"; // This is a label for a password generator toggle
+"_offline" = "Offline"; // I.e. the app has no connection to the server and is offline
 "_openUrl" = "Open URL";
 "_options" = "Options"; // I.e. settings options
 "_password" = "Password";
@@ -102,6 +104,7 @@
 "_tipFailedMessage" = "An error occurred while processing your tip.";
 "_tipReceived" = "Tip Received";
 "_tipReceivedMessage" = "Thank you for supporting this project with your tip!";
+"_tryAgain" = "Try Again"; // I.e. try again to load the data
 "_unlockApp" = "Unlock App"; // Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/Info.plist and Provider/Info.plist
 "_updated" = "Updated"; // I.e. date when a password was last updated
 "_url" = "URL";

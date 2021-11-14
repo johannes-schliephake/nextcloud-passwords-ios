@@ -63,15 +63,9 @@ struct LabeledRow: View {
     private func emailStack() -> some View {
         HStack {
             mainStack()
-            if let url = URL(string: "mailto:\(value)"),
-               let canOpenURL = UIApplication.safeCanOpenURL,
-               canOpenURL(url),
-               let open = UIApplication.safeOpen {
+            if let url = URL(string: "mailto:\(value)") {
                 Spacer()
-                Button {
-                    open(url)
-                }
-                label: {
+                Link(destination: url) {
                     Image(systemName: Password.CustomField.CustomFieldType.email.systemName)
                 }
                 .buttonStyle(.borderless)
@@ -82,15 +76,9 @@ struct LabeledRow: View {
     private func urlStack() -> some View {
         HStack {
             mainStack()
-            if let url = URL(string: value),
-               let canOpenURL = UIApplication.safeCanOpenURL,
-               canOpenURL(url),
-               let open = UIApplication.safeOpen {
+            if let url = URL(string: value) {
                 Spacer()
-                Button {
-                    open(url)
-                }
-                label: {
+                Link(destination: url) {
                     Image(systemName: Password.CustomField.CustomFieldType.url.systemName)
                 }
                 .buttonStyle(.borderless)
@@ -102,15 +90,9 @@ struct LabeledRow: View {
         HStack {
             mainStack()
             if let session = SessionController.default.session,
-               let url = session.generateFileLink(for: value),
-               let canOpenURL = UIApplication.safeCanOpenURL,
-               canOpenURL(url),
-               let open = UIApplication.safeOpen {
+               let url = session.generateFileLink(for: value) {
                 Spacer()
-                Button {
-                    open(url)
-                }
-                label: {
+                Link(destination: url) {
                     Image(systemName: Password.CustomField.CustomFieldType.file.systemName)
                 }
                 .buttonStyle(.borderless)
