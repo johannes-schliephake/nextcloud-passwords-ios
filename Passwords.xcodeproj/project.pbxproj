@@ -197,6 +197,18 @@
 		DDAE4A9127087E1D00088DD5 /* RefreshGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */; };
 		DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
 		DDC98D0E26AFEE1E006058B6 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
+		DDCE125627411B09003912D0 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125527411B09003912D0 /* Tag.swift */; };
+		DDCE125727411B09003912D0 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125527411B09003912D0 /* Tag.swift */; };
+		DDCE125927413FF6003912D0 /* CreateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125827413FF6003912D0 /* CreateTagRequest.swift */; };
+		DDCE125A27413FF6003912D0 /* CreateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125827413FF6003912D0 /* CreateTagRequest.swift */; };
+		DDCE125C2741404C003912D0 /* DeleteTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125B2741404C003912D0 /* DeleteTagRequest.swift */; };
+		DDCE125D2741404C003912D0 /* DeleteTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125B2741404C003912D0 /* DeleteTagRequest.swift */; };
+		DDCE125F2741408D003912D0 /* ListTagsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125E2741408D003912D0 /* ListTagsRequest.swift */; };
+		DDCE12602741408D003912D0 /* ListTagsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125E2741408D003912D0 /* ListTagsRequest.swift */; };
+		DDCE1262274140A9003912D0 /* ShowTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE1261274140A9003912D0 /* ShowTagRequest.swift */; };
+		DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE1261274140A9003912D0 /* ShowTagRequest.swift */; };
+		DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
+		DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
 		DDE48F5926FC70AF0082E96D /* EntriesPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */; };
 		DDE48F5A26FC70AF0082E96D /* EntriesPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */; };
 		DDE48F5C26FC79AF0082E96D /* EditFolderPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */; };
@@ -480,6 +492,12 @@
 		DDBD6EA22702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA32702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderController.swift; sourceTree = "<group>"; };
+		DDCE125527411B09003912D0 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		DDCE125827413FF6003912D0 /* CreateTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTagRequest.swift; sourceTree = "<group>"; };
+		DDCE125B2741404C003912D0 /* DeleteTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTagRequest.swift; sourceTree = "<group>"; };
+		DDCE125E2741408D003912D0 /* ListTagsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTagsRequest.swift; sourceTree = "<group>"; };
+		DDCE1261274140A9003912D0 /* ShowTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagRequest.swift; sourceTree = "<group>"; };
+		DDCE126427414101003912D0 /* UpdateTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTagRequest.swift; sourceTree = "<group>"; };
 		DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesPageFallback.swift; sourceTree = "<group>"; };
 		DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderPageFallback.swift; sourceTree = "<group>"; };
 		DDE48F5E26FC79CA0082E96D /* EditPasswordPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordPageFallback.swift; sourceTree = "<group>"; };
@@ -661,6 +679,7 @@
 				8F854E6B26239457008885C3 /* OfflineContainer.swift */,
 				8F57A5B92562699A00BC1CA0 /* Password.swift */,
 				8F513A5E2560624F001C6EF9 /* Session.swift */,
+				DDCE125527411B09003912D0 /* Tag.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -671,19 +690,24 @@
 				8F71A8242607634E00863C27 /* CloseSessionRequest.swift */,
 				8F997F9C2572ED7800B5F784 /* CreateFolderRequest.swift */,
 				8F51428A2573BEFA00DD96C0 /* CreatePasswordRequest.swift */,
+				DDCE125827413FF6003912D0 /* CreateTagRequest.swift */,
 				8F55F71525727CB600E00B28 /* DeleteFolderRequest.swift */,
 				8F55564925716BD200F5D805 /* DeletePasswordRequest.swift */,
+				DDCE125B2741404C003912D0 /* DeleteTagRequest.swift */,
 				8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */,
 				8F71A821260762DC00863C27 /* KeepaliveSessionRequest.swift */,
 				8F570BFA25693F5C00BA4B74 /* ListFoldersRequest.swift */,
 				8F57A5B5256267BF00BC1CA0 /* ListPasswordsRequest.swift */,
+				DDCE125E2741408D003912D0 /* ListTagsRequest.swift */,
 				8F10C6502602C4AB00FA5B1D /* OpenSessionRequest.swift */,
 				8F997FAA2573043400B5F784 /* PasswordServiceRequest.swift */,
 				8F79AE0B260287DE00308A33 /* RequestSessionRequest.swift */,
 				8F68D74126495BD100FF192C /* ShowFolderRequest.swift */,
 				8F68D73E26495AE200FF192C /* ShowPasswordRequest.swift */,
+				DDCE1261274140A9003912D0 /* ShowTagRequest.swift */,
 				8F553383257A47D0003987E6 /* UpdateFolderRequest.swift */,
 				8F997F8C2572C2FB00B5F784 /* UpdatePasswordRequest.swift */,
+				DDCE126427414101003912D0 /* UpdateTagRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1230,6 +1254,7 @@
 				8F59F525256B1EFB00D9FE40 /* ServerSetupController.swift in Sources */,
 				DD9FAD5826A3793A00770FEA /* SelectFolderNavigation.swift in Sources */,
 				8F997F9D2572ED7800B5F784 /* CreateFolderRequest.swift in Sources */,
+				DDCE125627411B09003912D0 /* Tag.swift in Sources */,
 				DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */,
 				8F561EBE258D26CC008AE12B /* NCPasswordsRequest.swift in Sources */,
 				8F559A1D25A0AE3E00D7A39F /* EditPasswordNavigation.swift in Sources */,
@@ -1238,6 +1263,7 @@
 				8F118755253C9EE10019FECA /* EntriesPage.swift in Sources */,
 				8F77DA5D25699F8900CFDA8D /* CopyToast.swift in Sources */,
 				8F513A63256064E9001C6EF9 /* ServerSetupPage.swift in Sources */,
+				DDCE125927413FF6003912D0 /* CreateTagRequest.swift in Sources */,
 				8F560E69258F54A900C896EE /* View+Occlude.swift in Sources */,
 				8F55564A25716BD200F5D805 /* DeletePasswordRequest.swift in Sources */,
 				8FBE43B9258D599E003F7F34 /* Date+FormattedString.swift in Sources */,
@@ -1250,6 +1276,7 @@
 				8F997FAB2573043400B5F784 /* PasswordServiceRequest.swift in Sources */,
 				8F118753253C9EE10019FECA /* PasswordsApp.swift in Sources */,
 				8FBC049C268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
+				DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				8FA5B74C261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				8F997F8D2572C2FB00B5F784 /* UpdatePasswordRequest.swift in Sources */,
 				8F52EFC925B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
@@ -1259,6 +1286,7 @@
 				8F703BFC26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				DDE48F5C26FC79AF0082E96D /* EditFolderPageFallback.swift in Sources */,
 				8F5C1A84257D7D5F009FF66F /* BiometricAuthenticationController.swift in Sources */,
+				DDCE1262274140A9003912D0 /* ShowTagRequest.swift in Sources */,
 				8F63617C25A741A400C832C9 /* PreviewDevice+Generate.swift in Sources */,
 				8FBE43BF258D59E0003F7F34 /* Label+ShowIcon.swift in Sources */,
 				8F51428F2573F91800DD96C0 /* EditPasswordController.swift in Sources */,
@@ -1269,9 +1297,11 @@
 				8F10C6512602C4AB00FA5B1D /* OpenSessionRequest.swift in Sources */,
 				8F553384257A47D0003987E6 /* UpdateFolderRequest.swift in Sources */,
 				8FBE43C5258D5A09003F7F34 /* String+Localized.swift in Sources */,
+				DDCE125C2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
 				8F55F71625727CB600E00B28 /* DeleteFolderRequest.swift in Sources */,
 				8F582BFE255EAD7000F1E3DA /* Keychain.swift in Sources */,
 				8F5637C62562C57800A0BF9D /* FaviconServiceRequest.swift in Sources */,
+				DDCE125F2741408D003912D0 /* ListTagsRequest.swift in Sources */,
 				8F57A5B6256267BF00BC1CA0 /* ListPasswordsRequest.swift in Sources */,
 				8F59F521256AE65800D9FE40 /* ActionButtonStyle.swift in Sources */,
 				DDAE4A9027087E1D00088DD5 /* RefreshGesture.swift in Sources */,
@@ -1338,6 +1368,7 @@
 				8FC361C225827E5200785371 /* EditPasswordController.swift in Sources */,
 				DD9FAD5926A3793A00770FEA /* SelectFolderNavigation.swift in Sources */,
 				8FC361B425827E4C00785371 /* EditPasswordPage.swift in Sources */,
+				DDCE125727411B09003912D0 /* Tag.swift in Sources */,
 				DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */,
 				8F561EC3258D2759008AE12B /* NCPasswordsRequest.swift in Sources */,
 				8F559A1E25A0AE3E00D7A39F /* EditPasswordNavigation.swift in Sources */,
@@ -1346,6 +1377,7 @@
 				8FBE43D3258D5A8C003F7F34 /* String+Localized.swift in Sources */,
 				8FC361BB25827E4C00785371 /* SearchBar.swift in Sources */,
 				8FC361B725827E4C00785371 /* PasswordDetailPage.swift in Sources */,
+				DDCE125A27413FF6003912D0 /* CreateTagRequest.swift in Sources */,
 				8F560E6C258F5AD400C896EE /* View+Occlude.swift in Sources */,
 				8FC361B525827E4C00785371 /* SettingsPage.swift in Sources */,
 				8FC361D325827E5D00785371 /* DeletePasswordRequest.swift in Sources */,
@@ -1358,6 +1390,7 @@
 				8FC361D425827E5D00785371 /* CreatePasswordRequest.swift in Sources */,
 				8FC361D025827E5D00785371 /* UpdatePasswordRequest.swift in Sources */,
 				8FBC049D268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
+				DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				8FA5B74D261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				8FBE43D2258D5A8C003F7F34 /* UIApplication+IsExtension.swift in Sources */,
 				8F52EFCA25B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
@@ -1367,6 +1400,7 @@
 				8F703BFD26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				DDE48F5D26FC79AF0082E96D /* EditFolderPageFallback.swift in Sources */,
 				8FC361F0258284F500785371 /* ProviderViewController.swift in Sources */,
+				DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */,
 				8F63618225A7438700C832C9 /* PreviewDevice+Generate.swift in Sources */,
 				8FC361CC25827E5D00785371 /* FaviconServiceRequest.swift in Sources */,
 				8FC361C125827E5200785371 /* EditFolderController.swift in Sources */,
@@ -1377,9 +1411,11 @@
 				8F10C6522602C4AB00FA5B1D /* OpenSessionRequest.swift in Sources */,
 				8FC361B325827E4C00785371 /* LoginFlowPage.swift in Sources */,
 				8FC361BA25827E4C00785371 /* ActionButtonStyle.swift in Sources */,
+				DDCE125D2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
 				8FC361BE25827E5200785371 /* SessionController.swift in Sources */,
 				8FBE43D5258D5A8C003F7F34 /* Label+ShowIcon.swift in Sources */,
 				8FC361B025827D3400785371 /* EntriesPage.swift in Sources */,
+				DDCE12602741408D003912D0 /* ListTagsRequest.swift in Sources */,
 				8F55D99F2582D0DE00CE4FC2 /* AutoFillController.swift in Sources */,
 				8FC361DA25827E6100785371 /* Keychain.swift in Sources */,
 				DDAE4A9127087E1D00088DD5 /* RefreshGesture.swift in Sources */,
