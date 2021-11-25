@@ -183,6 +183,18 @@
 		8FCBF8BD25AE152500F75B33 /* ScreenshotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8BC25AE152500F75B33 /* ScreenshotGenerator.swift */; };
 		8FCBF8D925AE160B00F75B33 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8D725AE15E900F75B33 /* SnapshotHelper.swift */; };
 		8FE5BCFC258370E7007993F5 /* ProviderView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE5BCFA258370E7007993F5 /* ProviderView.storyboard */; };
+		DD0E59A6274143D9003D7D50 /* EditTagNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */; };
+		DD0E59A7274143D9003D7D50 /* EditTagNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */; };
+		DD0E59A9274146C8003D7D50 /* EditTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A8274146C8003D7D50 /* EditTagPage.swift */; };
+		DD0E59AA274146C8003D7D50 /* EditTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A8274146C8003D7D50 /* EditTagPage.swift */; };
+		DD0E59AC274147CC003D7D50 /* EditTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59AB274147CC003D7D50 /* EditTagController.swift */; };
+		DD0E59AD274147CC003D7D50 /* EditTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59AB274147CC003D7D50 /* EditTagController.swift */; };
+		DD0E59AF27414873003D7D50 /* EditTagPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59AE27414873003D7D50 /* EditTagPageFallback.swift */; };
+		DD0E59B027414873003D7D50 /* EditTagPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59AE27414873003D7D50 /* EditTagPageFallback.swift */; };
+		DD0E59B227414AFE003D7D50 /* Color+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B127414AFE003D7D50 /* Color+Init.swift */; };
+		DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B127414AFE003D7D50 /* Color+Init.swift */; };
+		DD0E59B527414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
+		DD0E59B627414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
 		DD4A9E89269F84B9007268E2 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
 		DD4A9E8A269F84B9007268E2 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
 		DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
@@ -195,6 +207,8 @@
 		DDA4FE7726E755C000D6F92E /* View+Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* View+Initialize.swift */; };
 		DDAE4A9027087E1D00088DD5 /* RefreshGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */; };
 		DDAE4A9127087E1D00088DD5 /* RefreshGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */; };
+		DDAF00D12747969900539DA7 /* Color+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAF00D02747969900539DA7 /* Color+Random.swift */; };
+		DDAF00D22747969900539DA7 /* Color+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAF00D02747969900539DA7 /* Color+Random.swift */; };
 		DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
 		DDC98D0E26AFEE1E006058B6 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
 		DDCE125627411B09003912D0 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125527411B09003912D0 /* Tag.swift */; };
@@ -377,6 +391,12 @@
 		9F5B819C26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819D26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819E26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagNavigation.swift; sourceTree = "<group>"; };
+		DD0E59A8274146C8003D7D50 /* EditTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagPage.swift; sourceTree = "<group>"; };
+		DD0E59AB274147CC003D7D50 /* EditTagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagController.swift; sourceTree = "<group>"; };
+		DD0E59AE27414873003D7D50 /* EditTagPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagPageFallback.swift; sourceTree = "<group>"; };
+		DD0E59B127414AFE003D7D50 /* Color+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Init.swift"; sourceTree = "<group>"; };
+		DD0E59B427414EB5003D7D50 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		DD4A44C726FBCCCF00CEFF43 /* iPhone 8 Plus-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 8 Plus-3.png"; sourceTree = "<group>"; };
 		DD4A44C826FBCCCF00CEFF43 /* iPad Pro (12.9-inch) (2nd generation)-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Pro (12.9-inch) (2nd generation)-1.png"; sourceTree = "<group>"; };
 		DD4A44C926FBCCCF00CEFF43 /* iPhone 8 Plus-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 8 Plus-2.png"; sourceTree = "<group>"; };
@@ -488,6 +508,7 @@
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
 		DDA4FE7526E755C000D6F92E /* View+Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Initialize.swift"; sourceTree = "<group>"; };
 		DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshGesture.swift; sourceTree = "<group>"; };
+		DDAF00D02747969900539DA7 /* Color+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Random.swift"; sourceTree = "<group>"; };
 		DDBD6EA12702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA22702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA32702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -606,10 +627,11 @@
 				DDE48F5726FC707A0082E96D /* Fallbacks */,
 				8F997F942572C79900B5F784 /* EditFolderPage.swift */,
 				8F997FA4257300A600B5F784 /* EditPasswordPage.swift */,
+				DD0E59A8274146C8003D7D50 /* EditTagPage.swift */,
 				8F118754253C9EE10019FECA /* EntriesPage.swift */,
 				8F582BF9255EA63D00F1E3DA /* LoginFlowPage.swift */,
-				DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */,
 				8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */,
+				DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */,
 				8F513A62256064E9001C6EF9 /* ServerSetupPage.swift */,
 				8F57B425256C0DD600329B05 /* SettingsPage.swift */,
 			);
@@ -621,6 +643,7 @@
 			children = (
 				8F559A1725A0AE3300D7A39F /* EditFolderNavigation.swift */,
 				8F559A1C25A0AE3E00D7A39F /* EditPasswordNavigation.swift */,
+				DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */,
 				8FC361FB25828AE600785371 /* EntriesNavigation.swift */,
 				DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */,
 				8F559A0D25A0AE1C00D7A39F /* ServerSetupNavigation.swift */,
@@ -751,6 +774,7 @@
 			children = (
 				8F997FA02572F40D00B5F784 /* EditFolderController.swift */,
 				8F51428E2573F91800DD96C0 /* EditPasswordController.swift */,
+				DD0E59AB274147CC003D7D50 /* EditTagController.swift */,
 				8F77DA6225699FB300CFDA8D /* EntriesController.swift */,
 				8F781F51267CC8B400BD3DC1 /* FolderController.swift */,
 				8FBC049B268B9DD1006D4CB7 /* LoginFlowNavigationController.swift */,
@@ -775,6 +799,9 @@
 				8F703BFB26245C6100CC7018 /* Array+Zip.swift */,
 				8F7237992651468700832A88 /* Collection+Avg.swift */,
 				8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */,
+				DD0E59B427414EB5003D7D50 /* Color+Hex.swift */,
+				DD0E59B127414AFE003D7D50 /* Color+Init.swift */,
+				DDAF00D02747969900539DA7 /* Color+Random.swift */,
 				8F7237962651466000832A88 /* Comparable+Clamped.swift */,
 				8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */,
 				8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */,
@@ -952,6 +979,7 @@
 				DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */,
 				DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */,
 				DDE48F5E26FC79CA0082E96D /* EditPasswordPageFallback.swift */,
+				DD0E59AE27414873003D7D50 /* EditTagPageFallback.swift */,
 				DDE48F6126FC79D60082E96D /* ServerSetupPageFallback.swift */,
 			);
 			path = Fallbacks;
@@ -1216,12 +1244,14 @@
 				8F7237972651466000832A88 /* Comparable+Clamped.swift in Sources */,
 				8F55B2D4256DBF530011C92D /* Entry.swift in Sources */,
 				8FC361FC25828AE600785371 /* EntriesNavigation.swift in Sources */,
+				DD0E59B527414EB5003D7D50 /* Color+Hex.swift in Sources */,
 				8F5E120825D3CC33007A2166 /* Configuration.swift in Sources */,
 				8FB645F225D6949900A0F316 /* UIPasteboard+PrivateString.swift in Sources */,
 				8F570BFB25693F5C00BA4B74 /* ListFoldersRequest.swift in Sources */,
 				8F51428B2573BEFA00DD96C0 /* CreatePasswordRequest.swift in Sources */,
 				8FBAC9D0264A7B050038A626 /* String+Score.swift in Sources */,
 				8F57A5BA2562699A00BC1CA0 /* Password.swift in Sources */,
+				DD0E59A9274146C8003D7D50 /* EditTagPage.swift in Sources */,
 				8F5A8440259A4FA700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
 				8F59888925799C3200843696 /* SearchBar.swift in Sources */,
 				8F68D73F26495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
@@ -1260,6 +1290,7 @@
 				8F559A1D25A0AE3E00D7A39F /* EditPasswordNavigation.swift in Sources */,
 				8F6ED3BA2663841D00DD61DE /* URL+Score.swift in Sources */,
 				DDA4FE7626E755C000D6F92E /* View+Initialize.swift in Sources */,
+				DDAF00D12747969900539DA7 /* Color+Random.swift in Sources */,
 				8F118755253C9EE10019FECA /* EntriesPage.swift in Sources */,
 				8F77DA5D25699F8900CFDA8D /* CopyToast.swift in Sources */,
 				8F513A63256064E9001C6EF9 /* ServerSetupPage.swift in Sources */,
@@ -1286,11 +1317,14 @@
 				8F703BFC26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				DDE48F5C26FC79AF0082E96D /* EditFolderPageFallback.swift in Sources */,
 				8F5C1A84257D7D5F009FF66F /* BiometricAuthenticationController.swift in Sources */,
+				DD0E59AC274147CC003D7D50 /* EditTagController.swift in Sources */,
 				DDCE1262274140A9003912D0 /* ShowTagRequest.swift in Sources */,
 				8F63617C25A741A400C832C9 /* PreviewDevice+Generate.swift in Sources */,
 				8FBE43BF258D59E0003F7F34 /* Label+ShowIcon.swift in Sources */,
+				DD0E59A6274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
 				8F51428F2573F91800DD96C0 /* EditPasswordController.swift in Sources */,
 				8F52F3DB259379F500B4EFCE /* SKProduct+LocalizedPrice.swift in Sources */,
+				DD0E59B227414AFE003D7D50 /* Color+Init.swift in Sources */,
 				8F55D99A2582D04200CE4FC2 /* AutoFillController.swift in Sources */,
 				DDED770526E2186D0037A18D /* View+Apply.swift in Sources */,
 				DDE48F5F26FC79CA0082E96D /* EditPasswordPageFallback.swift in Sources */,
@@ -1305,6 +1339,7 @@
 				8F57A5B6256267BF00BC1CA0 /* ListPasswordsRequest.swift in Sources */,
 				8F59F521256AE65800D9FE40 /* ActionButtonStyle.swift in Sources */,
 				DDAE4A9027087E1D00088DD5 /* RefreshGesture.swift in Sources */,
+				DD0E59AF27414873003D7D50 /* EditTagPageFallback.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1330,12 +1365,14 @@
 				8FC361CF25827E5D00785371 /* UpdateFolderRequest.swift in Sources */,
 				8FC361B825827E4C00785371 /* EditFolderPage.swift in Sources */,
 				8F5E120925D3CC33007A2166 /* Configuration.swift in Sources */,
+				DD0E59B627414EB5003D7D50 /* Color+Hex.swift in Sources */,
 				8FB645F325D6949900A0F316 /* UIPasteboard+PrivateString.swift in Sources */,
 				8FBE43D4258D5A8C003F7F34 /* Date+FormattedString.swift in Sources */,
 				8FC361B625827E4C00785371 /* CopyToast.swift in Sources */,
 				8FC361C025827E5200785371 /* EntriesController.swift in Sources */,
 				8FBAC9D1264A7B050038A626 /* String+Score.swift in Sources */,
 				8F5A8445259A501700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
+				DD0E59AA274146C8003D7D50 /* EditTagPage.swift in Sources */,
 				8FC361D525827E5D00785371 /* PasswordServiceRequest.swift in Sources */,
 				8FC361C825827E5500785371 /* Password.swift in Sources */,
 				8F68D74026495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
@@ -1374,6 +1411,7 @@
 				8F559A1E25A0AE3E00D7A39F /* EditPasswordNavigation.swift in Sources */,
 				8F6ED3BB2663841D00DD61DE /* URL+Score.swift in Sources */,
 				DDA4FE7726E755C000D6F92E /* View+Initialize.swift in Sources */,
+				DDAF00D22747969900539DA7 /* Color+Random.swift in Sources */,
 				8FBE43D3258D5A8C003F7F34 /* String+Localized.swift in Sources */,
 				8FC361BB25827E4C00785371 /* SearchBar.swift in Sources */,
 				8FC361B725827E4C00785371 /* PasswordDetailPage.swift in Sources */,
@@ -1400,11 +1438,14 @@
 				8F703BFD26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				DDE48F5D26FC79AF0082E96D /* EditFolderPageFallback.swift in Sources */,
 				8FC361F0258284F500785371 /* ProviderViewController.swift in Sources */,
+				DD0E59AD274147CC003D7D50 /* EditTagController.swift in Sources */,
 				DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */,
 				8F63618225A7438700C832C9 /* PreviewDevice+Generate.swift in Sources */,
 				8FC361CC25827E5D00785371 /* FaviconServiceRequest.swift in Sources */,
+				DD0E59A7274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
 				8FC361C125827E5200785371 /* EditFolderController.swift in Sources */,
 				8F52F3DE25937A2E00B4EFCE /* SKProduct+LocalizedPrice.swift in Sources */,
+				DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */,
 				8FC361FF25828B0500785371 /* EntriesNavigation.swift in Sources */,
 				DDED770626E2186D0037A18D /* View+Apply.swift in Sources */,
 				DDE48F6026FC79CA0082E96D /* EditPasswordPageFallback.swift in Sources */,
@@ -1419,6 +1460,7 @@
 				8F55D99F2582D0DE00CE4FC2 /* AutoFillController.swift in Sources */,
 				8FC361DA25827E6100785371 /* Keychain.swift in Sources */,
 				DDAE4A9127087E1D00088DD5 /* RefreshGesture.swift in Sources */,
+				DD0E59B027414873003D7D50 /* EditTagPageFallback.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

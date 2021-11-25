@@ -20,12 +20,13 @@ struct EntriesPage: View {
     @State private var showStorePasswordMessage = false
     @State private var sheetItem: SheetItem?
     @State private var actionSheetItem: ActionSheetItem?
-    @State private var showErrorAlert = false
+    @State private var showFolderErrorAlert = false
+    @State private var showTagErrorAlert = false
     @State private var showOfflineText = false
     
-    init(entriesController: EntriesController, folder: Folder? = nil) {
+    init(entriesController: EntriesController, folder: Folder? = nil, tag: Tag? = nil) {
         self.entriesController = entriesController
-        _folderController = StateObject(wrappedValue: FolderController(entriesController: entriesController, folder: folder))
+        _folderController = StateObject(wrappedValue: FolderController(entriesController: entriesController, folder: folder, tag: tag))
     }
     
     // MARK: Views
@@ -53,7 +54,7 @@ struct EntriesPage: View {
                     }
                 }
             }
-            .navigationTitle(folderController.folder.label)
+            .navigationTitle(folderController.tag?.label ?? folderController.folder.label)
             .onAppear {
                 folderController.autoFillController = autoFillController
             }
@@ -224,7 +225,7 @@ struct EntriesPage: View {
         VStack {
             if let suggestions = folderController.suggestions,
                folderController.searchTerm.isEmpty,
-               suggestions.isEmpty || folderController.folder.isBaseFolder {
+               suggestions.isEmpty || folderController.folder.isBaseFolder && folderController.tag == nil {
                 List {
                     Section(header: Text("_suggestions")) {
                         if !suggestions.isEmpty {
@@ -232,12 +233,12 @@ struct EntriesPage: View {
                         }
                         else {
                             Button(action: {
-                                sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)))
+                                sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
                             }, label: {
                                 Text("_createPassword")
                             })
-                                .buttonStyle(.action)
-                            .disabled(folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
+                            .buttonStyle(.action)
+                            .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
                         }
                     }
                     if !entries.isEmpty {
@@ -309,6 +310,16 @@ struct EntriesPage: View {
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
                 .environmentObject(tipController)
+            case .edit(.tag(let tag)):
+                EditTagNavigation(tag: tag, addTag: {
+                    entriesController.add(tag: tag)
+                }, updateTag: {
+                    entriesController.update(tag: tag)
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
             case .move(.folder(let folder)):
                 SelectFolderNavigation(entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), folders: folders, selectFolder: {
                     parent in
@@ -329,6 +340,8 @@ struct EntriesPage: View {
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
                 .environmentObject(tipController)
+            case .move(.tag):
+                EmptyView()
             }
         }
         .actionSheet(item: $actionSheetItem) {
@@ -341,6 +354,10 @@ struct EntriesPage: View {
             case .delete(.password(let password)):
                 return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
                     entriesController.delete(password: password)
+                }])
+            case .delete(.tag(let tag)):
+                return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteTag")) {
+                    entriesController.delete(tag: tag)
                 }])
             }
         }
@@ -391,6 +408,14 @@ struct EntriesPage: View {
                 })
                 .deleteDisabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 return AnyView(passwordRow)
+            case .tag(let tag):
+                let tagRow = TagRow(entriesController: entriesController, tag: tag, editTag: {
+                    sheetItem = .edit(entry: .tag(tag))
+                }, deleteTag: {
+                    actionSheetItem = .delete(entry: .tag(tag))
+                })
+                .deleteDisabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                return AnyView(tagRow)
             }
         }
         .onDelete { // when not #available(iOS 15.0, *)
@@ -401,7 +426,7 @@ struct EntriesPage: View {
     
     private func leadingToolbarView() -> some View {
         HStack {
-            if folderController.folder.isBaseFolder {
+            if folderController.folder.isBaseFolder && folderController.tag == nil {
                 if let cancel = autoFillController.cancel {
                     if #available(iOS 15.0, *) {
                         Button("_cancel", role: .cancel) {
@@ -427,7 +452,16 @@ struct EntriesPage: View {
         HStack {
             if let state = folderController.folder.state {
                 if state.isError {
-                    errorButton(state: state)
+                    folderErrorButton(state: state)
+                }
+                else if state.isProcessing {
+                    ProgressView()
+                }
+                Spacer()
+            }
+            else if let state = folderController.tag?.state {
+                if state.isError {
+                    tagErrorButton(state: state)
                 }
                 else if state.isProcessing {
                     ProgressView()
@@ -465,16 +499,16 @@ struct EntriesPage: View {
         .foregroundColor(Color(UIColor.systemGray3))
     }
     
-    private func errorButton(state: Entry.State) -> some View {
+    private func folderErrorButton(state: Entry.State) -> some View {
         Button {
-            showErrorAlert = true
+            showFolderErrorAlert = true
         }
         label: {
             Image(systemName: "exclamationmark.triangle.fill")
                 .foregroundColor(state == .deletionFailed ? .gray : .red)
         }
         .buttonStyle(.borderless)
-        .alert(isPresented: $showErrorAlert) {
+        .alert(isPresented: $showFolderErrorAlert) {
             switch state {
             case .creationFailed:
                 return Alert(title: Text("_error"), message: Text("_createFolderErrorMessage"))
@@ -490,6 +524,31 @@ struct EntriesPage: View {
         }
     }
     
+    private func tagErrorButton(state: Entry.State) -> some View {
+        Button {
+            showTagErrorAlert = true
+        }
+        label: {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundColor(state == .deletionFailed ? .gray : .red)
+        }
+        .buttonStyle(.borderless)
+        .alert(isPresented: $showTagErrorAlert) {
+            switch state {
+            case .creationFailed:
+                return Alert(title: Text("_error"), message: Text("_createTagErrorMessage"))
+            case .updateFailed:
+                return Alert(title: Text("_error"), message: Text("_editTagErrorMessage"))
+            case .deletionFailed:
+                return Alert(title: Text("_error"), message: Text("_deleteTagErrorMessage"))
+            case .decryptionFailed:
+                return Alert(title: Text("_error"), message: Text("_decryptTagErrorMessage"))
+            default:
+                return Alert(title: Text("_error"))
+            }
+        }
+    }
+    
     private func filterSortMenu() -> some View {
         Menu {
             Picker("", selection: $entriesController.filterBy) {
@@ -499,6 +558,8 @@ struct EntriesPage: View {
                     .tag(EntriesController.Filter.folders)
                 Label("_favorites", systemImage: "star")
                     .tag(EntriesController.Filter.favorites)
+                Label("_tags", systemImage: "tag")
+                    .tag(EntriesController.Filter.tags)
             }
             Picker("", selection: $entriesController.sortBy) {
                 Label("_name", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
@@ -531,14 +592,19 @@ struct EntriesPage: View {
     private func createMenu() -> some View {
         Menu {
             Button(action: {
-                sheetItem = .edit(entry: .folder(Folder(parent: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)))
+                sheetItem = .edit(entry: .folder(Folder(parent: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites)))
             }, label: {
                 Label("_createFolder", systemImage: "folder")
             })
             Button(action: {
-                sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && entriesController.filterBy == .favorites)))
+                sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
             }, label: {
                 Label("_createPassword", systemImage: "key")
+            })
+            Button(action: {
+                sheetItem = .edit(entry: .tag(Tag(color: Color.random().hex, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites)))
+            }, label: {
+                Label("_createTag", systemImage: "tag")
             })
         }
         label: {
@@ -547,7 +613,7 @@ struct EntriesPage: View {
                 Image(systemName: "plus")
             }
         }
-        .disabled(folderController.folder.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
+        .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
     }
     
     // MARK: Functions
@@ -564,13 +630,15 @@ struct EntriesPage: View {
             actionSheetItem = .delete(entry: .folder(folder))
         case .password(let password):
             actionSheetItem = .delete(entry: .password(password))
+        case .tag(let tag):
+            actionSheetItem = .delete(entry: .tag(tag))
         case .none:
             break
         }
     }
     
     private func didChange(filterBy: EntriesController.Filter) {
-        if !folderController.folder.isBaseFolder,
+        if !folderController.folder.isBaseFolder || folderController.tag != nil,
            filterBy != .folders {
             presentationMode.wrappedValue.dismiss()
         }
@@ -1102,6 +1170,182 @@ extension EntriesPage {
                 return
             }
             FaviconServiceRequest(session: session, domain: domain).send { favicon = $0 }
+        }
+        
+    }
+    
+}
+
+
+extension EntriesPage {
+    
+    struct TagRow: View {
+        
+        @ObservedObject var entriesController: EntriesController
+        @ObservedObject var tag: Tag
+        let editTag: () -> Void
+        let deleteTag: () -> Void
+        
+        @State private var showErrorAlert = false
+        
+        // MARK: Views
+        
+        var body: some View {
+            entriesPageLink()
+                .apply {
+                    view in
+                    if #available(iOS 15, *) {
+                        view
+                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                Button {
+                                    toggleFavorite()
+                                }
+                                label: {
+                                    Label("_favorite", systemImage: tag.favorite ? "star.slash.fill" : "star.fill")
+                                }
+                                .tint(.yellow)
+                                .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                                Button {
+                                    editTag()
+                                }
+                                label: {
+                                    Label("_edit", systemImage: "pencil")
+                                }
+                                .tint(.blue)
+                                .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    deleteTag()
+                                }
+                                label: {
+                                    Label("_delete", systemImage: "trash")
+                                }
+                                .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                            }
+                    }
+                }
+                .contextMenu {
+                    Button {
+                        editTag()
+                    }
+                    label: {
+                        Label("_edit", systemImage: "pencil")
+                    }
+                    .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                    Button {
+                        toggleFavorite()
+                    }
+                    label: {
+                        Label("_favorite", systemImage: tag.favorite ? "star.fill" : "star")
+                    }
+                    .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                    Divider()
+                    if #available(iOS 15.0, *) {
+                        Button(role: .destructive) {
+                            deleteTag()
+                        }
+                        label: {
+                            Label("_delete", systemImage: "trash")
+                        }
+                        .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                    }
+                    else {
+                        Button {
+                            deleteTag()
+                        }
+                        label: {
+                            Label("_delete", systemImage: "trash")
+                        }
+                        .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                    }
+                }
+        }
+        
+        private func entriesPageLink() -> some View {
+             NavigationLink(destination: EntriesPage(entriesController: entriesController, tag: tag)) {
+                mainStack()
+            }
+            .isDetailLink(false)
+        }
+        
+        private func mainStack() -> some View {
+            HStack {
+                tagImage()
+                labelText()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
+                HStack {
+                    if let state = tag.state {
+                        if state.isError {
+                            errorButton(state: state)
+                        }
+                        else if state.isProcessing {
+                            ProgressView()
+                            Spacer()
+                        }
+                    }
+                    if tag.favorite {
+                        favoriteImage()
+                    }
+                }
+                .fixedSize()
+            }
+        }
+        
+        private func tagImage() -> some View {
+            Image(systemName: "tag.fill")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .scaleEffect(0.85)
+                .frame(width: 40, height: 40)
+                .foregroundColor(Color(hex: tag.color))
+        }
+        
+        private func labelText() -> some View {
+            VStack(alignment: .leading) {
+                Text(tag.label)
+                    .lineLimit(1)
+            }
+        }
+        
+        private func errorButton(state: Entry.State) -> some View {
+            Button {
+                showErrorAlert = true
+            }
+            label: {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(state == .deletionFailed ? .gray : .red)
+            }
+            .buttonStyle(.borderless)
+            .alert(isPresented: $showErrorAlert) {
+                switch state {
+                case .creationFailed:
+                    return Alert(title: Text("_error"), message: Text("_createTagErrorMessage"))
+                case .updateFailed:
+                    return Alert(title: Text("_error"), message: Text("_editTagErrorMessage"))
+                case .deletionFailed:
+                    return Alert(title: Text("_error"), message: Text("_deleteTagErrorMessage"))
+                case .decryptionFailed:
+                    return Alert(title: Text("_error"), message: Text("_decryptTagErrorMessage"))
+                default:
+                    return Alert(title: Text("_error"))
+                }
+            }
+        }
+        
+        private func favoriteImage() -> some View {
+            Image(systemName: "star.fill")
+                .foregroundColor(.gray)
+        }
+        
+        // MARK: Functions
+        
+        private func toggleFavorite() {
+            tag.edited = Date()
+            tag.updated = Date()
+            tag.favorite.toggle()
+            entriesController.update(tag: tag)
         }
         
     }
