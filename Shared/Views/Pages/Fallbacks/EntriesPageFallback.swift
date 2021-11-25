@@ -1075,6 +1075,27 @@ extension EntriesPageFallback {
                             Spacer()
                         }
                     }
+                    if let tags = password.tags.compactMap { tagId in entriesController.tags?.first { $0.id == tagId } },
+                       !tags.isEmpty {
+                        HStack(spacing: -6) {
+                            ForEach(Array(tags.enumerated()), id: \.element.id) {
+                                index, tag in
+                                Circle()
+                                    .stroke(Color(UIColor.systemBackground), lineWidth: 2)
+                                    .background(
+                                        Circle()
+                                            .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
+                                            .background(
+                                                Circle()
+                                                    .fill(Color(hex: tag.color) ?? Color(UIColor.systemBackground))
+                                            )
+                                            .frame(width: 14, height: 14)
+                                    )
+                                    .zIndex(Double(tags.count - index))
+                                    .frame(width: 16, height: 16)
+                            }
+                        }
+                    }
                     if password.favorite {
                         favoriteImage()
                     }

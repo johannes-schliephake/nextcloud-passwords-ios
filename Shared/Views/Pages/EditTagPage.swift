@@ -106,7 +106,7 @@ struct EditTagPage: View {
                     .foregroundColor(.accentColor)
                 Spacer()
                 RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
+                    .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
                     .background(
                         RoundedRectangle(cornerRadius: 5)
                             .fill(editTagController.tagColor)
