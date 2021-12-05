@@ -1087,7 +1087,7 @@ extension EntriesPageFallback {
                                             .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
                                             .background(
                                                 Circle()
-                                                    .fill(Color(hex: tag.color) ?? Color(UIColor.systemBackground))
+                                                    .fill(Color(hex: tag.color) ?? .primary)
                                             )
                                             .frame(width: 14, height: 14)
                                     )
@@ -1284,7 +1284,7 @@ extension EntriesPageFallback {
         }
         
         private func entriesPageLink() -> some View {
-             NavigationLink(destination: EntriesPageFallback(entriesController: entriesController, tag: tag)) {
+            NavigationLink(destination: EntriesPageFallback(entriesController: entriesController, tag: tag)) {
                 mainStack()
             }
             .isDetailLink(false)
@@ -1315,12 +1315,33 @@ extension EntriesPageFallback {
         }
         
         private func tagImage() -> some View {
-            Image(systemName: "tag.fill")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .scaleEffect(0.85)
-                .frame(width: 40, height: 40)
-                .foregroundColor(Color(hex: tag.color))
+            ZStack {
+                ZStack(alignment: .topTrailing) {
+                    Image(systemName: "tag.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    Circle() /// Use a circle to hide the dot of the tag symbol because it is off center compared to the unfilled variant
+                        .frame(width: 20, height: 20)
+                        .padding(2)
+                }
+                .foregroundColor(Color(UIColor.secondarySystemBackground))
+                ZStack(alignment: .topTrailing) {
+                    Image(systemName: "tag.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    Circle()
+                        .frame(width: 20, height: 20)
+                        .padding(2)
+                }
+                .foregroundColor(Color(hex: tag.color) ?? .primary)
+                .compositingGroup()
+                .opacity(0.3)
+                Image(systemName: "tag")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(Color(hex: tag.color) ?? .primary)
+            }
+            .frame(width: 40, height: 40)
         }
         
         private func labelText() -> some View {
