@@ -714,7 +714,15 @@ final class EntriesController: ObservableObject {
                         password in
                         favoriteFolders.contains { password.isDescendentOf(folder: $0, in: folders) }
                     }
-                    passwords = favoritePasswords + passwordsInFavoriteFolders
+                    let favoriteTags = tags.filter { $0.favorite }
+                    let passwordsWithFavoriteTags = passwords.filter {
+                        password in
+                        password.tags.contains {
+                            tagId in
+                            favoriteTags.contains { $0.id == tagId }
+                        }
+                    }
+                    passwords = favoritePasswords + passwordsInFavoriteFolders + passwordsWithFavoriteTags
                 }
                 break
             }
@@ -733,8 +741,17 @@ final class EntriesController: ObservableObject {
             if let tag = tag {
                 passwords = passwords.filter { $0.tags.contains(tag.id) }
             }
-            else {
+            else if searchTerm.isEmpty {
                 passwords = []
+            }
+            else {
+                passwords = passwords.filter {
+                    password in
+                    password.tags.contains {
+                        tagId in
+                        tags.contains { $0.id == tagId }
+                    }
+                }
             }
         }
         
