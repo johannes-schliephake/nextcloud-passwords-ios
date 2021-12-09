@@ -179,6 +179,19 @@ extension Tag: Codable {
 }
 
 
+extension Tag: Hashable {
+    
+    static func == (lhs: Tag, rhs: Tag) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+}
+
+
 extension Tag: MockObject {
     
     static var mock: Tag {
@@ -190,20 +203,6 @@ extension Tag: MockObject {
             Tag(id: "00000000-0000-0000-0003-000000000001", label: "Tag 1", color: "#00FF00"),
             Tag(id: "00000000-0000-0000-0003-000000000002", label: "Tag 2", color: "#0000FF")
         ]
-    }
-    
-}
-
-
-// TODO: remove
-extension Tag: Hashable {
-    
-    static func == (lhs: Tag, rhs: Tag) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
     }
     
 }

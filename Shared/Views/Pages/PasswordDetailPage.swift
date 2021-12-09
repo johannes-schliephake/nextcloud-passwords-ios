@@ -93,6 +93,11 @@ struct PasswordDetailPage: View {
                 Spacer()
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
+            if let tags = entriesController.tags,
+               let passwordTags = password.tags(in: tags) {
+                tagsSection(tags: password.tags(in: passwordTags))
+                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+            }
             serviceSection()
             accountSection()
             if !password.customFields.isEmpty {
@@ -178,6 +183,35 @@ struct PasswordDetailPage: View {
         }
         .buttonStyle(.borderless)
         .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+    }
+    
+    @ViewBuilder private func tagsSection(tags: [Tag]) -> some View {
+        if !tags.isEmpty {
+            Section {
+                FlowView(tags) {
+                    tag in
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(Color(hex: tag.color) ?? .primary)
+                            .frame(width: 14, height: 14)
+                        Text(tag.label)
+                            .font(.subheadline)
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(.primary.opacity(0.6))
+                    }
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 4)
+                    .background(
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color(UIColor.secondarySystemGroupedBackground))
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill((Color(hex: tag.color) ?? .primary).opacity(0.3))
+                        }
+                    )
+                }
+            }
+        }
     }
     
     private func serviceSection() -> some View {

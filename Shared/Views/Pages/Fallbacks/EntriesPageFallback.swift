@@ -1075,10 +1075,11 @@ extension EntriesPageFallback {
                             Spacer()
                         }
                     }
-                    if let tags = password.tags.compactMap { tagId in entriesController.tags?.first { $0.id == tagId } },
-                       !tags.isEmpty {
+                    if let tags = entriesController.tags,
+                       let passwordTags = password.tags(in: tags),
+                       !passwordTags.isEmpty {
                         HStack(spacing: -6) {
-                            ForEach(Array(tags.enumerated()), id: \.element.id) {
+                            ForEach(Array(passwordTags.enumerated()), id: \.element.id) {
                                 index, tag in
                                 Circle()
                                     .stroke(Color(UIColor.systemBackground), lineWidth: 2)
@@ -1091,7 +1092,7 @@ extension EntriesPageFallback {
                                             )
                                             .frame(width: 14, height: 14)
                                     )
-                                    .zIndex(Double(tags.count - index))
+                                    .zIndex(Double(passwordTags.count - index))
                                     .frame(width: 16, height: 16)
                             }
                         }
