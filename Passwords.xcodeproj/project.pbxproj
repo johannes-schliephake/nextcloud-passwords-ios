@@ -207,8 +207,6 @@
 		DDA4FE7726E755C000D6F92E /* View+Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* View+Initialize.swift */; };
 		DDAE4A9027087E1D00088DD5 /* RefreshGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */; };
 		DDAE4A9127087E1D00088DD5 /* RefreshGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */; };
-		DDAF00D12747969900539DA7 /* Color+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAF00D02747969900539DA7 /* Color+Random.swift */; };
-		DDAF00D22747969900539DA7 /* Color+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAF00D02747969900539DA7 /* Color+Random.swift */; };
 		DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
 		DDC98D0E26AFEE1E006058B6 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
 		DDCE125627411B09003912D0 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125527411B09003912D0 /* Tag.swift */; };
@@ -510,7 +508,6 @@
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
 		DDA4FE7526E755C000D6F92E /* View+Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Initialize.swift"; sourceTree = "<group>"; };
 		DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshGesture.swift; sourceTree = "<group>"; };
-		DDAF00D02747969900539DA7 /* Color+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Random.swift"; sourceTree = "<group>"; };
 		DDBD6EA12702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA22702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA32702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -805,7 +802,6 @@
 				8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */,
 				DD0E59B427414EB5003D7D50 /* Color+Hex.swift */,
 				DD0E59B127414AFE003D7D50 /* Color+Init.swift */,
-				DDAF00D02747969900539DA7 /* Color+Random.swift */,
 				8F7237962651466000832A88 /* Comparable+Clamped.swift */,
 				8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */,
 				8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */,
@@ -1295,7 +1291,6 @@
 				8F559A1D25A0AE3E00D7A39F /* EditPasswordNavigation.swift in Sources */,
 				8F6ED3BA2663841D00DD61DE /* URL+Score.swift in Sources */,
 				DDA4FE7626E755C000D6F92E /* View+Initialize.swift in Sources */,
-				DDAF00D12747969900539DA7 /* Color+Random.swift in Sources */,
 				8F118755253C9EE10019FECA /* EntriesPage.swift in Sources */,
 				8F77DA5D25699F8900CFDA8D /* CopyToast.swift in Sources */,
 				8F513A63256064E9001C6EF9 /* ServerSetupPage.swift in Sources */,
@@ -1417,7 +1412,6 @@
 				8F559A1E25A0AE3E00D7A39F /* EditPasswordNavigation.swift in Sources */,
 				8F6ED3BB2663841D00DD61DE /* URL+Score.swift in Sources */,
 				DDA4FE7726E755C000D6F92E /* View+Initialize.swift in Sources */,
-				DDAF00D22747969900539DA7 /* Color+Random.swift in Sources */,
 				8FBE43D3258D5A8C003F7F34 /* String+Localized.swift in Sources */,
 				8FC361BB25827E4C00785371 /* SearchBar.swift in Sources */,
 				8FC361B725827E4C00785371 /* PasswordDetailPage.swift in Sources */,

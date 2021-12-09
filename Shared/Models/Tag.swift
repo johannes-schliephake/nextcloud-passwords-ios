@@ -25,7 +25,7 @@ final class Tag: ObservableObject, Identifiable {
     @Published var state: Entry.State?
     var offlineContainer: OfflineContainer?
     
-    init(id: String = "", label: String = "", color: String = "", revision: String = "", cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
+    init(id: String = "", label: String = "", color: String = randomTagColor(), revision: String = "", cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
         self.id = id
         self.label = label
         self.color = color
@@ -117,6 +117,11 @@ final class Tag: ObservableObject, Identifiable {
             offlineContainer = OfflineContainer(context: CoreData.default.context, tag: self)
         }
         CoreData.default.save()
+    }
+    
+    static private func randomTagColor() -> String {
+        /// Colors taken from https://github.com/isuru88/random-material-color/blob/master/src/defaultPalette.js, same as Passwords web app
+        ["#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722", "#795548", "#9E9E9E", "#607D8B"].randomElement() ?? ""
     }
     
 }

@@ -602,7 +602,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 Label("_createPassword", systemImage: "key")
             })
             Button(action: {
-                sheetItem = .edit(entry: .tag(Tag(color: Color.random().hex, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites)))
+                sheetItem = .edit(entry: .tag(Tag(client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites)))
             }, label: {
                 Label("_createTag", systemImage: "tag")
             })
