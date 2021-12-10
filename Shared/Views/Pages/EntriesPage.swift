@@ -4,6 +4,7 @@ import SwiftUI
 struct EntriesPage: View {
     
     @ObservedObject var entriesController: EntriesController
+    private let showFilterSortMenu: Bool
     
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
@@ -24,9 +25,10 @@ struct EntriesPage: View {
     @State private var showTagErrorAlert = false
     @State private var showOfflineText = false
     
-    init(entriesController: EntriesController, folder: Folder? = nil, tag: Tag? = nil) {
+    init(entriesController: EntriesController, folder: Folder? = nil, tag: Tag? = nil, showFilterSortMenu: Bool = true) {
         self.entriesController = entriesController
-        _folderController = StateObject(wrappedValue: FolderController(entriesController: entriesController, folder: folder, tag: tag))
+        _folderController = StateObject(wrappedValue: FolderController(entriesController: entriesController, folder: folder, tag: tag, defaultSorting: showFilterSortMenu ? nil : .label))
+        self.showFilterSortMenu = showFilterSortMenu
     }
     
     // MARK: Views
@@ -468,7 +470,9 @@ struct EntriesPage: View {
                 }
                 Spacer()
             }
-            filterSortMenu()
+            if showFilterSortMenu {
+                filterSortMenu()
+            }
             createMenu()
         }
     }

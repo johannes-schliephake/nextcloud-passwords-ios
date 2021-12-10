@@ -6,6 +6,7 @@ final class FolderController: ObservableObject {
     
     let folder: Folder
     let tag: Tag?
+    let defaultSorting: EntriesController.Sorting?
     
     @Published var autoFillController: AutoFillController?
     @Published var searchTerm = ""
@@ -17,10 +18,11 @@ final class FolderController: ObservableObject {
     private let entriesControllerDidChange = PassthroughSubject<Void, Never>()
     private var subscriptions = Set<AnyCancellable>()
     
-    init(entriesController: EntriesController, folder: Folder?, tag: Tag?) {
+    init(entriesController: EntriesController, folder: Folder?, tag: Tag?, defaultSorting: EntriesController.Sorting?) {
         let folder = folder ?? Folder()
         self.folder = folder
         self.tag = tag
+        self.defaultSorting = defaultSorting
         
         entriesController.objectWillChange
             .sink {
@@ -39,7 +41,7 @@ final class FolderController: ObservableObject {
                 .throttle(for: 0.5, scheduler: DispatchQueue.global(qos: .userInitiated), latest: true)
                 .removeDuplicates { [weak self] in self?.entries != nil && $0 == $1 }
         )
-        .map { entriesController.processEntries(folder: folder, tag: tag, searchTerm: $0) }
+        .map { entriesController.processEntries(folder: folder, tag: tag, searchTerm: $0, defaultSorting: defaultSorting) }
         .receive(on: DispatchQueue.main)
         .sink { [weak self] in self?.entries = $0 }
         

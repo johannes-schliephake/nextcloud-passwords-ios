@@ -20,6 +20,7 @@ struct PasswordDetailPage: View {
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
     @State private var passwordDeleted = false
+    @State private var navigationSelection: NavigationSelection?
     
     // MARK: Views
     
@@ -188,30 +189,57 @@ struct PasswordDetailPage: View {
     @ViewBuilder private func tagsSection(tags: [Tag]) -> some View {
         if !tags.isEmpty {
             Section {
-                FlowView(tags) {
-                    tag in
-                    HStack(spacing: 6) {
-                        Circle()
-                            .fill(Color(hex: tag.color) ?? .primary)
-                            .frame(width: 14, height: 14)
-                        Text(tag.label)
-                            .font(.subheadline)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(.primary.opacity(0.6))
+                if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons  for iPad because of NavigationLink bugs
+                    FlowView(tags) {
+                        tag in
+                        tagBadge(tag: tag)
                     }
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 4)
-                    .background(
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 5)
-                                .fill(Color(UIColor.secondarySystemGroupedBackground))
-                            RoundedRectangle(cornerRadius: 5)
-                                .fill((Color(hex: tag.color) ?? .primary).opacity(0.3))
+                }
+                else {
+                    ZStack {
+                        ForEach(tags) {
+                            tag in
+                            NavigationLink("", tag: .entries(tag: tag), selection: $navigationSelection) {
+                                EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
+                            }
+                            .isDetailLink(false)
                         }
-                    )
+                        .hidden()
+                        FlowView(tags) {
+                            tag in
+                            Button {
+                                navigationSelection = .entries(tag: tag)
+                            } label: {
+                                tagBadge(tag: tag)
+                            }
+                            .buttonStyle(.borderless)
+                        }
+                    }
                 }
             }
         }
+    }
+    
+    private func tagBadge(tag: Tag) -> some View {
+        HStack(spacing: 6) {
+            Circle()
+                .fill(Color(hex: tag.color) ?? .primary)
+                .frame(width: 14, height: 14)
+            Text(tag.label)
+                .font(.subheadline)
+                .multilineTextAlignment(.leading)
+                .foregroundColor(.primary.opacity(0.6))
+        }
+        .padding(.horizontal, 6)
+        .padding(.vertical, 4)
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(Color(UIColor.secondarySystemGroupedBackground))
+                RoundedRectangle(cornerRadius: 5)
+                    .fill((Color(hex: tag.color) ?? .primary).opacity(0.3))
+            }
+        )
     }
     
     private func serviceSection() -> some View {
@@ -386,6 +414,17 @@ struct PasswordDetailPage: View {
     private func deleteAndDismiss() {
         deletePassword()
         presentationMode.wrappedValue.dismiss()
+    }
+    
+}
+
+
+extension PasswordDetailPage {
+    
+    enum NavigationSelection: Hashable {
+        
+        case entries(tag: Tag)
+        
     }
     
 }

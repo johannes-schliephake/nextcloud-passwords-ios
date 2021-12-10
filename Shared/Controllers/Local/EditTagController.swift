@@ -22,7 +22,7 @@ final class EditTagController: ObservableObject {
     
     var hasChanges: Bool {
         tagLabel != tag.label ||
-        tagColor.hex != tag.color ||
+        tagColor.hex.compare(tag.color, options: [.caseInsensitive]) != .orderedSame ||
         tagFavorite != tag.favorite
     }
     

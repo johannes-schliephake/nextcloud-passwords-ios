@@ -50,11 +50,7 @@ final class EntriesController: ObservableObject {
     @Published var filterBy = Filter(rawValue: Configuration.userDefaults.integer(forKey: "filterBy")) ?? .folders {
         willSet {
             Configuration.userDefaults.set(newValue.rawValue, forKey: "filterBy")
-            if newValue == .folders,
-               sortBy != .label && sortBy != .updated {
-                sortBy = .label
-            }
-            else if newValue == .tags,
+            if newValue != .all,
                sortBy != .label && sortBy != .updated {
                 sortBy = .label
             }
@@ -66,11 +62,7 @@ final class EntriesController: ObservableObject {
             if sortBy == newValue {
                 reversed.toggle()
             }
-            else if filterBy == .folders,
-                    newValue != .label && newValue != .updated {
-                filterBy = .all
-            }
-            else if filterBy == .tags,
+            else if filterBy != .all,
                     newValue != .label && newValue != .updated {
                 filterBy = .all
             }
@@ -656,13 +648,15 @@ final class EntriesController: ObservableObject {
         }
     }
     
-    func processEntries(folder: Folder, tag: Tag?, searchTerm: String) -> [Entry]? {
+    func processEntries(folder: Folder, tag: Tag?, searchTerm: String, defaultSorting: Sorting?) -> [Entry]? {
         guard var passwords = passwords,
               var folders = folders,
               var tags = tags else {
             return nil
         }
         let searchTerm = searchTerm.trimmingCharacters(in: .whitespacesAndNewlines)
+        let sortBy = defaultSorting ?? sortBy
+        let reversed = defaultSorting != nil ? false : reversed
         
         /// Apply filter to folders
         switch filterBy {
@@ -796,7 +790,7 @@ final class EntriesController: ObservableObject {
             passwords.sort { $0.username.compare($1.username, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
             passwords.sort { !$0.username.isEmpty && $1.username.isEmpty }
         case .url:
-            passwords.sort { $0.url.lowercased() < $1.url.lowercased() }
+            passwords.sort { $0.url.compare($1.url, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
             passwords.sort { !$0.url.isEmpty && $1.url.isEmpty }
         case .status:
             passwords.sort { $0.statusCode > $1.statusCode }
