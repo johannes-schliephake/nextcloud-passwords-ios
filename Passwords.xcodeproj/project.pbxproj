@@ -183,6 +183,12 @@
 		8FCBF8BD25AE152500F75B33 /* ScreenshotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8BC25AE152500F75B33 /* ScreenshotGenerator.swift */; };
 		8FCBF8D925AE160B00F75B33 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8D725AE15E900F75B33 /* SnapshotHelper.swift */; };
 		8FE5BCFC258370E7007993F5 /* ProviderView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE5BCFA258370E7007993F5 /* ProviderView.storyboard */; };
+		DD0C2872276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
+		DD0C2873276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
+		DD0C28752766028500E3DAEF /* SelectTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28742766028500E3DAEF /* SelectTagsPage.swift */; };
+		DD0C28762766028500E3DAEF /* SelectTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28742766028500E3DAEF /* SelectTagsPage.swift */; };
+		DD0C28782766036A00E3DAEF /* SelectTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28772766036A00E3DAEF /* SelectTagsController.swift */; };
+		DD0C28792766036A00E3DAEF /* SelectTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28772766036A00E3DAEF /* SelectTagsController.swift */; };
 		DD0E59A6274143D9003D7D50 /* EditTagNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */; };
 		DD0E59A7274143D9003D7D50 /* EditTagNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */; };
 		DD0E59A9274146C8003D7D50 /* EditTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A8274146C8003D7D50 /* EditTagPage.swift */; };
@@ -221,6 +227,8 @@
 		DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE1261274140A9003912D0 /* ShowTagRequest.swift */; };
 		DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
 		DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
+		DDDF3388276F7FDE008EEB3F /* TagBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF3387276F7FDE008EEB3F /* TagBadge.swift */; };
+		DDDF3389276F7FDE008EEB3F /* TagBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF3387276F7FDE008EEB3F /* TagBadge.swift */; };
 		DDE48F5926FC70AF0082E96D /* EntriesPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */; };
 		DDE48F5A26FC70AF0082E96D /* EntriesPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */; };
 		DDE48F5C26FC79AF0082E96D /* EditFolderPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */; };
@@ -231,6 +239,8 @@
 		DDE48F6326FC79D60082E96D /* ServerSetupPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F6126FC79D60082E96D /* ServerSetupPageFallback.swift */; };
 		DDE4F5D6274BEB3D00518167 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE4F5D5274BEB3D00518167 /* FlowView.swift */; };
 		DDE4F5D7274BEB3D00518167 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE4F5D5274BEB3D00518167 /* FlowView.swift */; };
+		DDE8DDBC276B3B260035321C /* SelectTagsPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE8DDBB276B3B260035321C /* SelectTagsPageFallback.swift */; };
+		DDE8DDBD276B3B260035321C /* SelectTagsPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE8DDBB276B3B260035321C /* SelectTagsPageFallback.swift */; };
 		DDED770526E2186D0037A18D /* View+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDED770426E2186D0037A18D /* View+Apply.swift */; };
 		DDED770626E2186D0037A18D /* View+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDED770426E2186D0037A18D /* View+Apply.swift */; };
 /* End PBXBuildFile section */
@@ -391,6 +401,9 @@
 		9F5B819C26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819D26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819E26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsNavigation.swift; sourceTree = "<group>"; };
+		DD0C28742766028500E3DAEF /* SelectTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsPage.swift; sourceTree = "<group>"; };
+		DD0C28772766036A00E3DAEF /* SelectTagsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsController.swift; sourceTree = "<group>"; };
 		DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagNavigation.swift; sourceTree = "<group>"; };
 		DD0E59A8274146C8003D7D50 /* EditTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagPage.swift; sourceTree = "<group>"; };
 		DD0E59AB274147CC003D7D50 /* EditTagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagController.swift; sourceTree = "<group>"; };
@@ -518,11 +531,13 @@
 		DDCE125E2741408D003912D0 /* ListTagsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTagsRequest.swift; sourceTree = "<group>"; };
 		DDCE1261274140A9003912D0 /* ShowTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagRequest.swift; sourceTree = "<group>"; };
 		DDCE126427414101003912D0 /* UpdateTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTagRequest.swift; sourceTree = "<group>"; };
+		DDDF3387276F7FDE008EEB3F /* TagBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagBadge.swift; sourceTree = "<group>"; };
 		DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesPageFallback.swift; sourceTree = "<group>"; };
 		DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderPageFallback.swift; sourceTree = "<group>"; };
 		DDE48F5E26FC79CA0082E96D /* EditPasswordPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordPageFallback.swift; sourceTree = "<group>"; };
 		DDE48F6126FC79D60082E96D /* ServerSetupPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSetupPageFallback.swift; sourceTree = "<group>"; };
 		DDE4F5D5274BEB3D00518167 /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
+		DDE8DDBB276B3B260035321C /* SelectTagsPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsPageFallback.swift; sourceTree = "<group>"; };
 		DDED770426E2186D0037A18D /* View+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Apply.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -632,6 +647,7 @@
 				8F582BF9255EA63D00F1E3DA /* LoginFlowPage.swift */,
 				8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */,
 				DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */,
+				DD0C28742766028500E3DAEF /* SelectTagsPage.swift */,
 				8F513A62256064E9001C6EF9 /* ServerSetupPage.swift */,
 				8F57B425256C0DD600329B05 /* SettingsPage.swift */,
 			);
@@ -646,6 +662,7 @@
 				DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */,
 				8FC361FB25828AE600785371 /* EntriesNavigation.swift */,
 				DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */,
+				DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */,
 				8F559A0D25A0AE1C00D7A39F /* ServerSetupNavigation.swift */,
 				8F559A1225A0AE2700D7A39F /* SettingsNavigation.swift */,
 			);
@@ -662,6 +679,7 @@
 				DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */,
 				DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */,
 				8F59888825799C3200843696 /* SearchBar.swift */,
+				DDDF3387276F7FDE008EEB3F /* TagBadge.swift */,
 				8F65736925E3C4F200139163 /* TextView.swift */,
 				DDED770426E2186D0037A18D /* View+Apply.swift */,
 				DDA4FE7526E755C000D6F92E /* View+Initialize.swift */,
@@ -780,6 +798,7 @@
 				8F781F51267CC8B400BD3DC1 /* FolderController.swift */,
 				8FBC049B268B9DD1006D4CB7 /* LoginFlowNavigationController.swift */,
 				DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */,
+				DD0C28772766036A00E3DAEF /* SelectTagsController.swift */,
 				8F59F524256B1EFB00D9FE40 /* ServerSetupController.swift */,
 			);
 			path = Local;
@@ -976,10 +995,11 @@
 		DDE48F5726FC707A0082E96D /* Fallbacks */ = {
 			isa = PBXGroup;
 			children = (
-				DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */,
 				DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */,
 				DDE48F5E26FC79CA0082E96D /* EditPasswordPageFallback.swift */,
 				DD0E59AE27414873003D7D50 /* EditTagPageFallback.swift */,
+				DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */,
+				DDE8DDBB276B3B260035321C /* SelectTagsPageFallback.swift */,
 				DDE48F6126FC79D60082E96D /* ServerSetupPageFallback.swift */,
 			);
 			path = Fallbacks;
@@ -1257,6 +1277,7 @@
 				8F59888925799C3200843696 /* SearchBar.swift in Sources */,
 				8F68D73F26495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
 				8F854E6D26239457008885C3 /* OfflineContainer.swift in Sources */,
+				DDE8DDBC276B3B260035321C /* SelectTagsPageFallback.swift in Sources */,
 				8F7A73A32677493500FCA15F /* URL+RelativeReference.swift in Sources */,
 				8F74244626039BD600B73646 /* Crypto.swift in Sources */,
 				DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */,
@@ -1300,8 +1321,10 @@
 				8FBE43B9258D599E003F7F34 /* Date+FormattedString.swift in Sources */,
 				8F696B4125E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
 				8F513A5F2560624F001C6EF9 /* Session.swift in Sources */,
+				DD0C28752766028500E3DAEF /* SelectTagsPage.swift in Sources */,
 				8F559A1825A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
 				DD9FAD5B26A3796500770FEA /* SelectFolderPage.swift in Sources */,
+				DD0C28782766036A00E3DAEF /* SelectTagsController.swift in Sources */,
 				8F55FBD72570276800CC6920 /* SessionController.swift in Sources */,
 				8F997FA5257300A600B5F784 /* EditPasswordPage.swift in Sources */,
 				8F997FAB2573043400B5F784 /* PasswordServiceRequest.swift in Sources */,
@@ -1319,12 +1342,14 @@
 				8F5C1A84257D7D5F009FF66F /* BiometricAuthenticationController.swift in Sources */,
 				DD0E59AC274147CC003D7D50 /* EditTagController.swift in Sources */,
 				DDCE1262274140A9003912D0 /* ShowTagRequest.swift in Sources */,
+				DD0C2872276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */,
 				8F63617C25A741A400C832C9 /* PreviewDevice+Generate.swift in Sources */,
 				8FBE43BF258D59E0003F7F34 /* Label+ShowIcon.swift in Sources */,
 				DD0E59A6274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
 				8F51428F2573F91800DD96C0 /* EditPasswordController.swift in Sources */,
 				8F52F3DB259379F500B4EFCE /* SKProduct+LocalizedPrice.swift in Sources */,
 				DD0E59B227414AFE003D7D50 /* Color+Init.swift in Sources */,
+				DDDF3388276F7FDE008EEB3F /* TagBadge.swift in Sources */,
 				8F55D99A2582D04200CE4FC2 /* AutoFillController.swift in Sources */,
 				DDED770526E2186D0037A18D /* View+Apply.swift in Sources */,
 				DDE48F5F26FC79CA0082E96D /* EditPasswordPageFallback.swift in Sources */,
@@ -1378,6 +1403,7 @@
 				8FC361C825827E5500785371 /* Password.swift in Sources */,
 				8F68D74026495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
 				8F854E6E26239457008885C3 /* OfflineContainer.swift in Sources */,
+				DDE8DDBD276B3B260035321C /* SelectTagsPageFallback.swift in Sources */,
 				8F7A73A42677493500FCA15F /* URL+RelativeReference.swift in Sources */,
 				8F74244726039BD600B73646 /* Crypto.swift in Sources */,
 				8FC361D225827E5D00785371 /* ListFoldersRequest.swift in Sources */,
@@ -1421,8 +1447,10 @@
 				8FC361D325827E5D00785371 /* DeletePasswordRequest.swift in Sources */,
 				8F696B4225E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
 				8FC361C925827E5500785371 /* Session.swift in Sources */,
+				DD0C28762766028500E3DAEF /* SelectTagsPage.swift in Sources */,
 				8F559A1925A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
 				DD9FAD5C26A3796500770FEA /* SelectFolderPage.swift in Sources */,
+				DD0C28792766036A00E3DAEF /* SelectTagsController.swift in Sources */,
 				8FC361B925827E4C00785371 /* ServerSetupPage.swift in Sources */,
 				8FC361C325827E5200785371 /* BiometricAuthenticationController.swift in Sources */,
 				8FC361D425827E5D00785371 /* CreatePasswordRequest.swift in Sources */,
@@ -1440,12 +1468,14 @@
 				8FC361F0258284F500785371 /* ProviderViewController.swift in Sources */,
 				DD0E59AD274147CC003D7D50 /* EditTagController.swift in Sources */,
 				DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */,
+				DD0C2873276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */,
 				8F63618225A7438700C832C9 /* PreviewDevice+Generate.swift in Sources */,
 				8FC361CC25827E5D00785371 /* FaviconServiceRequest.swift in Sources */,
 				DD0E59A7274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
 				8FC361C125827E5200785371 /* EditFolderController.swift in Sources */,
 				8F52F3DE25937A2E00B4EFCE /* SKProduct+LocalizedPrice.swift in Sources */,
 				DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */,
+				DDDF3389276F7FDE008EEB3F /* TagBadge.swift in Sources */,
 				8FC361FF25828B0500785371 /* EntriesNavigation.swift in Sources */,
 				DDED770626E2186D0037A18D /* View+Apply.swift in Sources */,
 				DDE48F6026FC79CA0082E96D /* EditPasswordPageFallback.swift in Sources */,

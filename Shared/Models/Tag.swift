@@ -197,6 +197,15 @@ extension Tag: Hashable {
 }
 
 
+extension Array where Element == Tag {
+    
+    func sortedByLabel() -> [Tag] {
+        sorted { $0.label.compare($1.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
+    }
+    
+}
+
+
 extension Tag: MockObject {
     
     static var mock: Tag {

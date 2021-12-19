@@ -6,6 +6,7 @@ struct PasswordDetailPage: View {
     @ObservedObject var entriesController: EntriesController
     @ObservedObject var password: Password
     let folders: [Folder]
+    let tags: [Tag]
     let updatePassword: () -> Void
     let deletePassword: () -> Void
     
@@ -21,6 +22,7 @@ struct PasswordDetailPage: View {
     @State private var showErrorAlert = false
     @State private var passwordDeleted = false
     @State private var navigationSelection: NavigationSelection?
+    @State private var showSelectTagsView = false
     
     // MARK: Views
     
@@ -74,7 +76,10 @@ struct PasswordDetailPage: View {
             .edgesIgnoringSafeArea(autoFillController.complete != nil ? .bottom : [])
         }
         .sheet(isPresented: $showEditPasswordView, content: {
-            EditPasswordNavigation(password: password, folders: folders, addPassword: {}, updatePassword: updatePassword)
+            EditPasswordNavigation(password: password, folders: folders, tags: tags, addPassword: {}, updatePassword: updatePassword, addTag: {
+                tag in
+                entriesController.add(tag: tag)
+            })
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
@@ -96,7 +101,7 @@ struct PasswordDetailPage: View {
             .listRowBackground(Color(UIColor.systemGroupedBackground))
             if let tags = entriesController.tags,
                let passwordTags = password.tags(in: tags) {
-                tagsSection(tags: password.tags(in: passwordTags))
+                tagsSection(tags: tags, passwordTags: passwordTags)
                     .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
             serviceSection()
@@ -186,18 +191,26 @@ struct PasswordDetailPage: View {
         .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
-    @ViewBuilder private func tagsSection(tags: [Tag]) -> some View {
-        if !tags.isEmpty {
-            Section {
-                if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons  for iPad because of NavigationLink bugs
-                    FlowView(tags) {
+    private func tagsSection(tags: [Tag], passwordTags: [Tag]) -> some View {
+        Section(footer: HStack {
+            Spacer()
+            Button(passwordTags.isEmpty ? "_addTags" : "_editTags") {
+                showSelectTagsView = true
+            }
+            .font(.footnote)
+            .textCase(.uppercase)
+            Spacer()
+        }) {
+            if !passwordTags.isEmpty {
+                if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
+                    FlowView(passwordTags.sortedByLabel()) {
                         tag in
-                        tagBadge(tag: tag)
+                        TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
                     }
                 }
                 else {
                     ZStack {
-                        ForEach(tags) {
+                        ForEach(passwordTags) {
                             tag in
                             NavigationLink("", tag: .entries(tag: tag), selection: $navigationSelection) {
                                 EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
@@ -205,12 +218,13 @@ struct PasswordDetailPage: View {
                             .isDetailLink(false)
                         }
                         .hidden()
-                        FlowView(tags) {
+                        FlowView(passwordTags.sortedByLabel()) {
                             tag in
                             Button {
                                 navigationSelection = .entries(tag: tag)
-                            } label: {
-                                tagBadge(tag: tag)
+                            }
+                            label: {
+                                TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
                             }
                             .buttonStyle(.borderless)
                         }
@@ -218,28 +232,20 @@ struct PasswordDetailPage: View {
                 }
             }
         }
-    }
-    
-    private func tagBadge(tag: Tag) -> some View {
-        HStack(spacing: 6) {
-            Circle()
-                .fill(Color(hex: tag.color) ?? .primary)
-                .frame(width: 14, height: 14)
-            Text(tag.label)
-                .font(.subheadline)
-                .multilineTextAlignment(.leading)
-                .foregroundColor(.primary.opacity(0.6))
+        .sheet(isPresented: $showSelectTagsView) {
+            SelectTagsNavigation(temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), tags: tags, addTag: {
+                tag in
+                entriesController.add(tag: tag)
+            }, selectTags: {
+                tags in
+                password.tags = tags.map { $0.id }
+                entriesController.update(password: password)
+            })
+            .environmentObject(autoFillController)
+            .environmentObject(biometricAuthenticationController)
+            .environmentObject(sessionController)
+            .environmentObject(tipController)
         }
-        .padding(.horizontal, 6)
-        .padding(.vertical, 4)
-        .background(
-            ZStack {
-                RoundedRectangle(cornerRadius: 5)
-                    .fill(Color(UIColor.secondarySystemGroupedBackground))
-                RoundedRectangle(cornerRadius: 5)
-                    .fill((Color(hex: tag.color) ?? .primary).opacity(0.3))
-            }
-        )
     }
     
     private func serviceSection() -> some View {
@@ -435,7 +441,7 @@ struct PasswordDetailPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, folders: Folder.mocks, updatePassword: {}, deletePassword: {})
+                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, folders: Folder.mocks, tags: Tag.mocks, updatePassword: {}, deletePassword: {})
             }
             .showColumns(false)
             .environmentObject(AutoFillController.mock)

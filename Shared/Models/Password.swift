@@ -330,7 +330,7 @@ extension Password: Codable {
         try container.encode(edited, forKey: .edited)
         try container.encode(created, forKey: .created)
         try container.encode(updated, forKey: .updated)
-        try container.encode(tags, forKey: .tags)
+        try container.encode(tags.isEmpty && encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true ? [""] : tags, forKey: .tags) /// Encode an empty tag id when tags are empty to force tag removal on server
     }
     
 }

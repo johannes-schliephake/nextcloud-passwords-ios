@@ -226,7 +226,7 @@ extension SelectFolderPage {
 }
 
 
-struct MovePasswordPagePreview: PreviewProvider {
+struct SelectFolderPagePreview: PreviewProvider {
     
     static var previews: some View {
         PreviewDevice.generate {

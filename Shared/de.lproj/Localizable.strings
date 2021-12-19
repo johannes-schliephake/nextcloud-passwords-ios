@@ -2,6 +2,7 @@
 "_accept" = "Akzeptieren";
 "_account" = "Account";
 "_addCustomField" = "Benutzerdefiniertes Feld hinzufügen";
+"_addTags" = "Tags hinzufügen";
 "_all" = "Alle";
 "_anErrorOccurred" = "Es ist ein Fehler aufgetreten ...";
 "_appDeauthorized" = "App deautorisiert";
@@ -45,6 +46,7 @@
 "_editPassword" = "Passwort bearbeiten";
 "_editPasswordErrorMessage" = "Beim Bearbeiten des Passworts ist ein Fehler aufgetreten. Bitte speichere das Passwort nochmals.";
 "_editTagErrorMessage" = "Beim Bearbeiten des Tags ist ein Fehler aufgetreten. Bitte speichere den Tag nochmals.";
+"_editTags" = "Tags bearbeiten";
 "_email" = "E-Mail";
 "_encryptedOfflineStorage" = "Verschlüsselte Offline-Speicherung";
 "_encryption" = "Verschlüsselung";

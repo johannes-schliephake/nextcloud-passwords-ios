@@ -50,7 +50,7 @@ struct FlowView<Data: Collection, Content: View>: View where Data.Element: Hasha
                     }
                 }
             }
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, alignment: Alignment(horizontal: alignment, vertical: .center))
             .onSizeChange { width = $0.width }
         }
     }

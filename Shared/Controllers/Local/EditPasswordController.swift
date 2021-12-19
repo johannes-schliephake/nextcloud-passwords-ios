@@ -5,8 +5,10 @@ final class EditPasswordController: ObservableObject {
     
     let password: Password
     let folders: [Folder]
+    let tags: [Tag]
     private let addPassword: () -> Void
     private let updatePassword: () -> Void
+    let addTag: (Tag) -> Void
     
     @Published var generatorNumbers = Configuration.userDefaults.object(forKey: "generatorNumbers") as? Bool ?? true {
         willSet {
@@ -30,17 +32,20 @@ final class EditPasswordController: ObservableObject {
     @Published var passwordCustomUserFields: [Password.CustomField]
     @Published var passwordNotes: String
     @Published var passwordFavorite: Bool
+    @Published var passwordTags: [Tag]
     @Published var passwordFolder: String
     @Published var showErrorAlert = false
     @Published var showProgressView = false
     
     let passwordCustomDataFields: [Password.CustomField]
     
-    init(password: Password, folders: [Folder], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
+    init(password: Password, folders: [Folder], tags: [Tag], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void, addTag: @escaping (Tag) -> Void) {
         self.password = password
         self.folders = folders
+        self.tags = tags
         self.addPassword = addPassword
         self.updatePassword = updatePassword
+        self.addTag = addTag
         passwordPassword = password.password
         passwordLabel = password.label
         passwordUsername = password.username
@@ -49,6 +54,7 @@ final class EditPasswordController: ObservableObject {
         passwordCustomDataFields = password.customFields.filter { $0.type == .data }
         passwordNotes = password.notes
         passwordFavorite = password.favorite
+        passwordTags = password.tags(in: tags)
         passwordFolder = password.folder
     }
     
@@ -60,6 +66,7 @@ final class EditPasswordController: ObservableObject {
         passwordCustomUserFields != password.customFields ||
         passwordNotes != password.notes ||
         passwordFavorite != password.favorite ||
+        passwordTags.map { $0.id }.sorted() != password.tags.sorted() ||
         passwordFolder != password.folder
     }
     
@@ -109,6 +116,7 @@ final class EditPasswordController: ObservableObject {
         password.customFields = passwordCustomUserFields + passwordCustomDataFields
         password.notes = passwordNotes
         password.favorite = passwordFavorite
+        password.tags = passwordTags.map { $0.id }
         password.folder = passwordFolder
         
         if password.id.isEmpty {

@@ -75,8 +75,9 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
             }
             else if entriesController.state == .offline || entriesController.state == .online,
                     let entries = folderController.entries,
-                    let folders = entriesController.folders {
-                listView(entries: entries, folders: folders)
+                    let folders = entriesController.folders,
+                    let tags = entriesController.tags {
+                listView(entries: entries, folders: folders, tags: tags)
             }
             else {
                 ProgressView()
@@ -223,7 +224,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
         }
     }
     
-    private func listView(entries: [Entry], folders: [Folder]) -> some View {
+    private func listView(entries: [Entry], folders: [Folder], tags: [Tag]) -> some View {
         VStack {
             if let suggestions = folderController.suggestions,
                folderController.searchTerm.isEmpty,
@@ -303,10 +304,13 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 .environmentObject(sessionController)
                 .environmentObject(tipController)
             case .edit(.password(let password)):
-                EditPasswordNavigation(password: password, folders: folders, addPassword: {
+                EditPasswordNavigation(password: password, folders: folders, tags: tags, addPassword: {
                     entriesController.add(password: password)
                 }, updatePassword: {
                     entriesController.update(password: password)
+                }, addTag: {
+                    tag in
+                    entriesController.add(tag: tag)
                 })
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
@@ -344,6 +348,19 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 .environmentObject(tipController)
             case .move(.tag):
                 EmptyView()
+            case .tag(.folder):
+                EmptyView()
+            case .tag(.password(let password)):
+                SelectTagsNavigation(temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), tags: tags, addTag: {
+                    tag in
+                    entriesController.add(tag: tag)
+                }, selectTags: {
+                    tags in
+                    password.tags = tags.map { $0.id }
+                    entriesController.update(password: password)
+                })
+            case .tag(.tag):
+                EmptyView()
             }
         }
         .actionSheet(item: $actionSheetItem) {
@@ -372,6 +389,8 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 sheetItem = .edit(entry: .password(password))
             }, movePassword: {
                 sheetItem = .move(entry: .password(password))
+            }, tagPassword: {
+                sheetItem = .tag(entry: .password(password))
             }, deletePassword: {
                 actionSheetItem = .delete(entry: .password(password))
             })
@@ -405,6 +424,8 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                     sheetItem = .edit(entry: .password(password))
                 }, movePassword: {
                     sheetItem = .move(entry: .password(password))
+                }, tagPassword: {
+                    sheetItem = .tag(entry: .password(password))
                 }, deletePassword: {
                     actionSheetItem = .delete(entry: .password(password))
                 })
@@ -657,10 +678,11 @@ extension EntriesPageFallback {
         
         case edit(entry: Entry)
         case move(entry: Entry)
+        case tag(entry: Entry)
         
         var id: String {
             switch self {
-            case .edit(let entry), .move(let entry):
+            case .edit(let entry), .move(let entry), .tag(let entry):
                 return entry.id
             }
         }
@@ -897,6 +919,7 @@ extension EntriesPageFallback {
         let showStatus: Bool
         let editPassword: () -> Void
         let movePassword: () -> Void
+        let tagPassword: () -> Void
         let deletePassword: () -> Void
         
         @EnvironmentObject private var autoFillController: AutoFillController
@@ -922,6 +945,14 @@ extension EntriesPageFallback {
                                     Label("_favorite", systemImage: password.favorite ? "star.slash.fill" : "star.fill")
                                 }
                                 .tint(.yellow)
+                                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                Button {
+                                    tagPassword()
+                                }
+                                label: {
+                                    Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
+                                }
+                                .tint(.orange)
                                 .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                                 if password.editable {
                                     Button {
@@ -997,6 +1028,13 @@ extension EntriesPageFallback {
                         Label("_move", systemImage: "folder")
                     }
                     .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    Button {
+                        tagPassword()
+                    }
+                    label: {
+                        Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
+                    }
+                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     Divider()
                     if #available(iOS 15.0, *) {
                         Button(role: .destructive) {
@@ -1021,7 +1059,8 @@ extension EntriesPageFallback {
         
         private func wrapperStack() -> some View {
             HStack {
-                if let folders = entriesController.folders {
+                if let folders = entriesController.folders,
+                   let tags = entriesController.tags {
                     if let complete = autoFillController.complete {
                         Button {
                             complete(password.username, password.password)
@@ -1040,7 +1079,7 @@ extension EntriesPageFallback {
                             Image(systemName: "info.circle")
                         }
                         .buttonStyle(.borderless)
-                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, updatePassword: {
+                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, tags: tags, updatePassword: {
                             entriesController.update(password: password)
                         }, deletePassword: {
                             entriesController.delete(password: password)
@@ -1050,7 +1089,7 @@ extension EntriesPageFallback {
                         .opacity(0)
                     }
                     else {
-                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, updatePassword: {
+                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, tags: tags, updatePassword: {
                             entriesController.update(password: password)
                         }, deletePassword: {
                             entriesController.delete(password: password)
@@ -1083,7 +1122,7 @@ extension EntriesPageFallback {
                        let passwordTags = password.tags(in: tags),
                        !passwordTags.isEmpty {
                         HStack(spacing: -6) {
-                            ForEach(Array(passwordTags.enumerated()), id: \.element.id) {
+                            ForEach(Array(passwordTags.sortedByLabel().enumerated()), id: \.element.id) {
                                 index, tag in
                                 Circle()
                                     .stroke(Color(UIColor.systemBackground), lineWidth: 2)
