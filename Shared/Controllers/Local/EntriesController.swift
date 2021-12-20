@@ -814,7 +814,7 @@ final class EntriesController: ObservableObject {
         }
         
         /// Apply search term
-        let unsearchedEntries: [Entry] = folders.map { .folder($0) } + passwords.map { .password($0) } + tags.map { .tag($0) }
+        let unsearchedEntries: [Entry] = folders.map { .folder($0) } + tags.map { .tag($0) } + passwords.map { .password($0) }
         if searchTerm.isEmpty {
             return unsearchedEntries
         }
