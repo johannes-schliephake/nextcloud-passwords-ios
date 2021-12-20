@@ -2,6 +2,7 @@
 "_accept" = "Принять";
 "_account" = "Учетная запись";
 "_addCustomField" = "Добавить пользовательское поле";
+"_addTags" = "TODO";
 "_all" = "Все записи";
 "_anErrorOccurred" = "Произошла ошибка...";
 "_appDeauthorized" = "Приложение деавторизовано";
@@ -9,6 +10,7 @@
 "_automaticallyGeneratePasswords" = "Автоматически генерировать пароли";
 "_cancel" = "Отменить";
 "_clientSide" = "На стороне клиента";
+"_color" = "TODO";
 "_confirmAction" = "Подтвердить действие";
 "_connect" = "Подключиться";
 "_connectToServer" = "Подключиться к серверу";
@@ -20,16 +22,21 @@
 "_createFolderErrorMessage" = "При создании папки произошла ошибка. Пожалуйста, попробуйте еще раз.";
 "_createPassword" = "Создать пароль";
 "_createPasswordErrorMessage" = "При создании пароля произошла ошибка. Пожалуйста, попробуйте еще раз.";
+"_createTag" = "TODO";
+"_createTagErrorMessage" = "TODO";
 "_credentials" = "Учетные данные";
 "_customFields" = "Пользовательские поля";
 "_decryptFolderErrorMessage" = "Произошла ошибка при расшифровке папки.";
 "_decryptPasswordErrorMessage" = "Произошла ошибка при расшифровке пароля.";
+"_decryptTagErrorMessage" = "TODO";
 "_delete" = "Удалить";
 "_deletedPasswordMessage" = "Пароль был удален.";
 "_deleteFolder" = "Удалить папку";
 "_deleteFolderErrorMessage" = "При удалении папки произошла ошибка. Пожалуйста, попробуйте еще раз.";
 "_deletePassword" = "Удалить пароль";
 "_deletePasswordErrorMessage" = "Произошла ошибка при удалении пароля. Пожалуйста, попробуйте еще раз.";
+"_deleteTag" = "TODO";
+"_deleteTagErrorMessage" = "TODO";
 "_discardChanges" = "Отменить изменения";
 "_dismiss" = "Закрыть";
 "_done" = "Готово";
@@ -38,6 +45,8 @@
 "_editFolderErrorMessage" = "При редактировании папки произошла ошибка. Пожалуйста, попробуйте еще раз";
 "_editPassword" = "Редактировать пароль";
 "_editPasswordErrorMessage" = "При редактировании пароля произошла ошибка. Пожалуйста, попробуйте еще раз.";
+"_editTagErrorMessage" = "TODO";
+"_editTags" = "TODO";
 "_email" = "Электронная почта";
 "_encryptedOfflineStorage" = "Зашифровать автономное хранилище";
 "_encryption" = "Шифрование";
@@ -86,6 +95,7 @@
 "_secret" = "Секрет";
 "_security" = "Безопасность";
 "_select" = "Выбрать";
+"_selectColor" = "TODO";
 "_serverAddressFieldMessage" = "Требуется HTTPS-соединение.";
 "_serverSide" = "На стороне сервера";
 "_service" = "Сервис";
@@ -96,6 +106,8 @@
 "_storePasswordMessage" = "Если эта опция включена, пароль E2E хранится в зашифрованном виде в связке ключей вашего устройства";
 "_suggestions" = "Предложения";
 "_supportThisProject" = "Поддержите этот проект";
+"_tag" = "TODO";
+"_tags" = "TODO";
 "_text" = "Текст";
 "_thanksMessage" = "Спасибо всему сообществу Nextcloud и всем участникам за создание такой удивительной экосистемы. Надеюсь, я смогу внести свой вклад в это приложение.";
 "_tipDeferred" = "Процес пожертвования перерван";

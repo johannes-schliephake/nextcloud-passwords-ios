@@ -2,6 +2,7 @@
 "_accept" = "Accepter";
 "_account" = "Compte";
 "_addCustomField" = "Ajouter un champ personnalisé";
+"_addTags" = "TODO";
 "_all" = "Tout";
 "_anErrorOccurred" = "Une erreur est survenue ...";
 "_appDeauthorized" = "Autorisation de l'application révoquée";
@@ -9,6 +10,7 @@
 "_automaticallyGeneratePasswords" = "Générer un mot de passe automatiquement";
 "_cancel" = "Annuler";
 "_clientSide" = "Côté client";
+"_color" = "TODO";
 "_confirmAction" = "Confirmer l'action";
 "_connect" = "Connexion";
 "_connectToServer" = "Se connecter au serveur";
@@ -20,16 +22,21 @@
 "_createFolderErrorMessage" = "Une erreur est survenue durant la création du dossier. Veuillez enregistrer le dossier à nouveau.";
 "_createPassword" = "Créer un mot de passe";
 "_createPasswordErrorMessage" = "Une erreur est survenue durant la création du mot de passe. Veuillez enregistrer le mot de passe à nouveau.";
+"_createTag" = "TODO";
+"_createTagErrorMessage" = "TODO";
 "_credentials" = "Identifiants";
 "_customFields" = "Champs personnalisé";
 "_decryptFolderErrorMessage" = "Une erreur est survenue durant la décryption du dossier.";
 "_decryptPasswordErrorMessage" = "Une erreur est survenue durant la décryption du mot de passe.";
+"_decryptTagErrorMessage" = "TODO";
 "_delete" = "Supprimer";
 "_deletedPasswordMessage" = "Ce mot de passe a été supprimé.";
 "_deleteFolder" = "Supprimer le dossier";
 "_deleteFolderErrorMessage" = "Une erreur est survenue durant la suppression du dossier. Veuillez le supprimer à nouveau.";
 "_deletePassword" = "Supprimer le mot de passe";
 "_deletePasswordErrorMessage" = "Une erreur est survenue durant la suppression du mot de passe. Veuillez le supprimer à nouveau.";
+"_deleteTag" = "TODO";
+"_deleteTagErrorMessage" = "TODO";
 "_discardChanges" = "Annuler les changements";
 "_dismiss" = "Rejeter";
 "_done" = "Fait";
@@ -38,6 +45,8 @@
 "_editFolderErrorMessage" = "Une erreur est survenue durant la modification du dossier. Veuillez le sauvegarder à nouveau.";
 "_editPassword" = "Modifier le mot de passe";
 "_editPasswordErrorMessage" = "Une erreur est survenue durant la modification du mot de passe. Veuillez le sauvegarder à nouveau.";
+"_editTagErrorMessage" = "TODO";
+"_editTags" = "TODO";
 "_email" = "E-mail";
 "_encryptedOfflineStorage" = "Stockage crypté hors-ligne";
 "_encryption" = "Encryption";
@@ -86,6 +95,7 @@
 "_secret" = "Secret";
 "_security" = "Sécurité";
 "_select" = "Sélectionner";
+"_selectColor" = "TODO";
 "_serverAddressFieldMessage" = "Une connexion HTTPS est requise.";
 "_serverSide" = "Côté serveur";
 "_service" = "Service";
@@ -96,6 +106,8 @@
 "_storePasswordMessage" = "Si cette option est activée, le mot de passe E2E est stocké crypté dans le trousseau de l'appareil.";
 "_suggestions" = "Suggestions";
 "_supportThisProject" = "Supporter le projet";
+"_tag" = "TODO";
+"_tags" = "TODO";
 "_text" = "Texte";
 "_thanksMessage" = "Merci à l'entière communauté Nextcloud et tout le monde ayant participé pour avoir créé un écosystème aussi formidable. J'éspère pouvoir contribuer à quelque chose avec cette application.";
 "_tipDeferred" = "Pourboire différé";
