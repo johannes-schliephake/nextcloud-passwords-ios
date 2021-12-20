@@ -56,10 +56,27 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                     }
                 }
             }
-            .navigationTitle(folderController.tag?.label ?? folderController.folder.label)
+            .navigationTitle(navigationTitle)
             .onAppear {
                 folderController.autoFillController = autoFillController
             }
+    }
+    
+    private var navigationTitle: String {
+        switch (entriesController.filterBy, folderController.folder.isBaseFolder, folderController.tag) {
+        case (.all, true, nil):
+            return "_passwords".localized
+        case (.folders, true, nil):
+            return "_folders".localized
+        case (.favorites, true, nil):
+            return "_favorites".localized
+        case (.tags, true, nil):
+            return "_tags".localized
+        case (_, _, .some(let tag)):
+            return tag.label
+        case (_, false, _):
+            return folderController.folder.label
+        }
     }
     
     private func mainStack() -> some View {
