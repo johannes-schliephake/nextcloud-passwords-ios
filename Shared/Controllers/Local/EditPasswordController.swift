@@ -66,7 +66,7 @@ final class EditPasswordController: ObservableObject {
         passwordCustomUserFields != password.customFields ||
         passwordNotes != password.notes ||
         passwordFavorite != password.favorite ||
-        passwordTags.map { $0.id }.sorted() != password.tags.sorted() ||
+        passwordTags.map { $0.id }.sorted() != password.tags.filter { tagId in tags.contains { $0.id == tagId } }.sorted() ||
         passwordFolder != password.folder
     }
     

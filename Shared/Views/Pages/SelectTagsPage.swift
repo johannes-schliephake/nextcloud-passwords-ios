@@ -179,13 +179,13 @@ struct SelectTagsPage: View {
         Button("_done") {
             applyAndDismiss()
         }
-        .disabled(selectTagsController.temporaryEntry.tags.sorted() == selectTagsController.selection.map { $0.id }.sorted())
+        .disabled(!selectTagsController.hasChanges)
     }
     
     // MARK: Functions
     
     private func applyAndDismiss() {
-        guard !(selectTagsController.temporaryEntry.tags.sorted() == selectTagsController.selection.map { $0.id }.sorted()) else {
+        guard selectTagsController.hasChanges else {
             return
         }
         selectTagsController.selectTags(selectTagsController.selection)

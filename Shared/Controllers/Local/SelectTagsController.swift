@@ -33,6 +33,10 @@ final class SelectTagsController: ObservableObject {
         }
     }
     
+    var hasChanges: Bool {
+        selection.map { $0.id }.sorted() != temporaryEntry.tags.filter { tagId in tags.contains { $0.id == tagId } }.sorted()
+    }
+    
     func createTag() {
         guard 1...48 ~= createTagLabel.count else {
             return

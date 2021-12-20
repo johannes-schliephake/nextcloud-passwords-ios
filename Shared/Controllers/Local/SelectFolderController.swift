@@ -34,6 +34,10 @@ final class SelectFolderController: ObservableObject {
         }
     }
     
+    var hasChanges: Bool {
+        temporaryEntry.parent != selection.id
+    }
+    
 }
 
 
