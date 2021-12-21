@@ -292,6 +292,9 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
             if #available(iOS 15, *) {
                 view
                     .searchable(text: $folderController.searchTerm)
+                    .keyboardType(.alphabet)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
                     .refreshable {
                         await entriesController.refresh()
                     }

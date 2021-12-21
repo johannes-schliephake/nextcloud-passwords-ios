@@ -292,6 +292,9 @@ struct EntriesPage: View {
             if #available(iOS 15, *) {
                 view
                     .searchable(text: $folderController.searchTerm)
+                    .keyboardType(.alphabet)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
                     .refreshable {
                         await entriesController.refresh()
                     }
