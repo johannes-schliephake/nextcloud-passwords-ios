@@ -846,6 +846,21 @@ final class EntriesController: ObservableObject {
             .map { $0.1 }
     }
     
+    static func tags(for tagIds: [String], in tags: [Tag]) -> (valid: [Tag], invalid: [String]) {
+        tagIds
+            .reduce((valid: [], invalid: [])) {
+                result, tagId in
+                var result = result
+                if let tag = tags.first(where: { $0.id == tagId }) {
+                    result.valid.append(tag)
+                }
+                else {
+                    result.invalid.append(tagId)
+                }
+                return result
+            }
+    }
+    
 }
 
 

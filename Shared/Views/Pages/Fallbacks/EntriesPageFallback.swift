@@ -372,8 +372,8 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                     tag in
                     entriesController.add(tag: tag)
                 }, selectTags: {
-                    tags in
-                    password.tags = tags.map { $0.id }
+                    validTags, invalidTags in
+                    password.tags = validTags.map { $0.id } + invalidTags
                     entriesController.update(password: password)
                 })
             case .tag(.tag):
@@ -1136,10 +1136,10 @@ extension EntriesPageFallback {
                         }
                     }
                     if let tags = entriesController.tags,
-                       let passwordTags = password.tags(in: tags),
-                       !passwordTags.isEmpty {
+                       let validTags = EntriesController.tags(for: password.tags, in: tags).valid,
+                       !validTags.isEmpty {
                         HStack(spacing: -6) {
-                            ForEach(Array(passwordTags.sortedByLabel().enumerated()), id: \.element.id) {
+                            ForEach(Array(validTags.sortedByLabel().enumerated()), id: \.element.id) {
                                 index, tag in
                                 Circle()
                                     .stroke(Color(UIColor.systemBackground), lineWidth: 2)
@@ -1152,7 +1152,7 @@ extension EntriesPageFallback {
                                             )
                                             .frame(width: 14, height: 14)
                                     )
-                                    .zIndex(Double(passwordTags.count - index))
+                                    .zIndex(Double(validTags.count - index))
                                     .frame(width: 16, height: 16)
                             }
                         }

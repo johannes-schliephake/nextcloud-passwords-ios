@@ -9,7 +9,7 @@ struct SelectTagsPageFallback: View {
     @StateObject private var selectTagsController: SelectTagsController
     // @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     
-    init(temporaryEntry: SelectTagsController.TemporaryEntry, tags: [Tag], addTag: @escaping (Tag) -> Void, selectTags: @escaping ([Tag]) -> Void) {
+    init(temporaryEntry: SelectTagsController.TemporaryEntry, tags: [Tag], addTag: @escaping (Tag) -> Void, selectTags: @escaping ([Tag], [String]) -> Void) {
         _selectTagsController = StateObject(wrappedValue: SelectTagsController(temporaryEntry: temporaryEntry, tags: tags, addTag: addTag, selectTags: selectTags))
     }
     
@@ -131,7 +131,7 @@ struct SelectTagsPageFallback: View {
     }
     
     @ViewBuilder private func toggleTagBadge(tag: Tag) -> some View {
-        let selected = selectTagsController.selection.contains(where: { $0.id == tag.id })
+        let selected = selectTagsController.selection.contains { $0.id == tag.id }
         HStack(spacing: 10) {
             Circle()
                 .fill(Color(hex: tag.color) ?? .primary)
@@ -188,7 +188,7 @@ struct SelectTagsPageFallback: View {
         guard selectTagsController.hasChanges else {
             return
         }
-        selectTagsController.selectTags(selectTagsController.selection)
+        selectTagsController.selectTags(selectTagsController.selection, selectTagsController.invalidTags)
         presentationMode.wrappedValue.dismiss()
     }
     
@@ -258,7 +258,7 @@ struct SelectTagsPageFallbackPreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                SelectTagsPageFallback(temporaryEntry: .password(label: Password.mock.label, username: Password.mock.username, url: Password.mock.url, tags: Password.mock.tags), tags: Tag.mocks, addTag: { _ in }, selectTags: { _ in })
+                SelectTagsPageFallback(temporaryEntry: .password(label: Password.mock.label, username: Password.mock.username, url: Password.mock.url, tags: Password.mock.tags), tags: Tag.mocks, addTag: { _ in }, selectTags: { _, _  in })
             }
             .showColumns(false)
         }

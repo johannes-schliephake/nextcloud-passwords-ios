@@ -7,23 +7,21 @@ final class SelectTagsController: ObservableObject {
     let temporaryEntry: TemporaryEntry
     var tags: [Tag]
     let addTag: (Tag) -> Void
-    let selectTags: ([Tag]) -> Void
+    let selectTags: ([Tag], [String]) -> Void
     
     @Published var selection: [Tag]
+    let invalidTags: [String]
     @Published var createTagLabel = ""
     
     private var subscriptions = Set<AnyCancellable>()
     
-    init(temporaryEntry: TemporaryEntry, tags: [Tag], addTag: @escaping (Tag) -> Void, selectTags: @escaping ([Tag]) -> Void) {
+    init(temporaryEntry: TemporaryEntry, tags: [Tag], addTag: @escaping (Tag) -> Void, selectTags: @escaping ([Tag], [String]) -> Void) {
         self.temporaryEntry = temporaryEntry
         self.tags = tags
         self.addTag = addTag
         self.selectTags = selectTags
         
-        selection = temporaryEntry.tags.compactMap {
-            tagId in
-            tags.first { $0.id == tagId }
-        }
+        (selection, invalidTags) = EntriesController.tags(for: temporaryEntry.tags, in: tags)
         
         tags.forEach {
             tag in

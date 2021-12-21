@@ -317,11 +317,11 @@ struct EditPasswordPage: View {
             }
             label: {
                 HStack {
-                    if editPasswordController.passwordTags.isEmpty {
+                    if editPasswordController.passwordValidTags.isEmpty {
                         Label("_addTags", systemImage: "tag")
                     }
                     else {
-                        FlowView(editPasswordController.passwordTags.sortedByLabel(), alignment: .leading) {
+                        FlowView(editPasswordController.passwordValidTags.sortedByLabel(), alignment: .leading) {
                             tag in
                             TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
                         }
@@ -335,12 +335,12 @@ struct EditPasswordPage: View {
                 }
             }
             .sheet(isPresented: $showSelectTagsView) {
-                SelectTagsNavigation(temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordTags.map { $0.id }), tags: editPasswordController.tags, addTag: {
+                SelectTagsNavigation(temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), tags: editPasswordController.tags, addTag: {
                     tag in
                     editPasswordController.addTag(tag)
                 }, selectTags: {
-                    tags in
-                    editPasswordController.passwordTags = tags
+                    validTags, _ in
+                    editPasswordController.passwordValidTags = validTags
                 })
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)

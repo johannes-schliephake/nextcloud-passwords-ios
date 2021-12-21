@@ -171,13 +171,6 @@ final class Password: ObservableObject, Identifiable {
         return folders.first { [self] in $0.id == self.folder }?.isDescendentOf(folder: folder, in: folders) ?? false
     }
     
-    func tags(in tags: [Tag]) -> [Tag] {
-        self.tags.compactMap {
-            tagId in
-            tags.first { $0.id == tagId }
-        }
-    }
-    
     func update(from password: Password) {
         guard id == password.id,
               revision != password.revision else {

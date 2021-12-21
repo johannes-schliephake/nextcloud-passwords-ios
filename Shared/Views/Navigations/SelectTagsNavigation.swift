@@ -8,7 +8,7 @@ struct SelectTagsNavigation: View {
     let temporaryEntry: SelectTagsController.TemporaryEntry
     let tags: [Tag]
     let addTag: (Tag) -> Void
-    let selectTags: ([Tag]) -> Void
+    let selectTags: ([Tag], [String]) -> Void
     
     // MARK: Views
     

@@ -100,8 +100,8 @@ struct PasswordDetailPage: View {
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
             if let tags = entriesController.tags,
-               let passwordTags = password.tags(in: tags) {
-                tagsSection(tags: tags, passwordTags: passwordTags)
+               let validTags = EntriesController.tags(for: password.tags, in: tags).valid {
+                tagsSection(tags: tags, validTags: validTags)
                     .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
             serviceSection()
@@ -191,26 +191,26 @@ struct PasswordDetailPage: View {
         .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
-    private func tagsSection(tags: [Tag], passwordTags: [Tag]) -> some View {
+    private func tagsSection(tags: [Tag], validTags: [Tag]) -> some View {
         Section(footer: HStack {
             Spacer()
-            Button(passwordTags.isEmpty ? "_addTags" : "_editTags") {
+            Button(validTags.isEmpty ? "_addTags" : "_editTags") {
                 showSelectTagsView = true
             }
             .font(.footnote)
             .textCase(.uppercase)
             Spacer()
         }) {
-            if !passwordTags.isEmpty {
+            if !validTags.isEmpty {
                 if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
-                    FlowView(passwordTags.sortedByLabel()) {
+                    FlowView(validTags.sortedByLabel()) {
                         tag in
                         TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
                     }
                 }
                 else {
                     ZStack {
-                        ForEach(passwordTags) {
+                        ForEach(validTags) {
                             tag in
                             NavigationLink("", tag: .entries(tag: tag), selection: $navigationSelection) {
                                 EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
@@ -218,7 +218,7 @@ struct PasswordDetailPage: View {
                             .isDetailLink(false)
                         }
                         .hidden()
-                        FlowView(passwordTags.sortedByLabel()) {
+                        FlowView(validTags.sortedByLabel()) {
                             tag in
                             Button {
                                 navigationSelection = .entries(tag: tag)
@@ -237,8 +237,8 @@ struct PasswordDetailPage: View {
                 tag in
                 entriesController.add(tag: tag)
             }, selectTags: {
-                tags in
-                password.tags = tags.map { $0.id }
+                validTags, invalidTags in
+                password.tags = validTags.map { $0.id } + invalidTags
                 entriesController.update(password: password)
             })
             .environmentObject(autoFillController)
