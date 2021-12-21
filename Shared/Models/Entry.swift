@@ -2,6 +2,7 @@ enum Entry: Identifiable {
     
     case folder(Folder)
     case password(Password)
+    case tag(Tag)
     
     static let baseId = "00000000-0000-0000-0000-000000000000"
     
@@ -11,6 +12,8 @@ enum Entry: Identifiable {
             return folder.id
         case .password(let password):
             return password.id
+        case .tag(let tag):
+            return tag.id
         }
     }
     
@@ -20,6 +23,8 @@ enum Entry: Identifiable {
             return folder.label
         case .password(let password):
             return password.label
+        case .tag(let tag):
+            return tag.label
         }
     }
     
@@ -29,6 +34,8 @@ enum Entry: Identifiable {
             return folder.parent
         case .password(let password):
             return password.folder
+        case .tag:
+            return nil
         }
     }
     
@@ -38,6 +45,8 @@ enum Entry: Identifiable {
             return folder.score(searchTerm: searchTerm)
         case .password(let password):
             return password.score(searchTerm: searchTerm)
+        case .tag(let tag):
+            return tag.score(searchTerm: searchTerm)
         }
     }
     

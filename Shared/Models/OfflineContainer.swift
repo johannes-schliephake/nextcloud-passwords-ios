@@ -29,6 +29,13 @@ import CoreData
         update(from: password)
     }
     
+    convenience init(context: NSManagedObjectContext, tag: Tag) {
+        self.init(context: context)
+        
+        self.type = .tag
+        update(from: tag)
+    }
+    
     func update(from folder: Folder) {
         let key = Crypto.AES256.getKey(named: "offlineKey")
         guard let data = Crypto.AES256.encrypt(folder: folder, key: key) else {
@@ -40,6 +47,14 @@ import CoreData
     func update(from password: Password) {
         let key = Crypto.AES256.getKey(named: "offlineKey")
         guard let data = Crypto.AES256.encrypt(password: password, key: key) else {
+            return
+        }
+        self.data = data
+    }
+    
+    func update(from tag: Tag) {
+        let key = Crypto.AES256.getKey(named: "offlineKey")
+        guard let data = Crypto.AES256.encrypt(tag: tag, key: key) else {
             return
         }
         self.data = data
@@ -62,6 +77,7 @@ extension OfflineContainer {
     enum `Type`: Int16 {
         case folder
         case password
+        case tag
     }
     
 }

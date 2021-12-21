@@ -2,6 +2,7 @@
 "_accept" = "Accept"; // I.e. accept this certificate
 "_account" = "Account"; // This refers to the noun ("the account")
 "_addCustomField" = "Add Custom Field";
+"_addTags" = "Add Tags"; // I.e. add tags to a password
 "_all" = "All"; // I.e. all passwords
 "_anErrorOccurred" = "An error occurred ...";
 "_appDeauthorized" = "App Deauthorized";
@@ -9,6 +10,7 @@
 "_automaticallyGeneratePasswords" = "Automatically Generate Passwords"; // This is a label for a settings toggle
 "_cancel" = "Cancel"; // Use the same wording Apple uses across iOS
 "_clientSide" = "Client Side"; // Possible value for "Encryption" field on password detail page, other key is "_serverSide"
+"_color" = "Color"; // // This refers to the noun ("the color"), i.e. the color of a tag
 "_confirmAction" = "Confirm Action"; // E.g. confirm deletion or confirm log out
 "_connect" = "Connect"; // I.e. connect to server
 "_connectToServer" = "Connect to Server";
@@ -20,16 +22,21 @@
 "_createFolderErrorMessage" = "An error occurred while creating the folder. Please save the folder again.";
 "_createPassword" = "Create Password";
 "_createPasswordErrorMessage" = "An error occurred while creating the password. Please save the password again.";
+"_createTag" = "Create Tag";
+"_createTagErrorMessage" = "An error occurred while creating the tag. Please save the tag again.";
 "_credentials" = "Credentials"; // Nextcloud credentials that were used to connect to an instance
 "_customFields" = "Custom Fields";
 "_decryptFolderErrorMessage" = "An error occurred while decrypting the folder.";
 "_decryptPasswordErrorMessage" = "An error occurred while decrypting the password.";
+"_decryptTagErrorMessage" = "An error occurred while decrypting the tag.";
 "_delete" = "Delete"; // Use the same wording Apple uses across iOS
 "_deletedPasswordMessage" = "This password was deleted.";
 "_deleteFolder" = "Delete Folder";
 "_deleteFolderErrorMessage" = "An error occurred while deleting the folder. Please delete the folder again.";
 "_deletePassword" = "Delete Password";
 "_deletePasswordErrorMessage" = "An error occurred while deleting the password. Please delete the password again.";
+"_deleteTag" = "Delete Tag";
+"_deleteTagErrorMessage" = "An error occurred while deleting the tag. Please delete the tag again.";
 "_discardChanges" = "Discard Changes";
 "_dismiss" = "Dismiss"; // Use the same wording Apple uses across iOS
 "_done" = "Done"; // Use the same wording Apple uses across iOS
@@ -38,6 +45,8 @@
 "_editFolderErrorMessage" = "An error occurred while editing the folder. Please save the folder again.";
 "_editPassword" = "Edit Password";
 "_editPasswordErrorMessage" = "An error occurred while editing the password. Please save the password again.";
+"_editTagErrorMessage" = "An error occurred while editing the tag. Please save the tag again.";
+"_editTags" = "Edit Tags";
 "_email" = "Email"; // Make sure to use the correct notation in your language, e.g. in German a dash is added: "E-Mail"
 "_encryptedOfflineStorage" = "Encrypted Offline Storage"; // This is a label for a settings toggle
 "_encryption" = "Encryption"; // I.e. server or client side encryption
@@ -86,6 +95,7 @@
 "_secret" = "Secret"; // This refers to the noun ("the secret") and is used in similar places as "password"
 "_security" = "Security"; // I.e. security status of a password
 "_select" = "Select"; // This refers to the verb ("to select"), i.e. select a password
+"_selectColor" = "Select Color"; // I.e. select a color for a tag
 "_serverAddressFieldMessage" = "An HTTPS connection is required.";
 "_serverSide" = "Server Side"; // Possible value for "Encryption" field on password detail page, other key is "_clientSide"
 "_service" = "Service"; // E.g. a website, an app, etc.
@@ -96,6 +106,8 @@
 "_storePasswordMessage" = "If this option is enabled, the E2E password is stored encrypted in your device's keychain.";
 "_suggestions" = "Suggestions"; // I.e. password suggestions when using Password AutoFill
 "_supportThisProject" = "Support This Project";
+"_tag" = "Tag"; // This refers to the noun ("the tag")
+"_tags" = "Tags";
 "_text" = "Text"; // This refers to the noun ("the text")
 "_thanksMessage" = "Thanks to the entire Nextcloud community and everybody involved for enabling such an amazing ecosystem. I hope that I can contribute something with this app.";
 "_tipDeferred" = "Tip Deferred"; // Shown when Apple's "Ask to Buy" feature (parental control) is active

@@ -11,16 +11,17 @@ struct EditPasswordPage: View {
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editPasswordController: EditPasswordController
-    @ScaledMetric private var sliderLabelWidth: Double = 87
-    @ScaledMetric private var customFieldTypeIconWidth: Double = 30
+    @ScaledMetric private var sliderLabelWidth = 87.0
+    @ScaledMetric private var customFieldTypeIconWidth = 30.0
     @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showPasswordGenerator: Bool
     @State private var editMode = false
+    @State private var showSelectTagsView = false
     @State private var showSelectFolderView = false
     @State private var showCancelAlert = false
     
-    init(password: Password, folders: [Folder], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
-        _editPasswordController = StateObject(wrappedValue: EditPasswordController(password: password, folders: folders, addPassword: addPassword, updatePassword: updatePassword))
+    init(password: Password, folders: [Folder], tags: [Tag], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void, addTag: @escaping (Tag) -> Void) {
+        _editPasswordController = StateObject(wrappedValue: EditPasswordController(password: password, folders: folders, tags: tags, addPassword: addPassword, updatePassword: updatePassword, addTag: addTag))
         _showPasswordGenerator = State(initialValue: password.id.isEmpty && !Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
     }
     
@@ -75,9 +76,8 @@ struct EditPasswordPage: View {
             passwordGeneratorSection()
             customFieldsSection()
             notesSection()
-            if editPasswordController.password.id.isEmpty {
-                favoriteButton()
-            }
+            favoriteButton()
+            tagsSection()
             moveSection()
         }
         .listStyle(.insetGrouped)
@@ -112,6 +112,10 @@ struct EditPasswordPage: View {
                         }
                     }
                     .onSubmit {
+                        guard !showSelectFolderView,
+                              !showSelectTagsView else { /// Prevent submit handling when page is not visible
+                            return
+                        }
                         if let next = focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) {
                             focusedField = next
                         }
@@ -297,13 +301,69 @@ struct EditPasswordPage: View {
         }
     }
     
+    private func favoriteButton() -> some View {
+        Button {
+            editPasswordController.passwordFavorite.toggle()
+        }
+        label: {
+            Label("_favorite", systemImage: editPasswordController.passwordFavorite ? "star.fill" : "star")
+        }
+    }
+    
+    private func tagsSection() -> some View {
+        Section(header: Text("_tags")) {
+            Button {
+                showSelectTagsView = true
+            }
+            label: {
+                HStack {
+                    if editPasswordController.passwordValidTags.isEmpty {
+                        Label("_addTags", systemImage: "tag")
+                    }
+                    else {
+                        FlowView(editPasswordController.passwordValidTags.sortedByLabel(), alignment: .leading) {
+                            tag in
+                            TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
+                        }
+                        .padding(.vertical, 6)
+                    }
+                    Spacer()
+                    NavigationLink(destination: EmptyView()) {
+                        EmptyView()
+                    }
+                    .fixedSize()
+                }
+            }
+            .sheet(isPresented: $showSelectTagsView) {
+                SelectTagsNavigation(temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), tags: editPasswordController.tags, addTag: {
+                    tag in
+                    editPasswordController.addTag(tag)
+                }, selectTags: {
+                    validTags, _ in
+                    editPasswordController.passwordValidTags = validTags
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(tipController)
+            }
+        }
+    }
+    
     private func moveSection() -> some View {
         Section(header: Text("_folder")) {
             Button {
                 showSelectFolderView = true
             }
             label: {
-                Label(editPasswordController.folders.first(where: { $0.id == editPasswordController.passwordFolder })?.label ?? "_passwords".localized, systemImage: "folder")
+                HStack {
+                    Label(editPasswordController.folders.first(where: { $0.id == editPasswordController.passwordFolder })?.label ?? "_passwords".localized, systemImage: "folder")
+                    Spacer()
+                    NavigationLink(destination: EmptyView()) {
+                        EmptyView()
+                    }
+                    .fixedSize()
+                }
             }
             .sheet(isPresented: $showSelectFolderView) {
                 SelectFolderNavigation(entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), folders: editPasswordController.folders, selectFolder: {
@@ -315,15 +375,6 @@ struct EditPasswordPage: View {
                 .environmentObject(sessionController)
                 .environmentObject(tipController)
             }
-        }
-    }
-    
-    private func favoriteButton() -> some View {
-        Button {
-            editPasswordController.passwordFavorite.toggle()
-        }
-        label: {
-            Label("_favorite", systemImage: editPasswordController.passwordFavorite ? "star.fill" : "star")
         }
     }
     
@@ -440,7 +491,7 @@ struct EditPasswordPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                EditPasswordPage(password: Password.mock, folders: Folder.mocks, addPassword: {}, updatePassword: {})
+                EditPasswordPage(password: Password.mock, folders: Folder.mocks, tags: Tag.mocks, addPassword: {}, updatePassword: {}, addTag: { _ in })
             }
             .showColumns(false)
         }

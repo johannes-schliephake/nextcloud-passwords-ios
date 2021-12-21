@@ -6,6 +6,7 @@ struct PasswordDetailPage: View {
     @ObservedObject var entriesController: EntriesController
     @ObservedObject var password: Password
     let folders: [Folder]
+    let tags: [Tag]
     let updatePassword: () -> Void
     let deletePassword: () -> Void
     
@@ -20,6 +21,8 @@ struct PasswordDetailPage: View {
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
     @State private var passwordDeleted = false
+    @State private var navigationSelection: NavigationSelection?
+    @State private var showSelectTagsView = false
     
     // MARK: Views
     
@@ -73,7 +76,10 @@ struct PasswordDetailPage: View {
             .edgesIgnoringSafeArea(autoFillController.complete != nil ? .bottom : [])
         }
         .sheet(isPresented: $showEditPasswordView, content: {
-            EditPasswordNavigation(password: password, folders: folders, addPassword: {}, updatePassword: updatePassword)
+            EditPasswordNavigation(password: password, folders: folders, tags: tags, addPassword: {}, updatePassword: updatePassword, addTag: {
+                tag in
+                entriesController.add(tag: tag)
+            })
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
@@ -93,6 +99,11 @@ struct PasswordDetailPage: View {
                 Spacer()
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
+            if let tags = entriesController.tags,
+               let validTags = EntriesController.tags(for: password.tags, in: tags).valid {
+                tagsSection(tags: tags, validTags: validTags)
+                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+            }
             serviceSection()
             accountSection()
             if !password.customFields.isEmpty {
@@ -178,6 +189,63 @@ struct PasswordDetailPage: View {
         }
         .buttonStyle(.borderless)
         .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+    }
+    
+    private func tagsSection(tags: [Tag], validTags: [Tag]) -> some View {
+        Section(footer: HStack {
+            Spacer()
+            Button(validTags.isEmpty ? "_addTags" : "_editTags") {
+                showSelectTagsView = true
+            }
+            .font(.footnote)
+            .textCase(.uppercase)
+            Spacer()
+        }) {
+            if !validTags.isEmpty {
+                if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
+                    FlowView(validTags.sortedByLabel()) {
+                        tag in
+                        TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
+                    }
+                }
+                else {
+                    ZStack {
+                        ForEach(validTags) {
+                            tag in
+                            NavigationLink("", tag: .entries(tag: tag), selection: $navigationSelection) {
+                                EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
+                            }
+                            .isDetailLink(false)
+                        }
+                        .hidden()
+                        FlowView(validTags.sortedByLabel()) {
+                            tag in
+                            Button {
+                                navigationSelection = .entries(tag: tag)
+                            }
+                            label: {
+                                TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
+                            }
+                            .buttonStyle(.borderless)
+                        }
+                    }
+                }
+            }
+        }
+        .sheet(isPresented: $showSelectTagsView) {
+            SelectTagsNavigation(temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), tags: tags, addTag: {
+                tag in
+                entriesController.add(tag: tag)
+            }, selectTags: {
+                validTags, invalidTags in
+                password.tags = validTags.map { $0.id } + invalidTags
+                entriesController.update(password: password)
+            })
+            .environmentObject(autoFillController)
+            .environmentObject(biometricAuthenticationController)
+            .environmentObject(sessionController)
+            .environmentObject(tipController)
+        }
     }
     
     private func serviceSection() -> some View {
@@ -357,12 +425,23 @@ struct PasswordDetailPage: View {
 }
 
 
+extension PasswordDetailPage {
+    
+    enum NavigationSelection: Hashable {
+        
+        case entries(tag: Tag)
+        
+    }
+    
+}
+
+
 struct PasswordDetailPagePreview: PreviewProvider {
     
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, folders: Folder.mocks, updatePassword: {}, deletePassword: {})
+                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, folders: Folder.mocks, tags: Tag.mocks, updatePassword: {}, deletePassword: {})
             }
             .showColumns(false)
             .environmentObject(AutoFillController.mock)

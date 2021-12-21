@@ -3,7 +3,6 @@ import Combine
 
 final class SelectFolderController: ObservableObject {
     
-    let entry: Entry
     let temporaryEntry: TemporaryEntry
     let folders: [Folder]
     let selectFolder: (Folder) -> Void
@@ -14,7 +13,6 @@ final class SelectFolderController: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     init(entry: Entry, temporaryEntry: TemporaryEntry, folders: [Folder], selectFolder: @escaping (Folder) -> Void) {
-        self.entry = entry
         self.temporaryEntry = temporaryEntry
         var folders = folders
         if case .folder(let folder) = entry {
@@ -34,6 +32,10 @@ final class SelectFolderController: ObservableObject {
                 .sink { [weak self] in self?.objectWillChange.send() }
                 .store(in: &subscriptions)
         }
+    }
+    
+    var hasChanges: Bool {
+        temporaryEntry.parent != selection.id
     }
     
 }

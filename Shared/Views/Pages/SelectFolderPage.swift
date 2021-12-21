@@ -96,13 +96,13 @@ struct SelectFolderPage: View {
         Button("_done") {
             applyAndDismiss()
         }
-        .disabled(selectFolderController.temporaryEntry.parent == selectFolderController.selection.id)
+        .disabled(!selectFolderController.hasChanges)
     }
     
     // MARK: Functions
     
     private func applyAndDismiss() {
-        guard !(selectFolderController.temporaryEntry.parent == selectFolderController.selection.id) else {
+        guard selectFolderController.hasChanges else {
             return
         }
         selectFolderController.selectFolder(selectFolderController.selection)
@@ -226,7 +226,7 @@ extension SelectFolderPage {
 }
 
 
-struct MovePasswordPagePreview: PreviewProvider {
+struct SelectFolderPagePreview: PreviewProvider {
     
     static var previews: some View {
         PreviewDevice.generate {

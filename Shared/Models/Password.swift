@@ -32,11 +32,12 @@ final class Password: ObservableObject, Identifiable {
     @Published var edited: Date
     @Published var created: Date
     @Published var updated: Date
+    @Published var tags: [String]
     
     @Published var state: Entry.State?
     var offlineContainer: OfflineContainer?
     
-    init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: [CustomField] = [], status: Int = 0, statusCode: StatusCode = .good, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
+    init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: [CustomField] = [], status: Int = 0, statusCode: StatusCode = .good, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0), tags: [String] = []) {
         self.id = id
         self.label = label
         self.username = username
@@ -62,6 +63,7 @@ final class Password: ObservableObject, Identifiable {
         self.edited = edited
         self.created = created
         self.updated = updated
+        self.tags = tags
     }
     
     required init(from decoder: Decoder) throws {
@@ -93,6 +95,7 @@ final class Password: ObservableObject, Identifiable {
         edited = try container.decode(Date.self, forKey: .edited)
         created = try container.decode(Date.self, forKey: .created)
         updated = try container.decode(Date.self, forKey: .updated)
+        tags = try container.decode([String].self, forKey: .tags)
         
         switch cseType {
         case "none":
@@ -197,6 +200,7 @@ final class Password: ObservableObject, Identifiable {
         edited = password.edited
         created = password.created
         updated = password.updated
+        tags = password.tags
         
         state = password.state
         revision = password.revision
@@ -259,6 +263,7 @@ extension Password: Codable {
         case edited
         case created
         case updated
+        case tags
     }
     
     func encode(to encoder: Encoder) throws {
@@ -318,6 +323,7 @@ extension Password: Codable {
         try container.encode(edited, forKey: .edited)
         try container.encode(created, forKey: .created)
         try container.encode(updated, forKey: .updated)
+        try container.encode(tags.isEmpty && encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true ? [""] : tags, forKey: .tags) /// Encode an empty tag id when tags are empty to force tag removal on server
     }
     
 }

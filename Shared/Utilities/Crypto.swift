@@ -157,11 +157,13 @@ extension Crypto {
             Keychain.default.remove(key: keyName)
         }
         
-        static func decrypt(offlineContainers: [OfflineContainer], key: SymmetricKey) throws -> (folders: [Folder], passwords: [Password]) {
+        static func decrypt(offlineContainers: [OfflineContainer], key: SymmetricKey) throws -> (folders: [Folder], passwords: [Password], tags: [Tag]) {
             let folderOfflineContainers = offlineContainers
                 .filter { $0.type == .folder }
             let passwordOfflineContainers = offlineContainers
                 .filter { $0.type == .password }
+            let tagOfflineContainers = offlineContainers
+                .filter { $0.type == .tag }
             
             let folders = try folderOfflineContainers
                 .map { $0.data }
@@ -185,8 +187,19 @@ extension Crypto {
                     password.offlineContainer = offlineContainer
                     return password
                 }
+            let tags = try tagOfflineContainers
+                .map { $0.data }
+                .map { try AES.GCM.SealedBox(combined: $0) }
+                .map { try AES.GCM.open($0, using: key) }
+                .map { try Configuration.jsonDecoder.decode(Tag.self, from: $0) }
+                .zip(with: passwordOfflineContainers)
+                .map {
+                    tag, offlineContainer -> Tag in
+                    tag.offlineContainer = offlineContainer
+                    return tag
+                }
             
-            return (folders, passwords)
+            return (folders, passwords, tags)
         }
         
         static func encrypt(folder: Folder, key: SymmetricKey) -> Data? {
@@ -199,6 +212,14 @@ extension Crypto {
         
         static func encrypt(password: Password, key: SymmetricKey) -> Data? {
             guard let encoded = try? Configuration.nonUpdatingJsonEncoder.encode(password),
+                  let encrypted = try? AES.GCM.seal(encoded, using: key, nonce: AES.GCM.Nonce()) else {
+                return nil
+            }
+            return encrypted.combined
+        }
+        
+        static func encrypt(tag: Tag, key: SymmetricKey) -> Data? {
+            guard let encoded = try? Configuration.nonUpdatingJsonEncoder.encode(tag),
                   let encrypted = try? AES.GCM.seal(encoded, using: key, nonce: AES.GCM.Nonce()) else {
                 return nil
             }
