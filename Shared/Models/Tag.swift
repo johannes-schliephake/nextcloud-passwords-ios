@@ -209,13 +209,13 @@ extension Array where Element == Tag {
 extension Tag: MockObject {
     
     static var mock: Tag {
-        Tag(id: "00000000-0000-0000-0003-000000000000", label: "_tag".localized, color: "#FF0000")
+        Tag(id: "00000000-0000-0000-0003-000000000000", label: "_tag".localized, color: "#F44336")
     }
     
     static var mocks: [Tag] {
         [
-            Tag(id: "00000000-0000-0000-0003-000000000001", label: "Tag 1", color: "#00FF00"),
-            Tag(id: "00000000-0000-0000-0003-000000000002", label: "Tag 2", color: "#0000FF")
+            Tag(id: "00000000-0000-0000-0003-000000000001", label: "Development", color: "#F44336"),
+            Tag(id: "00000000-0000-0000-0003-000000000002", label: "Self-Hosted", color: "#673AB7")
         ]
     }
     

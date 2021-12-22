@@ -414,8 +414,8 @@ extension Password: MockObject {
     
     static var mocks: [Password] {
         [
-            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com", folder: Entry.baseId, revision: Entry.baseId, favorite: true),
-            Password(id: "00000000-0000-0000-0002-000000000002", label: "GitHub", username: "johannes.schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://github.com/login", folder: Entry.baseId, revision: Entry.baseId),
+            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com", folder: Entry.baseId, revision: Entry.baseId, favorite: true, tags: ["00000000-0000-0000-0003-000000000001", "00000000-0000-0000-0003-000000000002"]),
+            Password(id: "00000000-0000-0000-0002-000000000002", label: "GitHub", username: "johannes-schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://github.com/login", folder: Entry.baseId, revision: Entry.baseId, tags: ["00000000-0000-0000-0003-000000000001"]),
             Password(id: "00000000-0000-0000-0002-000000000003", label: "Wikipedia", username: "johannes.schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://en.wikipedia.org/w/index.php?title=Special:UserLogin", folder: Entry.baseId, revision: Entry.baseId)
         ]
     }
