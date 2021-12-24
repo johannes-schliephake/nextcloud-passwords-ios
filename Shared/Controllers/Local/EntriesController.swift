@@ -74,7 +74,7 @@ final class EntriesController: ObservableObject {
         }
     }
     
-    private var fetchOnlineEntriesDate: Date?
+    private var onlineEntriesFetchDate: Date?
     private var didMergeOfflineEntries = false
     private var listRequestsSubscription: AnyCancellable?
     private var foldersSubscriptions = Set<AnyCancellable>()
@@ -107,7 +107,7 @@ final class EntriesController: ObservableObject {
             filterBy = .folders
             sortBy = .label
             reversed = false
-            fetchOnlineEntriesDate = nil
+            onlineEntriesFetchDate = nil
             didMergeOfflineEntries = false
             listRequestsSubscription = nil
             Crypto.AES256.removeKey(named: "offlineKey")
@@ -143,7 +143,7 @@ final class EntriesController: ObservableObject {
     }
     
     private func refresh(_: Notification) {
-        if let fetchOnlineEntriesDate = fetchOnlineEntriesDate {
+        if let fetchOnlineEntriesDate = onlineEntriesFetchDate {
             guard fetchOnlineEntriesDate.advanced(by: 5 * 60) < Date() else {
                 return
             }
@@ -155,7 +155,7 @@ final class EntriesController: ObservableObject {
     }
     
     private func fetchOnlineEntries(session: Session, completion: (() -> Void)? = nil) {
-        fetchOnlineEntriesDate = Date()
+        onlineEntriesFetchDate = Date()
         
         if state == .error {
             state = .loading
@@ -204,7 +204,7 @@ final class EntriesController: ObservableObject {
                     else {
                         self?.state = .offline
                     }
-                    self?.fetchOnlineEntriesDate = nil
+                    self?.onlineEntriesFetchDate = nil
                 }
                 completion?()
             }, receiveValue: {

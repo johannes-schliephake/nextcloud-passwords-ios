@@ -143,7 +143,7 @@ struct PasswordDetailPage: View {
                 label: {
                     Label("_editPassword", systemImage: "pencil")
                 }
-                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             }
         }
         label: {
@@ -188,7 +188,7 @@ struct PasswordDetailPage: View {
                 .font(.title)
         }
         .buttonStyle(.borderless)
-        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
     private func tagsSection(tags: [Tag], validTags: [Tag]) -> some View {
@@ -314,7 +314,7 @@ struct PasswordDetailPage: View {
                     Spacer()
                 }
             }
-            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             .actionSheet(isPresented: $showDeleteAlert) {
                 ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
                     deleteAndDismiss()
@@ -333,7 +333,7 @@ struct PasswordDetailPage: View {
                     Spacer()
                 }
             }
-            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             .actionSheet(isPresented: $showDeleteAlert) {
                 ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
                     deleteAndDismiss()
@@ -372,7 +372,7 @@ struct PasswordDetailPage: View {
             }, label: {
                 Text("_edit")
             })
-            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
     }
     

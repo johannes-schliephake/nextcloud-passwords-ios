@@ -258,7 +258,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                                 Text("_createPassword")
                             })
                             .buttonStyle(.action)
-                            .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
+                            .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
                         }
                     }
                     if !entries.isEmpty {
@@ -658,7 +658,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 Image(systemName: "plus")
             }
         }
-        .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed)
+        .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
     }
     
     // MARK: Functions
@@ -965,7 +965,7 @@ extension EntriesPageFallback {
                                     Label("_favorite", systemImage: password.favorite ? "star.slash.fill" : "star.fill")
                                 }
                                 .tint(.yellow)
-                                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                                 Button {
                                     tagPassword()
                                 }
@@ -973,7 +973,7 @@ extension EntriesPageFallback {
                                     Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
                                 }
                                 .tint(.orange)
-                                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                                 if password.editable {
                                     Button {
                                         editPassword()
@@ -982,7 +982,7 @@ extension EntriesPageFallback {
                                         Label("_edit", systemImage: "pencil")
                                     }
                                     .tint(.blue)
-                                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                                 }
                             }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
@@ -992,7 +992,7 @@ extension EntriesPageFallback {
                                 label: {
                                     Label("_delete", systemImage: "trash")
                                 }
-                                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                                 Button {
                                     movePassword()
                                 }
@@ -1000,7 +1000,7 @@ extension EntriesPageFallback {
                                     Label("_move", systemImage: "folder")
                                 }
                                 .tint(.purple)
-                                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                             }
                     }
                 }
@@ -1032,7 +1032,7 @@ extension EntriesPageFallback {
                         label: {
                             Label("_edit", systemImage: "pencil")
                         }
-                        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
                     Button {
                         toggleFavorite()
@@ -1040,21 +1040,21 @@ extension EntriesPageFallback {
                     label: {
                         Label("_favorite", systemImage: password.favorite ? "star.fill" : "star")
                     }
-                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     Button {
                         movePassword()
                     }
                     label: {
                         Label("_move", systemImage: "folder")
                     }
-                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     Button {
                         tagPassword()
                     }
                     label: {
                         Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
                     }
-                    .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     Divider()
                     if #available(iOS 15.0, *) {
                         Button(role: .destructive) {
@@ -1063,7 +1063,7 @@ extension EntriesPageFallback {
                         label: {
                             Label("_delete", systemImage: "trash")
                         }
-                        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
                     else {
                         Button {
@@ -1072,7 +1072,7 @@ extension EntriesPageFallback {
                         label: {
                             Label("_delete", systemImage: "trash")
                         }
-                        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
                 }
         }
