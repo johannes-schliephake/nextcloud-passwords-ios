@@ -7,6 +7,7 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
+    @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editFolderController: EditFolderController
@@ -116,6 +117,7 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
+                .environmentObject(settingsController)
                 .environmentObject(tipController)
             }
         }

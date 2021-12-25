@@ -10,6 +10,7 @@ struct EntriesPage: View {
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
+    @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var folderController: FolderController
@@ -110,6 +111,7 @@ struct EntriesPage: View {
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
                     .environmentObject(sessionController)
+                    .environmentObject(settingsController)
                     .environmentObject(tipController)
                 }
         )
@@ -127,6 +129,7 @@ struct EntriesPage: View {
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
                     .environmentObject(sessionController)
+                    .environmentObject(settingsController)
                     .environmentObject(tipController)
             }
         }
@@ -322,6 +325,7 @@ struct EntriesPage: View {
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
+                .environmentObject(settingsController)
                 .environmentObject(tipController)
             case .edit(.password(let password)):
                 EditPasswordNavigation(password: password, folders: folders, tags: tags, addPassword: {
@@ -335,6 +339,7 @@ struct EntriesPage: View {
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
+                .environmentObject(settingsController)
                 .environmentObject(tipController)
             case .edit(.tag(let tag)):
                 EditTagNavigation(tag: tag, addTag: {
@@ -345,6 +350,7 @@ struct EntriesPage: View {
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
+                .environmentObject(settingsController)
                 .environmentObject(tipController)
             case .move(.folder(let folder)):
                 SelectFolderNavigation(entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), folders: folders, selectFolder: {
@@ -355,6 +361,7 @@ struct EntriesPage: View {
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
+                .environmentObject(settingsController)
                 .environmentObject(tipController)
             case .move(.password(let password)):
                 SelectFolderNavigation(entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), folders: folders, selectFolder: {
@@ -365,6 +372,7 @@ struct EntriesPage: View {
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
+                .environmentObject(settingsController)
                 .environmentObject(tipController)
             case .move(.tag):
                 EmptyView()
