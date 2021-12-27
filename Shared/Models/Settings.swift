@@ -12,7 +12,7 @@ final class Settings {
 }
 
 
-extension Settings: Decodable {
+extension Settings: Codable {
     
     enum CodingKeys: String, CodingKey {
         case userPasswordSecurityHash = "user.password.security.hash"
