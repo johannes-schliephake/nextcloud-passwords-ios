@@ -202,6 +202,13 @@ extension Crypto {
             return (folders, passwords, tags)
         }
         
+        static func decrypt(offlineSettings: Data, key: SymmetricKey) throws -> Settings {
+            let encrypted = try AES.GCM.SealedBox(combined: offlineSettings)
+            let encoded = try AES.GCM.open(encrypted, using: key)
+            let settings = try Configuration.jsonDecoder.decode(Settings.self, from: encoded)
+            return settings
+        }
+        
         static func encrypt(folder: Folder, key: SymmetricKey) -> Data? {
             guard let encoded = try? Configuration.nonUpdatingJsonEncoder.encode(folder),
                   let encrypted = try? AES.GCM.seal(encoded, using: key, nonce: AES.GCM.Nonce()) else {
@@ -220,6 +227,14 @@ extension Crypto {
         
         static func encrypt(tag: Tag, key: SymmetricKey) -> Data? {
             guard let encoded = try? Configuration.nonUpdatingJsonEncoder.encode(tag),
+                  let encrypted = try? AES.GCM.seal(encoded, using: key, nonce: AES.GCM.Nonce()) else {
+                return nil
+            }
+            return encrypted.combined
+        }
+        
+        static func encrypt(settings: Settings, key: SymmetricKey) -> Data? {
+            guard let encoded = try? Configuration.nonUpdatingJsonEncoder.encode(settings),
                   let encrypted = try? AES.GCM.seal(encoded, using: key, nonce: AES.GCM.Nonce()) else {
                 return nil
             }

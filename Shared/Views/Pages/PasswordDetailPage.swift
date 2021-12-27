@@ -14,6 +14,7 @@ struct PasswordDetailPage: View {
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
+    @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
     
     @State private var favicon: UIImage?
@@ -83,6 +84,7 @@ struct PasswordDetailPage: View {
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
+                .environmentObject(settingsController)
                 .environmentObject(tipController)
         })
     }
@@ -199,6 +201,7 @@ struct PasswordDetailPage: View {
             }
             .font(.footnote)
             .textCase(.uppercase)
+            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             Spacer()
         }) {
             if !validTags.isEmpty {
@@ -244,6 +247,7 @@ struct PasswordDetailPage: View {
             .environmentObject(autoFillController)
             .environmentObject(biometricAuthenticationController)
             .environmentObject(sessionController)
+            .environmentObject(settingsController)
             .environmentObject(tipController)
         }
     }
@@ -349,6 +353,7 @@ struct PasswordDetailPage: View {
                     complete(password.username, password.password)
                 }
                 .buttonStyle(.action)
+                .disabled(password.state == .decryptionFailed)
             }
             .padding()
         }

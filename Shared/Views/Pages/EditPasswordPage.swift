@@ -8,6 +8,7 @@ struct EditPasswordPage: View {
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
+    @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editPasswordController: EditPasswordController
@@ -345,6 +346,7 @@ struct EditPasswordPage: View {
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
+                .environmentObject(settingsController)
                 .environmentObject(tipController)
             }
         }
@@ -373,6 +375,7 @@ struct EditPasswordPage: View {
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
+                .environmentObject(settingsController)
                 .environmentObject(tipController)
             }
         }
@@ -416,6 +419,7 @@ struct EditPasswordPage: View {
     
     private func applyAndDismiss() {
         guard editPasswordController.editIsValid,
+              settingsController.settingsAreAvailable,
               editPasswordController.password.state?.isProcessing != true else {
             return
         }

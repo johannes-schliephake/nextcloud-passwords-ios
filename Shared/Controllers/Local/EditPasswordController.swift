@@ -106,9 +106,11 @@ final class EditPasswordController: ObservableObject {
         }
         if password.password != passwordPassword {
             password.edited = Date()
-            password.hash = Crypto.SHA1.hash(passwordPassword.data(using: .utf8)!)
         }
         password.updated = Date()
+        
+        let hash = Crypto.SHA1.hash(passwordPassword.data(using: .utf8)!)
+        password.hash = String(hash.prefix(SettingsController.default.userPasswordSecurityHash))
         
         password.password = passwordPassword
         password.label = passwordLabel
