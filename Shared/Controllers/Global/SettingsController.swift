@@ -102,6 +102,10 @@ final class SettingsController: ObservableObject {
         settings?.userPasswordSecurityHash ?? 40
     }
     
+    var userSessionLifetime: Int {
+        settings?.userSessionLifetime ?? 600
+    }
+    
 }
 
 
