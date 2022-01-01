@@ -587,21 +587,42 @@ final class EntriesController: ObservableObject {
     func delete(folder: Folder) {
         folder.state = .deleting
         
-        guard let session = SessionController.default.session else {
+        guard let session = SessionController.default.session,
+              let folders = folders,
+              let passwords = passwords else {
             folder.state = .deletionFailed
             return
         }
-        folders?.removeAll { $0 === folder }
+        
+        self.folders?.removeAll { $0 === folder }
+        
+        let childFolders: [Folder] = folders.filter { $0.isDescendentOf(folder: folder, in: folders) }
+        let childPasswords = passwords.filter {
+            password in
+            childFolders.contains { $0.id == password.folder }
+        }
+        self.folders?.removeAll {
+            folder in
+            childFolders.contains { $0 === folder }
+        }
+        self.passwords?.removeAll {
+            password in
+            childPasswords.contains { $0 === password }
+        }
         
         DeleteFolderRequest(session: session, folder: folder).send {
             [weak self] response in
             guard response != nil else {
                 self?.folders?.append(folder)
+                self?.folders?.append(contentsOf: childFolders)
+                self?.passwords?.append(contentsOf: childPasswords)
                 folder.state = .deletionFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_deleteFolderErrorMessage".localized)
                 return
             }
             folder.revision = ""
+            childFolders.forEach { $0.revision = "" }
+            childPasswords.forEach { $0.revision = "" }
         }
     }
     
