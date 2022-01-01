@@ -249,7 +249,7 @@ final class SessionController: ObservableObject {
     
     private func keepaliveSession() {
         keepaliveTimer?.invalidate()
-        keepaliveTimer = Timer.scheduledTimer(withTimeInterval: 9 * 60, repeats: false) {
+        keepaliveTimer = Timer.scheduledTimer(withTimeInterval: Double(SettingsController.default.userSessionLifetime) - 30, repeats: false) {
             [weak self] _ in
             guard let session = self?.session else {
                 return
