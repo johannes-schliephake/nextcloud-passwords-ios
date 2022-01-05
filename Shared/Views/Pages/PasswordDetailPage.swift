@@ -35,9 +35,12 @@ struct PasswordDetailPage: View {
             mainStack()
                 .navigationTitle(password.label)
                 .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        stateView()
+                    }
                     ToolbarItem(placement: .primaryAction) {
                         if password.editable {
-                            primaryActionToolbarView()
+                            editButton()
                         }
                     }
                 }
@@ -77,10 +80,7 @@ struct PasswordDetailPage: View {
             .edgesIgnoringSafeArea(autoFillController.complete != nil ? .bottom : [])
         }
         .sheet(isPresented: $showEditPasswordView, content: {
-            EditPasswordNavigation(password: password, folders: folders, tags: tags, addPassword: {}, updatePassword: updatePassword, addTag: {
-                tag in
-                entriesController.add(tag: tag)
-            })
+            EditPasswordNavigation(entriesController: entriesController, password: password)
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
@@ -236,10 +236,7 @@ struct PasswordDetailPage: View {
             }
         }
         .sheet(isPresented: $showSelectTagsView) {
-            SelectTagsNavigation(temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), tags: tags, addTag: {
-                tag in
-                entriesController.add(tag: tag)
-            }, selectTags: {
+            SelectTagsNavigation(entriesController: entriesController, temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
                 validTags, invalidTags in
                 password.tags = validTags.map { $0.id } + invalidTags
                 entriesController.update(password: password)
@@ -361,24 +358,24 @@ struct PasswordDetailPage: View {
         .background(Color(UIColor.systemGroupedBackground))
     }
     
-    private func primaryActionToolbarView() -> some View {
-        HStack {
-            if let state = password.state {
-                if state.isError {
-                    errorButton(state: state)
-                }
-                else if state.isProcessing {
-                    ProgressView()
-                }
-                Spacer()
+    @ViewBuilder private func stateView() -> some View {
+        if let state = password.state {
+            if state.isError {
+                errorButton(state: state)
             }
-            Button(action: {
-                showEditPasswordView = true
-            }, label: {
-                Text("_edit")
-            })
-            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            else if state.isProcessing {
+                ProgressView()
+            }
         }
+    }
+    
+    private func editButton() -> some View {
+        Button(action: {
+            showEditPasswordView = true
+        }, label: {
+            Text("_edit")
+        })
+        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
     private func errorButton(state: Entry.State) -> some View {

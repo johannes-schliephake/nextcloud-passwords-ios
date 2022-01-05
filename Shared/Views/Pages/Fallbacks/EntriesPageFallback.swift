@@ -317,43 +317,28 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
             item in
             switch item {
             case .edit(.folder(let folder)):
-                EditFolderNavigation(folder: folder, folders: folders, addFolder: {
-                    entriesController.add(folder: folder)
-                }, updateFolder: {
-                    entriesController.update(folder: folder)
-                })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
+                EditFolderNavigation(entriesController: entriesController, folder: folder)
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(settingsController)
+                    .environmentObject(tipController)
             case .edit(.password(let password)):
-                EditPasswordNavigation(password: password, folders: folders, tags: tags, addPassword: {
-                    entriesController.add(password: password)
-                }, updatePassword: {
-                    entriesController.update(password: password)
-                }, addTag: {
-                    tag in
-                    entriesController.add(tag: tag)
-                })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
+                EditPasswordNavigation(entriesController: entriesController, password: password)
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(settingsController)
+                    .environmentObject(tipController)
             case .edit(.tag(let tag)):
-                EditTagNavigation(tag: tag, addTag: {
-                    entriesController.add(tag: tag)
-                }, updateTag: {
-                    entriesController.update(tag: tag)
-                })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
+                EditTagNavigation(entriesController: entriesController, tag: tag)
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(settingsController)
+                    .environmentObject(tipController)
             case .move(.folder(let folder)):
-                SelectFolderNavigation(entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), folders: folders, selectFolder: {
+                SelectFolderNavigation(entriesController: entriesController, entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), selectFolder: {
                     parent in
                     folder.parent = parent.id
                     entriesController.update(folder: folder)
@@ -364,7 +349,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                 .environmentObject(settingsController)
                 .environmentObject(tipController)
             case .move(.password(let password)):
-                SelectFolderNavigation(entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), folders: folders, selectFolder: {
+                SelectFolderNavigation(entriesController: entriesController, entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), selectFolder: {
                     parent in
                     password.folder = parent.id
                     entriesController.update(password: password)
@@ -379,14 +364,16 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
             case .tag(.folder):
                 EmptyView()
             case .tag(.password(let password)):
-                SelectTagsNavigation(temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), tags: tags, addTag: {
-                    tag in
-                    entriesController.add(tag: tag)
-                }, selectTags: {
+                SelectTagsNavigation(entriesController: entriesController, temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
                     validTags, invalidTags in
                     password.tags = validTags.map { $0.id } + invalidTags
                     entriesController.update(password: password)
                 })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(settingsController)
+                .environmentObject(tipController)
             case .tag(.tag):
                 EmptyView()
             }
