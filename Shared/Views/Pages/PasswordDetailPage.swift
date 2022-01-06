@@ -135,10 +135,12 @@ struct PasswordDetailPage: View {
                 case .breached:
                     Text("_passwordStatusBreachedMessage1")
                     Text("_passwordStatusBreachedMessage2")
+                case .unknown:
+                    EmptyView() // TODO: Add message for unknown password status
                 }
             }
             if password.editable,
-               password.statusCode != .good {
+               password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
                 Button {
                     showEditPasswordView = true
                 }
@@ -162,6 +164,16 @@ struct PasswordDetailPage: View {
                 Image(systemName: "xmark.shield.fill")
                     .font(.title)
                     .foregroundColor(.red)
+            case .unknown:
+                ZStack {
+                    Image(systemName: "shield.fill")
+                        .font(.title)
+                        .foregroundColor(.gray)
+                    Image(systemName: "questionmark")
+                        .font(.title.bold())
+                        .foregroundColor(Color(.systemGroupedBackground))
+                        .scaleEffect(0.5)
+                }
             }
         }
     }
