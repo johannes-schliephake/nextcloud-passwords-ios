@@ -37,7 +37,7 @@ final class Password: ObservableObject, Identifiable {
     @Published var state: Entry.State?
     var offlineContainer: OfflineContainer?
     
-    init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: [CustomField] = [], status: Int = 0, statusCode: StatusCode = .good, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0), tags: [String] = []) {
+    init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: [CustomField] = [], status: Int = 0, statusCode: StatusCode = .unknown, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0), tags: [String] = []) {
         self.id = id
         self.label = label
         self.username = username
@@ -337,9 +337,10 @@ extension Password {
         case outdated = "OUTDATED"
         case duplicate = "DUPLICATE"
         case breached = "BREACHED"
+        case unknown = "NOT_CHECKED"
         
         static func < (lhs: Password.StatusCode, rhs: Password.StatusCode) -> Bool {
-            let order: [StatusCode] = [.good, .outdated, .duplicate, .breached]
+            let order: [StatusCode] = [.good, .outdated, .duplicate, .unknown, .breached]
             return order.firstIndex(of: lhs)! < order.firstIndex(of: rhs)!
         }
         

@@ -1222,17 +1222,26 @@ extension EntriesPageFallback {
                 .foregroundColor(.gray)
         }
         
-        private func statusImage() -> some View {
+        @ViewBuilder private func statusImage() -> some View {
             switch password.statusCode {
             case .good:
-                return Image(systemName: "checkmark.shield.fill")
+                Image(systemName: "checkmark.shield.fill")
                     .foregroundColor(.green)
             case .outdated, .duplicate:
-                return Image(systemName: "exclamationmark.shield.fill")
+                Image(systemName: "exclamationmark.shield.fill")
                     .foregroundColor(.yellow)
             case .breached:
-                return Image(systemName: "xmark.shield.fill")
+                Image(systemName: "xmark.shield.fill")
                     .foregroundColor(.red)
+            case .unknown:
+                ZStack {
+                    Image(systemName: "shield.fill")
+                        .foregroundColor(.gray)
+                    Image(systemName: "questionmark")
+                        .font(.body.bold())
+                        .foregroundColor(Color(.systemBackground))
+                        .scaleEffect(0.5)
+                }
             }
         }
         
