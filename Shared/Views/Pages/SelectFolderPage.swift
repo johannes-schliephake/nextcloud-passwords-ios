@@ -134,7 +134,8 @@ struct SelectFolderPage: View {
     // MARK: Functions
     
     private func applyAndDismiss() {
-        guard selectFolderController.hasChanges else {
+        guard selectFolderController.hasChanges,
+              selectFolderController.selection.state?.isProcessing != true else {
             return
         }
         selectFolderController.selectFolder(selectFolderController.selection)
