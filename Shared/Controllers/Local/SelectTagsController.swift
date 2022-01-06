@@ -4,49 +4,44 @@ import Combine
 
 final class SelectTagsController: ObservableObject {
     
+    let entriesController: EntriesController
     let temporaryEntry: TemporaryEntry
-    var tags: [Tag]
-    let addTag: (Tag) -> Void
     let selectTags: ([Tag], [String]) -> Void
     
-    @Published var selection: [Tag]
+    @Published private(set) var selection: [Tag]
     let invalidTags: [String]
-    @Published var createTagLabel = ""
+    @Published var tagLabel = ""
     
     private var subscriptions = Set<AnyCancellable>()
     
-    init(temporaryEntry: TemporaryEntry, tags: [Tag], addTag: @escaping (Tag) -> Void, selectTags: @escaping ([Tag], [String]) -> Void) {
+    init(entriesController: EntriesController, temporaryEntry: TemporaryEntry, selectTags: @escaping ([Tag], [String]) -> Void) {
+        self.entriesController = entriesController
         self.temporaryEntry = temporaryEntry
-        self.tags = tags
-        self.addTag = addTag
         self.selectTags = selectTags
         
-        (selection, invalidTags) = EntriesController.tags(for: temporaryEntry.tags, in: tags)
+        (selection, invalidTags) = EntriesController.tags(for: temporaryEntry.tags, in: entriesController.tags ?? [])
         
-        tags.forEach {
-            tag in
-            tag.objectWillChange
-                .sink { [weak self] in self?.objectWillChange.send() }
-                .store(in: &subscriptions)
-        }
+        entriesController.objectWillChange
+            .sink { [weak self] in self?.objectWillChange.send() }
+            .store(in: &subscriptions)
+    }
+    
+    var tags: [Tag] {
+        entriesController.tags?.sortedByLabel() ?? []
     }
     
     var hasChanges: Bool {
-        selection.map { $0.id }.sorted() != temporaryEntry.tags.filter { tagId in tags.contains { $0.id == tagId } }.sorted()
+        selection.map { $0.id }.sorted() != EntriesController.tags(for: temporaryEntry.tags, in: entriesController.tags ?? []).valid.map { $0.id }.sorted()
     }
     
-    func createTag() {
-        guard 1...48 ~= createTagLabel.count else {
+    func addTag() {
+        guard 1...48 ~= tagLabel.count else {
             return
         }
-        let tag = Tag(label: createTagLabel, client: Configuration.clientName, edited: Date(), created: Date(), updated: Date())
-        tags.append(tag)
+        let tag = Tag(label: tagLabel, client: Configuration.clientName, edited: Date(), created: Date(), updated: Date())
+        entriesController.add(tag: tag)
         selection.append(tag)
-        tag.objectWillChange
-            .sink { [weak self] in self?.objectWillChange.send() }
-            .store(in: &subscriptions)
-        addTag(tag)
-        createTagLabel = ""
+        tagLabel = ""
     }
     
     func toggleTag(_ tag: Tag) {

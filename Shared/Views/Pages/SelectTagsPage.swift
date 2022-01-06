@@ -9,8 +9,8 @@ struct SelectTagsPage: View {
     @StateObject private var selectTagsController: SelectTagsController
     @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     
-    init(temporaryEntry: SelectTagsController.TemporaryEntry, tags: [Tag], addTag: @escaping (Tag) -> Void, selectTags: @escaping ([Tag], [String]) -> Void) {
-        _selectTagsController = StateObject(wrappedValue: SelectTagsController(temporaryEntry: temporaryEntry, tags: tags, addTag: addTag, selectTags: selectTags))
+    init(entriesController: EntriesController, temporaryEntry: SelectTagsController.TemporaryEntry, selectTags: @escaping ([Tag], [String]) -> Void) {
+        _selectTagsController = StateObject(wrappedValue: SelectTagsController(entriesController: entriesController, temporaryEntry: temporaryEntry, selectTags: selectTags))
     }
     
     // MARK: Views
@@ -60,7 +60,7 @@ struct SelectTagsPage: View {
         List {
             VStack {
                 Spacer()
-                createTagBadge()
+                addTagBadge()
             }
             .apply {
                 view in
@@ -69,7 +69,7 @@ struct SelectTagsPage: View {
                         .listRowSeparator(.hidden)
                 }
             }
-            ForEach(selectTagsController.tags.sortedByLabel()) {
+            ForEach(selectTagsController.tags) {
                 tag in
                 toggleTagBadge(tag: tag)
             }
@@ -102,22 +102,22 @@ struct SelectTagsPage: View {
         }
     }
     
-    private func createTagBadge() -> some View {
+    private func addTagBadge() -> some View {
         HStack(spacing: 10) {
             Circle()
                 .strokeBorder(Color(.placeholderText), lineWidth: 1.5)
                 .frame(width: 15.8, height: 15.8)
-            TextField("_createTag" as LocalizedStringKey, text: $selectTagsController.createTagLabel, onCommit: {
-                selectTagsController.createTag()
+            TextField("_createTag" as LocalizedStringKey, text: $selectTagsController.tagLabel, onCommit: {
+                selectTagsController.addTag()
                 if #available(iOS 15, *) {
-                    focusedField = .createTagLabel
+                    focusedField = .addTagLabel
                 }
             })
                 .apply {
                     view in
                     if #available(iOS 15, *) {
                         view
-                            .focused($focusedField, equals: .createTagLabel)
+                            .focused($focusedField, equals: .addTagLabel)
                             .submitLabel(.done)
                     }
                 }
@@ -185,7 +185,8 @@ struct SelectTagsPage: View {
     // MARK: Functions
     
     private func applyAndDismiss() {
-        guard selectTagsController.hasChanges else {
+        guard selectTagsController.hasChanges,
+              selectTagsController.selection.allSatisfy({ $0.state?.isProcessing != true }) else {
             return
         }
         selectTagsController.selectTags(selectTagsController.selection, selectTagsController.invalidTags)
@@ -198,7 +199,7 @@ struct SelectTagsPage: View {
 extension SelectTagsPage {
     
     enum FocusField: Hashable {
-        case createTagLabel
+        case addTagLabel
     }
     
 }
@@ -258,7 +259,7 @@ struct SelectTagsPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                SelectTagsPage(temporaryEntry: .password(label: Password.mock.label, username: Password.mock.username, url: Password.mock.url, tags: Password.mock.tags), tags: Tag.mocks, addTag: { _ in }, selectTags: { _, _  in })
+                SelectTagsPage(entriesController: EntriesController.mock, temporaryEntry: .password(label: Password.mock.label, username: Password.mock.username, url: Password.mock.url, tags: Password.mock.tags), selectTags: { _, _  in })
             }
             .showColumns(false)
         }

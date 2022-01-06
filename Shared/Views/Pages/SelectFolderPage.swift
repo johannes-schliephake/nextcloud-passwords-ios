@@ -4,12 +4,17 @@ import SwiftUI
 struct SelectFolderPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var autoFillController: AutoFillController
+    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
+    @EnvironmentObject private var settingsController: SettingsController
+    @EnvironmentObject private var tipController: TipController
     
     @StateObject private var selectFolderController: SelectFolderController
+    @State private var sheetItem: SheetItem?
     
-    init(entry: Entry, temporaryEntry: SelectFolderController.TemporaryEntry, folders: [Folder], selectFolder: @escaping (Folder) -> Void) {
-        _selectFolderController = StateObject(wrappedValue: SelectFolderController(entry: entry, temporaryEntry: temporaryEntry, folders: folders, selectFolder: selectFolder))
+    init(entriesController: EntriesController, entry: Entry, temporaryEntry: SelectFolderController.TemporaryEntry, selectFolder: @escaping (Folder) -> Void) {
+        _selectFolderController = StateObject(wrappedValue: SelectFolderController(entriesController: entriesController, entry: entry, temporaryEntry: temporaryEntry, selectFolder: selectFolder))
     }
     
     // MARK: Views
@@ -20,6 +25,9 @@ struct SelectFolderPage: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     cancelButton()
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    addFolderButton()
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
@@ -92,6 +100,30 @@ struct SelectFolderPage: View {
         }
     }
     
+    private func addFolderButton() -> some View {
+        Button {
+            sheetItem = .edit(folder: Folder(parent: selectFolderController.selection.id, client: Configuration.clientName))
+        }
+        label: {
+            Image(systemName: "folder.badge.plus")
+        }
+        .sheet(item: $sheetItem) {
+            item in
+            switch item {
+            case .edit(let folder):
+                EditFolderNavigation(entriesController: selectFolderController.entriesController, folder: folder, didAdd: {
+                    folder in
+                    selectFolderController.selection = folder
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(settingsController)
+                .environmentObject(tipController)
+            }
+        }
+    }
+    
     private func confirmButton() -> some View {
         Button("_done") {
             applyAndDismiss()
@@ -102,11 +134,30 @@ struct SelectFolderPage: View {
     // MARK: Functions
     
     private func applyAndDismiss() {
-        guard selectFolderController.hasChanges else {
+        guard selectFolderController.hasChanges,
+              selectFolderController.selection.state?.isProcessing != true else {
             return
         }
         selectFolderController.selectFolder(selectFolderController.selection)
         presentationMode.wrappedValue.dismiss()
+    }
+    
+}
+
+
+extension SelectFolderPage {
+    
+    enum SheetItem: Identifiable {
+        
+        case edit(folder: Folder)
+        
+        var id: String {
+            switch self {
+            case .edit(let folder):
+                return folder.id
+            }
+        }
+        
     }
     
 }
@@ -123,12 +174,13 @@ extension SelectFolderPage {
         
         var body: some View {
             Group {
-                if !folders.contains { $0.parent == folder.id } {
+                let subfolders = folders.filter { !$0.id.isEmpty && $0.parent == folder.id }
+                if subfolders.isEmpty {
                     FolderRow(label: folder.label)
                 }
                 else {
                     DisclosureGroup(isExpanded: $isExpanded) {
-                        ForEach(folders.filter { !$0.id.isEmpty && $0.parent == folder.id }) {
+                        ForEach(subfolders) {
                             folder in
                             FolderGroup(folder: folder, folders: folders, selection: $selection, isExpanded: selection !== folder && selection.isDescendentOf(folder: folder, in: folders))
                         }
@@ -231,7 +283,7 @@ struct SelectFolderPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                SelectFolderPage(entry: .folder(Folder.mocks.first!), temporaryEntry: .folder(label: Folder.mocks.first!.label, parent: Folder.mocks.first!.parent), folders: Folder.mocks, selectFolder: { _ in })
+                SelectFolderPage(entriesController: EntriesController.mock, entry: .folder(Folder.mocks.first!), temporaryEntry: .folder(label: Folder.mocks.first!.label, parent: Folder.mocks.first!.parent), selectFolder: { _ in })
             }
             .showColumns(false)
         }

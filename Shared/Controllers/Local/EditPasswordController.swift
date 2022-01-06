@@ -3,12 +3,8 @@ import SwiftUI
 
 final class EditPasswordController: ObservableObject {
     
+    let entriesController: EntriesController
     let password: Password
-    let folders: [Folder]
-    let tags: [Tag]
-    private let addPassword: () -> Void
-    private let updatePassword: () -> Void
-    let addTag: (Tag) -> Void
     
     @Published var generatorNumbers = Configuration.userDefaults.object(forKey: "generatorNumbers") as? Bool ?? true {
         willSet {
@@ -40,13 +36,9 @@ final class EditPasswordController: ObservableObject {
     
     private let passwordCustomDataFields: [Password.CustomField]
     
-    init(password: Password, folders: [Folder], tags: [Tag], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void, addTag: @escaping (Tag) -> Void) {
+    init(entriesController: EntriesController, password: Password) {
+        self.entriesController = entriesController
         self.password = password
-        self.folders = folders
-        self.tags = tags
-        self.addPassword = addPassword
-        self.updatePassword = updatePassword
-        self.addTag = addTag
         passwordPassword = password.password
         passwordLabel = password.label
         passwordUsername = password.username
@@ -55,8 +47,12 @@ final class EditPasswordController: ObservableObject {
         passwordCustomDataFields = password.customFields.filter { $0.type == .data }
         passwordNotes = password.notes
         passwordFavorite = password.favorite
-        (passwordValidTags, passwordInvalidTags) = EntriesController.tags(for: password.tags, in: tags)
+        (passwordValidTags, passwordInvalidTags) = EntriesController.tags(for: password.tags, in: entriesController.tags ?? [])
         passwordFolder = password.folder
+    }
+    
+    var folderLabel: String {
+        entriesController.folders?.first(where: { $0.id == passwordFolder })?.label ?? "_passwords".localized
     }
     
     var hasChanges: Bool {
@@ -67,7 +63,7 @@ final class EditPasswordController: ObservableObject {
         passwordCustomUserFields != password.customFields.filter { $0.type != .data } ||
         passwordNotes != password.notes ||
         passwordFavorite != password.favorite ||
-        passwordValidTags.map { $0.id }.sorted() != password.tags.filter { tagId in tags.contains { $0.id == tagId } }.sorted() ||
+        passwordValidTags.map { $0.id }.sorted() != EntriesController.tags(for: password.tags, in: entriesController.tags ?? []).valid.map { $0.id }.sorted() ||
         passwordFolder != password.folder
     }
     
@@ -120,13 +116,13 @@ final class EditPasswordController: ObservableObject {
         password.notes = passwordNotes
         password.favorite = passwordFavorite
         password.tags = passwordValidTags.map { $0.id } + passwordInvalidTags
-        password.folder = passwordFolder
+        password.folder = entriesController.folders?.contains { $0.id == passwordFolder } == true ? passwordFolder : Entry.baseId
         
         if password.id.isEmpty {
-            addPassword()
+            entriesController.add(password: password)
         }
         else {
-            updatePassword()
+            entriesController.update(password: password)
         }
     }
     

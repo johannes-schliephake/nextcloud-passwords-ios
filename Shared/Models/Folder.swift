@@ -192,6 +192,15 @@ extension Folder: Codable {
 }
 
 
+extension Array where Element == Folder {
+    
+    func sortedByLabel() -> [Folder] {
+        sorted { $0.label.compare($1.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
+    }
+    
+}
+
+
 extension Folder: MockObject {
     
     static var mock: Folder {

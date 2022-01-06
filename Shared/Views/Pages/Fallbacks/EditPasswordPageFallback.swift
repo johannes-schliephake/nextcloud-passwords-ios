@@ -21,8 +21,8 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     @State private var showSelectFolderView = false
     @State private var showCancelAlert = false
     
-    init(password: Password, folders: [Folder], tags: [Tag], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void, addTag: @escaping (Tag) -> Void) {
-        _editPasswordController = StateObject(wrappedValue: EditPasswordController(password: password, folders: folders, tags: tags, addPassword: addPassword, updatePassword: updatePassword, addTag: addTag))
+    init(entriesController: EntriesController, password: Password) {
+        _editPasswordController = StateObject(wrappedValue: EditPasswordController(entriesController: entriesController, password: password))
         _showPasswordGenerator = State(initialValue: password.id.isEmpty && !Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
     }
     
@@ -336,10 +336,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 }
             }
             .sheet(isPresented: $showSelectTagsView) {
-                SelectTagsNavigation(temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), tags: editPasswordController.tags, addTag: {
-                    tag in
-                    editPasswordController.addTag(tag)
-                }, selectTags: {
+                SelectTagsNavigation(entriesController: editPasswordController.entriesController, temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
                     validTags, _ in
                     editPasswordController.passwordValidTags = validTags
                 })
@@ -359,7 +356,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
             }
             label: {
                 HStack {
-                    Label(editPasswordController.folders.first(where: { $0.id == editPasswordController.passwordFolder })?.label ?? "_passwords".localized, systemImage: "folder")
+                    Label(editPasswordController.folderLabel, systemImage: "folder")
                     Spacer()
                     NavigationLink(destination: EmptyView()) {
                         EmptyView()
@@ -368,7 +365,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 }
             }
             .sheet(isPresented: $showSelectFolderView) {
-                SelectFolderNavigation(entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), folders: editPasswordController.folders, selectFolder: {
+                SelectFolderNavigation(entriesController: editPasswordController.entriesController, entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), selectFolder: {
                     parent in
                     editPasswordController.passwordFolder = parent.id
                 })
@@ -495,7 +492,7 @@ struct EditPasswordPageFallbackPreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                EditPasswordPageFallback(password: Password.mock, folders: Folder.mocks, tags: Tag.mocks, addPassword: {}, updatePassword: {}, addTag: { _ in })
+                EditPasswordPageFallback(entriesController: EntriesController.mock, password: Password.mock)
             }
             .showColumns(false)
         }

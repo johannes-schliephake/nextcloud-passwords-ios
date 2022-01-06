@@ -3,18 +3,16 @@ import SwiftUI
 
 final class EditTagController: ObservableObject {
     
+    let entriesController: EntriesController
     let tag: Tag
-    private let addTag: () -> Void
-    private let updateTag: () -> Void
     
     @Published var tagLabel: String
     @Published var tagColor: Color
     @Published var tagFavorite: Bool
     
-    init(tag: Tag, addTag: @escaping () -> Void, updateTag: @escaping () -> Void) {
+    init(entriesController: EntriesController, tag: Tag) {
+        self.entriesController = entriesController
         self.tag = tag
-        self.addTag = addTag
-        self.updateTag = updateTag
         tagLabel = tag.label
         tagColor = Color(hex: tag.color) ?? .black
         tagFavorite = tag.favorite
@@ -42,10 +40,10 @@ final class EditTagController: ObservableObject {
         tag.favorite = tagFavorite
         
         if tag.id.isEmpty {
-            addTag()
+            entriesController.add(tag: tag)
         }
         else {
-            updateTag()
+            entriesController.update(tag: tag)
         }
     }
     

@@ -15,8 +15,8 @@ struct EditFolderPage: View {
     @State private var showSelectFolderView = false
     @State private var showCancelAlert = false
     
-    init(folder: Folder, folders: [Folder], addFolder: @escaping () -> Void, updateFolder: @escaping () -> Void) {
-        _editFolderController = StateObject(wrappedValue: EditFolderController(folder: folder, folders: folders, addFolder: addFolder, updateFolder: updateFolder))
+    init(entriesController: EntriesController, folder: Folder, didAdd: ((Folder) -> Void)? = nil) {
+        _editFolderController = StateObject(wrappedValue: EditFolderController(entriesController: entriesController, folder: folder, didAdd: didAdd))
     }
     
     // MARK: Views
@@ -107,10 +107,10 @@ struct EditFolderPage: View {
                 showSelectFolderView = true
             }
             label: {
-                Label(editFolderController.folders.first(where: { $0.id == editFolderController.folderParent })?.label ?? "_passwords".localized, systemImage: "folder")
+                Label(editFolderController.parentLabel, systemImage: "folder")
             }
             .sheet(isPresented: $showSelectFolderView) {
-                SelectFolderNavigation(entry: .folder(editFolderController.folder), temporaryEntry: .folder(label: editFolderController.folderLabel, parent: editFolderController.folderParent), folders: editFolderController.folders, selectFolder: {
+                SelectFolderNavigation(entriesController: editFolderController.entriesController, entry: .folder(editFolderController.folder), temporaryEntry: .folder(label: editFolderController.folderLabel, parent: editFolderController.folderParent), selectFolder: {
                     parent in
                     editFolderController.folderParent = parent.id
                 })
@@ -194,7 +194,7 @@ struct EditFolderPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                EditFolderPage(folder: Folder.mocks.first!, folders: Folder.mocks, addFolder: {}, updateFolder: {})
+                EditFolderPage(entriesController: EntriesController.mock, folder: Folder.mocks.first!)
             }
             .showColumns(false)
         }

@@ -13,8 +13,8 @@ struct EditTagPage: View {
     @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showCancelAlert = false
     
-    init(tag: Tag, addTag: @escaping () -> Void, updateTag: @escaping () -> Void) {
-        _editTagController = StateObject(wrappedValue: EditTagController(tag: tag, addTag: addTag, updateTag: updateTag))
+    init(entriesController: EntriesController, tag: Tag) {
+        _editTagController = StateObject(wrappedValue: EditTagController(entriesController: entriesController, tag: tag))
     }
     
     // MARK: Views
@@ -199,7 +199,7 @@ struct EditTagPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                EditTagPage(tag: Tag.mock, addTag: {}, updateTag: {})
+                EditTagPage(entriesController: EntriesController.mock, tag: Tag.mock)
             }
             .showColumns(false)
         }
