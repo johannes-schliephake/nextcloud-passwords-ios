@@ -91,14 +91,16 @@ struct PasswordDetailPage: View {
     
     private func listView() -> some View {
         List {
-            HStack {
-                Spacer()
-                passwordStatusMenu()
-                Spacer()
-                faviconImage()
-                Spacer()
-                favoriteButton()
-                Spacer()
+            Section {
+                HStack {
+                    Spacer()
+                    passwordStatusMenu()
+                    Spacer()
+                    faviconImage()
+                    Spacer()
+                    favoriteButton()
+                    Spacer()
+                }
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
             if let tags = entriesController.tags,
@@ -213,7 +215,18 @@ struct PasswordDetailPage: View {
             }
             .font(.footnote)
             .textCase(.uppercase)
+            .buttonStyle(.borderless)
             .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .apply {
+                view in
+                if #available(iOS 15, *) {
+                    view
+                }
+                else {
+                    view
+                        .padding(.top, 5)
+                }
+            }
             Spacer()
         }) {
             if !validTags.isEmpty {
