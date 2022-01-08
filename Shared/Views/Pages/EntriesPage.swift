@@ -64,6 +64,9 @@ struct EntriesPage: View {
     }
     
     private var navigationTitle: String {
+        guard sessionController.session != nil else {
+            return "_passwords".localized
+        }
         switch (entriesController.filterBy, folderController.folder.isBaseFolder, folderController.tag) {
         case (.all, true, nil):
             return "_passwords".localized
@@ -172,6 +175,7 @@ struct EntriesPage: View {
                     }
             }
         }
+        .listStyle(.insetGrouped)
     }
     
     private func challengeView() -> some View {
@@ -288,6 +292,7 @@ struct EntriesPage: View {
                     .frame(maxWidth: .infinity)
                     .listRowBackground(Color(UIColor.systemGroupedBackground))
                 }
+                .listStyle(.insetGrouped)
             }
         }
         .apply {
@@ -1137,7 +1142,7 @@ extension EntriesPage {
                        let validTags = EntriesController.tags(for: password.tags, in: tags).valid,
                        !validTags.isEmpty {
                         HStack(spacing: -6) {
-                            ForEach(Array(validTags.sortedByLabel().enumerated()), id: \.element.id) {
+                            ForEach(Array(validTags.sortedByLabel().prefix(10).enumerated()), id: \.element.id) {
                                 index, tag in
                                 Circle()
                                     .stroke(Color(UIColor.systemBackground), lineWidth: 2)

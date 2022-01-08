@@ -91,14 +91,16 @@ struct PasswordDetailPage: View {
     
     private func listView() -> some View {
         List {
-            HStack {
-                Spacer()
-                passwordStatusMenu()
-                Spacer()
-                faviconImage()
-                Spacer()
-                favoriteButton()
-                Spacer()
+            Section {
+                HStack {
+                    Spacer()
+                    passwordStatusMenu()
+                    Spacer()
+                    faviconImage()
+                    Spacer()
+                    favoriteButton()
+                    Spacer()
+                }
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
             if let tags = entriesController.tags,
@@ -213,7 +215,18 @@ struct PasswordDetailPage: View {
             }
             .font(.footnote)
             .textCase(.uppercase)
+            .buttonStyle(.borderless)
             .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .apply {
+                view in
+                if #available(iOS 15, *) {
+                    view
+                }
+                else {
+                    view
+                        .padding(.top, 5)
+                }
+            }
             Spacer()
         }) {
             if !validTags.isEmpty {
@@ -228,7 +241,12 @@ struct PasswordDetailPage: View {
                         ForEach(validTags) {
                             tag in
                             NavigationLink("", tag: .entries(tag: tag), selection: $navigationSelection) {
-                                EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
+                                if #available(iOS 15, *) { /// This insanely dumb workaround (duplicated view) prevents a crash on iOS 14 when an attribute is marked with `@available(iOS 15, *) @FocusState`
+                                    EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
+                                }
+                                else {
+                                    EntriesPageFallback(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
+                                }
                             }
                             .isDetailLink(false)
                         }

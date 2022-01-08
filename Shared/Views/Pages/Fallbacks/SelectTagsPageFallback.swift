@@ -58,26 +58,28 @@ struct SelectTagsPageFallback: View {
     
     private func listView() -> some View {
         List {
-            VStack {
-                Spacer()
-                addTagBadge()
-            }
-            .apply {
-                view in
-                if #available(iOS 15, *) {
-                    view
-                        .listRowSeparator(.hidden)
+            if #available(iOS 15, *) {
+                VStack {
+                    Spacer()
+                    addTagBadge()
                 }
+                .listRowSeparator(.hidden)
+                ForEach(selectTagsController.tags) {
+                    tag in
+                    toggleTagBadge(tag: tag)
+                }
+                .listRowSeparator(.hidden)
             }
-            ForEach(selectTagsController.tags) {
-                tag in
-                toggleTagBadge(tag: tag)
-            }
-            .apply {
-                view in
-                if #available(iOS 15, *) {
-                    view
-                        .listRowSeparator(.hidden)
+            else {
+                VStack(spacing: 12) {
+                    VStack {
+                        Spacer()
+                        addTagBadge()
+                    }
+                    ForEach(selectTagsController.tags) {
+                        tag in
+                        toggleTagBadge(tag: tag)
+                    }
                 }
             }
         }

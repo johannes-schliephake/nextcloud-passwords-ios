@@ -101,30 +101,55 @@ struct EditTagPage: View {
     
     private func colorSelector() -> some View {
         Section(header: Text("_color")) {
-            HStack {
-                Label("_selectColor", systemImage: "paintpalette")
-                    .foregroundColor(.accentColor)
-                Spacer()
-                RoundedRectangle(cornerRadius: 5)
-                    .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(editTagController.tagColor)
-                    )
-                    .frame(width: 20, height: 20)
+            if #available(iOS 15, *) {
+                HStack {
+                    Label("_selectColor", systemImage: "paintpalette")
+                        .foregroundColor(.accentColor)
+                    Spacer()
+                    RoundedRectangle(cornerRadius: 5)
+                        .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(editTagController.tagColor)
+                        )
+                        .frame(width: 20, height: 20)
+                }
+                .allowsHitTesting(false)
+                .background(
+                    ZStack {
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            /// `scaleEffect` and `ColorPicker` can't be combined on iPad to enlarge tap area because the color picker view isn't a sheet
+                            LazyHStack(spacing: 0) {
+                                ForEach(0..<50) {
+                                    _ in
+                                    ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)
+                                        .labelsHidden()
+                                }
+                            }
+                        }
+                        else {
+                            ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)
+                                .labelsHidden()
+                                .scaleEffect(100)
+                        }
+                        Rectangle()
+                            .foregroundColor(Color(UIColor.secondarySystemGroupedBackground))
+                            .scaleEffect(10)
+                            .allowsHitTesting(false)
+                    }
+                )
             }
-            .allowsHitTesting(false)
-            .background(
-                ZStack {
+            else {
+                HStack {
+                    Label("_selectColor", systemImage: "paintpalette")
+                        .foregroundColor(.primary)
+                    Image(systemName: "arrow.right")
+                        .foregroundColor(.primary)
+                    Spacer()
                     ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)
                         .labelsHidden()
-                        .scaleEffect(200)
-                    Rectangle()
-                        .foregroundColor(Color(UIColor.secondarySystemGroupedBackground))
-                        .scaleEffect(10)
-                        .allowsHitTesting(false)
                 }
-            )
+            }
         }
     }
     
