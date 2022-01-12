@@ -3,7 +3,7 @@ import SwiftUI
 
 struct SettingsPage: View {
     
-    let updateOfflineContainers: () -> Void
+    let updateOfflineData: () -> Void
     
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var sessionController: SessionController
@@ -28,7 +28,7 @@ struct SettingsPage: View {
                 if !storeOffline {
                     Crypto.AES256.removeKey(named: "offlineKey")
                 }
-                updateOfflineContainers()
+                updateOfflineData()
             }
     }
     
@@ -209,7 +209,7 @@ struct SettingsPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                SettingsPage(updateOfflineContainers: {})
+                SettingsPage(updateOfflineData: {})
             }
             .showColumns(false)
             .environmentObject(SessionController.mock)

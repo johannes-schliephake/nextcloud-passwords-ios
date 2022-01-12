@@ -1,5 +1,6 @@
 import Combine
 import SwiftUI
+import AuthenticationServices
 
 
 final class EntriesController: ObservableObject {
@@ -112,6 +113,7 @@ final class EntriesController: ObservableObject {
             listRequestsSubscription = nil
             Crypto.AES256.removeKey(named: "offlineKey")
             CoreData.default.clear(type: OfflineContainer.self)
+            updateAutoFillCredentials()
             return
         }
         
@@ -210,6 +212,8 @@ final class EntriesController: ObservableObject {
             }, receiveValue: {
                 [weak self] folders, passwords, tags in
                 self?.merge(folders: folders, passwords: passwords, tags: tags)
+                self?.updateAutoFillCredentials()
+                self?.completeCredentialIdentifierAutoFill()
             })
     }
     
@@ -235,6 +239,7 @@ final class EntriesController: ObservableObject {
                     return
                 }
                 self?.merge(folders: entries.folders, passwords: entries.passwords, tags: entries.tags, offline: true)
+                self?.completeCredentialIdentifierAutoFill()
             }
         }
     }
@@ -416,6 +421,36 @@ final class EntriesController: ObservableObject {
         tags?.forEach { $0.updateOfflineContainer() }
     }
     
+    func updateAutoFillCredentials() {
+        ASCredentialIdentityStore.shared.getState {
+            [weak self] state in
+            guard state.isEnabled,
+                  let self = self else {
+                return
+            }
+            if Configuration.userDefaults.bool(forKey: "storeOffline"),
+               let passwords = self.passwords {
+                let credentials = passwords.map { ASPasswordCredentialIdentity(serviceIdentifier: ASCredentialServiceIdentifier(identifier: $0.url, type: .URL), user: $0.username, recordIdentifier: $0.id) }
+                ASCredentialIdentityStore.shared.replaceCredentialIdentities(with: credentials)
+            }
+            else {
+                ASCredentialIdentityStore.shared.removeAllCredentialIdentities()
+            }
+        }
+    }
+    
+    private func completeCredentialIdentifierAutoFill() {
+        guard let credentialIdentifier = AutoFillController.default.credentialIdentifier else {
+            return
+        }
+        guard let complete = AutoFillController.default.complete,
+              let password = passwords?.first(where: { $0.id == credentialIdentifier }) else {
+            AutoFillController.default.credentialIdentifier = nil
+            return
+        }
+        complete(password.username, password.password)
+    }
+    
     func add(folder: Folder) {
         folder.state = .creating
         
@@ -455,14 +490,14 @@ final class EntriesController: ObservableObject {
         passwords?.append(password)
         
         CreatePasswordRequest(session: session, password: password).send {
-            response in
+            [weak self] response in
             guard let response = response else {
                 password.state = .creationFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
                 return
             }
             ShowPasswordRequest(session: session, id: response.id).send {
-                response in
+                [weak self] response in
                 guard let response = response else {
                     password.state = .creationFailed
                     UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
@@ -470,6 +505,7 @@ final class EntriesController: ObservableObject {
                 }
                 password.id = response.id
                 password.update(from: response)
+                self?.updateAutoFillCredentials()
             }
         }
     }
@@ -539,20 +575,21 @@ final class EntriesController: ObservableObject {
         }
         
         UpdatePasswordRequest(session: session, password: password).send {
-            response in
+            [weak self] response in
             guard let response = response else {
                 password.state = .updateFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
                 return
             }
             ShowPasswordRequest(session: session, id: response.id).send {
-                response in
+                [weak self] response in
                 guard let response = response else {
                     password.state = .updateFailed
                     UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
                     return
                 }
                 password.update(from: response)
+                self?.updateAutoFillCredentials()
             }
         }
     }
@@ -623,6 +660,9 @@ final class EntriesController: ObservableObject {
             folder.revision = ""
             childFolders.forEach { $0.revision = "" }
             childPasswords.forEach { $0.revision = "" }
+            if !childPasswords.isEmpty {
+                self?.updateAutoFillCredentials()
+            }
         }
     }
     
@@ -645,6 +685,7 @@ final class EntriesController: ObservableObject {
                 return
             }
             password.revision = ""
+            self?.updateAutoFillCredentials()
         }
     }
     

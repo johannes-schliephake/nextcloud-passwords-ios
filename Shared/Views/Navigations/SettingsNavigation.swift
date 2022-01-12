@@ -3,7 +3,7 @@ import SwiftUI
 
 struct SettingsNavigation: View {
     
-    let updateOfflineContainers: () -> Void
+    let updateOfflineData: () -> Void
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
@@ -11,7 +11,7 @@ struct SettingsNavigation: View {
     
     var body: some View {
         NavigationView {
-            SettingsPage(updateOfflineContainers: updateOfflineContainers)
+            SettingsPage(updateOfflineData: updateOfflineData)
         }
         .showColumns(false)
         .occlude(!biometricAuthenticationController.isUnlocked)
