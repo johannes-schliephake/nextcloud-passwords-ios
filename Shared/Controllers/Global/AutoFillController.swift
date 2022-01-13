@@ -12,6 +12,8 @@ final class AutoFillController: ObservableObject {
     @Published var credentialIdentifier: String?
     var keychain: Crypto.CSEv1r1.Keychain?
     
+    private init() {}
+    
 }
 
 

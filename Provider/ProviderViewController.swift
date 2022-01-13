@@ -39,13 +39,32 @@ final class ProviderViewController: ASCredentialProviderViewController {
     }
     
     override func prepareInterfaceToProvideCredential(for credentialIdentity: ASPasswordCredentialIdentity) {
+        AutoFillController.default.serviceURLs = [credentialIdentity.serviceIdentifier].compactMap { URL(string: $0.identifier) }
         AutoFillController.default.credentialIdentifier = credentialIdentity.recordIdentifier
-        prepareCredentialList(for: [credentialIdentity.serviceIdentifier])
+        
+        addMainView()
     }
     
     override func prepareCredentialList(for serviceIdentifiers: [ASCredentialServiceIdentifier]) {
-        UIAlertController.rootViewController = self
+        AutoFillController.default.serviceURLs = serviceIdentifiers.compactMap { URL(string: $0.identifier) }
+        AutoFillController.default.credentialIdentifier = nil
         
+        addMainView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.post(name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    private func addMainView() {
         AutoFillController.default.complete = {
             [weak self] username, password in
             let passwordCredential = ASPasswordCredential(user: username, password: password)
@@ -55,7 +74,8 @@ final class ProviderViewController: ASCredentialProviderViewController {
             [weak self] in
             self?.extensionContext.cancelRequest(withError: NSError(domain: ASExtensionErrorDomain, code: ASExtensionError.userCanceled.rawValue))
         }
-        AutoFillController.default.serviceURLs = serviceIdentifiers.compactMap { URL(string: $0.identifier) }
+        
+        UIAlertController.rootViewController = self
         
         let mainView = MainView().environmentObject(AutoFillController.default)
         let hostingController = UIHostingController(rootView: mainView)
@@ -70,12 +90,6 @@ final class ProviderViewController: ASCredentialProviderViewController {
             hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             hostingController.view.leftAnchor.constraint(equalTo: view.leftAnchor)
         ])
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
 }

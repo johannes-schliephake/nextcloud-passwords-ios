@@ -4,10 +4,7 @@ import SwiftUI
 struct EditTagPageFallback: View {
     
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var autoFillController: AutoFillController
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
-    @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editTagController: EditTagController
     // @available(iOS 15, *) @FocusState private var focusedField: FocusField?
