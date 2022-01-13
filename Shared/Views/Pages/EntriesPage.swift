@@ -45,6 +45,7 @@ struct EntriesPage: View {
                        entriesController.state != .error && sessionController.state != .error,
                        !sessionController.state.isChallengeAvailable,
                        entriesController.state == .offline || entriesController.state == .online,
+                       autoFillController.credentialIdentifier == nil,
                        let entries = folderController.entries {
                         trailingToolbarView(entries: entries)
                     }
@@ -64,7 +65,8 @@ struct EntriesPage: View {
     }
     
     private var navigationTitle: String {
-        guard sessionController.session != nil else {
+        guard sessionController.session != nil,
+              autoFillController.credentialIdentifier == nil else {
             return "_passwords".localized
         }
         switch (entriesController.filterBy, folderController.folder.isBaseFolder, folderController.tag) {
@@ -95,6 +97,7 @@ struct EntriesPage: View {
                 challengeView()
             }
             else if entriesController.state == .offline || entriesController.state == .online,
+                    autoFillController.credentialIdentifier == nil,
                     let entries = folderController.entries,
                     let folders = entriesController.folders,
                     let tags = entriesController.tags {
@@ -108,8 +111,9 @@ struct EntriesPage: View {
             /// This hack is necessary because the toolbar, where this sheet would actually belong, is buggy, iOS 14 can't stack sheets (not even throughout the view hierarchy) and iOS 15 can't use sheets on EmptyView (previous hack)
             Color.clear
                 .sheet(isPresented: $showSettingsView) {
-                    SettingsNavigation(updateOfflineContainers: {
+                    SettingsNavigation(updateOfflineData: {
                         entriesController.updateOfflineContainers()
+                        entriesController.updateAutoFillCredentials()
                     })
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)

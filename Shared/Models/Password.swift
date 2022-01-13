@@ -101,7 +101,7 @@ final class Password: ObservableObject, Identifiable {
         case "none":
             break
         case "CSEv1r1":
-            guard let keychain = SessionController.default.session?.keychain,
+            guard let keychain = SessionController.default.session?.keychain ?? AutoFillController.default.keychain,
                   let key = keychain.keys[cseKey],
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key),
                   let decryptedUsername = Crypto.CSEv1r1.decrypt(payload: username, key: key),
