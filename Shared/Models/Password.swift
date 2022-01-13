@@ -11,7 +11,7 @@ final class Password: ObservableObject, Identifiable {
     @Published var notes: String
     @Published var customFields: [CustomField]
     var status: Int
-    var statusCode: StatusCode
+    @Published var statusCode: StatusCode
     var hash: String
     @Published var folder: String
     var revision: String {
@@ -21,14 +21,14 @@ final class Password: ObservableObject, Identifiable {
     }
     var share: String?
     var shared: Bool
-    var cseType: String
+    @Published var cseType: String
     var cseKey: String
-    var sseType: String
+    @Published var sseType: String
     var client: String
     var hidden: Bool
     var trashed: Bool
     @Published var favorite: Bool
-    var editable: Bool
+    @Published var editable: Bool
     @Published var edited: Date
     @Published var created: Date
     @Published var updated: Date
