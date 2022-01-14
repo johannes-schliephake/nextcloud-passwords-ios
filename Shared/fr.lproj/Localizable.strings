@@ -106,8 +106,8 @@
 "_storePasswordMessage" = "Si cette option est activée, le mot de passe E2E est stocké crypté dans le trousseau de l'appareil.";
 "_suggestions" = "Suggestions";
 "_supportThisProject" = "Supporter le projet";
-"_tag" = "étiquette";
-"_tags" = "étiquettes";
+"_tag" = "Étiquette";
+"_tags" = "Étiquettes";
 "_text" = "Texte";
 "_thanksMessage" = "Merci à l'entière communauté Nextcloud et tout le monde ayant participé pour avoir créé un écosystème aussi formidable. J'éspère pouvoir contribuer à quelque chose avec cette application.";
 "_tipDeferred" = "Pourboire différé";
