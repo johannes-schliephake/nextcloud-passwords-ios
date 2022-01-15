@@ -3,7 +3,7 @@ import SwiftUI
 
 @main struct PasswordsApp: App {
     
-    @StateObject private var autoFillController = Configuration.isTestEnvironment ? AutoFillController.mock : AutoFillController()
+    @StateObject private var autoFillController = Configuration.isTestEnvironment ? AutoFillController.mock : AutoFillController.default
     
     // MARK: Views
     

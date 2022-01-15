@@ -11,7 +11,7 @@ final class Password: ObservableObject, Identifiable {
     @Published var notes: String
     @Published var customFields: [CustomField]
     var status: Int
-    var statusCode: StatusCode
+    @Published var statusCode: StatusCode
     var hash: String
     @Published var folder: String
     var revision: String {
@@ -21,22 +21,23 @@ final class Password: ObservableObject, Identifiable {
     }
     var share: String?
     var shared: Bool
-    var cseType: String
+    @Published var cseType: String
     var cseKey: String
-    var sseType: String
+    @Published var sseType: String
     var client: String
     var hidden: Bool
     var trashed: Bool
     @Published var favorite: Bool
-    var editable: Bool
+    @Published var editable: Bool
     @Published var edited: Date
     @Published var created: Date
     @Published var updated: Date
+    @Published var tags: [String]
     
     @Published var state: Entry.State?
     var offlineContainer: OfflineContainer?
     
-    init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: [CustomField] = [], status: Int = 0, statusCode: StatusCode = .good, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
+    init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: [CustomField] = [], status: Int = 0, statusCode: StatusCode = .unknown, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0), tags: [String] = []) {
         self.id = id
         self.label = label
         self.username = username
@@ -62,6 +63,7 @@ final class Password: ObservableObject, Identifiable {
         self.edited = edited
         self.created = created
         self.updated = updated
+        self.tags = tags
     }
     
     required init(from decoder: Decoder) throws {
@@ -93,12 +95,13 @@ final class Password: ObservableObject, Identifiable {
         edited = try container.decode(Date.self, forKey: .edited)
         created = try container.decode(Date.self, forKey: .created)
         updated = try container.decode(Date.self, forKey: .updated)
+        tags = try container.decode([String].self, forKey: .tags)
         
         switch cseType {
         case "none":
             break
         case "CSEv1r1":
-            guard let keychain = SessionController.default.session?.keychain,
+            guard let keychain = SessionController.default.session?.keychain ?? AutoFillController.default.keychain,
                   let key = keychain.keys[cseKey],
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key),
                   let decryptedUsername = Crypto.CSEv1r1.decrypt(payload: username, key: key),
@@ -197,6 +200,7 @@ final class Password: ObservableObject, Identifiable {
         edited = password.edited
         created = password.created
         updated = password.updated
+        tags = password.tags
         
         state = password.state
         revision = password.revision
@@ -259,6 +263,7 @@ extension Password: Codable {
         case edited
         case created
         case updated
+        case tags
     }
     
     func encode(to encoder: Encoder) throws {
@@ -318,6 +323,7 @@ extension Password: Codable {
         try container.encode(edited, forKey: .edited)
         try container.encode(created, forKey: .created)
         try container.encode(updated, forKey: .updated)
+        try container.encode(tags.isEmpty && encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true ? [""] : tags, forKey: .tags) /// Encode an empty tag id when tags are empty to force tag removal on server
     }
     
 }
@@ -331,9 +337,10 @@ extension Password {
         case outdated = "OUTDATED"
         case duplicate = "DUPLICATE"
         case breached = "BREACHED"
+        case unknown = "NOT_CHECKED"
         
         static func < (lhs: Password.StatusCode, rhs: Password.StatusCode) -> Bool {
-            let order: [StatusCode] = [.good, .outdated, .duplicate, .breached]
+            let order: [StatusCode] = [.good, .outdated, .duplicate, .unknown, .breached]
             return order.firstIndex(of: lhs)! < order.firstIndex(of: rhs)!
         }
         
@@ -408,8 +415,8 @@ extension Password: MockObject {
     
     static var mocks: [Password] {
         [
-            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com", folder: Entry.baseId, revision: Entry.baseId, favorite: true),
-            Password(id: "00000000-0000-0000-0002-000000000002", label: "GitHub", username: "johannes.schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://github.com/login", folder: Entry.baseId, revision: Entry.baseId),
+            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com", folder: Entry.baseId, revision: Entry.baseId, favorite: true, tags: ["00000000-0000-0000-0003-000000000001", "00000000-0000-0000-0003-000000000002"]),
+            Password(id: "00000000-0000-0000-0002-000000000002", label: "GitHub", username: "johannes-schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://github.com/login", folder: Entry.baseId, revision: Entry.baseId, tags: ["00000000-0000-0000-0003-000000000001"]),
             Password(id: "00000000-0000-0000-0002-000000000003", label: "Wikipedia", username: "johannes.schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://en.wikipedia.org/w/index.php?title=Special:UserLogin", folder: Entry.baseId, revision: Entry.baseId)
         ]
     }

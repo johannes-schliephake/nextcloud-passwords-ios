@@ -4,7 +4,7 @@
 
 An iOS client for the [Nextcloud Passwords](https://git.mdns.eu/nextcloud/passwords) app. Available on the [App Store](https://apps.apple.com/app/id1546212226).
 
-This app allows you to view, create, edit and delete passwords and folders on your Nextcloud server. It offers a variety of filtering and sorting options. End-to-end/client-side encryption and encrypted offline storage make sure your data is secure.
+This app allows you to view, create, edit and delete entries on your Nextcloud server. It offers a variety of filtering and sorting options. End-to-end/client-side encryption and encrypted offline storage make sure your data is secure.
 
 A Password AutoFill provider is integrated into the app for seamless login experiences. You can enable this feature in iOS's Settings app.
 

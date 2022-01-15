@@ -12,7 +12,7 @@ struct ShowPasswordRequest {
 extension ShowPasswordRequest: NCPasswordsRequest {
     
     func encode() throws -> Data? {
-        try Configuration.nonUpdatingJsonEncoder.encode(Request(id: id))
+        try Configuration.nonUpdatingJsonEncoder.encode(Request(id: id, details: "model+tag-ids"))
     }
     
     func send(completion: @escaping (Password?) -> Void) {
@@ -31,6 +31,7 @@ extension ShowPasswordRequest {
     struct Request: Encodable {
         
         let id: String
+        let details: String
         
     }
     

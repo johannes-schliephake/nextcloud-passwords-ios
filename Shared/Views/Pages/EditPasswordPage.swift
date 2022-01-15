@@ -8,19 +8,21 @@ struct EditPasswordPage: View {
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
+    @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editPasswordController: EditPasswordController
-    @ScaledMetric private var sliderLabelWidth: Double = 87
-    @ScaledMetric private var customFieldTypeIconWidth: Double = 30
+    @ScaledMetric private var sliderLabelWidth = 87.0
+    @ScaledMetric private var customFieldTypeIconWidth = 30.0
     @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showPasswordGenerator: Bool
     @State private var editMode = false
+    @State private var showSelectTagsView = false
     @State private var showSelectFolderView = false
     @State private var showCancelAlert = false
     
-    init(password: Password, folders: [Folder], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
-        _editPasswordController = StateObject(wrappedValue: EditPasswordController(password: password, folders: folders, addPassword: addPassword, updatePassword: updatePassword))
+    init(entriesController: EntriesController, password: Password) {
+        _editPasswordController = StateObject(wrappedValue: EditPasswordController(entriesController: entriesController, password: password))
         _showPasswordGenerator = State(initialValue: password.id.isEmpty && !Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
     }
     
@@ -75,9 +77,8 @@ struct EditPasswordPage: View {
             passwordGeneratorSection()
             customFieldsSection()
             notesSection()
-            if editPasswordController.password.id.isEmpty {
-                favoriteButton()
-            }
+            favoriteButton()
+            tagsSection()
             moveSection()
         }
         .listStyle(.insetGrouped)
@@ -112,6 +113,10 @@ struct EditPasswordPage: View {
                         }
                     }
                     .onSubmit {
+                        guard !showSelectFolderView,
+                              !showSelectTagsView else { /// Prevent submit handling when page is not visible
+                            return
+                        }
                         if let next = focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) {
                             focusedField = next
                         }
@@ -297,33 +302,79 @@ struct EditPasswordPage: View {
         }
     }
     
-    private func moveSection() -> some View {
-        Section(header: Text("_folder")) {
-            Button {
-                showSelectFolderView = true
-            }
-            label: {
-                Label(editPasswordController.folders.first(where: { $0.id == editPasswordController.passwordFolder })?.label ?? "_passwords".localized, systemImage: "folder")
-            }
-            .sheet(isPresented: $showSelectFolderView) {
-                SelectFolderNavigation(entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), folders: editPasswordController.folders, selectFolder: {
-                    parent in
-                    editPasswordController.passwordFolder = parent.id
-                })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(tipController)
-            }
-        }
-    }
-    
     private func favoriteButton() -> some View {
         Button {
             editPasswordController.passwordFavorite.toggle()
         }
         label: {
             Label("_favorite", systemImage: editPasswordController.passwordFavorite ? "star.fill" : "star")
+        }
+    }
+    
+    private func tagsSection() -> some View {
+        Section(header: Text("_tags")) {
+            Button {
+                showSelectTagsView = true
+            }
+            label: {
+                HStack {
+                    if editPasswordController.passwordValidTags.isEmpty {
+                        Label("_addTags", systemImage: "tag")
+                    }
+                    else {
+                        FlowView(editPasswordController.passwordValidTags.sortedByLabel(), alignment: .leading) {
+                            tag in
+                            TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
+                        }
+                        .padding(.vertical, 6)
+                    }
+                    Spacer()
+                    NavigationLink(destination: EmptyView()) {
+                        EmptyView()
+                    }
+                    .fixedSize()
+                }
+            }
+            .sheet(isPresented: $showSelectTagsView) {
+                SelectTagsNavigation(entriesController: editPasswordController.entriesController, temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
+                    validTags, _ in
+                    editPasswordController.passwordValidTags = validTags
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(settingsController)
+                .environmentObject(tipController)
+            }
+        }
+    }
+    
+    private func moveSection() -> some View {
+        Section(header: Text("_folder")) {
+            Button {
+                showSelectFolderView = true
+            }
+            label: {
+                HStack {
+                    Label(editPasswordController.folderLabel, systemImage: "folder")
+                    Spacer()
+                    NavigationLink(destination: EmptyView()) {
+                        EmptyView()
+                    }
+                    .fixedSize()
+                }
+            }
+            .sheet(isPresented: $showSelectFolderView) {
+                SelectFolderNavigation(entriesController: editPasswordController.entriesController, entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), selectFolder: {
+                    parent in
+                    editPasswordController.passwordFolder = parent.id
+                })
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(settingsController)
+                .environmentObject(tipController)
+            }
         }
     }
     
@@ -365,6 +416,7 @@ struct EditPasswordPage: View {
     
     private func applyAndDismiss() {
         guard editPasswordController.editIsValid,
+              settingsController.settingsAreAvailable,
               editPasswordController.password.state?.isProcessing != true else {
             return
         }
@@ -440,7 +492,7 @@ struct EditPasswordPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                EditPasswordPage(password: Password.mock, folders: Folder.mocks, addPassword: {}, updatePassword: {})
+                EditPasswordPage(entriesController: EntriesController.mock, password: Password.mock)
             }
             .showColumns(false)
         }

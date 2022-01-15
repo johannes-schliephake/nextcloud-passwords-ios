@@ -3,10 +3,8 @@ import SwiftUI
 
 final class EditPasswordController: ObservableObject {
     
+    let entriesController: EntriesController
     let password: Password
-    let folders: [Folder]
-    private let addPassword: () -> Void
-    private let updatePassword: () -> Void
     
     @Published var generatorNumbers = Configuration.userDefaults.object(forKey: "generatorNumbers") as? Bool ?? true {
         willSet {
@@ -30,17 +28,17 @@ final class EditPasswordController: ObservableObject {
     @Published var passwordCustomUserFields: [Password.CustomField]
     @Published var passwordNotes: String
     @Published var passwordFavorite: Bool
+    @Published var passwordValidTags: [Tag]
+    let passwordInvalidTags: [String]
     @Published var passwordFolder: String
     @Published var showErrorAlert = false
     @Published var showProgressView = false
     
-    let passwordCustomDataFields: [Password.CustomField]
+    private let passwordCustomDataFields: [Password.CustomField]
     
-    init(password: Password, folders: [Folder], addPassword: @escaping () -> Void, updatePassword: @escaping () -> Void) {
+    init(entriesController: EntriesController, password: Password) {
+        self.entriesController = entriesController
         self.password = password
-        self.folders = folders
-        self.addPassword = addPassword
-        self.updatePassword = updatePassword
         passwordPassword = password.password
         passwordLabel = password.label
         passwordUsername = password.username
@@ -49,7 +47,12 @@ final class EditPasswordController: ObservableObject {
         passwordCustomDataFields = password.customFields.filter { $0.type == .data }
         passwordNotes = password.notes
         passwordFavorite = password.favorite
+        (passwordValidTags, passwordInvalidTags) = EntriesController.tags(for: password.tags, in: entriesController.tags ?? [])
         passwordFolder = password.folder
+    }
+    
+    var folderLabel: String {
+        entriesController.folders?.first(where: { $0.id == passwordFolder })?.label ?? "_passwords".localized
     }
     
     var hasChanges: Bool {
@@ -57,9 +60,10 @@ final class EditPasswordController: ObservableObject {
         passwordLabel != password.label ||
         passwordUsername != password.username ||
         passwordUrl != password.url ||
-        passwordCustomUserFields != password.customFields ||
+        passwordCustomUserFields != password.customFields.filter { $0.type != .data } ||
         passwordNotes != password.notes ||
         passwordFavorite != password.favorite ||
+        passwordValidTags.map { $0.id }.sorted() != EntriesController.tags(for: password.tags, in: entriesController.tags ?? []).valid.map { $0.id }.sorted() ||
         passwordFolder != password.folder
     }
     
@@ -98,9 +102,11 @@ final class EditPasswordController: ObservableObject {
         }
         if password.password != passwordPassword {
             password.edited = Date()
-            password.hash = Crypto.SHA1.hash(passwordPassword.data(using: .utf8)!)
         }
         password.updated = Date()
+        
+        let hash = Crypto.SHA1.hash(passwordPassword.data(using: .utf8)!)
+        password.hash = String(hash.prefix(SettingsController.default.userPasswordSecurityHash))
         
         password.password = passwordPassword
         password.label = passwordLabel
@@ -109,13 +115,14 @@ final class EditPasswordController: ObservableObject {
         password.customFields = passwordCustomUserFields + passwordCustomDataFields
         password.notes = passwordNotes
         password.favorite = passwordFavorite
-        password.folder = passwordFolder
+        password.tags = passwordValidTags.map { $0.id } + passwordInvalidTags
+        password.folder = entriesController.folders?.contains { $0.id == passwordFolder } == true ? passwordFolder : Entry.baseId
         
         if password.id.isEmpty {
-            addPassword()
+            entriesController.add(password: password)
         }
         else {
-            updatePassword()
+            entriesController.update(password: password)
         }
     }
     

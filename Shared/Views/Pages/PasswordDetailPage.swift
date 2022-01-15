@@ -6,6 +6,7 @@ struct PasswordDetailPage: View {
     @ObservedObject var entriesController: EntriesController
     @ObservedObject var password: Password
     let folders: [Folder]
+    let tags: [Tag]
     let updatePassword: () -> Void
     let deletePassword: () -> Void
     
@@ -13,6 +14,7 @@ struct PasswordDetailPage: View {
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
+    @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
     
     @State private var favicon: UIImage?
@@ -20,6 +22,8 @@ struct PasswordDetailPage: View {
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
     @State private var passwordDeleted = false
+    @State private var navigationSelection: NavigationSelection?
+    @State private var showSelectTagsView = false
     
     // MARK: Views
     
@@ -31,9 +35,12 @@ struct PasswordDetailPage: View {
             mainStack()
                 .navigationTitle(password.label)
                 .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        stateView()
+                    }
                     ToolbarItem(placement: .primaryAction) {
                         if password.editable {
-                            primaryActionToolbarView()
+                            editButton()
                         }
                     }
                 }
@@ -73,26 +80,34 @@ struct PasswordDetailPage: View {
             .edgesIgnoringSafeArea(autoFillController.complete != nil ? .bottom : [])
         }
         .sheet(isPresented: $showEditPasswordView, content: {
-            EditPasswordNavigation(password: password, folders: folders, addPassword: {}, updatePassword: updatePassword)
+            EditPasswordNavigation(entriesController: entriesController, password: password)
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
                 .environmentObject(sessionController)
+                .environmentObject(settingsController)
                 .environmentObject(tipController)
         })
     }
     
     private func listView() -> some View {
         List {
-            HStack {
-                Spacer()
-                passwordStatusMenu()
-                Spacer()
-                faviconImage()
-                Spacer()
-                favoriteButton()
-                Spacer()
+            Section {
+                HStack {
+                    Spacer()
+                    passwordStatusMenu()
+                    Spacer()
+                    faviconImage()
+                    Spacer()
+                    favoriteButton()
+                    Spacer()
+                }
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
+            if let tags = entriesController.tags,
+               let validTags = EntriesController.tags(for: password.tags, in: tags).valid {
+                tagsSection(tags: tags, validTags: validTags)
+                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+            }
             serviceSection()
             accountSection()
             if !password.customFields.isEmpty {
@@ -122,17 +137,19 @@ struct PasswordDetailPage: View {
                 case .breached:
                     Text("_passwordStatusBreachedMessage1")
                     Text("_passwordStatusBreachedMessage2")
+                case .unknown:
+                    EmptyView() // TODO: Add message for unknown password status
                 }
             }
             if password.editable,
-               password.statusCode != .good {
+               password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
                 Button {
                     showEditPasswordView = true
                 }
                 label: {
                     Label("_editPassword", systemImage: "pencil")
                 }
-                .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             }
         }
         label: {
@@ -149,6 +166,16 @@ struct PasswordDetailPage: View {
                 Image(systemName: "xmark.shield.fill")
                     .font(.title)
                     .foregroundColor(.red)
+            case .unknown:
+                ZStack {
+                    Image(systemName: "shield.fill")
+                        .font(.title)
+                        .foregroundColor(.gray)
+                    Image(systemName: "questionmark")
+                        .font(.title.bold())
+                        .foregroundColor(Color(.systemGroupedBackground))
+                        .scaleEffect(0.5)
+                }
             }
         }
     }
@@ -177,7 +204,79 @@ struct PasswordDetailPage: View {
                 .font(.title)
         }
         .buttonStyle(.borderless)
-        .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+    }
+    
+    private func tagsSection(tags: [Tag], validTags: [Tag]) -> some View {
+        Section(footer: HStack {
+            Spacer()
+            Button(validTags.isEmpty ? "_addTags" : "_editTags") {
+                showSelectTagsView = true
+            }
+            .font(.footnote)
+            .textCase(.uppercase)
+            .buttonStyle(.borderless)
+            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .apply {
+                view in
+                if #available(iOS 15, *) {
+                    view
+                }
+                else {
+                    view
+                        .padding(.top, 5)
+                }
+            }
+            Spacer()
+        }) {
+            if !validTags.isEmpty {
+                if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
+                    FlowView(validTags.sortedByLabel()) {
+                        tag in
+                        TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
+                    }
+                }
+                else {
+                    ZStack {
+                        ForEach(validTags) {
+                            tag in
+                            NavigationLink("", tag: .entries(tag: tag), selection: $navigationSelection) {
+                                if #available(iOS 15, *) { /// This insanely dumb workaround (duplicated view) prevents a crash on iOS 14 when an attribute is marked with `@available(iOS 15, *) @FocusState`
+                                    EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
+                                }
+                                else {
+                                    EntriesPageFallback(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
+                                }
+                            }
+                            .isDetailLink(false)
+                        }
+                        .hidden()
+                        FlowView(validTags.sortedByLabel()) {
+                            tag in
+                            Button {
+                                navigationSelection = .entries(tag: tag)
+                            }
+                            label: {
+                                TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
+                            }
+                            .buttonStyle(.borderless)
+                        }
+                    }
+                }
+            }
+        }
+        .sheet(isPresented: $showSelectTagsView) {
+            SelectTagsNavigation(entriesController: entriesController, temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
+                validTags, invalidTags in
+                password.tags = validTags.map { $0.id } + invalidTags
+                entriesController.update(password: password)
+            })
+            .environmentObject(autoFillController)
+            .environmentObject(biometricAuthenticationController)
+            .environmentObject(sessionController)
+            .environmentObject(settingsController)
+            .environmentObject(tipController)
+        }
     }
     
     private func serviceSection() -> some View {
@@ -246,7 +345,7 @@ struct PasswordDetailPage: View {
                     Spacer()
                 }
             }
-            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             .actionSheet(isPresented: $showDeleteAlert) {
                 ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
                     deleteAndDismiss()
@@ -265,7 +364,7 @@ struct PasswordDetailPage: View {
                     Spacer()
                 }
             }
-            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             .actionSheet(isPresented: $showDeleteAlert) {
                 ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
                     deleteAndDismiss()
@@ -281,6 +380,7 @@ struct PasswordDetailPage: View {
                     complete(password.username, password.password)
                 }
                 .buttonStyle(.action)
+                .disabled(password.state == .decryptionFailed)
             }
             .padding()
         }
@@ -288,24 +388,24 @@ struct PasswordDetailPage: View {
         .background(Color(UIColor.systemGroupedBackground))
     }
     
-    private func primaryActionToolbarView() -> some View {
-        HStack {
-            if let state = password.state {
-                if state.isError {
-                    errorButton(state: state)
-                }
-                else if state.isProcessing {
-                    ProgressView()
-                }
-                Spacer()
+    @ViewBuilder private func stateView() -> some View {
+        if let state = password.state {
+            if state.isError {
+                errorButton(state: state)
             }
-            Button(action: {
-                showEditPasswordView = true
-            }, label: {
-                Text("_edit")
-            })
-            .disabled(entriesController.state != .online || password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            else if state.isProcessing {
+                ProgressView()
+            }
         }
+    }
+    
+    private func editButton() -> some View {
+        Button(action: {
+            showEditPasswordView = true
+        }, label: {
+            Text("_edit")
+        })
+        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
     private func errorButton(state: Entry.State) -> some View {
@@ -357,12 +457,23 @@ struct PasswordDetailPage: View {
 }
 
 
+extension PasswordDetailPage {
+    
+    enum NavigationSelection: Hashable {
+        
+        case entries(tag: Tag)
+        
+    }
+    
+}
+
+
 struct PasswordDetailPagePreview: PreviewProvider {
     
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, folders: Folder.mocks, updatePassword: {}, deletePassword: {})
+                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, folders: Folder.mocks, tags: Tag.mocks, updatePassword: {}, deletePassword: {})
             }
             .showColumns(false)
             .environmentObject(AutoFillController.mock)

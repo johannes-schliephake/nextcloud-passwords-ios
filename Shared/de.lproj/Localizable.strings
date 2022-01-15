@@ -2,6 +2,7 @@
 "_accept" = "Akzeptieren";
 "_account" = "Account";
 "_addCustomField" = "Benutzerdefiniertes Feld hinzufügen";
+"_addTags" = "Tags hinzufügen";
 "_all" = "Alle";
 "_anErrorOccurred" = "Es ist ein Fehler aufgetreten ...";
 "_appDeauthorized" = "App deautorisiert";
@@ -9,6 +10,7 @@
 "_automaticallyGeneratePasswords" = "Passwörter automatisch generieren";
 "_cancel" = "Abbrechen";
 "_clientSide" = "Client-seitig";
+"_color" = "Farbe";
 "_confirmAction" = "Aktion bestätigen";
 "_connect" = "Verbinden";
 "_connectToServer" = "Mit Server verbinden";
@@ -20,16 +22,21 @@
 "_createFolderErrorMessage" = "Beim Erstellen des Ordners ist ein Fehler aufgetreten. Bitte speichere den Ordner nochmals.";
 "_createPassword" = "Passwort hinzufügen";
 "_createPasswordErrorMessage" = "Beim Erstellen des Passworts ist ein Fehler aufgetreten. Bitte speichere das Passwort nochmals.";
+"_createTag" = "Tag hinzufügen";
+"_createTagErrorMessage" = "Beim Erstellen des Tags ist ein Fehler aufgetreten. Bitte speichere den Tag nochmals.";
 "_credentials" = "Anmeldedaten";
 "_customFields" = "Benutzerdefinierte Felder";
 "_decryptFolderErrorMessage" = "Beim Entschlüsseln des Ordners ist ein Fehler aufgetreten.";
 "_decryptPasswordErrorMessage" = "Beim Entschlüsseln des Passworts ist ein Fehler aufgetreten.";
+"_decryptTagErrorMessage" = "Beim Entschlüsseln des Tags ist ein Fehler aufgetreten.";
 "_delete" = "Löschen";
 "_deletedPasswordMessage" = "Dieses Passwort wurde gelöscht.";
 "_deleteFolder" = "Ordner löschen";
 "_deleteFolderErrorMessage" = "Beim Löschen des Ordners ist ein Fehler aufgetreten. Bitte lösche den Ordner nochmals.";
 "_deletePassword" = "Passwort löschen";
 "_deletePasswordErrorMessage" = "Beim Löschen des Passworts ist ein Fehler aufgetreten. Bitte lösche das Passwort nochmals.";
+"_deleteTag" = "Tag löschen";
+"_deleteTagErrorMessage" = "Beim Löschen des Tags ist ein Fehler aufgetreten. Bitte lösche den Tag nochmals.";
 "_discardChanges" = "Änderungen verwerfen";
 "_dismiss" = "Schließen";
 "_done" = "Fertig";
@@ -38,6 +45,8 @@
 "_editFolderErrorMessage" = "Beim Bearbeiten des Ordners ist ein Fehler aufgetreten. Bitte speichere den Ordner nochmals.";
 "_editPassword" = "Passwort bearbeiten";
 "_editPasswordErrorMessage" = "Beim Bearbeiten des Passworts ist ein Fehler aufgetreten. Bitte speichere das Passwort nochmals.";
+"_editTagErrorMessage" = "Beim Bearbeiten des Tags ist ein Fehler aufgetreten. Bitte speichere den Tag nochmals.";
+"_editTags" = "Tags bearbeiten";
 "_email" = "E-Mail";
 "_encryptedOfflineStorage" = "Verschlüsselte Offline-Speicherung";
 "_encryption" = "Verschlüsselung";
@@ -86,6 +95,7 @@
 "_secret" = "Geheimnis";
 "_security" = "Sicherheit";
 "_select" = "Auswählen";
+"_selectColor" = "Farbe auswählen";
 "_serverAddressFieldMessage" = "Eine HTTPS-Verbindung ist erforderlich.";
 "_serverSide" = "Server-seitig";
 "_service" = "Dienst";
@@ -96,6 +106,8 @@
 "_storePasswordMessage" = "Wenn diese Option aktiviert ist, wird das E2E Passwort verschlüsselt im Schlüsselbund des Geräts gespeichert.";
 "_suggestions" = "Vorschläge";
 "_supportThisProject" = "Dieses Projekt unterstützen";
+"_tag" = "Tag";
+"_tags" = "Tags";
 "_text" = "Text";
 "_thanksMessage" = "Vielen Dank an die gesamte Nextcloud-Community und alle Beteiligten, die dieses großartige Ökosystem möglich machen. Ich hoffe, dass ich mit dieser App etwas beitragen kann.";
 "_tipDeferred" = "Trinkgeld zurückgehalten";

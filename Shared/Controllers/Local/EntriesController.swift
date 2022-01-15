@@ -1,5 +1,6 @@
 import Combine
 import SwiftUI
+import AuthenticationServices
 
 
 final class EntriesController: ObservableObject {
@@ -33,10 +34,24 @@ final class EntriesController: ObservableObject {
             }
         }
     }
+    @Published private(set) var tags: [Tag]? {
+        /// Extend @Published behaviour to array elements
+        willSet {
+            tagsSubscriptions.removeAll()
+        }
+        didSet {
+            tags?.forEach {
+                tag in
+                tag.objectWillChange
+                    .sink { [weak self] in self?.objectWillChange.send() }
+                    .store(in: &tagsSubscriptions)
+            }
+        }
+    }
     @Published var filterBy = Filter(rawValue: Configuration.userDefaults.integer(forKey: "filterBy")) ?? .folders {
         willSet {
             Configuration.userDefaults.set(newValue.rawValue, forKey: "filterBy")
-            if newValue == .folders,
+            if newValue != .all,
                sortBy != .label && sortBy != .updated {
                 sortBy = .label
             }
@@ -48,7 +63,7 @@ final class EntriesController: ObservableObject {
             if sortBy == newValue {
                 reversed.toggle()
             }
-            else if filterBy == .folders,
+            else if filterBy != .all,
                     newValue != .label && newValue != .updated {
                 filterBy = .all
             }
@@ -60,11 +75,12 @@ final class EntriesController: ObservableObject {
         }
     }
     
-    private var fetchOnlineEntriesDate: Date?
+    private var onlineEntriesFetchDate: Date?
     private var didMergeOfflineEntries = false
     private var listRequestsSubscription: AnyCancellable?
     private var foldersSubscriptions = Set<AnyCancellable>()
     private var passwordsSubscriptions = Set<AnyCancellable>()
+    private var tagsSubscriptions = Set<AnyCancellable>()
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
@@ -76,9 +92,10 @@ final class EntriesController: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    private init(folders: [Folder], passwords: [Password]) {
+    private init(folders: [Folder], passwords: [Password], tags: [Tag]) {
         self.folders = folders
         self.passwords = passwords
+        self.tags = tags
         state = .online
     }
     
@@ -87,14 +104,16 @@ final class EntriesController: ObservableObject {
             state = .loading
             folders = nil
             passwords = nil
+            tags = nil
             filterBy = .folders
             sortBy = .label
             reversed = false
-            fetchOnlineEntriesDate = nil
+            onlineEntriesFetchDate = nil
             didMergeOfflineEntries = false
             listRequestsSubscription = nil
             Crypto.AES256.removeKey(named: "offlineKey")
             CoreData.default.clear(type: OfflineContainer.self)
+            updateAutoFillCredentials()
             return
         }
         
@@ -126,7 +145,7 @@ final class EntriesController: ObservableObject {
     }
     
     private func refresh(_: Notification) {
-        if let fetchOnlineEntriesDate = fetchOnlineEntriesDate {
+        if let fetchOnlineEntriesDate = onlineEntriesFetchDate {
             guard fetchOnlineEntriesDate.advanced(by: 5 * 60) < Date() else {
                 return
             }
@@ -138,7 +157,7 @@ final class EntriesController: ObservableObject {
     }
     
     private func fetchOnlineEntries(session: Session, completion: (() -> Void)? = nil) {
-        fetchOnlineEntriesDate = Date()
+        onlineEntriesFetchDate = Date()
         
         if state == .error {
             state = .loading
@@ -166,7 +185,18 @@ final class EntriesController: ObservableObject {
                 promise(.success(passwords))
             }
         }
-        listRequestsSubscription = Publishers.Zip(listFoldersRequest, listPasswordsRequest)
+        let listTagsRequest = Future<[Tag], NCPasswordsRequestError> {
+            promise in
+            ListTagsRequest(session: session).send {
+                tags in
+                guard let tags = tags else {
+                    promise(.failure(.requestError))
+                    return
+                }
+                promise(.success(tags))
+            }
+        }
+        listRequestsSubscription = Publishers.Zip3(listFoldersRequest, listPasswordsRequest, listTagsRequest)
             .sink(receiveCompletion: {
                 [weak self] result in
                 if case .failure(.requestError) = result {
@@ -176,12 +206,14 @@ final class EntriesController: ObservableObject {
                     else {
                         self?.state = .offline
                     }
-                    self?.fetchOnlineEntriesDate = nil
+                    self?.onlineEntriesFetchDate = nil
                 }
                 completion?()
             }, receiveValue: {
-                [weak self] folders, passwords in
-                self?.merge(folders: folders, passwords: passwords)
+                [weak self] folders, passwords, tags in
+                self?.merge(folders: folders, passwords: passwords, tags: tags)
+                self?.updateAutoFillCredentials()
+                self?.completeCredentialIdentifierAutoFill()
             })
     }
     
@@ -192,7 +224,7 @@ final class EntriesController: ObservableObject {
             guard let offlineContainers = CoreData.default.fetch(request: request) else {
                 DispatchQueue.main.async {
                     CoreData.default.clear(type: OfflineContainer.self)
-                    self?.merge(folders: [], passwords: [], offline: true)
+                    self?.merge(folders: [], passwords: [], tags: [], offline: true)
                 }
                 return
             }
@@ -203,15 +235,16 @@ final class EntriesController: ObservableObject {
             DispatchQueue.main.async {
                 guard let entries = entries else {
                     CoreData.default.clear(type: OfflineContainer.self)
-                    self?.merge(folders: [], passwords: [], offline: true)
+                    self?.merge(folders: [], passwords: [], tags: [], offline: true)
                     return
                 }
-                self?.merge(folders: entries.folders, passwords: entries.passwords, offline: true)
+                self?.merge(folders: entries.folders, passwords: entries.passwords, tags: entries.tags, offline: true)
+                self?.completeCredentialIdentifierAutoFill()
             }
         }
     }
     
-    private func merge(folders: [Folder], passwords: [Password], offline: Bool = false) {
+    private func merge(folders: [Folder], passwords: [Password], tags: [Tag], offline: Bool = false) {
         guard SessionController.default.session != nil else {
             return
         }
@@ -220,7 +253,7 @@ final class EntriesController: ObservableObject {
             state = .online
         }
         else if state != .online,
-                !folders.isEmpty || !passwords.isEmpty {
+                !folders.isEmpty || !passwords.isEmpty || !tags.isEmpty {
             state = .offline
         }
         
@@ -329,11 +362,93 @@ final class EntriesController: ObservableObject {
                 }
             }
         }
+        
+        if self.tags == nil || !offline && !didMergeOfflineEntries {
+            self.tags = tags
+        }
+        else if let existingTags = self.tags {
+            let onlineTags = offline ? existingTags : tags
+            let offlineTags = offline ? tags : existingTags
+            
+            let onlineTagIDs = Set(onlineTags.map { $0.id })
+            let offlineTagIDs = Set(offlineTags.map { $0.id })
+            
+            let deletedTagIDs = offlineTagIDs.subtracting(onlineTagIDs)
+            let updatedTagIDs = onlineTagIDs.intersection(offlineTagIDs)
+            let addedTagIDs = onlineTagIDs.subtracting(offlineTagIDs)
+            
+            let deletedTags = offlineTags.filter { deletedTagIDs.contains($0.id) }
+            let updatedTagPairs = zip(offlineTags.filter { updatedTagIDs.contains($0.id) }.sorted { $0.id < $1.id }, onlineTags.filter { updatedTagIDs.contains($0.id) }.sorted { $0.id < $1.id })
+            let addedTags = onlineTags.filter { addedTagIDs.contains($0.id) }
+            
+            if offline {
+                deletedTags.forEach {
+                    offlineTag in
+                    offlineTag.revision = ""
+                }
+                updatedTagPairs.forEach {
+                    offlineTag, onlineTag in
+                    onlineTag.offlineContainer = offlineTag.offlineContainer
+                    onlineTag.updateOfflineContainer()
+                }
+                addedTags.forEach {
+                    onlineTag in
+                    onlineTag.updateOfflineContainer()
+                }
+            }
+            else {
+                deletedTags.forEach {
+                    offlineTag in
+                    self.tags?.removeAll { $0 === offlineTag }
+                    offlineTag.revision = ""
+                }
+                updatedTagPairs.forEach {
+                    offlineTag, onlineTag in
+                    offlineTag.update(from: onlineTag)
+                }
+                self.tags?.append(contentsOf: addedTags)
+                addedTags.forEach {
+                    onlineTag in
+                    onlineTag.updateOfflineContainer()
+                }
+            }
+        }
     }
     
     func updateOfflineContainers() {
         folders?.forEach { $0.updateOfflineContainer() }
         passwords?.forEach { $0.updateOfflineContainer() }
+        tags?.forEach { $0.updateOfflineContainer() }
+    }
+    
+    func updateAutoFillCredentials() {
+        ASCredentialIdentityStore.shared.getState {
+            [weak self] state in
+            guard state.isEnabled,
+                  let self = self else {
+                return
+            }
+            if Configuration.userDefaults.bool(forKey: "storeOffline"),
+               let passwords = self.passwords {
+                let credentials = passwords.map { ASPasswordCredentialIdentity(serviceIdentifier: ASCredentialServiceIdentifier(identifier: $0.url, type: .URL), user: $0.username, recordIdentifier: $0.id) }
+                ASCredentialIdentityStore.shared.replaceCredentialIdentities(with: credentials)
+            }
+            else {
+                ASCredentialIdentityStore.shared.removeAllCredentialIdentities()
+            }
+        }
+    }
+    
+    private func completeCredentialIdentifierAutoFill() {
+        guard let credentialIdentifier = AutoFillController.default.credentialIdentifier else {
+            return
+        }
+        guard let complete = AutoFillController.default.complete,
+              let password = passwords?.first(where: { $0.id == credentialIdentifier }) else {
+            AutoFillController.default.credentialIdentifier = nil
+            return
+        }
+        complete(password.username, password.password)
     }
     
     func add(folder: Folder) {
@@ -375,14 +490,14 @@ final class EntriesController: ObservableObject {
         passwords?.append(password)
         
         CreatePasswordRequest(session: session, password: password).send {
-            response in
+            [weak self] response in
             guard let response = response else {
                 password.state = .creationFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
                 return
             }
             ShowPasswordRequest(session: session, id: response.id).send {
-                response in
+                [weak self] response in
                 guard let response = response else {
                     password.state = .creationFailed
                     UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
@@ -390,6 +505,36 @@ final class EntriesController: ObservableObject {
                 }
                 password.id = response.id
                 password.update(from: response)
+                self?.updateAutoFillCredentials()
+            }
+        }
+    }
+    
+    func add(tag: Tag) {
+        tag.state = .creating
+        
+        guard let session = SessionController.default.session else {
+            tag.state = .creationFailed
+            return
+        }
+        tags?.append(tag)
+        
+        CreateTagRequest(session: session, tag: tag).send {
+            response in
+            guard let response = response else {
+                tag.state = .creationFailed
+                UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createTagErrorMessage".localized)
+                return
+            }
+            ShowTagRequest(session: session, id: response.id).send {
+                response in
+                guard let response = response else {
+                    tag.state = .creationFailed
+                    UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createTagErrorMessage".localized)
+                    return
+                }
+                tag.id = response.id
+                tag.update(from: response)
             }
         }
     }
@@ -430,20 +575,48 @@ final class EntriesController: ObservableObject {
         }
         
         UpdatePasswordRequest(session: session, password: password).send {
-            response in
+            [weak self] response in
             guard let response = response else {
                 password.state = .updateFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
                 return
             }
             ShowPasswordRequest(session: session, id: response.id).send {
-                response in
+                [weak self] response in
                 guard let response = response else {
                     password.state = .updateFailed
                     UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
                     return
                 }
                 password.update(from: response)
+                self?.updateAutoFillCredentials()
+            }
+        }
+    }
+    
+    func update(tag: Tag) {
+        tag.state = .updating
+        
+        guard let session = SessionController.default.session else {
+            tag.state = .updateFailed
+            return
+        }
+        
+        UpdateTagRequest(session: session, tag: tag).send {
+            response in
+            guard let response = response else {
+                tag.state = .updateFailed
+                UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editTagErrorMessage".localized)
+                return
+            }
+            ShowTagRequest(session: session, id: response.id).send {
+                response in
+                guard let response = response else {
+                    tag.state = .updateFailed
+                    UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editTagErrorMessage".localized)
+                    return
+                }
+                tag.update(from: response)
             }
         }
     }
@@ -451,21 +624,45 @@ final class EntriesController: ObservableObject {
     func delete(folder: Folder) {
         folder.state = .deleting
         
-        guard let session = SessionController.default.session else {
+        guard let session = SessionController.default.session,
+              let folders = folders,
+              let passwords = passwords else {
             folder.state = .deletionFailed
             return
         }
-        folders?.removeAll { $0 === folder }
+        
+        self.folders?.removeAll { $0 === folder }
+        
+        let childFolders: [Folder] = folders.filter { $0.isDescendentOf(folder: folder, in: folders) }
+        let childPasswords = passwords.filter {
+            password in
+            childFolders.contains { $0.id == password.folder }
+        }
+        self.folders?.removeAll {
+            folder in
+            childFolders.contains { $0 === folder }
+        }
+        self.passwords?.removeAll {
+            password in
+            childPasswords.contains { $0 === password }
+        }
         
         DeleteFolderRequest(session: session, folder: folder).send {
             [weak self] response in
             guard response != nil else {
                 self?.folders?.append(folder)
+                self?.folders?.append(contentsOf: childFolders)
+                self?.passwords?.append(contentsOf: childPasswords)
                 folder.state = .deletionFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_deleteFolderErrorMessage".localized)
                 return
             }
             folder.revision = ""
+            childFolders.forEach { $0.revision = "" }
+            childPasswords.forEach { $0.revision = "" }
+            if !childPasswords.isEmpty {
+                self?.updateAutoFillCredentials()
+            }
         }
     }
     
@@ -488,22 +685,47 @@ final class EntriesController: ObservableObject {
                 return
             }
             password.revision = ""
+            self?.updateAutoFillCredentials()
         }
     }
     
-    func processEntries(folder: Folder, searchTerm: String) -> [Entry]? {
+    func delete(tag: Tag) {
+        tag.state = .deleting
+        
+        guard let session = SessionController.default.session else {
+            tag.state = .deletionFailed
+            return
+        }
+        tags?.removeAll { $0 === tag }
+        
+        DeleteTagRequest(session: session, tag: tag).send {
+            [weak self] response in
+            guard response != nil else {
+                self?.tags?.append(tag)
+                tag.state = .deletionFailed
+                UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_deleteTagErrorMessage".localized)
+                return
+            }
+            tag.revision = ""
+        }
+    }
+    
+    func processEntries(folder: Folder, tag: Tag?, searchTerm: String, defaultSorting: Sorting?) -> [Entry]? {
         guard var passwords = passwords,
-              var folders = folders else {
+              var folders = folders,
+              var tags = tags else {
             return nil
         }
         let searchTerm = searchTerm.trimmingCharacters(in: .whitespacesAndNewlines)
+        let sortBy = defaultSorting ?? sortBy
+        let reversed = defaultSorting != nil ? false : reversed
         
         /// Apply filter to folders
         switch filterBy {
         case .all:
             folders = []
         case .favorites:
-            guard !folder.isBaseFolder else {
+            guard !folder.isBaseFolder || tag != nil else {
                 let favoriteFolders = folders.filter { $0.favorite }
                 if searchTerm.isEmpty {
                     folders = favoriteFolders
@@ -519,12 +741,17 @@ final class EntriesController: ObservableObject {
             }
             fallthrough
         case .folders:
+            guard tag == nil else {
+                fallthrough
+            }
             if searchTerm.isEmpty {
                 folders = folders.filter { $0.parent == folder.id }
             }
             else {
                 folders = folders.filter { $0.isDescendentOf(folder: folder, in: folders) }
             }
+        case .tags:
+            folders = []
         }
         
         /// Apply filter to passwords
@@ -532,7 +759,7 @@ final class EntriesController: ObservableObject {
         case .all:
             break
         case .favorites:
-            guard !folder.isBaseFolder else {
+            guard !folder.isBaseFolder || tag != nil else {
                 let favoritePasswords = passwords.filter { $0.favorite }
                 if searchTerm.isEmpty {
                     passwords = favoritePasswords
@@ -543,17 +770,65 @@ final class EntriesController: ObservableObject {
                         password in
                         favoriteFolders.contains { password.isDescendentOf(folder: $0, in: folders) }
                     }
-                    passwords = favoritePasswords + passwordsInFavoriteFolders
+                    let favoriteTags = tags.filter { $0.favorite }
+                    let passwordsWithFavoriteTags = passwords.filter {
+                        password in
+                        password.tags.contains {
+                            tagId in
+                            favoriteTags.contains { $0.id == tagId }
+                        }
+                    }
+                    passwords = favoritePasswords + passwordsInFavoriteFolders + passwordsWithFavoriteTags
                 }
                 break
             }
             fallthrough
         case .folders:
+            guard tag == nil else {
+                fallthrough
+            }
             if searchTerm.isEmpty {
                 passwords = passwords.filter { $0.folder == folder.id }
             }
             else {
                 passwords = passwords.filter { $0.isDescendentOf(folder: folder, in: folders) }
+            }
+        case .tags:
+            if let tag = tag {
+                passwords = passwords.filter { $0.tags.contains(tag.id) }
+            }
+            else if searchTerm.isEmpty {
+                passwords = []
+            }
+            else {
+                passwords = passwords.filter {
+                    password in
+                    password.tags.contains {
+                        tagId in
+                        tags.contains { $0.id == tagId }
+                    }
+                }
+            }
+        }
+        
+        /// Apply filter to tags
+        switch filterBy {
+        case .all:
+            tags = []
+        case .favorites:
+            guard !folder.isBaseFolder || tag != nil else {
+                tags = tags.filter { $0.favorite }
+                break
+            }
+            fallthrough
+        case .folders:
+            guard tag == nil else {
+                fallthrough
+            }
+            tags = []
+        case .tags:
+            if tag != nil {
+                tags = []
             }
         }
         
@@ -577,20 +852,31 @@ final class EntriesController: ObservableObject {
             passwords.sort { $0.username.compare($1.username, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
             passwords.sort { !$0.username.isEmpty && $1.username.isEmpty }
         case .url:
-            passwords.sort { $0.url.lowercased() < $1.url.lowercased() }
+            passwords.sort { $0.url.compare($1.url, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
             passwords.sort { !$0.url.isEmpty && $1.url.isEmpty }
         case .status:
             passwords.sort { $0.statusCode > $1.statusCode }
+        }
+        
+        /// Sort tags
+        switch sortBy {
+        case .label:
+            tags.sort { $0.label.compare($1.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
+        case .updated:
+            tags.sort { $0.updated > $1.updated }
+        default:
+            tags = []
         }
         
         /// Reverse order if necessary
         if reversed {
             folders.reverse()
             passwords.reverse()
+            tags.reverse()
         }
         
         /// Apply search term
-        let unsearchedEntries: [Entry] = folders.map { .folder($0) } + passwords.map { .password($0) }
+        let unsearchedEntries: [Entry] = folders.map { .folder($0) } + tags.map { .tag($0) } + passwords.map { .password($0) }
         if searchTerm.isEmpty {
             return unsearchedEntries
         }
@@ -622,6 +908,21 @@ final class EntriesController: ObservableObject {
             .map { $0.1 }
     }
     
+    static func tags(for tagIds: [String], in tags: [Tag]) -> (valid: [Tag], invalid: [String]) {
+        tagIds
+            .reduce((valid: [], invalid: [])) {
+                result, tagId in
+                var result = result
+                if let tag = tags.first(where: { $0.id == tagId }) {
+                    result.valid.append(tag)
+                }
+                else {
+                    result.invalid.append(tagId)
+                }
+                return result
+            }
+    }
+    
 }
 
 
@@ -643,6 +944,7 @@ extension EntriesController {
         case folders
         case all
         case favorites
+        case tags
     }
     
 }
@@ -664,7 +966,7 @@ extension EntriesController {
 extension EntriesController: MockObject {
     
     static var mock: EntriesController {
-        EntriesController(folders: Folder.mocks, passwords: Password.mocks)
+        EntriesController(folders: Folder.mocks, passwords: Password.mocks, tags: Tag.mocks)
     }
     
 }

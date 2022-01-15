@@ -47,3 +47,7 @@ identifier_name:
 
 trailing_whitespace:
   ignores_empty_lines: true
+
+large_tuple:
+  warning: 3
+  error: 4

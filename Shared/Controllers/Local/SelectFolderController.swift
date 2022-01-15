@@ -3,9 +3,9 @@ import Combine
 
 final class SelectFolderController: ObservableObject {
     
+    let entriesController: EntriesController
     let entry: Entry
     let temporaryEntry: TemporaryEntry
-    let folders: [Folder]
     let selectFolder: (Folder) -> Void
     
     @Published var selection: Folder
@@ -13,27 +13,36 @@ final class SelectFolderController: ObservableObject {
     
     private var subscriptions = Set<AnyCancellable>()
     
-    init(entry: Entry, temporaryEntry: TemporaryEntry, folders: [Folder], selectFolder: @escaping (Folder) -> Void) {
+    init(entriesController: EntriesController, entry: Entry, temporaryEntry: TemporaryEntry, selectFolder: @escaping (Folder) -> Void) {
+        self.entriesController = entriesController
         self.entry = entry
         self.temporaryEntry = temporaryEntry
-        var folders = folders
-        if case .folder(let folder) = entry {
-            folders = folders.filter { $0 !== folder }
-        }
-        folders.sort { $0.label.compare($1.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
-        self.folders = folders
         self.selectFolder = selectFolder
         
         let baseFolder = Folder()
-        selection = folders.first(where: { $0.id == temporaryEntry.parent }) ?? baseFolder
+        selection = entriesController.folders?.first { $0.id == temporaryEntry.parent } ?? baseFolder
         self.baseFolder = baseFolder
         
-        folders.forEach {
-            folder in
-            folder.objectWillChange
-                .sink { [weak self] in self?.objectWillChange.send() }
-                .store(in: &subscriptions)
+        entriesController.objectWillChange
+            .sink {
+                [weak self] in
+                self?.selection = self?.entriesController.folders?.first { $0 === self?.selection } ?? baseFolder /// Not only serves the purpose to reset selection if selected folder is deleted but also refreshes view when entries controller changes
+            }
+            .store(in: &subscriptions)
+    }
+    
+    var folders: [Folder] {
+        guard var folders = entriesController.folders else {
+            return []
         }
+        if case .folder(let folder) = entry {
+            folders = folders.filter { $0 !== folder }
+        }
+        return folders.sortedByLabel()
+    }
+    
+    var hasChanges: Bool {
+        temporaryEntry.parent != selection.id
     }
     
 }

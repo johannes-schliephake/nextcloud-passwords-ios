@@ -3,23 +3,25 @@ import Foundation
 
 final class EditFolderController: ObservableObject {
     
+    let entriesController: EntriesController
     let folder: Folder
-    let folders: [Folder]
-    private let addFolder: () -> Void
-    private let updateFolder: () -> Void
+    let didAdd: ((Folder) -> Void)?
     
     @Published var folderLabel: String
     @Published var folderFavorite: Bool
     @Published var folderParent: String?
     
-    init(folder: Folder, folders: [Folder], addFolder: @escaping () -> Void, updateFolder: @escaping () -> Void) {
+    init(entriesController: EntriesController, folder: Folder, didAdd: ((Folder) -> Void)?) {
+        self.entriesController = entriesController
         self.folder = folder
-        self.folders = folders
-        self.addFolder = addFolder
-        self.updateFolder = updateFolder
+        self.didAdd = didAdd
         folderLabel = folder.label
         folderFavorite = folder.favorite
         folderParent = folder.parent
+    }
+    
+    var parentLabel: String {
+        entriesController.folders?.first(where: { $0.id == folderParent })?.label ?? "_passwords".localized
     }
     
     var hasChanges: Bool {
@@ -41,13 +43,14 @@ final class EditFolderController: ObservableObject {
         
         folder.label = folderLabel
         folder.favorite = folderFavorite
-        folder.parent = folderParent
+        folder.parent = entriesController.folders?.contains { $0.id == folderParent } == true ? folderParent : Entry.baseId
         
         if folder.id.isEmpty {
-            addFolder()
+            entriesController.add(folder: folder)
+            didAdd?(folder)
         }
         else {
-            updateFolder()
+            entriesController.update(folder: folder)
         }
     }
     
