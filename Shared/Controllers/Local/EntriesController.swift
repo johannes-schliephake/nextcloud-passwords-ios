@@ -633,7 +633,7 @@ final class EntriesController: ObservableObject {
         
         self.folders?.removeAll { $0 === folder }
         
-        let childFolders: [Folder] = folders.filter { $0.isDescendentOf(folder: folder, in: folders) }
+        let childFolders = folders.filter { $0.isDescendentOf(folder: folder, in: folders) }
         let childPasswords = passwords.filter {
             password in
             childFolders.contains { $0.id == password.folder }
@@ -725,21 +725,21 @@ final class EntriesController: ObservableObject {
         case .all:
             folders = []
         case .favorites:
-            guard !folder.isBaseFolder || tag != nil else {
-                let favoriteFolders = folders.filter { $0.favorite }
-                if searchTerm.isEmpty {
-                    folders = favoriteFolders
-                }
-                else {
-                    let foldersInFavoriteFolders = folders.filter {
-                        folder in
-                        favoriteFolders.contains { folder.isDescendentOf(folder: $0, in: folders) }
-                    }
-                    folders = favoriteFolders + foldersInFavoriteFolders
-                }
-                break
+            guard folder.isBaseFolder,
+                  tag == nil else {
+                fallthrough
             }
-            fallthrough
+            let favoriteFolders = folders.filter { $0.favorite }
+            if searchTerm.isEmpty {
+                folders = favoriteFolders
+            }
+            else {
+                folders = folders.filter {
+                    folder in
+                    folder.favorite ||
+                    favoriteFolders.contains { folder.isDescendentOf(folder: $0, in: folders) }
+                }
+            }
         case .folders:
             guard tag == nil else {
                 fallthrough
@@ -748,7 +748,7 @@ final class EntriesController: ObservableObject {
                 folders = folders.filter { $0.parent == folder.id }
             }
             else {
-                folders = folders.filter { $0.isDescendentOf(folder: folder, in: folders) }
+                folders = folders.filter { $0.isDescendentOf(folder: folder, in: folders) && $0 !== folder }
             }
         case .tags:
             folders = []
@@ -759,30 +759,26 @@ final class EntriesController: ObservableObject {
         case .all:
             break
         case .favorites:
-            guard !folder.isBaseFolder || tag != nil else {
-                let favoritePasswords = passwords.filter { $0.favorite }
-                if searchTerm.isEmpty {
-                    passwords = favoritePasswords
-                }
-                else {
-                    let favoriteFolders = folders.filter { $0.favorite }
-                    let passwordsInFavoriteFolders = passwords.filter {
-                        password in
-                        favoriteFolders.contains { password.isDescendentOf(folder: $0, in: folders) }
-                    }
-                    let favoriteTags = tags.filter { $0.favorite }
-                    let passwordsWithFavoriteTags = passwords.filter {
-                        password in
-                        password.tags.contains {
-                            tagId in
-                            favoriteTags.contains { $0.id == tagId }
-                        }
-                    }
-                    passwords = favoritePasswords + passwordsInFavoriteFolders + passwordsWithFavoriteTags
-                }
-                break
+            guard folder.isBaseFolder,
+                  tag == nil else {
+                fallthrough
             }
-            fallthrough
+            if searchTerm.isEmpty {
+                passwords = passwords.filter { $0.favorite }
+            }
+            else {
+                let favoriteFolders = folders.filter { $0.favorite }
+                let favoriteTags = tags.filter { $0.favorite }
+                passwords = passwords.filter {
+                    password in
+                    password.favorite ||
+                    favoriteFolders.contains { password.isDescendentOf(folder: $0, in: folders) } ||
+                    password.tags.contains {
+                        tagId in
+                        favoriteTags.contains { $0.id == tagId }
+                    }
+                }
+            }
         case .folders:
             guard tag == nil else {
                 fallthrough
@@ -816,11 +812,11 @@ final class EntriesController: ObservableObject {
         case .all:
             tags = []
         case .favorites:
-            guard !folder.isBaseFolder || tag != nil else {
-                tags = tags.filter { $0.favorite }
-                break
+            guard folder.isBaseFolder,
+                  tag == nil else {
+                fallthrough
             }
-            fallthrough
+            tags = tags.filter { $0.favorite }
         case .folders:
             guard tag == nil else {
                 fallthrough
@@ -839,7 +835,7 @@ final class EntriesController: ObservableObject {
         case .updated:
             folders.sort { $0.updated > $1.updated }
         default:
-            folders = []
+            break
         }
         
         /// Sort passwords
@@ -865,7 +861,7 @@ final class EntriesController: ObservableObject {
         case .updated:
             tags.sort { $0.updated > $1.updated }
         default:
-            tags = []
+            break
         }
         
         /// Reverse order if necessary
