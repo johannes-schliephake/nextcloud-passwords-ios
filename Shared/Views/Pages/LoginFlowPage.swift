@@ -42,7 +42,9 @@ extension LoginFlowPage {
         }
         
         func makeUIView(context: Context) -> BottomlessWKWebView {
-            let webView = BottomlessWKWebView()
+            let configuration = WKWebViewConfiguration()
+            configuration.websiteDataStore = .nonPersistent()
+            let webView = BottomlessWKWebView(frame: .zero, configuration: configuration)
             webView.isOpaque = false
             webView.navigationDelegate = loginFlowNavigationController
             
