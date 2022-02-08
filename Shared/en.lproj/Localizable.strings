@@ -2,6 +2,8 @@
 "_accept" = "Accept"; // I.e. accept this certificate
 "_account" = "Account"; // This refers to the noun ("the account")
 "_addCustomField" = "Add Custom Field";
+"_addOtp" = "Add One-Time Password";
+"_addManually" = "Add Manually";
 "_addTags" = "Add Tags"; // I.e. add tags to a password
 "_all" = "All"; // I.e. all passwords
 "_anErrorOccurred" = "An error occurred ...";
@@ -91,7 +93,9 @@
 "_passwordStatusGoodMessage3" = "It doesn't violate user defined rules."; // It = the password
 "_passwordStatusOutdatedMessage" = "This password has reached the maximum age."; // "Maximum age": Use the same wording that the web client uses in it's settings
 "_providerInstructionsMessage" = "This app supports Password AutoFill. The feature has to be enabled in iOS's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap AutoFill Passwords\n4. Enable AutoFill Passwords\n5. Enable this app"; // Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step
+"_qrCaptureErrorMessage" = "The camera could not be launched.";
 "_reject" = "Reject"; // I.e. reject this certificate
+"_scanQrCode" = "Scan QR Code";
 "_secret" = "Secret"; // This refers to the noun ("the secret") and is used in similar places as "password"
 "_security" = "Security"; // I.e. security status of a password
 "_select" = "Select"; // This refers to the verb ("to select"), i.e. select a password
