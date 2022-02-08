@@ -110,7 +110,7 @@ struct PasswordDetailPage: View {
             }
             serviceSection()
             accountSection()
-            if !password.customFields.contains { $0.type != .data } {
+            if !password.customUserFields.isEmpty {
                 customFieldsSection()
             }
             if !password.notes.isEmpty {
@@ -295,7 +295,7 @@ struct PasswordDetailPage: View {
     
     private func customFieldsSection() -> some View {
         Section(header: Text("_customFields")) {
-            ForEach(password.customFields.filter { $0.type != .data }) {
+            ForEach(password.customUserFields) {
                 customField in
                 LabeledRow(type: LabeledRow.RowType(rawValue: customField.type.rawValue) ?? .text, label: customField.label, value: customField.value, copiable: true)
             }

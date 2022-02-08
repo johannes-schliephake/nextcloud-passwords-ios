@@ -209,6 +209,10 @@
 		DD3FAD6827772C15002202DE /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3FAD6627772C15002202DE /* SettingsController.swift */; };
 		DD4A9E89269F84B9007268E2 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
 		DD4A9E8A269F84B9007268E2 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
+		DD5189EE27A16BFA00264A0D /* Data+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5189ED27A16BFA00264A0D /* Data+Init.swift */; };
+		DD5189EF27A16BFA00264A0D /* Data+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5189ED27A16BFA00264A0D /* Data+Init.swift */; };
+		DD5AECA827B1150B002DAA87 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AECA727B1150B002DAA87 /* OTP.swift */; };
+		DD5AECA927B1150B002DAA87 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AECA727B1150B002DAA87 /* OTP.swift */; };
 		DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
 		DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
 		DD9FAD5826A3793A00770FEA /* SelectFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */; };
@@ -525,6 +529,8 @@
 		DD4A452F26FBCCCF00CEFF43 /* iPhone SE (1st generation)-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone SE (1st generation)-2.png"; sourceTree = "<group>"; };
 		DD4A453026FBCCCF00CEFF43 /* iPhone SE (1st generation)-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone SE (1st generation)-1.png"; sourceTree = "<group>"; };
 		DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLabeledRow.swift; sourceTree = "<group>"; };
+		DD5189ED27A16BFA00264A0D /* Data+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Init.swift"; sourceTree = "<group>"; };
+		DD5AECA727B1150B002DAA87 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
 		DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledRow.swift; sourceTree = "<group>"; };
 		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
@@ -728,6 +734,7 @@
 				8F55B2D3256DBF530011C92D /* Entry.swift */,
 				8F552955259CAF4900419233 /* Folder.swift */,
 				8F854E6B26239457008885C3 /* OfflineContainer.swift */,
+				DD5AECA727B1150B002DAA87 /* OTP.swift */,
 				8F57A5B92562699A00BC1CA0 /* Password.swift */,
 				8F513A5E2560624F001C6EF9 /* Session.swift */,
 				DD3FAD632775DC86002202DE /* Settings.swift */,
@@ -834,6 +841,7 @@
 				DD0E59B427414EB5003D7D50 /* Color+Hex.swift */,
 				DD0E59B127414AFE003D7D50 /* Color+Init.swift */,
 				8F7237962651466000832A88 /* Comparable+Clamped.swift */,
+				DD5189ED27A16BFA00264A0D /* Data+Init.swift */,
 				8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */,
 				8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */,
 				8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */,
@@ -1274,12 +1282,14 @@
 				8FBE43C9258D5A2D003F7F34 /* UIApplication+IsExtension.swift in Sources */,
 				8F79AE0C260287DE00308A33 /* RequestSessionRequest.swift in Sources */,
 				8F7237972651466000832A88 /* Comparable+Clamped.swift in Sources */,
+				DD5AECA827B1150B002DAA87 /* OTP.swift in Sources */,
 				8F55B2D4256DBF530011C92D /* Entry.swift in Sources */,
 				8FC361FC25828AE600785371 /* EntriesNavigation.swift in Sources */,
 				DD0E59B527414EB5003D7D50 /* Color+Hex.swift in Sources */,
 				8F5E120825D3CC33007A2166 /* Configuration.swift in Sources */,
 				DDE4F5D6274BEB3D00518167 /* FlowView.swift in Sources */,
 				8FB645F225D6949900A0F316 /* UIPasteboard+PrivateString.swift in Sources */,
+				DD5189EE27A16BFA00264A0D /* Data+Init.swift in Sources */,
 				8F570BFB25693F5C00BA4B74 /* ListFoldersRequest.swift in Sources */,
 				8F51428B2573BEFA00DD96C0 /* CreatePasswordRequest.swift in Sources */,
 				8FBAC9D0264A7B050038A626 /* String+Score.swift in Sources */,
@@ -1403,12 +1413,14 @@
 				8F79AE0D260287DE00308A33 /* RequestSessionRequest.swift in Sources */,
 				8F7237982651466000832A88 /* Comparable+Clamped.swift in Sources */,
 				8FC361CF25827E5D00785371 /* UpdateFolderRequest.swift in Sources */,
+				DD5AECA927B1150B002DAA87 /* OTP.swift in Sources */,
 				8FC361B825827E4C00785371 /* EditFolderPage.swift in Sources */,
 				8F5E120925D3CC33007A2166 /* Configuration.swift in Sources */,
 				DD0E59B627414EB5003D7D50 /* Color+Hex.swift in Sources */,
 				8FB645F325D6949900A0F316 /* UIPasteboard+PrivateString.swift in Sources */,
 				DDE4F5D7274BEB3D00518167 /* FlowView.swift in Sources */,
 				8FBE43D4258D5A8C003F7F34 /* Date+FormattedString.swift in Sources */,
+				DD5189EF27A16BFA00264A0D /* Data+Init.swift in Sources */,
 				8FC361B625827E4C00785371 /* CopyToast.swift in Sources */,
 				8FC361C025827E5200785371 /* EntriesController.swift in Sources */,
 				8FBAC9D1264A7B050038A626 /* String+Score.swift in Sources */,

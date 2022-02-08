@@ -26,6 +26,18 @@ final class EditPasswordController: ObservableObject {
     @Published var passwordUsername: String
     @Published var passwordUrl: String
     @Published var passwordCustomUserFields: [Password.CustomField]
+    @Published var passwordOtp: OTP? {
+        didSet {
+            if passwordLabel.isEmpty,
+               let issuer = passwordOtp?.issuer {
+                passwordLabel = issuer
+            }
+            if passwordUsername.isEmpty,
+               let username = passwordOtp?.accountname {
+                passwordUsername = username
+            }
+        }
+    }
     @Published var passwordNotes: String
     @Published var passwordFavorite: Bool
     @Published var passwordValidTags: [Tag]
@@ -34,8 +46,6 @@ final class EditPasswordController: ObservableObject {
     @Published var showErrorAlert = false
     @Published var showProgressView = false
     
-    private let passwordCustomDataFields: [Password.CustomField]
-    
     init(entriesController: EntriesController, password: Password) {
         self.entriesController = entriesController
         self.password = password
@@ -43,8 +53,8 @@ final class EditPasswordController: ObservableObject {
         passwordLabel = password.label
         passwordUsername = password.username
         passwordUrl = password.url
-        passwordCustomUserFields = password.customFields.filter { $0.type != .data }
-        passwordCustomDataFields = password.customFields.filter { $0.type == .data }
+        passwordCustomUserFields = password.customUserFields
+        passwordOtp = password.otp
         passwordNotes = password.notes
         passwordFavorite = password.favorite
         (passwordValidTags, passwordInvalidTags) = EntriesController.tags(for: password.tags, in: entriesController.tags ?? [])
@@ -60,7 +70,8 @@ final class EditPasswordController: ObservableObject {
         passwordLabel != password.label ||
         passwordUsername != password.username ||
         passwordUrl != password.url ||
-        passwordCustomUserFields != password.customFields.filter { $0.type != .data } ||
+        passwordCustomUserFields != password.customUserFields ||
+        passwordOtp != password.otp ||
         passwordNotes != password.notes ||
         passwordFavorite != password.favorite ||
         passwordValidTags.map { $0.id }.sorted() != EntriesController.tags(for: password.tags, in: entriesController.tags ?? []).valid.map { $0.id }.sorted() ||
@@ -78,7 +89,7 @@ final class EditPasswordController: ObservableObject {
     }
     
     var passwordCustomFieldCount: Int {
-        passwordCustomUserFields.count + passwordCustomDataFields.count
+        passwordCustomUserFields.count + password.customDataFields.count + (passwordOtp != nil ? 1 : 0)
     }
     
     func generatePassword() {
@@ -116,7 +127,8 @@ final class EditPasswordController: ObservableObject {
         password.label = passwordLabel
         password.username = passwordUsername
         password.url = passwordUrl
-        password.customFields = passwordCustomUserFields + passwordCustomDataFields
+        password.customUserFields = passwordCustomUserFields
+        password.otp = passwordOtp
         password.notes = passwordNotes
         password.favorite = passwordFavorite
         password.tags = passwordValidTags.map { $0.id } + passwordInvalidTags
