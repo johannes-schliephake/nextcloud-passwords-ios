@@ -27,7 +27,7 @@ extension ListPasswordsRequest: NCPasswordsRequest {
 
 extension ListPasswordsRequest {
     
-    struct Request: Encodable {
+    private struct Request: Encodable {
         
         let details: String
         

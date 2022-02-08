@@ -698,7 +698,7 @@ struct EntriesPage: View {
 
 extension EntriesPage {
     
-    enum SheetItem: Identifiable {
+    private enum SheetItem: Identifiable {
         
         case edit(entry: Entry)
         case move(entry: Entry)
@@ -718,7 +718,7 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    enum ActionSheetItem: Identifiable {
+    private enum ActionSheetItem: Identifiable {
         
         case delete(entry: Entry)
         
@@ -736,7 +736,7 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case challengePassword
     }
     
@@ -745,7 +745,7 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    struct FolderRow: View {
+    private struct FolderRow: View {
         
         @ObservedObject var entriesController: EntriesController
         @ObservedObject var folder: Folder
@@ -936,7 +936,7 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    struct PasswordRow: View {
+    private struct PasswordRow: View {
         
         @ObservedObject var entriesController: EntriesController
         @ObservedObject var password: Password
@@ -1277,7 +1277,7 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    struct TagRow: View {
+    private struct TagRow: View {
         
         @ObservedObject var entriesController: EntriesController
         @ObservedObject var tag: Tag

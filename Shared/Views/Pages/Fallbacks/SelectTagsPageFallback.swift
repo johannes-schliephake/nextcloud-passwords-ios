@@ -199,7 +199,7 @@ struct SelectTagsPageFallback: View {
 
 extension SelectTagsPageFallback {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case addTagLabel
     }
     
@@ -208,7 +208,7 @@ extension SelectTagsPageFallback {
 
 extension SelectTagsPageFallback {
     
-    struct PasswordRow: View {
+    private struct PasswordRow: View {
         
         let label: String
         let username: String

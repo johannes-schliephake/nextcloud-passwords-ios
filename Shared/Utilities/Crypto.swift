@@ -58,7 +58,7 @@ extension Crypto {
                 keys = try container.decode([String: String].self, forKey: .keys).compactMapValues { sodium.utils.hex2bin($0) }
             }
             
-            enum CodingKeys: String, CodingKey { // swiftlint:disable:this nesting
+            private enum CodingKeys: String, CodingKey { // swiftlint:disable:this nesting
                 case current
                 case keys
             }

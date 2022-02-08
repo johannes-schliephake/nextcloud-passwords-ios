@@ -209,7 +209,7 @@ struct EditTagPageFallback: View {
 
 extension EditTagPageFallback {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case tagLabel
     }
     

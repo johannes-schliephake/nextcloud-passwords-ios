@@ -12,7 +12,7 @@ struct ActionButtonStyle: ButtonStyle {
 
 extension ActionButtonStyle {
     
-    struct ActionButton: View {
+    private struct ActionButton: View {
         
         let configuration: ButtonStyle.Configuration
         

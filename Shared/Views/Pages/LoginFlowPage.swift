@@ -31,7 +31,7 @@ struct LoginFlowPage: View {
 
 extension LoginFlowPage {
     
-    struct LoginFlowWebView: UIViewRepresentable {
+    private struct LoginFlowWebView: UIViewRepresentable {
         
         private let loginUrl: URL
         private let loginFlowNavigationController: LoginFlowNavigationController

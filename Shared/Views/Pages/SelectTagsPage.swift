@@ -200,7 +200,7 @@ struct SelectTagsPage: View {
 
 extension SelectTagsPage {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case addTagLabel
     }
     
@@ -209,7 +209,7 @@ extension SelectTagsPage {
 
 extension SelectTagsPage {
     
-    struct PasswordRow: View {
+    private struct PasswordRow: View {
         
         let label: String
         let username: String

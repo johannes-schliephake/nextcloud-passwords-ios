@@ -129,7 +129,7 @@ final class Tag: ObservableObject, Identifiable {
 
 extension Tag: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id
         case label
         case color

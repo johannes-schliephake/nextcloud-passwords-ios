@@ -237,7 +237,7 @@ final class Password: ObservableObject, Identifiable {
 
 extension Password: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id
         case label
         case username
@@ -274,6 +274,7 @@ extension Password: Codable {
             throw EncodingError.invalidValue(self, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Custom fields encoding failed"))
         }
         
+        var cseType = cseType
         if let keychain = SessionController.default.session?.keychain,
            state != .decryptionFailed,
            (cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true) && !shared {
@@ -302,6 +303,10 @@ extension Password: Codable {
             try container.encode(url, forKey: .url)
             try container.encode(notes, forKey: .notes)
             try container.encode(customFieldsString, forKey: .customFields)
+        }
+        DispatchQueue.main.async {
+            [weak self] in
+            self?.cseType = cseType
         }
         
         try container.encode(id, forKey: .id)
@@ -358,7 +363,7 @@ extension Password {
         var type: CustomFieldType
         var value: String
         
-        enum CodingKeys: CodingKey { // swiftlint:disable:this nesting
+        private enum CodingKeys: CodingKey { // swiftlint:disable:this nesting
             case label
             case type
             case value
@@ -397,8 +402,8 @@ extension Password {
         }
         
         static func == (lhs: Self, rhs: Self) -> Bool {
-            lhs.label == rhs.label ||
-            lhs.type == rhs.type ||
+            lhs.label == rhs.label &&
+            lhs.type == rhs.type &&
             lhs.value == rhs.value
         }
         

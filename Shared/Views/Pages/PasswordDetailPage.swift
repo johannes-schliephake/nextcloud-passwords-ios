@@ -110,7 +110,7 @@ struct PasswordDetailPage: View {
             }
             serviceSection()
             accountSection()
-            if !password.customFields.isEmpty {
+            if !password.customFields.contains { $0.type != .data } {
                 customFieldsSection()
             }
             if !password.notes.isEmpty {
@@ -459,7 +459,7 @@ struct PasswordDetailPage: View {
 
 extension PasswordDetailPage {
     
-    enum NavigationSelection: Hashable {
+    private enum NavigationSelection: Hashable {
         
         case entries(tag: Tag)
         

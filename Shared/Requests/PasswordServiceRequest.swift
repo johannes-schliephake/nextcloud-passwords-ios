@@ -29,7 +29,7 @@ extension PasswordServiceRequest: NCPasswordsRequest {
 
 extension PasswordServiceRequest {
     
-    struct Request: Encodable {
+    private struct Request: Encodable {
         
         let strength: Int
         let numbers: Bool

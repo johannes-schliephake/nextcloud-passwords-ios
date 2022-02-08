@@ -28,7 +28,7 @@ extension ShowFolderRequest: NCPasswordsRequest {
 
 extension ShowFolderRequest {
     
-    struct Request: Encodable {
+    private struct Request: Encodable {
         
         let id: String
         

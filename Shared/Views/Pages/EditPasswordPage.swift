@@ -292,6 +292,7 @@ struct EditPasswordPage: View {
             label: {
                 Label("_addCustomField", systemImage: "plus.circle")
             }
+            .disabled(editPasswordController.passwordCustomFieldCount >= 20)
         }
     }
     
@@ -429,7 +430,7 @@ struct EditPasswordPage: View {
 
 extension EditPasswordPage {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         
         enum CustomFieldRow { // swiftlint:disable:this nesting
             case label

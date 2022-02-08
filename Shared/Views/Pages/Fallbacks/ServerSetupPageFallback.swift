@@ -128,7 +128,7 @@ struct ServerSetupPageFallback: View { /// This insanely dumb workaround (duplic
 
 extension ServerSetupPageFallback {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case serverAddress
     }
     

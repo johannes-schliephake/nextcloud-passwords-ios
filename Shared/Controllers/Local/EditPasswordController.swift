@@ -73,8 +73,12 @@ final class EditPasswordController: ObservableObject {
         1...256 ~= passwordPassword.count &&
         passwordUrl.count <= 2048 &&
         passwordNotes.count <= 4096 &&
-        passwordCustomUserFields.count + passwordCustomDataFields.count <= 20 &&
+        passwordCustomFieldCount <= 20 &&
         passwordCustomUserFields.allSatisfy { 1...48 ~= $0.label.count && 1...320 ~= $0.value.count }
+    }
+    
+    var passwordCustomFieldCount: Int {
+        passwordCustomUserFields.count + passwordCustomDataFields.count
     }
     
     func generatePassword() {

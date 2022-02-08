@@ -182,7 +182,7 @@ struct EditFolderPage: View {
 
 extension EditFolderPage {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case folderLabel
     }
     
