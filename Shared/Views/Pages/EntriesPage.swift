@@ -78,6 +78,8 @@ struct EntriesPage: View {
             return "_favorites".localized
         case (.tags, true, nil):
             return "_tags".localized
+        case (.otps, true, nil):
+            return "_otps".localized
         case (_, _, .some(let tag)):
             return tag.label
         case (_, false, _):
@@ -609,6 +611,10 @@ struct EntriesPage: View {
                     .tag(EntriesController.Filter.favorites)
                 Label("_tags", systemImage: "tag")
                     .tag(EntriesController.Filter.tags)
+                #if DEBUG
+                    Label("_otps", systemImage: "ellipsis.rectangle")
+                        .tag(EntriesController.Filter.otps)
+                #endif
             }
             Picker("", selection: $entriesController.sortBy) {
                 Label("_name", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")

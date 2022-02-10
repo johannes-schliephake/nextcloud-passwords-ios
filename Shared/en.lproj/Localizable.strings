@@ -83,6 +83,7 @@
 "_openUrl" = "Open URL";
 "_options" = "Options"; // I.e. settings options
 "_otp" = "One-Time Password";
+"_otps" = "One-Time Passwords";
 "_password" = "Password";
 "_passwordGenerator" = "Password Generator";
 "_passwords" = "Passwords";

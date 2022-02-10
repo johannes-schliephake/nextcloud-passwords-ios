@@ -752,6 +752,8 @@ final class EntriesController: ObservableObject {
             }
         case .tags:
             folders = []
+        case .otps:
+            folders = []
         }
         
         /// Apply filter to passwords
@@ -805,6 +807,8 @@ final class EntriesController: ObservableObject {
                     }
                 }
             }
+        case .otps:
+            passwords = passwords.filter { $0.otp != nil }
         }
         
         /// Apply filter to tags
@@ -826,6 +830,8 @@ final class EntriesController: ObservableObject {
             if tag != nil {
                 tags = []
             }
+        case .otps:
+            tags = []
         }
         
         /// Sort folders
@@ -941,6 +947,7 @@ extension EntriesController {
         case all
         case favorites
         case tags
+        case otps
     }
     
 }
