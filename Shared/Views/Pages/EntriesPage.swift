@@ -1015,57 +1015,67 @@ extension EntriesPage {
                     }
                 }
                 .contextMenu {
-                    Button {
-                        UIPasteboard.general.privateString = password.password
-                    }
-                    label: {
-                        Label("_copyPassword", systemImage: "doc.on.doc")
-                    }
-                    if !password.username.isEmpty {
+                    Section {
+                        if let url = URL(string: password.url) {
+                            Link(destination: url) {
+                                Label("_openUrl", systemImage: "safari")
+                            }
+                        }
+                        if !password.username.isEmpty {
+                            Button {
+                                UIPasteboard.general.string = password.username
+                            }
+                            label: {
+                                Label("_copyUsername", systemImage: "doc.on.doc")
+                            }
+                        }
                         Button {
-                            UIPasteboard.general.string = password.username
+                            UIPasteboard.general.privateString = password.password
                         }
                         label: {
-                            Label("_copyUsername", systemImage: "doc.on.doc")
+                            Label("_copyPassword", systemImage: "doc.on.doc")
+                        }
+                        if let otp = password.otp {
+                            Button {
+                                UIPasteboard.general.privateString = otp.current
+                            }
+                            label: {
+                                Label("_copyOtp", systemImage: "doc.on.doc")
+                            }
                         }
                     }
-                    if let url = URL(string: password.url) {
-                        Link(destination: url) {
-                            Label("_openUrl", systemImage: "safari")
+                    Section {
+                        if password.editable {
+                            Button {
+                                editPassword()
+                            }
+                            label: {
+                                Label("_edit", systemImage: "pencil")
+                            }
+                            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                         }
-                    }
-                    Divider()
-                    if password.editable {
                         Button {
-                            editPassword()
+                            toggleFavorite()
                         }
                         label: {
-                            Label("_edit", systemImage: "pencil")
+                            Label("_favorite", systemImage: password.favorite ? "star.fill" : "star")
+                        }
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                        Button {
+                            movePassword()
+                        }
+                        label: {
+                            Label("_move", systemImage: "folder")
+                        }
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                        Button {
+                            tagPassword()
+                        }
+                        label: {
+                            Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
                         }
                         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
-                    Button {
-                        toggleFavorite()
-                    }
-                    label: {
-                        Label("_favorite", systemImage: password.favorite ? "star.fill" : "star")
-                    }
-                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                    Button {
-                        movePassword()
-                    }
-                    label: {
-                        Label("_move", systemImage: "folder")
-                    }
-                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                    Button {
-                        tagPassword()
-                    }
-                    label: {
-                        Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
-                    }
-                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                    Divider()
                     if #available(iOS 15.0, *) {
                         Button(role: .destructive) {
                             deletePassword()

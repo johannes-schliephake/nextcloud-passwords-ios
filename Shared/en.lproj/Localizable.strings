@@ -16,6 +16,7 @@
 "_confirmAction" = "Confirm Action"; // E.g. confirm deletion or confirm log out
 "_connect" = "Connect"; // I.e. connect to server
 "_connectToServer" = "Connect to Server";
+"_copyOtp" = "Copy One-Time Password";
 "_copyPassword" = "Copy Password";
 "_copyUsername" = "Copy Username";
 "_create" = "Create"; // I.e. create folder or password
