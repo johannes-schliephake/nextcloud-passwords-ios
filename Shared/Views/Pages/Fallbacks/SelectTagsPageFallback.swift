@@ -187,7 +187,8 @@ struct SelectTagsPageFallback: View {
     // MARK: Functions
     
     private func applyAndDismiss() {
-        guard selectTagsController.hasChanges else {
+        guard selectTagsController.hasChanges,
+              selectTagsController.selection.allSatisfy({ $0.state?.isProcessing != true }) else {
             return
         }
         selectTagsController.selectTags(selectTagsController.selection, selectTagsController.invalidTags)

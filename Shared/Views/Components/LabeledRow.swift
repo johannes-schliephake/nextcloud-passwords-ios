@@ -39,6 +39,8 @@ struct LabeledRow: View {
             urlStack()
         case .file:
             fileStack()
+        case .pin:
+            textStack()
         }
     }
     
@@ -139,12 +141,16 @@ struct LabeledRow: View {
                     .foregroundColor(.gray)
             }
             Spacer()
-            if type == .secret {
+            switch type {
+            case .secret:
                 Text(hideSecret ? "••••••••••••" : value)
                     .foregroundColor(.primary)
                     .font(.system(.body, design: .monospaced))
-            }
-            else {
+            case .pin:
+                Text(value.segmented)
+                    .foregroundColor(.primary)
+                    .font(.system(.body, design: .monospaced))
+            default:
                 Text(!value.isEmpty ? value : "-")
                     .foregroundColor(.primary)
             }
@@ -162,6 +168,29 @@ extension LabeledRow {
         case email
         case url
         case file
+        case pin
+    }
+    
+}
+
+
+private extension String {
+    
+    var segmented: String {
+        switch count {
+        case 0:
+            return "--- ---"
+        case 5, 6, 9:
+            return self
+                .enumerated()
+                .reduce("") { "\($0)\($1.element)\($1.offset % 3 == 2 ? " " : "")" }
+                .trimmingCharacters(in: [" "])
+        default:
+            return self
+                .enumerated()
+                .reduce("") { "\($0)\($1.element)\($1.offset % 4 == 3 ? " " : "")" }
+                .trimmingCharacters(in: [" "])
+        }
     }
     
 }

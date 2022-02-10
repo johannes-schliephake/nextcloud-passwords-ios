@@ -36,6 +36,8 @@ struct EditLabeledRow: View {
             urlStack()
         case .file:
             fileStack()
+        case .pin:
+            textStack()
         }
     }
     
@@ -87,7 +89,10 @@ struct EditLabeledRow: View {
                     .foregroundColor(.gray)
             }
             Spacer()
-            if type == .secret {
+            switch type {
+            case .text:
+                TextField("-", text: $value)
+            case .secret:
                 if hideSecret {
                     ZStack(alignment: .leading) {
                         TextField("", text: .constant(""))
@@ -105,23 +110,24 @@ struct EditLabeledRow: View {
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                 }
-            }
-            else if type == .email {
+            case .email:
                 TextField("-", text: $value)
                     .textContentType(.emailAddress)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-            }
-            else if type == .url || type == .file {
+            case .url, .file:
                 TextField("-", text: $value)
                     .textContentType(.URL)
                     .keyboardType(.URL)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-            }
-            else {
+            case .pin:
                 TextField("-", text: $value)
+                    .font(.system(.body, design: .monospaced))
+                    .keyboardType(.numberPad)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
             }
         }
     }

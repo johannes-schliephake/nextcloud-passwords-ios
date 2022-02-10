@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 
 struct OTP: Equatable {
@@ -7,7 +8,7 @@ struct OTP: Equatable {
     let algorithm: Crypto.OTP.Algorithm
     let secret: String
     let digits: Int
-    var counter: Int
+    let counter: Int
     let period: Int
     let issuer: String?
     let accountname: String?
@@ -102,7 +103,7 @@ struct OTP: Equatable {
             self.period = 0
         case .totp:
             let period = period ?? Defaults.period
-            guard period >= 0 else {
+            guard period > 0 else {
                 return nil
             }
             self.counter = 0
@@ -138,20 +139,31 @@ struct OTP: Equatable {
         case .hotp:
             counter = self.counter
         case .totp:
-            guard period > 0 else {
-                return nil
-            }
             counter = Int(Date().timeIntervalSince1970) / period
         }
         return Crypto.OTP.value(algorithm: algorithm, secret: secretData, digits: digits, counter: counter)
     }
     
-    mutating func next() {
+    func next() -> OTP {
         guard type == .hotp else {
-            return
+            return self
         }
-        counter += 1
+        return OTP(type: type, algorithm: algorithm, secret: secret, digits: digits, counter: counter + 1, period: nil) ?? self
     }
+    
+    static var clock: AnyPublisher<Date, Never> = {
+        Timer.publish(every: 1, on: .main, in: .default)
+            .autoconnect()
+            .flatMap {
+                date -> AnyPublisher<Void, Never> in
+                let delay = 1 - date.timeIntervalSince1970.truncatingRemainder(dividingBy: 1)
+                return Just(())
+                    .delay(for: DispatchQueue.SchedulerTimeType.Stride(floatLiteral: delay), scheduler: DispatchQueue.main)
+                    .eraseToAnyPublisher()
+            }
+            .map { _ in Date() }
+            .eraseToAnyPublisher()
+    }()
     
 }
 

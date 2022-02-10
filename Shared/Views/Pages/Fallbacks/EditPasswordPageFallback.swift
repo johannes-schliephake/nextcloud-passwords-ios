@@ -17,6 +17,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     // @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showPasswordGenerator: Bool
     @State private var editMode = false
+    @State private var showCaptureOtpView = false
     @State private var showSelectTagsView = false
     @State private var showSelectFolderView = false
     @State private var showCancelAlert = false
@@ -75,6 +76,9 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
             serviceSection()
             accountSection()
             passwordGeneratorSection()
+            #if DEBUG
+                otpSection()
+            #endif
             customFieldsSection()
             notesSection()
             favoriteButton()
@@ -216,6 +220,59 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
         .accessibility(identifier: "passwordGenerator")
     }
     
+    @ViewBuilder private func otpSection() -> some View {
+        if editPasswordController.passwordOtp != nil {
+            if #available(iOS 15.0, *) {
+                Button(role: .destructive) {
+                    editPasswordController.passwordOtp = nil
+                }
+                label: {
+                    Label("Remove OTP", systemImage: "trash")
+                }
+            }
+            else {
+                Button {
+                    editPasswordController.passwordOtp = nil
+                }
+                label: {
+                    Label("Remove OTP", systemImage: "trash")
+                }
+            }
+        }
+        else {
+            Menu {
+                Button {
+                    showCaptureOtpView = true
+                }
+                label: {
+                    Label("_scanQrCode", systemImage: "qrcode")
+                }
+                Button {
+                    editPasswordController.passwordOtp = OTP()
+                }
+                label: {
+                    Label("_addManually", systemImage: "rectangle.and.pencil.and.ellipsis")
+                }
+            }
+            label: {
+                Label("_addOtp", systemImage: "ellipsis.rectangle")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .disabled(editPasswordController.passwordCustomFieldCount >= 20)
+            .sheet(isPresented: $showCaptureOtpView) {
+                CaptureOTPNavigation {
+                    otp in
+                    editPasswordController.passwordOtp = otp
+                }
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(settingsController)
+                .environmentObject(tipController)
+            }
+        }
+    }
+    
     private func customFieldsSection() -> some View {
         Section(header: HStack {
             Text("_customFields")
@@ -290,7 +347,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 editPasswordController.passwordCustomUserFields.append(Password.CustomField(label: "", type: .text, value: ""))
             }
             label: {
-                Label("_addCustomField", systemImage: "plus.circle")
+                Label("_addCustomField", systemImage: "rectangle.and.paperclip")
             }
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
         }

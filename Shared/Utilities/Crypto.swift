@@ -277,7 +277,7 @@ extension Crypto {
             let subdata = hmac.subdata(in: Int(offset)..<Int(offset) + 4)
             var number = withUnsafeBytes(of: subdata) { $0.load(as: UInt32.self) }.bigEndian
             number &= 0x7fffffff
-            number = number % UInt32(pow(10, Double(digits)))
+            number %= UInt32(pow(10, Double(digits)))
             
             return String(format: "%0\(digits)d", number)
         }

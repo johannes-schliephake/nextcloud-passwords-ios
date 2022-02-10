@@ -72,6 +72,7 @@
 "_metadata" = "Metadata";
 "_move" = "Move"; // This refers to the verb ("to move"), i.e. move a file to another folder
 "_name" = "Name"; // This refers to the noun ("the name")
+"_next" = "Next";
 "_nextcloudServerAddress" = "Nextcloud Server Address";
 "_noConnection" = "No Connection";
 "_noConnectionMessage" = "Could not connect to the Nextcloud Passwords instance.";
@@ -81,6 +82,7 @@
 "_offline" = "Offline"; // I.e. the app has no connection to the server and is offline
 "_openUrl" = "Open URL";
 "_options" = "Options"; // I.e. settings options
+"_otp" = "One-Time Password";
 "_password" = "Password";
 "_passwordGenerator" = "Password Generator";
 "_passwords" = "Passwords";
