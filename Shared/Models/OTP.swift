@@ -2,9 +2,9 @@ import Foundation
 import Combine
 
 
-struct OTP: Equatable {
+struct OTP: Equatable, Hashable {
     
-    let type: Type
+    let type: OTPType
     let algorithm: Crypto.OTP.Algorithm
     let secret: String
     let digits: Int
@@ -14,14 +14,14 @@ struct OTP: Equatable {
     let accountname: String?
     
     init?() {
-        self.init(type: .totp, algorithm: nil, secret: "", digits: nil, counter: nil, period: nil)
+        self.init(type: Defaults.type, algorithm: nil, secret: "", digits: nil, counter: nil, period: nil)
     }
     
     init?(from url: URL) {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
               components.scheme == "otpauth",
               let typeString = components.host,
-              let type = Type(rawValue: typeString),
+              let type = OTPType(rawValue: typeString),
               let secret = components.queryItems?.first(where: { $0.name == "secret" })?.value else {
             return nil
         }
@@ -81,7 +81,7 @@ struct OTP: Equatable {
         self.init(type: type, algorithm: algorithm, secret: secret, digits: digits, counter: counter, period: period, issuer: issuer, accountname: accountname)
     }
     
-    private init?(type: Type, algorithm: Crypto.OTP.Algorithm?, secret: String, digits: Int?, counter: Int?, period: Int?, issuer: String? = nil, accountname: String? = nil) {
+    init?(type: OTPType, algorithm: Crypto.OTP.Algorithm?, secret: String, digits: Int?, counter: Int?, period: Int?, issuer: String? = nil, accountname: String? = nil) {
         let algorithm = algorithm ?? Defaults.algorithm
         let digits = digits ?? Defaults.digits
         guard Data(base32Encoded: secret) != nil,
@@ -100,13 +100,13 @@ struct OTP: Equatable {
                 return nil
             }
             self.counter = counter
-            self.period = 0
+            self.period = Defaults.period
         case .totp:
             let period = period ?? Defaults.period
             guard period > 0 else {
                 return nil
             }
-            self.counter = 0
+            self.counter = Defaults.counter
             self.period = period
         }
         
@@ -117,7 +117,7 @@ struct OTP: Equatable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        let type = try container.decode(Type.self, forKey: .type)
+        let type = try container.decode(OTPType.self, forKey: .type)
         let algorithm = try container.decodeIfPresent(Crypto.OTP.Algorithm.self, forKey: .algorithm)
         let secret = try container.decode(String.self, forKey: .secret)
         let digits = try container.decodeIfPresent(Int.self, forKey: .digits)
@@ -205,9 +205,15 @@ extension OTP: Codable {
 
 extension OTP {
     
-    enum `Type`: String, Codable {
+    enum OTPType: String, Codable, Identifiable, CaseIterable {
+        
         case hotp
         case totp
+        
+        var id: String {
+            rawValue
+        }
+        
     }
     
 }
@@ -215,12 +221,23 @@ extension OTP {
 
 extension OTP {
     
-    private enum Defaults {
+    enum Defaults {
         
+        static let type: OTPType = .totp
         static let algorithm: Crypto.OTP.Algorithm = .sha1
         static let digits = 6
+        static let counter = 0
         static let period = 30
         
+    }
+    
+}
+
+
+extension OTP: MockObject {
+    
+    static var mock: OTP {
+        OTP(type: .totp, algorithm: nil, secret: "VTZCZF77FYE6YI4I", digits: nil, counter: nil, period: nil)!
     }
     
 }

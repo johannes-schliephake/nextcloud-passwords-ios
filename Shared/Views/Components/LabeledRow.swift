@@ -134,13 +134,15 @@ struct LabeledRow: View {
                 Text(labelKey)
                     .font(.subheadline)
                     .foregroundColor(.gray)
+                Spacer()
             }
-            else if let labelString = labelString {
+            else if let labelString = labelString,
+                    !labelString.isEmpty {
                 Text(labelString)
                     .font(.subheadline)
                     .foregroundColor(.gray)
+                Spacer()
             }
-            Spacer()
             switch type {
             case .secret:
                 Text(hideSecret ? "••••••••••••" : value)

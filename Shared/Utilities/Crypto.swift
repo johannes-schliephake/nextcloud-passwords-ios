@@ -250,10 +250,16 @@ extension Crypto {
 
     enum OTP {
         
-        enum Algorithm: String, Codable { // swiftlint:disable:this nesting
+        enum Algorithm: String, Codable, Identifiable, CaseIterable { // swiftlint:disable:this nesting
+            
             case sha1 = "SHA1"
             case sha256 = "SHA256"
             case sha512 = "SHA512"
+            
+            var id: String {
+                rawValue
+            }
+            
         }
         
         static func value(algorithm: Algorithm, secret: Data, digits: Int, counter: Int) -> String? {

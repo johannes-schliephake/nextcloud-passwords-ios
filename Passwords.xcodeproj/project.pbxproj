@@ -211,8 +211,16 @@
 		DD4A9E8A269F84B9007268E2 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
 		DD5189EE27A16BFA00264A0D /* Data+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5189ED27A16BFA00264A0D /* Data+Init.swift */; };
 		DD5189EF27A16BFA00264A0D /* Data+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5189ED27A16BFA00264A0D /* Data+Init.swift */; };
+		DD542E8C27C2E2C700043A2B /* EditOTPPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD542E8B27C2E2C700043A2B /* EditOTPPageFallback.swift */; };
+		DD542E8D27C2E2C700043A2B /* EditOTPPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD542E8B27C2E2C700043A2B /* EditOTPPageFallback.swift */; };
 		DD5AECA827B1150B002DAA87 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AECA727B1150B002DAA87 /* OTP.swift */; };
 		DD5AECA927B1150B002DAA87 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AECA727B1150B002DAA87 /* OTP.swift */; };
+		DD67204227BAFCAD0078CF47 /* EditOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */; };
+		DD67204327BAFCAD0078CF47 /* EditOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */; };
+		DD67204527BAFDC40078CF47 /* EditOTPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204427BAFDC40078CF47 /* EditOTPController.swift */; };
+		DD67204627BAFDC40078CF47 /* EditOTPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204427BAFDC40078CF47 /* EditOTPController.swift */; };
+		DD67204827BB94F00078CF47 /* EditOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */; };
+		DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */; };
 		DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
 		DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
 		DD9FAD5826A3793A00770FEA /* SelectFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */; };
@@ -536,7 +544,11 @@
 		DD4A453026FBCCCF00CEFF43 /* iPhone SE (1st generation)-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone SE (1st generation)-1.png"; sourceTree = "<group>"; };
 		DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLabeledRow.swift; sourceTree = "<group>"; };
 		DD5189ED27A16BFA00264A0D /* Data+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Init.swift"; sourceTree = "<group>"; };
+		DD542E8B27C2E2C700043A2B /* EditOTPPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPPageFallback.swift; sourceTree = "<group>"; };
 		DD5AECA727B1150B002DAA87 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
+		DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPPage.swift; sourceTree = "<group>"; };
+		DD67204427BAFDC40078CF47 /* EditOTPController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPController.swift; sourceTree = "<group>"; };
+		DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPNavigation.swift; sourceTree = "<group>"; };
 		DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledRow.swift; sourceTree = "<group>"; };
 		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
@@ -666,6 +678,7 @@
 				DDE48F5726FC707A0082E96D /* Fallbacks */,
 				DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */,
 				8F997F942572C79900B5F784 /* EditFolderPage.swift */,
+				DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */,
 				8F997FA4257300A600B5F784 /* EditPasswordPage.swift */,
 				DD0E59A8274146C8003D7D50 /* EditTagPage.swift */,
 				8F118754253C9EE10019FECA /* EntriesPage.swift */,
@@ -684,6 +697,7 @@
 			children = (
 				DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */,
 				8F559A1725A0AE3300D7A39F /* EditFolderNavigation.swift */,
+				DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */,
 				8F559A1C25A0AE3E00D7A39F /* EditPasswordNavigation.swift */,
 				DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */,
 				8FC361FB25828AE600785371 /* EntriesNavigation.swift */,
@@ -823,6 +837,7 @@
 			isa = PBXGroup;
 			children = (
 				8F997FA02572F40D00B5F784 /* EditFolderController.swift */,
+				DD67204427BAFDC40078CF47 /* EditOTPController.swift */,
 				8F51428E2573F91800DD96C0 /* EditPasswordController.swift */,
 				DD0E59AB274147CC003D7D50 /* EditTagController.swift */,
 				8F77DA6225699FB300CFDA8D /* EntriesController.swift */,
@@ -1028,6 +1043,7 @@
 			isa = PBXGroup;
 			children = (
 				DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */,
+				DD542E8B27C2E2C700043A2B /* EditOTPPageFallback.swift */,
 				DDE48F5E26FC79CA0082E96D /* EditPasswordPageFallback.swift */,
 				DD0E59AE27414873003D7D50 /* EditTagPageFallback.swift */,
 				DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */,
@@ -1313,6 +1329,7 @@
 				8F854E6D26239457008885C3 /* OfflineContainer.swift in Sources */,
 				DD3FAD612775DC54002202DE /* ListSettingsRequest.swift in Sources */,
 				DDE8DDBC276B3B260035321C /* SelectTagsPageFallback.swift in Sources */,
+				DD542E8C27C2E2C700043A2B /* EditOTPPageFallback.swift in Sources */,
 				8F7A73A32677493500FCA15F /* URL+RelativeReference.swift in Sources */,
 				8F74244626039BD600B73646 /* Crypto.swift in Sources */,
 				DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */,
@@ -1371,6 +1388,7 @@
 				DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				8FA5B74C261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				8F997F8D2572C2FB00B5F784 /* UpdatePasswordRequest.swift in Sources */,
+				DD67204827BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
 				8F52EFC925B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
 				8F552956259CAF4900419233 /* Folder.swift in Sources */,
 				8F68D74226495BD100FF192C /* ShowFolderRequest.swift in Sources */,
@@ -1395,6 +1413,7 @@
 				DDE48F5F26FC79CA0082E96D /* EditPasswordPageFallback.swift in Sources */,
 				8F10C6512602C4AB00FA5B1D /* OpenSessionRequest.swift in Sources */,
 				8F553384257A47D0003987E6 /* UpdateFolderRequest.swift in Sources */,
+				DD67204527BAFDC40078CF47 /* EditOTPController.swift in Sources */,
 				8FBE43C5258D5A09003F7F34 /* String+Localized.swift in Sources */,
 				DDCE125C2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
 				8F55F71625727CB600E00B28 /* DeleteFolderRequest.swift in Sources */,
@@ -1404,6 +1423,7 @@
 				8F57A5B6256267BF00BC1CA0 /* ListPasswordsRequest.swift in Sources */,
 				8F59F521256AE65800D9FE40 /* ActionButtonStyle.swift in Sources */,
 				DDAE4A9027087E1D00088DD5 /* RefreshGesture.swift in Sources */,
+				DD67204227BAFCAD0078CF47 /* EditOTPPage.swift in Sources */,
 				DD0E59AF27414873003D7D50 /* EditTagPageFallback.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1447,6 +1467,7 @@
 				8F854E6E26239457008885C3 /* OfflineContainer.swift in Sources */,
 				DD3FAD622775DC54002202DE /* ListSettingsRequest.swift in Sources */,
 				DDE8DDBD276B3B260035321C /* SelectTagsPageFallback.swift in Sources */,
+				DD542E8D27C2E2C700043A2B /* EditOTPPageFallback.swift in Sources */,
 				8F7A73A42677493500FCA15F /* URL+RelativeReference.swift in Sources */,
 				8F74244726039BD600B73646 /* Crypto.swift in Sources */,
 				8FC361D225827E5D00785371 /* ListFoldersRequest.swift in Sources */,
@@ -1505,6 +1526,7 @@
 				DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				8FA5B74D261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				8FBE43D2258D5A8C003F7F34 /* UIApplication+IsExtension.swift in Sources */,
+				DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
 				8F52EFCA25B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
 				8F552959259CAF4E00419233 /* Folder.swift in Sources */,
 				8F68D74326495BD100FF192C /* ShowFolderRequest.swift in Sources */,
@@ -1529,6 +1551,7 @@
 				DDE48F6026FC79CA0082E96D /* EditPasswordPageFallback.swift in Sources */,
 				8F10C6522602C4AB00FA5B1D /* OpenSessionRequest.swift in Sources */,
 				8FC361B325827E4C00785371 /* LoginFlowPage.swift in Sources */,
+				DD67204627BAFDC40078CF47 /* EditOTPController.swift in Sources */,
 				8FC361BA25827E4C00785371 /* ActionButtonStyle.swift in Sources */,
 				DDCE125D2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
 				8FC361BE25827E5200785371 /* SessionController.swift in Sources */,
@@ -1538,6 +1561,7 @@
 				8F55D99F2582D0DE00CE4FC2 /* AutoFillController.swift in Sources */,
 				8FC361DA25827E6100785371 /* Keychain.swift in Sources */,
 				DDAE4A9127087E1D00088DD5 /* RefreshGesture.swift in Sources */,
+				DD67204327BAFCAD0078CF47 /* EditOTPPage.swift in Sources */,
 				DD0E59B027414873003D7D50 /* EditTagPageFallback.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

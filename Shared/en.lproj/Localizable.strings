@@ -5,6 +5,7 @@
 "_addOtp" = "Add One-Time Password";
 "_addManually" = "Add Manually";
 "_addTags" = "Add Tags"; // I.e. add tags to a password
+"_algorithm" = "Algorithm";
 "_all" = "All"; // I.e. all passwords
 "_anErrorOccurred" = "An error occurred ...";
 "_appDeauthorized" = "App Deauthorized";
@@ -19,6 +20,8 @@
 "_copyOtp" = "Copy One-Time Password";
 "_copyPassword" = "Copy Password";
 "_copyUsername" = "Copy Username";
+"_counter" = "Counter";
+"_counterBased" = "Counter-Based";
 "_create" = "Create"; // I.e. create folder or password
 "_created" = "Created"; // I.e. date when a password was created
 "_createFolder" = "Create Folder";
@@ -36,10 +39,12 @@
 "_deletedPasswordMessage" = "This password was deleted.";
 "_deleteFolder" = "Delete Folder";
 "_deleteFolderErrorMessage" = "An error occurred while deleting the folder. Please delete the folder again.";
+"_deleteOtp" = "Delete One-Time Password";
 "_deletePassword" = "Delete Password";
 "_deletePasswordErrorMessage" = "An error occurred while deleting the password. Please delete the password again.";
 "_deleteTag" = "Delete Tag";
 "_deleteTagErrorMessage" = "An error occurred while deleting the tag. Please delete the tag again.";
+"_digits" = "Digits";
 "_discardChanges" = "Discard Changes";
 "_dismiss" = "Dismiss"; // Use the same wording Apple uses across iOS
 "_done" = "Done"; // Use the same wording Apple uses across iOS
@@ -47,6 +52,7 @@
 "_edit" = "Edit"; // This refers to the verb ("to edit"), use the same wording Apple uses across iOS
 "_editFolderErrorMessage" = "An error occurred while editing the folder. Please save the folder again.";
 "_editPassword" = "Edit Password";
+"_editOtp" = "Edit One-Time Password";
 "_editPasswordErrorMessage" = "An error occurred while editing the password. Please save the password again.";
 "_editTagErrorMessage" = "An error occurred while editing the tag. Please save the tag again.";
 "_editTags" = "Edit Tags";
@@ -71,6 +77,7 @@
 "_logIn" = "Log In"; // This refers to the verb ("to log in")
 "_logOut" = "Log Out"; // This refers to the verb ("to log out")
 "_metadata" = "Metadata";
+"_moreOptions" = "More Options";
 "_move" = "Move"; // This refers to the verb ("to move"), i.e. move a file to another folder
 "_name" = "Name"; // This refers to the noun ("the name")
 "_next" = "Next";
@@ -96,6 +103,7 @@
 "_passwordStatusGoodMessage2" = "It has not been breached."; // It = the password
 "_passwordStatusGoodMessage3" = "It doesn't violate user defined rules."; // It = the password
 "_passwordStatusOutdatedMessage" = "This password has reached the maximum age."; // "Maximum age": Use the same wording that the web client uses in it's settings
+"_periodSeconds" = "Period (Seconds)";
 "_providerInstructionsMessage" = "This app supports Password AutoFill. The feature has to be enabled in iOS's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap AutoFill Passwords\n4. Enable AutoFill Passwords\n5. Enable this app"; // Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step
 "_qrCaptureErrorMessage" = "The camera could not be launched.";
 "_reject" = "Reject"; // I.e. reject this certificate
@@ -118,6 +126,7 @@
 "_tags" = "Tags";
 "_text" = "Text"; // This refers to the noun ("the text")
 "_thanksMessage" = "Thanks to the entire Nextcloud community and everybody involved for enabling such an amazing ecosystem. I hope that I can contribute something with this app.";
+"_timeBased" = "Time-Based";
 "_tipDeferred" = "Tip Deferred"; // Shown when Apple's "Ask to Buy" feature (parental control) is active
 "_tipDeferredMessage" = "Your tip is now waiting for approval.";
 "_tipFailed" = "Tip Failed";
@@ -125,6 +134,7 @@
 "_tipReceived" = "Tip Received";
 "_tipReceivedMessage" = "Thank you for supporting this project with your tip!";
 "_tryAgain" = "Try Again"; // I.e. try again to load the data
+"_type" = "Type";
 "_unlockApp" = "Unlock App"; // Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/Info.plist and Provider/Info.plist
 "_updated" = "Updated"; // I.e. date when a password was last updated
 "_url" = "URL";
