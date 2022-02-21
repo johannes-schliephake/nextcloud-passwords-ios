@@ -74,9 +74,6 @@ struct EditPasswordPage: View {
             serviceSection()
             accountSection()
             passwordGeneratorSection()
-            #if DEBUG
-                otpSection()
-            #endif
             customFieldsSection()
             notesSection()
             favoriteButton()
@@ -218,6 +215,9 @@ struct EditPasswordPage: View {
                     }
                 }
                 .accessibility(identifier: "showPasswordButton")
+            #if DEBUG
+                otpSection()
+            #endif
         }
     }
     
@@ -269,7 +269,14 @@ struct EditPasswordPage: View {
             }
             label: {
                 HStack {
-                    Label("_editOtp", systemImage: "ellipsis.rectangle")
+                    VStack(alignment: .leading) {
+                        Text("_otp")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Spacer()
+                        Label("_configured", systemImage: "checkmark.circle")
+                            .foregroundColor(.green)
+                    }
                     Spacer()
                     NavigationLink(destination: EmptyView()) {
                         EmptyView()

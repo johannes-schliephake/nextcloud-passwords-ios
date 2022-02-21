@@ -14,6 +14,7 @@
 "_cancel" = "Cancel"; // Use the same wording Apple uses across iOS
 "_clientSide" = "Client Side"; // Possible value for "Encryption" field on password detail page, other key is "_serverSide"
 "_color" = "Color"; // // This refers to the noun ("the color"), i.e. the color of a tag
+"_configured" = "Configured";
 "_confirmAction" = "Confirm Action"; // E.g. confirm deletion or confirm log out
 "_connect" = "Connect"; // I.e. connect to server
 "_connectToServer" = "Connect to Server";
@@ -52,7 +53,6 @@
 "_edit" = "Edit"; // This refers to the verb ("to edit"), use the same wording Apple uses across iOS
 "_editFolderErrorMessage" = "An error occurred while editing the folder. Please save the folder again.";
 "_editPassword" = "Edit Password";
-"_editOtp" = "Edit One-Time Password";
 "_editPasswordErrorMessage" = "An error occurred while editing the password. Please save the password again.";
 "_editTagErrorMessage" = "An error occurred while editing the tag. Please save the tag again.";
 "_editTags" = "Edit Tags";
