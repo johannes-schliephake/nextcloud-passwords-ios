@@ -149,7 +149,7 @@ extension Crypto {
                 return SymmetricKey(data: data)
             }
             let key = SymmetricKey(size: .bits256)
-            Keychain.default.store(key: keyName, value: withUnsafeBytes(of: key) { Data($0).base64EncodedString() })
+            Keychain.default.store(key: keyName, value: key.withUnsafeBytes { Data($0).base64EncodedString() })
             return key
         }
         
