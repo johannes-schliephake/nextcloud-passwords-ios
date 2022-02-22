@@ -80,7 +80,6 @@
 "_moreOptions" = "More Options";
 "_move" = "Move"; // This refers to the verb ("to move"), i.e. move a file to another folder
 "_name" = "Name"; // This refers to the noun ("the name")
-"_next" = "Next";
 "_nextcloudServerAddress" = "Nextcloud Server Address";
 "_noConnection" = "No Connection";
 "_noConnectionMessage" = "Could not connect to the Nextcloud Passwords instance.";

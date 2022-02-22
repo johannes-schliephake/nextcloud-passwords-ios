@@ -297,8 +297,11 @@ struct PasswordDetailPage: View {
                     Spacer()
                     switch otp.type {
                     case .hotp:
-                        Button("_next") {
+                        Button {
                             increaseHotp(otp)
+                        }
+                        label: {
+                            Image(systemName: "forward")
                         }
                         .buttonStyle(.borderless)
                         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
@@ -322,6 +325,10 @@ struct PasswordDetailPage: View {
                             updateTotp(otp, date: Date(), isInitial: true)
                         }
                         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) {
+                            _ in
+                            updateTotp(otp, date: Date(), isInitial: true)
+                        }
+                        .onChange(of: otp.period) {
                             _ in
                             updateTotp(otp, date: Date(), isInitial: true)
                         }
