@@ -16,8 +16,10 @@ struct EditPasswordPage: View {
     @ScaledMetric private var customFieldTypeIconWidth = 30.0
     @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showPasswordGenerator: Bool
+    @AppStorage("didAcceptAboutOtps", store: Configuration.userDefaults) private var didAcceptAboutOtps = Configuration.defaults["didAcceptAboutOtps"] as! Bool // swiftlint:disable:this force_cast
     @State private var editMode = false
     @State private var sheetItem: SheetItem?
+    @State private var showAboutOtpsPopover = false
     @State private var showCancelAlert = false
     
     init(entriesController: EntriesController, password: Password) {
@@ -284,6 +286,35 @@ struct EditPasswordPage: View {
                     .fixedSize()
                 }
             }
+        }
+        else if !didAcceptAboutOtps {
+            Button {
+                showAboutOtpsPopover = true
+            }
+            label: {
+                Label("_addOtp", systemImage: "ellipsis.rectangle")
+            }
+            .disabled(editPasswordController.passwordCustomFieldCount >= 20)
+            .popover(isPresented: $showAboutOtpsPopover, content: {
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        Text("_aboutOtps")
+                            .font(.title2.bold())
+                        Spacer()
+                        Text("_aboutOtpsMessage")
+                        Spacer()
+                        Button {
+                            showAboutOtpsPopover = false
+                            didAcceptAboutOtps = true
+                        }
+                        label: {
+                            Text("_confirm")
+                        }
+                        .buttonStyle(.action)
+                    }
+                    .padding()
+                }
+            })
         }
         else {
             Menu {

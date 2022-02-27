@@ -1,4 +1,6 @@
 "_about" = "About"; // I.e. about this app
+"_aboutOtps" = "About One-Time Passwords";
+"_aboutOtpsMessage" = "This app supports one-time passwords for convenience only. Storing your one-time password alongside your account's password defeats some of the security benefits of multi-factor authentication. Enabling a second factor is better than not using one at all, but a standalone one-time password app will be more secure. DO NOT store one-time passwords for your Nextcloud account or critical accounts, such as Email or online banking accounts. One-time passwords will synchronize over your Nextcloud Passwords instance but are currently only supported by the iOS app (v2.6 or newer).";
 "_accept" = "Accept"; // I.e. accept this certificate
 "_account" = "Account"; // This refers to the noun ("the account")
 "_addCustomField" = "Add Custom Field";
@@ -15,6 +17,7 @@
 "_clientSide" = "Client Side"; // Possible value for "Encryption" field on password detail page, other key is "_serverSide"
 "_color" = "Color"; // // This refers to the noun ("the color"), i.e. the color of a tag
 "_configured" = "Configured";
+"_confirm" = "Confirm";
 "_confirmAction" = "Confirm Action"; // E.g. confirm deletion or confirm log out
 "_connect" = "Connect"; // I.e. connect to server
 "_connectToServer" = "Connect to Server";

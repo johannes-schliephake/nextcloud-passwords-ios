@@ -253,6 +253,8 @@
 		DDDB6B5A27A806ED007572B1 /* CaptureOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */; };
 		DDDF3388276F7FDE008EEB3F /* TagBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF3387276F7FDE008EEB3F /* TagBadge.swift */; };
 		DDDF3389276F7FDE008EEB3F /* TagBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF3387276F7FDE008EEB3F /* TagBadge.swift */; };
+		DDE0701E27C8F83B00FC65E2 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0701D27C8F83B00FC65E2 /* Popover.swift */; };
+		DDE0701F27C8F83B00FC65E2 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0701D27C8F83B00FC65E2 /* Popover.swift */; };
 		DDE48F5926FC70AF0082E96D /* EntriesPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */; };
 		DDE48F5A26FC70AF0082E96D /* EntriesPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */; };
 		DDE48F5C26FC79AF0082E96D /* EditFolderPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */; };
@@ -568,6 +570,7 @@
 		DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPNavigation.swift; sourceTree = "<group>"; };
 		DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPPage.swift; sourceTree = "<group>"; };
 		DDDF3387276F7FDE008EEB3F /* TagBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagBadge.swift; sourceTree = "<group>"; };
+		DDE0701D27C8F83B00FC65E2 /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
 		DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesPageFallback.swift; sourceTree = "<group>"; };
 		DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderPageFallback.swift; sourceTree = "<group>"; };
 		DDE48F5E26FC79CA0082E96D /* EditPasswordPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordPageFallback.swift; sourceTree = "<group>"; };
@@ -717,6 +720,7 @@
 				DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */,
 				DDE4F5D5274BEB3D00518167 /* FlowView.swift */,
 				DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */,
+				DDE0701D27C8F83B00FC65E2 /* Popover.swift */,
 				DDB680D427A3DA6A00DEE540 /* QRCapture.swift */,
 				DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */,
 				8F59888825799C3200843696 /* SearchBar.swift */,
@@ -1373,6 +1377,7 @@
 				DDCE125927413FF6003912D0 /* CreateTagRequest.swift in Sources */,
 				8F560E69258F54A900C896EE /* View+Occlude.swift in Sources */,
 				8F55564A25716BD200F5D805 /* DeletePasswordRequest.swift in Sources */,
+				DDE0701E27C8F83B00FC65E2 /* Popover.swift in Sources */,
 				8FBE43B9258D599E003F7F34 /* Date+FormattedString.swift in Sources */,
 				8F696B4125E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
 				8F513A5F2560624F001C6EF9 /* Session.swift in Sources */,
@@ -1511,6 +1516,7 @@
 				DDCE125A27413FF6003912D0 /* CreateTagRequest.swift in Sources */,
 				8F560E6C258F5AD400C896EE /* View+Occlude.swift in Sources */,
 				8FC361B525827E4C00785371 /* SettingsPage.swift in Sources */,
+				DDE0701F27C8F83B00FC65E2 /* Popover.swift in Sources */,
 				8FC361D325827E5D00785371 /* DeletePasswordRequest.swift in Sources */,
 				8F696B4225E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
 				8FC361C925827E5500785371 /* Session.swift in Sources */,
