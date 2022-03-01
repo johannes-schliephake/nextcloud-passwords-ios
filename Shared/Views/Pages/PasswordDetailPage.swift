@@ -24,7 +24,6 @@ struct PasswordDetailPage: View {
     @State private var passwordDeleted = false
     @State private var navigationSelection: NavigationSelection?
     @State private var showSelectTagsView = false
-    @State private var totpAge: Double?
     
     // MARK: Views
     
@@ -293,57 +292,25 @@ struct PasswordDetailPage: View {
             LabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: password.password, copiable: true)
             if let otp = password.otp {
                 HStack {
-                    LabeledRow(type: .pin, label: "_otp" as LocalizedStringKey, value: otp.current ?? "", copiable: true)
-                    Spacer()
-                    switch otp.type {
-                    case .hotp:
-                        Button {
-                            increaseHotp(otp)
-                        }
-                        label: {
-                            Image(systemName: "forward")
-                        }
-                        .buttonStyle(.borderless)
-                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                    case .totp:
-                        ZStack {
-                            Circle()
-                                .stroke(Color(.tertiarySystemGroupedBackground), lineWidth: 1.5)
-                                .frame(width: 18, height: 18)
-                            if let totpAge = totpAge {
-                                Circle()
-                                    .trim(from: 0, to: 1 - totpAge / Double(otp.period))
-                                    .stroke(style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
-                                    .frame(width: 18, height: 18)
-                                    .rotationEffect(.degrees(-90))
-                                    .scaleEffect(x: -1)
-                                    .foregroundColor(.accentColor)
-                            }
-                        }
-                        .padding(.horizontal, 4)
-                        .onAppear {
-                            updateTotp(otp, date: Date(), isInitial: true)
-                        }
-                        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) {
-                            _ in
-                            updateTotp(otp, date: Date(), isInitial: true)
-                        }
-                        .onChange(of: otp.period) {
-                            _ in
-                            updateTotp(otp, date: Date(), isInitial: true)
-                        }
-                        .onDisappear {
-                            updateTotp(otp, date: nil)
-                        }
-                        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) {
-                            _ in
-                            updateTotp(otp, date: nil)
-                        }
-                        .onReceive(OTP.clock) {
-                            date in
-                            updateTotp(otp, date: date)
+                    OTPDisplay(otp: otp) {
+                        otp in
+                        password.updated = Date()
+                        password.otp = otp
+                        entriesController.update(password: password)
+                    }
+                    content: {
+                        current, accessoryView in
+                        LabeledRow(type: .pin, label: "_otp" as LocalizedStringKey, value: current ?? "", copiable: true)
+                        Spacer()
+                        switch otp.type {
+                        case .hotp:
+                            accessoryView
+                        case .totp:
+                            accessoryView
+                                .padding(.horizontal, 4)
                         }
                     }
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
             }
         }
@@ -503,28 +470,6 @@ struct PasswordDetailPage: View {
         password.updated = Date()
         password.favorite.toggle()
         entriesController.update(password: password)
-    }
-    
-    private func increaseHotp(_ hotp: OTP) {
-        password.updated = Date()
-        password.otp = hotp.next()
-        entriesController.update(password: password)
-    }
-    
-    private func updateTotp(_ totp: OTP, date: Date?, isInitial: Bool = false) {
-        guard let date = date else {
-            totpAge = nil
-            return
-        }
-        guard isInitial || totpAge != nil && Int(date.timeIntervalSince1970).isMultiple(of: totp.period) else {
-            return
-        }
-        let period = Double(totp.period)
-        let age = date.timeIntervalSince1970.truncatingRemainder(dividingBy: period)
-        totpAge = age
-        withAnimation(.linear(duration: period - age)) {
-            totpAge = period
-        }
     }
     
     private func deleteAndDismiss() {

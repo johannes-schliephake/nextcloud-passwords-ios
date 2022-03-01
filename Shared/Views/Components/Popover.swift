@@ -21,7 +21,8 @@ private struct Popover<Content: View>: UIViewControllerRepresentable {
         hostingController.preferredContentSize = hostingController.sizeThatFits(in: CGSize(width: .greatestFiniteMagnitude, height: 200.0))
         
         if isPresented {
-            guard let popoverPresentationController = hostingController.popoverPresentationController else {
+            guard hostingController.viewIfLoaded?.window == nil,
+                  let popoverPresentationController = hostingController.popoverPresentationController else {
                 return
             }
             popoverPresentationController.delegate = context.coordinator
