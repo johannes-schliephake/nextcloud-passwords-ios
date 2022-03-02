@@ -149,6 +149,16 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 .environmentObject(sessionController)
                 .environmentObject(settingsController)
                 .environmentObject(tipController)
+            case .detectQrCode:
+                ImagePicker {
+                    image in
+                    editPasswordController.extractOtp(from: image)
+                }
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(settingsController)
+                .environmentObject(tipController)
             case .selectTags:
                 SelectTagsNavigation(entriesController: editPasswordController.entriesController, temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
                     validTags, _ in
@@ -257,7 +267,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 }
             }
             .disabled(editPasswordController.showProgressView)
-            .alert(isPresented: $editPasswordController.showErrorAlert) {
+            .alert(isPresented: $editPasswordController.showPasswordServiceErrorAlert) {
                 Alert(title: Text("_error"), message: Text("_passwordServiceErrorMessage"))
             }
         }
@@ -326,6 +336,12 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 }
                 .disabled(UIApplication.isExtension)
                 Button {
+                    sheetItem = .detectQrCode
+                }
+                label: {
+                    Label("_detectQrCodeInPicture", systemImage: "photo")
+                }
+                Button {
                     guard let otp = OTP() else {
                         return
                     }
@@ -340,6 +356,9 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
+            .alert(isPresented: $editPasswordController.showExtractOtpErrorAlert) {
+                Alert(title: Text("_error"), message: Text("_extractOtpErrorMessage"))
+            }
         }
     }
     
@@ -539,6 +558,7 @@ extension EditPasswordPageFallback {
         
         case edit(otp: OTP)
         case scanQrCode
+        case detectQrCode
         case selectTags
         case selectFolder
         

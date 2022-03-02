@@ -43,7 +43,8 @@ final class EditPasswordController: ObservableObject {
     @Published var passwordValidTags: [Tag]
     let passwordInvalidTags: [String]
     @Published var passwordFolder: String
-    @Published var showErrorAlert = false
+    @Published var showExtractOtpErrorAlert = false
+    @Published var showPasswordServiceErrorAlert = false
     @Published var showProgressView = false
     
     init(entriesController: EntriesController, password: Password) {
@@ -92,9 +93,24 @@ final class EditPasswordController: ObservableObject {
         passwordCustomUserFields.count + password.customDataFields.count + (passwordOtp != nil ? 1 : 0)
     }
     
+    func extractOtp(from image: UIImage) {
+        guard let ciImage = CIImage(image: image),
+              let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: nil),
+              let features = detector.features(in: ciImage) as? [CIQRCodeFeature],
+              let url = URL(string: features.compactMap(\.messageString).joined()),
+              let otp = OTP(from: url) else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                [weak self] in
+                self?.showExtractOtpErrorAlert = true
+            }
+            return
+        }
+        passwordOtp = otp
+    }
+    
     func generatePassword() {
         guard let session = SessionController.default.session else {
-            showErrorAlert = true
+            showPasswordServiceErrorAlert = true
             return
         }
         
@@ -104,7 +120,7 @@ final class EditPasswordController: ObservableObject {
             self?.showProgressView = false
             guard let password = password,
                   let generatorLength = self?.generatorLength else {
-                self?.showErrorAlert = true
+                self?.showPasswordServiceErrorAlert = true
                 return
             }
             self?.passwordPassword = String(password.prefix(Int(generatorLength)))

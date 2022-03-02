@@ -48,6 +48,7 @@
 "_deletePasswordErrorMessage" = "An error occurred while deleting the password. Please delete the password again.";
 "_deleteTag" = "Delete Tag";
 "_deleteTagErrorMessage" = "An error occurred while deleting the tag. Please delete the tag again.";
+"_detectQrCodeInPicture" = "Detect QR Code In Picture";
 "_digits" = "Digits";
 "_discardChanges" = "Discard Changes";
 "_dismiss" = "Dismiss"; // Use the same wording Apple uses across iOS
@@ -63,6 +64,7 @@
 "_encryptedOfflineStorage" = "Encrypted Offline Storage"; // This is a label for a settings toggle
 "_encryption" = "Encryption"; // I.e. server or client side encryption
 "_error" = "Error";
+"_extractOtpErrorMessage" = "An error occurred while searching for a QR code in the selected picture.";
 "_favorite" = "Favorite"; // This refers to the noun ("the favorite")
 "_favorites" = "Favorites"; // This refers to the noun ("the favorites")
 "_file" = "File"; // This refers to the noun ("the file")
@@ -107,7 +109,7 @@
 "_passwordStatusOutdatedMessage" = "This password has reached the maximum age."; // "Maximum age": Use the same wording that the web client uses in it's settings
 "_periodSeconds" = "Period (Seconds)";
 "_providerInstructionsMessage" = "This app supports Password AutoFill. The feature has to be enabled in iOS's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap AutoFill Passwords\n4. Enable AutoFill Passwords\n5. Enable this app"; // Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step
-"_qrCaptureErrorMessage" = "The camera could not be launched.";
+"_qrCaptureErrorMessage" = "An error occurred while launching the camera.";
 "_reject" = "Reject"; // I.e. reject this certificate
 "_scanQrCode" = "Scan QR Code";
 "_secret" = "Secret"; // This refers to the noun ("the secret") and is used in similar places as "password"
