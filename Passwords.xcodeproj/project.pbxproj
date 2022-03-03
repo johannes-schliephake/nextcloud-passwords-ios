@@ -217,6 +217,10 @@
 		DD542E8D27C2E2C700043A2B /* EditOTPPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD542E8B27C2E2C700043A2B /* EditOTPPageFallback.swift */; };
 		DD5AECA827B1150B002DAA87 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AECA727B1150B002DAA87 /* OTP.swift */; };
 		DD5AECA927B1150B002DAA87 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AECA727B1150B002DAA87 /* OTP.swift */; };
+		DD5B586B27D00E6F00E54E71 /* ShareOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */; };
+		DD5B586C27D00E6F00E54E71 /* ShareOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */; };
+		DD5B586E27D01CDC00E54E71 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B586D27D01CDC00E54E71 /* ShareSheet.swift */; };
+		DD5B586F27D01CDC00E54E71 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B586D27D01CDC00E54E71 /* ShareSheet.swift */; };
 		DD5DFA6427CE94F0003C2352 /* OTPDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DFA6327CE94F0003C2352 /* OTPDisplay.swift */; };
 		DD5DFA6527CE94F0003C2352 /* OTPDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DFA6327CE94F0003C2352 /* OTPDisplay.swift */; };
 		DD67204227BAFCAD0078CF47 /* EditOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */; };
@@ -555,6 +559,8 @@
 		DD5189ED27A16BFA00264A0D /* Data+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Init.swift"; sourceTree = "<group>"; };
 		DD542E8B27C2E2C700043A2B /* EditOTPPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPPageFallback.swift; sourceTree = "<group>"; };
 		DD5AECA727B1150B002DAA87 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
+		DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOTPPage.swift; sourceTree = "<group>"; };
+		DD5B586D27D01CDC00E54E71 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		DD5DFA6327CE94F0003C2352 /* OTPDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPDisplay.swift; sourceTree = "<group>"; };
 		DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPPage.swift; sourceTree = "<group>"; };
 		DD67204427BAFDC40078CF47 /* EditOTPController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPController.swift; sourceTree = "<group>"; };
@@ -700,6 +706,7 @@
 				DD0C28742766028500E3DAEF /* SelectTagsPage.swift */,
 				8F513A62256064E9001C6EF9 /* ServerSetupPage.swift */,
 				8F57B425256C0DD600329B05 /* SettingsPage.swift */,
+				DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -735,6 +742,7 @@
 				DDB680D427A3DA6A00DEE540 /* QRCapture.swift */,
 				DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */,
 				8F59888825799C3200843696 /* SearchBar.swift */,
+				DD5B586D27D01CDC00E54E71 /* ShareSheet.swift */,
 				DDDF3387276F7FDE008EEB3F /* TagBadge.swift */,
 				8F65736925E3C4F200139163 /* TextView.swift */,
 				DDED770426E2186D0037A18D /* View+Apply.swift */,
@@ -1399,6 +1407,7 @@
 				8F559A1825A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
 				DD9FAD5B26A3796500770FEA /* SelectFolderPage.swift in Sources */,
 				DD0C28782766036A00E3DAEF /* SelectTagsController.swift in Sources */,
+				DD5B586B27D00E6F00E54E71 /* ShareOTPPage.swift in Sources */,
 				8F55FBD72570276800CC6920 /* SessionController.swift in Sources */,
 				8F997FA5257300A600B5F784 /* EditPasswordPage.swift in Sources */,
 				8F997FAB2573043400B5F784 /* PasswordServiceRequest.swift in Sources */,
@@ -1417,6 +1426,7 @@
 				8F703BFC26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				DDE48F5C26FC79AF0082E96D /* EditFolderPageFallback.swift in Sources */,
 				8F5C1A84257D7D5F009FF66F /* BiometricAuthenticationController.swift in Sources */,
+				DD5B586E27D01CDC00E54E71 /* ShareSheet.swift in Sources */,
 				DD0E59AC274147CC003D7D50 /* EditTagController.swift in Sources */,
 				DD5DFA6427CE94F0003C2352 /* OTPDisplay.swift in Sources */,
 				DDCE1262274140A9003912D0 /* ShowTagRequest.swift in Sources */,
@@ -1541,6 +1551,7 @@
 				8F559A1925A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
 				DD9FAD5C26A3796500770FEA /* SelectFolderPage.swift in Sources */,
 				DD0C28792766036A00E3DAEF /* SelectTagsController.swift in Sources */,
+				DD5B586C27D00E6F00E54E71 /* ShareOTPPage.swift in Sources */,
 				8FC361B925827E4C00785371 /* ServerSetupPage.swift in Sources */,
 				8FC361C325827E5200785371 /* BiometricAuthenticationController.swift in Sources */,
 				8FC361D425827E5D00785371 /* CreatePasswordRequest.swift in Sources */,
@@ -1559,6 +1570,7 @@
 				8F703BFD26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				DDE48F5D26FC79AF0082E96D /* EditFolderPageFallback.swift in Sources */,
 				8FC361F0258284F500785371 /* ProviderViewController.swift in Sources */,
+				DD5B586F27D01CDC00E54E71 /* ShareSheet.swift in Sources */,
 				DD0E59AD274147CC003D7D50 /* EditTagController.swift in Sources */,
 				DD5DFA6527CE94F0003C2352 /* OTPDisplay.swift in Sources */,
 				DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */,

@@ -130,6 +130,42 @@ struct OTP: Equatable, Hashable {
         self = otp
     }
     
+    var url: URL? {
+        var components = URLComponents()
+        components.scheme = "otpauth"
+        components.host = type.rawValue
+        components.queryItems = []
+        if algorithm != Defaults.algorithm {
+            components.queryItems?.append(URLQueryItem(name: "algorithm", value: algorithm.rawValue))
+        }
+        components.queryItems?.append(URLQueryItem(name: "secret", value: secret))
+        if digits != Defaults.digits {
+            components.queryItems?.append(URLQueryItem(name: "digits", value: String(digits)))
+        }
+        switch type {
+        case .hotp:
+            components.queryItems?.append(URLQueryItem(name: "counter", value: String(counter)))
+        case .totp:
+            if period != Defaults.period {
+                components.queryItems?.append(URLQueryItem(name: "period", value: String(period)))
+            }
+        }
+        if let issuer = issuer {
+            components.queryItems?.append(URLQueryItem(name: "issuer", value: issuer))
+        }
+        if let accountname = accountname,
+           !accountname.isEmpty {
+            if let issuer = issuer,
+               !issuer.isEmpty {
+                components.path = "/\(issuer):\(accountname)"
+            }
+            else {
+                components.path = "/\(accountname)"
+            }
+        }
+        return components.url
+    }
+    
     var current: String? {
         guard let secretData = Data(base32Encoded: secret) else {
             return nil

@@ -64,6 +64,7 @@
 "_encryptedOfflineStorage" = "Encrypted Offline Storage"; // This is a label for a settings toggle
 "_encryption" = "Encryption"; // I.e. server or client side encryption
 "_error" = "Error";
+"_exportAsQrCode" = "Export As QR Code";
 "_extractOtpErrorMessage" = "An error occurred while searching for a QR code in the selected picture.";
 "_favorite" = "Favorite"; // This refers to the noun ("the favorite")
 "_favorites" = "Favorites"; // This refers to the noun ("the favorites")
@@ -120,6 +121,8 @@
 "_serverSide" = "Server Side"; // Possible value for "Encryption" field on password detail page, other key is "_clientSide"
 "_service" = "Service"; // E.g. a website, an app, etc.
 "_settings" = "Settings";
+"_shareQrCode" = "Share QR Code";
+"_shareOtpWarningMessage" = "This QR code contains highly sensitive data about the one-time password";
 "_sourceCode" = "Source Code";
 "_specialCharacters" = "Special Characters"; // This is a label for a password generator toggle
 "_storePassword" = "Store Password"; // I.e. store the E2E password

@@ -59,6 +59,7 @@ struct EditOTPPage: View {
             otpSecretField()
             moreSection()
             if !editOtpController.otp.secret.isEmpty {
+                exportButton()
                 deleteButton()
             }
         }
@@ -197,6 +198,23 @@ struct EditOTPPage: View {
                         }
                 }
             }
+        }
+    }
+    
+    private func exportButton() -> some View {
+        Section {
+            let data = OTP(type: editOtpController.otpType, algorithm: editOtpController.otpAlgorithm, secret: editOtpController.otpSecret, digits: editOtpController.otpDigits, counter: editOtpController.otpCounter, period: editOtpController.otpPeriod, issuer: editOtpController.otp.issuer, accountname: editOtpController.otp.accountname)?.url?.absoluteString.data(using: .utf8)
+            NavigationLink {
+                if let data = data {
+                    ShareOTPPage(data: data)
+                }
+            }
+            label: {
+                Label("_exportAsQrCode", systemImage: "square.and.arrow.up")
+                    .foregroundColor(.accentColor)
+            }
+            .isDetailLink(false)
+            .disabled(!editOtpController.editIsValid || data == nil)
         }
     }
     

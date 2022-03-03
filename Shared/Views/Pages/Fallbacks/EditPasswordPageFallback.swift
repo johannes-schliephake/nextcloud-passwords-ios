@@ -130,7 +130,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
             item in
             switch item {
             case .edit(let otp):
-                EditOTPNavigation(otp: otp, updateOtp: {
+                EditOTPNavigation(otp: OTP(type: otp.type, algorithm: otp.algorithm, secret: otp.secret, digits: otp.digits, counter: otp.counter, period: otp.period, issuer: editPasswordController.passwordLabel, accountname: editPasswordController.passwordUsername) ?? otp, updateOtp: {
                     otp in
                     editPasswordController.passwordOtp = otp
                 })
