@@ -41,7 +41,7 @@ struct OTP: Equatable, Hashable {
             }
         }
         
-        var issuer = components.queryItems?.first { $0.name == "issuer" }?.value
+        var issuer = components.queryItems?.first { $0.name == "issuer" }?.value?.replacingOccurrences(of: "+", with: " ")
         var accountname: String?
         let label = components.path.dropFirst().split(separator: ":")
         if 1...2 ~= label.count {
