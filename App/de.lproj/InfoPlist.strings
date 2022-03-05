@@ -1,4 +1,4 @@
 "CFBundleDisplayName" = "Passwörter";
-"NSCameraUsageDescription" = "TODO";
+"NSCameraUsageDescription" = "QR-Code scannen";
 "NSFaceIDUsageDescription" = "App entsperren";
-"NSPhotoLibraryAddUsageDescription" = "TODO";
+"NSPhotoLibraryAddUsageDescription" = "QR-Code teilen";

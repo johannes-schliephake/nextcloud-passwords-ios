@@ -1,4 +1,4 @@
-"CFBundleDisplayName" = "TODO";
-"NSCameraUsageDescription" = "TODO";
+"CFBundleDisplayName" = "Einmalpasswort einsetzen";
+"NSCameraUsageDescription" = "QR-Code scannen";
 "NSFaceIDUsageDescription" = "App entsperren";
-"NSPhotoLibraryAddUsageDescription" = "TODO";
+"NSPhotoLibraryAddUsageDescription" = "QR-Code teilen";
