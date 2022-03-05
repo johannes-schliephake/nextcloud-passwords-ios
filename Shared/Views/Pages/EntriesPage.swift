@@ -69,6 +69,9 @@ struct EntriesPage: View {
               autoFillController.credentialIdentifier == nil else {
             return "_passwords".localized
         }
+        guard autoFillController.mode != .extension else {
+            return "_otps".localized
+        }
         switch (entriesController.filterBy, folderController.folder.isBaseFolder, folderController.tag) {
         case (.all, true, nil):
             return "_passwords".localized
@@ -258,7 +261,7 @@ struct EntriesPage: View {
         VStack {
             if let suggestions = folderController.suggestions,
                folderController.searchTerm.isEmpty,
-               suggestions.isEmpty || folderController.folder.isBaseFolder && folderController.tag == nil {
+               suggestions.isEmpty && autoFillController.mode == .provider || !suggestions.isEmpty && folderController.folder.isBaseFolder && folderController.tag == nil {
                 List {
                     Section(header: Text("_suggestions")) {
                         if !suggestions.isEmpty {
@@ -517,10 +520,12 @@ struct EntriesPage: View {
                 }
                 Spacer()
             }
-            if showFilterSortMenu {
-                filterSortMenu()
+            if autoFillController.mode != .extension {
+                if showFilterSortMenu {
+                    filterSortMenu()
+                }
+                createMenu()
             }
-            createMenu()
         }
     }
     
@@ -957,7 +962,6 @@ extension EntriesPage {
         @State private var favicon: UIImage?
         @State private var showPasswordDetailView = false
         @State private var showErrorAlert = false
-        @State private var totpAge: Double?
         
         // MARK: Views
         
@@ -1103,7 +1107,17 @@ extension EntriesPage {
                    let tags = entriesController.tags {
                     if let complete = autoFillController.complete {
                         Button {
-                            complete(password.username, password.password)
+                            switch autoFillController.mode {
+                            case .app:
+                                break
+                            case .provider:
+                                complete(password.username, password.password)
+                            case .extension:
+                                guard let currentOtp = password.otp?.current else {
+                                    return
+                                }
+                                complete(password.username, currentOtp)
+                            }
                         }
                         label: {
                             mainStack()
@@ -1158,7 +1172,7 @@ extension EntriesPage {
                             Spacer()
                         }
                     }
-                    if entriesController.filterBy == .otps,
+                    if entriesController.filterBy == .otps || autoFillController.mode == .extension,
                        let otp = password.otp {
                         OTPDisplay(otp: otp) {
                             otp in

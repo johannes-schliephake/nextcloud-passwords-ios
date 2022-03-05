@@ -241,6 +241,139 @@
 		DDA4FE7726E755C000D6F92E /* View+Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* View+Initialize.swift */; };
 		DDAE4A9027087E1D00088DD5 /* RefreshGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */; };
 		DDAE4A9127087E1D00088DD5 /* RefreshGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */; };
+		DDB1695527D1FCFF00F4D752 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */; };
+		DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */; };
+		DDB1695D27D1FCFF00F4D752 /* ExtensionView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDB1695B27D1FCFF00F4D752 /* ExtensionView.storyboard */; };
+		DDB1696127D1FCFF00F4D752 /* Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DDB1695327D1FCFF00F4D752 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DDB1696627D1FD2900F4D752 /* Clibsodium in Frameworks */ = {isa = PBXBuildFile; productRef = DDB1696527D1FD2900F4D752 /* Clibsodium */; };
+		DDB1696827D1FD2900F4D752 /* Sodium in Frameworks */ = {isa = PBXBuildFile; productRef = DDB1696727D1FD2900F4D752 /* Sodium */; };
+		DDB1696D27D2040300F4D752 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDB1696F27D2040300F4D752 /* InfoPlist.strings */; };
+		DDB1697427D20C1F00F4D752 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8F5331AA25605B9400AB6FED /* Localizable.strings */; };
+		DDB1697527D20C2200F4D752 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8F854E64262390FA008885C3 /* CoreData.xcdatamodeld */; };
+		DDB1697627D20C2500F4D752 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E120725D3CC33007A2166 /* Configuration.swift */; };
+		DDB1697727D20CC100F4D752 /* ServerSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F59F524256B1EFB00D9FE40 /* ServerSetupController.swift */; };
+		DDB1697827D20CC100F4D752 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0701D27C8F83B00FC65E2 /* Popover.swift */; };
+		DDB1697927D20CC100F4D752 /* FolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F781F51267CC8B400BD3DC1 /* FolderController.swift */; };
+		DDB1697A27D20CC100F4D752 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F559A2125A0B23E00D7A39F /* MainView.swift */; };
+		DDB1697B27D20CC100F4D752 /* PasswordDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */; };
+		DDB1697C27D20CC100F4D752 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5AECA727B1150B002DAA87 /* OTP.swift */; };
+		DDB1697D27D20CC100F4D752 /* CreateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125827413FF6003912D0 /* CreateTagRequest.swift */; };
+		DDB1697E27D20CC100F4D752 /* RequestSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE0B260287DE00308A33 /* RequestSessionRequest.swift */; };
+		DDB1697F27D20CC100F4D752 /* SelectFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */; };
+		DDB1698027D20CC100F4D752 /* View+Occlude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* View+Occlude.swift */; };
+		DDB1698127D20CC100F4D752 /* CopyToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F77DA5C25699F8900CFDA8D /* CopyToast.swift */; };
+		DDB1698227D20CC100F4D752 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
+		DDB1698327D20CC200F4D752 /* ShareOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */; };
+		DDB1698427D20CC200F4D752 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55FBD62570276800CC6920 /* SessionController.swift */; };
+		DDB1698527D20CC200F4D752 /* UpdatePasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997F8C2572C2FB00B5F784 /* UpdatePasswordRequest.swift */; };
+		DDB1698627D20CC200F4D752 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F854E6826239314008885C3 /* CoreData.swift */; };
+		DDB1698727D20CC200F4D752 /* EntriesNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC361FB25828AE600785371 /* EntriesNavigation.swift */; };
+		DDB1698827D20CC200F4D752 /* EditPasswordNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F559A1C25A0AE3E00D7A39F /* EditPasswordNavigation.swift */; };
+		DDB1698927D20CC200F4D752 /* Label+ShowIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */; };
+		DDB1698A27D20CC200F4D752 /* SettingsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F559A1225A0AE2700D7A39F /* SettingsNavigation.swift */; };
+		DDB1698B27D20CC200F4D752 /* CreatePasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51428A2573BEFA00DD96C0 /* CreatePasswordRequest.swift */; };
+		DDB1698C27D20CC200F4D752 /* EditOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */; };
+		DDB1698D27D20CC200F4D752 /* ServerSetupPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F6126FC79D60082E96D /* ServerSetupPageFallback.swift */; };
+		DDB1698E27D20CC200F4D752 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D1E327CF684A00B06835 /* ImagePicker.swift */; };
+		DDB1698F27D20CC200F4D752 /* View+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDED770426E2186D0037A18D /* View+Apply.swift */; };
+		DDB1699027D20CC200F4D752 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F57A5B92562699A00BC1CA0 /* Password.swift */; };
+		DDB1699127D20CC200F4D752 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F513A5E2560624F001C6EF9 /* Session.swift */; };
+		DDB1699227D20CC200F4D752 /* EntriesPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */; };
+		DDB1699327D20CC200F4D752 /* Array+Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F703BFB26245C6100CC7018 /* Array+Zip.swift */; };
+		DDB1699427D20CC200F4D752 /* Data+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5189ED27A16BFA00264A0D /* Data+Init.swift */; };
+		DDB1699527D20CC200F4D752 /* AuthenticationChallengeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09585025D159F10082D438 /* AuthenticationChallengeController.swift */; };
+		DDB1699627D20CC200F4D752 /* EditTagNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */; };
+		DDB1699727D20CC200F4D752 /* SKProduct+LocalizedPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F3DA259379F500B4EFCE /* SKProduct+LocalizedPrice.swift */; };
+		DDB1699827D20CC200F4D752 /* String+Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD718F2727B568E200F85780 /* String+Segmented.swift */; };
+		DDB1699927D20CC200F4D752 /* Date+FormattedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */; };
+		DDB1699A27D20CC200F4D752 /* TipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F3C82593746F00B4EFCE /* TipController.swift */; };
+		DDB1699B27D20CC200F4D752 /* EditPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51428E2573F91800DD96C0 /* EditPasswordController.swift */; };
+		DDB1699C27D20CC200F4D752 /* Collection+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */; };
+		DDB1699D27D20CC200F4D752 /* NCPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */; };
+		DDB1699E27D20CC200F4D752 /* EditOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */; };
+		DDB1699F27D20CC200F4D752 /* OTPDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DFA6327CE94F0003C2352 /* OTPDisplay.swift */; };
+		DDB169A027D20CC200F4D752 /* EntriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F77DA6225699FB300CFDA8D /* EntriesController.swift */; };
+		DDB169A127D20CC200F4D752 /* UIAlertController+PresentGlobalAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */; };
+		DDB169A227D20CC200F4D752 /* DeleteTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125B2741404C003912D0 /* DeleteTagRequest.swift */; };
+		DDB169A327D20CC200F4D752 /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
+		DDB169A427D20CC200F4D752 /* PasswordServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FAA2573043400B5F784 /* PasswordServiceRequest.swift */; };
+		DDB169A527D20CC200F4D752 /* ListTagsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125E2741408D003912D0 /* ListTagsRequest.swift */; };
+		DDB169A627D20CC200F4D752 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
+		DDB169A727D20CC200F4D752 /* SelectTagsPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE8DDBB276B3B260035321C /* SelectTagsPageFallback.swift */; };
+		DDB169A827D20CC200F4D752 /* EditPasswordPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5E26FC79CA0082E96D /* EditPasswordPageFallback.swift */; };
+		DDB169A927D20CC200F4D752 /* CloseSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F71A8242607634E00863C27 /* CloseSessionRequest.swift */; };
+		DDB169AA27D20CC200F4D752 /* CaptureOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */; };
+		DDB169AB27D20CC200F4D752 /* TagBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF3387276F7FDE008EEB3F /* TagBadge.swift */; };
+		DDB169AC27D20CC200F4D752 /* Collection+Avg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7237992651468700832A88 /* Collection+Avg.swift */; };
+		DDB169AD27D20CC200F4D752 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F552955259CAF4900419233 /* Folder.swift */; };
+		DDB169AE27D20CC200F4D752 /* EditFolderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997F942572C79900B5F784 /* EditFolderPage.swift */; };
+		DDB169AF27D20CC200F4D752 /* ServerSetupNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F559A0D25A0AE1C00D7A39F /* ServerSetupNavigation.swift */; };
+		DDB169B027D20CC200F4D752 /* Comparable+Clamped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7237962651466000832A88 /* Comparable+Clamped.swift */; };
+		DDB169B127D20CC200F4D752 /* BiometricAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C1A83257D7D5F009FF66F /* BiometricAuthenticationController.swift */; };
+		DDB169B227D20CC200F4D752 /* NavigationView+ShowColumns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */; };
+		DDB169B327D20CC200F4D752 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE43C4258D5A09003F7F34 /* String+Localized.swift */; };
+		DDB169B427D20CC200F4D752 /* ListSettingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3FAD602775DC54002202DE /* ListSettingsRequest.swift */; };
+		DDB169B527D20CC200F4D752 /* UIPasteboard+PrivateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB645F125D6949900A0F316 /* UIPasteboard+PrivateString.swift */; };
+		DDB169B627D20CC200F4D752 /* FaviconServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */; };
+		DDB169B727D20CC200F4D752 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3FAD6627772C15002202DE /* SettingsController.swift */; };
+		DDB169B827D20CC200F4D752 /* RefreshGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */; };
+		DDB169B927D20CC200F4D752 /* KeepaliveSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F71A821260762DC00863C27 /* KeepaliveSessionRequest.swift */; };
+		DDB169BA27D20CC200F4D752 /* ListPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F57A5B5256267BF00BC1CA0 /* ListPasswordsRequest.swift */; };
+		DDB169BB27D20CC200F4D752 /* ShowTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE1261274140A9003912D0 /* ShowTagRequest.swift */; };
+		DDB169BC27D20CC200F4D752 /* EditFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F559A1725A0AE3300D7A39F /* EditFolderNavigation.swift */; };
+		DDB169BD27D20CC200F4D752 /* OfflineContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F854E6B26239457008885C3 /* OfflineContainer.swift */; };
+		DDB169BE27D20CC200F4D752 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5B74B261109D7006CBC7D /* NetworkClient.swift */; };
+		DDB169BF27D20CC200F4D752 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125527411B09003912D0 /* Tag.swift */; };
+		DDB169C027D20CC200F4D752 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F57B425256C0DD600329B05 /* SettingsPage.swift */; };
+		DDB169C127D20CC200F4D752 /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F59F520256AE65800D9FE40 /* ActionButtonStyle.swift */; };
+		DDB169C227D20CC200F4D752 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F59888825799C3200843696 /* SearchBar.swift */; };
+		DDB169C327D20CC200F4D752 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
+		DDB169C427D20CC200F4D752 /* ListFoldersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F570BFA25693F5C00BA4B74 /* ListFoldersRequest.swift */; };
+		DDB169C527D20CC200F4D752 /* String+Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBAC9CF264A7B050038A626 /* String+Score.swift */; };
+		DDB169C627D20CC200F4D752 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55B2D3256DBF530011C92D /* Entry.swift */; };
+		DDB169C727D20CC200F4D752 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE4F5D5274BEB3D00518167 /* FlowView.swift */; };
+		DDB169C827D20CC200F4D752 /* EntriesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F118754253C9EE10019FECA /* EntriesPage.swift */; };
+		DDB169C927D20CC200F4D752 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
+		DDB169CA27D20CC200F4D752 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
+		DDB169CB27D20CC200F4D752 /* AutoFillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55D9992582D04200CE4FC2 /* AutoFillController.swift */; };
+		DDB169CC27D20CC200F4D752 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F65736925E3C4F200139163 /* TextView.swift */; };
+		DDB169CD27D20CC200F4D752 /* EditOTPPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD542E8B27C2E2C700043A2B /* EditOTPPageFallback.swift */; };
+		DDB169CE27D20CC200F4D752 /* ShowFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D74126495BD100FF192C /* ShowFolderRequest.swift */; };
+		DDB169CF27D20CC200F4D752 /* LoginFlowPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F582BF9255EA63D00F1E3DA /* LoginFlowPage.swift */; };
+		DDB169D027D20CC200F4D752 /* CreateFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997F9C2572ED7800B5F784 /* CreateFolderRequest.swift */; };
+		DDB169D127D20CC200F4D752 /* SelectTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28772766036A00E3DAEF /* SelectTagsController.swift */; };
+		DDB169D227D20CC200F4D752 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F74244526039BD600B73646 /* Crypto.swift */; };
+		DDB169D327D20CC200F4D752 /* ServerSetupPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F513A62256064E9001C6EF9 /* ServerSetupPage.swift */; };
+		DDB169D427D20CC200F4D752 /* EditFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FA02572F40D00B5F784 /* EditFolderController.swift */; };
+		DDB169D527D20CC200F4D752 /* URL+RelativeReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A73A22677493500FCA15F /* URL+RelativeReference.swift */; };
+		DDB169D627D20CC200F4D752 /* EditPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FA4257300A600B5F784 /* EditPasswordPage.swift */; };
+		DDB169D727D20CC200F4D752 /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */; };
+		DDB169D827D20CC200F4D752 /* DeleteFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55F71525727CB600E00B28 /* DeleteFolderRequest.swift */; };
+		DDB169D927D20CC200F4D752 /* DeletePasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55564925716BD200F5D805 /* DeletePasswordRequest.swift */; };
+		DDB169DA27D20CC200F4D752 /* OpenSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F10C6502602C4AB00FA5B1D /* OpenSessionRequest.swift */; };
+		DDB169DB27D20CC200F4D752 /* ShowPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D73E26495AE200FF192C /* ShowPasswordRequest.swift */; };
+		DDB169DC27D20CC200F4D752 /* EditFolderPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */; };
+		DDB169DD27D20CC200F4D752 /* QRCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB680D427A3DA6A00DEE540 /* QRCapture.swift */; };
+		DDB169DE27D20CC200F4D752 /* EditTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59AB274147CC003D7D50 /* EditTagController.swift */; };
+		DDB169DF27D20CC200F4D752 /* EditOTPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204427BAFDC40078CF47 /* EditOTPController.swift */; };
+		DDB169E027D20CC200F4D752 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3FAD632775DC86002202DE /* Settings.swift */; };
+		DDB169E127D20CC200F4D752 /* EditTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A8274146C8003D7D50 /* EditTagPage.swift */; };
+		DDB169E227D20CC200F4D752 /* View+Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* View+Initialize.swift */; };
+		DDB169E327D20CC200F4D752 /* UIApplication+IsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE43C8258D5A2D003F7F34 /* UIApplication+IsExtension.swift */; };
+		DDB169E427D20CC200F4D752 /* PreviewDevice+Generate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F63617B25A741A400C832C9 /* PreviewDevice+Generate.swift */; };
+		DDB169E527D20CC300F4D752 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
+		DDB169E627D20CC300F4D752 /* UIApplication+SafeShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A843F259A4FA700BFDF29 /* UIApplication+SafeShared.swift */; };
+		DDB169E727D20CC300F4D752 /* SelectFolderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */; };
+		DDB169E827D20CC300F4D752 /* SelectTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28742766028500E3DAEF /* SelectTagsPage.swift */; };
+		DDB169E927D20CC300F4D752 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B586D27D01CDC00E54E71 /* ShareSheet.swift */; };
+		DDB169EA27D20CC300F4D752 /* LoginFlowNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBC049B268B9DD1006D4CB7 /* LoginFlowNavigationController.swift */; };
+		DDB169EB27D20CC300F4D752 /* URL+Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6ED3B92663841D00DD61DE /* URL+Score.swift */; };
+		DDB169EC27D20CC300F4D752 /* UpdateFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F553383257A47D0003987E6 /* UpdateFolderRequest.swift */; };
+		DDB169ED27D20CC300F4D752 /* Color+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B127414AFE003D7D50 /* Color+Init.swift */; };
+		DDB169EE27D20CC300F4D752 /* EditTagPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59AE27414873003D7D50 /* EditTagPageFallback.swift */; };
+		DDB169EF27D20CC300F4D752 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F582BFD255EAD7000F1E3DA /* Keychain.swift */; };
+		DDB16A0927D2308600F4D752 /* OTPAutoFillScript.js in Resources */ = {isa = PBXBuildFile; fileRef = DDB16A0827D2308600F4D752 /* OTPAutoFillScript.js */; };
+		DDB16A0C27D24D6300F4D752 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDB16A0B27D24D6300F4D752 /* Assets.xcassets */; };
 		DDB680D527A3DA6A00DEE540 /* QRCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB680D427A3DA6A00DEE540 /* QRCapture.swift */; };
 		DDB680D627A3DA6A00DEE540 /* QRCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB680D427A3DA6A00DEE540 /* QRCapture.swift */; };
 		DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
@@ -303,6 +436,13 @@
 			remoteGlobalIDString = 8F11874E253C9EE10019FECA;
 			remoteInfo = Passwords;
 		};
+		DDB1695F27D1FCFF00F4D752 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F118747253C9EE10019FECA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDB1695227D1FCFF00F4D752;
+			remoteInfo = Extension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -312,6 +452,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				DDB1696127D1FCFF00F4D752 /* Extension.appex in Embed App Extensions */,
 				8FC361A42582762600785371 /* Provider.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -571,6 +712,19 @@
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
 		DDA4FE7526E755C000D6F92E /* View+Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Initialize.swift"; sourceTree = "<group>"; };
 		DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshGesture.swift; sourceTree = "<group>"; };
+		DDB1695327D1FCFF00F4D752 /* Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionViewController.swift; sourceTree = "<group>"; };
+		DDB1695C27D1FCFF00F4D752 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ExtensionView.storyboard; sourceTree = "<group>"; };
+		DDB1695E27D1FCFF00F4D752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDB1696927D1FDEA00F4D752 /* Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Extension.entitlements; sourceTree = "<group>"; };
+		DDB1696E27D2040300F4D752 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDB1697027D2040B00F4D752 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDB1697127D2040B00F4D752 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDB1697227D2040C00F4D752 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDB1697327D2040D00F4D752 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDB16A0827D2308600F4D752 /* OTPAutoFillScript.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = OTPAutoFillScript.js; sourceTree = "<group>"; };
+		DDB16A0B27D24D6300F4D752 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DDB680D427A3DA6A00DEE540 /* QRCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCapture.swift; sourceTree = "<group>"; };
 		DDBD6EA12702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA22702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -631,6 +785,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DDB1695027D1FCFF00F4D752 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDB1695527D1FCFF00F4D752 /* UniformTypeIdentifiers.framework in Frameworks */,
+				DDB1696627D1FD2900F4D752 /* Clibsodium in Frameworks */,
+				DDB1696827D1FD2900F4D752 /* Sodium in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -639,6 +803,7 @@
 			children = (
 				8F552964259CB35100419233 /* App */,
 				8FC3619A2582762600785371 /* Provider */,
+				DDB1695627D1FCFF00F4D752 /* Extension */,
 				8FCBF8BB25AE152500F75B33 /* Snapshot */,
 				8F6ED7BF265BC807008CF387 /* LogicTests */,
 				8F118751253C9EE10019FECA /* Shared */,
@@ -661,6 +826,7 @@
 				8FC361982582762600785371 /* Provider.appex */,
 				8FCBF8BA25AE152500F75B33 /* Snapshot.xctest */,
 				8F6ED7BE265BC807008CF387 /* LogicTests.xctest */,
+				DDB1695327D1FCFF00F4D752 /* Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -686,6 +852,7 @@
 			children = (
 				8F52F3C625936FDE00B4EFCE /* StoreKit.framework */,
 				8F118764253CA2980019FECA /* AuthenticationServices.framework */,
+				DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1063,6 +1230,20 @@
 			path = "en-US";
 			sourceTree = "<group>";
 		};
+		DDB1695627D1FCFF00F4D752 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DDB1696927D1FDEA00F4D752 /* Extension.entitlements */,
+				DDB16A0827D2308600F4D752 /* OTPAutoFillScript.js */,
+				DDB1695E27D1FCFF00F4D752 /* Info.plist */,
+				DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */,
+				DDB16A0B27D24D6300F4D752 /* Assets.xcassets */,
+				DDB1695B27D1FCFF00F4D752 /* ExtensionView.storyboard */,
+				DDB1696F27D2040300F4D752 /* InfoPlist.strings */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		DDE48F5726FC707A0082E96D /* Fallbacks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1094,6 +1275,7 @@
 			);
 			dependencies = (
 				8FC361A32582762600785371 /* PBXTargetDependency */,
+				DDB1696027D1FCFF00F4D752 /* PBXTargetDependency */,
 			);
 			name = Passwords;
 			packageProductDependencies = (
@@ -1164,13 +1346,35 @@
 			productReference = 8FCBF8BA25AE152500F75B33 /* Snapshot.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DDB1695227D1FCFF00F4D752 /* Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDB1696427D1FCFF00F4D752 /* Build configuration list for PBXNativeTarget "Extension" */;
+			buildPhases = (
+				DDB1694F27D1FCFF00F4D752 /* Sources */,
+				DDB1696C27D2033200F4D752 /* ShellScript */,
+				DDB1695027D1FCFF00F4D752 /* Frameworks */,
+				DDB1695127D1FCFF00F4D752 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Extension;
+			packageProductDependencies = (
+				DDB1696527D1FD2900F4D752 /* Clibsodium */,
+				DDB1696727D1FD2900F4D752 /* Sodium */,
+			);
+			productName = Extension;
+			productReference = DDB1695327D1FCFF00F4D752 /* Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		8F118747253C9EE10019FECA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					8F11874E253C9EE10019FECA = {
@@ -1185,6 +1389,9 @@
 					8FCBF8B925AE152500F75B33 = {
 						CreatedOnToolsVersion = 12.2;
 						TestTargetID = 8F11874E253C9EE10019FECA;
+					};
+					DDB1695227D1FCFF00F4D752 = {
+						CreatedOnToolsVersion = 13.0;
 					};
 				};
 			};
@@ -1210,6 +1417,7 @@
 			targets = (
 				8F11874E253C9EE10019FECA /* Passwords */,
 				8FC361972582762600785371 /* Provider */,
+				DDB1695227D1FCFF00F4D752 /* Extension */,
 				8FCBF8B925AE152500F75B33 /* Snapshot */,
 				8F6ED7BD265BC807008CF387 /* LogicTests */,
 			);
@@ -1249,6 +1457,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDB1695127D1FCFF00F4D752 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDB16A0927D2308600F4D752 /* OTPAutoFillScript.js in Resources */,
+				DDB1695D27D1FCFF00F4D752 /* ExtensionView.storyboard in Resources */,
+				DDB1697427D20C1F00F4D752 /* Localizable.strings in Resources */,
+				DDB1696D27D2040300F4D752 /* InfoPlist.strings in Resources */,
+				DDB16A0C27D24D6300F4D752 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1323,6 +1543,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		DDB1696C27D2033200F4D752 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint --path Provider\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1612,6 +1849,137 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DDB1694F27D1FCFF00F4D752 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDB169B127D20CC200F4D752 /* BiometricAuthenticationController.swift in Sources */,
+				DDB1698327D20CC200F4D752 /* ShareOTPPage.swift in Sources */,
+				DDB169D027D20CC200F4D752 /* CreateFolderRequest.swift in Sources */,
+				DDB169B827D20CC200F4D752 /* RefreshGesture.swift in Sources */,
+				DDB1698127D20CC100F4D752 /* CopyToast.swift in Sources */,
+				DDB169C427D20CC200F4D752 /* ListFoldersRequest.swift in Sources */,
+				DDB169BA27D20CC200F4D752 /* ListPasswordsRequest.swift in Sources */,
+				DDB169CE27D20CC200F4D752 /* ShowFolderRequest.swift in Sources */,
+				DDB169C027D20CC200F4D752 /* SettingsPage.swift in Sources */,
+				DDB169C927D20CC200F4D752 /* UpdateTagRequest.swift in Sources */,
+				DDB169BB27D20CC200F4D752 /* ShowTagRequest.swift in Sources */,
+				DDB169C727D20CC200F4D752 /* FlowView.swift in Sources */,
+				DDB169AF27D20CC200F4D752 /* ServerSetupNavigation.swift in Sources */,
+				DDB169B527D20CC200F4D752 /* UIPasteboard+PrivateString.swift in Sources */,
+				DDB1697627D20C2500F4D752 /* Configuration.swift in Sources */,
+				DDB1698E27D20CC200F4D752 /* ImagePicker.swift in Sources */,
+				DDB1697A27D20CC100F4D752 /* MainView.swift in Sources */,
+				DDB169DC27D20CC200F4D752 /* EditFolderPageFallback.swift in Sources */,
+				DDB169AD27D20CC200F4D752 /* Folder.swift in Sources */,
+				DDB169E427D20CC200F4D752 /* PreviewDevice+Generate.swift in Sources */,
+				DDB1697D27D20CC100F4D752 /* CreateTagRequest.swift in Sources */,
+				DDB1699827D20CC200F4D752 /* String+Segmented.swift in Sources */,
+				DDB1697527D20C2200F4D752 /* CoreData.xcdatamodeld in Sources */,
+				DDB169D327D20CC200F4D752 /* ServerSetupPage.swift in Sources */,
+				DDB169CF27D20CC200F4D752 /* LoginFlowPage.swift in Sources */,
+				DDB169E927D20CC300F4D752 /* ShareSheet.swift in Sources */,
+				DDB169A127D20CC200F4D752 /* UIAlertController+PresentGlobalAlert.swift in Sources */,
+				DDB1699327D20CC200F4D752 /* Array+Zip.swift in Sources */,
+				DDB1699227D20CC200F4D752 /* EntriesPageFallback.swift in Sources */,
+				DDB1699727D20CC200F4D752 /* SKProduct+LocalizedPrice.swift in Sources */,
+				DDB169AE27D20CC200F4D752 /* EditFolderPage.swift in Sources */,
+				DDB1699427D20CC200F4D752 /* Data+Init.swift in Sources */,
+				DDB169D427D20CC200F4D752 /* EditFolderController.swift in Sources */,
+				DDB1698B27D20CC200F4D752 /* CreatePasswordRequest.swift in Sources */,
+				DDB169EA27D20CC300F4D752 /* LoginFlowNavigationController.swift in Sources */,
+				DDB1698D27D20CC200F4D752 /* ServerSetupPageFallback.swift in Sources */,
+				DDB169B727D20CC200F4D752 /* SettingsController.swift in Sources */,
+				DDB169C827D20CC200F4D752 /* EntriesPage.swift in Sources */,
+				DDB169C327D20CC200F4D752 /* Color+Hex.swift in Sources */,
+				DDB1699C27D20CC200F4D752 /* Collection+Subscript.swift in Sources */,
+				DDB169E527D20CC300F4D752 /* CaptureOTPNavigation.swift in Sources */,
+				DDB169A527D20CC200F4D752 /* ListTagsRequest.swift in Sources */,
+				DDB169CA27D20CC200F4D752 /* SelectFolderController.swift in Sources */,
+				DDB169B227D20CC200F4D752 /* NavigationView+ShowColumns.swift in Sources */,
+				DDB169B427D20CC200F4D752 /* ListSettingsRequest.swift in Sources */,
+				DDB169D727D20CC200F4D752 /* MockObject.swift in Sources */,
+				DDB169C127D20CC200F4D752 /* ActionButtonStyle.swift in Sources */,
+				DDB169EC27D20CC300F4D752 /* UpdateFolderRequest.swift in Sources */,
+				DDB1697C27D20CC100F4D752 /* OTP.swift in Sources */,
+				DDB1698427D20CC200F4D752 /* SessionController.swift in Sources */,
+				DDB1698627D20CC200F4D752 /* CoreData.swift in Sources */,
+				DDB169E827D20CC300F4D752 /* SelectTagsPage.swift in Sources */,
+				DDB169B627D20CC200F4D752 /* FaviconServiceRequest.swift in Sources */,
+				DDB169ED27D20CC300F4D752 /* Color+Init.swift in Sources */,
+				DDB169AC27D20CC200F4D752 /* Collection+Avg.swift in Sources */,
+				DDB1699527D20CC200F4D752 /* AuthenticationChallengeController.swift in Sources */,
+				DDB169EE27D20CC300F4D752 /* EditTagPageFallback.swift in Sources */,
+				DDB169A327D20CC200F4D752 /* SelectTagsNavigation.swift in Sources */,
+				DDB1697827D20CC100F4D752 /* Popover.swift in Sources */,
+				DDB1698027D20CC100F4D752 /* View+Occlude.swift in Sources */,
+				DDB169E727D20CC300F4D752 /* SelectFolderPage.swift in Sources */,
+				DDB169CC27D20CC200F4D752 /* TextView.swift in Sources */,
+				DDB169D527D20CC200F4D752 /* URL+RelativeReference.swift in Sources */,
+				DDB169A827D20CC200F4D752 /* EditPasswordPageFallback.swift in Sources */,
+				DDB1699B27D20CC200F4D752 /* EditPasswordController.swift in Sources */,
+				DDB169CB27D20CC200F4D752 /* AutoFillController.swift in Sources */,
+				DDB1699027D20CC200F4D752 /* Password.swift in Sources */,
+				DDB169DB27D20CC200F4D752 /* ShowPasswordRequest.swift in Sources */,
+				DDB1699927D20CC200F4D752 /* Date+FormattedString.swift in Sources */,
+				DDB169BD27D20CC200F4D752 /* OfflineContainer.swift in Sources */,
+				DDB1697727D20CC100F4D752 /* ServerSetupController.swift in Sources */,
+				DDB169A927D20CC200F4D752 /* CloseSessionRequest.swift in Sources */,
+				DDB169A627D20CC200F4D752 /* LabeledRow.swift in Sources */,
+				DDB169EF27D20CC300F4D752 /* Keychain.swift in Sources */,
+				DDB169E327D20CC200F4D752 /* UIApplication+IsExtension.swift in Sources */,
+				DDB1698727D20CC200F4D752 /* EntriesNavigation.swift in Sources */,
+				DDB169E227D20CC200F4D752 /* View+Initialize.swift in Sources */,
+				DDB169C627D20CC200F4D752 /* Entry.swift in Sources */,
+				DDB169AB27D20CC200F4D752 /* TagBadge.swift in Sources */,
+				DDB169CD27D20CC200F4D752 /* EditOTPPageFallback.swift in Sources */,
+				DDB169D227D20CC200F4D752 /* Crypto.swift in Sources */,
+				DDB169D927D20CC200F4D752 /* DeletePasswordRequest.swift in Sources */,
+				DDB1698527D20CC200F4D752 /* UpdatePasswordRequest.swift in Sources */,
+				DDB169A727D20CC200F4D752 /* SelectTagsPageFallback.swift in Sources */,
+				DDB169DE27D20CC200F4D752 /* EditTagController.swift in Sources */,
+				DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */,
+				DDB169DA27D20CC200F4D752 /* OpenSessionRequest.swift in Sources */,
+				DDB169B327D20CC200F4D752 /* String+Localized.swift in Sources */,
+				DDB1699F27D20CC200F4D752 /* OTPDisplay.swift in Sources */,
+				DDB169A227D20CC200F4D752 /* DeleteTagRequest.swift in Sources */,
+				DDB1699A27D20CC200F4D752 /* TipController.swift in Sources */,
+				DDB1699627D20CC200F4D752 /* EditTagNavigation.swift in Sources */,
+				DDB169C527D20CC200F4D752 /* String+Score.swift in Sources */,
+				DDB1697B27D20CC100F4D752 /* PasswordDetailPage.swift in Sources */,
+				DDB169BE27D20CC200F4D752 /* NetworkClient.swift in Sources */,
+				DDB169E127D20CC200F4D752 /* EditTagPage.swift in Sources */,
+				DDB169D827D20CC200F4D752 /* DeleteFolderRequest.swift in Sources */,
+				DDB169BC27D20CC200F4D752 /* EditFolderNavigation.swift in Sources */,
+				DDB169AA27D20CC200F4D752 /* CaptureOTPPage.swift in Sources */,
+				DDB169A027D20CC200F4D752 /* EntriesController.swift in Sources */,
+				DDB169DF27D20CC200F4D752 /* EditOTPController.swift in Sources */,
+				DDB1699D27D20CC200F4D752 /* NCPasswordsRequest.swift in Sources */,
+				DDB169E027D20CC200F4D752 /* Settings.swift in Sources */,
+				DDB169B027D20CC200F4D752 /* Comparable+Clamped.swift in Sources */,
+				DDB1699127D20CC200F4D752 /* Session.swift in Sources */,
+				DDB1698F27D20CC200F4D752 /* View+Apply.swift in Sources */,
+				DDB169E627D20CC300F4D752 /* UIApplication+SafeShared.swift in Sources */,
+				DDB169A427D20CC200F4D752 /* PasswordServiceRequest.swift in Sources */,
+				DDB1698927D20CC200F4D752 /* Label+ShowIcon.swift in Sources */,
+				DDB1699E27D20CC200F4D752 /* EditOTPNavigation.swift in Sources */,
+				DDB1698A27D20CC200F4D752 /* SettingsNavigation.swift in Sources */,
+				DDB169D627D20CC200F4D752 /* EditPasswordPage.swift in Sources */,
+				DDB169EB27D20CC300F4D752 /* URL+Score.swift in Sources */,
+				DDB169D127D20CC200F4D752 /* SelectTagsController.swift in Sources */,
+				DDB169BF27D20CC200F4D752 /* Tag.swift in Sources */,
+				DDB169B927D20CC200F4D752 /* KeepaliveSessionRequest.swift in Sources */,
+				DDB1697E27D20CC100F4D752 /* RequestSessionRequest.swift in Sources */,
+				DDB1698227D20CC100F4D752 /* EditLabeledRow.swift in Sources */,
+				DDB169C227D20CC200F4D752 /* SearchBar.swift in Sources */,
+				DDB1697927D20CC100F4D752 /* FolderController.swift in Sources */,
+				DDB1698827D20CC200F4D752 /* EditPasswordNavigation.swift in Sources */,
+				DDB169DD27D20CC200F4D752 /* QRCapture.swift in Sources */,
+				DDB1698C27D20CC200F4D752 /* EditOTPPage.swift in Sources */,
+				DDB1697F27D20CC100F4D752 /* SelectFolderNavigation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1629,6 +1997,11 @@
 			isa = PBXTargetDependency;
 			target = 8F11874E253C9EE10019FECA /* Passwords */;
 			targetProxy = 8FCBF8BF25AE152500F75B33 /* PBXContainerItemProxy */;
+		};
+		DDB1696027D1FCFF00F4D752 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDB1695227D1FCFF00F4D752 /* Extension */;
+			targetProxy = DDB1695F27D1FCFF00F4D752 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1675,6 +2048,26 @@
 				8F51289C25838F0000CF2A55 /* Base */,
 			);
 			name = ProviderView.storyboard;
+			sourceTree = "<group>";
+		};
+		DDB1695B27D1FCFF00F4D752 /* ExtensionView.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DDB1695C27D1FCFF00F4D752 /* Base */,
+			);
+			name = ExtensionView.storyboard;
+			sourceTree = "<group>";
+		};
+		DDB1696F27D2040300F4D752 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DDB1696E27D2040300F4D752 /* en */,
+				DDB1697027D2040B00F4D752 /* cs */,
+				DDB1697127D2040B00F4D752 /* fr */,
+				DDB1697227D2040C00F4D752 /* de */,
+				DDB1697327D2040D00F4D752 /* ru */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1980,6 +2373,54 @@
 			};
 			name = Release;
 		};
+		DDB1696227D1FCFF00F4D752 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 16;
+				DEVELOPMENT_TEAM = 3L4U93393E;
+				INFOPLIST_FILE = Extension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.5.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DDB1696327D1FCFF00F4D752 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 16;
+				DEVELOPMENT_TEAM = 3L4U93393E;
+				INFOPLIST_FILE = Extension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.5.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2028,6 +2469,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		DDB1696427D1FCFF00F4D752 /* Build configuration list for PBXNativeTarget "Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDB1696227D1FCFF00F4D752 /* Debug */,
+				DDB1696327D1FCFF00F4D752 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -2058,6 +2508,16 @@
 			productName = Clibsodium;
 		};
 		8F10C64E2602C05F00FA5B1D /* Sodium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			productName = Sodium;
+		};
+		DDB1696527D1FD2900F4D752 /* Clibsodium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			productName = Clibsodium;
+		};
+		DDB1696727D1FD2900F4D752 /* Sodium */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
 			productName = Sodium;

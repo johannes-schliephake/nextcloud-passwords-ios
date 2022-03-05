@@ -5,6 +5,7 @@ import SwiftUI
 final class ProviderViewController: ASCredentialProviderViewController {
     
     override func provideCredentialWithoutUserInteraction(for credentialIdentity: ASPasswordCredentialIdentity) {
+        AutoFillController.default.mode = .provider
         DispatchQueue.global(qos: .utility).async {
             [weak self] in
             if let offlineKeychain = Keychain.default.load(key: "offlineKeychain") {
@@ -39,6 +40,7 @@ final class ProviderViewController: ASCredentialProviderViewController {
     }
     
     override func prepareInterfaceToProvideCredential(for credentialIdentity: ASPasswordCredentialIdentity) {
+        AutoFillController.default.mode = .provider
         AutoFillController.default.serviceURLs = [credentialIdentity.serviceIdentifier].compactMap { URL(string: $0.identifier) }
         AutoFillController.default.credentialIdentifier = credentialIdentity.recordIdentifier
         
@@ -46,6 +48,7 @@ final class ProviderViewController: ASCredentialProviderViewController {
     }
     
     override func prepareCredentialList(for serviceIdentifiers: [ASCredentialServiceIdentifier]) {
+        AutoFillController.default.mode = .provider
         AutoFillController.default.serviceURLs = serviceIdentifiers.compactMap { URL(string: $0.identifier) }
         AutoFillController.default.credentialIdentifier = nil
         

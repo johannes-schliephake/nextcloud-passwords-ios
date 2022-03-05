@@ -448,7 +448,17 @@ final class EntriesController: ObservableObject {
             AutoFillController.default.credentialIdentifier = nil
             return
         }
-        complete(password.username, password.password)
+        switch AutoFillController.default.mode {
+        case .app:
+            break
+        case .provider:
+            complete(password.username, password.password)
+        case .extension:
+            guard let currentOtp = password.otp?.current else {
+                return
+            }
+            complete(password.username, currentOtp)
+        }
     }
     
     func add(folder: Folder) {
@@ -717,6 +727,7 @@ final class EntriesController: ObservableObject {
             return nil
         }
         let searchTerm = searchTerm.trimmingCharacters(in: .whitespacesAndNewlines)
+        let filterBy = AutoFillController.default.mode != .extension ? filterBy : .otps
         let sortBy = defaultSorting ?? sortBy
         let reversed = defaultSorting != nil ? false : reversed
         
@@ -904,6 +915,7 @@ final class EntriesController: ObservableObject {
                     .reduce(0.0, +)
             }
             .zip(with: passwords)
+            .filter { AutoFillController.default.mode != .extension || $0.1.otp != nil }
             .filter { $0.0 > 0.5 }
             .sorted { $0.0 > $1.0 }
             .prefix(5)

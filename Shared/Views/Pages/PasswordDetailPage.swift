@@ -72,7 +72,8 @@ struct PasswordDetailPage: View {
             geometryProxy in
             VStack(spacing: 0) {
                 listView()
-                if let complete = autoFillController.complete {
+                if let complete = autoFillController.complete,
+                   autoFillController.mode == .provider || autoFillController.mode == .extension && password.otp != nil {
                     Divider()
                     selectView(geometryProxy: geometryProxy, complete: complete)
                 }
@@ -400,7 +401,17 @@ struct PasswordDetailPage: View {
         VStack {
             VStack {
                 Button("_select") {
-                    complete(password.username, password.password)
+                    switch autoFillController.mode {
+                    case .app:
+                        break
+                    case .provider:
+                        complete(password.username, password.password)
+                    case .extension:
+                        guard let currentOtp = password.otp?.current else {
+                            return
+                        }
+                        complete(password.username, currentOtp)
+                    }
                 }
                 .buttonStyle(.action)
                 .disabled(password.state == .decryptionFailed)

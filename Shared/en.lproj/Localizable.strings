@@ -142,7 +142,7 @@
 "_tipReceivedMessage" = "Thank you for supporting this project with your tip!";
 "_tryAgain" = "Try Again"; // I.e. try again to load the data
 "_type" = "Type";
-"_unlockApp" = "Unlock App"; // Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/Info.plist and Provider/Info.plist
+"_unlockApp" = "Unlock App"; // Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/InfoPlist.strings and Provider/InfoPlist.strings and Extension/InfoPlist.strings
 "_updated" = "Updated"; // I.e. date when a password was last updated
 "_url" = "URL";
 "_username" = "Username";
