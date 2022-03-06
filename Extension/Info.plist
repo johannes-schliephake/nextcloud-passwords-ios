@@ -36,7 +36,7 @@
 			<key>NSExtensionActivationRule</key>
 			<dict>
 				<key>NSExtensionActivationSupportsWebPageWithMaxCount</key>
-				<integer>1</integer>
+				<string>$(EXTENSION_ACTIVATION)</string>
 			</dict>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
