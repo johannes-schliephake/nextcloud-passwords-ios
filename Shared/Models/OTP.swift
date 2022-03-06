@@ -90,7 +90,7 @@ struct OTP: Equatable, Hashable {
         }
         self.type = type
         self.algorithm = algorithm
-        self.secret = secret
+        self.secret = secret.uppercased()
         self.digits = digits
         
         switch type {
