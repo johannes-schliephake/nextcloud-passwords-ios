@@ -1,8 +1,13 @@
 "_about" = "About"; // I.e. about this app
+"_aboutOtps" = "About One-Time Passwords";
+"_aboutOtpsMessage" = "This app supports one-time passwords for convenience only. Storing your one-time password alongside your account's password defeats some of the security benefits of multi-factor authentication. Enabling a second factor is better than not using one at all, but a standalone one-time password app will be more secure. DO NOT store one-time passwords for your Nextcloud account or critical accounts, such as Email or online banking accounts. One-time passwords will synchronize over your Nextcloud Passwords instance but are currently only supported by the iOS app (v2.6 or newer)."; // This message is shown before the user can add the first one-time password
 "_accept" = "Accept"; // I.e. accept this certificate
 "_account" = "Account"; // This refers to the noun ("the account")
 "_addCustomField" = "Add Custom Field";
+"_addManually" = "Add Manually"; // Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture"
+"_addOtp" = "Add One-Time Password";
 "_addTags" = "Add Tags"; // I.e. add tags to a password
+"_algorithm" = "Algorithm";
 "_all" = "All"; // I.e. all passwords
 "_anErrorOccurred" = "An error occurred ...";
 "_appDeauthorized" = "App Deauthorized";
@@ -11,11 +16,16 @@
 "_cancel" = "Cancel"; // Use the same wording Apple uses across iOS
 "_clientSide" = "Client Side"; // Possible value for "Encryption" field on password detail page, other key is "_serverSide"
 "_color" = "Color"; // // This refers to the noun ("the color"), i.e. the color of a tag
+"_configured" = "Configured"; // I.e. a one-time password is configured
+"_confirm" = "Confirm"; // I.e. confirm that the OTP message has been read
 "_confirmAction" = "Confirm Action"; // E.g. confirm deletion or confirm log out
 "_connect" = "Connect"; // I.e. connect to server
 "_connectToServer" = "Connect to Server";
+"_copyOtp" = "Copy One-Time Password";
 "_copyPassword" = "Copy Password";
 "_copyUsername" = "Copy Username";
+"_counter" = "Counter"; // This refers to the noun ("the counter") and counts how many OTPs have been used
+"_counterBased" = "Counter-Based";  // I.e. this OTP is a counter-based one, possible value for "Type" field in OTP editor, other key is "_timeBased"
 "_create" = "Create"; // I.e. create folder or password
 "_created" = "Created"; // I.e. date when a password was created
 "_createFolder" = "Create Folder";
@@ -33,10 +43,13 @@
 "_deletedPasswordMessage" = "This password was deleted.";
 "_deleteFolder" = "Delete Folder";
 "_deleteFolderErrorMessage" = "An error occurred while deleting the folder. Please delete the folder again.";
+"_deleteOtp" = "Delete One-Time Password";
 "_deletePassword" = "Delete Password";
 "_deletePasswordErrorMessage" = "An error occurred while deleting the password. Please delete the password again.";
 "_deleteTag" = "Delete Tag";
 "_deleteTagErrorMessage" = "An error occurred while deleting the tag. Please delete the tag again.";
+"_detectQrCodeInPicture" = "Detect QR Code In Picture"; // Possible option when adding an OTP, other keys are "_scanQrCode" and "_addManually"
+"_digits" = "Digits"; // I.e. the number of digits to show of an OTP
 "_discardChanges" = "Discard Changes";
 "_dismiss" = "Dismiss"; // Use the same wording Apple uses across iOS
 "_done" = "Done"; // Use the same wording Apple uses across iOS
@@ -51,6 +64,8 @@
 "_encryptedOfflineStorage" = "Encrypted Offline Storage"; // This is a label for a settings toggle
 "_encryption" = "Encryption"; // I.e. server or client side encryption
 "_error" = "Error";
+"_exportAsQrCode" = "Export As QR Code"; // I.e. export this OTP as a QR code
+"_extractOtpErrorMessage" = "An error occurred while searching for a QR code in the selected picture.";
 "_favorite" = "Favorite"; // This refers to the noun ("the favorite")
 "_favorites" = "Favorites"; // This refers to the noun ("the favorites")
 "_file" = "File"; // This refers to the noun ("the file")
@@ -68,6 +83,7 @@
 "_logIn" = "Log In"; // This refers to the verb ("to log in")
 "_logOut" = "Log Out"; // This refers to the verb ("to log out")
 "_metadata" = "Metadata";
+"_moreOptions" = "More Options"; // I.e. show more options
 "_move" = "Move"; // This refers to the verb ("to move"), i.e. move a file to another folder
 "_name" = "Name"; // This refers to the noun ("the name")
 "_nextcloudServerAddress" = "Nextcloud Server Address";
@@ -79,6 +95,8 @@
 "_offline" = "Offline"; // I.e. the app has no connection to the server and is offline
 "_openUrl" = "Open URL";
 "_options" = "Options"; // I.e. settings options
+"_otp" = "One-Time Password";
+"_otps" = "One-Time Passwords";
 "_password" = "Password";
 "_passwordGenerator" = "Password Generator";
 "_passwords" = "Passwords";
@@ -90,8 +108,11 @@
 "_passwordStatusGoodMessage2" = "It has not been breached."; // It = the password
 "_passwordStatusGoodMessage3" = "It doesn't violate user defined rules."; // It = the password
 "_passwordStatusOutdatedMessage" = "This password has reached the maximum age."; // "Maximum age": Use the same wording that the web client uses in it's settings
+"_periodSeconds" = "Period (Seconds)"; // How long each OTP is valid in seconds
 "_providerInstructionsMessage" = "This app supports Password AutoFill. The feature has to be enabled in iOS's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap AutoFill Passwords\n4. Enable AutoFill Passwords\n5. Enable this app"; // Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step
+"_qrCaptureErrorMessage" = "An error occurred while launching the camera.";
 "_reject" = "Reject"; // I.e. reject this certificate
+"_scanQrCode" = "Scan QR Code"; // Possible option when adding an OTP, other keys are "_detectQrCodeInPicture" and "_addManually"
 "_secret" = "Secret"; // This refers to the noun ("the secret") and is used in similar places as "password"
 "_security" = "Security"; // I.e. security status of a password
 "_select" = "Select"; // This refers to the verb ("to select"), i.e. select a password
@@ -100,6 +121,8 @@
 "_serverSide" = "Server Side"; // Possible value for "Encryption" field on password detail page, other key is "_clientSide"
 "_service" = "Service"; // E.g. a website, an app, etc.
 "_settings" = "Settings";
+"_shareOtpWarningMessage" = "This QR code contains highly sensitive data about the one-time password";
+"_shareQrCode" = "Share QR Code";
 "_sourceCode" = "Source Code";
 "_specialCharacters" = "Special Characters"; // This is a label for a password generator toggle
 "_storePassword" = "Store Password"; // I.e. store the E2E password
@@ -110,6 +133,7 @@
 "_tags" = "Tags";
 "_text" = "Text"; // This refers to the noun ("the text")
 "_thanksMessage" = "Thanks to the entire Nextcloud community and everybody involved for enabling such an amazing ecosystem. I hope that I can contribute something with this app.";
+"_timeBased" = "Time-Based"; // I.e. this OTP is a time-based one, possible value for "Type" field in OTP editor, other key is "_counterBased"
 "_tipDeferred" = "Tip Deferred"; // Shown when Apple's "Ask to Buy" feature (parental control) is active
 "_tipDeferredMessage" = "Your tip is now waiting for approval.";
 "_tipFailed" = "Tip Failed";
@@ -117,7 +141,8 @@
 "_tipReceived" = "Tip Received";
 "_tipReceivedMessage" = "Thank you for supporting this project with your tip!";
 "_tryAgain" = "Try Again"; // I.e. try again to load the data
-"_unlockApp" = "Unlock App"; // Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/Info.plist and Provider/Info.plist
+"_type" = "Type";  // This refers to the noun ("the type")
+"_unlockApp" = "Unlock App"; // Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/InfoPlist.strings and Provider/InfoPlist.strings and Extension/InfoPlist.strings
 "_updated" = "Updated"; // I.e. date when a password was last updated
 "_url" = "URL";
 "_username" = "Username";

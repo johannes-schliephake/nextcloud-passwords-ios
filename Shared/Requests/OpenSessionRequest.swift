@@ -43,7 +43,7 @@ extension OpenSessionRequest: NCPasswordsRequest {
 
 extension OpenSessionRequest {
     
-    struct Request: Encodable {
+    private struct Request: Encodable {
         
         let challenge: String?
         
@@ -72,7 +72,7 @@ extension OpenSessionRequest {
             keys = (try? container.decode([String: String].self, forKey: .keys)) ?? [:]
         }
         
-        enum CodingKeys: String, CodingKey { // swiftlint:disable:this nesting
+        private enum CodingKeys: String, CodingKey { // swiftlint:disable:this nesting
             case success
             case keys
         }

@@ -9,7 +9,7 @@ final class Password: ObservableObject, Identifiable {
     @Published var password: String
     @Published var url: String
     @Published var notes: String
-    @Published var customFields: [CustomField]
+    @Published private var customFields: [CustomField]
     var status: Int
     @Published var statusCode: StatusCode
     var hash: String
@@ -36,6 +36,43 @@ final class Password: ObservableObject, Identifiable {
     
     @Published var state: Entry.State?
     var offlineContainer: OfflineContainer?
+    
+    var customUserFields: [CustomField] {
+        get {
+            customFields.filter { $0.type != .data }
+        }
+        set {
+            customFields = newValue + customFields.filter { $0.type == .data }
+        }
+    }
+    var customDataFields: [CustomField] {
+        get {
+            customFields.filter { $0.type == .data && !$0.isOtpField }
+        }
+        set {
+            customFields = customFields.filter { $0.type != .data || $0.isOtpField } + newValue
+        }
+    }
+    var otp: OTP? {
+        get {
+            guard let otpValue = customFields.first(where: { $0.isOtpField })?.value,
+                  let otpData = otpValue.data(using: .utf8) else {
+                return nil
+            }
+            return try? Configuration.jsonDecoder.decode(OTP.self, from: otpData)
+        }
+        set {
+            customFields = customUserFields + customDataFields
+            guard let newValue = newValue,
+                  customFields.count < 20,
+                  let data = try? Configuration.updatingJsonEncoder.encode(newValue),
+                  let value = String(data: data, encoding: .utf8) else {
+                return
+            }
+            let otpField = CustomField(label: CustomField.OtpKey, type: .data, value: value)
+            customFields.append(otpField)
+        }
+    }
     
     init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: [CustomField] = [], status: Int = 0, statusCode: StatusCode = .unknown, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0), tags: [String] = []) {
         self.id = id
@@ -137,7 +174,7 @@ final class Password: ObservableObject, Identifiable {
                       notes.score(searchTerm: searchTerm, penalty: 0.01) * 0.7,
                       scoreUrlString(url, searchTerm: searchTerm)]
         
-        scores += customFields
+        scores += customUserFields
             .map {
                 customField in
                 let labelScore = customField.label.score(searchTerm: searchTerm, penalty: 0.9) * 0.7
@@ -237,7 +274,7 @@ final class Password: ObservableObject, Identifiable {
 
 extension Password: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id
         case label
         case username
@@ -274,6 +311,7 @@ extension Password: Codable {
             throw EncodingError.invalidValue(self, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Custom fields encoding failed"))
         }
         
+        var cseType = cseType
         if let keychain = SessionController.default.session?.keychain,
            state != .decryptionFailed,
            (cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true) && !shared {
@@ -302,6 +340,10 @@ extension Password: Codable {
             try container.encode(url, forKey: .url)
             try container.encode(notes, forKey: .notes)
             try container.encode(customFieldsString, forKey: .customFields)
+        }
+        DispatchQueue.main.async {
+            [weak self] in
+            self?.cseType = cseType
         }
         
         try container.encode(id, forKey: .id)
@@ -353,12 +395,14 @@ extension Password {
     
     struct CustomField: Identifiable, Equatable, Codable {
         
+        static let OtpKey = "client.ios.otp"
+        
         let id = UUID()
         var label: String
         var type: CustomFieldType
         var value: String
         
-        enum CodingKeys: CodingKey { // swiftlint:disable:this nesting
+        private enum CodingKeys: CodingKey { // swiftlint:disable:this nesting
             case label
             case type
             case value
@@ -397,9 +441,13 @@ extension Password {
         }
         
         static func == (lhs: Self, rhs: Self) -> Bool {
-            lhs.label == rhs.label ||
-            lhs.type == rhs.type ||
+            lhs.label == rhs.label &&
+            lhs.type == rhs.type &&
             lhs.value == rhs.value
+        }
+        
+        var isOtpField: Bool {
+            type == .data && label == CustomField.OtpKey
         }
         
     }

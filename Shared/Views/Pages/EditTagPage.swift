@@ -209,7 +209,7 @@ struct EditTagPage: View {
 
 extension EditTagPage {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case tagLabel
     }
     

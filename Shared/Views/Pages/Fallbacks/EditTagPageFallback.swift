@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-struct EditTagPageFallback: View {
+struct EditTagPageFallback: View { /// This insanely dumb workaround (duplicated view) prevents a crash on iOS 14 when an attribute is marked with `@available(iOS 15, *) @FocusState`
     
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var sessionController: SessionController
@@ -209,7 +209,7 @@ struct EditTagPageFallback: View {
 
 extension EditTagPageFallback {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case tagLabel
     }
     

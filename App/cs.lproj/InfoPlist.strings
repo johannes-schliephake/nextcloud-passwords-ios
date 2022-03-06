@@ -1,2 +1,4 @@
 "CFBundleDisplayName" = "Hesla";
+"NSCameraUsageDescription" = "TODO";
 "NSFaceIDUsageDescription" = "Odemknout aplikaci";
+"NSPhotoLibraryAddUsageDescription" = "TODO";

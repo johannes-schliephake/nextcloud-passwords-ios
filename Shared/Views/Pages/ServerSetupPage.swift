@@ -128,7 +128,7 @@ struct ServerSetupPage: View {
 
 extension ServerSetupPage {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case serverAddress
     }
     

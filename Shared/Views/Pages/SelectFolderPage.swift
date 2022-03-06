@@ -147,7 +147,7 @@ struct SelectFolderPage: View {
 
 extension SelectFolderPage {
     
-    enum SheetItem: Identifiable {
+    private enum SheetItem: Identifiable {
         
         case edit(folder: Folder)
         
@@ -165,7 +165,7 @@ extension SelectFolderPage {
 
 extension SelectFolderPage {
     
-    struct FolderGroup: View {
+    private struct FolderGroup: View {
         
         let folder: Folder
         let folders: [Folder]
@@ -205,7 +205,7 @@ extension SelectFolderPage {
 
 extension SelectFolderPage {
     
-    struct FolderRow: View {
+    private struct FolderRow: View {
         
         let label: String
         
@@ -231,7 +231,7 @@ extension SelectFolderPage {
 
 extension SelectFolderPage {
     
-    struct PasswordRow: View {
+    private struct PasswordRow: View {
         
         let label: String
         let username: String

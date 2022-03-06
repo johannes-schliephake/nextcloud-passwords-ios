@@ -139,7 +139,7 @@ final class Folder: ObservableObject, Identifiable {
 
 extension Folder: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id
         case label
         case parent

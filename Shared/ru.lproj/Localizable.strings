@@ -1,8 +1,13 @@
 "_about" = "О приложении";
+"_aboutOtps" = "TODO";
+"_aboutOtpsMessage" = "TODO";
 "_accept" = "Принять";
 "_account" = "Учетная запись";
 "_addCustomField" = "Добавить пользовательское поле";
+"_addManually" = "TODO";
+"_addOtp" = "TODO";
 "_addTags" = "Добавить метки";
+"_algorithm" = "TODO";
 "_all" = "Все записи";
 "_anErrorOccurred" = "Произошла ошибка...";
 "_appDeauthorized" = "Приложение деавторизовано";
@@ -11,11 +16,16 @@
 "_cancel" = "Отменить";
 "_clientSide" = "На стороне клиента";
 "_color" = "Цвет";
+"_configured" = "TODO";
+"_confirm" = "TODO";
 "_confirmAction" = "Подтвердить действие";
 "_connect" = "Подключиться";
 "_connectToServer" = "Подключиться к серверу";
+"_copyOtp" = "TODO";
 "_copyPassword" = "Скопировать пароль";
 "_copyUsername" = "Скопировать имя пользователя";
+"_counter" = "TODO";
+"_counterBased" = "TODO";
 "_create" = "Создать";
 "_created" = "Создан";
 "_createFolder" = "Создать папку";
@@ -33,10 +43,13 @@
 "_deletedPasswordMessage" = "Пароль был удален.";
 "_deleteFolder" = "Удалить папку";
 "_deleteFolderErrorMessage" = "При удалении папки произошла ошибка. Пожалуйста, попробуйте еще раз.";
+"_deleteOtp" = "TODO";
 "_deletePassword" = "Удалить пароль";
 "_deletePasswordErrorMessage" = "Произошла ошибка при удалении пароля. Пожалуйста, попробуйте еще раз.";
 "_deleteTag" = "Удалить метки";
 "_deleteTagErrorMessage" = "Произошла ошибка при удалении метки. Пожалуйста, попробуйте еще раз.";
+"_detectQrCodeInPicture" = "TODO";
+"_digits" = "TODO";
 "_discardChanges" = "Отменить изменения";
 "_dismiss" = "Закрыть";
 "_done" = "Готово";
@@ -51,6 +64,8 @@
 "_encryptedOfflineStorage" = "Зашифровать автономное хранилище";
 "_encryption" = "Шифрование";
 "_error" = "Ошибка";
+"_exportAsQrCode" = "TODO";
+"_extractOtpErrorMessage" = "TODO";
 "_favorite" = "Избранное";
 "_favorites" = "Избранное";
 "_file" = "Файл";
@@ -68,6 +83,7 @@
 "_logIn" = "Войти";
 "_logOut" = "Выйти";
 "_metadata" = "Метаданные";
+"_moreOptions" = "TODO";
 "_move" = "Переместить";
 "_name" = "Название";
 "_nextcloudServerAddress" = "Адрес сервера Nextcloud";
@@ -79,6 +95,8 @@
 "_offline" = "Вне сети";
 "_openUrl" = "Открыть URL";
 "_options" = "Опции";
+"_otp" = "TODO";
+"_otps" = "TODO";
 "_password" = "Пароль";
 "_passwordGenerator" = "Генератор паролей";
 "_passwords" = "Пароли";
@@ -90,8 +108,11 @@
 "_passwordStatusGoodMessage2" = "Этот пароль не был скомпрометирован.";
 "_passwordStatusGoodMessage3" = "Этот пароль не нарушает пользовательских правил.";
 "_passwordStatusOutdatedMessage" = "Этот пароль достиг максимального возраста.";
+"_periodSeconds" = "TODO";
 "_providerInstructionsMessage" = "Это приложение поддерживает автозаполнение пароля. Эта функция должна быть включена в приложении Настройки iOS:\n1. Откройте приложение Настройки\n2. Нажмите пункт Пароли\n3. Нажмите Автозаполнение паролей\n4. Включите Автозаполнение паролей\n5. Выберите из списка это приложение"; // Убедитесь, что сохраняете новые строки (\n), не переводите "Автозаполнение паролей" и убедитесь, что используете точно такую же формулировку, которую Apple использует для каждого шага
+"_qrCaptureErrorMessage" = "TODO";
 "_reject" = "Отклонить";
+"_scanQrCode" = "TODO";
 "_secret" = "Секрет";
 "_security" = "Безопасность";
 "_select" = "Выбрать";
@@ -100,6 +121,8 @@
 "_serverSide" = "На стороне сервера";
 "_service" = "Сервис";
 "_settings" = "Настройки";
+"_shareOtpWarningMessage" = "TODO";
+"_shareQrCode" = "TODO";
 "_sourceCode" = "Исходный код";
 "_specialCharacters" = "Специальные символы";
 "_storePassword" = "Хранить пароль E2E";
@@ -110,6 +133,7 @@
 "_tags" = "Метки";
 "_text" = "Текст";
 "_thanksMessage" = "Спасибо всему сообществу Nextcloud и всем участникам за создание такой удивительной экосистемы. Надеюсь, я смогу внести свой вклад в это приложение.";
+"_timeBased" = "TODO";
 "_tipDeferred" = "Процес пожертвования перерван";
 "_tipDeferredMessage" = "Ваше пожертвование сейчас ожидают одобрения.";
 "_tipFailed" = "Пожертвование не одобрено";
@@ -117,6 +141,7 @@
 "_tipReceived" = "Пожертвование получено";
 "_tipReceivedMessage" = "Спасибо, что поддержали проект!";
 "_tryAgain" = "Попытаться заново";
+"_type" = "TODO";
 "_unlockApp" = "Разблокировать приложение";
 "_updated" = "Обновлен";
 "_url" = "URL";

@@ -1,8 +1,13 @@
 "_about" = "Über";
+"_aboutOtps" = "Über Einmalpasswörter";
+"_aboutOtpsMessage" = "Diese App unterstützt Einmalpasswörter nur zwecks Komfort. Ein Einmalpasswort zusammen mit dem Account-Passwort zu speichern macht einige der Sicherheitsvorteile von Multi-Faktor-Authentisierung unwirksam. Einen zweiten Faktor zu aktivieren ist besser, als gar keinen zu verwenden, allerdings ist eine unabhängige Einmalpasswort-App sicherer. Speichere KEINE Einmalpasswörter für deinen Nextcloud-Account oder kritische Accounts, wie beispielsweise E-Mail- oder Online-Banking-Accounts. Einmalpasswörter werden über deine Nextcloud-Passwörter-Instanz synchronisiert, sind aber aktuell nur von der iOS-App unterstützt (v2.6 oder neuer).";
 "_accept" = "Akzeptieren";
 "_account" = "Account";
 "_addCustomField" = "Benutzerdefiniertes Feld hinzufügen";
+"_addManually" = "Manuell hinzufügen";
+"_addOtp" = "Einmalpasswort hinzufügen";
 "_addTags" = "Tags hinzufügen";
+"_algorithm" = "Algorithmus";
 "_all" = "Alle";
 "_anErrorOccurred" = "Es ist ein Fehler aufgetreten ...";
 "_appDeauthorized" = "App deautorisiert";
@@ -11,11 +16,16 @@
 "_cancel" = "Abbrechen";
 "_clientSide" = "Client-seitig";
 "_color" = "Farbe";
+"_configured" = "Konfiguriert";
+"_confirm" = "Bestätigen";
 "_confirmAction" = "Aktion bestätigen";
 "_connect" = "Verbinden";
 "_connectToServer" = "Mit Server verbinden";
+"_copyOtp" = "Einmalpasswort kopieren";
 "_copyPassword" = "Passwort kopieren";
 "_copyUsername" = "Benutzername kopieren";
+"_counter" = "Zähler";
+"_counterBased" = "Zählerbasiert";
 "_create" = "Erstellen";
 "_created" = "Erstellt";
 "_createFolder" = "Ordner hinzufügen";
@@ -33,10 +43,13 @@
 "_deletedPasswordMessage" = "Dieses Passwort wurde gelöscht.";
 "_deleteFolder" = "Ordner löschen";
 "_deleteFolderErrorMessage" = "Beim Löschen des Ordners ist ein Fehler aufgetreten. Bitte lösche den Ordner nochmals.";
+"_deleteOtp" = "Einmalpasswort löschen";
 "_deletePassword" = "Passwort löschen";
 "_deletePasswordErrorMessage" = "Beim Löschen des Passworts ist ein Fehler aufgetreten. Bitte lösche das Passwort nochmals.";
 "_deleteTag" = "Tag löschen";
 "_deleteTagErrorMessage" = "Beim Löschen des Tags ist ein Fehler aufgetreten. Bitte lösche den Tag nochmals.";
+"_detectQrCodeInPicture" = "QR-Code in Bild erkennen";
+"_digits" = "Ziffern";
 "_discardChanges" = "Änderungen verwerfen";
 "_dismiss" = "Schließen";
 "_done" = "Fertig";
@@ -51,6 +64,8 @@
 "_encryptedOfflineStorage" = "Verschlüsselte Offline-Speicherung";
 "_encryption" = "Verschlüsselung";
 "_error" = "Fehler";
+"_exportAsQrCode" = "Exportiere als QR-Code";
+"_extractOtpErrorMessage" = "Bei der Suche nach einem QR-Code im ausgewählten Bild ist ein Fehler aufgetreten.";
 "_favorite" = "Favorit";
 "_favorites" = "Favoriten";
 "_file" = "Datei";
@@ -68,6 +83,7 @@
 "_logIn" = "Anmelden";
 "_logOut" = "Abmelden";
 "_metadata" = "Metadaten";
+"_moreOptions" = "Weitere Optionen";
 "_move" = "Bewegen";
 "_name" = "Name";
 "_nextcloudServerAddress" = "Nextcloud-Serveradresse";
@@ -79,6 +95,8 @@
 "_offline" = "Offline";
 "_openUrl" = "URL öffnen";
 "_options" = "Optionen";
+"_otp" = "Einmalpasswort";
+"_otps" = "Einmalpasswörter";
 "_password" = "Passwort";
 "_passwordGenerator" = "Passwortgenerator";
 "_passwords" = "Passwörter";
@@ -90,8 +108,11 @@
 "_passwordStatusGoodMessage2" = "Es wurde nicht kompromittiert.";
 "_passwordStatusGoodMessage3" = "Es verstößt nicht gegen nutzerdefinierte Regeln.";
 "_passwordStatusOutdatedMessage" = "Dieses Passwort hat das maximale Alter erreicht.";
+"_periodSeconds" = "Periode (Sekunden)";
 "_providerInstructionsMessage" = "Diese App unterstützt Password AutoFill. Das Feature muss in der iOS Einstellungen App aktiviert werden:\n1. Öffne die Einstellungen App\n2. Tippe auf Passwörter\n3. Tippe auf Automatisch ausfüllen\n4. Aktiviere Automatisch ausfüllen\n5. Aktiviere diese App";
+"_qrCaptureErrorMessage" = "Beim Starten der Kamera ist ein Fehler aufgetreten.";
 "_reject" = "Ablehnen";
+"_scanQrCode" = "QR-Code scannen";
 "_secret" = "Geheimnis";
 "_security" = "Sicherheit";
 "_select" = "Auswählen";
@@ -100,6 +121,8 @@
 "_serverSide" = "Server-seitig";
 "_service" = "Dienst";
 "_settings" = "Einstellungen";
+"_shareOtpWarningMessage" = "Dieser QR-Code enthält hochsensible Daten zum Einmalpasswort";
+"_shareQrCode" = "QR-Code teilen";
 "_sourceCode" = "Quellcode";
 "_specialCharacters" = "Sonderzeichen";
 "_storePassword" = "Passwort speichern";
@@ -110,6 +133,7 @@
 "_tags" = "Tags";
 "_text" = "Text";
 "_thanksMessage" = "Vielen Dank an die gesamte Nextcloud-Community und alle Beteiligten, die dieses großartige Ökosystem möglich machen. Ich hoffe, dass ich mit dieser App etwas beitragen kann.";
+"_timeBased" = "Zeitbasiert";
 "_tipDeferred" = "Trinkgeld zurückgehalten";
 "_tipDeferredMessage" = "Dein Trinkgeld wartet nun auf die Genehmigung.";
 "_tipFailed" = "Trinkgeld fehlgeschlagen";
@@ -117,6 +141,7 @@
 "_tipReceived" = "Trinkgeld erhalten";
 "_tipReceivedMessage" = "Danke, dass du dieses Projekt mit deinem Trinkgeld unterstützt!";
 "_tryAgain" = "Erneut versuchen";
+"_type" = "Art";
 "_unlockApp" = "App entsperren";
 "_updated" = "Geändert";
 "_url" = "URL";

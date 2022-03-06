@@ -16,9 +16,10 @@ struct EditPasswordPage: View {
     @ScaledMetric private var customFieldTypeIconWidth = 30.0
     @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showPasswordGenerator: Bool
+    @AppStorage("didAcceptAboutOtps", store: Configuration.userDefaults) private var didAcceptAboutOtps = Configuration.defaults["didAcceptAboutOtps"] as! Bool // swiftlint:disable:this force_cast
     @State private var editMode = false
-    @State private var showSelectTagsView = false
-    @State private var showSelectFolderView = false
+    @State private var sheetItem: SheetItem?
+    @State private var showAboutOtpsPopover = false
     @State private var showCancelAlert = false
     
     init(entriesController: EntriesController, password: Password) {
@@ -113,8 +114,7 @@ struct EditPasswordPage: View {
                         }
                     }
                     .onSubmit {
-                        guard !showSelectFolderView,
-                              !showSelectTagsView else { /// Prevent submit handling when page is not visible
+                        guard sheetItem == nil else { /// Prevent submit handling when page is not visible
                             return
                         }
                         if let next = focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) {
@@ -124,6 +124,61 @@ struct EditPasswordPage: View {
                             applyAndDismiss()
                         }
                     }
+            }
+        }
+        .sheet(item: $sheetItem) {
+            item in
+            switch item {
+            case .edit(let otp):
+                EditOTPNavigation(otp: OTP(type: otp.type, algorithm: otp.algorithm, secret: otp.secret, digits: otp.digits, counter: otp.counter, period: otp.period, issuer: editPasswordController.passwordLabel, accountname: editPasswordController.passwordUsername) ?? otp, updateOtp: {
+                    otp in
+                    editPasswordController.passwordOtp = otp
+                })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(settingsController)
+                    .environmentObject(tipController)
+            case .scanQrCode:
+                CaptureOTPNavigation {
+                    otp in
+                    editPasswordController.passwordOtp = otp
+                }
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(settingsController)
+                .environmentObject(tipController)
+            case .detectQrCode:
+                ImagePicker {
+                    image in
+                    editPasswordController.extractOtp(from: image)
+                }
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(settingsController)
+                .environmentObject(tipController)
+            case .selectTags:
+                SelectTagsNavigation(entriesController: editPasswordController.entriesController, temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
+                    validTags, _ in
+                    editPasswordController.passwordValidTags = validTags
+                })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(settingsController)
+                    .environmentObject(tipController)
+            case .selectFolder:
+                SelectFolderNavigation(entriesController: editPasswordController.entriesController, entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), selectFolder: {
+                    parent in
+                    editPasswordController.passwordFolder = parent.id
+                })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(settingsController)
+                    .environmentObject(tipController)
             }
         }
     }
@@ -172,6 +227,9 @@ struct EditPasswordPage: View {
                     }
                 }
                 .accessibility(identifier: "showPasswordButton")
+            #if DEBUG
+                otpSection()
+            #endif
         }
     }
     
@@ -209,11 +267,99 @@ struct EditPasswordPage: View {
                 }
             }
             .disabled(editPasswordController.showProgressView)
-            .alert(isPresented: $editPasswordController.showErrorAlert) {
+            .alert(isPresented: $editPasswordController.showPasswordServiceErrorAlert) {
                 Alert(title: Text("_error"), message: Text("_passwordServiceErrorMessage"))
             }
         }
         .accessibility(identifier: "passwordGenerator")
+    }
+    
+    @ViewBuilder private func otpSection() -> some View {
+        if let otp = editPasswordController.passwordOtp {
+            Button {
+                sheetItem = .edit(otp: otp)
+            }
+            label: {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("_otp")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Spacer()
+                        Label("_configured", systemImage: "checkmark.circle")
+                            .foregroundColor(.green)
+                    }
+                    Spacer()
+                    NavigationLink(destination: EmptyView()) {
+                        EmptyView()
+                    }
+                    .fixedSize()
+                }
+            }
+        }
+        else if !didAcceptAboutOtps {
+            Button {
+                showAboutOtpsPopover = true
+            }
+            label: {
+                Label("_addOtp", systemImage: "ellipsis.rectangle")
+            }
+            .disabled(editPasswordController.passwordCustomFieldCount >= 20)
+            .popover(isPresented: $showAboutOtpsPopover, content: {
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        Text("_aboutOtps")
+                            .font(.title2.bold())
+                        Spacer()
+                        Text("_aboutOtpsMessage")
+                        Spacer()
+                        Button {
+                            showAboutOtpsPopover = false
+                            didAcceptAboutOtps = true
+                        }
+                        label: {
+                            Text("_confirm")
+                        }
+                        .buttonStyle(.action)
+                    }
+                    .padding()
+                }
+            })
+        }
+        else {
+            Menu {
+                Button {
+                    sheetItem = .scanQrCode
+                }
+                label: {
+                    Label("_scanQrCode", systemImage: "qrcode")
+                }
+                .disabled(UIApplication.isExtension)
+                Button {
+                    sheetItem = .detectQrCode
+                }
+                label: {
+                    Label("_detectQrCodeInPicture", systemImage: "photo")
+                }
+                Button {
+                    guard let otp = OTP() else {
+                        return
+                    }
+                    sheetItem = .edit(otp: otp)
+                }
+                label: {
+                    Label("_addManually", systemImage: "rectangle.and.pencil.and.ellipsis")
+                }
+            }
+            label: {
+                Label("_addOtp", systemImage: "ellipsis.rectangle")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .disabled(editPasswordController.passwordCustomFieldCount >= 20)
+            .alert(isPresented: $editPasswordController.showExtractOtpErrorAlert) {
+                Alert(title: Text("_error"), message: Text("_extractOtpErrorMessage"))
+            }
+        }
     }
     
     private func customFieldsSection() -> some View {
@@ -290,8 +436,9 @@ struct EditPasswordPage: View {
                 editPasswordController.passwordCustomUserFields.append(Password.CustomField(label: "", type: .text, value: ""))
             }
             label: {
-                Label("_addCustomField", systemImage: "plus.circle")
+                Label("_addCustomField", systemImage: "rectangle.and.paperclip")
             }
+            .disabled(editPasswordController.passwordCustomFieldCount >= 20)
         }
     }
     
@@ -314,7 +461,7 @@ struct EditPasswordPage: View {
     private func tagsSection() -> some View {
         Section(header: Text("_tags")) {
             Button {
-                showSelectTagsView = true
+                sheetItem = .selectTags
             }
             label: {
                 HStack {
@@ -335,24 +482,13 @@ struct EditPasswordPage: View {
                     .fixedSize()
                 }
             }
-            .sheet(isPresented: $showSelectTagsView) {
-                SelectTagsNavigation(entriesController: editPasswordController.entriesController, temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
-                    validTags, _ in
-                    editPasswordController.passwordValidTags = validTags
-                })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
-            }
         }
     }
     
     private func moveSection() -> some View {
         Section(header: Text("_folder")) {
             Button {
-                showSelectFolderView = true
+                sheetItem = .selectFolder
             }
             label: {
                 HStack {
@@ -363,17 +499,6 @@ struct EditPasswordPage: View {
                     }
                     .fixedSize()
                 }
-            }
-            .sheet(isPresented: $showSelectFolderView) {
-                SelectFolderNavigation(entriesController: editPasswordController.entriesController, entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), selectFolder: {
-                    parent in
-                    editPasswordController.passwordFolder = parent.id
-                })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
             }
         }
     }
@@ -429,7 +554,26 @@ struct EditPasswordPage: View {
 
 extension EditPasswordPage {
     
-    enum FocusField: Hashable {
+    private enum SheetItem: Identifiable, Hashable {
+        
+        case edit(otp: OTP)
+        case scanQrCode
+        case detectQrCode
+        case selectTags
+        case selectFolder
+        
+        var id: Int {
+            hashValue
+        }
+        
+    }
+    
+}
+
+
+extension EditPasswordPage {
+    
+    private enum FocusField: Hashable {
         
         enum CustomFieldRow { // swiftlint:disable:this nesting
             case label

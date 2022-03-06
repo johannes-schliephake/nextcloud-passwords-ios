@@ -72,7 +72,8 @@ struct PasswordDetailPage: View {
             geometryProxy in
             VStack(spacing: 0) {
                 listView()
-                if let complete = autoFillController.complete {
+                if let complete = autoFillController.complete,
+                   autoFillController.mode == .provider || autoFillController.mode == .extension && password.otp != nil {
                     Divider()
                     selectView(geometryProxy: geometryProxy, complete: complete)
                 }
@@ -110,7 +111,7 @@ struct PasswordDetailPage: View {
             }
             serviceSection()
             accountSection()
-            if !password.customFields.isEmpty {
+            if !password.customUserFields.isEmpty {
                 customFieldsSection()
             }
             if !password.notes.isEmpty {
@@ -290,12 +291,35 @@ struct PasswordDetailPage: View {
         Section(header: Text("_account")) {
             LabeledRow(type: .text, label: "_username" as LocalizedStringKey, value: password.username, copiable: true)
             LabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: password.password, copiable: true)
+            if let otp = password.otp {
+                HStack {
+                    OTPDisplay(otp: otp) {
+                        otp in
+                        password.updated = Date()
+                        password.otp = otp
+                        entriesController.update(password: password)
+                    }
+                    content: {
+                        current, accessoryView in
+                        LabeledRow(type: .pin, label: "_otp" as LocalizedStringKey, value: current ?? "", copiable: true)
+                        Spacer()
+                        switch otp.type {
+                        case .hotp:
+                            accessoryView
+                        case .totp:
+                            accessoryView
+                                .padding(.horizontal, 4)
+                        }
+                    }
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                }
+            }
         }
     }
     
     private func customFieldsSection() -> some View {
         Section(header: Text("_customFields")) {
-            ForEach(password.customFields.filter { $0.type != .data }) {
+            ForEach(password.customUserFields) {
                 customField in
                 LabeledRow(type: LabeledRow.RowType(rawValue: customField.type.rawValue) ?? .text, label: customField.label, value: customField.value, copiable: true)
             }
@@ -377,7 +401,17 @@ struct PasswordDetailPage: View {
         VStack {
             VStack {
                 Button("_select") {
-                    complete(password.username, password.password)
+                    switch autoFillController.mode {
+                    case .app:
+                        break
+                    case .provider:
+                        complete(password.username, password.password)
+                    case .extension:
+                        guard let currentOtp = password.otp?.current else {
+                            return
+                        }
+                        complete(password.username, currentOtp)
+                    }
                 }
                 .buttonStyle(.action)
                 .disabled(password.state == .decryptionFailed)
@@ -459,7 +493,7 @@ struct PasswordDetailPage: View {
 
 extension PasswordDetailPage {
     
-    enum NavigationSelection: Hashable {
+    private enum NavigationSelection: Hashable {
         
         case entries(tag: Tag)
         

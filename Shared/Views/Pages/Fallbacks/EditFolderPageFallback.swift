@@ -182,7 +182,7 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
 
 extension EditFolderPageFallback {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case folderLabel
     }
     
