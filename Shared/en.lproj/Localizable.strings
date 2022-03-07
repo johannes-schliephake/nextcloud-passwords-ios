@@ -101,13 +101,11 @@
 "_passwordGenerator" = "Password Generator";
 "_passwords" = "Passwords";
 "_passwordServiceErrorMessage" = "An error occurred while generating the password.";
-"_passwordStatusBreachedMessage1" = "This password has been compromised.";
-"_passwordStatusBreachedMessage2" = "It is not safe to use."; // It = the password
+"_passwordStatusBreachedMessage" = "This password is not safe to use. It has been found in a database of compromised passwords."; // In earlier versions this value was split into two strings
 "_passwordStatusDuplicateMessage" = "This password is being used more than once.";
-"_passwordStatusGoodMessage1" = "This password is safe.";
-"_passwordStatusGoodMessage2" = "It has not been breached."; // It = the password
-"_passwordStatusGoodMessage3" = "It doesn't violate user defined rules."; // It = the password
-"_passwordStatusOutdatedMessage" = "This password has reached the maximum age."; // "Maximum age": Use the same wording that the web client uses in it's settings
+"_passwordStatusGoodMessage" = "This password is safe to use. It has not been breached and doesn't violate user defined rules."; // In earlier versions this value was split into three strings
+"_passwordStatusOutdatedMessage" = "This password has reached the maximum age."; // "Maximum age": Use the same wording that the web client uses in its settings
+"_passwordStatusUnknownMessage" = "This password has not yet been checked for its security or the option to store hashes for security checks is disabled.";
 "_periodSeconds" = "Period (Seconds)"; // How long each OTP is valid in seconds
 "_providerInstructionsMessage" = "This app supports Password AutoFill. The feature has to be enabled in iOS's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap AutoFill Passwords\n4. Enable AutoFill Passwords\n5. Enable this app"; // Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step
 "_qrCaptureErrorMessage" = "An error occurred while launching the camera.";

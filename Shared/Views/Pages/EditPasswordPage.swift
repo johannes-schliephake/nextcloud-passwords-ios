@@ -307,12 +307,10 @@ struct EditPasswordPage: View {
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
             .popover(isPresented: $showAboutOtpsPopover, content: {
                 ScrollView {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 16) {
                         Text("_aboutOtps")
                             .font(.title2.bold())
-                        Spacer()
                         Text("_aboutOtpsMessage")
-                        Spacer()
                         Button {
                             showAboutOtpsPopover = false
                             didAcceptAboutOtps = true
@@ -322,6 +320,7 @@ struct EditPasswordPage: View {
                         }
                         .buttonStyle(.action)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 }
             })

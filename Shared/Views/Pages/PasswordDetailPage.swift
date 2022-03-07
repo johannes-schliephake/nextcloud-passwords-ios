@@ -24,6 +24,7 @@ struct PasswordDetailPage: View {
     @State private var passwordDeleted = false
     @State private var navigationSelection: NavigationSelection?
     @State private var showSelectTagsView = false
+    @State private var showPasswordStatusPopover = false
     
     // MARK: Views
     
@@ -95,7 +96,7 @@ struct PasswordDetailPage: View {
             Section {
                 HStack {
                     Spacer()
-                    passwordStatusMenu()
+                    passwordStatusIcon()
                     Spacer()
                     faviconImage()
                     Spacer()
@@ -123,35 +124,9 @@ struct PasswordDetailPage: View {
         .listStyle(.insetGrouped)
     }
     
-    private func passwordStatusMenu() -> some View {
-        Menu {
-            Section {
-                switch password.statusCode {
-                case .good:
-                    Text("_passwordStatusGoodMessage1")
-                    Text("_passwordStatusGoodMessage2")
-                    Text("_passwordStatusGoodMessage3")
-                case .outdated:
-                    Text("_passwordStatusOutdatedMessage")
-                case .duplicate:
-                    Text("_passwordStatusDuplicateMessage")
-                case .breached:
-                    Text("_passwordStatusBreachedMessage1")
-                    Text("_passwordStatusBreachedMessage2")
-                case .unknown:
-                    EmptyView() // TODO: Add message for unknown password status
-                }
-            }
-            if password.editable,
-               password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
-                Button {
-                    showEditPasswordView = true
-                }
-                label: {
-                    Label("_editPassword", systemImage: "pencil")
-                }
-                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-            }
+    private func passwordStatusIcon() -> some View {
+        Button {
+            showPasswordStatusPopover = true
         }
         label: {
             switch password.statusCode {
@@ -177,6 +152,39 @@ struct PasswordDetailPage: View {
                         .foregroundColor(Color(.systemGroupedBackground))
                         .scaleEffect(0.5)
                 }
+            }
+        }
+        .buttonStyle(.borderless)
+        .popover(isPresented: $showPasswordStatusPopover) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    switch password.statusCode {
+                    case .good:
+                        Text("_passwordStatusGoodMessage")
+                    case .outdated:
+                        Text("_passwordStatusOutdatedMessage")
+                    case .duplicate:
+                        Text("_passwordStatusDuplicateMessage")
+                    case .breached:
+                        Text("_passwordStatusBreachedMessage")
+                    case .unknown:
+                        Text("_passwordStatusUnknownMessage")
+                    }
+                    if password.editable,
+                       password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
+                        Divider()
+                        Button {
+                            showPasswordStatusPopover = false
+                            showEditPasswordView = true
+                        }
+                        label: {
+                            Label("_editPassword", systemImage: "pencil")
+                        }
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
             }
         }
     }

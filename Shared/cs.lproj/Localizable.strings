@@ -101,13 +101,11 @@
 "_passwordGenerator" = "Generátor hesel";
 "_passwords" = "Hesla";
 "_passwordServiceErrorMessage" = "Došlo k chybě při vytváření hesla.";
-"_passwordStatusBreachedMessage1" = "Toto heslo bylo kompromitováné.";
-"_passwordStatusBreachedMessage2" = "Není bezpečné ho používat.";
+"_passwordStatusBreachedMessage" = "TODO"; // Toto heslo bylo kompromitováné. Není bezpečné ho používat.
 "_passwordStatusDuplicateMessage" = "Toto heslo už používáte pro něco jiného.";
-"_passwordStatusGoodMessage1" = "Toto heslo je bezpečné.";
-"_passwordStatusGoodMessage2" = "Nebylo prolomeno.";
-"_passwordStatusGoodMessage3" = "Neporušuje uživatelem určená pravidla.";
+"_passwordStatusGoodMessage" = "TODO"; // Toto heslo je bezpečné. Nebylo prolomeno. Neporušuje uživatelem určená pravidla.
 "_passwordStatusOutdatedMessage" = "Heslo už bylo příliš dlouho nezměněno.";
+"_passwordStatusUnknownMessage" = "TODO";
 "_periodSeconds" = "TODO";
 "_providerInstructionsMessage" = "Tato aplikace podporuje automatické vyplňování hesel. Tuto funkci je třeba zapnout v nastavení systému iOS:\n1. Otevřete aplikaci Nastavení\n2. Klepněte na Hesla\n3. Klepněte na automatické vyplňování hesel\n4. Zapněte automatické vyplňování hesel\n5. Povolte pro tuto aplikaci";
 "_qrCaptureErrorMessage" = "TODO";

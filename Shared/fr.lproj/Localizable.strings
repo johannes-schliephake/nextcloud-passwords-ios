@@ -101,13 +101,11 @@
 "_passwordGenerator" = "Générateur de mot de passe";
 "_passwords" = "Mots de passe";
 "_passwordServiceErrorMessage" = "Une erreur est survenue durant la génération du mot de passe.";
-"_passwordStatusBreachedMessage1" = "Ce mot de passe a été compromis.";
-"_passwordStatusBreachedMessage2" = "Ce n'est pas sécurisé à utiliser.";
+"_passwordStatusBreachedMessage" = "TODO"; // Ce mot de passe a été compromis. Ce n'est pas sécurisé à utiliser.
 "_passwordStatusDuplicateMessage" = "Ce mot de passe a été utilisé plus d'une fois.";
-"_passwordStatusGoodMessage1" = "Ce mot de passe est sécurisé.";
-"_passwordStatusGoodMessage2" = "Il n'a pas été fuité.";
-"_passwordStatusGoodMessage3" = "Il ne viole pas les règles choisies.";
+"_passwordStatusGoodMessage" = "TODO"; // Ce mot de passe est sécurisé. Il n'a pas été fuité. Il ne viole pas les règles choisies.
 "_passwordStatusOutdatedMessage" = "Ce mot de passe est arrivé à expiration.";
+"_passwordStatusUnknownMessage" = "TODO";
 "_periodSeconds" = "TODO";
 "_providerInstructionsMessage" = "Cette application supporte le préremplissage de mot de passe. La fonctionnalité doit être activée dans les Paramètres iOS :\n1. Ouvrir les Paramètres\n2. Appuyez sur Mots de passe\n3. Appuyez Préremplir les mots de passe\n4. Activer préremplir les mots de passe\n5. Autoriser le remplissage par cette application.";
 "_qrCaptureErrorMessage" = "TODO";

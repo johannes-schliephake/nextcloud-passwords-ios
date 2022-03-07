@@ -101,13 +101,11 @@
 "_passwordGenerator" = "Генератор паролей";
 "_passwords" = "Пароли";
 "_passwordServiceErrorMessage" = "При генерации пароля произошла ошибка.";
-"_passwordStatusBreachedMessage1" = "Этот пароль был скомпрометирован.";
-"_passwordStatusBreachedMessage2" = "Этот пароль небезопасен.";
+"_passwordStatusBreachedMessage" = "TODO"; // Этот пароль был скомпрометирован. Этот пароль небезопасен.
 "_passwordStatusDuplicateMessage" = "Этот пароль используется более одного раза.";
-"_passwordStatusGoodMessage1" = "Этот пароль безопасен.";
-"_passwordStatusGoodMessage2" = "Этот пароль не был скомпрометирован.";
-"_passwordStatusGoodMessage3" = "Этот пароль не нарушает пользовательских правил.";
+"_passwordStatusGoodMessage" = "TODO"; // Этот пароль безопасен. Этот пароль не был скомпрометирован. Этот пароль не нарушает пользовательских правил.
 "_passwordStatusOutdatedMessage" = "Этот пароль достиг максимального возраста.";
+"_passwordStatusUnknownMessage" = "TODO";
 "_periodSeconds" = "TODO";
 "_providerInstructionsMessage" = "Это приложение поддерживает автозаполнение пароля. Эта функция должна быть включена в приложении Настройки iOS:\n1. Откройте приложение Настройки\n2. Нажмите пункт Пароли\n3. Нажмите Автозаполнение паролей\n4. Включите Автозаполнение паролей\n5. Выберите из списка это приложение"; // Убедитесь, что сохраняете новые строки (\n), не переводите "Автозаполнение паролей" и убедитесь, что используете точно такую же формулировку, которую Apple использует для каждого шага
 "_qrCaptureErrorMessage" = "TODO";
