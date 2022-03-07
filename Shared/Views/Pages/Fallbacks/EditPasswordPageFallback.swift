@@ -376,6 +376,8 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                     Text("_edit")
                 }
             }
+            .disabled(editPasswordController.passwordCustomUserFields.isEmpty)
+            .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { editMode = editMode && !$0 }
         }) {
             ForEach(editPasswordController.passwordCustomUserFields.indices, id: \.self) {
                 customUserFieldIndex in
