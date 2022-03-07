@@ -140,7 +140,7 @@ struct EditTagPageFallback: View { /// This insanely dumb workaround (duplicated
                 HStack {
                     Label("_selectColor", systemImage: "paintpalette")
                         .foregroundColor(.primary)
-                    Image(systemName: "arrow.right")
+                    Image(systemName: "arrow.forward")
                         .foregroundColor(.primary)
                     Spacer()
                     ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)

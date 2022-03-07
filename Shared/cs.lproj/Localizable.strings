@@ -73,7 +73,9 @@
 "_folders" = "Složky";
 "_generatePassword" = "Vytvořit heslo";
 "_giveATip" = "Dát příspěvek";
+"_hash" = "TODO";
 "_highFive" = "High Five! 👏";
+"_id" = "TODO";
 "_incorrectPassword" = "Neplatné heslo";
 "_incorrectPasswordMessage" = "Zkuste to znovu.";
 "_integration" = "Napojení";

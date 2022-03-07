@@ -52,7 +52,7 @@ extension Popover {
             super.init()
             
             hostingController.modalPresentationStyle = .popover
-            hostingController.view.backgroundColor = .tertiarySystemBackground
+            hostingController.view.backgroundColor = .secondarySystemGroupedBackground
         }
         
         func adaptivePresentationStyle(for _: UIPresentationController) -> UIModalPresentationStyle {

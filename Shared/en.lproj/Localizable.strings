@@ -73,7 +73,9 @@
 "_folders" = "Folders";
 "_generatePassword" = "Generate Password";
 "_giveATip" = "Give a Tip"; // This is the label for starting an In-App purchase
+"_hash" = "Hash"; // E.g. a SHA1 hash
 "_highFive" = "High Five! 👏"; // Keep this in English
+"_id" = "ID";
 "_incorrectPassword" = "Incorrect Password";
 "_incorrectPasswordMessage" = "Please try again.";
 "_integration" = "Integration"; // I.e. integration into the OS (Password AutoFill)

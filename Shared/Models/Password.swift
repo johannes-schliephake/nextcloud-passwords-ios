@@ -202,6 +202,18 @@ final class Password: ObservableObject, Identifiable {
             .reduce(0.0, +)
     }
     
+    func ancestors(in folders: [Folder]) -> [Folder] {
+        let folders = folders + [Folder()]
+        var ancestors = [Folder]()
+        var parentId: String? = folder
+        while parentId != nil,
+              let parent = folders.first(where: { $0.id == parentId }) {
+            ancestors.insert(parent, at: 0)
+            parentId = parent.parent
+        }
+        return ancestors
+    }
+    
     func isDescendentOf(folder: Folder, in folders: [Folder]) -> Bool {
         /// Add folder to folders because base folder is not stored in folders
         let folders = folders + [folder]

@@ -1109,55 +1109,52 @@ extension EntriesPageFallback {
         
         private func wrapperStack() -> some View {
             HStack {
-                if let folders = entriesController.folders,
-                   let tags = entriesController.tags {
-                    if let complete = autoFillController.complete {
-                        Button {
-                            switch autoFillController.mode {
-                            case .app:
-                                break
-                            case .provider:
-                                complete(password.username, password.password)
-                            case .extension:
-                                guard let currentOtp = password.otp?.current else {
-                                    return
-                                }
-                                complete(password.username, currentOtp)
+                if let complete = autoFillController.complete {
+                    Button {
+                        switch autoFillController.mode {
+                        case .app:
+                            break
+                        case .provider:
+                            complete(password.username, password.password)
+                        case .extension:
+                            guard let currentOtp = password.otp?.current else {
+                                return
                             }
+                            complete(password.username, currentOtp)
                         }
-                        label: {
-                            mainStack()
-                                .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                        .frame(maxWidth: .infinity)
-                        Spacer()
-                        Button {
-                            showPasswordDetailView = true
-                        }
-                        label: {
-                            Image(systemName: "info.circle")
-                        }
-                        .buttonStyle(.borderless)
-                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, tags: tags, updatePassword: {
-                            entriesController.update(password: password)
-                        }, deletePassword: {
-                            entriesController.delete(password: password)
-                        }), isActive: $showPasswordDetailView) {}
-                        .isDetailLink(true)
-                        .frame(width: 0, height: 0)
-                        .opacity(0)
                     }
-                    else {
-                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, tags: tags, updatePassword: {
-                            entriesController.update(password: password)
-                        }, deletePassword: {
-                            entriesController.delete(password: password)
-                        })) {
-                            mainStack()
-                        }
-                        .isDetailLink(true)
+                    label: {
+                        mainStack()
+                            .contentShape(Rectangle())
                     }
+                    .buttonStyle(.plain)
+                    .frame(maxWidth: .infinity)
+                    Spacer()
+                    Button {
+                        showPasswordDetailView = true
+                    }
+                    label: {
+                        Image(systemName: "info.circle")
+                    }
+                    .buttonStyle(.borderless)
+                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
+                        entriesController.update(password: password)
+                    }, deletePassword: {
+                        entriesController.delete(password: password)
+                    }), isActive: $showPasswordDetailView) {}
+                    .isDetailLink(true)
+                    .frame(width: 0, height: 0)
+                    .opacity(0)
+                }
+                else {
+                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
+                        entriesController.update(password: password)
+                    }, deletePassword: {
+                        entriesController.delete(password: password)
+                    })) {
+                        mainStack()
+                    }
+                    .isDetailLink(true)
                 }
             }
         }

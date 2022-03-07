@@ -140,7 +140,7 @@ struct EditTagPage: View {
                 HStack {
                     Label("_selectColor", systemImage: "paintpalette")
                         .foregroundColor(.primary)
-                    Image(systemName: "arrow.right")
+                    Image(systemName: "arrow.forward")
                         .foregroundColor(.primary)
                     Spacer()
                     ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)

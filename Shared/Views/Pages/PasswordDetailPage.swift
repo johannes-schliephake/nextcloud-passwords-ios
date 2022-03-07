@@ -5,8 +5,6 @@ struct PasswordDetailPage: View {
     
     @ObservedObject var entriesController: EntriesController
     @ObservedObject var password: Password
-    let folders: [Folder]
-    let tags: [Tag]
     let updatePassword: () -> Void
     let deletePassword: () -> Void
     
@@ -17,6 +15,7 @@ struct PasswordDetailPage: View {
     @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
     
+    @AppStorage("showMetadata", store: Configuration.userDefaults) private var showMetadata = Configuration.defaults["showMetadata"] as! Bool // swiftlint:disable:this force_cast
     @State private var favicon: UIImage?
     @State private var showDeleteAlert = false
     @State private var showEditPasswordView = false
@@ -119,6 +118,7 @@ struct PasswordDetailPage: View {
                 notesSection()
             }
             metadataSection()
+                .listRowBackground(Color(UIColor.systemGroupedBackground))
             deleteButton()
         }
         .listStyle(.insetGrouped)
@@ -342,26 +342,79 @@ struct PasswordDetailPage: View {
     }
     
     private func metadataSection() -> some View {
-        Section(header: Text("_metadata")) {
-            HStack {
-                LabeledRow(type: .text, label: "_created" as LocalizedStringKey, value: password.created.formattedString)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Divider()
-                LabeledRow(type: .text, label: "_updated" as LocalizedStringKey, value: password.updated.formattedString)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+        Section {
+            DisclosureGroup(isExpanded: $showMetadata) {
+                VStack {
+                    labeledFootnote("_created") {
+                        Text(password.created.formattedString)
+                    }
+                    Spacer()
+                    labeledFootnote("_updated") {
+                        Text(password.updated.formattedString)
+                    }
+                    Spacer()
+                    labeledFootnote("_encryption") {
+                        switch (password.cseType, password.sseType) {
+                        case ("none", "none"),
+                            ("none", "unknown"):
+                            Text("-")
+                        case (_, "none"),
+                            (_, "unknown"):
+                            Text("_clientSide")
+                        case ("none", _):
+                            Text("_serverSide")
+                        case (_, _):
+                            Text("\("_clientSide".localized) & \("_serverSide".localized)")
+                        }
+                    }
+                    if let folders = entriesController.folders {
+                        let ancestorLabels = password.ancestors(in: folders).map { $0.label }
+                        Spacer()
+                        labeledFootnote("_folder") {
+                            FlowView(ancestorLabels, spacing: 5, alignment: .trailing) {
+                                ancestorLabel in
+                                HStack(spacing: 5) {
+                                    Text(ancestorLabel)
+                                    if ancestorLabel != ancestorLabels.last {
+                                        Image(systemName: "chevron.forward")
+                                            .foregroundColor(.gray)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Divider()
+                    labeledFootnote("_id") {
+                        Text(password.id.uppercased())
+                    }
+                    if let hashData = password.hash.data(using: .utf8) {
+                        Spacer()
+                        labeledFootnote("_hash") {
+                            Text(Crypto.SHA1.hash(hashData, humanReadable: true))
+                        }
+                    }
+                }
+                .listRowInsets(.init(top: 8, leading: 0, bottom: 8, trailing: 16))
             }
-            switch (password.cseType, password.sseType) {
-            case ("none", "none"),
-                 ("none", "unknown"):
-                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "-")
-            case (_, "none"),
-                 (_, "unknown"):
-                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "_clientSide".localized)
-            case ("none", _):
-                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "_serverSide".localized)
-            case (_, _):
-                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "\("_clientSide".localized) & \("_serverSide".localized)")
+            label: {
+                Text("_metadata")
+                    .textCase(.uppercase)
+                    .font(.footnote)
+                    .foregroundColor(.gray)
             }
+        }
+    }
+    
+    private func labeledFootnote<Content: View>(_ labelKey: LocalizedStringKey, @ViewBuilder content: () -> Content) -> some View {
+        HStack(alignment: .top) {
+            Text(labelKey)
+                .font(.footnote)
+                .foregroundColor(.gray)
+            Spacer()
+            content()
+                .font(.footnote)
+                .multilineTextAlignment(.trailing)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
     
@@ -515,7 +568,7 @@ struct PasswordDetailPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, folders: Folder.mocks, tags: Tag.mocks, updatePassword: {}, deletePassword: {})
+                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, updatePassword: {}, deletePassword: {})
             }
             .showColumns(false)
             .environmentObject(AutoFillController.mock)

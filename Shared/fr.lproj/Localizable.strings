@@ -73,7 +73,9 @@
 "_folders" = "Dossiers";
 "_generatePassword" = "Générer un mot de passe";
 "_giveATip" = "Donner un pourboire";
+"_hash" = "TODO";
 "_highFive" = "High Five! 👏";
+"_id" = "TODO";
 "_incorrectPassword" = "Mauvais mot de passe";
 "_incorrectPasswordMessage" = "Veuillez réessayer.";
 "_integration" = "Intégration";

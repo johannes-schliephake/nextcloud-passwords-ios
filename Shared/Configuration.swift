@@ -6,7 +6,8 @@ enum Configuration {
     static let defaults: [String: Any] = [
         "automaticallyGeneratePasswords": true,
         "storeOffline": true,
-        "didAcceptAboutOtps": false
+        "didAcceptAboutOtps": false,
+        "showMetadata": true
     ]
     
     static let shortVersionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String // swiftlint:disable:this force_cast
