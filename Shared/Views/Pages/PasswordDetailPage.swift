@@ -394,7 +394,7 @@ struct PasswordDetailPage: View {
                         }
                     }
                 }
-                .listRowInsets(.init(top: 8, leading: 0, bottom: 8, trailing: 16))
+                .listRowInsets(EdgeInsets(top: 8, leading: 0 - UIDevice.current.deviceSpecificPadding, bottom: 8, trailing: 16 - UIDevice.current.deviceSpecificPadding))
             }
             label: {
                 Text("_metadata")
