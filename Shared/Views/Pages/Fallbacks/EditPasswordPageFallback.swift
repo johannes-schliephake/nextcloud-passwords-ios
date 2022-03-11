@@ -19,7 +19,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     @AppStorage("didAcceptAboutOtps", store: Configuration.userDefaults) private var didAcceptAboutOtps = Configuration.defaults["didAcceptAboutOtps"] as! Bool // swiftlint:disable:this force_cast
     @State private var editMode = false
     @State private var sheetItem: SheetItem?
-    @State private var showAboutOtpsPopover = false
+    @State private var showAboutOtpsTooltip = false
     @State private var showCancelAlert = false
     
     init(entriesController: EntriesController, password: Password) {
@@ -299,30 +299,27 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
         }
         else if !didAcceptAboutOtps {
             Button {
-                showAboutOtpsPopover = true
+                showAboutOtpsTooltip = true
             }
             label: {
                 Label("_addOtp", systemImage: "ellipsis.rectangle")
             }
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
-            .popover(isPresented: $showAboutOtpsPopover, content: {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text("_aboutOtps")
-                            .font(.title2.bold())
-                        Text("_aboutOtpsMessage")
-                        Button {
-                            showAboutOtpsPopover = false
-                            didAcceptAboutOtps = true
-                        }
-                        label: {
-                            Text("_confirm")
-                        }
-                        .buttonStyle(.action)
+            .tooltip(isPresented: $showAboutOtpsTooltip, content: {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("_aboutOtps")
+                        .font(.title2.bold())
+                    Text("_aboutOtpsMessage")
+                    Button {
+                        showAboutOtpsTooltip = false
+                        didAcceptAboutOtps = true
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
+                    label: {
+                        Text("_confirm")
+                    }
+                    .buttonStyle(.action)
                 }
+                .padding()
             })
         }
         else {

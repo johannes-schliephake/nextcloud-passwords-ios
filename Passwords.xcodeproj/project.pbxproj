@@ -233,6 +233,9 @@
 		DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
 		DD718F2827B568E200F85780 /* String+Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD718F2727B568E200F85780 /* String+Segmented.swift */; };
 		DD718F2927B568E200F85780 /* String+Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD718F2727B568E200F85780 /* String+Segmented.swift */; };
+		DD889A1B27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */; };
+		DD889A1C27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */; };
+		DD889A1D27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */; };
 		DD95B07E27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */; };
 		DD95B07F27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */; };
 		DD95B08027D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */; };
@@ -255,7 +258,7 @@
 		DDB1697527D20C2200F4D752 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8F854E64262390FA008885C3 /* CoreData.xcdatamodeld */; };
 		DDB1697627D20C2500F4D752 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E120725D3CC33007A2166 /* Configuration.swift */; };
 		DDB1697727D20CC100F4D752 /* ServerSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F59F524256B1EFB00D9FE40 /* ServerSetupController.swift */; };
-		DDB1697827D20CC100F4D752 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0701D27C8F83B00FC65E2 /* Popover.swift */; };
+		DDB1697827D20CC100F4D752 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0701D27C8F83B00FC65E2 /* Tooltip.swift */; };
 		DDB1697927D20CC100F4D752 /* FolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F781F51267CC8B400BD3DC1 /* FolderController.swift */; };
 		DDB1697A27D20CC100F4D752 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F559A2125A0B23E00D7A39F /* MainView.swift */; };
 		DDB1697B27D20CC100F4D752 /* PasswordDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */; };
@@ -399,8 +402,8 @@
 		DDDB6B5A27A806ED007572B1 /* CaptureOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */; };
 		DDDF3388276F7FDE008EEB3F /* TagBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF3387276F7FDE008EEB3F /* TagBadge.swift */; };
 		DDDF3389276F7FDE008EEB3F /* TagBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDF3387276F7FDE008EEB3F /* TagBadge.swift */; };
-		DDE0701E27C8F83B00FC65E2 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0701D27C8F83B00FC65E2 /* Popover.swift */; };
-		DDE0701F27C8F83B00FC65E2 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0701D27C8F83B00FC65E2 /* Popover.swift */; };
+		DDE0701E27C8F83B00FC65E2 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0701D27C8F83B00FC65E2 /* Tooltip.swift */; };
+		DDE0701F27C8F83B00FC65E2 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE0701D27C8F83B00FC65E2 /* Tooltip.swift */; };
 		DDE48F5926FC70AF0082E96D /* EntriesPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */; };
 		DDE48F5A26FC70AF0082E96D /* EntriesPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */; };
 		DDE48F5C26FC79AF0082E96D /* EditFolderPageFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */; };
@@ -711,6 +714,7 @@
 		DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPNavigation.swift; sourceTree = "<group>"; };
 		DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledRow.swift; sourceTree = "<group>"; };
 		DD718F2727B568E200F85780 /* String+Segmented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Segmented.swift"; sourceTree = "<group>"; };
+		DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+OnSizeChange.swift"; sourceTree = "<group>"; };
 		DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceSpecificPadding.swift"; sourceTree = "<group>"; };
 		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
@@ -743,7 +747,7 @@
 		DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPNavigation.swift; sourceTree = "<group>"; };
 		DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPPage.swift; sourceTree = "<group>"; };
 		DDDF3387276F7FDE008EEB3F /* TagBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagBadge.swift; sourceTree = "<group>"; };
-		DDE0701D27C8F83B00FC65E2 /* Popover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
+		DDE0701D27C8F83B00FC65E2 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
 		DDE48F5826FC70AF0082E96D /* EntriesPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesPageFallback.swift; sourceTree = "<group>"; };
 		DDE48F5B26FC79AF0082E96D /* EditFolderPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderPageFallback.swift; sourceTree = "<group>"; };
 		DDE48F5E26FC79CA0082E96D /* EditPasswordPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordPageFallback.swift; sourceTree = "<group>"; };
@@ -909,16 +913,17 @@
 				DD29D1E327CF684A00B06835 /* ImagePicker.swift */,
 				DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */,
 				DD5DFA6327CE94F0003C2352 /* OTPDisplay.swift */,
-				DDE0701D27C8F83B00FC65E2 /* Popover.swift */,
 				DDB680D427A3DA6A00DEE540 /* QRCapture.swift */,
 				DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */,
 				8F59888825799C3200843696 /* SearchBar.swift */,
 				DD5B586D27D01CDC00E54E71 /* ShareSheet.swift */,
 				DDDF3387276F7FDE008EEB3F /* TagBadge.swift */,
 				8F65736925E3C4F200139163 /* TextView.swift */,
+				DDE0701D27C8F83B00FC65E2 /* Tooltip.swift */,
 				DDED770426E2186D0037A18D /* View+Apply.swift */,
 				DDA4FE7526E755C000D6F92E /* View+Initialize.swift */,
 				8F560E68258F54A900C896EE /* View+Occlude.swift */,
+				DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1641,7 +1646,7 @@
 				DDCE125927413FF6003912D0 /* CreateTagRequest.swift in Sources */,
 				8F560E69258F54A900C896EE /* View+Occlude.swift in Sources */,
 				8F55564A25716BD200F5D805 /* DeletePasswordRequest.swift in Sources */,
-				DDE0701E27C8F83B00FC65E2 /* Popover.swift in Sources */,
+				DDE0701E27C8F83B00FC65E2 /* Tooltip.swift in Sources */,
 				8FBE43B9258D599E003F7F34 /* Date+FormattedString.swift in Sources */,
 				8F696B4125E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
 				8F513A5F2560624F001C6EF9 /* Session.swift in Sources */,
@@ -1697,6 +1702,7 @@
 				8F59F521256AE65800D9FE40 /* ActionButtonStyle.swift in Sources */,
 				DDAE4A9027087E1D00088DD5 /* RefreshGesture.swift in Sources */,
 				DD67204227BAFCAD0078CF47 /* EditOTPPage.swift in Sources */,
+				DD889A1B27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */,
 				DD0E59AF27414873003D7D50 /* EditTagPageFallback.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1786,7 +1792,7 @@
 				DDCE125A27413FF6003912D0 /* CreateTagRequest.swift in Sources */,
 				8F560E6C258F5AD400C896EE /* View+Occlude.swift in Sources */,
 				8FC361B525827E4C00785371 /* SettingsPage.swift in Sources */,
-				DDE0701F27C8F83B00FC65E2 /* Popover.swift in Sources */,
+				DDE0701F27C8F83B00FC65E2 /* Tooltip.swift in Sources */,
 				8FC361D325827E5D00785371 /* DeletePasswordRequest.swift in Sources */,
 				8F696B4225E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
 				8FC361C925827E5500785371 /* Session.swift in Sources */,
@@ -1842,6 +1848,7 @@
 				8FC361DA25827E6100785371 /* Keychain.swift in Sources */,
 				DDAE4A9127087E1D00088DD5 /* RefreshGesture.swift in Sources */,
 				DD67204327BAFCAD0078CF47 /* EditOTPPage.swift in Sources */,
+				DD889A1C27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */,
 				DD0E59B027414873003D7D50 /* EditTagPageFallback.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1918,7 +1925,7 @@
 				DDB1699527D20CC200F4D752 /* AuthenticationChallengeController.swift in Sources */,
 				DDB169EE27D20CC300F4D752 /* EditTagPageFallback.swift in Sources */,
 				DDB169A327D20CC200F4D752 /* SelectTagsNavigation.swift in Sources */,
-				DDB1697827D20CC100F4D752 /* Popover.swift in Sources */,
+				DDB1697827D20CC100F4D752 /* Tooltip.swift in Sources */,
 				DDB1698027D20CC100F4D752 /* View+Occlude.swift in Sources */,
 				DDB169E727D20CC300F4D752 /* SelectFolderPage.swift in Sources */,
 				DDB169CC27D20CC200F4D752 /* TextView.swift in Sources */,
@@ -1984,6 +1991,7 @@
 				DDB1698827D20CC200F4D752 /* EditPasswordNavigation.swift in Sources */,
 				DDB169DD27D20CC200F4D752 /* QRCapture.swift in Sources */,
 				DDB1698C27D20CC200F4D752 /* EditOTPPage.swift in Sources */,
+				DD889A1D27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */,
 				DDB1697F27D20CC100F4D752 /* SelectFolderNavigation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

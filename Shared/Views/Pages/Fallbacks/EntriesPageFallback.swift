@@ -19,7 +19,7 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
     @State private var showSettingsView = false
     @State private var challengePassword = ""
     @State private var storeChallengePassword = false
-    @State private var showStorePasswordPopover = false
+    @State private var showStorePasswordTooltip = false
     @State private var sheetItem: SheetItem?
     @State private var actionSheetItem: ActionSheetItem?
     @State private var showFolderErrorAlert = false
@@ -211,20 +211,17 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                     HStack {
                         Text("_storePassword")
                         Button {
-                            showStorePasswordPopover = true
+                            showStorePasswordTooltip = true
                         }
                         label: {
                             Image(systemName: "questionmark.circle")
                         }
                         .buttonStyle(.borderless)
-                        .popover(isPresented: $showStorePasswordPopover) {
-                            ScrollView {
-                                VStack(alignment: .leading, spacing: 16) {
-                                    Text("_storePasswordMessage")
-                                }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding()
+                        .tooltip(isPresented: $showStorePasswordTooltip) {
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text("_storePasswordMessage")
                             }
+                            .padding()
                         }
                     }
                 }

@@ -23,7 +23,7 @@ struct PasswordDetailPage: View {
     @State private var passwordDeleted = false
     @State private var navigationSelection: NavigationSelection?
     @State private var showSelectTagsView = false
-    @State private var showPasswordStatusPopover = false
+    @State private var showPasswordStatusTooltip = false
     
     // MARK: Views
     
@@ -126,7 +126,7 @@ struct PasswordDetailPage: View {
     
     private func passwordStatusIcon() -> some View {
         Button {
-            showPasswordStatusPopover = true
+            showPasswordStatusTooltip = true
         }
         label: {
             switch password.statusCode {
@@ -155,37 +155,36 @@ struct PasswordDetailPage: View {
             }
         }
         .buttonStyle(.borderless)
-        .popover(isPresented: $showPasswordStatusPopover) {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    switch password.statusCode {
-                    case .good:
-                        Text("_passwordStatusGoodMessage")
-                    case .outdated:
-                        Text("_passwordStatusOutdatedMessage")
-                    case .duplicate:
-                        Text("_passwordStatusDuplicateMessage")
-                    case .breached:
-                        Text("_passwordStatusBreachedMessage")
-                    case .unknown:
-                        Text("_passwordStatusUnknownMessage")
-                    }
-                    if password.editable,
-                       password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
-                        Divider()
-                        Button {
-                            showPasswordStatusPopover = false
-                            showEditPasswordView = true
-                        }
-                        label: {
-                            Label("_editPassword", systemImage: "pencil")
-                        }
-                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                    }
+        .tooltip(isPresented: $showPasswordStatusTooltip) {
+            VStack(alignment: .leading, spacing: 16) {
+                switch password.statusCode {
+                case .good:
+                    Text("_passwordStatusGoodMessage")
+                case .outdated:
+                    Text("_passwordStatusOutdatedMessage")
+                case .duplicate:
+                    Text("_passwordStatusDuplicateMessage")
+                case .breached:
+                    Text("_passwordStatusBreachedMessage")
+                case .unknown:
+                    Text("_passwordStatusUnknownMessage")
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
+                if password.editable,
+                   password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
+                    Divider()
+                        .padding(.trailing, -100)
+                    Button {
+                        showPasswordStatusTooltip = false
+                        showEditPasswordView = true
+                    }
+                    label: {
+                        Label("_editPassword", systemImage: "pencil")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                }
             }
+            .padding()
         }
     }
     
