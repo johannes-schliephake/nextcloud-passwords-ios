@@ -102,6 +102,7 @@ struct PasswordDetailPage: View {
                     favoriteButton()
                     Spacer()
                 }
+                .padding(.top)
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
             if let tags = entriesController.tags,
@@ -369,11 +370,11 @@ struct PasswordDetailPage: View {
                         let ancestorLabels = password.ancestors(in: folders).map { $0.label }
                         Spacer()
                         labeledFootnote("_folder") {
-                            FlowView(ancestorLabels, spacing: 5, alignment: .trailing) {
-                                ancestorLabel in
+                            FlowView(0..<ancestorLabels.count, spacing: 5, alignment: .trailing) {
+                                index in
                                 HStack(spacing: 5) {
-                                    Text(ancestorLabel)
-                                    if ancestorLabel != ancestorLabels.last {
+                                    Text(ancestorLabels[index])
+                                    if index < ancestorLabels.count - 1 {
                                         Image(systemName: "chevron.forward")
                                             .foregroundColor(.gray)
                                     }
