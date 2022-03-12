@@ -119,7 +119,6 @@ struct PasswordDetailPage: View {
             }
             metadataSection()
                 .listRowBackground(Color(UIColor.systemGroupedBackground))
-            deleteButton()
         }
         .listStyle(.insetGrouped)
     }

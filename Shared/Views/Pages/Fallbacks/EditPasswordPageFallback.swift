@@ -20,6 +20,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     @State private var editMode = false
     @State private var sheetItem: SheetItem?
     @State private var showAboutOtpsTooltip = false
+    @State private var showDeleteAlert = false
     @State private var showCancelAlert = false
     
     init(entriesController: EntriesController, password: Password) {
@@ -81,6 +82,9 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
             favoriteButton()
             tagsSection()
             moveSection()
+            if !editPasswordController.password.id.isEmpty {
+                deleteButton()
+            }
         }
         .listStyle(.insetGrouped)
         .apply {
@@ -228,7 +232,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 }
                 .accessibility(identifier: "showPasswordButton")
             #if DEBUG
-                otpSection()
+                otpButton()
             #endif
         }
     }
@@ -274,7 +278,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
         .accessibility(identifier: "passwordGenerator")
     }
     
-    @ViewBuilder private func otpSection() -> some View {
+    @ViewBuilder private func otpButton() -> some View {
         if let otp = editPasswordController.passwordOtp {
             Button {
                 sheetItem = .edit(otp: otp)
@@ -448,11 +452,13 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     }
     
     private func favoriteButton() -> some View {
-        Button {
-            editPasswordController.passwordFavorite.toggle()
-        }
-        label: {
-            Label("_favorite", systemImage: editPasswordController.passwordFavorite ? "star.fill" : "star")
+        Section {
+            Button {
+                editPasswordController.passwordFavorite.toggle()
+            }
+            label: {
+                Label("_favorite", systemImage: editPasswordController.passwordFavorite ? "star.fill" : "star")
+            }
         }
     }
     
@@ -501,6 +507,44 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
         }
     }
     
+    @ViewBuilder private func deleteButton() -> some View {
+        if #available(iOS 15.0, *) {
+            Button(role: .destructive) {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deletePassword")
+                    Spacer()
+                }
+            }
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                    deleteAndDismiss()
+                }])
+            }
+        }
+        else {
+            Button {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deletePassword")
+                        .foregroundColor(.red)
+                    Spacer()
+                }
+            }
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                    deleteAndDismiss()
+                }])
+            }
+        }
+    }
+    
     @ViewBuilder private func cancelButton() -> some View {
         if #available(iOS 15.0, *) {
             Button("_cancel", role: .cancel) {
@@ -544,6 +588,11 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
             return
         }
         editPasswordController.applyToPassword()
+        presentationMode.wrappedValue.dismiss()
+    }
+    
+    private func deleteAndDismiss() {
+        editPasswordController.clearPassword()
         presentationMode.wrappedValue.dismiss()
     }
     

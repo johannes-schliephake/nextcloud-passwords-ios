@@ -158,4 +158,8 @@ final class EditPasswordController: ObservableObject {
         }
     }
     
+    func clearPassword() {
+        entriesController.delete(password: password)
+    }
+    
 }

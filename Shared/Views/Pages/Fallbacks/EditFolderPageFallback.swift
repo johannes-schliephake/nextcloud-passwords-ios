@@ -13,6 +13,7 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
     @StateObject private var editFolderController: EditFolderController
     // @available(iOS 15, *) @FocusState private var focusedField: FocusField?
     @State private var showSelectFolderView = false
+    @State private var showDeleteAlert = false
     @State private var showCancelAlert = false
     
     init(entriesController: EntriesController, folder: Folder, didAdd: ((Folder) -> Void)? = nil) {
@@ -59,10 +60,11 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
     private func listView() -> some View {
         List {
             folderLabelField()
-            if editFolderController.folder.id.isEmpty {
-                favoriteButton()
-            }
+            favoriteButton()
             moveSection()
+            if !editFolderController.folder.id.isEmpty {
+                deleteButton()
+            }
         }
         .listStyle(.insetGrouped)
         .apply {
@@ -124,11 +126,51 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
     }
     
     private func favoriteButton() -> some View {
-        Button {
-            editFolderController.folderFavorite.toggle()
+        Section {
+            Button {
+                editFolderController.folderFavorite.toggle()
+            }
+            label: {
+                Label("_favorite", systemImage: editFolderController.folderFavorite ? "star.fill" : "star")
+            }
         }
-        label: {
-            Label("_favorite", systemImage: editFolderController.folderFavorite ? "star.fill" : "star")
+    }
+    
+    @ViewBuilder private func deleteButton() -> some View {
+        if #available(iOS 15.0, *) {
+            Button(role: .destructive) {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deleteFolder")
+                    Spacer()
+                }
+            }
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
+                    deleteAndDismiss()
+                }])
+            }
+        }
+        else {
+            Button {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deletePassword")
+                        .foregroundColor(.red)
+                    Spacer()
+                }
+            }
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
+                    deleteAndDismiss()
+                }])
+            }
         }
     }
     
@@ -174,6 +216,11 @@ struct EditFolderPageFallback: View { /// This insanely dumb workaround (duplica
             return
         }
         editFolderController.applyToFolder()
+        presentationMode.wrappedValue.dismiss()
+    }
+    
+    private func deleteAndDismiss() {
+        editFolderController.clearFolder()
         presentationMode.wrappedValue.dismiss()
     }
     
