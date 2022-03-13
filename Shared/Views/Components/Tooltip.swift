@@ -10,12 +10,13 @@ private struct Tooltip<Content: View>: View {
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
     @Binding var isPresented: Bool
+    let arrowDirections: UIPopoverArrowDirection
     let content: () -> Content
     
     @State private var height = 0.0
     
     var body: some View {
-        Popover(isPresented: $isPresented, size: CGSize(width: Tooltip.maxSize.width, height: height.clamped(to: 1...Tooltip.maxSize.height))) {
+        Popover(isPresented: $isPresented, size: CGSize(width: Tooltip.maxSize.width, height: height.clamped(to: 1...Tooltip.maxSize.height)), arrowDirections: arrowDirections) {
             ScrollView(height < Tooltip.maxSize.height ? [] : .vertical) {
                 content()
                     .fixedSize(horizontal: false, vertical: true)
@@ -36,6 +37,7 @@ extension Tooltip {
         
         @Binding var isPresented: Bool
         let size: CGSize
+        let arrowDirections: UIPopoverArrowDirection
         @ViewBuilder let content: () -> Content
         
         func makeCoordinator() -> Coordinator {
@@ -59,6 +61,7 @@ extension Tooltip {
                 popoverPresentationController.delegate = context.coordinator
                 popoverPresentationController.sourceView = viewController.view
                 popoverPresentationController.sourceRect = viewController.view.bounds
+                popoverPresentationController.permittedArrowDirections = arrowDirections
                 viewController.present(hostingController, animated: true)
             }
             else {
@@ -110,9 +113,9 @@ extension Tooltip {
 
 extension View {
     
-    func tooltip<Content: View>(isPresented: Binding<Bool>, content: @escaping () -> Content) -> some View {
+    func tooltip<Content: View>(isPresented: Binding<Bool>, arrowDirections: UIPopoverArrowDirection = .any, content: @escaping () -> Content) -> some View {
         background(
-            Tooltip(isPresented: isPresented, content: content)
+            Tooltip(isPresented: isPresented, arrowDirections: arrowDirections, content: content)
         )
     }
     

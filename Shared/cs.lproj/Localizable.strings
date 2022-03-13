@@ -100,7 +100,6 @@
 "_otp" = "TODO";
 "_otps" = "TODO";
 "_password" = "Heslo";
-"_passwordGenerator" = "Generátor hesel";
 "_passwords" = "Hesla";
 "_passwordServiceErrorMessage" = "Došlo k chybě při vytváření hesla.";
 "_passwordStatusBreachedMessage" = "TODO"; // Toto heslo bylo kompromitováné. Není bezpečné ho používat.

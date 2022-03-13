@@ -100,7 +100,6 @@
 "_otp" = "Einmalpasswort";
 "_otps" = "Einmalpasswörter";
 "_password" = "Passwort";
-"_passwordGenerator" = "Passwortgenerator";
 "_passwords" = "Passwörter";
 "_passwordServiceErrorMessage" = "Beim Generieren des Passworts ist ein Fehler aufgetreten.";
 "_passwordStatusBreachedMessage" = "Dieses Passwort ist nicht sicher. Es wurde in einer Datenbank mit kompromittierten Passwörtern gefunden.";

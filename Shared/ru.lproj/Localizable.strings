@@ -100,7 +100,6 @@
 "_otp" = "TODO";
 "_otps" = "TODO";
 "_password" = "Пароль";
-"_passwordGenerator" = "Генератор паролей";
 "_passwords" = "Пароли";
 "_passwordServiceErrorMessage" = "При генерации пароля произошла ошибка.";
 "_passwordStatusBreachedMessage" = "TODO"; // Этот пароль был скомпрометирован. Этот пароль небезопасен.

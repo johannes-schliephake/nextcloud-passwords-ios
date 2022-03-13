@@ -100,7 +100,6 @@
 "_otp" = "One-Time Password";
 "_otps" = "One-Time Passwords";
 "_password" = "Password";
-"_passwordGenerator" = "Password Generator";
 "_passwords" = "Passwords";
 "_passwordServiceErrorMessage" = "An error occurred while generating the password.";
 "_passwordStatusBreachedMessage" = "This password is not safe to use. It has been found in a database of compromised passwords."; // In earlier versions this value was split into two strings

@@ -12,10 +12,8 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editPasswordController: EditPasswordController
-    @ScaledMetric private var sliderLabelWidth = 87.0
     @ScaledMetric private var customFieldTypeIconWidth = 30.0
     // @available(iOS 15, *) @FocusState private var focusedField: FocusField?
-    @State private var showPasswordGenerator: Bool
     @AppStorage("didAcceptAboutOtps", store: Configuration.userDefaults) private var didAcceptAboutOtps = Configuration.defaults["didAcceptAboutOtps"] as! Bool // swiftlint:disable:this force_cast
     @State private var editMode = false
     @State private var sheetItem: SheetItem?
@@ -25,7 +23,6 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     
     init(entriesController: EntriesController, password: Password) {
         _editPasswordController = StateObject(wrappedValue: EditPasswordController(entriesController: entriesController, password: password))
-        _showPasswordGenerator = State(initialValue: password.id.isEmpty && !Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
     }
     
     // MARK: Views
@@ -63,12 +60,6 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                         }
                 }
             }
-            .onAppear {
-                if editPasswordController.password.id.isEmpty,
-                   Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords") {
-                    editPasswordController.generatePassword()
-                }
-            }
             .environment(\.editMode, .constant(editMode ? .active : .inactive))
     }
     
@@ -76,7 +67,6 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
         List {
             serviceSection()
             accountSection()
-            passwordGeneratorSection()
             customFieldsSection()
             notesSection()
             favoriteButton()
@@ -221,61 +211,24 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                             .submitLabel(.next)
                     }
                 }
-            EditLabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: $editPasswordController.passwordPassword)
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            // .focused($focusedField, equals: .passwordPassword)
-                            .submitLabel(FocusField.passwordPassword.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) != nil ? .next : .done)
+            HStack(spacing: 16) {
+                EditLabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: $editPasswordController.passwordPassword)
+                    .apply {
+                        view in
+                        if #available(iOS 15, *) {
+                            view
+                                // .focused($focusedField, equals: .passwordPassword)
+                                .submitLabel(FocusField.passwordPassword.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) != nil ? .next : .done)
+                        }
                     }
-                }
-                .accessibility(identifier: "showPasswordButton")
+                    .accessibility(identifier: "showPasswordButton")
+                PasswordGenerator(password: $editPasswordController.passwordPassword, generateInitial: Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
+                    .accessibility(identifier: "passwordGenerator")
+            }
             #if DEBUG
                 otpButton()
             #endif
         }
-    }
-    
-    private func passwordGeneratorSection() -> some View {
-        DisclosureGroup("_passwordGenerator", isExpanded: $showPasswordGenerator) {
-            if horizontalSizeClass == .regular {
-                HStack {
-                    Toggle("_numbers", isOn: $editPasswordController.generatorNumbers)
-                    Divider()
-                        .padding(.horizontal)
-                    Toggle("_specialCharacters", isOn: $editPasswordController.generatorSpecial)
-                }
-            }
-            else {
-                Toggle("_numbers", isOn: $editPasswordController.generatorNumbers)
-                Toggle("_specialCharacters", isOn: $editPasswordController.generatorSpecial)
-            }
-            HStack {
-                Text(String(format: "_length(length)".localized, String(Int(editPasswordController.generatorLength))))
-                    .frame(width: sliderLabelWidth, alignment: .leading)
-                Spacer()
-                Slider(value: $editPasswordController.generatorLength, in: 1...36, step: 1)
-                    .frame(maxWidth: 400)
-            }
-            Button {
-                editPasswordController.generatePassword()
-            }
-            label: {
-                HStack {
-                    Label("_generatePassword", systemImage: "key")
-                    if editPasswordController.showProgressView {
-                        Spacer()
-                        ProgressView()
-                    }
-                }
-            }
-            .disabled(editPasswordController.showProgressView)
-            .alert(isPresented: $editPasswordController.showPasswordServiceErrorAlert) {
-                Alert(title: Text("_error"), message: Text("_passwordServiceErrorMessage"))
-            }
-        }
-        .accessibility(identifier: "passwordGenerator")
     }
     
     @ViewBuilder private func otpButton() -> some View {
@@ -413,15 +366,20 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                                 }
                             }
                         Divider()
-                        EditLabeledRow(type: LabeledRow.RowType(rawValue: editPasswordController.passwordCustomUserFields[customUserFieldIndex].type.rawValue) ?? .text, label: "_\(editPasswordController.passwordCustomUserFields[customUserFieldIndex].type)".localized, value: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].value)
-                            .apply {
-                                view in
-                                if #available(iOS 15, *) {
-                                    view
-                                        // .focused($focusedField, equals: .passwordCustomFields(index: customUserFieldIndex, row: .value))
-                                        .submitLabel(FocusField.passwordCustomFields(index: customUserFieldIndex, row: .value).next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) != nil ? .next : .done)
+                        HStack(spacing: 16) {
+                            EditLabeledRow(type: LabeledRow.RowType(rawValue: editPasswordController.passwordCustomUserFields[customUserFieldIndex].type.rawValue) ?? .text, label: "_\(editPasswordController.passwordCustomUserFields[customUserFieldIndex].type)".localized, value: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].value)
+                                .apply {
+                                    view in
+                                    if #available(iOS 15, *) {
+                                        view
+                                            // .focused($focusedField, equals: .passwordCustomFields(index: customUserFieldIndex, row: .value))
+                                            .submitLabel(FocusField.passwordCustomFields(index: customUserFieldIndex, row: .value).next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) != nil ? .next : .done)
+                                    }
                                 }
+                            if editPasswordController.passwordCustomUserFields[customUserFieldIndex].type == .secret {
+                                PasswordGenerator(password: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].value)
                             }
+                        }
                     }
                 }
                 .id(editPasswordController.passwordCustomUserFields[customUserFieldIndex].id)
