@@ -10,7 +10,7 @@ enum Configuration {
         "showMetadata": true,
         "generatorNumbers": true,
         "generatorSpecial": true,
-        "generatorLength": 36.0
+        "generatorStrength": PasswordServiceRequest.Strength.ultra.rawValue
     ]
     
     static let shortVersionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String // swiftlint:disable:this force_cast

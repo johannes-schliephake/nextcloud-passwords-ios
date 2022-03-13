@@ -4,6 +4,7 @@ import Foundation
 struct PasswordServiceRequest {
     
     let session: Session
+    let strength: Strength
     let numbers: Bool
     let special: Bool
     
@@ -13,7 +14,7 @@ struct PasswordServiceRequest {
 extension PasswordServiceRequest: NCPasswordsRequest {
     
     func encode() throws -> Data? {
-        try Configuration.nonUpdatingJsonEncoder.encode(Request(strength: 4, numbers: numbers, special: special))
+        try Configuration.nonUpdatingJsonEncoder.encode(Request(strength: strength, numbers: numbers, special: special))
     }
     
     func send(completion: @escaping (String?) -> Void) {
@@ -29,9 +30,27 @@ extension PasswordServiceRequest: NCPasswordsRequest {
 
 extension PasswordServiceRequest {
     
+    enum Strength: Int, Codable, Identifiable, CaseIterable {
+        
+        case low = 0
+        case `default` = 1
+        case medium = 2
+        case high = 3
+        case ultra = 4
+        
+        var id: Int {
+            rawValue
+        }
+    }
+    
+}
+
+
+extension PasswordServiceRequest {
+    
     private struct Request: Encodable {
         
-        let strength: Int
+        let strength: Strength
         let numbers: Bool
         let special: Bool
         
@@ -46,7 +65,7 @@ extension PasswordServiceRequest {
         
         let password: String
         let words: [String]
-        let strength: Int
+        let strength: Strength
         let numbers: Bool
         let special: Bool
         

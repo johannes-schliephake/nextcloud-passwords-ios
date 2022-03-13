@@ -6,10 +6,9 @@ struct PasswordGenerator: View {
     @Binding var password: String
     var generateInitial = false
     
-    @ScaledMetric private var sliderLabelWidth = 87.0
     @AppStorage("generatorNumbers", store: Configuration.userDefaults) private var generatorNumbers = Configuration.defaults["generatorNumbers"] as! Bool // swiftlint:disable:this force_cast
     @AppStorage("generatorSpecial", store: Configuration.userDefaults) private var generatorSpecial = Configuration.defaults["generatorSpecial"] as! Bool // swiftlint:disable:this force_cast
-    @AppStorage("generatorLength", store: Configuration.userDefaults) private var generatorLength = Configuration.defaults["generatorLength"] as! Double // swiftlint:disable:this force_cast
+    @AppStorage("generatorStrength", store: Configuration.userDefaults) private var generatorStrength = PasswordServiceRequest.Strength(rawValue: Configuration.defaults["generatorStrength"] as! Int) ?? .default // swiftlint:disable:this force_cast
     
     @State private var showPasswordGenerator = false
     @State private var showPasswordServiceErrorAlert = false
@@ -48,10 +47,31 @@ struct PasswordGenerator: View {
                 Toggle("_numbers", isOn: $generatorNumbers)
                 Toggle("_specialCharacters", isOn: $generatorSpecial)
                 HStack {
-                    Text(String(format: "_length(length)".localized, String(Int(generatorLength))))
-                        .frame(width: sliderLabelWidth, alignment: .leading)
+                    Text("_strength")
                     Spacer()
-                    Slider(value: $generatorLength, in: 1...36, step: 1)
+                    Picker("", selection: $generatorStrength) {
+                        ForEach(PasswordServiceRequest.Strength.allCases) {
+                            strength in
+                            switch strength {
+                            case .low:
+                                Text("_low")
+                                    .tag(strength)
+                            case .default:
+                                Text("_default")
+                                    .tag(strength)
+                            case .medium:
+                                Text("_medium")
+                                    .tag(strength)
+                            case .high:
+                                Text("_high")
+                                    .tag(strength)
+                            case .ultra:
+                                Text("_ultra")
+                                    .tag(strength)
+                            }
+                        }
+                    }
+                    .pickerStyle(.menu)
                 }
             }
             Divider()
@@ -82,14 +102,14 @@ struct PasswordGenerator: View {
         }
         
         showProgressView = true
-        PasswordServiceRequest(session: session, numbers: generatorNumbers, special: generatorSpecial).send {
+        PasswordServiceRequest(session: session, strength: generatorStrength, numbers: generatorNumbers, special: generatorSpecial).send {
             password in
             showProgressView = false
             guard let password = password else {
                 showPasswordServiceErrorAlert = true
                 return
             }
-            self.password = String(password.prefix(Int(generatorLength)))
+            self.password = password
         }
     }
     

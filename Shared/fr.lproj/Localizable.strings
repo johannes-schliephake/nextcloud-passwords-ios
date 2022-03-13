@@ -39,6 +39,7 @@
 "_decryptFolderErrorMessage" = "Une erreur est survenue durant la décryption du dossier.";
 "_decryptPasswordErrorMessage" = "Une erreur est survenue durant la décryption du mot de passe.";
 "_decryptTagErrorMessage" = "Une erreur est survenue durant la décryption de l'étiquette.";
+"_default" = "TODO";
 "_delete" = "Supprimer";
 "_deletedPasswordMessage" = "Ce mot de passe a été supprimé.";
 "_deleteFolder" = "Supprimer le dossier";
@@ -74,6 +75,7 @@
 "_generatePassword" = "Générer un mot de passe";
 "_giveATip" = "Donner un pourboire";
 "_hash" = "TODO";
+"_high" = "TODO";
 "_highFive" = "High Five! 👏";
 "_id" = "TODO";
 "_incorrectPassword" = "Mauvais mot de passe";
@@ -81,9 +83,10 @@
 "_integration" = "Intégration";
 "_invalidCertificate" = "Certificat invalide";
 "_invalidCertificateMessage(hash)" = "Le certificat du serveur est invalide. Une connexion sécurisée ne peut être assurée. Le certificat doit-il toujours être utilisé ?\n\nSHA-256 du certificat :\n%@";
-"_length(length)" = "Longueur : %@";
 "_logIn" = "Connexion";
 "_logOut" = "Déconnexion";
+"_low" = "TODO";
+"_medium" = "TODO";
 "_metadata" = "Métadata";
 "_moreOptions" = "TODO";
 "_move" = "Déplacer";
@@ -126,6 +129,7 @@
 "_specialCharacters" = "Caractère Spéciaux";
 "_storePassword" = "Stocker le mot de passe";
 "_storePasswordMessage" = "Si cette option est activée, le mot de passe E2E est stocké crypté dans le trousseau de l'appareil.";
+"_strength" = "TODO";
 "_suggestions" = "Suggestions";
 "_supportThisProject" = "Supporter le projet";
 "_tag" = "Étiquette";
@@ -141,6 +145,7 @@
 "_tipReceivedMessage" = "Merci pour votre support avec ce pourboire!";
 "_tryAgain" = "Réessayer";
 "_type" = "TODO";
+"_ultra" = "TODO";
 "_unlockApp" = "Déverrouiller l'application";
 "_updated" = "Mis à jour";
 "_url" = "URL";

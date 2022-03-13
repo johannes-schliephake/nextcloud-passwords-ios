@@ -39,6 +39,7 @@
 "_decryptFolderErrorMessage" = "Beim Entschlüsseln des Ordners ist ein Fehler aufgetreten.";
 "_decryptPasswordErrorMessage" = "Beim Entschlüsseln des Passworts ist ein Fehler aufgetreten.";
 "_decryptTagErrorMessage" = "Beim Entschlüsseln des Tags ist ein Fehler aufgetreten.";
+"_default" = "Standard";
 "_delete" = "Löschen";
 "_deletedPasswordMessage" = "Dieses Passwort wurde gelöscht.";
 "_deleteFolder" = "Ordner löschen";
@@ -74,6 +75,7 @@
 "_generatePassword" = "Passwort generieren";
 "_giveATip" = "Trinkgeld geben";
 "_hash" = "Hash";
+"_high" = "Hoch";
 "_highFive" = "High Five! 👏";
 "_id" = "ID";
 "_incorrectPassword" = "Falsches Passwort";
@@ -81,9 +83,10 @@
 "_integration" = "Integration";
 "_invalidCertificate" = "Ungültiges Zertifikat";
 "_invalidCertificateMessage(hash)" = "Das Zertifikat des Servers ist ungültig. Eine sichere Verbindung kann nicht garantiert werden. Soll das Zertifikat dennoch akzeptiert werden?\n\nSHA-256 des Zertifikats:\n%@";
-"_length(length)" = "Länge: %@";
 "_logIn" = "Anmelden";
 "_logOut" = "Abmelden";
+"_low" = "Niedrig";
+"_medium" = "Mittel";
 "_metadata" = "Metadaten";
 "_moreOptions" = "Weitere Optionen";
 "_move" = "Bewegen";
@@ -126,6 +129,7 @@
 "_specialCharacters" = "Sonderzeichen";
 "_storePassword" = "Passwort speichern";
 "_storePasswordMessage" = "Wenn diese Option aktiviert ist, wird das E2E Passwort verschlüsselt im Schlüsselbund des Geräts gespeichert.";
+"_strength" = "Stärke";
 "_suggestions" = "Vorschläge";
 "_supportThisProject" = "Dieses Projekt unterstützen";
 "_tag" = "Tag";
@@ -141,6 +145,7 @@
 "_tipReceivedMessage" = "Danke, dass du dieses Projekt mit deinem Trinkgeld unterstützt!";
 "_tryAgain" = "Erneut versuchen";
 "_type" = "Art";
+"_ultra" = "Ultra";
 "_unlockApp" = "App entsperren";
 "_updated" = "Geändert";
 "_url" = "URL";

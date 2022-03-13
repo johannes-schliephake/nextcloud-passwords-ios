@@ -39,6 +39,7 @@
 "_decryptFolderErrorMessage" = "Při rozšifrovávání složky došlo k chybě.";
 "_decryptPasswordErrorMessage" = "Při rozšifrovávání hesla došlo k chybě.";
 "_decryptTagErrorMessage" = "Při vytváření štítku došlo k chybě. Uložte ho znovu.";
+"_default" = "TODO";
 "_delete" = "Smazat";
 "_deletedPasswordMessage" = "Toto heslo bylo smazáno.";
 "_deleteFolder" = "Smazat složku";
@@ -74,6 +75,7 @@
 "_generatePassword" = "Vytvořit heslo";
 "_giveATip" = "Dát příspěvek";
 "_hash" = "TODO";
+"_high" = "TODO";
 "_highFive" = "High Five! 👏";
 "_id" = "TODO";
 "_incorrectPassword" = "Neplatné heslo";
@@ -81,9 +83,10 @@
 "_integration" = "Napojení";
 "_invalidCertificate" = "Neplatný certifikát";
 "_invalidCertificateMessage(hash)" = "Certifikát serveru není platný. Bezpečnost spojení není možné zaručit. Má být certifikát i přesto použit?\n\nSHA-256 otisk certifikátu:\n%@";
-"_length(length)" = "Délka: %@";
 "_logIn" = "Přihlásit";
 "_logOut" = "Odhlásit";
+"_low" = "TODO";
+"_medium" = "TODO";
 "_metadata" = "Metadata";
 "_moreOptions" = "TODO";
 "_move" = "Přesunout";
@@ -126,6 +129,7 @@
 "_specialCharacters" = "Speciální znaky";
 "_storePassword" = "Uchovávat heslo";
 "_storePasswordMessage" = "Pokud je tato volba zapnutá, E2E heslo je uloženo šifrovaně v klíčence vašeho zařízení.";
+"_strength" = "TODO";
 "_suggestions" = "Návrhy";
 "_supportThisProject" = "Podpořit tento projekt";
 "_tag" = "Štítek";
@@ -141,6 +145,7 @@
 "_tipReceivedMessage" = "Děkujeme za podporu tohoto projektu vaším příspěvkem!";
 "_tryAgain" = "Zkusit znovu";
 "_type" = "TODO";
+"_ultra" = "TODO";
 "_unlockApp" = "Odemknout aplikaci";
 "_updated" = "Aktualizováno";
 "_url" = "URL adresa";
