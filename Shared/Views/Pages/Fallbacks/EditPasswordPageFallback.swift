@@ -84,19 +84,19 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                     .toolbar {
                         ToolbarItemGroup(placement: .keyboard) {
                             Button {
-                                // focusedField = focusedField?.previous()
+                                // focusedField = focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
                             }
                             label: {
                                 Image(systemName: "chevron.up")
                             }
-                            // .disabled(focusedField?.previous() == nil)
+                            // .disabled(focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
                             Button {
-                                // focusedField = focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count)
+                                // focusedField = focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
                             }
                             label: {
                                 Image(systemName: "chevron.down")
                             }
-                            // .disabled(focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) == nil)
+                            // .disabled(focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
                             Spacer()
                             Button {
                                 // focusedField = nil
@@ -111,7 +111,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                         guard sheetItem == nil else { /// Prevent submit handling when page is not visible
                             return
                         }
-                        // if let next = focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) {
+                        // if let next = focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) {
                             // focusedField = next
                         // }
                         // else {
@@ -218,7 +218,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                         if #available(iOS 15, *) {
                             view
                                 // .focused($focusedField, equals: .passwordPassword)
-                                .submitLabel(FocusField.passwordPassword.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) != nil ? .next : .done)
+                                .submitLabel(FocusField.passwordPassword.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) != nil ? .next : .done)
                         }
                     }
                     .accessibility(identifier: "showPasswordButton")
@@ -333,11 +333,11 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
             .disabled(editPasswordController.passwordCustomUserFields.isEmpty)
             .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { editMode = editMode && !$0 }
         }) {
-            ForEach(editPasswordController.passwordCustomUserFields.indices, id: \.self) {
-                customUserFieldIndex in
+            ForEach($editPasswordController.passwordCustomUserFields) {
+                $customUserField in
                 HStack {
                     Menu {
-                        Picker("", selection: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].type) {
+                        Picker("", selection: $customUserField.type) {
                             Label("_text", systemImage: Password.CustomField.CustomFieldType.text.systemName)
                                 .tag(Password.CustomField.CustomFieldType.text)
                             Label("_secret", systemImage: Password.CustomField.CustomFieldType.secret.systemName)
@@ -351,38 +351,38 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                         }
                     }
                     label: {
-                        Image(systemName: editPasswordController.passwordCustomUserFields[customUserFieldIndex].type.systemName)
+                        Image(systemName: customUserField.type.systemName)
                             .frame(minWidth: customFieldTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     }
                     Spacer()
                     VStack {
-                        EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].label)
+                        EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $customUserField.label)
                             .apply {
                                 view in
                                 if #available(iOS 15, *) {
                                     view
-                                        // .focused($focusedField, equals: .passwordCustomFields(index: customUserFieldIndex, row: .label))
+                                        // .focused($focusedField, equals: .passwordCustomFields(id: customUserField.id, row: .label))
                                         .submitLabel(.next)
                                 }
                             }
                         Divider()
                         HStack(spacing: 16) {
-                            EditLabeledRow(type: LabeledRow.RowType(rawValue: editPasswordController.passwordCustomUserFields[customUserFieldIndex].type.rawValue) ?? .text, label: "_\(editPasswordController.passwordCustomUserFields[customUserFieldIndex].type)".localized, value: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].value)
+                            EditLabeledRow(type: LabeledRow.RowType(rawValue: customUserField.type.rawValue) ?? .text, label: "_\(customUserField.type)".localized, value: $customUserField.value)
                                 .apply {
                                     view in
                                     if #available(iOS 15, *) {
                                         view
-                                            // .focused($focusedField, equals: .passwordCustomFields(index: customUserFieldIndex, row: .value))
-                                            .submitLabel(FocusField.passwordCustomFields(index: customUserFieldIndex, row: .value).next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) != nil ? .next : .done)
+                                            // .focused($focusedField, equals: .passwordCustomFields(id: customUserField.id, row: .value))
+                                            .submitLabel(FocusField.passwordCustomFields(id: customUserField.id, row: .value).next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) != nil ? .next : .done)
                                     }
                                 }
-                            if editPasswordController.passwordCustomUserFields[customUserFieldIndex].type == .secret {
-                                PasswordGenerator(password: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].value)
+                            if customUserField.type == .secret {
+                                PasswordGenerator(password: $customUserField.value)
                             }
                         }
                     }
                 }
-                .id(editPasswordController.passwordCustomUserFields[customUserFieldIndex].id)
+                .id(customUserField.id)
             }
             .onMove {
                 indices, offset in
@@ -589,9 +589,9 @@ extension EditPasswordPageFallback {
         case passwordUrl
         case passwordUsername
         case passwordPassword
-        case passwordCustomFields(index: Int, row: CustomFieldRow)
+        case passwordCustomFields(id: UUID, row: CustomFieldRow)
         
-        func previous() -> Self? {
+        func previous(customUserFieldIds: [UUID]) -> Self? {
             switch self {
             case .passwordLabel:
                 return nil
@@ -601,17 +601,20 @@ extension EditPasswordPageFallback {
                 return .passwordUrl
             case .passwordPassword:
                 return .passwordUsername
-            case .passwordCustomFields(let index, let row):
+            case .passwordCustomFields(let id, let row):
                 switch row {
                 case .label:
-                    return index - 1 >= 0 ? .passwordCustomFields(index: index - 1, row: .value) : .passwordPassword
+                    guard let previousId = customUserFieldIds.reversed().reduce(Optional(id), { $0 == nil ? $1 : $0 == $1 ? nil : $0 }) else {
+                        return .passwordPassword
+                    }
+                    return .passwordCustomFields(id: previousId, row: .value)
                 case .value:
-                    return .passwordCustomFields(index: index, row: .label)
+                    return .passwordCustomFields(id: id, row: .label)
                 }
             }
         }
         
-        func next(customUserFieldsCount: Int) -> Self? {
+        func next(customUserFieldIds: [UUID]) -> Self? {
             switch self {
             case .passwordLabel:
                 return .passwordUrl
@@ -620,13 +623,19 @@ extension EditPasswordPageFallback {
             case .passwordUsername:
                 return .passwordPassword
             case .passwordPassword:
-                return customUserFieldsCount > 0 ? .passwordCustomFields(index: 0, row: .label) : nil
-            case .passwordCustomFields(let index, let row):
+                guard let firstId = customUserFieldIds.first else {
+                    return nil
+                }
+                return .passwordCustomFields(id: firstId, row: .label)
+            case .passwordCustomFields(let id, let row):
                 switch row {
                 case .label:
-                    return .passwordCustomFields(index: index, row: .value)
+                    return .passwordCustomFields(id: id, row: .value)
                 case .value:
-                    return index + 1 < customUserFieldsCount ? .passwordCustomFields(index: index + 1, row: .label) : nil
+                    guard let nextId = customUserFieldIds.reduce(Optional(id), { $0 == nil ? $1 : $0 == $1 ? nil : $0 }) else {
+                        return nil
+                    }
+                    return .passwordCustomFields(id: nextId, row: .label)
                 }
             }
         }

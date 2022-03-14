@@ -367,14 +367,13 @@ struct PasswordDetailPage: View {
                         }
                     }
                     if let folders = entriesController.folders {
-                        let ancestorLabels = password.ancestors(in: folders).map { $0.label }
                         Spacer()
                         labeledFootnote("_folder") {
-                            FlowView(0..<ancestorLabels.count, spacing: 5, alignment: .trailing) {
-                                index in
+                            FlowView(password.ancestors(in: folders), spacing: 5, alignment: .trailing) {
+                                ancestor in
                                 HStack(spacing: 5) {
-                                    Text(ancestorLabels[index])
-                                    if index < ancestorLabels.count - 1 {
+                                    Text(ancestor.label)
+                                    if password.folder != ancestor.id {
                                         Image(systemName: "chevron.forward")
                                             .foregroundColor(.gray)
                                     }
@@ -393,7 +392,7 @@ struct PasswordDetailPage: View {
                         }
                     }
                 }
-                .listRowInsets(EdgeInsets(top: 8, leading: 0 - UIDevice.current.deviceSpecificPadding, bottom: 8, trailing: 16 - UIDevice.current.deviceSpecificPadding))
+                .listRowInsets(EdgeInsets(top: 8, leading: -UIDevice.current.deviceSpecificPadding, bottom: 8, trailing: 16 - UIDevice.current.deviceSpecificPadding))
             }
             label: {
                 Text("_metadata")

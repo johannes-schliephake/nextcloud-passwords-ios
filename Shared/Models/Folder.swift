@@ -192,6 +192,19 @@ extension Folder: Codable {
 }
 
 
+extension Folder: Hashable {
+    
+    static func == (lhs: Folder, rhs: Folder) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+}
+
+
 extension Array where Element == Folder {
     
     func sortedByLabel() -> [Folder] {
