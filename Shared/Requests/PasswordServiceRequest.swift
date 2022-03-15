@@ -32,11 +32,11 @@ extension PasswordServiceRequest {
     
     enum Strength: Int, Codable, Identifiable, CaseIterable {
         
-        case low = 0
-        case `default` = 1
-        case medium = 2
-        case high = 3
-        case ultra = 4
+        case low
+        case `default`
+        case medium
+        case high
+        case ultra
         
         var id: Int {
             rawValue

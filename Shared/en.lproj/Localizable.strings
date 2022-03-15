@@ -39,7 +39,6 @@
 "_decryptFolderErrorMessage" = "An error occurred while decrypting the folder.";
 "_decryptPasswordErrorMessage" = "An error occurred while decrypting the password.";
 "_decryptTagErrorMessage" = "An error occurred while decrypting the tag.";
-"_default" = "Default"; // Possible value for "Strength" picker when generating a password
 "_delete" = "Delete"; // Use the same wording Apple uses across iOS
 "_deletedPasswordMessage" = "This password was deleted.";
 "_deleteFolder" = "Delete Folder";
@@ -75,7 +74,6 @@
 "_generatePassword" = "Generate Password";
 "_giveATip" = "Give a Tip"; // This is the label for starting an In-App purchase
 "_hash" = "Hash"; // E.g. a SHA1 hash
-"_high" = "High"; // Possible value for "Strength" picker when generating a password
 "_highFive" = "High Five! 👏"; // Keep this in English
 "_id" = "ID";
 "_incorrectPassword" = "Incorrect Password";

@@ -39,7 +39,6 @@
 "_decryptFolderErrorMessage" = "Při rozšifrovávání složky došlo k chybě.";
 "_decryptPasswordErrorMessage" = "Při rozšifrovávání hesla došlo k chybě.";
 "_decryptTagErrorMessage" = "Při vytváření štítku došlo k chybě. Uložte ho znovu.";
-"_default" = "TODO";
 "_delete" = "Smazat";
 "_deletedPasswordMessage" = "Toto heslo bylo smazáno.";
 "_deleteFolder" = "Smazat složku";
@@ -75,7 +74,6 @@
 "_generatePassword" = "Vytvořit heslo";
 "_giveATip" = "Dát příspěvek";
 "_hash" = "TODO";
-"_high" = "TODO";
 "_highFive" = "High Five! 👏";
 "_id" = "TODO";
 "_incorrectPassword" = "Neplatné heslo";

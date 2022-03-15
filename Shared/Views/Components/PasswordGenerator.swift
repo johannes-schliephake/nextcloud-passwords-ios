@@ -46,32 +46,40 @@ struct PasswordGenerator: View {
             VStack {
                 Toggle("_numbers", isOn: $generatorNumbers)
                 Toggle("_specialCharacters", isOn: $generatorSpecial)
-                HStack {
+                HStack(spacing: 16) {
                     Text("_strength")
-                    Spacer()
-                    Picker("", selection: $generatorStrength) {
-                        ForEach(PasswordServiceRequest.Strength.allCases) {
-                            strength in
-                            switch strength {
-                            case .low:
-                                Text("_low")
-                                    .tag(strength)
-                            case .default:
-                                Text("_default")
-                                    .tag(strength)
-                            case .medium:
-                                Text("_medium")
-                                    .tag(strength)
-                            case .high:
-                                Text("_high")
-                                    .tag(strength)
-                            case .ultra:
-                                Text("_ultra")
-                                    .tag(strength)
+                    VStack(spacing: 4) {
+                        ZStack {
+                            HStack {
+                                Rectangle()
+                                    .frame(width: 4, height: 6)
+                                ForEach(1..<PasswordServiceRequest.Strength.allCases.count, id: \.self) {
+                                    _ in
+                                    Spacer()
+                                    Rectangle()
+                                        .frame(width: 4, height: 6)
+                                }
                             }
+                            .foregroundColor(Color(white: 0.5, opacity: 0.23))
+                            .padding(.horizontal, 11.5)
+                            .offset(y: 6)
+                            Slider(value: Binding(get: {
+                                Double(generatorStrength.rawValue)
+                            }, set: {
+                                generatorStrength = PasswordServiceRequest.Strength(rawValue: Int($0)) ?? generatorStrength
+                            }), in: 0...Double(PasswordServiceRequest.Strength.allCases.count - 1), step: 1)
                         }
+                        ZStack {
+                            Text("_low")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            Text("_medium")
+                                .frame(maxWidth: .infinity, alignment: .center)
+                            Text("_ultra")
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        .font(.footnote)
+                        .foregroundColor(.gray)
                     }
-                    .pickerStyle(.menu)
                 }
             }
             Divider()

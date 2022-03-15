@@ -4,7 +4,7 @@ import SwiftUI
 private struct Tooltip<Content: View>: View {
     
     private static var maxSize: CGSize {
-        CGSize(width: 400, height: 200)
+        CGSize(width: 400, height: 240)
     }
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController

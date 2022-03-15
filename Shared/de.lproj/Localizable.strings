@@ -39,7 +39,6 @@
 "_decryptFolderErrorMessage" = "Beim Entschlüsseln des Ordners ist ein Fehler aufgetreten.";
 "_decryptPasswordErrorMessage" = "Beim Entschlüsseln des Passworts ist ein Fehler aufgetreten.";
 "_decryptTagErrorMessage" = "Beim Entschlüsseln des Tags ist ein Fehler aufgetreten.";
-"_default" = "Standard";
 "_delete" = "Löschen";
 "_deletedPasswordMessage" = "Dieses Passwort wurde gelöscht.";
 "_deleteFolder" = "Ordner löschen";
@@ -75,7 +74,6 @@
 "_generatePassword" = "Passwort generieren";
 "_giveATip" = "Trinkgeld geben";
 "_hash" = "Hash";
-"_high" = "Hoch";
 "_highFive" = "High Five! 👏";
 "_id" = "ID";
 "_incorrectPassword" = "Falsches Passwort";

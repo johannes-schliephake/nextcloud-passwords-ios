@@ -39,7 +39,6 @@
 "_decryptFolderErrorMessage" = "Une erreur est survenue durant la décryption du dossier.";
 "_decryptPasswordErrorMessage" = "Une erreur est survenue durant la décryption du mot de passe.";
 "_decryptTagErrorMessage" = "Une erreur est survenue durant la décryption de l'étiquette.";
-"_default" = "TODO";
 "_delete" = "Supprimer";
 "_deletedPasswordMessage" = "Ce mot de passe a été supprimé.";
 "_deleteFolder" = "Supprimer le dossier";
@@ -75,7 +74,6 @@
 "_generatePassword" = "Générer un mot de passe";
 "_giveATip" = "Donner un pourboire";
 "_hash" = "TODO";
-"_high" = "TODO";
 "_highFive" = "High Five! 👏";
 "_id" = "TODO";
 "_incorrectPassword" = "Mauvais mot de passe";
