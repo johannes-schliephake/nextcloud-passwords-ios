@@ -229,10 +229,7 @@ struct PasswordDetailPage: View {
             .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             .apply {
                 view in
-                if #available(iOS 15, *) {
-                    view
-                }
-                else {
+                if #unavailable(iOS 15) {
                     view
                         .padding(.top, 5)
                 }
