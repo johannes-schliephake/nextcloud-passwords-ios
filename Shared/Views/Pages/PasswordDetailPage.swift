@@ -17,7 +17,6 @@ struct PasswordDetailPage: View {
     
     @AppStorage("showMetadata", store: Configuration.userDefaults) private var showMetadata = Configuration.defaults["showMetadata"] as! Bool // swiftlint:disable:this force_cast
     @State private var favicon: UIImage?
-    @State private var showDeleteAlert = false
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
     @State private var passwordDeleted = false
@@ -55,6 +54,9 @@ struct PasswordDetailPage: View {
                     /// Clear password detail page on iPad when password was deleted (SwiftUI doesn't close view when NavigationLink is removed)
                     /// This has to be done with a notification because a password can also be deleted from the EntriesPage
                     passwordDeleted = true
+                    
+                    /// Manually dismiss password detail page for iOS 14
+                    presentationMode.wrappedValue.dismiss()
                 }
         }
     }
@@ -416,46 +418,6 @@ struct PasswordDetailPage: View {
         }
     }
     
-    @ViewBuilder private func deleteButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button(role: .destructive) {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deletePassword")
-                    Spacer()
-                }
-            }
-            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                    deleteAndDismiss()
-                }])
-            }
-        }
-        else {
-            Button {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deletePassword")
-                        .foregroundColor(.red)
-                    Spacer()
-                }
-            }
-            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                    deleteAndDismiss()
-                }])
-            }
-        }
-    }
-    
     private func selectView(geometryProxy: GeometryProxy, complete: @escaping (String, String) -> Void) -> some View {
         VStack {
             VStack {
@@ -540,11 +502,6 @@ struct PasswordDetailPage: View {
         password.updated = Date()
         password.favorite.toggle()
         entriesController.update(password: password)
-    }
-    
-    private func deleteAndDismiss() {
-        deletePassword()
-        presentationMode.wrappedValue.dismiss()
     }
     
 }

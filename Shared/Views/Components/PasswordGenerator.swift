@@ -81,7 +81,12 @@ struct PasswordGenerator: View {
             }
             label: {
                 HStack {
-                    Label("_generatePassword", systemImage: "dice")
+                    if #available(iOS 15, *) {
+                        Label("_generatePassword", systemImage: "dice")
+                    }
+                    else {
+                        Label("_generatePassword", systemImage: "die.face.5")
+                    }
                     if showProgressView {
                         Spacer()
                         ProgressView()
