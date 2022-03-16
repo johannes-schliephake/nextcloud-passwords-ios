@@ -1069,17 +1069,17 @@ extension EntriesPageFallback {
                         }
                         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                         Button {
-                            movePassword()
-                        }
-                        label: {
-                            Label("_move", systemImage: "folder")
-                        }
-                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                        Button {
                             tagPassword()
                         }
                         label: {
                             Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
+                        }
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                        Button {
+                            movePassword()
+                        }
+                        label: {
+                            Label("_move", systemImage: "folder")
                         }
                         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
