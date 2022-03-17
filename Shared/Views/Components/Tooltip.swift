@@ -4,7 +4,7 @@ import SwiftUI
 private struct Tooltip<Content: View>: View {
     
     private static var maxSize: CGSize {
-        CGSize(width: 400, height: 240)
+        CGSize(width: 400, height: 400)
     }
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
@@ -13,17 +13,19 @@ private struct Tooltip<Content: View>: View {
     let arrowDirections: UIPopoverArrowDirection
     let content: () -> Content
     
-    @State private var height = 0.0
+    @State private var containerHeight = 0.0
+    @State private var contentHeight = 0.0
     
     var body: some View {
-        Popover(isPresented: $isPresented, size: CGSize(width: Tooltip.maxSize.width, height: height.clamped(to: 1...Tooltip.maxSize.height)), arrowDirections: arrowDirections) {
-            ScrollView(height < Tooltip.maxSize.height ? [] : .vertical) {
+        Popover(isPresented: $isPresented, maxSize: CGSize(width: Tooltip.maxSize.width, height: contentHeight.clamped(to: 1...Tooltip.maxSize.height)), arrowDirections: arrowDirections) {
+            ScrollView(contentHeight > containerHeight ? .vertical : []) {
                 content()
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .onSizeChange { height = $0.height }
+                    .onSizeChange { contentHeight = $0.height }
                     .occlude(!biometricAuthenticationController.isUnlocked)
             }
+            .onSizeChange { containerHeight = $0.height }
         }
     }
     
@@ -36,7 +38,7 @@ extension Tooltip {
     private struct Popover<Content: View>: UIViewControllerRepresentable {
         
         @Binding var isPresented: Bool
-        let size: CGSize
+        let maxSize: CGSize
         let arrowDirections: UIPopoverArrowDirection
         @ViewBuilder let content: () -> Content
         
@@ -51,7 +53,7 @@ extension Tooltip {
         func updateUIViewController(_ viewController: UIViewController, context: Context) {
             let hostingController = context.coordinator.hostingController
             hostingController.rootView = content()
-            hostingController.maxSize = size
+            hostingController.maxSize = maxSize
             
             if isPresented {
                 guard hostingController.presentingViewController == nil,
