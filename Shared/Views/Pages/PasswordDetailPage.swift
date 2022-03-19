@@ -256,6 +256,7 @@ struct PasswordDetailPage: View {
                                 }
                             }
                             .isDetailLink(false)
+                            .frame(width: 0, height: 0)
                         }
                         .hidden()
                         FlowView(validTags.sortedByLabel()) {

@@ -1127,21 +1127,23 @@ extension EntriesPage {
                     .buttonStyle(.plain)
                     .frame(maxWidth: .infinity)
                     Spacer()
-                    Button {
-                        showPasswordDetailView = true
+                    ZStack {
+                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
+                            entriesController.update(password: password)
+                        }, deletePassword: {
+                            entriesController.delete(password: password)
+                        }), isActive: $showPasswordDetailView) {}
+                        .isDetailLink(true)
+                        .frame(width: 0, height: 0)
+                        .hidden()
+                        Button {
+                            showPasswordDetailView = true
+                        }
+                        label: {
+                            Image(systemName: "info.circle")
+                        }
+                        .buttonStyle(.borderless)
                     }
-                    label: {
-                        Image(systemName: "info.circle")
-                    }
-                    .buttonStyle(.borderless)
-                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
-                        entriesController.update(password: password)
-                    }, deletePassword: {
-                        entriesController.delete(password: password)
-                    }), isActive: $showPasswordDetailView) {}
-                    .isDetailLink(true)
-                    .frame(width: 0, height: 0)
-                    .opacity(0)
                 }
                 else {
                     NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
