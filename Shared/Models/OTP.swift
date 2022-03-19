@@ -46,15 +46,9 @@ struct OTP: Equatable, Hashable {
         let label = components.path.dropFirst().split(separator: ":")
         if 1...2 ~= label.count {
             if label.count == 2,
+               issuer == nil,
                let issuerSubstring = label.first {
-                if issuer == nil {
-                    issuer = String(issuerSubstring)
-                }
-                else {
-                    guard issuer == String(issuerSubstring) else {
-                        return nil
-                    }
-                }
+                issuer = String(issuerSubstring)
             }
             accountname = label.last?.trimmingCharacters(in: [" "])
         }
@@ -95,8 +89,8 @@ struct OTP: Equatable, Hashable {
         
         switch type {
         case .hotp:
-            guard let counter = counter,
-                  counter >= 0 else {
+            let counter = counter ?? Defaults.counter
+            guard counter >= 0 else {
                 return nil
             }
             self.counter = counter
