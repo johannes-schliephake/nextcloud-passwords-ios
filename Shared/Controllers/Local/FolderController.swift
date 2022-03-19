@@ -15,8 +15,6 @@ final class FolderController: ObservableObject {
     
     private var entriesPipeline: AnyCancellable?
     private var suggestionsPipeline: AnyCancellable?
-    private let entriesControllerDidChange = PassthroughSubject<Void, Never>()
-    private var subscriptions = Set<AnyCancellable>()
     
     init(entriesController: EntriesController, folder: Folder?, tag: Tag?, defaultSorting: EntriesController.Sorting?) {
         let folder = folder ?? Folder()
@@ -24,17 +22,8 @@ final class FolderController: ObservableObject {
         self.tag = tag
         self.defaultSorting = defaultSorting
         
-        entriesController.objectWillChange
-            .sink {
-                [weak self] in
-                DispatchQueue.main.async {
-                    self?.entriesControllerDidChange.send()
-                }
-            }
-            .store(in: &subscriptions)
-        
         entriesPipeline = Publishers.Merge(
-            entriesControllerDidChange
+            entriesController.objectDidChangeRecently
                 .compactMap { [weak self] in self?.searchTerm }
                 .receive(on: DispatchQueue.global(qos: .userInitiated)),
             $searchTerm
@@ -46,7 +35,7 @@ final class FolderController: ObservableObject {
         .sink { [weak self] in self?.entries = $0 }
         
         suggestionsPipeline = Publishers.Merge(
-            entriesController.objectWillChange
+            entriesController.objectDidChangeRecently
                 .compactMap { [weak self] in self?.autoFillController?.serviceURLs },
             $autoFillController
                 .compactMap { $0?.serviceURLs }
