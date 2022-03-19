@@ -55,34 +55,38 @@ struct ServerSetupPage: View {
                         }
                 }
             }
-            if let serverSetupResponse = serverSetupController.response {
-                NavigationLink(destination: LoginFlowPage(serverSetupResponse: serverSetupResponse), isActive: $showLoginFlowPage) {}
-                    .isDetailLink(false)
-            }
         }
     }
     
     private func serverAddressField() -> some View {
         Section(header: Text("_nextcloudServerAddress"), footer: serverAddressFieldFooter()) {
-            HStack {
-                TextField("-", text: $serverSetupController.serverAddress, onCommit: {
-                    openLoginFlowPage()
-                })
-                .textContentType(.URL)
-                .keyboardType(.URL)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .focused($focusedField, equals: .serverAddress)
-                            .submitLabel(.done)
-                    }
+            ZStack {
+                if let serverSetupResponse = serverSetupController.response {
+                    NavigationLink(destination: LoginFlowPage(serverSetupResponse: serverSetupResponse), isActive: $showLoginFlowPage) {}
+                        .isDetailLink(false)
+                        .frame(width: 0, height: 0)
+                        .hidden()
                 }
-                if serverSetupController.isValidating {
-                    Spacer()
-                    ProgressView()
+                HStack {
+                    TextField("-", text: $serverSetupController.serverAddress, onCommit: {
+                        openLoginFlowPage()
+                    })
+                    .textContentType(.URL)
+                    .keyboardType(.URL)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .apply {
+                        view in
+                        if #available(iOS 15, *) {
+                            view
+                                .focused($focusedField, equals: .serverAddress)
+                                .submitLabel(.done)
+                        }
+                    }
+                    if serverSetupController.isValidating {
+                        Spacer()
+                        ProgressView()
+                    }
                 }
             }
         }
