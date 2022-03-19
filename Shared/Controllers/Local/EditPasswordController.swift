@@ -6,21 +6,6 @@ final class EditPasswordController: ObservableObject {
     let entriesController: EntriesController
     let password: Password
     
-    @Published var generatorNumbers = Configuration.userDefaults.object(forKey: "generatorNumbers") as? Bool ?? true {
-        willSet {
-            Configuration.userDefaults.set(newValue, forKey: "generatorNumbers")
-        }
-    }
-    @Published var generatorSpecial = Configuration.userDefaults.object(forKey: "generatorSpecial") as? Bool ?? true {
-        willSet {
-            Configuration.userDefaults.set(newValue, forKey: "generatorSpecial")
-        }
-    }
-    @Published var generatorLength = Configuration.userDefaults.object(forKey: "generatorLength") as? Double ?? 36.0 {
-        willSet {
-            Configuration.userDefaults.set(newValue, forKey: "generatorLength")
-        }
-    }
     @Published var passwordPassword: String
     @Published var passwordLabel: String
     @Published var passwordUsername: String
@@ -44,8 +29,6 @@ final class EditPasswordController: ObservableObject {
     let passwordInvalidTags: [String]
     @Published var passwordFolder: String
     @Published var showExtractOtpErrorAlert = false
-    @Published var showPasswordServiceErrorAlert = false
-    @Published var showProgressView = false
     
     init(entriesController: EntriesController, password: Password) {
         self.entriesController = entriesController
@@ -108,25 +91,6 @@ final class EditPasswordController: ObservableObject {
         passwordOtp = otp
     }
     
-    func generatePassword() {
-        guard let session = SessionController.default.session else {
-            showPasswordServiceErrorAlert = true
-            return
-        }
-        
-        showProgressView = true
-        PasswordServiceRequest(session: session, numbers: generatorNumbers, special: generatorSpecial).send {
-            [weak self] password in
-            self?.showProgressView = false
-            guard let password = password,
-                  let generatorLength = self?.generatorLength else {
-                self?.showPasswordServiceErrorAlert = true
-                return
-            }
-            self?.passwordPassword = String(password.prefix(Int(generatorLength)))
-        }
-    }
-    
     func applyToPassword() {
         if password.id.isEmpty {
             password.created = Date()
@@ -156,6 +120,10 @@ final class EditPasswordController: ObservableObject {
         else {
             entriesController.update(password: password)
         }
+    }
+    
+    func clearPassword() {
+        entriesController.delete(password: password)
     }
     
 }

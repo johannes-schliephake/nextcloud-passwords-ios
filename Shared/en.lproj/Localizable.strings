@@ -73,15 +73,18 @@
 "_folders" = "Folders";
 "_generatePassword" = "Generate Password";
 "_giveATip" = "Give a Tip"; // This is the label for starting an In-App purchase
+"_hash" = "Hash"; // E.g. a SHA1 hash
 "_highFive" = "High Five! 👏"; // Keep this in English
+"_id" = "ID";
 "_incorrectPassword" = "Incorrect Password";
 "_incorrectPasswordMessage" = "Please try again.";
 "_integration" = "Integration"; // I.e. integration into the OS (Password AutoFill)
 "_invalidCertificate" = "Invalid Certificate";
 "_invalidCertificateMessage(hash)" = "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%@"; // Make sure to keep newlines (\n) and the placeholder (%@)
-"_length(length)" = "Length: %@"; // I.e. length of the password, make sure to keep the placeholder (%@)
 "_logIn" = "Log In"; // This refers to the verb ("to log in")
 "_logOut" = "Log Out"; // This refers to the verb ("to log out")
+"_low" = "Low"; // Possible value for "Strength" picker when generating a password
+"_medium" = "Medium"; // Possible value for "Strength" picker when generating a password
 "_metadata" = "Metadata";
 "_moreOptions" = "More Options"; // I.e. show more options
 "_move" = "Move"; // This refers to the verb ("to move"), i.e. move a file to another folder
@@ -98,16 +101,13 @@
 "_otp" = "One-Time Password";
 "_otps" = "One-Time Passwords";
 "_password" = "Password";
-"_passwordGenerator" = "Password Generator";
 "_passwords" = "Passwords";
 "_passwordServiceErrorMessage" = "An error occurred while generating the password.";
-"_passwordStatusBreachedMessage1" = "This password has been compromised.";
-"_passwordStatusBreachedMessage2" = "It is not safe to use."; // It = the password
+"_passwordStatusBreachedMessage" = "This password is not safe to use. It has been found in a database of compromised passwords."; // In earlier versions this value was split into two strings
 "_passwordStatusDuplicateMessage" = "This password is being used more than once.";
-"_passwordStatusGoodMessage1" = "This password is safe.";
-"_passwordStatusGoodMessage2" = "It has not been breached."; // It = the password
-"_passwordStatusGoodMessage3" = "It doesn't violate user defined rules."; // It = the password
-"_passwordStatusOutdatedMessage" = "This password has reached the maximum age."; // "Maximum age": Use the same wording that the web client uses in it's settings
+"_passwordStatusGoodMessage" = "This password is safe to use. It has not been breached and doesn't violate user defined rules."; // In earlier versions this value was split into three strings
+"_passwordStatusOutdatedMessage" = "This password has reached the maximum age."; // "Maximum age": Use the same wording that the web client uses in its settings
+"_passwordStatusUnknownMessage" = "This password has not yet been checked for its security or the option to store hashes for security checks is disabled.";
 "_periodSeconds" = "Period (Seconds)"; // How long each OTP is valid in seconds
 "_providerInstructionsMessage" = "This app supports Password AutoFill. The feature has to be enabled in iOS's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap AutoFill Passwords\n4. Enable AutoFill Passwords\n5. Enable this app"; // Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step
 "_qrCaptureErrorMessage" = "An error occurred while launching the camera.";
@@ -127,6 +127,7 @@
 "_specialCharacters" = "Special Characters"; // This is a label for a password generator toggle
 "_storePassword" = "Store Password"; // I.e. store the E2E password
 "_storePasswordMessage" = "If this option is enabled, the E2E password is stored encrypted in your device's keychain.";
+"_strength" = "Strength"; // I.e. strength of the password to generate
 "_suggestions" = "Suggestions"; // I.e. password suggestions when using Password AutoFill
 "_supportThisProject" = "Support This Project";
 "_tag" = "Tag"; // This refers to the noun ("the tag")
@@ -142,6 +143,7 @@
 "_tipReceivedMessage" = "Thank you for supporting this project with your tip!";
 "_tryAgain" = "Try Again"; // I.e. try again to load the data
 "_type" = "Type";  // This refers to the noun ("the type")
+"_ultra" = "Ultra"; // Possible value for "Strength" picker when generating a password
 "_unlockApp" = "Unlock App"; // Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/InfoPlist.strings and Provider/InfoPlist.strings and Extension/InfoPlist.strings
 "_updated" = "Updated"; // I.e. date when a password was last updated
 "_url" = "URL";

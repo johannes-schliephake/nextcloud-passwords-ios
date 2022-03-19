@@ -192,6 +192,19 @@ extension Folder: Codable {
 }
 
 
+extension Folder: Hashable {
+    
+    static func == (lhs: Folder, rhs: Folder) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+}
+
+
 extension Array where Element == Folder {
     
     func sortedByLabel() -> [Folder] {
@@ -204,13 +217,13 @@ extension Array where Element == Folder {
 extension Folder: MockObject {
     
     static var mock: Folder {
-        Folder(id: "00000000-0000-0000-0001-000000000000", label: "_folder".localized, parent: Entry.baseId, revision: Entry.baseId, favorite: true)
+        Folder(id: "00000000-0000-0000-0001-000000000000", label: "_folder".localized, parent: Entry.baseId, edited: Date(), created: Date(), updated: Date(), revision: Entry.baseId, favorite: true)
     }
     
     static var mocks: [Folder] {
         [
-            Folder(id: "00000000-0000-0000-0001-000000000001", label: "Websites", parent: Entry.baseId, revision: Entry.baseId, favorite: true),
-            Folder(id: "00000000-0000-0000-0001-000000000002", label: "Apps", parent: Entry.baseId, revision: Entry.baseId)
+            Folder(id: "00000000-0000-0000-0001-000000000001", label: "Websites", parent: Entry.baseId, edited: Date(), created: Date(), updated: Date(), revision: Entry.baseId, favorite: true),
+            Folder(id: "00000000-0000-0000-0001-000000000002", label: "Apps", parent: Entry.baseId, edited: Date(), created: Date(), updated: Date(), revision: Entry.baseId)
         ]
     }
     

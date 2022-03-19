@@ -113,7 +113,7 @@ extension Crypto {
         
         static func hash(_ data: Data, humanReadable: Bool = false) -> String {
             if humanReadable {
-                return Insecure.SHA1.hash(data: data).map { String(format: "%02X", $0) }.joined(separator: ":")
+                return Insecure.SHA1.hash(data: data).map { String(format: "%02X", $0) }.joined(separator: ":\u{200B}")
             }
             return Insecure.SHA1.hash(data: data).map { String(format: "%02x", $0) }.joined()
         }
@@ -129,7 +129,7 @@ extension Crypto {
         
         static func hash(_ data: Data, humanReadable: Bool = false) -> String {
             if humanReadable {
-                return CryptoKit.SHA256.hash(data: data).map { String(format: "%02X", $0) }.joined(separator: ":")
+                return CryptoKit.SHA256.hash(data: data).map { String(format: "%02X", $0) }.joined(separator: ":\u{200B}")
             }
             return CryptoKit.SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
         }

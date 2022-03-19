@@ -54,4 +54,8 @@ final class EditFolderController: ObservableObject {
         }
     }
     
+    func clearFolder() {
+        entriesController.delete(folder: folder)
+    }
+    
 }

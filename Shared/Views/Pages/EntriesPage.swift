@@ -19,7 +19,7 @@ struct EntriesPage: View {
     @State private var showSettingsView = false
     @State private var challengePassword = ""
     @State private var storeChallengePassword = false
-    @State private var showStorePasswordMessage = false
+    @State private var showStorePasswordTooltip = false
     @State private var sheetItem: SheetItem?
     @State private var actionSheetItem: ActionSheetItem?
     @State private var showFolderErrorAlert = false
@@ -211,14 +211,17 @@ struct EntriesPage: View {
                     HStack {
                         Text("_storePassword")
                         Button {
-                            showStorePasswordMessage = true
+                            showStorePasswordTooltip = true
                         }
                         label: {
                             Image(systemName: "questionmark.circle")
                         }
                         .buttonStyle(.borderless)
-                        .alert(isPresented: $showStorePasswordMessage) {
-                            Alert(title: Text("_storePassword"), message: Text("_storePasswordMessage"))
+                        .tooltip(isPresented: $showStorePasswordTooltip) {
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text("_storePasswordMessage")
+                            }
+                            .padding()
                         }
                     }
                 }
@@ -1066,17 +1069,17 @@ extension EntriesPage {
                         }
                         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                         Button {
-                            movePassword()
-                        }
-                        label: {
-                            Label("_move", systemImage: "folder")
-                        }
-                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                        Button {
                             tagPassword()
                         }
                         label: {
                             Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
+                        }
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                        Button {
+                            movePassword()
+                        }
+                        label: {
+                            Label("_move", systemImage: "folder")
                         }
                         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
@@ -1103,55 +1106,52 @@ extension EntriesPage {
         
         private func wrapperStack() -> some View {
             HStack {
-                if let folders = entriesController.folders,
-                   let tags = entriesController.tags {
-                    if let complete = autoFillController.complete {
-                        Button {
-                            switch autoFillController.mode {
-                            case .app:
-                                break
-                            case .provider:
-                                complete(password.username, password.password)
-                            case .extension:
-                                guard let currentOtp = password.otp?.current else {
-                                    return
-                                }
-                                complete(password.username, currentOtp)
+                if let complete = autoFillController.complete {
+                    Button {
+                        switch autoFillController.mode {
+                        case .app:
+                            break
+                        case .provider:
+                            complete(password.username, password.password)
+                        case .extension:
+                            guard let currentOtp = password.otp?.current else {
+                                return
                             }
+                            complete(password.username, currentOtp)
                         }
-                        label: {
-                            mainStack()
-                                .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                        .frame(maxWidth: .infinity)
-                        Spacer()
-                        Button {
-                            showPasswordDetailView = true
-                        }
-                        label: {
-                            Image(systemName: "info.circle")
-                        }
-                        .buttonStyle(.borderless)
-                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, tags: tags, updatePassword: {
-                            entriesController.update(password: password)
-                        }, deletePassword: {
-                            entriesController.delete(password: password)
-                        }), isActive: $showPasswordDetailView) {}
-                        .isDetailLink(true)
-                        .frame(width: 0, height: 0)
-                        .opacity(0)
                     }
-                    else {
-                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, tags: tags, updatePassword: {
-                            entriesController.update(password: password)
-                        }, deletePassword: {
-                            entriesController.delete(password: password)
-                        })) {
-                            mainStack()
-                        }
-                        .isDetailLink(true)
+                    label: {
+                        mainStack()
+                            .contentShape(Rectangle())
                     }
+                    .buttonStyle(.plain)
+                    .frame(maxWidth: .infinity)
+                    Spacer()
+                    Button {
+                        showPasswordDetailView = true
+                    }
+                    label: {
+                        Image(systemName: "info.circle")
+                    }
+                    .buttonStyle(.borderless)
+                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
+                        entriesController.update(password: password)
+                    }, deletePassword: {
+                        entriesController.delete(password: password)
+                    }), isActive: $showPasswordDetailView) {}
+                    .isDetailLink(true)
+                    .frame(width: 0, height: 0)
+                    .opacity(0)
+                }
+                else {
+                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
+                        entriesController.update(password: password)
+                    }, deletePassword: {
+                        entriesController.delete(password: password)
+                    })) {
+                        mainStack()
+                    }
+                    .isDetailLink(true)
                 }
             }
         }

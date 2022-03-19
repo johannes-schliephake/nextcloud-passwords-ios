@@ -105,10 +105,7 @@ struct SettingsPage: View {
         }
         .apply {
             view in
-            if #available(iOS 15, *) {
-                view
-            }
-            else {
+            if #unavailable(iOS 15) {
                 view
                     .listRowInsets(EdgeInsets())
             }
@@ -177,10 +174,7 @@ struct SettingsPage: View {
         }
         .apply {
             view in
-            if #available(iOS 15, *) {
-                view
-            }
-            else {
+            if #unavailable(iOS 15) {
                 view
                     .listRowInsets(EdgeInsets())
             }

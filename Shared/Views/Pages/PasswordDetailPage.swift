@@ -5,8 +5,6 @@ struct PasswordDetailPage: View {
     
     @ObservedObject var entriesController: EntriesController
     @ObservedObject var password: Password
-    let folders: [Folder]
-    let tags: [Tag]
     let updatePassword: () -> Void
     let deletePassword: () -> Void
     
@@ -17,13 +15,14 @@ struct PasswordDetailPage: View {
     @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
     
+    @AppStorage("showMetadata", store: Configuration.userDefaults) private var showMetadata = Configuration.defaults["showMetadata"] as! Bool // swiftlint:disable:this force_cast
     @State private var favicon: UIImage?
-    @State private var showDeleteAlert = false
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
     @State private var passwordDeleted = false
     @State private var navigationSelection: NavigationSelection?
     @State private var showSelectTagsView = false
+    @State private var showPasswordStatusTooltip = false
     
     // MARK: Views
     
@@ -55,6 +54,9 @@ struct PasswordDetailPage: View {
                     /// Clear password detail page on iPad when password was deleted (SwiftUI doesn't close view when NavigationLink is removed)
                     /// This has to be done with a notification because a password can also be deleted from the EntriesPage
                     passwordDeleted = true
+                    
+                    /// Manually dismiss password detail page for iOS 14
+                    presentationMode.wrappedValue.dismiss()
                 }
         }
     }
@@ -95,13 +97,14 @@ struct PasswordDetailPage: View {
             Section {
                 HStack {
                     Spacer()
-                    passwordStatusMenu()
+                    passwordStatusIcon()
                     Spacer()
                     faviconImage()
                     Spacer()
                     favoriteButton()
                     Spacer()
                 }
+                .padding(.top)
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
             if let tags = entriesController.tags,
@@ -118,40 +121,14 @@ struct PasswordDetailPage: View {
                 notesSection()
             }
             metadataSection()
-            deleteButton()
+                .listRowBackground(Color(UIColor.systemGroupedBackground))
         }
         .listStyle(.insetGrouped)
     }
     
-    private func passwordStatusMenu() -> some View {
-        Menu {
-            Section {
-                switch password.statusCode {
-                case .good:
-                    Text("_passwordStatusGoodMessage1")
-                    Text("_passwordStatusGoodMessage2")
-                    Text("_passwordStatusGoodMessage3")
-                case .outdated:
-                    Text("_passwordStatusOutdatedMessage")
-                case .duplicate:
-                    Text("_passwordStatusDuplicateMessage")
-                case .breached:
-                    Text("_passwordStatusBreachedMessage1")
-                    Text("_passwordStatusBreachedMessage2")
-                case .unknown:
-                    EmptyView() // TODO: Add message for unknown password status
-                }
-            }
-            if password.editable,
-               password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
-                Button {
-                    showEditPasswordView = true
-                }
-                label: {
-                    Label("_editPassword", systemImage: "pencil")
-                }
-                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-            }
+    private func passwordStatusIcon() -> some View {
+        Button {
+            showPasswordStatusTooltip = true
         }
         label: {
             switch password.statusCode {
@@ -178,6 +155,38 @@ struct PasswordDetailPage: View {
                         .scaleEffect(0.5)
                 }
             }
+        }
+        .buttonStyle(.borderless)
+        .tooltip(isPresented: $showPasswordStatusTooltip) {
+            VStack(alignment: .leading, spacing: 16) {
+                switch password.statusCode {
+                case .good:
+                    Text("_passwordStatusGoodMessage")
+                case .outdated:
+                    Text("_passwordStatusOutdatedMessage")
+                case .duplicate:
+                    Text("_passwordStatusDuplicateMessage")
+                case .breached:
+                    Text("_passwordStatusBreachedMessage")
+                case .unknown:
+                    Text("_passwordStatusUnknownMessage")
+                }
+                if password.editable,
+                   password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
+                    Divider()
+                        .padding(.trailing, -100)
+                    Button {
+                        showPasswordStatusTooltip = false
+                        showEditPasswordView = true
+                    }
+                    label: {
+                        Label("_editPassword", systemImage: "pencil")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                }
+            }
+            .padding()
         }
     }
     
@@ -220,10 +229,7 @@ struct PasswordDetailPage: View {
             .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             .apply {
                 view in
-                if #available(iOS 15, *) {
-                    view
-                }
-                else {
+                if #unavailable(iOS 15) {
                     view
                         .padding(.top, 5)
                 }
@@ -334,66 +340,78 @@ struct PasswordDetailPage: View {
     }
     
     private func metadataSection() -> some View {
-        Section(header: Text("_metadata")) {
-            HStack {
-                LabeledRow(type: .text, label: "_created" as LocalizedStringKey, value: password.created.formattedString)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Divider()
-                LabeledRow(type: .text, label: "_updated" as LocalizedStringKey, value: password.updated.formattedString)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+        Section {
+            DisclosureGroup(isExpanded: $showMetadata) {
+                VStack {
+                    labeledFootnote("_created") {
+                        Text(password.created.formattedString)
+                    }
+                    Spacer()
+                    labeledFootnote("_updated") {
+                        Text(password.updated.formattedString)
+                    }
+                    Spacer()
+                    labeledFootnote("_encryption") {
+                        switch (password.cseType, password.sseType) {
+                        case ("none", "none"),
+                            ("none", "unknown"):
+                            Text("-")
+                        case (_, "none"),
+                            (_, "unknown"):
+                            Text("_clientSide")
+                        case ("none", _):
+                            Text("_serverSide")
+                        case (_, _):
+                            Text("\("_clientSide".localized) & \("_serverSide".localized)")
+                        }
+                    }
+                    if let folders = entriesController.folders {
+                        Spacer()
+                        labeledFootnote("_folder") {
+                            FlowView(password.ancestors(in: folders), spacing: 5, alignment: .trailing) {
+                                ancestor in
+                                HStack(spacing: 5) {
+                                    Text(ancestor.label)
+                                    if password.folder != ancestor.id {
+                                        Image(systemName: "chevron.forward")
+                                            .foregroundColor(.gray)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Divider()
+                    labeledFootnote("_id") {
+                        Text(password.id.uppercased())
+                    }
+                    if let hashData = password.hash.data(using: .utf8) {
+                        Spacer()
+                        labeledFootnote("_hash") {
+                            Text(Crypto.SHA1.hash(hashData, humanReadable: true))
+                        }
+                    }
+                }
+                .listRowInsets(EdgeInsets(top: 8, leading: -UIDevice.current.deviceSpecificPadding, bottom: 8, trailing: 16 - UIDevice.current.deviceSpecificPadding))
             }
-            switch (password.cseType, password.sseType) {
-            case ("none", "none"),
-                 ("none", "unknown"):
-                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "-")
-            case (_, "none"),
-                 (_, "unknown"):
-                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "_clientSide".localized)
-            case ("none", _):
-                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "_serverSide".localized)
-            case (_, _):
-                LabeledRow(type: .text, label: "_encryption" as LocalizedStringKey, value: "\("_clientSide".localized) & \("_serverSide".localized)")
+            label: {
+                Text("_metadata")
+                    .textCase(.uppercase)
+                    .font(.footnote)
+                    .foregroundColor(.gray)
             }
         }
     }
     
-    @ViewBuilder private func deleteButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button(role: .destructive) {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deletePassword")
-                    Spacer()
-                }
-            }
-            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                    deleteAndDismiss()
-                }])
-            }
-        }
-        else {
-            Button {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deletePassword")
-                        .foregroundColor(.red)
-                    Spacer()
-                }
-            }
-            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                    deleteAndDismiss()
-                }])
-            }
+    private func labeledFootnote<Content: View>(_ labelKey: LocalizedStringKey, @ViewBuilder content: () -> Content) -> some View {
+        HStack(alignment: .top) {
+            Text(labelKey)
+                .font(.footnote)
+                .foregroundColor(.gray)
+            Spacer()
+            content()
+                .font(.footnote)
+                .multilineTextAlignment(.trailing)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
     
@@ -483,11 +501,6 @@ struct PasswordDetailPage: View {
         entriesController.update(password: password)
     }
     
-    private func deleteAndDismiss() {
-        deletePassword()
-        presentationMode.wrappedValue.dismiss()
-    }
-    
 }
 
 
@@ -507,7 +520,7 @@ struct PasswordDetailPagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, folders: Folder.mocks, tags: Tag.mocks, updatePassword: {}, deletePassword: {})
+                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, updatePassword: {}, deletePassword: {})
             }
             .showColumns(false)
             .environmentObject(AutoFillController.mock)
