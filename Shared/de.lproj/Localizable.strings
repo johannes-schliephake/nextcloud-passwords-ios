@@ -112,6 +112,7 @@
 "_providerInstructionsMessage" = "Diese App unterstützt Password AutoFill. Das Feature muss in der iOS Einstellungen App aktiviert werden:\n1. Öffne die Einstellungen App\n2. Tippe auf Passwörter\n3. Tippe auf Automatisch ausfüllen\n4. Aktiviere Automatisch ausfüllen\n5. Aktiviere diese App";
 "_qrCaptureErrorMessage" = "Beim Starten der Kamera ist ein Fehler aufgetreten.";
 "_reject" = "Ablehnen";
+"_rootFolder" = "Stammordner";
 "_scanQrCode" = "QR-Code scannen";
 "_secret" = "Geheimnis";
 "_security" = "Sicherheit";

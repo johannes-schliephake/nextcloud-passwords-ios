@@ -26,7 +26,7 @@ final class Folder: ObservableObject, Identifiable {
     var offlineContainer: OfflineContainer?
     
     convenience init() {
-        self.init(id: Entry.baseId, label: "_passwords".localized, parent: nil)
+        self.init(id: Entry.baseId, label: "_rootFolder".localized, parent: nil)
     }
     
     init(id: String = "", label: String = "", parent: String?, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0), revision: String = "", cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false) {
