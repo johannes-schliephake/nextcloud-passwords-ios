@@ -112,6 +112,7 @@
 "_providerInstructionsMessage" = "Cette application supporte le préremplissage de mot de passe. La fonctionnalité doit être activée dans les Paramètres iOS :\n1. Ouvrir les Paramètres\n2. Appuyez sur Mots de passe\n3. Appuyez Préremplir les mots de passe\n4. Activer préremplir les mots de passe\n5. Autoriser le remplissage par cette application.";
 "_qrCaptureErrorMessage" = "TODO";
 "_reject" = "Rejeter";
+"_rootFolder" = "TODO";
 "_scanQrCode" = "TODO";
 "_secret" = "Secret";
 "_security" = "Sécurité";

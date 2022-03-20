@@ -46,7 +46,7 @@ final class EditPasswordController: ObservableObject {
     }
     
     var folderLabel: String {
-        entriesController.folders?.first(where: { $0.id == passwordFolder })?.label ?? "_passwords".localized
+        entriesController.folders?.first(where: { $0.id == passwordFolder })?.label ?? "_rootFolder".localized
     }
     
     var hasChanges: Bool {
