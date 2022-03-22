@@ -1,4 +1,4 @@
-"CFBundleDisplayName" = "TODO";
-"NSCameraUsageDescription" = "TODO";
+"CFBundleDisplayName" = "Вставить одноразовый пароль";
+"NSCameraUsageDescription" = "Сканировать QR-код";
 "NSFaceIDUsageDescription" = "Разблокировать приложение";
-"NSPhotoLibraryAddUsageDescription" = "TODO";
+"NSPhotoLibraryAddUsageDescription" = "Поделиться QR-кодом";
