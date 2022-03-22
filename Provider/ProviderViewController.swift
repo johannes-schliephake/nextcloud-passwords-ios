@@ -43,6 +43,7 @@ final class ProviderViewController: ASCredentialProviderViewController {
         AutoFillController.default.mode = .provider
         AutoFillController.default.serviceURLs = [credentialIdentity.serviceIdentifier].compactMap { URL(string: $0.identifier) }
         AutoFillController.default.credentialIdentifier = credentialIdentity.recordIdentifier
+        AutoFillController.default.hasField = false
         
         addMainView()
     }
@@ -51,6 +52,7 @@ final class ProviderViewController: ASCredentialProviderViewController {
         AutoFillController.default.mode = .provider
         AutoFillController.default.serviceURLs = serviceIdentifiers.compactMap { URL(string: $0.identifier) }
         AutoFillController.default.credentialIdentifier = nil
+        AutoFillController.default.hasField = false
         
         addMainView()
     }

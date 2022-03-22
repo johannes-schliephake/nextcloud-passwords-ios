@@ -11,6 +11,7 @@ final class AutoFillController: ObservableObject {
     @Published var cancel: (() -> Void)?
     @Published var serviceURLs: [URL]?
     @Published var credentialIdentifier: String?
+    @Published var hasField = false
     var keychain: Crypto.CSEv1r1.Keychain?
     
     private init() {}

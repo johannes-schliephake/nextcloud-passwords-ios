@@ -11,7 +11,7 @@ var ExtensionPreprocessingJS = {
     }(),
     
     run: function(arguments) {
-        arguments.completionFunction({"url": document.URL})
+        arguments.completionFunction({"url": document.URL, "hasField": this.otpFields.length > 0})
     },
     
     finalize: function(arguments) {

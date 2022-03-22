@@ -10,6 +10,7 @@ class ExtensionViewController: UIViewController {
         AutoFillController.default.mode = .extension
         AutoFillController.default.serviceURLs = []
         AutoFillController.default.credentialIdentifier = nil
+        AutoFillController.default.hasField = false
         
         if let extensionItems = extensionContext?.inputItems as? [NSExtensionItem] {
             extensionItems
@@ -22,13 +23,15 @@ class ExtensionViewController: UIViewController {
                         item, error in
                         guard error == nil,
                               let dictionary = item as? NSDictionary,
-                              let jsDictionary = dictionary[NSExtensionJavaScriptPreprocessingResultsKey] as? [String: String],
-                              let urlString = jsDictionary["url"],
-                              let url = URL(string: urlString) else {
+                              let jsDictionary = dictionary[NSExtensionJavaScriptPreprocessingResultsKey] as? [String: Any],
+                              let urlString = jsDictionary["url"] as? String,
+                              let url = URL(string: urlString),
+                              let hasField = jsDictionary["hasField"] as? Bool else {
                             return
                         }
                         DispatchQueue.main.async {
                             AutoFillController.default.serviceURLs = [url]
+                            AutoFillController.default.hasField = hasField
                         }
                     }
                 }
@@ -36,10 +39,18 @@ class ExtensionViewController: UIViewController {
         
         AutoFillController.default.complete = {
             [weak self] _, currentOtp in
-            let jsDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: ["currentOtp": currentOtp]]
-            let otpItem = NSExtensionItem()
-            otpItem.attachments = [NSItemProvider(item: jsDictionary as NSDictionary, typeIdentifier: UTType.propertyList.identifier)]
-            self?.extensionContext?.completeRequest(returningItems: [otpItem])
+            if AutoFillController.default.hasField {
+                let jsDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: ["currentOtp": currentOtp]]
+                let otpItem = NSExtensionItem()
+                otpItem.attachments = [NSItemProvider(item: jsDictionary as NSDictionary, typeIdentifier: UTType.propertyList.identifier)]
+                self?.extensionContext?.completeRequest(returningItems: [otpItem])
+            }
+            else {
+                UIPasteboard.general.privateString = currentOtp
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                    self?.extensionContext?.completeRequest(returningItems: nil)
+                }
+            }
         }
         AutoFillController.default.cancel = {
             [weak self] in
