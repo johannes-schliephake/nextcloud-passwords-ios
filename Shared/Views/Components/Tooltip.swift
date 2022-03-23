@@ -90,6 +90,10 @@ extension Tooltip {
                 .none
             }
             
+            func adaptivePresentationStyle(for _: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+                .none
+            }
+            
             func presentationControllerWillDismiss(_: UIPresentationController) {
                 popover.isPresented = false
             }

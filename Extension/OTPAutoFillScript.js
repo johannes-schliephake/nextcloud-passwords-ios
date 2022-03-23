@@ -1,7 +1,7 @@
 var ExtensionPreprocessingJS = {
     
     otpFields: function() {
-        const queries = ["input[id*=otp]", "input[name*=otp]", "input[inputmode=numeric]", "input[maxlength=1]", "input[type=tel]", "input[type=text]", "input[type=password]", "input[type=number]"]
+        const queries = ["input[id*=otp]", "input[name*=otp]", "input[inputmode=numeric]", "input[maxlength=\"1\"]", "input[type=tel]", "input[type=text]", "input[type=password]", "input[type=number]"]
         return queries
             .map(query => document.querySelectorAll(query))
             .map(nodeList => Array.from(nodeList))
