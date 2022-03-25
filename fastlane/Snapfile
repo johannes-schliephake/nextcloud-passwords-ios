@@ -1,6 +1,4 @@
-project("../Passwords.xcodeproj")
 scheme("Snapshot")
-output_directory("Screenshots")
 clear_previous_screenshots(true)
 override_status_bar(true)
 number_of_retries(0)
