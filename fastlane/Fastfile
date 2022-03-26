@@ -1,5 +1,8 @@
 default_platform(:ios)
 
+skip_docs
+opt_out_usage
+
 lane :bump_version do |options|
     ensure_git_status_clean
     ensure_git_branch(branch: "develop")
