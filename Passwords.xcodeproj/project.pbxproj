@@ -620,6 +620,7 @@
 		DD2B7D1E27EE6E630018E07E /* marketing_url.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = marketing_url.txt; sourceTree = "<group>"; };
 		DD2B7D1F27EE6E630018E07E /* description.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = description.txt; sourceTree = "<group>"; };
 		DD2B7D2027EE6E630018E07E /* primary_category.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = primary_category.txt; sourceTree = "<group>"; };
+		DD2B7D2127EF2F010018E07E /* Pluginfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pluginfile; sourceTree = "<group>"; };
 		DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		DD3FAD602775DC54002202DE /* ListSettingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSettingsRequest.swift; sourceTree = "<group>"; };
 		DD3FAD632775DC86002202DE /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -1042,6 +1043,7 @@
 				DD2B7D0927EE6D5E0018E07E /* Appfile */,
 				DD2B7D0A27EE6D5E0018E07E /* Deliverfile */,
 				DD2B7D0B27EE6D5E0018E07E /* Fastfile */,
+				DD2B7D2127EF2F010018E07E /* Pluginfile */,
 				DD2B7D0C27EE6D5E0018E07E /* Snapfile */,
 				DD2B7D0D27EE6E630018E07E /* metadata */,
 			);
