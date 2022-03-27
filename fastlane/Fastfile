@@ -3,9 +3,11 @@ default_platform(:ios)
 skip_docs
 opt_out_usage
 
+ensure_xcode_version(version: "13.3")
+ensure_git_status_clean
+ensure_git_branch(branch: "develop")
+
 lane :bump_version do |options|
-    ensure_git_status_clean
-    ensure_git_branch(branch: "develop")
     increment_build_number_in_xcodeproj(target: "Passwords")
     increment_build_number_in_xcodeproj(target: "Provider")
     increment_build_number_in_xcodeproj(target: "Extension")
@@ -13,4 +15,13 @@ lane :bump_version do |options|
     increment_version_number_in_xcodeproj(bump_type: options[:bump_type], target: "Provider")
     increment_version_number_in_xcodeproj(bump_type: options[:bump_type], target: "Extension")
     commit_version_bump(message: "Bump version")
+end
+
+lane :build_and_upload do
+    get_certificates(output_path: "fastlane/tmp")
+    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
+    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")
+    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Extension")
+    build_app(scheme: "Passwords", skip_package_ipa: true)
+    upload_to_app_store
 end

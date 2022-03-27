@@ -600,7 +600,6 @@
 		DD0E59B427414EB5003D7D50 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		DD29D1E327CF684A00B06835 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		DD2B7D0927EE6D5E0018E07E /* Appfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
-		DD2B7D0A27EE6D5E0018E07E /* Deliverfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Deliverfile; sourceTree = "<group>"; };
 		DD2B7D0B27EE6D5E0018E07E /* Fastfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fastfile; sourceTree = "<group>"; };
 		DD2B7D0C27EE6D5E0018E07E /* Snapfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Snapfile; sourceTree = "<group>"; };
 		DD2B7D0F27EE6E630018E07E /* privacy_url.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = privacy_url.txt; sourceTree = "<group>"; };
@@ -1041,7 +1040,6 @@
 			isa = PBXGroup;
 			children = (
 				DD2B7D0927EE6D5E0018E07E /* Appfile */,
-				DD2B7D0A27EE6D5E0018E07E /* Deliverfile */,
 				DD2B7D0B27EE6D5E0018E07E /* Fastfile */,
 				DD2B7D2127EF2F010018E07E /* Pluginfile */,
 				DD2B7D0C27EE6D5E0018E07E /* Snapfile */,

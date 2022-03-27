@@ -1,3 +1,5 @@
 .DS_Store
 xcuserdata/
+fastlane/Preview.html
 fastlane/report.xml
+fastlane/tmp
