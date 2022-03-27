@@ -601,7 +601,6 @@
 		DD29D1E327CF684A00B06835 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		DD2B7D0927EE6D5E0018E07E /* Appfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
 		DD2B7D0B27EE6D5E0018E07E /* Fastfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fastfile; sourceTree = "<group>"; };
-		DD2B7D0C27EE6D5E0018E07E /* Snapfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Snapfile; sourceTree = "<group>"; };
 		DD2B7D0F27EE6E630018E07E /* privacy_url.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = privacy_url.txt; sourceTree = "<group>"; };
 		DD2B7D1027EE6E630018E07E /* support_url.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = support_url.txt; sourceTree = "<group>"; };
 		DD2B7D1127EE6E630018E07E /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
@@ -1042,7 +1041,6 @@
 				DD2B7D0927EE6D5E0018E07E /* Appfile */,
 				DD2B7D0B27EE6D5E0018E07E /* Fastfile */,
 				DD2B7D2127EF2F010018E07E /* Pluginfile */,
-				DD2B7D0C27EE6D5E0018E07E /* Snapfile */,
 				DD2B7D0D27EE6E630018E07E /* metadata */,
 			);
 			path = fastlane;
