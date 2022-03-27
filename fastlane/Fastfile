@@ -3,9 +3,11 @@ default_platform(:ios)
 skip_docs
 opt_out_usage
 
-ensure_xcode_version(version: "13.3")
-ensure_git_status_clean
-ensure_git_branch(branch: "develop")
+before_all do
+    ensure_xcode_version(version: "13.3")
+    ensure_git_status_clean
+    ensure_git_branch(branch: "develop")
+end
 
 lane :take_screenshots do
     devices = [
@@ -53,12 +55,12 @@ lane :git_release do
     unless last_git_commit[:message].strip == "Bump version"
         UI.user_error!("The latest commit is not a version bump")
     end
+    version = "v#{get_version_number(target: "Passwords")}"
+    changelog = File.read("metadata/en-US/release_notes.txt").strip
     sh("git checkout main")
-    sh("git merge develop")
+    sh("git merge develop -m \"#{version}\"")
     sh("git push")
     sh("git checkout develop")
-    version = "v" + get_version_number(target: "Passwords")
-    changelog = File.read("metadata/en-US/release_notes.txt").strip
     api_token = prompt(text: "Your GitHub API token: ", secure_text: true)
     set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: changelog)
     sh("git fetch --tags")
