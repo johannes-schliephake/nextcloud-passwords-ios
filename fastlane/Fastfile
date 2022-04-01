@@ -47,7 +47,7 @@ lane :build_and_upload do
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Extension")
-    build_app(scheme: "Passwords", skip_package_ipa: true)
+    build_app(scheme: "Passwords", clean: true, skip_package_ipa: true, export_method: "app-store")
     upload_to_app_store
 end
 
