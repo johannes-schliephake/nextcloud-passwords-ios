@@ -419,7 +419,7 @@ struct PasswordDetailPage: View {
     private func selectView(geometryProxy: GeometryProxy, complete: @escaping (String, String) -> Void) -> some View {
         VStack {
             VStack {
-                Button(autoFillController.hasField ? "_select" : "_copyOtp") {
+                Button(autoFillController.mode == .extension && !autoFillController.hasField ? "_copyOtp" : "_select") {
                     switch autoFillController.mode {
                     case .app:
                         break
