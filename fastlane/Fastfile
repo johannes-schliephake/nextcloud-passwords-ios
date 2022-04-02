@@ -1,0 +1,71 @@
+default_platform(:ios)
+
+opt_out_usage
+
+before_all do
+    ensure_xcode_version(version: "13.3")
+    ensure_git_status_clean
+    ensure_git_branch(branch: "develop")
+end
+
+desc("Takes all screenshots required for App Store and commits the changes.")
+lane :take_screenshots do
+    devices = [
+        "iPhone 13 Pro Max",
+        "iPhone 13 Pro",
+        "iPhone 8 Plus",
+        "iPhone SE (3rd generation)",
+        "iPhone SE (1st generation)",
+        "iPad Pro (12.9-inch) (5th generation)",
+        "iPad Pro (12.9-inch) (2nd generation)",
+        "iPad Pro (11-inch) (3rd generation)",
+        "iPad Air (3rd generation)",
+        "iPad (6th generation)"
+    ]
+    languages = ["en-US", "de-DE"]
+    capture_ios_screenshots(devices: devices, languages: languages, clear_previous_screenshots: true, override_status_bar: true, scheme: "Snapshot", number_of_retries: 0, stop_after_first_error: true)
+    unless prompt(text: "Does the preview on path './fastlane/screenshots/screenshots.html' look okay for you?", boolean: true)
+        reset_git_repo(force: true)
+        UI.user_error!("Did not keep screenshots, because the HTML file was rejected by the user")
+    end
+    sh("git add .")
+    sh("git commit -m \"Update screenshots\"")
+end
+
+desc("Bumps all build and version numbers and commits the version bump.")
+desc("**Parameters**\n- `bump_type` (required): `major` or `minor` or `patch`")
+lane :bump_version do |parameters|
+    increment_build_number_in_xcodeproj(target: "Passwords")
+    increment_build_number_in_xcodeproj(target: "Provider")
+    increment_build_number_in_xcodeproj(target: "Extension")
+    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], target: "Passwords")
+    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], target: "Provider")
+    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], target: "Extension")
+    commit_version_bump(message: "Bump version")
+end
+
+desc("Downloads certificates and provisioning profiles, archives the app and uploads the binary and all metadata to the App Store.")
+lane :build_and_upload do
+    get_certificates(output_path: "fastlane/tmp")
+    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
+    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")
+    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Extension")
+    build_app(scheme: "Passwords", clean: true, skip_package_ipa: true, export_method: "app-store")
+    upload_to_app_store
+end
+
+desc("Merges release into main branch and publishes as a GitHub release.")
+lane :git_release do
+    unless last_git_commit[:message].strip == "Bump version"
+        UI.user_error!("The latest commit is not a version bump")
+    end
+    version = "v#{get_version_number(target: "Passwords")}"
+    changelog = File.read("metadata/en-US/release_notes.txt").strip
+    sh("git checkout main")
+    sh("git merge develop -m \"#{version}\"")
+    sh("git push")
+    sh("git checkout develop")
+    api_token = prompt(text: "Your GitHub API token: ", secure_text: true)
+    set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: changelog)
+    sh("git fetch --tags")
+end

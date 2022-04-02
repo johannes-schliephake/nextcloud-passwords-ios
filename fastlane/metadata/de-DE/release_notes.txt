@@ -1,0 +1,1 @@
+• Wiederveröffentlichung von v2.5, um durch die aktuelle Xcode-Version verursachte Abstürze unter iOS 14 zu verhindern

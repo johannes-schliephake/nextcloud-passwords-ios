@@ -1,0 +1,1 @@
+• Rerelease of v2.5 to prevent crashes on iOS 14 caused by current Xcode version
