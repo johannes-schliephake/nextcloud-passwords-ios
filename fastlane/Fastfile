@@ -1,6 +1,5 @@
 default_platform(:ios)
 
-skip_docs
 opt_out_usage
 
 before_all do
@@ -9,6 +8,7 @@ before_all do
     ensure_git_branch(branch: "develop")
 end
 
+desc("Takes all screenshots required for App Store and commits the changes.")
 lane :take_screenshots do
     devices = [
         "iPhone 13 Pro Max",
@@ -32,16 +32,19 @@ lane :take_screenshots do
     sh("git commit -m \"Update screenshots\"")
 end
 
-lane :bump_version do |options|
+desc("Bumps all build and version numbers and commits the version bump.")
+desc("**Parameters**\n- `bump_type` (required): `major` or `minor` or `patch`")
+lane :bump_version do |parameters|
     increment_build_number_in_xcodeproj(target: "Passwords")
     increment_build_number_in_xcodeproj(target: "Provider")
     increment_build_number_in_xcodeproj(target: "Extension")
-    increment_version_number_in_xcodeproj(bump_type: options[:bump_type], target: "Passwords")
-    increment_version_number_in_xcodeproj(bump_type: options[:bump_type], target: "Provider")
-    increment_version_number_in_xcodeproj(bump_type: options[:bump_type], target: "Extension")
+    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], target: "Passwords")
+    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], target: "Provider")
+    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], target: "Extension")
     commit_version_bump(message: "Bump version")
 end
 
+desc("Downloads certificates and provisioning profiles, archives the app and uploads the binary and all metadata to the App Store.")
 lane :build_and_upload do
     get_certificates(output_path: "fastlane/tmp")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
@@ -51,6 +54,7 @@ lane :build_and_upload do
     upload_to_app_store
 end
 
+desc("Merges release into main branch and publishes as a GitHub release.")
 lane :git_release do
     unless last_git_commit[:message].strip == "Bump version"
         UI.user_error!("The latest commit is not a version bump")
