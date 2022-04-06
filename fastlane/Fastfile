@@ -46,7 +46,7 @@ lane :take_screenshots do
 end
 
 desc("Bumps all build and version numbers and commits the version bump.")
-desc("**Parameters**\n- `bump_type` (required): `major` or `minor` or `patch`")
+desc("**Parameters**\n- `bump_type`: `major` or `minor` or `patch` (defaults to `patch`)")
 lane :bump_version do |parameters|
     increment_build_number_in_xcodeproj(target: "Passwords")
     increment_build_number_in_xcodeproj(target: "Provider")
