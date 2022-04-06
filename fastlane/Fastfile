@@ -8,6 +8,19 @@ before_all do
     ensure_git_branch(branch: "develop")
 end
 
+desc("Generates all icon sets and commits the changes.")
+lane :generate_icons do
+    Dir.chdir("..") do
+        sh("for size in 20 29 40 58 60 76 80 87 120 152 167 180 1024; do rsvg-convert App/Icon.svg -w ${size} -o App/Assets.xcassets/AppIcon.appiconset/AppIcon-${size}x${size}.png; done")
+        sh("for size in 20 29 40 58 60 76 80 87 120 152 167 180 1024; do rsvg-convert App/Icon.svg -w ${size} -o App/Assets.xcassets/AppIcon-debug.appiconset/AppIcon-${size}x${size}.png; done")
+        sh("for size in 20 29 40 58 60 76 80 87 120 152 167 180 1024; do rsvg-convert Extension/Icon.svg -w ${size} -o Extension/Assets.xcassets/ExtensionIcon.appiconset/ExtensionIcon-${size}x${size}.png; done")
+        sh("for icon in App/Assets.xcassets/AppIcon-debug.appiconset/*.png; do magick convert $icon -modulate 100,100,75 $icon; done")
+        sh("for icon in Extension/Assets.xcassets/ExtensionIcon.appiconset/*.png; do magick convert $icon -fill white $icon -compose CopyOpacity -composite $icon; done")
+        sh("git add .")
+        sh("git commit -m \"Update icons\"")
+    end
+end
+
 desc("Takes all screenshots required for App Store and commits the changes.")
 lane :take_screenshots do
     devices = [
@@ -23,7 +36,7 @@ lane :take_screenshots do
         "iPad (6th generation)"
     ]
     languages = ["en-US", "de-DE"]
-    capture_ios_screenshots(devices: devices, languages: languages, clear_previous_screenshots: true, override_status_bar: true, scheme: "Snapshot", number_of_retries: 0, stop_after_first_error: true)
+    capture_screenshots(devices: devices, languages: languages, clear_previous_screenshots: true, override_status_bar: true, scheme: "Snapshot", number_of_retries: 0, stop_after_first_error: true)
     unless prompt(text: "Does the preview on path './fastlane/screenshots/screenshots.html' look okay for you?", boolean: true)
         reset_git_repo(force: true)
         UI.user_error!("Did not keep screenshots, because the HTML file was rejected by the user")

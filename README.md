@@ -1,6 +1,6 @@
 # Passwords for Nextcloud (iOS Client)
 
-<img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/AppIcon@2x.png" width="150">
+<img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Icon.svg" width="150">
 
 An iOS client for the [Nextcloud Passwords](https://git.mdns.eu/nextcloud/passwords) app. Available on the [App Store](https://apps.apple.com/app/id1546212226).
 

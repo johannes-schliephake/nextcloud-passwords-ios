@@ -512,8 +512,6 @@
 		8F560E68258F54A900C896EE /* View+Occlude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Occlude.swift"; sourceTree = "<group>"; };
 		8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCPasswordsRequest.swift; sourceTree = "<group>"; };
 		8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaviconServiceRequest.swift; sourceTree = "<group>"; };
-		8F5662DB25B366C500C829E7 /* AppIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon@1x.png"; sourceTree = "<group>"; };
-		8F5662DC25B366C600C829E7 /* AppIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon@2x.png"; sourceTree = "<group>"; };
 		8F570BFA25693F5C00BA4B74 /* ListFoldersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFoldersRequest.swift; sourceTree = "<group>"; };
 		8F5757E525671EA4003F1E9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8F5757E925671EA8003F1E9F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -589,6 +587,7 @@
 		9F5B819C26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819D26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819E26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD0BE01527FD969D001687A1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsNavigation.swift; sourceTree = "<group>"; };
 		DD0C28742766028500E3DAEF /* SelectTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsPage.swift; sourceTree = "<group>"; };
 		DD0C28772766036A00E3DAEF /* SelectTagsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsController.swift; sourceTree = "<group>"; };
@@ -620,6 +619,7 @@
 		DD2B7D2027EE6E630018E07E /* primary_category.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = primary_category.txt; sourceTree = "<group>"; };
 		DD2B7D2127EF2F010018E07E /* Pluginfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pluginfile; sourceTree = "<group>"; };
 		DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
+		DD3A993827FDD9AA000E1938 /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD3FAD602775DC54002202DE /* ListSettingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSettingsRequest.swift; sourceTree = "<group>"; };
 		DD3FAD632775DC86002202DE /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		DD3FAD6627772C15002202DE /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
@@ -634,6 +634,8 @@
 		DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPPage.swift; sourceTree = "<group>"; };
 		DD67204427BAFDC40078CF47 /* EditOTPController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPController.swift; sourceTree = "<group>"; };
 		DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPNavigation.swift; sourceTree = "<group>"; };
+		DD6953EB27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
+		DD6953EC27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledRow.swift; sourceTree = "<group>"; };
 		DD718F2727B568E200F85780 /* String+Segmented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Segmented.swift"; sourceTree = "<group>"; };
 		DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+OnSizeChange.swift"; sourceTree = "<group>"; };
@@ -741,10 +743,9 @@
 				8F0136FF25DE903E009455D7 /* .swiftlint.yml */,
 				DD2B7D0827EE6D5E0018E07E /* fastlane */,
 				8FD1038C25A790EC0055A8F3 /* README.md */,
+				DD3A993827FDD9AA000E1938 /* Icon.svg */,
 				8FD1038625A790B00055A8F3 /* LICENSE */,
 				8F580AF325A85D8A0047E484 /* PRIVACY */,
-				8F5662DB25B366C500C829E7 /* AppIcon@1x.png */,
-				8F5662DC25B366C600C829E7 /* AppIcon@2x.png */,
 				8F118750253C9EE10019FECA /* Products */,
 				8F118763253CA2980019FECA /* Frameworks */,
 			);
@@ -859,6 +860,7 @@
 				8F52F3E125937B2700B4EFCE /* IAP.plist */,
 				8F01371225DE9EAD009455D7 /* IAP.storekit */,
 				8F11875B253C9EE30019FECA /* Info.plist */,
+				DD6953EB27FADEA10007DAEE /* Icon.svg */,
 				8F118752253C9EE10019FECA /* PasswordsApp.swift */,
 				8F118756253C9EE30019FECA /* Assets.xcassets */,
 				8F5757E625671EA4003F1E9F /* InfoPlist.strings */,
@@ -1041,6 +1043,7 @@
 				DD2B7D0927EE6D5E0018E07E /* Appfile */,
 				DD2B7D0B27EE6D5E0018E07E /* Fastfile */,
 				DD2B7D2127EF2F010018E07E /* Pluginfile */,
+				DD0BE01527FD969D001687A1 /* README.md */,
 				DD2B7D0D27EE6E630018E07E /* metadata */,
 			);
 			path = fastlane;
@@ -1092,6 +1095,7 @@
 				DDB1696927D1FDEA00F4D752 /* Extension.entitlements */,
 				DDB16A0827D2308600F4D752 /* OTPAutoFillScript.js */,
 				DDB1695E27D1FCFF00F4D752 /* Info.plist */,
+				DD6953EC27FADEA10007DAEE /* Icon.svg */,
 				DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */,
 				DDB16A0B27D24D6300F4D752 /* Assets.xcassets */,
 				DDB1695B27D1FCFF00F4D752 /* ExtensionView.storyboard */,
@@ -2244,7 +2248,7 @@
 		DDB1696227D1FCFF00F4D752 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 16;
@@ -2269,7 +2273,7 @@
 		DDB1696327D1FCFF00F4D752 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 16;

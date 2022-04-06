@@ -13,6 +13,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
+### generate_icons
+
+```sh
+[bundle exec] fastlane generate_icons
+```
+
+Generates all icon sets and commits the changes.
+
 ### take_screenshots
 
 ```sh
