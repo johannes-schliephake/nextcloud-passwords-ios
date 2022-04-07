@@ -13,6 +13,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
+### generate_icons
+
+```sh
+[bundle exec] fastlane generate_icons
+```
+
+Generates all icon sets and commits the changes.
+
 ### take_screenshots
 
 ```sh
@@ -30,7 +38,7 @@ Takes all screenshots required for App Store and commits the changes.
 Bumps all build and version numbers and commits the version bump.
 
 **Parameters**
-- `bump_type` (required): `major` or `minor` or `patch`
+- `bump_type`: `major` or `minor` or `patch` (defaults to `patch`)
 
 ### build_and_upload
 
