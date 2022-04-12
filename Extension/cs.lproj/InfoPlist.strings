@@ -1,4 +1,4 @@
-"CFBundleDisplayName" = "TODO";
-"NSCameraUsageDescription" = "TODO";
+"CFBundleDisplayName" = "Vložte jednorázové heslo";
+"NSCameraUsageDescription" = "Naskenujte QR kód";
 "NSFaceIDUsageDescription" = "Odemknout aplikaci";
-"NSPhotoLibraryAddUsageDescription" = "TODO";
+"NSPhotoLibraryAddUsageDescription" = "Nasdílet QR kód";
