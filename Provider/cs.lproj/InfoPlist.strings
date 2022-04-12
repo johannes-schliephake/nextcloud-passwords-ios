@@ -1,3 +1,3 @@
-"NSCameraUsageDescription" = "TODO";
+"NSCameraUsageDescription" = "Naskenovat QR kód";
 "NSFaceIDUsageDescription" = "Odemknout aplikaci";
-"NSPhotoLibraryAddUsageDescription" = "TODO";
+"NSPhotoLibraryAddUsageDescription" = "Nasdílet QR kód";
