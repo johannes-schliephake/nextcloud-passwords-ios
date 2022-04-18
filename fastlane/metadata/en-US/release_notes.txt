@@ -1,1 +1,4 @@
-• Rerelease of v2.5 to prevent crashes on iOS 14 caused by current Xcode version
+• Support for one-time passwords (currently iOS only)
+• Redesigned password metadata section
+• Improved password generator
+• Bugfixes and optimizations
