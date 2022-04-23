@@ -4,26 +4,26 @@ git:
       file_format: STRINGS
       source_file_extension: strings
       source_language: en
-      source_file_dir: App
+      source_file_dir: App/en.lproj
       translation_files_expression: 'App/<lang>.lproj'
   
     - filter_type: dir
       file_format: STRINGS
       source_file_extension: strings
       source_language: en
-      source_file_dir: Provider
+      source_file_dir: Provider/en.lproj
       translation_files_expression: 'Provider/<lang>.lproj'
   
     - filter_type: dir
       file_format: STRINGS
       source_file_extension: strings
       source_language: en
-      source_file_dir: Extension
+      source_file_dir: Extension/en.lproj
       translation_files_expression: 'Extension/<lang>.lproj'
   
     - filter_type: dir
       file_format: STRINGS
       source_file_extension: strings
       source_language: en
-      source_file_dir: Shared
+      source_file_dir: Shared/en.lproj
       translation_files_expression: 'Shared/<lang>.lproj'
