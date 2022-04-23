@@ -668,7 +668,6 @@
 		DDCE125E2741408D003912D0 /* ListTagsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTagsRequest.swift; sourceTree = "<group>"; };
 		DDCE1261274140A9003912D0 /* ShowTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagRequest.swift; sourceTree = "<group>"; };
 		DDCE126427414101003912D0 /* UpdateTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTagRequest.swift; sourceTree = "<group>"; };
-		DDD999F328140A3C007045D2 /* transifex.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = transifex.yml; sourceTree = "<group>"; };
 		DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPNavigation.swift; sourceTree = "<group>"; };
 		DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPPage.swift; sourceTree = "<group>"; };
 		DDDF3387276F7FDE008EEB3F /* TagBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagBadge.swift; sourceTree = "<group>"; };
@@ -743,7 +742,6 @@
 				8FD1039625A7BFFC0055A8F3 /* .gitignore */,
 				8F0136FF25DE903E009455D7 /* .swiftlint.yml */,
 				DD2B7D0827EE6D5E0018E07E /* fastlane */,
-				DDD999F328140A3C007045D2 /* transifex.yml */,
 				8FD1038C25A790EC0055A8F3 /* README.md */,
 				DD3A993827FDD9AA000E1938 /* Icon.svg */,
 				8FD1038625A790B00055A8F3 /* LICENSE */,

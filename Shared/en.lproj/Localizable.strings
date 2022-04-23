@@ -1,385 +1,155 @@
-/* I.e. about this app */
-"_about" = "About";
-
+"_about" = "About"; // I.e. about this app
 "_aboutOtps" = "About One-Time Passwords";
-
-/* This message is shown before the user can add the first one-time password */
-"_aboutOtpsMessage" = "This app supports one-time passwords for convenience only. Storing your one-time password alongside your account's password defeats some of the security benefits of multi-factor authentication. Enabling a second factor is better than not using one at all, but a standalone one-time password app will be more secure. DO NOT store one-time passwords for your Nextcloud account or critical accounts, such as Email or online banking accounts. One-time passwords will synchronize over your Nextcloud Passwords instance but are currently only supported by the iOS app (v2.6 or newer).";
-
-/* I.e. accept this certificate */
-"_accept" = "Accept";
-
-/* This refers to the noun ("the account") */
-"_account" = "Account";
-
+"_aboutOtpsMessage" = "This app supports one-time passwords for convenience only. Storing your one-time password alongside your account's password defeats some of the security benefits of multi-factor authentication. Enabling a second factor is better than not using one at all, but a standalone one-time password app will be more secure. DO NOT store one-time passwords for your Nextcloud account or critical accounts, such as Email or online banking accounts. One-time passwords will synchronize over your Nextcloud Passwords instance but are currently only supported by the iOS app (v2.6 or newer)."; // This message is shown before the user can add the first one-time password
+"_accept" = "Accept"; // I.e. accept this certificate
+"_account" = "Account"; // This refers to the noun ("the account")
 "_addCustomField" = "Add Custom Field";
-
-/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture" */
-"_addManually" = "Add Manually";
-
+"_addManually" = "Add Manually"; // Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture"
 "_addOtp" = "Add One-Time Password";
-
-/* I.e. add tags to a password */
-"_addTags" = "Add Tags";
-
+"_addTags" = "Add Tags"; // I.e. add tags to a password
 "_algorithm" = "Algorithm";
-
-/* I.e. all passwords */
-"_all" = "All";
-
+"_all" = "All"; // I.e. all passwords
 "_anErrorOccurred" = "An error occurred ...";
-
 "_appDeauthorized" = "App Deauthorized";
-
 "_appDeauthorizedMessage" = "Because of too many failed login attempts this app was deauthorized by the server. Please try again later.";
-
-/* This is a label for a settings toggle */
-"_automaticallyGeneratePasswords" = "Automatically Generate Passwords";
-
-/* Use the same wording Apple uses across iOS */
-"_cancel" = "Cancel";
-
-/* Possible value for "Encryption" field on password detail page, other key is "_serverSide" */
-"_clientSide" = "Client Side";
-
-/* This refers to the noun ("the color"), i.e. the color of a tag */
-"_color" = "Color";
-
-/* I.e. a one-time password is configured */
-"_configured" = "Configured";
-
-/* I.e. confirm that the OTP message has been read */
-"_confirm" = "Confirm";
-
-/* E.g. confirm deletion or confirm log out */
-"_confirmAction" = "Confirm Action";
-
-/* I.e. connect to server */
-"_connect" = "Connect";
-
+"_automaticallyGeneratePasswords" = "Automatically Generate Passwords"; // This is a label for a settings toggle
+"_cancel" = "Cancel"; // Use the same wording Apple uses across iOS
+"_clientSide" = "Client Side"; // Possible value for "Encryption" field on password detail page, other key is "_serverSide"
+"_color" = "Color"; // // This refers to the noun ("the color"), i.e. the color of a tag
+"_configured" = "Configured"; // I.e. a one-time password is configured
+"_confirm" = "Confirm"; // I.e. confirm that the OTP message has been read
+"_confirmAction" = "Confirm Action"; // E.g. confirm deletion or confirm log out
+"_connect" = "Connect"; // I.e. connect to server
 "_connectToServer" = "Connect to Server";
-
 "_copyOtp" = "Copy One-Time Password";
-
 "_copyPassword" = "Copy Password";
-
 "_copyUsername" = "Copy Username";
-
-/* This refers to the noun ("the counter") and counts how many OTPs have been used */
-"_counter" = "Counter";
-
-/* I.e. this OTP is a counter-based one, possible value for "Type" field in OTP editor, other key is "_timeBased" */
-"_counterBased" = "Counter-Based";
-
-/* I.e. create folder or password */
-"_create" = "Create";
-
-/* I.e. date when a password was created */
-"_created" = "Created";
-
+"_counter" = "Counter"; // This refers to the noun ("the counter") and counts how many OTPs have been used
+"_counterBased" = "Counter-Based";  // I.e. this OTP is a counter-based one, possible value for "Type" field in OTP editor, other key is "_timeBased"
+"_create" = "Create"; // I.e. create folder or password
+"_created" = "Created"; // I.e. date when a password was created
 "_createFolder" = "Create Folder";
-
 "_createFolderErrorMessage" = "An error occurred while creating the folder. Please save the folder again.";
-
 "_createPassword" = "Create Password";
-
 "_createPasswordErrorMessage" = "An error occurred while creating the password. Please save the password again.";
-
 "_createTag" = "Create Tag";
-
 "_createTagErrorMessage" = "An error occurred while creating the tag. Please save the tag again.";
-
-/* Nextcloud credentials that were used to connect to an instance */
-"_credentials" = "Credentials";
-
+"_credentials" = "Credentials"; // Nextcloud credentials that were used to connect to an instance
 "_customFields" = "Custom Fields";
-
 "_decryptFolderErrorMessage" = "An error occurred while decrypting the folder.";
-
 "_decryptPasswordErrorMessage" = "An error occurred while decrypting the password.";
-
 "_decryptTagErrorMessage" = "An error occurred while decrypting the tag.";
-
-/* Use the same wording Apple uses across iOS */
-"_delete" = "Delete";
-
+"_delete" = "Delete"; // Use the same wording Apple uses across iOS
 "_deletedPasswordMessage" = "This password was deleted.";
-
 "_deleteFolder" = "Delete Folder";
-
 "_deleteFolderErrorMessage" = "An error occurred while deleting the folder. Please delete the folder again.";
-
 "_deleteOtp" = "Delete One-Time Password";
-
 "_deletePassword" = "Delete Password";
-
 "_deletePasswordErrorMessage" = "An error occurred while deleting the password. Please delete the password again.";
-
 "_deleteTag" = "Delete Tag";
-
 "_deleteTagErrorMessage" = "An error occurred while deleting the tag. Please delete the tag again.";
-
-/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_addManually" */
-"_detectQrCodeInPicture" = "Detect QR Code In Picture";
-
-/* I.e. the number of digits to show of an OTP */
-"_digits" = "Digits";
-
+"_detectQrCodeInPicture" = "Detect QR Code In Picture"; // Possible option when adding an OTP, other keys are "_scanQrCode" and "_addManually"
+"_digits" = "Digits"; // I.e. the number of digits to show of an OTP
 "_discardChanges" = "Discard Changes";
-
-/* Use the same wording Apple uses across iOS */
-"_dismiss" = "Dismiss";
-
-/* Use the same wording Apple uses across iOS */
-"_done" = "Done";
-
-/* I.e. end-to-end password */
-"_e2ePassword" = "E2E Password";
-
-/* This refers to the verb ("to edit"), use the same wording Apple uses across iOS */
-"_edit" = "Edit";
-
+"_dismiss" = "Dismiss"; // Use the same wording Apple uses across iOS
+"_done" = "Done"; // Use the same wording Apple uses across iOS
+"_e2ePassword" = "E2E Password"; // I.e. end-to-end password
+"_edit" = "Edit"; // This refers to the verb ("to edit"), use the same wording Apple uses across iOS
 "_editFolderErrorMessage" = "An error occurred while editing the folder. Please save the folder again.";
-
 "_editPassword" = "Edit Password";
-
 "_editPasswordErrorMessage" = "An error occurred while editing the password. Please save the password again.";
-
 "_editTagErrorMessage" = "An error occurred while editing the tag. Please save the tag again.";
-
 "_editTags" = "Edit Tags";
-
-/* Make sure to use the correct notation in your language, e.g. in German a dash is added: "E-Mail" */
-"_email" = "Email";
-
-/* This is a label for a settings toggle */
-"_encryptedOfflineStorage" = "Encrypted Offline Storage";
-
-/* I.e. server or client side encryption */
-"_encryption" = "Encryption";
-
+"_email" = "Email"; // Make sure to use the correct notation in your language, e.g. in German a dash is added: "E-Mail"
+"_encryptedOfflineStorage" = "Encrypted Offline Storage"; // This is a label for a settings toggle
+"_encryption" = "Encryption"; // I.e. server or client side encryption
 "_error" = "Error";
-
-/* I.e. export this OTP as a QR code */
-"_exportAsQrCode" = "Export As QR Code";
-
+"_exportAsQrCode" = "Export As QR Code"; // I.e. export this OTP as a QR code
 "_extractOtpErrorMessage" = "An error occurred while searching for a QR code in the selected picture.";
-
-/* This refers to the noun ("the favorite") */
-"_favorite" = "Favorite";
-
-/* This refers to the noun ("the favorites") */
-"_favorites" = "Favorites";
-
-/* This refers to the noun ("the file") */
-"_file" = "File";
-
+"_favorite" = "Favorite"; // This refers to the noun ("the favorite")
+"_favorites" = "Favorites"; // This refers to the noun ("the favorites")
+"_file" = "File"; // This refers to the noun ("the file")
 "_folder" = "Folder";
-
 "_folders" = "Folders";
-
 "_generatePassword" = "Generate Password";
-
-/* This is the label for starting an In-App purchase */
-"_giveATip" = "Give a Tip";
-
-/* E.g. a SHA1 hash */
-"_hash" = "Hash";
-
-/* Keep this in English */
-"_highFive" = "High Five! 👏";
-
+"_giveATip" = "Give a Tip"; // This is the label for starting an In-App purchase
+"_hash" = "Hash"; // E.g. a SHA1 hash
+"_highFive" = "High Five! 👏"; // Keep this in English
 "_id" = "ID";
-
 "_incorrectPassword" = "Incorrect Password";
-
 "_incorrectPasswordMessage" = "Please try again.";
-
-/* I.e. integration into the OS (Password AutoFill) */
-"_integration" = "Integration";
-
+"_integration" = "Integration"; // I.e. integration into the OS (Password AutoFill)
 "_invalidCertificate" = "Invalid Certificate";
-
-/* Make sure to keep newlines (\n) and the placeholder (%@) */
-"_invalidCertificateMessage(hash)" = "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%@";
-
-/* This refers to the verb ("to log in") */
-"_logIn" = "Log In";
-
-/* This refers to the verb ("to log out") */
-"_logOut" = "Log Out";
-
-/* Possible value for "Strength" picker when generating a password */
-"_low" = "Low";
-
-/* Possible value for "Strength" picker when generating a password */
-"_medium" = "Medium";
-
+"_invalidCertificateMessage(hash)" = "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%@"; // Make sure to keep newlines (\n) and the placeholder (%@)
+"_logIn" = "Log In"; // This refers to the verb ("to log in")
+"_logOut" = "Log Out"; // This refers to the verb ("to log out")
+"_low" = "Low"; // Possible value for "Strength" picker when generating a password
+"_medium" = "Medium"; // Possible value for "Strength" picker when generating a password
 "_metadata" = "Metadata";
-
-/* I.e. show more options */
-"_moreOptions" = "More Options";
-
-/* This refers to the verb ("to move"), i.e. move a file to another folder */
-"_move" = "Move";
-
-/* This refers to the noun ("the name") */
-"_name" = "Name";
-
+"_moreOptions" = "More Options"; // I.e. show more options
+"_move" = "Move"; // This refers to the verb ("to move"), i.e. move a file to another folder
+"_name" = "Name"; // This refers to the noun ("the name")
 "_nextcloudServerAddress" = "Nextcloud Server Address";
-
 "_noConnection" = "No Connection";
-
 "_noConnectionMessage" = "Could not connect to the Nextcloud Passwords instance.";
-
-/* This refers to the noun ("the notes") */
-"_notes" = "Notes";
-
-/* Shown in empty lists */
-"_nothingToSeeHere" = "Nothing to see here ...";
-
-/* This is a label for a password generator toggle */
-"_numbers" = "Numbers";
-
-/* I.e. the app has no connection to the server and is offline */
-"_offline" = "Offline";
-
+"_notes" = "Notes"; // This refers to the noun ("the notes")
+"_nothingToSeeHere" = "Nothing to see here ..."; // Shown in empty lists
+"_numbers" = "Numbers"; // This is a label for a password generator toggle
+"_offline" = "Offline"; // I.e. the app has no connection to the server and is offline
 "_openUrl" = "Open URL";
-
-/* I.e. settings options */
-"_options" = "Options";
-
+"_options" = "Options"; // I.e. settings options
 "_otp" = "One-Time Password";
-
 "_otps" = "One-Time Passwords";
-
 "_password" = "Password";
-
 "_passwords" = "Passwords";
-
 "_passwordServiceErrorMessage" = "An error occurred while generating the password.";
-
-/* In earlier versions this value was split into two strings */
-"_passwordStatusBreachedMessage" = "This password is not safe to use. It has been found in a database of compromised passwords.";
-
+"_passwordStatusBreachedMessage" = "This password is not safe to use. It has been found in a database of compromised passwords."; // In earlier versions this value was split into two strings
 "_passwordStatusDuplicateMessage" = "This password is being used more than once.";
-
-/* In earlier versions this value was split into three strings */
-"_passwordStatusGoodMessage" = "This password is safe to use. It has not been breached and doesn't violate user defined rules.";
-
-/* "Maximum age": Use the same wording that the web client uses in its settings */
-"_passwordStatusOutdatedMessage" = "This password has reached the maximum age.";
-
+"_passwordStatusGoodMessage" = "This password is safe to use. It has not been breached and doesn't violate user defined rules."; // In earlier versions this value was split into three strings
+"_passwordStatusOutdatedMessage" = "This password has reached the maximum age."; // "Maximum age": Use the same wording that the web client uses in its settings
 "_passwordStatusUnknownMessage" = "This password has not yet been checked for its security or the option to store hashes for security checks is disabled.";
-
-/* How long each OTP is valid in seconds */
-"_periodSeconds" = "Period (Seconds)";
-
-/* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
-"_providerInstructionsMessage" = "This app supports Password AutoFill. The feature has to be enabled in iOS's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap AutoFill Passwords\n4. Enable AutoFill Passwords\n5. Enable this app";
-
+"_periodSeconds" = "Period (Seconds)"; // How long each OTP is valid in seconds
+"_providerInstructionsMessage" = "This app supports Password AutoFill. The feature has to be enabled in iOS's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap AutoFill Passwords\n4. Enable AutoFill Passwords\n5. Enable this app"; // Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step
 "_qrCaptureErrorMessage" = "An error occurred while launching the camera.";
-
-/* I.e. reject this certificate */
-"_reject" = "Reject";
-
-/* The folder all passwords and folders are placed in, which are not in a subfolder */
-"_rootFolder" = "Root Folder";
-
-/* Possible option when adding an OTP, other keys are "_detectQrCodeInPicture" and "_addManually" */
-"_scanQrCode" = "Scan QR Code";
-
-/* This refers to the noun ("the secret") and is used in similar places as "password" */
-"_secret" = "Secret";
-
-/* I.e. security status of a password */
-"_security" = "Security";
-
-/* This refers to the verb ("to select"), i.e. select a password */
-"_select" = "Select";
-
-/* I.e. select a color for a tag */
-"_selectColor" = "Select Color";
-
+"_reject" = "Reject"; // I.e. reject this certificate
+"_rootFolder" = "Root Folder"; // The folder all passwords and folders are placed in, which are not in a subfolder
+"_scanQrCode" = "Scan QR Code"; // Possible option when adding an OTP, other keys are "_detectQrCodeInPicture" and "_addManually"
+"_secret" = "Secret"; // This refers to the noun ("the secret") and is used in similar places as "password"
+"_security" = "Security"; // I.e. security status of a password
+"_select" = "Select"; // This refers to the verb ("to select"), i.e. select a password
+"_selectColor" = "Select Color"; // I.e. select a color for a tag
 "_serverAddressFieldMessage" = "An HTTPS connection is required.";
-
-/* Possible value for "Encryption" field on password detail page, other key is "_clientSide" */
-"_serverSide" = "Server Side";
-
-/* E.g. a website, an app, etc. */
-"_service" = "Service";
-
+"_serverSide" = "Server Side"; // Possible value for "Encryption" field on password detail page, other key is "_clientSide"
+"_service" = "Service"; // E.g. a website, an app, etc.
 "_settings" = "Settings";
-
 "_shareOtpWarningMessage" = "This QR code contains highly sensitive data about the one-time password";
-
 "_shareQrCode" = "Share QR Code";
-
 "_sourceCode" = "Source Code";
-
-/* This is a label for a password generator toggle */
-"_specialCharacters" = "Special Characters";
-
-/* I.e. store the E2E password */
-"_storePassword" = "Store Password";
-
+"_specialCharacters" = "Special Characters"; // This is a label for a password generator toggle
+"_storePassword" = "Store Password"; // I.e. store the E2E password
 "_storePasswordMessage" = "If this option is enabled, the E2E password is stored encrypted in your device's keychain.";
-
-/* I.e. strength of the password to generate */
-"_strength" = "Strength";
-
-/* I.e. password suggestions when using Password AutoFill */
-"_suggestions" = "Suggestions";
-
+"_strength" = "Strength"; // I.e. strength of the password to generate
+"_suggestions" = "Suggestions"; // I.e. password suggestions when using Password AutoFill
 "_supportThisProject" = "Support This Project";
-
-/* This refers to the noun ("the tag") */
-"_tag" = "Tag";
-
+"_tag" = "Tag"; // This refers to the noun ("the tag")
 "_tags" = "Tags";
-
-/* This refers to the noun ("the text") */
-"_text" = "Text";
-
+"_text" = "Text"; // This refers to the noun ("the text")
 "_thanksMessage" = "Thanks to the entire Nextcloud community and everybody involved for enabling such an amazing ecosystem. I hope that I can contribute something with this app.";
-
-/* I.e. this OTP is a time-based one, possible value for "Type" field in OTP editor, other key is "_counterBased" */
-"_timeBased" = "Time-Based";
-
-/* Shown when Apple's "Ask to Buy" feature (parental control) is active */
-"_tipDeferred" = "Tip Deferred";
-
+"_timeBased" = "Time-Based"; // I.e. this OTP is a time-based one, possible value for "Type" field in OTP editor, other key is "_counterBased"
+"_tipDeferred" = "Tip Deferred"; // Shown when Apple's "Ask to Buy" feature (parental control) is active
 "_tipDeferredMessage" = "Your tip is now waiting for approval.";
-
 "_tipFailed" = "Tip Failed";
-
 "_tipFailedMessage" = "An error occurred while processing your tip.";
-
 "_tipReceived" = "Tip Received";
-
 "_tipReceivedMessage" = "Thank you for supporting this project with your tip!";
-
-/* I.e. try again to load the data */
-"_tryAgain" = "Try Again";
-
-/* This refers to the noun ("the type") */
-"_type" = "Type";
-
-/* Possible value for "Strength" picker when generating a password */
-"_ultra" = "Ultra";
-
-/* Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/InfoPlist.strings and Provider/InfoPlist.strings and Extension/InfoPlist.strings */
-"_unlockApp" = "Unlock App";
-
-/* I.e. date when a password was last updated */
-"_updated" = "Updated";
-
+"_tryAgain" = "Try Again"; // I.e. try again to load the data
+"_type" = "Type";  // This refers to the noun ("the type")
+"_ultra" = "Ultra"; // Possible value for "Strength" picker when generating a password
+"_unlockApp" = "Unlock App"; // Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/InfoPlist.strings and Provider/InfoPlist.strings and Extension/InfoPlist.strings
+"_updated" = "Updated"; // I.e. date when a password was last updated
 "_url" = "URL";
-
 "_username" = "Username";
+"_valueCopied" = "Value Copied"; // E.g. password, username or URL was copied to the clipboard
+"_version" = "Version"; // I.e. installed version of the app
 
-/* E.g. password, username or URL was copied to the clipboard */
-"_valueCopied" = "Value Copied";
-
-/* I.e. installed version of the app */
-"_version" = "Version";
+// Feel free to ask questions: mail@cdslash.de

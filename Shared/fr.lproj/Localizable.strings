@@ -103,9 +103,9 @@
 "_password" = "Mot de passe";
 "_passwords" = "Mots de passe";
 "_passwordServiceErrorMessage" = "Une erreur est survenue durant la génération du mot de passe.";
-"_passwordStatusBreachedMessage" = "TODO: Ce mot de passe a été compromis. Ce n'est pas sécurisé à utiliser.";
+"_passwordStatusBreachedMessage" = "TODO"; // Ce mot de passe a été compromis. Ce n'est pas sécurisé à utiliser.
 "_passwordStatusDuplicateMessage" = "Ce mot de passe a été utilisé plus d'une fois.";
-"_passwordStatusGoodMessage" = "TODO: Ce mot de passe est sécurisé. Il n'a pas été fuité. Il ne viole pas les règles choisies.";
+"_passwordStatusGoodMessage" = "TODO"; // Ce mot de passe est sécurisé. Il n'a pas été fuité. Il ne viole pas les règles choisies.
 "_passwordStatusOutdatedMessage" = "Ce mot de passe est arrivé à expiration.";
 "_passwordStatusUnknownMessage" = "TODO";
 "_periodSeconds" = "TODO";
