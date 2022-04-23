@@ -1,0 +1,29 @@
+git:
+  filters:
+    - filter_type: dir
+      file_format: STRINGS
+      source_file_extension: strings
+      source_language: en
+      source_file_dir: App
+      translation_files_expression: 'App/<lang>.lproj'
+  
+    - filter_type: dir
+      file_format: STRINGS
+      source_file_extension: strings
+      source_language: en
+      source_file_dir: Provider
+      translation_files_expression: 'Provider/<lang>.lproj'
+  
+    - filter_type: dir
+      file_format: STRINGS
+      source_file_extension: strings
+      source_language: en
+      source_file_dir: Extension
+      translation_files_expression: 'Extension/<lang>.lproj'
+  
+    - filter_type: dir
+      file_format: STRINGS
+      source_file_extension: strings
+      source_language: en
+      source_file_dir: Shared
+      translation_files_expression: 'Shared/<lang>.lproj'
