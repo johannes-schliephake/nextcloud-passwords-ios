@@ -17,7 +17,8 @@ final class SecurityCheckController: ObservableObject {
                 let securityChecks = try await [
                     HashSettingSecurityCheck() as SecurityCheck,
                     AppVersionSecurityCheck() as SecurityCheck,
-                    CertificateSecurityCheck() as SecurityCheck
+                    CertificateSecurityCheck() as SecurityCheck,
+                    MaintenanceSecurityCheck() as SecurityCheck
                 ]
                 await MainActor.run {
                     [self] in

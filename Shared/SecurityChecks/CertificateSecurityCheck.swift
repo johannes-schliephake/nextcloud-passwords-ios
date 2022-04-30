@@ -8,7 +8,7 @@ final class CertificateSecurityCheck: SecurityCheck {
     let issue: Issue?
     let fix: (() async throws -> Void)? = nil
     
-    init() throws {
+    init() {
         guard AuthenticationChallengeController.default.isUsingValidCertificate else {
             severity = .medium
             issue = .invalid

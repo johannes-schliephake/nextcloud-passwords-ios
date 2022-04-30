@@ -16,6 +16,8 @@
 "_appVersionOutdatedMessage" = "A new version of this app is available. New releases always improve security.";
 "_automaticallyGeneratePasswords" = "Automatically Generate Passwords"; // This is a label for a settings toggle
 "_cancel" = "Cancel"; // Use the same wording Apple uses across iOS
+"_checkNextcloudsMaintenanceSection" = "Check Nextcloud's Maintenance Section";
+"_checkNextcloudsMaintenanceSectionMessage" = "If you are the admin of this Nextcloud instance make sure to check the maintenance section for potential issues.";
 "_clientSide" = "Client Side"; // Possible value for "Encryption" field on password detail page, other key is "_serverSide"
 "_color" = "Color"; // // This refers to the noun ("the color"), i.e. the color of a tag
 "_configured" = "Configured"; // I.e. a one-time password is configured

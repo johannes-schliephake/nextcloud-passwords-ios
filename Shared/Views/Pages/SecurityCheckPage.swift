@@ -114,6 +114,13 @@ struct SecurityCheckPage: View {
                                     Text("_invalidCertificateMessage2")
                                         .font(.subheadline)
                                         .foregroundColor(.gray)
+                                case is MaintenanceSecurityCheck:
+                                    Text("_checkNextcloudsMaintenanceSection")
+                                        .bold()
+                                    Spacer()
+                                    Text("_checkNextcloudsMaintenanceSectionMessage")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
                                 default:
                                     EmptyView()
                                 }
