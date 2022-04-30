@@ -99,7 +99,15 @@ final class SettingsController: ObservableObject {
     }
     
     var userPasswordSecurityHash: Int {
-        settings?.userPasswordSecurityHash ?? 40
+        get {
+            settings?.userPasswordSecurityHash ?? 40
+        }
+        set {
+            guard [0, 20, 30, 40].contains(newValue) else {
+                return
+            }
+            settings?.userPasswordSecurityHash = newValue
+        }
     }
     
     var userSessionLifetime: Int {

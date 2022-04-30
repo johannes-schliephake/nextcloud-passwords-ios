@@ -79,6 +79,8 @@
 "_generatePassword" = "Generate Password";
 "_giveATip" = "Give a Tip"; // This is the label for starting an In-App purchase
 "_hash" = "Hash"; // E.g. a SHA1 hash
+"_hashSettingTooHighMessage" = "The password hash length setting is configured too long. This weakens client side encryption.";
+"_hashSettingTooLowMessage" = "The password hash length setting is configured too short. This prevents detection of duplicate and breached passwords.";
 "_highFive" = "High Five! 👏"; // Keep this in English
 "_id" = "ID";
 "_ignore" = "Ignore";
@@ -109,6 +111,7 @@
 "_otp" = "One-Time Password";
 "_otps" = "One-Time Passwords";
 "_password" = "Password";
+"_passwordHashLengthMisconfigured" = "Password Hash Length Misconfigured";
 "_passwords" = "Passwords";
 "_passwordServiceErrorMessage" = "An error occurred while generating the password.";
 "_passwordStatusBreachedMessage" = "This password is not safe to use. It has been found in a database of compromised passwords."; // In earlier versions this value was split into two strings

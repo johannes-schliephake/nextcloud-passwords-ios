@@ -75,6 +75,22 @@ struct SecurityCheckPage: View {
                         VStack(alignment: .leading) {
                             if #available(iOS 15, *) {
                                 switch securityCheck {
+                                case let hashSettingSecurityCheck as HashSettingSecurityCheck:
+                                    Text("_passwordHashLengthMisconfigured")
+                                        .bold()
+                                    Spacer()
+                                    switch hashSettingSecurityCheck.issue {
+                                    case .tooHigh:
+                                        Text("_hashSettingTooHighMessage")
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    case .tooLow:
+                                        Text("_hashSettingTooLowMessage")
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    case nil:
+                                        EmptyView()
+                                    }
                                 case let appVersionSecurityCheck as AppVersionSecurityCheck:
                                     Text("_appVersionOutdated")
                                         .bold()

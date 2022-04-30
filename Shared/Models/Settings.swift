@@ -3,8 +3,8 @@ import Foundation
 
 final class Settings {
     
-    let userPasswordSecurityHash: Int?
-    let userSessionLifetime: Int?
+    var userPasswordSecurityHash: Int?
+    var userSessionLifetime: Int?
     
     private init() {
         userPasswordSecurityHash = nil

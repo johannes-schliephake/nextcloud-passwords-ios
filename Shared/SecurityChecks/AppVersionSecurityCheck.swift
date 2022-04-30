@@ -10,7 +10,12 @@ final class AppVersionSecurityCheck: SecurityCheck {
     let fix: (() async throws -> Void)?
     
     init() async throws {
-        guard let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(Configuration.appService.replacingOccurrences(of: "-debug", with: ""))") else {
+        #if DEBUG
+        let bundleId = Configuration.appService.replacingOccurrences(of: "-debug", with: "")
+        #else
+        let bundleId = Configuration.appService
+        #endif
+        guard let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(bundleId)") else {
             throw SecurityCheckError.checkFailed
         }
         let (data, _) = try await NetworkClient.default.data(from: url)

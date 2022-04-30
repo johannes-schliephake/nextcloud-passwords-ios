@@ -421,6 +421,9 @@
 		DDD999FF2816ED7D007045D2 /* SecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999FE2816ED7D007045D2 /* SecurityCheck.swift */; };
 		DDD99A002816ED7D007045D2 /* SecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999FE2816ED7D007045D2 /* SecurityCheck.swift */; };
 		DDD99A012816ED7D007045D2 /* SecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999FE2816ED7D007045D2 /* SecurityCheck.swift */; };
+		DDD99A032816EDBE007045D2 /* HashSettingSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD99A022816EDBE007045D2 /* HashSettingSecurityCheck.swift */; };
+		DDD99A042816EDBE007045D2 /* HashSettingSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD99A022816EDBE007045D2 /* HashSettingSecurityCheck.swift */; };
+		DDD99A052816EDBE007045D2 /* HashSettingSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD99A022816EDBE007045D2 /* HashSettingSecurityCheck.swift */; };
 		DDDB6B5627A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5727A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5927A806ED007572B1 /* CaptureOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */; };
@@ -693,6 +696,7 @@
 		DDD999F52816C66F007045D2 /* SecurityCheckPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCheckPage.swift; sourceTree = "<group>"; };
 		DDD999F92816D2FA007045D2 /* SecurityCheckController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCheckController.swift; sourceTree = "<group>"; };
 		DDD999FE2816ED7D007045D2 /* SecurityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCheck.swift; sourceTree = "<group>"; };
+		DDD99A022816EDBE007045D2 /* HashSettingSecurityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashSettingSecurityCheck.swift; sourceTree = "<group>"; };
 		DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPNavigation.swift; sourceTree = "<group>"; };
 		DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPPage.swift; sourceTree = "<group>"; };
 		DDDF3387276F7FDE008EEB3F /* TagBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagBadge.swift; sourceTree = "<group>"; };
@@ -1529,6 +1533,7 @@
 				8F997F9D2572ED7800B5F784 /* CreateFolderRequest.swift in Sources */,
 				DDCE125627411B09003912D0 /* Tag.swift in Sources */,
 				DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */,
+				DDD99A032816EDBE007045D2 /* HashSettingSecurityCheck.swift in Sources */,
 				DDDB6B5927A806ED007572B1 /* CaptureOTPPage.swift in Sources */,
 				8F561EBE258D26CC008AE12B /* NCPasswordsRequest.swift in Sources */,
 				8F559A1D25A0AE3E00D7A39F /* EditPasswordNavigation.swift in Sources */,
@@ -1684,6 +1689,7 @@
 				8FC361B425827E4C00785371 /* EditPasswordPage.swift in Sources */,
 				DDCE125727411B09003912D0 /* Tag.swift in Sources */,
 				DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */,
+				DDD99A042816EDBE007045D2 /* HashSettingSecurityCheck.swift in Sources */,
 				DDDB6B5A27A806ED007572B1 /* CaptureOTPPage.swift in Sources */,
 				8F561EC3258D2759008AE12B /* NCPasswordsRequest.swift in Sources */,
 				8F559A1E25A0AE3E00D7A39F /* EditPasswordNavigation.swift in Sources */,
@@ -1835,6 +1841,7 @@
 				DDB169AC27D20CC200F4D752 /* Collection+Avg.swift in Sources */,
 				DDB1699527D20CC200F4D752 /* AuthenticationChallengeController.swift in Sources */,
 				DDB169EE27D20CC300F4D752 /* EditTagPageFallback.swift in Sources */,
+				DDD99A052816EDBE007045D2 /* HashSettingSecurityCheck.swift in Sources */,
 				DDB169A327D20CC200F4D752 /* SelectTagsNavigation.swift in Sources */,
 				DDB1697827D20CC100F4D752 /* Tooltip.swift in Sources */,
 				DDB1698027D20CC100F4D752 /* View+Occlude.swift in Sources */,
