@@ -12,6 +12,8 @@
 "_anErrorOccurred" = "An error occurred ...";
 "_appDeauthorized" = "App Deauthorized";
 "_appDeauthorizedMessage" = "Because of too many failed login attempts this app was deauthorized by the server. Please try again later.";
+"_appVersionOutdated" = "App Version Outdated";
+"_appVersionOutdatedMessage" = "A new version of this app is available. New releases always improve security.";
 "_automaticallyGeneratePasswords" = "Automatically Generate Passwords"; // This is a label for a settings toggle
 "_cancel" = "Cancel"; // Use the same wording Apple uses across iOS
 "_clientSide" = "Client Side"; // Possible value for "Encryption" field on password detail page, other key is "_serverSide"
@@ -103,6 +105,7 @@
 "_offline" = "Offline"; // I.e. the app has no connection to the server and is offline
 "_openUrl" = "Open URL";
 "_options" = "Options"; // I.e. settings options
+"_osVersionIncompatibleMessage" = "This app can't be updated to the most recent version because iOS is not up to date.";
 "_otp" = "One-Time Password";
 "_otps" = "One-Time Passwords";
 "_password" = "Password";

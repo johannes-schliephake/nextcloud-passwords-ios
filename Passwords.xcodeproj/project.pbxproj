@@ -201,6 +201,10 @@
 		DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B127414AFE003D7D50 /* Color+Init.swift */; };
 		DD0E59B527414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
 		DD0E59B627414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
+		DD2141FC281A81B000D9ECE0 /* UIApplication+SafeOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2141FB281A81B000D9ECE0 /* UIApplication+SafeOpen.swift */; };
+		DD2141FD281A81B000D9ECE0 /* UIApplication+SafeOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2141FB281A81B000D9ECE0 /* UIApplication+SafeOpen.swift */; };
+		DD2141FE281A81B000D9ECE0 /* UIApplication+SafeOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2141FB281A81B000D9ECE0 /* UIApplication+SafeOpen.swift */; };
+		DD2141FF281A81B000D9ECE0 /* UIApplication+SafeOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2141FB281A81B000D9ECE0 /* UIApplication+SafeOpen.swift */; };
 		DD214201281AA75800D9ECE0 /* CertificateSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214200281AA75800D9ECE0 /* CertificateSecurityCheck.swift */; };
 		DD214202281AA75800D9ECE0 /* CertificateSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214200281AA75800D9ECE0 /* CertificateSecurityCheck.swift */; };
 		DD214203281AA75800D9ECE0 /* CertificateSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214200281AA75800D9ECE0 /* CertificateSecurityCheck.swift */; };
@@ -405,6 +409,9 @@
 		DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE1261274140A9003912D0 /* ShowTagRequest.swift */; };
 		DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
 		DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
+		DDD7203C281982E7006555FD /* AppVersionSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD7203B281982E7006555FD /* AppVersionSecurityCheck.swift */; };
+		DDD7203D281982E7006555FD /* AppVersionSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD7203B281982E7006555FD /* AppVersionSecurityCheck.swift */; };
+		DDD7203E281982E7006555FD /* AppVersionSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD7203B281982E7006555FD /* AppVersionSecurityCheck.swift */; };
 		DDD999F62816C66F007045D2 /* SecurityCheckPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999F52816C66F007045D2 /* SecurityCheckPage.swift */; };
 		DDD999F72816C66F007045D2 /* SecurityCheckPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999F52816C66F007045D2 /* SecurityCheckPage.swift */; };
 		DDD999F82816C66F007045D2 /* SecurityCheckPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999F52816C66F007045D2 /* SecurityCheckPage.swift */; };
@@ -609,6 +616,7 @@
 		DD0E59AE27414873003D7D50 /* EditTagPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagPageFallback.swift; sourceTree = "<group>"; };
 		DD0E59B127414AFE003D7D50 /* Color+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Init.swift"; sourceTree = "<group>"; };
 		DD0E59B427414EB5003D7D50 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		DD2141FB281A81B000D9ECE0 /* UIApplication+SafeOpen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+SafeOpen.swift"; sourceTree = "<group>"; };
 		DD214200281AA75800D9ECE0 /* CertificateSecurityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateSecurityCheck.swift; sourceTree = "<group>"; };
 		DD29D1E327CF684A00B06835 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		DD2B7D0927EE6D5E0018E07E /* Appfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
@@ -681,6 +689,7 @@
 		DDCE125E2741408D003912D0 /* ListTagsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTagsRequest.swift; sourceTree = "<group>"; };
 		DDCE1261274140A9003912D0 /* ShowTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagRequest.swift; sourceTree = "<group>"; };
 		DDCE126427414101003912D0 /* UpdateTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTagRequest.swift; sourceTree = "<group>"; };
+		DDD7203B281982E7006555FD /* AppVersionSecurityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionSecurityCheck.swift; sourceTree = "<group>"; };
 		DDD999F52816C66F007045D2 /* SecurityCheckPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCheckPage.swift; sourceTree = "<group>"; };
 		DDD999F92816D2FA007045D2 /* SecurityCheckController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCheckController.swift; sourceTree = "<group>"; };
 		DDD999FE2816ED7D007045D2 /* SecurityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCheck.swift; sourceTree = "<group>"; };
@@ -1024,6 +1033,7 @@
 				DD718F2727B568E200F85780 /* String+Segmented.swift */,
 				8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */,
 				8FBE43C8258D5A2D003F7F34 /* UIApplication+IsExtension.swift */,
+				DD2141FB281A81B000D9ECE0 /* UIApplication+SafeOpen.swift */,
 				8F5A843F259A4FA700BFDF29 /* UIApplication+SafeShared.swift */,
 				DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */,
 				8FB645F125D6949900A0F316 /* UIPasteboard+PrivateString.swift */,
@@ -1486,6 +1496,7 @@
 				8F74244626039BD600B73646 /* Crypto.swift in Sources */,
 				DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */,
 				8F559A2225A0B23E00D7A39F /* MainView.swift in Sources */,
+				DDD7203C281982E7006555FD /* AppVersionSecurityCheck.swift in Sources */,
 				8F77DA6325699FB300CFDA8D /* EntriesController.swift in Sources */,
 				8F57B426256C0DD600329B05 /* SettingsPage.swift in Sources */,
 				8F559A1325A0AE2700D7A39F /* SettingsNavigation.swift in Sources */,
@@ -1550,6 +1561,7 @@
 				DD67204827BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
 				DD95B07E27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
 				8F52EFC925B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
+				DD2141FC281A81B000D9ECE0 /* UIApplication+SafeOpen.swift in Sources */,
 				8F552956259CAF4900419233 /* Folder.swift in Sources */,
 				8F68D74226495BD100FF192C /* ShowFolderRequest.swift in Sources */,
 				DDB680D527A3DA6A00DEE540 /* QRCapture.swift in Sources */,
@@ -1597,6 +1609,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD2141FF281A81B000D9ECE0 /* UIApplication+SafeOpen.swift in Sources */,
 				8F6ED7C6265BC85E008CF387 /* Comparable+Clamped.swift in Sources */,
 				8F6ED7C1265BC807008CF387 /* LogicTests.swift in Sources */,
 				8F6ED7C7265BC863008CF387 /* Collection+Avg.swift in Sources */,
@@ -1638,6 +1651,7 @@
 				8F74244726039BD600B73646 /* Crypto.swift in Sources */,
 				8FC361D225827E5D00785371 /* ListFoldersRequest.swift in Sources */,
 				DDC98D0E26AFEE1E006058B6 /* SelectFolderController.swift in Sources */,
+				DDD7203D281982E7006555FD /* AppVersionSecurityCheck.swift in Sources */,
 				8F559A2325A0B23E00D7A39F /* MainView.swift in Sources */,
 				8FC361C625827E5500785371 /* Entry.swift in Sources */,
 				8FC361CD25827E5D00785371 /* CreateFolderRequest.swift in Sources */,
@@ -1702,6 +1716,7 @@
 				DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
 				DD95B07F27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
 				8F52EFCA25B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
+				DD2141FD281A81B000D9ECE0 /* UIApplication+SafeOpen.swift in Sources */,
 				8F552959259CAF4E00419233 /* Folder.swift in Sources */,
 				8F68D74326495BD100FF192C /* ShowFolderRequest.swift in Sources */,
 				DDB680D627A3DA6A00DEE540 /* QRCapture.swift in Sources */,
@@ -1787,6 +1802,7 @@
 				DDB169CF27D20CC200F4D752 /* LoginFlowPage.swift in Sources */,
 				DDB169E927D20CC300F4D752 /* ShareSheet.swift in Sources */,
 				DDB169A127D20CC200F4D752 /* UIAlertController+PresentGlobalAlert.swift in Sources */,
+				DDD7203E281982E7006555FD /* AppVersionSecurityCheck.swift in Sources */,
 				DDB1699327D20CC200F4D752 /* Array+Zip.swift in Sources */,
 				DDB1699227D20CC200F4D752 /* EntriesPageFallback.swift in Sources */,
 				DDB1699727D20CC200F4D752 /* SKProduct+LocalizedPrice.swift in Sources */,
@@ -1851,6 +1867,7 @@
 				DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */,
 				DD95B08027D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
 				DDB169DA27D20CC200F4D752 /* OpenSessionRequest.swift in Sources */,
+				DD2141FE281A81B000D9ECE0 /* UIApplication+SafeOpen.swift in Sources */,
 				DDB169B327D20CC200F4D752 /* String+Localized.swift in Sources */,
 				DDB1699F27D20CC200F4D752 /* OTPDisplay.swift in Sources */,
 				DDB169A227D20CC200F4D752 /* DeleteTagRequest.swift in Sources */,

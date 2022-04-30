@@ -15,6 +15,7 @@ final class SecurityCheckController: ObservableObject {
             [weak self] in
             do {
                 let securityChecks = try await [
+                    AppVersionSecurityCheck() as SecurityCheck,
                     CertificateSecurityCheck() as SecurityCheck
                 ]
                 await MainActor.run {

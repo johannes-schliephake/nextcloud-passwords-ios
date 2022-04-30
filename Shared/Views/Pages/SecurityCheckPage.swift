@@ -75,6 +75,22 @@ struct SecurityCheckPage: View {
                         VStack(alignment: .leading) {
                             if #available(iOS 15, *) {
                                 switch securityCheck {
+                                case let appVersionSecurityCheck as AppVersionSecurityCheck:
+                                    Text("_appVersionOutdated")
+                                        .bold()
+                                    Spacer()
+                                    switch appVersionSecurityCheck.issue {
+                                    case .osOutdated:
+                                        Text("_osVersionIncompatibleMessage")
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    case .appOutdated:
+                                        Text("_appVersionOutdatedMessage")
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    case nil:
+                                        EmptyView()
+                                    }
                                 case is CertificateSecurityCheck:
                                     Text("_invalidCertificate")
                                         .bold()
