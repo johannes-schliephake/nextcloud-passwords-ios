@@ -8,6 +8,7 @@ struct MainView: View {
     
     @StateObject private var authenticationChallengeController = AuthenticationChallengeController.default
     @StateObject private var biometricAuthenticationController = Configuration.isTestEnvironment ? BiometricAuthenticationController.mock : BiometricAuthenticationController()
+    @StateObject private var securityCheckController = Configuration.isTestEnvironment ? SecurityCheckController.mock : SecurityCheckController.default
     @StateObject private var sessionController = Configuration.isTestEnvironment ? SessionController.mock : SessionController.default
     @StateObject private var settingsController = Configuration.isTestEnvironment ? SettingsController.mock : SettingsController.default
     @StateObject private var tipController = Configuration.isTestEnvironment ? TipController.mock : TipController()
@@ -21,6 +22,7 @@ struct MainView: View {
             .copyToast()
             .environmentObject(autoFillController)
             .environmentObject(biometricAuthenticationController)
+            .environmentObject(securityCheckController)
             .environmentObject(sessionController)
             .environmentObject(settingsController)
             .environmentObject(tipController)

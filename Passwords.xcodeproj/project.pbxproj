@@ -402,6 +402,15 @@
 		DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE1261274140A9003912D0 /* ShowTagRequest.swift */; };
 		DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
 		DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
+		DDD999F62816C66F007045D2 /* SecurityCheckPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999F52816C66F007045D2 /* SecurityCheckPage.swift */; };
+		DDD999F72816C66F007045D2 /* SecurityCheckPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999F52816C66F007045D2 /* SecurityCheckPage.swift */; };
+		DDD999F82816C66F007045D2 /* SecurityCheckPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999F52816C66F007045D2 /* SecurityCheckPage.swift */; };
+		DDD999FA2816D2FA007045D2 /* SecurityCheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999F92816D2FA007045D2 /* SecurityCheckController.swift */; };
+		DDD999FB2816D2FA007045D2 /* SecurityCheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999F92816D2FA007045D2 /* SecurityCheckController.swift */; };
+		DDD999FC2816D2FA007045D2 /* SecurityCheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999F92816D2FA007045D2 /* SecurityCheckController.swift */; };
+		DDD999FF2816ED7D007045D2 /* SecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999FE2816ED7D007045D2 /* SecurityCheck.swift */; };
+		DDD99A002816ED7D007045D2 /* SecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999FE2816ED7D007045D2 /* SecurityCheck.swift */; };
+		DDD99A012816ED7D007045D2 /* SecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD999FE2816ED7D007045D2 /* SecurityCheck.swift */; };
 		DDDB6B5627A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5727A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5927A806ED007572B1 /* CaptureOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */; };
@@ -668,6 +677,9 @@
 		DDCE125E2741408D003912D0 /* ListTagsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTagsRequest.swift; sourceTree = "<group>"; };
 		DDCE1261274140A9003912D0 /* ShowTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagRequest.swift; sourceTree = "<group>"; };
 		DDCE126427414101003912D0 /* UpdateTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTagRequest.swift; sourceTree = "<group>"; };
+		DDD999F52816C66F007045D2 /* SecurityCheckPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCheckPage.swift; sourceTree = "<group>"; };
+		DDD999F92816D2FA007045D2 /* SecurityCheckController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCheckController.swift; sourceTree = "<group>"; };
+		DDD999FE2816ED7D007045D2 /* SecurityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCheck.swift; sourceTree = "<group>"; };
 		DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPNavigation.swift; sourceTree = "<group>"; };
 		DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPPage.swift; sourceTree = "<group>"; };
 		DDDF3387276F7FDE008EEB3F /* TagBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagBadge.swift; sourceTree = "<group>"; };
@@ -769,6 +781,7 @@
 				8F55B9FE25611A7C008AAC63 /* Views */,
 				8F5A8B1225699EEE00D97E06 /* Controllers */,
 				8F55B9FF25611A99008AAC63 /* Models */,
+				DDD999FD2816ED5F007045D2 /* SecurityChecks */,
 				8F55F71125727BDC00E00B28 /* Requests */,
 				8F56D34A2561CC1400FBCB1B /* Utilities */,
 				8FBE43B7258D5942003F7F34 /* Extensions */,
@@ -801,6 +814,7 @@
 				8F118754253C9EE10019FECA /* EntriesPage.swift */,
 				8F582BF9255EA63D00F1E3DA /* LoginFlowPage.swift */,
 				8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */,
+				DDD999F52816C66F007045D2 /* SecurityCheckPage.swift */,
 				DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */,
 				DD0C28742766028500E3DAEF /* SelectTagsPage.swift */,
 				8F513A62256064E9001C6EF9 /* ServerSetupPage.swift */,
@@ -951,6 +965,7 @@
 				8F09585025D159F10082D438 /* AuthenticationChallengeController.swift */,
 				8F55D9992582D04200CE4FC2 /* AutoFillController.swift */,
 				8F5C1A83257D7D5F009FF66F /* BiometricAuthenticationController.swift */,
+				DDD999F92816D2FA007045D2 /* SecurityCheckController.swift */,
 				8F55FBD62570276800CC6920 /* SessionController.swift */,
 				DD3FAD6627772C15002202DE /* SettingsController.swift */,
 				8F52F3C82593746F00B4EFCE /* TipController.swift */,
@@ -1102,6 +1117,17 @@
 				DDB1696F27D2040300F4D752 /* InfoPlist.strings */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		DDD999FD2816ED5F007045D2 /* SecurityChecks */ = {
+			isa = PBXGroup;
+			children = (
+				DDD7203B281982E7006555FD /* AppVersionSecurityCheck.swift */,
+				DD214200281AA75800D9ECE0 /* CertificateSecurityCheck.swift */,
+				DDD99A022816EDBE007045D2 /* HashSettingSecurityCheck.swift */,
+				DDD999FE2816ED7D007045D2 /* SecurityCheck.swift */,
+			);
+			path = SecurityChecks;
 			sourceTree = "<group>";
 		};
 		DDE48F5726FC707A0082E96D /* Fallbacks */ = {
@@ -1482,6 +1508,7 @@
 				8F09585125D159F10082D438 /* AuthenticationChallengeController.swift in Sources */,
 				8F781F52267CC8B400BD3DC1 /* FolderController.swift in Sources */,
 				8F59F525256B1EFB00D9FE40 /* ServerSetupController.swift in Sources */,
+				DDD999F62816C66F007045D2 /* SecurityCheckPage.swift in Sources */,
 				DD9FAD5826A3793A00770FEA /* SelectFolderNavigation.swift in Sources */,
 				8F997F9D2572ED7800B5F784 /* CreateFolderRequest.swift in Sources */,
 				DDCE125627411B09003912D0 /* Tag.swift in Sources */,
@@ -1512,6 +1539,7 @@
 				8F118753253C9EE10019FECA /* PasswordsApp.swift in Sources */,
 				8FBC049C268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
 				DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */,
+				DDD999FF2816ED7D007045D2 /* SecurityCheck.swift in Sources */,
 				8FA5B74C261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				8F997F8D2572C2FB00B5F784 /* UpdatePasswordRequest.swift in Sources */,
 				DD67204827BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
@@ -1531,6 +1559,7 @@
 				DD5DFA6427CE94F0003C2352 /* OTPDisplay.swift in Sources */,
 				DDCE1262274140A9003912D0 /* ShowTagRequest.swift in Sources */,
 				DD0C2872276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */,
+				DDD999FA2816D2FA007045D2 /* SecurityCheckController.swift in Sources */,
 				8F63617C25A741A400C832C9 /* PreviewDevice+Generate.swift in Sources */,
 				8FBE43BF258D59E0003F7F34 /* Label+ShowIcon.swift in Sources */,
 				DD0E59A6274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
@@ -1630,6 +1659,7 @@
 				8F09585225D159F10082D438 /* AuthenticationChallengeController.swift in Sources */,
 				8F781F53267CC8B400BD3DC1 /* FolderController.swift in Sources */,
 				8FC361C225827E5200785371 /* EditPasswordController.swift in Sources */,
+				DDD999F72816C66F007045D2 /* SecurityCheckPage.swift in Sources */,
 				DD9FAD5926A3793A00770FEA /* SelectFolderNavigation.swift in Sources */,
 				8FC361B425827E4C00785371 /* EditPasswordPage.swift in Sources */,
 				DDCE125727411B09003912D0 /* Tag.swift in Sources */,
@@ -1660,6 +1690,7 @@
 				8FC361D025827E5D00785371 /* UpdatePasswordRequest.swift in Sources */,
 				8FBC049D268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
 				DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */,
+				DDD99A002816ED7D007045D2 /* SecurityCheck.swift in Sources */,
 				8FA5B74D261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				8FBE43D2258D5A8C003F7F34 /* UIApplication+IsExtension.swift in Sources */,
 				DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
@@ -1679,6 +1710,7 @@
 				DD5DFA6527CE94F0003C2352 /* OTPDisplay.swift in Sources */,
 				DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */,
 				DD0C2873276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */,
+				DDD999FB2816D2FA007045D2 /* SecurityCheckController.swift in Sources */,
 				8F63618225A7438700C832C9 /* PreviewDevice+Generate.swift in Sources */,
 				8FC361CC25827E5D00785371 /* FaviconServiceRequest.swift in Sources */,
 				DD0E59A7274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
@@ -1775,6 +1807,7 @@
 				DDB1698627D20CC200F4D752 /* CoreData.swift in Sources */,
 				DDB169E827D20CC300F4D752 /* SelectTagsPage.swift in Sources */,
 				DDB169B627D20CC200F4D752 /* FaviconServiceRequest.swift in Sources */,
+				DDD999F82816C66F007045D2 /* SecurityCheckPage.swift in Sources */,
 				DDB169ED27D20CC300F4D752 /* Color+Init.swift in Sources */,
 				DDB169AC27D20CC200F4D752 /* Collection+Avg.swift in Sources */,
 				DDB1699527D20CC200F4D752 /* AuthenticationChallengeController.swift in Sources */,
@@ -1805,6 +1838,7 @@
 				DDB169D227D20CC200F4D752 /* Crypto.swift in Sources */,
 				DDB169D927D20CC200F4D752 /* DeletePasswordRequest.swift in Sources */,
 				DDB1698527D20CC200F4D752 /* UpdatePasswordRequest.swift in Sources */,
+				DDD99A012816ED7D007045D2 /* SecurityCheck.swift in Sources */,
 				DDB169A727D20CC200F4D752 /* SelectTagsPageFallback.swift in Sources */,
 				DDB169DE27D20CC200F4D752 /* EditTagController.swift in Sources */,
 				DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */,
@@ -1824,6 +1858,7 @@
 				DDB169BC27D20CC200F4D752 /* EditFolderNavigation.swift in Sources */,
 				DDB169AA27D20CC200F4D752 /* CaptureOTPPage.swift in Sources */,
 				DDB169A027D20CC200F4D752 /* EntriesController.swift in Sources */,
+				DDD999FC2816D2FA007045D2 /* SecurityCheckController.swift in Sources */,
 				DDB169DF27D20CC200F4D752 /* EditOTPController.swift in Sources */,
 				DDB1699D27D20CC200F4D752 /* NCPasswordsRequest.swift in Sources */,
 				DDB169E027D20CC200F4D752 /* Settings.swift in Sources */,

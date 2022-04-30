@@ -21,6 +21,7 @@ final class SessionController: ObservableObject {
                 subscriptions.removeAll()
                 Keychain.default.remove(key: "challengePassword")
                 Keychain.default.remove(key: "offlineKeychain")
+                SecurityCheckController.default.clear()
                 return
             }
             Keychain.default.store(key: "server", value: session.server)

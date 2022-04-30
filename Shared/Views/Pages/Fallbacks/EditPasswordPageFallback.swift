@@ -7,6 +7,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
+    @EnvironmentObject private var securityCheckController: SecurityCheckController
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
@@ -130,6 +131,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 })
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
+                    .environmentObject(securityCheckController)
                     .environmentObject(sessionController)
                     .environmentObject(settingsController)
                     .environmentObject(tipController)
@@ -140,6 +142,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 }
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
+                .environmentObject(securityCheckController)
                 .environmentObject(sessionController)
                 .environmentObject(settingsController)
                 .environmentObject(tipController)
@@ -150,6 +153,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 }
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
+                .environmentObject(securityCheckController)
                 .environmentObject(sessionController)
                 .environmentObject(settingsController)
                 .environmentObject(tipController)
@@ -160,6 +164,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 })
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
+                    .environmentObject(securityCheckController)
                     .environmentObject(sessionController)
                     .environmentObject(settingsController)
                     .environmentObject(tipController)
@@ -170,6 +175,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 })
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
+                    .environmentObject(securityCheckController)
                     .environmentObject(sessionController)
                     .environmentObject(settingsController)
                     .environmentObject(tipController)

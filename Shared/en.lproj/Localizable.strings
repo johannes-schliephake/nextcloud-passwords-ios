@@ -66,9 +66,12 @@
 "_error" = "Error";
 "_exportAsQrCode" = "Export As QR Code"; // I.e. export this OTP as a QR code
 "_extractOtpErrorMessage" = "An error occurred while searching for a QR code in the selected picture.";
+"_failedToRunSecurityCheck" = "Failed to Run Security Check";
 "_favorite" = "Favorite"; // This refers to the noun ("the favorite")
 "_favorites" = "Favorites"; // This refers to the noun ("the favorites")
 "_file" = "File"; // This refers to the noun ("the file")
+"_fix" = "Fix";
+"_fixSecurityCheckErrorMessage" = "An error occurred while fixing the security issue. Please try to fix the security issue again.";
 "_folder" = "Folder";
 "_folders" = "Folders";
 "_generatePassword" = "Generate Password";
@@ -76,6 +79,7 @@
 "_hash" = "Hash"; // E.g. a SHA1 hash
 "_highFive" = "High Five! 👏"; // Keep this in English
 "_id" = "ID";
+"_ignore" = "Ignore";
 "_incorrectPassword" = "Incorrect Password";
 "_incorrectPasswordMessage" = "Please try again.";
 "_integration" = "Integration"; // I.e. integration into the OS (Password AutoFill)
@@ -113,15 +117,20 @@
 "_qrCaptureErrorMessage" = "An error occurred while launching the camera.";
 "_reject" = "Reject"; // I.e. reject this certificate
 "_rootFolder" = "Root Folder"; // The folder all passwords and folders are placed in, which are not in a subfolder
+"_runSecurityCheck" = "Run Security Check";
 "_scanQrCode" = "Scan QR Code"; // Possible option when adding an OTP, other keys are "_detectQrCodeInPicture" and "_addManually"
 "_secret" = "Secret"; // This refers to the noun ("the secret") and is used in similar places as "password"
 "_security" = "Security"; // I.e. security status of a password
+"_securityCheck" = "Security Check";
+"_securityCheckFailedMessage" = "Please try to run the security check again.";
 "_select" = "Select"; // This refers to the verb ("to select"), i.e. select a password
 "_selectColor" = "Select Color"; // I.e. select a color for a tag
 "_serverAddressFieldMessage" = "An HTTPS connection is required.";
 "_serverSide" = "Server Side"; // Possible value for "Encryption" field on password detail page, other key is "_clientSide"
 "_service" = "Service"; // E.g. a website, an app, etc.
 "_settings" = "Settings";
+"_severeIssues" = "Severe Issues";
+"_severeIssuesMessage" = "Severe issues pose a significant risk to the security of your passwords right now and should be fixed immediately.";
 "_shareOtpWarningMessage" = "This QR code contains highly sensitive data about the one-time password";
 "_shareQrCode" = "Share QR Code";
 "_sourceCode" = "Source Code";
@@ -129,7 +138,8 @@
 "_storePassword" = "Store Password"; // I.e. store the E2E password
 "_storePasswordMessage" = "If this option is enabled, the E2E password is stored encrypted in your device's keychain.";
 "_strength" = "Strength"; // I.e. strength of the password to generate
-"_suggestions" = "Suggestions"; // I.e. password suggestions when using Password AutoFill
+"_suggestions" = "Suggestions"; // I.e. password suggestions when using Password AutoFill or suggestions after running security check
+"_suggestionsMessage" = "Suggestions are ways to further optimize your setup.";
 "_supportThisProject" = "Support This Project";
 "_tag" = "Tag"; // This refers to the noun ("the tag")
 "_tags" = "Tags";
@@ -151,5 +161,8 @@
 "_username" = "Username";
 "_valueCopied" = "Value Copied"; // E.g. password, username or URL was copied to the clipboard
 "_version" = "Version"; // I.e. installed version of the app
+"_warnings" = "Warnings";
+"_warningsMessage" = "Warnings might become a security risk to your passwords in the future and should be fixed soon.";
+"_yourSetupIsSecure" = "Your Setup Is Secure!";
 
 // Feel free to ask questions: mail@cdslash.de

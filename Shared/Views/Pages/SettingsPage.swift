@@ -6,6 +6,7 @@ struct SettingsPage: View {
     let updateOfflineData: () -> Void
     
     @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var securityCheckController: SecurityCheckController
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
@@ -36,6 +37,9 @@ struct SettingsPage: View {
         List {
             if let session = sessionController.session {
                 credentialsSection(session: session)
+                if #available(iOS 15, *) {
+                    securityCheckSection()
+                }
             }
             optionsSection()
             enableProviderSection()
@@ -85,6 +89,97 @@ struct SettingsPage: View {
                     }])
                 }
             }
+        }
+    }
+    
+    @available(iOS 15, *)
+    private func securityCheckSection() -> some View {
+        Section(header: Text("_securityCheck")) {
+            switch securityCheckController.state {
+            case .notRun:
+                EmptyView()
+            case .running:
+                EmptyView()
+            case .failed:
+                HStack {
+                    Image(systemName: "xmark.shield.fill")
+                        .foregroundColor(.red)
+                    VStack(alignment: .leading) {
+                        Text("_failedToRunSecurityCheck")
+                            .bold()
+                        Spacer()
+                        Text("_securityCheckFailedMessage")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                    }
+                }
+                .padding(.vertical, 6)
+            case .resultsAvailable:
+                if let securityChecks = securityCheckController.securityChecks {
+                    let highSeveritySecurityChecks = securityChecks.filter { $0.severity == .high }
+                    let mediumSeveritySecurityChecks = securityChecks.filter { $0.severity == .medium }
+                    let lowSeveritySecurityChecks = securityChecks.filter { $0.severity == .low }
+                    NavigationLink(destination: SecurityCheckPage()) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            if highSeveritySecurityChecks.isEmpty,
+                               mediumSeveritySecurityChecks.isEmpty,
+                               lowSeveritySecurityChecks.isEmpty {
+                                HStack {
+                                    Image(systemName: "checkmark.seal.fill")
+                                        .foregroundColor(.green)
+                                    Text("_yourSetupIsSecure")
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            else {
+                                if !highSeveritySecurityChecks.isEmpty {
+                                    HStack {
+                                        Image(systemName: "xmark.shield.fill")
+                                            .foregroundColor(.red)
+                                        Text(String(highSeveritySecurityChecks.count))
+                                            .bold()
+                                        Text("_severeIssues")
+                                    }
+                                }
+                                if !mediumSeveritySecurityChecks.isEmpty {
+                                    HStack {
+                                        Image(systemName: "exclamationmark.shield.fill")
+                                            .foregroundColor(.yellow)
+                                        Text(String(mediumSeveritySecurityChecks.count))
+                                            .bold()
+                                        Text("_warnings")
+                                    }
+                                }
+                                if !lowSeveritySecurityChecks.isEmpty {
+                                    HStack {
+                                        Image(systemName: "info.circle.fill")
+                                            .foregroundColor(.gray)
+                                        Text(String(lowSeveritySecurityChecks.count))
+                                            .bold()
+                                        Text("_suggestions")
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.vertical, 6)
+                    }
+                    .isDetailLink(false)
+                }
+            }
+            Button {
+                securityCheckController.runSecurityCheck()
+            }
+            label: {
+                HStack {
+                    Label("_runSecurityCheck", systemImage: "checklist")
+                    if securityCheckController.state == .running {
+                        Spacer()
+                        ProgressView()
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .disabled(securityCheckController.state == .running)
         }
     }
     

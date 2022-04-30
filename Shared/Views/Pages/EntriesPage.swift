@@ -9,6 +9,7 @@ struct EntriesPage: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
+    @EnvironmentObject private var securityCheckController: SecurityCheckController
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
@@ -122,6 +123,7 @@ struct EntriesPage: View {
                     })
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
+                    .environmentObject(securityCheckController)
                     .environmentObject(sessionController)
                     .environmentObject(settingsController)
                     .environmentObject(tipController)
@@ -140,6 +142,7 @@ struct EntriesPage: View {
                 ServerSetupNavigation()
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
+                    .environmentObject(securityCheckController)
                     .environmentObject(sessionController)
                     .environmentObject(settingsController)
                     .environmentObject(tipController)
@@ -337,6 +340,7 @@ struct EntriesPage: View {
                 EditFolderNavigation(entriesController: entriesController, folder: folder)
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
+                    .environmentObject(securityCheckController)
                     .environmentObject(sessionController)
                     .environmentObject(settingsController)
                     .environmentObject(tipController)
@@ -344,6 +348,7 @@ struct EntriesPage: View {
                 EditPasswordNavigation(entriesController: entriesController, password: password)
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
+                    .environmentObject(securityCheckController)
                     .environmentObject(sessionController)
                     .environmentObject(settingsController)
                     .environmentObject(tipController)
@@ -351,6 +356,7 @@ struct EntriesPage: View {
                 EditTagNavigation(entriesController: entriesController, tag: tag)
                     .environmentObject(autoFillController)
                     .environmentObject(biometricAuthenticationController)
+                    .environmentObject(securityCheckController)
                     .environmentObject(sessionController)
                     .environmentObject(settingsController)
                     .environmentObject(tipController)
@@ -362,6 +368,7 @@ struct EntriesPage: View {
                 })
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
+                .environmentObject(securityCheckController)
                 .environmentObject(sessionController)
                 .environmentObject(settingsController)
                 .environmentObject(tipController)
@@ -373,6 +380,7 @@ struct EntriesPage: View {
                 })
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
+                .environmentObject(securityCheckController)
                 .environmentObject(sessionController)
                 .environmentObject(settingsController)
                 .environmentObject(tipController)
@@ -388,6 +396,7 @@ struct EntriesPage: View {
                 })
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
+                .environmentObject(securityCheckController)
                 .environmentObject(sessionController)
                 .environmentObject(settingsController)
                 .environmentObject(tipController)

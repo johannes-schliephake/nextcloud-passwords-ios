@@ -11,6 +11,7 @@ struct PasswordDetailPage: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
+    @EnvironmentObject private var securityCheckController: SecurityCheckController
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
@@ -86,6 +87,7 @@ struct PasswordDetailPage: View {
             EditPasswordNavigation(entriesController: entriesController, password: password)
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
+                .environmentObject(securityCheckController)
                 .environmentObject(sessionController)
                 .environmentObject(settingsController)
                 .environmentObject(tipController)
@@ -281,6 +283,7 @@ struct PasswordDetailPage: View {
             })
             .environmentObject(autoFillController)
             .environmentObject(biometricAuthenticationController)
+            .environmentObject(securityCheckController)
             .environmentObject(sessionController)
             .environmentObject(settingsController)
             .environmentObject(tipController)

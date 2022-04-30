@@ -6,6 +6,7 @@ struct EditFolderPage: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
+    @EnvironmentObject private var securityCheckController: SecurityCheckController
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var settingsController: SettingsController
     @EnvironmentObject private var tipController: TipController
@@ -118,6 +119,7 @@ struct EditFolderPage: View {
                 })
                 .environmentObject(autoFillController)
                 .environmentObject(biometricAuthenticationController)
+                .environmentObject(securityCheckController)
                 .environmentObject(sessionController)
                 .environmentObject(settingsController)
                 .environmentObject(tipController)
