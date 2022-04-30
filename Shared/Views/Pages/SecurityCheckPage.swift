@@ -75,6 +75,13 @@ struct SecurityCheckPage: View {
                         VStack(alignment: .leading) {
                             if #available(iOS 15, *) {
                                 switch securityCheck {
+                                case is CertificateSecurityCheck:
+                                    Text("_invalidCertificate")
+                                        .bold()
+                                    Spacer()
+                                    Text("_invalidCertificateMessage2")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
                                 default:
                                     EmptyView()
                                 }

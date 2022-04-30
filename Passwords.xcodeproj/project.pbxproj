@@ -201,6 +201,9 @@
 		DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B127414AFE003D7D50 /* Color+Init.swift */; };
 		DD0E59B527414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
 		DD0E59B627414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
+		DD214201281AA75800D9ECE0 /* CertificateSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214200281AA75800D9ECE0 /* CertificateSecurityCheck.swift */; };
+		DD214202281AA75800D9ECE0 /* CertificateSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214200281AA75800D9ECE0 /* CertificateSecurityCheck.swift */; };
+		DD214203281AA75800D9ECE0 /* CertificateSecurityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214200281AA75800D9ECE0 /* CertificateSecurityCheck.swift */; };
 		DD29D1E427CF684A00B06835 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D1E327CF684A00B06835 /* ImagePicker.swift */; };
 		DD29D1E527CF684A00B06835 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D1E327CF684A00B06835 /* ImagePicker.swift */; };
 		DD38ACF927DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
@@ -606,6 +609,7 @@
 		DD0E59AE27414873003D7D50 /* EditTagPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagPageFallback.swift; sourceTree = "<group>"; };
 		DD0E59B127414AFE003D7D50 /* Color+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Init.swift"; sourceTree = "<group>"; };
 		DD0E59B427414EB5003D7D50 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		DD214200281AA75800D9ECE0 /* CertificateSecurityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateSecurityCheck.swift; sourceTree = "<group>"; };
 		DD29D1E327CF684A00B06835 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		DD2B7D0927EE6D5E0018E07E /* Appfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
 		DD2B7D0B27EE6D5E0018E07E /* Fastfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fastfile; sourceTree = "<group>"; };
@@ -1487,6 +1491,7 @@
 				8F559A1325A0AE2700D7A39F /* SettingsNavigation.swift in Sources */,
 				DDDB6B5627A80639007572B1 /* CaptureOTPNavigation.swift in Sources */,
 				DD4A9E89269F84B9007268E2 /* EditLabeledRow.swift in Sources */,
+				DD214201281AA75800D9ECE0 /* CertificateSecurityCheck.swift in Sources */,
 				8F559A0E25A0AE1C00D7A39F /* ServerSetupNavigation.swift in Sources */,
 				DD3FAD6727772C15002202DE /* SettingsController.swift in Sources */,
 				8F5A8449259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift in Sources */,
@@ -1638,6 +1643,7 @@
 				8FC361CD25827E5D00785371 /* CreateFolderRequest.swift in Sources */,
 				DDDB6B5727A80639007572B1 /* CaptureOTPNavigation.swift in Sources */,
 				8F559A1425A0AE2700D7A39F /* SettingsNavigation.swift in Sources */,
+				DD214202281AA75800D9ECE0 /* CertificateSecurityCheck.swift in Sources */,
 				DD4A9E8A269F84B9007268E2 /* EditLabeledRow.swift in Sources */,
 				DD3FAD6827772C15002202DE /* SettingsController.swift in Sources */,
 				8F559A0F25A0AE1C00D7A39F /* ServerSetupNavigation.swift in Sources */,
@@ -1786,6 +1792,7 @@
 				DDB1699727D20CC200F4D752 /* SKProduct+LocalizedPrice.swift in Sources */,
 				DDB169AE27D20CC200F4D752 /* EditFolderPage.swift in Sources */,
 				DDB1699427D20CC200F4D752 /* Data+Init.swift in Sources */,
+				DD214203281AA75800D9ECE0 /* CertificateSecurityCheck.swift in Sources */,
 				DDB169D427D20CC200F4D752 /* EditFolderController.swift in Sources */,
 				DDB1698B27D20CC200F4D752 /* CreatePasswordRequest.swift in Sources */,
 				DDB169EA27D20CC300F4D752 /* LoginFlowNavigationController.swift in Sources */,

@@ -18,6 +18,10 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
         }
     }
     
+    var isUsingValidCertificate: Bool {
+        acceptedCertificateHash == nil
+    }
+    
     override private init() {
         super.init()
         
@@ -54,6 +58,7 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
             return
         }
         if SecTrustEvaluateWithError(serverTrust, nil) {
+            clearAcceptedCertificateHash()
             completionHandler(.performDefaultHandling, nil)
             return
         }
