@@ -1,7 +1,8 @@
 # Passwords for Nextcloud (iOS Client)
 
-<img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Icon.svg" width="150">
-
+<p align=center>
+  <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/develop/Icon.svg" width="150">
+</p>
 An iOS client for the [Nextcloud Passwords](https://git.mdns.eu/nextcloud/passwords) app. Available on the [App Store](https://apps.apple.com/app/id1546212226).
 
 This app allows you to view, create, edit and delete entries on your Nextcloud server. It offers a variety of filtering and sorting options. End-to-end/client-side encryption and encrypted offline storage make sure your data is secure.
