@@ -1,4 +1,4 @@
-"_about" = "Über";
+"_about" = "Über <TEST>";
 "_aboutOtps" = "Über Einmalpasswörter";
 "_aboutOtpsMessage" = "Diese App unterstützt Einmalpasswörter nur zwecks Komfort. Ein Einmalpasswort zusammen mit dem Account-Passwort zu speichern macht einige der Sicherheitsvorteile von Multi-Faktor-Authentisierung unwirksam. Einen zweiten Faktor zu aktivieren ist besser, als gar keinen zu verwenden, allerdings ist eine unabhängige Einmalpasswort-App sicherer. Speichere KEINE Einmalpasswörter für deinen Nextcloud-Account oder kritische Accounts, wie beispielsweise E-Mail- oder Online-Banking-Accounts. Einmalpasswörter werden über deine Nextcloud-Passwörter-Instanz synchronisiert, sind aber aktuell nur von der iOS-App unterstützt (v2.6 oder neuer).";
 "_accept" = "Akzeptieren";
