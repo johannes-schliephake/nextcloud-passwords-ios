@@ -12,7 +12,10 @@ This app requires a Nextcloud server with the Passwords app installed.
 
 <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Snapshot/Screenshots/en-US/iPhone%2013%20Pro-1.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Snapshot/Screenshots/en-US/iPhone%2013%20Pro-2.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Snapshot/Screenshots/en-US/iPhone%2013%20Pro-3.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Snapshot/Screenshots/en-US/iPhone%2013%20Pro-4.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Snapshot/Screenshots/en-US/iPhone%2013%20Pro-5.png" width="19%">
 
-## Contributors
-- Czech translation: [Pavel Borecki](https://github.com/p-bo)
-- French translation: [Maxime Killinger](https://github.com/maxime-killinger)
-- Russian translation: [jensaymoo](https://github.com/jensaymoo)
+## Translators
+
+- Czech: [Pavel Borecki](https://github.com/p-bo)
+- French: [Maxime Killinger](https://github.com/maxime-killinger)
+- Russian: [jensaymoo](https://github.com/jensaymoo)
+
+Everybody is welcome to contribute translations via [Weblate](https://hosted.weblate.org/engage/nextcloud-passwords-ios)!
