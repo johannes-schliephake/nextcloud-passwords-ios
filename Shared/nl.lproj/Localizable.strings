@@ -1,0 +1,144 @@
+
+/* This is a label for a settings toggle */
+"_automaticallyGeneratePasswords" = "Automatisch wachtwoorden genereren";
+
+/* This refers to the noun ("the account") */
+"_account" = "Account";
+"_addCustomField" = "Aangepast veld toevoegen";
+/* I.e. about this app */
+"_about" = "Over";
+"_aboutOtps" = "Over eenmalige wachtwoorden";
+
+/* I.e. accept this certificate */
+"_accept" = "Accepteren";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture" */
+"_addManually" = "Handmatig toevoegen";
+"_addOtp" = "Eenmalig wachtwoord toevoegen";
+
+/* I.e. add tags to a password */
+"_addTags" = "Tags toevoegen";
+"_algorithm" = "Algoritme";
+
+/* I.e. all passwords */
+"_all" = "Alles";
+"_anErrorOccurred" = "Er is een fout opgetreden...";
+"_appDeauthorized" = "App autorisatie ingetrokken";
+"_appDeauthorizedMessage" = "Vanwege te veel mislukte inlogpogingen is de autorisatie van deze app door de server ingetrokken. Probeer het later opnieuw.";
+
+/* This refers to the noun ("the color"), i.e. the color of a tag */
+"_color" = "Kleur";
+
+/* I.e. a one-time password is configured */
+"_configured" = "Geconfigureerd";
+
+/* I.e. confirm that the OTP message has been read */
+"_confirm" = "Bevestigen";
+
+/* E.g. confirm deletion or confirm log out */
+"_confirmAction" = "Actie bevestigen";
+
+/* I.e. connect to server */
+"_connect" = "Verbinden";
+"_connectToServer" = "Verbind met server";
+"_copyOtp" = "Eenmalig wachtwoord kopiëren";
+"_copyPassword" = "Wachtwoord kopiëren";
+"_copyUsername" = "Gebruikersnaam kopiëren";
+
+/* I.e. create folder or password */
+"_create" = "Aanmaken";
+
+/* I.e. date when a password was created */
+"_created" = "Aangemaakt";
+"_createFolder" = "Map aanmaken";
+"_createFolderErrorMessage" = "Er is een fout opgetreden bij het maken van de map. Sla de map alstublieft opnieuw op.";
+"_createPassword" = "Wachtwoord aanmaken";
+"_createPasswordErrorMessage" = "Er is een fout opgetreden bij het maken van het wachtwoord. Bewaar het wachtwoord nogmaals.";
+"_createTag" = "Tag maken";
+"_createTagErrorMessage" = "Er is een fout opgetreden bij het maken van de tag. Sla de tag opnieuw op.";
+
+/* Nextcloud credentials that were used to connect to an instance */
+"_credentials" = "Inloggegevens";
+"_customFields" = "Aangepaste velden";
+"_decryptFolderErrorMessage" = "Er is een fout opgetreden tijdens het decoderen van de map.";
+"_decryptPasswordErrorMessage" = "Er is een fout opgetreden bij het decoderen van het wachtwoord.";
+"_decryptTagErrorMessage" = "Er is een fout opgetreden tijdens het decoderen van de tag.";
+
+/* Use the same wording Apple uses across iOS */
+"_delete" = "Verwijderen";
+"_deletedPasswordMessage" = "Dit wachtwoord is verwijderd.";
+"_deleteFolder" = "Folder verwijderen";
+"_deleteFolderErrorMessage" = "Er is een fout opgetreden bij het verwijderen van de map. Verwijder de map alstublieft opnieuw.";
+"_deleteOtp" = "Eenmalig wachtwoord verwijderen";
+"_deleteTag" = "Tag verwijderen";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_addManually" */
+"_detectQrCodeInPicture" = "Detecteer QR-code in afbeelding";
+
+/* I.e. the number of digits to show of an OTP */
+"_digits" = "Cijfers";
+"_discardChanges" = "Veranderingen ongedaan maken";
+
+/* I.e. end-to-end password */
+"_e2ePassword" = "E2E Wachtwoord";
+
+/* This refers to the verb ("to edit"), use the same wording Apple uses across iOS */
+"_edit" = "Wijzigen";
+
+/* Make sure to use the correct notation in your language, e.g. in German a dash is added: "E-Mail" */
+"_email" = "E-mail";
+
+/* This is a label for a settings toggle */
+"_encryptedOfflineStorage" = "Versleutelde offline opslag";
+
+/* I.e. server or client side encryption */
+"_encryption" = "Versleuteling";
+"_error" = "Fout";
+
+/* I.e. export this OTP as a QR code */
+"_exportAsQrCode" = "Exporteren als QR-code";
+"_extractOtpErrorMessage" = "Er is een fout opgetreden bij het zoeken naar een QR-code in de geselecteerde afbeelding.";
+
+/* This refers to the noun ("the favorite") */
+"_favorite" = "Favoriet";
+
+/* This refers to the noun ("the favorites") */
+"_favorites" = "Favorieten";
+
+/* This refers to the noun ("the file") */
+"_file" = "Bestand";
+"_folder" = "Map";
+"_folders" = "Mappen";
+"_generatePassword" = "Genereer Wachtwoord";
+
+/* This is the label for starting an In-App purchase */
+"_giveATip" = "Geef een fooi";
+
+/* E.g. a SHA1 hash */
+"_hash" = "Hash";
+
+/* Keep this in English */
+"_highFive" = "High Five! 👏";
+"_id" = "ID";
+"_incorrectPassword" = "Incorrect Wachtwoord";
+"_incorrectPasswordMessage" = "Probeer het opnieuw.";
+
+/* I.e. integration into the OS (Password AutoFill) */
+"_integration" = "Integratie";
+"_invalidCertificate" = "Ongeldig certificaat";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_invalidCertificateMessage(hash)" = "Het servercertificaat is ongeldig. Een veilige verbinding kan niet worden gegarandeerd. Moet het certificaat nog worden gebruikt?\n\n\n\nSHA-256 van het certificaat:\n\n%@";
+
+/* Use the same wording Apple uses across iOS */
+"_cancel" = "Annuleren";
+
+/* This message is shown before the user can add the first one-time password */
+"_aboutOtpsMessage" = "Deze app ondersteunt eenmalige wachtwoorden alleen voor het gemak. Door uw eenmalige wachtwoord naast het wachtwoord van uw account op te slaan, worden enkele van de beveiligingsvoordelen van multi-factor authenticatie teniet gedaan. Het inschakelen van een tweede factor is beter dan er helemaal geen te gebruiken, maar een zelfstandige app voor eenmalig wachtwoord is veiliger. Sla GEEN eenmalige wachtwoorden op voor uw Nextcloud-account of kritieke accounts, zoals e-mail of online bankrekeningen. Eenmalige wachtwoorden worden gesynchroniseerd via uw Nextcloud Passwords-instantie, maar worden momenteel alleen ondersteund door de iOS-app (v2.6 of nieuwer).";
+"_deletePasswordErrorMessage" = "Er is een fout opgetreden bij het verwijderen van het wachtwoord. Verwijder het wachtwoord opnieuw.";
+"_deleteTagErrorMessage" = "Er is een fout opgetreden bij het verwijderen van de tag. Verwijder de tag opnieuw.";
+"_editFolderErrorMessage" = "Er is een fout opgetreden tijdens het bewerken van de map. Sla de map opnieuw op.";
+"_deletePassword" = "Wachtwoord verwijderen";
+"_editPassword" = "Wachtwoord bewerken";
+"_editPasswordErrorMessage" = "Er is een fout opgetreden bij het bewerken van het wachtwoord. Sla het wachtwoord opnieuw op.";
+"_editTagErrorMessage" = "Er is een fout opgetreden bij het bewerken van de tag. Sla de tag opnieuw op.";
