@@ -1,0 +1,312 @@
+/* I.e. about this app */
+"_about" = "Om";
+"_aboutOtps" = "Om engangspassord";
+
+/* I.e. accept this certificate */
+"_accept" = "Godta";
+
+/* This refers to the noun ("the account") */
+"_account" = "Konto";
+"_addCustomField" = "Legg til egendefinert felt";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture" */
+"_addManually" = "Legg til manuelt";
+
+/* This message is shown before the user can add the first one-time password */
+"_aboutOtpsMessage" = "Dette programmet støtter kun engangspassord i beleilighetsøyemed. Lagring av engangspassord sammen med kontoens passord fjerner noen av fordelene ved multifaktor-identitetsbekreftelse. Å skru på en annen faktor er bedre enn å ikke bruke en, men et enkeltstående engangspassordprogram er mer sikkert. IKKE lagre engangspassord for din Nextcloud-konto eller kritiske kontoer, som f.eks. e-post eller nettbank. Engangspassord synkroniserer til din Nextcloud-passordinstans, men støttes ikke for øyeblikket av iOS-programmet (v2.6 eller nyere).";
+"_addOtp" = "Legg til engangspassord";
+
+/* I.e. add tags to a password */
+"_addTags" = "Legg til etiketter";
+"_algorithm" = "Algoritme";
+
+/* I.e. all passwords */
+"_all" = "Alle";
+"_anErrorOccurred" = "Noe gikk galt …";
+
+/* This is a label for a settings toggle */
+"_automaticallyGeneratePasswords" = "Generer passord automatisk";
+
+/* Use the same wording Apple uses across iOS */
+"_cancel" = "Avbryt";
+"_appDeauthorized" = "Programmet ble deautorisert";
+"_appDeauthorizedMessage" = "Som følge av for mange mislykkede innloggingsforsøk ble programmet deautorisert av tjeneren. Prøv igjen senere.";
+"_copyUsername" = "Kopier brukernavn";
+
+/* This refers to the noun ("the color"), i.e. the color of a tag */
+"_color" = "Farge";
+
+/* Possible value for "Encryption" field on password detail page, other key is "_serverSide" */
+"_clientSide" = "Klientside";
+
+/* I.e. a one-time password is configured */
+"_configured" = "Oppsatt";
+
+/* Nextcloud credentials that were used to connect to an instance */
+"_credentials" = "Identitetsdetaljer";
+
+/* This refers to the noun ("the counter") and counts how many OTPs have been used */
+"_counter" = "Telleverk";
+
+/* I.e. this OTP is a counter-based one, possible value for "Type" field in OTP editor, other key is "_timeBased" */
+"_counterBased" = "Telleverksbasert";
+"_createFolderErrorMessage" = "Kunne ikke opprette mappen. Lagre mappen igjen.";
+"_createPasswordErrorMessage" = "Kunne ikke opprette passordet. Lagre passordet igjen.";
+"_createTagErrorMessage" = "Kunne ikke opprette etiketten. Lagre etiketten igjen.";
+
+/* Use the same wording Apple uses across iOS */
+"_delete" = "Slett";
+"_decryptTagErrorMessage" = "Kunne ikke dekryptere etiketten.";
+"_deletedPasswordMessage" = "Dette passordet har blitt slettet.";
+"_deleteFolderErrorMessage" = "Kunne ikke slette mappen. Slett mappen igjen.";
+"_decryptPasswordErrorMessage" = "Kunne ikke dekryptere passordet.";
+"_deletePasswordErrorMessage" = "Kunne ikke slette passordet. Slett passordet igjen.";
+"_deleteTagErrorMessage" = "Kunne ikke slette etiketten. Slett etiketten igjen.";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_addManually" */
+"_detectQrCodeInPicture" = "Oppdag QR-kode i bilde";
+
+/* Use the same wording Apple uses across iOS */
+"_done" = "Ferdig";
+
+/* This refers to the verb ("to edit"), use the same wording Apple uses across iOS */
+"_edit" = "Rediger";
+
+/* I.e. end-to-end password */
+"_e2ePassword" = "E2E-passord";
+"_editFolderErrorMessage" = "Kunne ikke redigere mappen. Lagre mappen igjen.";
+"_editPassword" = "Rediger passord";
+"_editTags" = "Rediger etiketter";
+"_error" = "Feil";
+
+/* This refers to the noun ("the favorite") */
+"_favorite" = "Favoritt";
+
+/* This refers to the noun ("the favorites") */
+"_favorites" = "Favoritter";
+
+/* This refers to the noun ("the file") */
+"_file" = "Fil";
+"_folder" = "Mappe";
+"_folders" = "Mapper";
+"_invalidCertificate" = "Ugyldig sertifikat";
+
+/* This refers to the verb ("to log in") */
+"_logIn" = "Logg inn";
+
+/* This refers to the verb ("to log out") */
+"_logOut" = "Logg ut";
+
+/* Possible value for "Strength" picker when generating a password */
+"_low" = "Lav";
+
+/* Possible value for "Strength" picker when generating a password */
+"_medium" = "Middels";
+
+/* I.e. show more options */
+"_moreOptions" = "Flere alternativer";
+
+/* This refers to the verb ("to move"), i.e. move a file to another folder */
+"_move" = "Flytt";
+
+/* This refers to the noun ("the name") */
+"_name" = "Navn";
+"_noConnection" = "Ingen tilkobling";
+"_openUrl" = "Åpne nettadresse";
+
+/* This is a label for a settings toggle */
+"_encryptedOfflineStorage" = "Kryptert frakoblet lagring";
+"_extractOtpErrorMessage" = "Kunne ikke søke etter QR-kode i valgt bilde.";
+"_noConnectionMessage" = "Kunne ikke koble til Nextcloud-passordinstansen.";
+
+/* This refers to the noun ("the notes") */
+"_notes" = "Notater";
+
+/* Shown in empty lists */
+"_nothingToSeeHere" = "Ingenting her …";
+
+/* This is the label for starting an In-App purchase */
+"_giveATip" = "Gi en donasjon";
+
+/* Keep this in English */
+"_highFive" = "Takk. 👏";
+"_incorrectPassword" = "Feil passord";
+
+/* I.e. integration into the OS (Password AutoFill) */
+"_integration" = "Integrasjon";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_invalidCertificateMessage(hash)" = "Tjenersertifikatet er ugyldig. Bruk sertifikatet elv om en sikker tilkobling ikke kan garanteres?\n\nSHA-256 av sertifikatet:\n%@";
+"_editTagErrorMessage" = "Kunne ikke redigere etiketten. Lagre etiketten igjen.";
+"_editPasswordErrorMessage" = "Kunne ikke redigere passordet. Lagre passordet igjen.";
+
+/* I.e. settings options */
+"_options" = "Innstillinger";
+"_passwordServiceErrorMessage" = "Kunne ikke generere passord.";
+
+/* In earlier versions this value was split into two strings */
+"_passwordStatusBreachedMessage" = "Dette passordet er ikke trygt å bruke. Det figurerer i databasen over passord på avveie.";
+"_passwordStatusDuplicateMessage" = "Dette passordet brukes mer enn én gang.";
+
+/* "Maximum age": Use the same wording that the web client uses in its settings */
+"_passwordStatusOutdatedMessage" = "Passordet har blitt for gammelt.";
+"_passwordStatusUnknownMessage" = "Passordet har ikke blitt sikkerhetssjekket, eller så er alternativet for lagring av sjekksummer for sikkerhetssjekker avskrudd.";
+"_qrCaptureErrorMessage" = "Kunne ikke starte kameraet.";
+
+/* The folder all passwords and folders are placed in, which are not in a subfolder */
+"_rootFolder" = "Rotmappe";
+
+/* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
+"_providerInstructionsMessage" = "Programmet støtter automatisk utfylling av passord. Funksjonen må skrus på i iOS-innstillingsprogrammet:\n1. Åpne innstillingsprogrammet\n2. Trykk «Passord»\n3. Trykk «Fyll inn passord automatisk»\n4. Skru på «Fyll inn passord automatisk»\n5. Skru på dette programmet";
+"_settings" = "Innstillinger";
+"_serverAddressFieldMessage" = "En HTTPS-tilkobling kreves.";
+
+/* Possible value for "Encryption" field on password detail page, other key is "_clientSide" */
+"_serverSide" = "Tjenerside";
+
+/* This is a label for a password generator toggle */
+"_specialCharacters" = "Spesialtegn";
+"_shareOtpWarningMessage" = "Denne QR-koden inneholder høysensitiv data om engangspassordet";
+
+/* I.e. store the E2E password */
+"_storePassword" = "Lagre passord";
+
+/* This refers to the noun ("the tag") */
+"_tag" = "Etikett";
+"_tags" = "Etiketter";
+
+/* This refers to the noun ("the text") */
+"_text" = "Tekst";
+
+/* I.e. this OTP is a time-based one, possible value for "Type" field in OTP editor, other key is "_counterBased" */
+"_timeBased" = "Tidsbasert";
+"_supportThisProject" = "Støtt prosjektet";
+"_tipDeferredMessage" = "Donasjonen din venter på godkjenning.";
+"_tipFailed" = "Donasjon mislyktes";
+"_storePasswordMessage" = "Lagrer E2E-passord kryptert i nøkkelknippet på din enhet.";
+
+/* Shown when Apple's "Ask to Buy" feature (parental control) is active */
+"_tipDeferred" = "Donasjon tilbakeholdt";
+"_url" = "Nettadresse";
+"_username" = "Brukernavn";
+
+/* E.g. password, username or URL was copied to the clipboard */
+"_valueCopied" = "Verdi kopiert";
+
+/* I.e. installed version of the app */
+"_version" = "Versjon";
+
+/* I.e. try again to load the data */
+"_tryAgain" = "Prøv igjen";
+
+/* This refers to the noun ("the type") */
+"_type" = "Type";
+
+/* Possible value for "Strength" picker when generating a password */
+"_ultra" = "Ultra";
+
+/* Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/InfoPlist.strings and Provider/InfoPlist.strings and Extension/InfoPlist.strings */
+"_unlockApp" = "Lås opp programmet";
+
+/* I.e. date when a password was last updated */
+"_updated" = "Oppdatert";
+"_tipReceived" = "Donasjon mottatt";
+"_tipReceivedMessage" = "Takk for at du støtter prosjektet.";
+"_tipFailedMessage" = "Kunne ikke behandle donasjonen.";
+"_deleteFolder" = "Slett mappe";
+
+/* I.e. confirm that the OTP message has been read */
+"_confirm" = "Bekreft";
+
+/* I.e. connect to server */
+"_connect" = "Koble til";
+"_createFolder" = "Opprett mappe";
+"_createTag" = "Opprett etikett";
+"_deletePassword" = "Slett passord";
+
+/* E.g. confirm deletion or confirm log out */
+"_confirmAction" = "Bekreft handling";
+"_connectToServer" = "Koble til tjener";
+"_copyOtp" = "Kopier engangspassord";
+"_copyPassword" = "Kopier passord";
+"_customFields" = "Egendefinerte felter";
+"_deleteOtp" = "Slett engangspassord";
+"_createPassword" = "Opprett passord";
+
+/* Make sure to use the correct notation in your language, e.g. in German a dash is added: "E-Mail" */
+"_email" = "E-post";
+"_deleteTag" = "Slett etikett";
+
+/* I.e. the number of digits to show of an OTP */
+"_digits" = "Siffer";
+"_incorrectPasswordMessage" = "Prøv igjen.";
+"_discardChanges" = "Forkast endringer";
+
+/* I.e. server or client side encryption */
+"_encryption" = "Kryptering";
+"_metadata" = "Metadata";
+
+/* This is a label for a password generator toggle */
+"_numbers" = "Tall";
+
+/* I.e. export this OTP as a QR code */
+"_exportAsQrCode" = "Eksporter som QR-kode";
+"_sourceCode" = "Kildekode";
+"_generatePassword" = "Generer passord";
+"_id" = "ID";
+
+/* E.g. a SHA1 hash */
+"_hash" = "Sjekksum";
+
+/* I.e. password suggestions when using Password AutoFill */
+"_suggestions" = "Forslag";
+"_nextcloudServerAddress" = "Nextcloud-tjeneradresse";
+
+/* I.e. the app has no connection to the server and is offline */
+"_offline" = "Frakoblet";
+"_otp" = "Engangspassord";
+
+/* I.e. select a color for a tag */
+"_selectColor" = "Velg farge";
+
+/* E.g. a website, an app, etc. */
+"_service" = "Tjeneste";
+
+/* I.e. strength of the password to generate */
+"_strength" = "Styrke";
+"_otps" = "Engangspassord";
+"_password" = "Passord";
+
+/* How long each OTP is valid in seconds */
+"_periodSeconds" = "Periode (sekunder)";
+
+/* Possible option when adding an OTP, other keys are "_detectQrCodeInPicture" and "_addManually" */
+"_scanQrCode" = "Skann QR-kode";
+
+/* This refers to the noun ("the secret") and is used in similar places as "password" */
+"_secret" = "Hemmeldighet";
+
+/* This refers to the verb ("to select"), i.e. select a password */
+"_select" = "Velg";
+"_passwords" = "Passord";
+
+/* I.e. reject this certificate */
+"_reject" = "Avslå";
+
+/* I.e. security status of a password */
+"_security" = "Sikkerhet";
+"_shareQrCode" = "Del QR-kode";
+
+/* In earlier versions this value was split into three strings */
+"_passwordStatusGoodMessage" = "Dette passordet er trygt å bruke. Det har ikke kommet på avveie, og overholder brukerdefinerte regler.";
+"_decryptFolderErrorMessage" = "Kunne ikke dekryptere mappen.";
+
+/* I.e. create folder or password */
+"_create" = "Opprett";
+
+/* I.e. date when a password was created */
+"_created" = "Opprettet";
+
+/* Use the same wording Apple uses across iOS */
+"_dismiss" = "Avslå";
+"_thanksMessage" = "Takk til hele Nextcloud-gemenskapen og alle som involverer seg i dette flotte økosystemet. Jeg håper jeg bidrar på mitt vis med dette programmet.";
