@@ -1,3 +1,3 @@
-"NSCameraUsageDescription" = "TODO";
-"NSFaceIDUsageDescription" = "Déverrouiller l'application";
-"NSPhotoLibraryAddUsageDescription" = "TODO";
+"NSCameraUsageDescription" = "Scanner le code QR";
+"NSFaceIDUsageDescription" = "Déverrouiller l'appli";
+"NSPhotoLibraryAddUsageDescription" = "Partager le code QR";
