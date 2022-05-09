@@ -9,7 +9,7 @@
 "_addTags" = "Tags hinzufügen";
 "_algorithm" = "Algorithmus";
 "_all" = "Alle";
-"_anErrorOccurred" = "Es ist ein Fehler aufgetreten ...";
+"_anErrorOccurred" = "Es ist ein Fehler aufgetreten …";
 "_appDeauthorized" = "App deautorisiert";
 "_appDeauthorizedMessage" = "Aufgrund zu vieler fehlgeschlagener Anmeldeversuche wurde diese App vom Server deautorisiert. Bitte später erneut versuchen.";
 "_automaticallyGeneratePasswords" = "Passwörter automatisch generieren";
@@ -93,7 +93,7 @@
 "_noConnection" = "Keine Verbindung";
 "_noConnectionMessage" = "Es konnte keine Verbindung zur Nextcloud-Passwörter-Instanz hergestellt werden.";
 "_notes" = "Notizen";
-"_nothingToSeeHere" = "Hier gibt es nichts zu sehen ...";
+"_nothingToSeeHere" = "Hier gibt es nichts zu sehen …";
 "_numbers" = "Zahlen";
 "_offline" = "Offline";
 "_openUrl" = "URL öffnen";
