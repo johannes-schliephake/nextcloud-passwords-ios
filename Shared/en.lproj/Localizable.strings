@@ -1,6 +1,5 @@
 /* I.e. about this app */
 "_about" = "About";
-
 "_aboutOtps" = "About One-Time Passwords";
 
 /* This message is shown before the user can add the first one-time password */
@@ -11,26 +10,20 @@
 
 /* This refers to the noun ("the account") */
 "_account" = "Account";
-
 "_addCustomField" = "Add Custom Field";
 
 /* Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture" */
 "_addManually" = "Add Manually";
-
 "_addOtp" = "Add One-Time Password";
 
 /* I.e. add tags to a password */
 "_addTags" = "Add Tags";
-
 "_algorithm" = "Algorithm";
 
 /* I.e. all passwords */
 "_all" = "All";
-
-"_anErrorOccurred" = "An error occurred ...";
-
+"_anErrorOccurred" = "An error occurred …";
 "_appDeauthorized" = "App Deauthorized";
-
 "_appDeauthorizedMessage" = "Because of too many failed login attempts this app was deauthorized by the server. Please try again later.";
 
 /* This is a label for a settings toggle */
@@ -56,13 +49,9 @@
 
 /* I.e. connect to server */
 "_connect" = "Connect";
-
 "_connectToServer" = "Connect to Server";
-
 "_copyOtp" = "Copy One-Time Password";
-
 "_copyPassword" = "Copy Password";
-
 "_copyUsername" = "Copy Username";
 
 /* This refers to the noun ("the counter") and counts how many OTPs have been used */
@@ -76,47 +65,29 @@
 
 /* I.e. date when a password was created */
 "_created" = "Created";
-
 "_createFolder" = "Create Folder";
-
 "_createFolderErrorMessage" = "An error occurred while creating the folder. Please save the folder again.";
-
 "_createPassword" = "Create Password";
-
 "_createPasswordErrorMessage" = "An error occurred while creating the password. Please save the password again.";
-
 "_createTag" = "Create Tag";
-
 "_createTagErrorMessage" = "An error occurred while creating the tag. Please save the tag again.";
 
 /* Nextcloud credentials that were used to connect to an instance */
 "_credentials" = "Credentials";
-
 "_customFields" = "Custom Fields";
-
 "_decryptFolderErrorMessage" = "An error occurred while decrypting the folder.";
-
 "_decryptPasswordErrorMessage" = "An error occurred while decrypting the password.";
-
 "_decryptTagErrorMessage" = "An error occurred while decrypting the tag.";
 
 /* Use the same wording Apple uses across iOS */
 "_delete" = "Delete";
-
 "_deletedPasswordMessage" = "This password was deleted.";
-
 "_deleteFolder" = "Delete Folder";
-
 "_deleteFolderErrorMessage" = "An error occurred while deleting the folder. Please delete the folder again.";
-
 "_deleteOtp" = "Delete One-Time Password";
-
 "_deletePassword" = "Delete Password";
-
 "_deletePasswordErrorMessage" = "An error occurred while deleting the password. Please delete the password again.";
-
 "_deleteTag" = "Delete Tag";
-
 "_deleteTagErrorMessage" = "An error occurred while deleting the tag. Please delete the tag again.";
 
 /* Possible option when adding an OTP, other keys are "_scanQrCode" and "_addManually" */
@@ -124,7 +95,6 @@
 
 /* I.e. the number of digits to show of an OTP */
 "_digits" = "Digits";
-
 "_discardChanges" = "Discard Changes";
 
 /* Use the same wording Apple uses across iOS */
@@ -138,15 +108,10 @@
 
 /* This refers to the verb ("to edit"), use the same wording Apple uses across iOS */
 "_edit" = "Edit";
-
 "_editFolderErrorMessage" = "An error occurred while editing the folder. Please save the folder again.";
-
 "_editPassword" = "Edit Password";
-
 "_editPasswordErrorMessage" = "An error occurred while editing the password. Please save the password again.";
-
 "_editTagErrorMessage" = "An error occurred while editing the tag. Please save the tag again.";
-
 "_editTags" = "Edit Tags";
 
 /* Make sure to use the correct notation in your language, e.g. in German a dash is added: "E-Mail" */
@@ -157,12 +122,10 @@
 
 /* I.e. server or client side encryption */
 "_encryption" = "Encryption";
-
 "_error" = "Error";
 
 /* I.e. export this OTP as a QR code */
 "_exportAsQrCode" = "Export As QR Code";
-
 "_extractOtpErrorMessage" = "An error occurred while searching for a QR code in the selected picture.";
 
 /* This refers to the noun ("the favorite") */
@@ -173,11 +136,8 @@
 
 /* This refers to the noun ("the file") */
 "_file" = "File";
-
 "_folder" = "Folder";
-
 "_folders" = "Folders";
-
 "_generatePassword" = "Generate Password";
 
 /* This is the label for starting an In-App purchase */
@@ -188,16 +148,12 @@
 
 /* Keep this in English */
 "_highFive" = "High Five! 👏";
-
 "_id" = "ID";
-
 "_incorrectPassword" = "Incorrect Password";
-
 "_incorrectPasswordMessage" = "Please try again.";
 
 /* I.e. integration into the OS (Password AutoFill) */
 "_integration" = "Integration";
-
 "_invalidCertificate" = "Invalid Certificate";
 
 /* Make sure to keep newlines (\n) and the placeholder (%@) */
@@ -214,7 +170,6 @@
 
 /* Possible value for "Strength" picker when generating a password */
 "_medium" = "Medium";
-
 "_metadata" = "Metadata";
 
 /* I.e. show more options */
@@ -225,43 +180,33 @@
 
 /* This refers to the noun ("the name") */
 "_name" = "Name";
-
 "_nextcloudServerAddress" = "Nextcloud Server Address";
-
 "_noConnection" = "No Connection";
-
 "_noConnectionMessage" = "Could not connect to the Nextcloud Passwords instance.";
 
 /* This refers to the noun ("the notes") */
 "_notes" = "Notes";
 
 /* Shown in empty lists */
-"_nothingToSeeHere" = "Nothing to see here ...";
+"_nothingToSeeHere" = "Nothing to see here …";
 
 /* This is a label for a password generator toggle */
 "_numbers" = "Numbers";
 
 /* I.e. the app has no connection to the server and is offline */
 "_offline" = "Offline";
-
 "_openUrl" = "Open URL";
 
 /* I.e. settings options */
 "_options" = "Options";
-
 "_otp" = "One-Time Password";
-
 "_otps" = "One-Time Passwords";
-
 "_password" = "Password";
-
 "_passwords" = "Passwords";
-
 "_passwordServiceErrorMessage" = "An error occurred while generating the password.";
 
 /* In earlier versions this value was split into two strings */
 "_passwordStatusBreachedMessage" = "This password is not safe to use. It has been found in a database of compromised passwords.";
-
 "_passwordStatusDuplicateMessage" = "This password is being used more than once.";
 
 /* In earlier versions this value was split into three strings */
@@ -269,7 +214,6 @@
 
 /* "Maximum age": Use the same wording that the web client uses in its settings */
 "_passwordStatusOutdatedMessage" = "This password has reached the maximum age.";
-
 "_passwordStatusUnknownMessage" = "This password has not yet been checked for its security or the option to store hashes for security checks is disabled.";
 
 /* How long each OTP is valid in seconds */
@@ -277,7 +221,6 @@
 
 /* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
 "_providerInstructionsMessage" = "This app supports Password AutoFill. The feature has to be enabled in iOS's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap AutoFill Passwords\n4. Enable AutoFill Passwords\n5. Enable this app";
-
 "_qrCaptureErrorMessage" = "An error occurred while launching the camera.";
 
 /* I.e. reject this certificate */
@@ -300,7 +243,6 @@
 
 /* I.e. select a color for a tag */
 "_selectColor" = "Select Color";
-
 "_serverAddressFieldMessage" = "An HTTPS connection is required.";
 
 /* Possible value for "Encryption" field on password detail page, other key is "_clientSide" */
@@ -308,13 +250,9 @@
 
 /* E.g. a website, an app, etc. */
 "_service" = "Service";
-
 "_settings" = "Settings";
-
 "_shareOtpWarningMessage" = "This QR code contains highly sensitive data about the one-time password";
-
 "_shareQrCode" = "Share QR Code";
-
 "_sourceCode" = "Source Code";
 
 /* This is a label for a password generator toggle */
@@ -322,7 +260,6 @@
 
 /* I.e. store the E2E password */
 "_storePassword" = "Store Password";
-
 "_storePasswordMessage" = "If this option is enabled, the E2E password is stored encrypted in your device's keychain.";
 
 /* I.e. strength of the password to generate */
@@ -330,17 +267,14 @@
 
 /* I.e. password suggestions when using Password AutoFill */
 "_suggestions" = "Suggestions";
-
 "_supportThisProject" = "Support This Project";
 
 /* This refers to the noun ("the tag") */
 "_tag" = "Tag";
-
 "_tags" = "Tags";
 
 /* This refers to the noun ("the text") */
 "_text" = "Text";
-
 "_thanksMessage" = "Thanks to the entire Nextcloud community and everybody involved for enabling such an amazing ecosystem. I hope that I can contribute something with this app.";
 
 /* I.e. this OTP is a time-based one, possible value for "Type" field in OTP editor, other key is "_counterBased" */
@@ -348,15 +282,10 @@
 
 /* Shown when Apple's "Ask to Buy" feature (parental control) is active */
 "_tipDeferred" = "Tip Deferred";
-
 "_tipDeferredMessage" = "Your tip is now waiting for approval.";
-
 "_tipFailed" = "Tip Failed";
-
 "_tipFailedMessage" = "An error occurred while processing your tip.";
-
 "_tipReceived" = "Tip Received";
-
 "_tipReceivedMessage" = "Thank you for supporting this project with your tip!";
 
 /* I.e. try again to load the data */
@@ -373,9 +302,7 @@
 
 /* I.e. date when a password was last updated */
 "_updated" = "Updated";
-
 "_url" = "URL";
-
 "_username" = "Username";
 
 /* E.g. password, username or URL was copied to the clipboard */
