@@ -12,7 +12,7 @@
 
 /* I.e. all passwords */
 "_all" = "Tots";
-"_anErrorOccurred" = "Hi ha hagut un error ...";
+"_anErrorOccurred" = "Hi ha hagut un error …";
 "_createFolderErrorMessage" = "S'ha produït un error en crear la carpeta. Torna a desar la carpeta.";
 "_aboutOtps" = "Quant a les contrasenyes d'un sol ús";
 "_addOtp" = "Afegir una contrasenya d'un sol ús";
@@ -137,7 +137,7 @@
 "_notes" = "Notes";
 
 /* Shown in empty lists */
-"_nothingToSeeHere" = "No hi ha res a veure aquí...";
+"_nothingToSeeHere" = "No hi ha res a veure aquí …";
 
 /* This is a label for a password generator toggle */
 "_numbers" = "Nombres";
