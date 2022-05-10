@@ -9,7 +9,7 @@
 "_addTags" = "Přidat štítky";
 "_algorithm" = "Algoritmus";
 "_all" = "Vše";
-"_anErrorOccurred" = "Došlo k chybě…";
+"_anErrorOccurred" = "Došlo k chybě …";
 "_appDeauthorized" = "Aplikaci zrušeno pověření";
 "_appDeauthorizedMessage" = "Z důvodu příliš mnoha nezdařených pokusů o přihlášení bylo této aplikaci serverem zrušeno pověření. Zkuste to znovu později.";
 "_automaticallyGeneratePasswords" = "Vytvářet hesla automaticky";
@@ -93,7 +93,7 @@
 "_noConnection" = "Žádné připojení";
 "_noConnectionMessage" = "Nedaří se připojit k aplikaci Nextcloud Hesla.";
 "_notes" = "Poznámky";
-"_nothingToSeeHere" = "Tady není nic k vidění…";
+"_nothingToSeeHere" = "Tady není nic k vidění …";
 "_numbers" = "Číslice";
 "_offline" = "Nepřipojeno k serveru";
 "_openUrl" = "Otevřít URL";
@@ -105,7 +105,7 @@
 "_passwordServiceErrorMessage" = "Došlo k chybě při vytváření hesla.";
 "_passwordStatusBreachedMessage" = "Toto heslo není bezpečné používat. Bylo nalezeno v databázi kompromitovaných hesel.";
 "_passwordStatusDuplicateMessage" = "Toto heslo už používáte pro něco jiného.";
-"_passwordStatusGoodMessage" = "Toto heslo je bezpečné. Nebylo prolomeno a neporušuje uživatelem určená pravidla."; 
+"_passwordStatusGoodMessage" = "Toto heslo je bezpečné. Nebylo prolomeno a neporušuje uživatelem určená pravidla.";
 "_passwordStatusOutdatedMessage" = "Heslo už bylo příliš dlouho nezměněno.";
 "_passwordStatusUnknownMessage" = "Toto heslo jetště nebylo zkontrolováo ohledně jeho bezpečnostiy nebo je vypnutá volba pro ukládání otisků pro kontroly jejich bezpečnosti.";
 "_periodSeconds" = "Doba platnosti (sekundy)";
