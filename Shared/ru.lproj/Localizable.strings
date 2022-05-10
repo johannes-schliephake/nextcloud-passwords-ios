@@ -9,7 +9,7 @@
 "_addTags" = "Добавить теги";
 "_algorithm" = "Алгоритм";
 "_all" = "Все записи";
-"_anErrorOccurred" = "Произошла ошибка...";
+"_anErrorOccurred" = "Произошла ошибка …";
 "_appDeauthorized" = "Приложение деавторизовано";
 "_appDeauthorizedMessage" = "Из-за слишком большого количества неудачных попыток входа это приложение было деавторизовано сервером. Пожалуйста, повторите попытку позже.";
 "_automaticallyGeneratePasswords" = "Автоматически генерировать пароли";
@@ -93,7 +93,7 @@
 "_noConnection" = "Нет соединения";
 "_noConnectionMessage" = "Не удалось подключиться к экземпляру Nextcloud Passwords.";
 "_notes" = "Заметки";
-"_nothingToSeeHere" = "Вы пока не создали ни одной записи...";
+"_nothingToSeeHere" = "Вы пока не создали ни одной записи …";
 "_numbers" = "Числа";
 "_offline" = "Вне сети";
 "_openUrl" = "Открыть URL";
