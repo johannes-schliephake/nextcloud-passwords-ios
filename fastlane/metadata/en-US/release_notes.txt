@@ -1,4 +1,5 @@
 • Support for one-time passwords (currently iOS only)
 • Redesigned password metadata section
 • Improved password generator
+• Norwegian translation (Thanks Allan Nordhøy!)
 • Bugfixes and optimizations

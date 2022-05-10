@@ -1,4 +1,5 @@
 • Unterstützung für Einmalpasswörter (aktuell nur iOS)
 • Neu gestalteter Passwortmetadatenbereich
 • Verbesserter Passwortgenerator
+• Norwegische Übersetzung (Danke Allan Nordhøy!)
 • Fehlerbehebungen und Optimierungen

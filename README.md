@@ -17,5 +17,6 @@ This app requires a Nextcloud server with the Passwords app installed.
 - Czech: [Pavel Borecki](https://github.com/p-bo)
 - French: [Maxime Killinger](https://github.com/maxime-killinger)
 - Russian: [jensaymoo](https://github.com/jensaymoo)
+- Norwegian: [Allan Nordhøy](https://github.com/comradekingu)
 
 Everybody is welcome to contribute translations via [Weblate](https://hosted.weblate.org/engage/nextcloud-passwords-ios)!
