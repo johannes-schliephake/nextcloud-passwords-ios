@@ -2,4 +2,5 @@
 • Neu gestalteter Passwortmetadatenbereich
 • Verbesserter Passwortgenerator
 • Norwegische Übersetzung (Danke Allan Nordhøy!)
+• Katalanische Übersetzung (Danke Maite Guix!)
 • Fehlerbehebungen und Optimierungen

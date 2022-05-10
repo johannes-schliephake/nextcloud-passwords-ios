@@ -2,4 +2,5 @@
 • Redesigned password metadata section
 • Improved password generator
 • Norwegian translation (Thanks Allan Nordhøy!)
+• Catalan translation (Thanks Maite Guix!)
 • Bugfixes and optimizations
