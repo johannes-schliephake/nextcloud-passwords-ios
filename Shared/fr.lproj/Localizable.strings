@@ -4,7 +4,7 @@
 "_addCustomField" = "Ajouter un champ personnalisé";
 "_addTags" = "Ajouter des étiquettes";
 "_all" = "Tout";
-"_anErrorOccurred" = "Une erreur est survenue ...";
+"_anErrorOccurred" = "Une erreur est survenue …";
 "_appDeauthorized" = "Autorisation de l'application révoquée";
 "_appDeauthorizedMessage" = "Du fait de trop de tentative de connexion échouées l'autorisation de cette application a été révoquée par le serveur. Veuillez réessayer plus tard.";
 "_automaticallyGeneratePasswords" = "Générer un mot de passe automatiquement";
@@ -73,7 +73,7 @@
 "_noConnection" = "Aucune Connexion";
 "_noConnectionMessage" = "Impossible de se connecter à l'application Mot de passe de Nextcloud.";
 "_notes" = "Notes";
-"_nothingToSeeHere" = "Rien à voir ici ...";
+"_nothingToSeeHere" = "Rien à voir ici …";
 "_numbers" = "Nombres";
 "_offline" = "Hors ligne";
 "_openUrl" = "Ouvrir l'URL";
@@ -83,7 +83,7 @@
 "_passwordServiceErrorMessage" = "Une erreur est survenue durant la génération du mot de passe.";
 "_passwordStatusDuplicateMessage" = "Ce mot de passe a été utilisé plus d'une fois.";
 "_passwordStatusOutdatedMessage" = "Ce mot de passe est arrivé à expiration.";
-"_providerInstructionsMessage" = "Cette application supporte le préremplissage de mot de passe. La fonctionnalité doit être activée dans les Paramètres iOS :\n1. Ouvrir les Paramètres\n2. Appuyez sur Mots de passe\n3. Appuyez Préremplir les mots de passe\n4. Activer préremplir les mots de passe\n5. Autoriser le remplissage par cette application.";
+"_providerInstructionsMessage" = "Cette application supporte le préremplissage de mot de passe. La fonctionnalité doit être activée dans les Paramètres iOS:\n1. Ouvrir les Paramètres\n2. Appuyez sur Mots de passe\n3. Appuyez Préremplir les mots de passe\n4. Activer préremplir les mots de passe\n5. Autoriser le remplissage par cette application";
 "_reject" = "Rejeter";
 "_secret" = "Secret";
 "_security" = "Sécurité";
