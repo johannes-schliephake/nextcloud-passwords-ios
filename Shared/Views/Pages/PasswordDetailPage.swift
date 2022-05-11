@@ -382,10 +382,12 @@ struct PasswordDetailPage: View {
                         }
                     }
                     Divider()
-                    labeledFootnote("_id") {
-                        Text(password.id.uppercased())
+                    if !password.id.isEmpty {
+                        labeledFootnote("_id") {
+                            Text(password.id.uppercased())
+                        }
                     }
-                    if let hashData = password.hash.data(using: .utf8) {
+                    if let hashData = password.password.data(using: .utf8) {
                         Spacer()
                         labeledFootnote("_hash") {
                             Text(Crypto.SHA1.hash(hashData, humanReadable: true))
