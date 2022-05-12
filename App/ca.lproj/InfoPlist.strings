@@ -1,5 +1,5 @@
 /* Name of the app */
-"CFBundleDisplayName" = "Contrasenyes";
+"CFBundleDisplayName" = "Passwords";
 
 /* Shown when user is asked for Camera permissions for scanning an OTP QR code, same as "_scanQrCode" in Localizable.strings and "NSCameraUsageDescription" in Provider/InfoPlist.strings and "NSCameraUsageDescription" in Extension/InfoPlist.strings */
 "NSCameraUsageDescription" = "Escanejar el codi QR";
