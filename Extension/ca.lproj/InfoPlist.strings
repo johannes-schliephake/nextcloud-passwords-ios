@@ -8,4 +8,4 @@
 /* Shown when user is asked for Face ID permissions, same as "_unlockApp" in Localizable.strings and "NSFaceIDUsageDescription" in App/InfoPlist.strings and "NSFaceIDUsageDescription" in Provider/InfoPlist.strings */
 "NSFaceIDUsageDescription" = "Desbloquejar l'app";
 /* Name of the action button in Safari's share sheet */
-"CFBundleDisplayName" = "Inserir una contrasenya única";
+"CFBundleDisplayName" = "Inserir una contrasenya d'un sol us";
