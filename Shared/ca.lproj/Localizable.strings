@@ -232,7 +232,7 @@
 "_accept" = "Acceptar";
 
 /* This message is shown before the user can add the first one-time password */
-"_aboutOtpsMessage" = "Aquesta aplicació només admet contrasenyes d'un sol ús per comoditat. Emmagatzemar la contrasenya d'un sol ús juntament amb la contrasenya del teu compte derrota alguns dels avantatges de seguretat de l'autenticació multifactor. Habilitar un segon factor és millor que no utilitzar cap, però una aplicació independent de contrasenya d'un sol ús és més segura. NO emmagatzemeu contrasenyes d'un sol ús per al vostre compte de Nextcloud o comptes crítics, com ara comptes de correu electrònic o de banca en línia. Les contrasenyes d'un sol ús es sincronitzaran a la instància de contrasenyes de Nextcloud, però actualment només són compatibles amb l'aplicació per a iOS (v2.6 o més).";
+"_aboutOtpsMessage" = "Aquesta aplicació només admet contrasenyes d'un sol ús per comoditat. Emmagatzemar la contrasenya d'un sol ús juntament amb la contrasenya del teu compte derrota alguns dels avantatges de seguretat de l'autenticació multifactor. Habilitar un segon factor és millor que no utilitzar cap, però una aplicació independent de contrasenya d'un sol ús és més segura. NO emmagatzemeu contrasenyes d'un sol ús al vostre compte de Nextcloud o comptes crítics, com ara comptes de correu electrònic o de banca en línia. Les contrasenyes d'un sol ús es sincronitzaran a la instància Passwords de Nextcloud, però actualment només són compatibles amb l'aplicació per a iOS (v2.6 o més).";
 
 /* This refers to the noun ("the account") */
 "_account" = "Compte";
@@ -245,7 +245,7 @@
 "_delete" = "Suprimir";
 "_deletedPasswordMessage" = "S'ha suprimit aquesta contrasenya.";
 "_createPassword" = "Crear una contrasenya";
-"_noConnectionMessage" = "No s'ha pogut connectar a la instància contrasenyes de Nextcloud.";
+"_noConnectionMessage" = "No s'ha pogut connectar a la instància Passwords de Nextcloud.";
 "_deleteFolder" = "Suprimir la carpeta";
 "_deletePassword" = "Suprimir la contrasenya";
 
