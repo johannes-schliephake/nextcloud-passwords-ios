@@ -1,3 +1,5 @@
 "NSCameraUsageDescription" = "Scanner le code QR";
 "NSFaceIDUsageDescription" = "Déverrouiller l'appli";
 "NSPhotoLibraryAddUsageDescription" = "Partager le code QR";
+/* Name of the action button in Safari's share sheet */
+"CFBundleDisplayName" = "Insérez le mot de passe à usage unique";
