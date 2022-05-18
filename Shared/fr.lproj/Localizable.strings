@@ -116,3 +116,82 @@
 "_username" = "Nom d'utilisateur";
 "_valueCopied" = "Valeur Copiée";
 "_version" = "Version";
+"_algorithm" = "Algorithme";
+
+/* I.e. a one-time password is configured */
+"_configured" = "Configuré";
+
+/* I.e. confirm that the OTP message has been read */
+"_confirm" = "Confirmez";
+
+/* Possible value for "Strength" picker when generating a password */
+"_low" = "Faible";
+
+/* Possible value for "Strength" picker when generating a password */
+"_medium" = "Moyen";
+"_otp" = "Mot de passe à usage unique";
+"_passwordStatusUnknownMessage" = "Ce mot de passe n'a pas encore été vérifié ou l'option pour le stockage des hash est désactivé.";
+"_qrCaptureErrorMessage" = "Une erreur est survenue durant l'accès à la caméra.";
+
+/* The folder all passwords and folders are placed in, which are not in a subfolder */
+"_rootFolder" = "Dossier racine";
+"_shareQrCode" = "Partage le QR Code";
+
+/* I.e. strength of the password to generate */
+"_strength" = "Force";
+
+/* This refers to the noun ("the type") */
+"_type" = "Type";
+
+/* Possible value for "Strength" picker when generating a password */
+"_ultra" = "Fort";
+"_aboutOtps" = "À propos des mots de passe à usage unique";
+
+/* This message is shown before the user can add the first one-time password */
+"_aboutOtpsMessage" = "Cette application prend en charge les mots de passe à usage unique uniquement pour plus de facilité. Le stockage de votre mot de passe à usage unique avec le mot de passe de votre compte annule certains des avantages de sécurité de l'authentification multifacteur. Activer un deuxième facteur est préférable à ne pas en utiliser du tout, mais une application différente de mot de passe à usage unique sera plus sécurisée. Ne stockez PAS de mots de passe à usage unique pour votre compte Nextcloud ou vos comptes importants, tels que les comptes de messagerie ou les comptes bancaires. Les mots de passe à usage unique se synchroniseront sur votre instance Nextcloud Passwords mais ne sont actuellement pris en charge que par l'application iOS (v2.6 ou plus récente).";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture" */
+"_addManually" = "Ajouter manuellement";
+"_addOtp" = "Ajouter le mot de passe unique";
+"_copyOtp" = "Copier le mot de passe à usage unique";
+
+/* This refers to the noun ("the counter") and counts how many OTPs have been used */
+"_counter" = "Compteur";
+
+/* I.e. this OTP is a counter-based one, possible value for "Type" field in OTP editor, other key is "_timeBased" */
+"_counterBased" = "Basé sur un compteur";
+"_deleteOtp" = "Supprimer le mot de passe à usage unique";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_addManually" */
+"_detectQrCodeInPicture" = "Détecter le QR Code dans une photo";
+
+/* I.e. the number of digits to show of an OTP */
+"_digits" = "Chiffres";
+
+/* I.e. export this OTP as a QR code */
+"_exportAsQrCode" = "Exporter sous forme de QR Code";
+"_extractOtpErrorMessage" = "Une erreur est survenue pendant la recherche d'un QR Code dans la photo sélectionnée.";
+
+/* E.g. a SHA1 hash */
+"_hash" = "Hash";
+"_id" = "ID";
+
+/* I.e. show more options */
+"_moreOptions" = "Plus d'options";
+"_otps" = "Mot de passe à usage unique";
+
+/* In earlier versions this value was split into two strings */
+"_passwordStatusBreachedMessage" = "Ce mot de passe n'est pas sécurisé. Il à été répertorié dans une base de donnée de mot de passe compromis.";
+
+/* In earlier versions this value was split into three strings */
+"_passwordStatusGoodMessage" = "Ce mot de passe est sécurisé. Il n'a pas été détecté dans une fuite de donnée et ne viole pas les règles de sécurité définies.";
+
+/* How long each OTP is valid in seconds */
+"_periodSeconds" = "Période (En secondes)";
+
+/* Possible option when adding an OTP, other keys are "_detectQrCodeInPicture" and "_addManually" */
+"_scanQrCode" = "Scanner un QR Code";
+"_shareOtpWarningMessage" = "Ce QR Code contient des données sensibles à propos du mot de passe à usage unique";
+
+/* I.e. this OTP is a time-based one, possible value for "Type" field in OTP editor, other key is "_counterBased" */
+"_timeBased" = "Basé sur le temps";
