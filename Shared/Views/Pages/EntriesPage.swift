@@ -416,7 +416,7 @@ struct EntriesPage: View {
     private func suggestionRows(suggestions: [Password]) -> some View {
         ForEach(suggestions) {
             password in
-            PasswordRow(entriesController: entriesController, password: password, editPassword: {
+            PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
                 sheetItem = .edit(entry: .password(password))
             }, movePassword: {
                 sheetItem = .move(entry: .password(password))
@@ -451,7 +451,7 @@ struct EntriesPage: View {
                 .deleteDisabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 return AnyView(folderRow)
             case .password(let password):
-                let passwordRow = PasswordRow(entriesController: entriesController, password: password, editPassword: {
+                let passwordRow = PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
                     sheetItem = .edit(entry: .password(password))
                 }, movePassword: {
                     sheetItem = .move(entry: .password(password))
@@ -952,6 +952,7 @@ extension EntriesPage {
     private struct PasswordRow: View {
         
         @ObservedObject var entriesController: EntriesController
+        @ObservedObject var folderController: FolderController
         @ObservedObject var password: Password
         let editPassword: () -> Void
         let movePassword: () -> Void
@@ -1222,7 +1223,7 @@ extension EntriesPage {
                         if password.favorite {
                             favoriteImage()
                         }
-                        if entriesController.sortBy == .status {
+                        if folderController.defaultSorting ?? entriesController.sortBy == .status {
                             statusImage()
                         }
                     }

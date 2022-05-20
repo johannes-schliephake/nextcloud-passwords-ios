@@ -734,6 +734,9 @@ final class EntriesController: ObservableObject {
         /// Apply filter to folders
         switch filterBy {
         case .all:
+            guard tag == nil else {
+                fallthrough
+            }
             folders = []
         case .favorites:
             guard folder.isBaseFolder,
@@ -770,7 +773,9 @@ final class EntriesController: ObservableObject {
         /// Apply filter to passwords
         switch filterBy {
         case .all:
-            break
+            guard tag == nil else {
+                fallthrough
+            }
         case .favorites:
             guard folder.isBaseFolder,
                   tag == nil else {
@@ -825,6 +830,9 @@ final class EntriesController: ObservableObject {
         /// Apply filter to tags
         switch filterBy {
         case .all:
+            guard tag == nil else {
+                fallthrough
+            }
             tags = []
         case .favorites:
             guard folder.isBaseFolder,
