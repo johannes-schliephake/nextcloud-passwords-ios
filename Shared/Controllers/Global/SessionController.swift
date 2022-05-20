@@ -7,7 +7,7 @@ final class SessionController: ObservableObject {
     static let `default` = SessionController()
     
     @Published private(set) var state: State = .loading
-    @Published var session: Session? {
+    @Published private(set) var session: Session? {
         didSet {
             guard let session = session else {
                 Keychain.default.remove(key: "server")
