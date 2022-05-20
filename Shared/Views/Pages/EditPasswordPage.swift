@@ -225,9 +225,7 @@ struct EditPasswordPage: View {
                 PasswordGenerator(password: $editPasswordController.passwordPassword, generateInitial: Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
                     .accessibility(identifier: "passwordGenerator")
             }
-            #if DEBUG
-                otpButton()
-            #endif
+            otpButton()
         }
     }
     

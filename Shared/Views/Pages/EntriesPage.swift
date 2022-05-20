@@ -630,10 +630,8 @@ struct EntriesPage: View {
                     .tag(EntriesController.Filter.favorites)
                 Label("_tags", systemImage: "tag")
                     .tag(EntriesController.Filter.tags)
-                #if DEBUG
-                    Label("_otps", systemImage: "ellipsis.rectangle")
-                        .tag(EntriesController.Filter.otps)
-                #endif
+                Label("_otps", systemImage: "ellipsis.rectangle")
+                    .tag(EntriesController.Filter.otps)
             }
             Picker("", selection: $entriesController.sortBy) {
                 Label("_name", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
