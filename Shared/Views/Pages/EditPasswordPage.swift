@@ -263,7 +263,7 @@ struct EditPasswordPage: View {
             }
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
             .tooltip(isPresented: $showAboutOtpsTooltip, content: {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 15) {
                     Text("_aboutOtps")
                         .font(.title2.bold())
                     Text("_aboutOtpsMessage")
@@ -276,7 +276,6 @@ struct EditPasswordPage: View {
                     }
                     .buttonStyle(.action)
                 }
-                .padding()
             })
         }
         else {

@@ -218,10 +218,9 @@ struct EntriesPageFallback: View { /// This insanely dumb workaround (duplicated
                         }
                         .buttonStyle(.borderless)
                         .tooltip(isPresented: $showStorePasswordTooltip) {
-                            VStack(alignment: .leading, spacing: 16) {
+                            VStack(alignment: .leading, spacing: 15) {
                                 Text("_storePasswordMessage")
                             }
-                            .padding()
                         }
                     }
                 }

@@ -6,6 +6,9 @@ private struct Tooltip<Content: View>: View {
     private static var maxSize: CGSize {
         CGSize(width: 400, height: 400)
     }
+    @available(iOS 15, *) private static var safeArea: EdgeInsets {
+        EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
+    }
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
@@ -20,11 +23,54 @@ private struct Tooltip<Content: View>: View {
         Popover(isPresented: $isPresented, maxSize: CGSize(width: Tooltip.maxSize.width, height: contentHeight.clamped(to: 1...Tooltip.maxSize.height)), arrowDirections: arrowDirections) {
             ScrollView(contentHeight > containerHeight ? .vertical : []) {
                 content()
+                    .apply {
+                        view in
+                        if #available(iOS 15, *) {
+                            view
+                                .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20) - Self.safeArea)
+                        }
+                        else {
+                            view
+                                .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
+                        }
+                    }
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .onSizeChange { contentHeight = $0.height }
-                    .occlude(!biometricAuthenticationController.isUnlocked)
+                    .apply {
+                        view in
+                        if #available(iOS 15, *) {
+                            view
+                                .onSizeChange { contentHeight = $0.height + Self.safeArea.top + Self.safeArea.bottom }
+                        }
+                        else {
+                            view
+                                .onSizeChange { contentHeight = $0.height }
+                        }
+                    }
             }
+            .apply {
+                view in
+                if #available(iOS 15, *) {
+                    view
+                        .safeAreaInset(edge: .top, spacing: 0) {
+                            Color.clear
+                                .frame(height: Self.safeArea.top)
+                        }
+                        .safeAreaInset(edge: .leading, spacing: 0) {
+                            Color.clear
+                                .frame(width: Self.safeArea.leading)
+                        }
+                        .safeAreaInset(edge: .bottom, spacing: 0) {
+                            Color.clear
+                                .frame(height: Self.safeArea.bottom)
+                        }
+                        .safeAreaInset(edge: .trailing, spacing: 0) {
+                            Color.clear
+                                .frame(width: Self.safeArea.trailing)
+                        }
+                }
+            }
+            .occlude(!biometricAuthenticationController.isUnlocked)
             .onSizeChange { containerHeight = $0.height }
         }
     }

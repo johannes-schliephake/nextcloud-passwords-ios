@@ -263,7 +263,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
             }
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
             .tooltip(isPresented: $showAboutOtpsTooltip, content: {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 15) {
                     Text("_aboutOtps")
                         .font(.title2.bold())
                     Text("_aboutOtpsMessage")
@@ -276,7 +276,6 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                     }
                     .buttonStyle(.action)
                 }
-                .padding()
             })
         }
         else {

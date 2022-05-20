@@ -26,7 +26,6 @@ struct PasswordGenerator: View {
         .buttonStyle(.borderless)
         .tooltip(isPresented: $showPasswordGenerator, arrowDirections: [.up, .down]) {
             passwordGenerator()
-                .padding()
         }
         .alert(isPresented: $showPasswordServiceErrorAlert) {
             Alert(title: Text("_error"), message: Text("_passwordServiceErrorMessage"))
@@ -42,7 +41,7 @@ struct PasswordGenerator: View {
     }
     
     private func passwordGenerator() -> some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 15) {
             VStack {
                 Toggle("_numbers", isOn: $generatorNumbers)
                 Toggle("_specialCharacters", isOn: $generatorSpecial)

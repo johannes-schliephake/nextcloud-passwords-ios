@@ -158,7 +158,7 @@ struct PasswordDetailPage: View {
         }
         .buttonStyle(.borderless)
         .tooltip(isPresented: $showPasswordStatusTooltip) {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 15) {
                 switch password.statusCode {
                 case .good:
                     Text("_passwordStatusGoodMessage")
@@ -186,7 +186,6 @@ struct PasswordDetailPage: View {
                     .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
             }
-            .padding()
         }
     }
     
