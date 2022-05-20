@@ -63,7 +63,7 @@
 "_incorrectPasswordMessage" = "Veuillez réessayer.";
 "_integration" = "Intégration";
 "_invalidCertificate" = "Certificat invalide";
-"_invalidCertificateMessage(hash)" = "Le certificat du serveur est invalide. Une connexion sécurisée ne peut être assurée. Le certificat doit-il toujours être utilisé ?\n\nSHA-256 du certificat :\n%@";
+"_invalidCertificateMessage(hash)" = "Le certificat du serveur est invalide. Une connexion sécurisée ne peut être assurée. Le certificat doit-il toujours être utilisé ?\n\nSHA-256 du certificat :\n%@";
 "_logIn" = "Connexion";
 "_logOut" = "Déconnexion";
 "_metadata" = "Métadata";
