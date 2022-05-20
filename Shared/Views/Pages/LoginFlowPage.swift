@@ -47,6 +47,7 @@ extension LoginFlowPage {
             let webView = BottomlessWKWebView(frame: .zero, configuration: configuration)
             webView.isOpaque = false
             webView.navigationDelegate = loginFlowNavigationController
+            webView.customUserAgent = Configuration.clientName
             
             var request = URLRequest(url: loginUrl)
             if let language = NSLocale.preferredLanguages.first {
