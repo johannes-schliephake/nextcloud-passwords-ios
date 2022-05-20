@@ -225,9 +225,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 PasswordGenerator(password: $editPasswordController.passwordPassword, generateInitial: Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
                     .accessibility(identifier: "passwordGenerator")
             }
-            #if DEBUG
-                otpButton()
-            #endif
+            otpButton()
         }
     }
     
