@@ -110,7 +110,7 @@
 "_passwordStatusUnknownMessage" = "Toto heslo jetště nebylo zkontrolováo ohledně jeho bezpečnostiy nebo je vypnutá volba pro ukládání otisků pro kontroly jejich bezpečnosti.";
 "_periodSeconds" = "Doba platnosti (sekundy)";
 "_providerInstructionsMessage" = "Tato aplikace podporuje automatické vyplňování hesel. Tuto funkci je třeba zapnout v nastavení systému iOS:\n1. Otevřete aplikaci Nastavení\n2. Klepněte na Hesla\n3. Klepněte na automatické vyplňování hesel\n4. Zapněte automatické vyplňování hesel\n5. Povolte pro tuto aplikaci";
-"_qrCaptureErrorMessage" = "Došlo k chybě při spouštění kamery";
+"_qrCaptureErrorMessage" = "Došlo k chybě při spouštění kamery.";
 "_reject" = "Odmítnout";
 "_rootFolder" = "Kořenová složka";
 "_scanQrCode" = "Naskenovat QR kód";
