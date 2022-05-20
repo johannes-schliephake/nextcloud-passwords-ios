@@ -427,12 +427,18 @@ struct EntriesPage: View {
             })
             .deleteDisabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
-        .onDelete { // when not #available(iOS 15.0, *)
-            indices in
-            guard let password = suggestions[safe: indices.first] else {
-                return
+        .apply {
+            view in
+            if #unavailable(iOS 15) {
+                view
+                    .onDelete {
+                        indices in
+                        guard let password = suggestions[safe: indices.first] else {
+                            return
+                        }
+                        actionSheetItem = .delete(entry: .password(password))
+                    }
             }
-            actionSheetItem = .delete(entry: .password(password))
         }
     }
     
@@ -472,9 +478,15 @@ struct EntriesPage: View {
                 return AnyView(tagRow)
             }
         }
-        .onDelete { // when not #available(iOS 15.0, *)
-            indices in
-            onDeleteEntry(entry: entries[safe: indices.first])
+        .apply {
+            view in
+            if #unavailable(iOS 15) {
+                view
+                    .onDelete {
+                        indices in
+                        onDeleteEntry(entry: entries[safe: indices.first])
+                    }
+            }
         }
     }
     
