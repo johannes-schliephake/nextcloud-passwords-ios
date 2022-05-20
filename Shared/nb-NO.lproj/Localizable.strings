@@ -211,7 +211,7 @@
 /* I.e. date when a password was last updated */
 "_updated" = "Oppdatert";
 "_tipReceived" = "Donasjon mottatt";
-"_tipReceivedMessage" = "Takk for at du støtter prosjektet.";
+"_tipReceivedMessage" = "Takk for at du støtter prosjektet!";
 "_tipFailedMessage" = "Kunne ikke behandle donasjonen.";
 "_deleteFolder" = "Slett mappe";
 
