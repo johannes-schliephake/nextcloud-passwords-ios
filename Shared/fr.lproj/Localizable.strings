@@ -45,8 +45,8 @@
 "_editFolderErrorMessage" = "Une erreur est survenue durant la modification du dossier. Veuillez l'enregistrer à nouveau.";
 "_editPassword" = "Modifier le mot de passe";
 "_editPasswordErrorMessage" = "Une erreur est survenue durant la modification du mot de passe. Veuillez l'enregistrer à nouveau.";
-"_editTagErrorMessage" = "Modifier l'étiquette";
-"_editTags" = "Une erreur est survenue durant la modification de l'étiquette. Veuillez l'enregistrer à nouveau.";
+"_editTagErrorMessage" = "Une erreur est survenue durant la modification de l'étiquette. Veuillez l'enregistrer à nouveau.";
+"_editTags" = "Modifier l'étiquette";
 "_email" = "E-mail";
 "_encryptedOfflineStorage" = "Stockage crypté hors-ligne";
 "_encryption" = "Encryption";
@@ -83,7 +83,7 @@
 "_passwordServiceErrorMessage" = "Une erreur est survenue durant la génération du mot de passe.";
 "_passwordStatusDuplicateMessage" = "Ce mot de passe a été utilisé plus d'une fois.";
 "_passwordStatusOutdatedMessage" = "Ce mot de passe est arrivé à expiration.";
-"_providerInstructionsMessage" = "Cette application supporte le préremplissage de mot de passe. La fonctionnalité doit être activée dans les Paramètres iOS:\n1. Ouvrir les Paramètres\n2. Appuyez sur Mots de passe\n3. Appuyez Préremplir les mots de passe\n4. Activer préremplir les mots de passe\n5. Autoriser le remplissage par cette application";
+"_providerInstructionsMessage" = "Cette application supporte le préremplissage de mot de passe. La fonctionnalité doit être activée dans les Paramètres iOS :\n1. Ouvrir les Paramètres\n2. Appuyez sur Mots de passe\n3. Appuyez Préremplir les mots de passe\n4. Activer préremplir les mots de passe\n5. Autoriser le remplissage par cette application";
 "_reject" = "Rejeter";
 "_secret" = "Secret";
 "_security" = "Sécurité";
@@ -108,7 +108,7 @@
 "_tipFailed" = "Échec du pourboire";
 "_tipFailedMessage" = "Une erreur est survenue durant le pourboire.";
 "_tipReceived" = "Pourboire bien reçu";
-"_tipReceivedMessage" = "Merci pour votre support avec ce pourboire!";
+"_tipReceivedMessage" = "Merci pour votre support avec ce pourboire !";
 "_tryAgain" = "Réessayer";
 "_unlockApp" = "Déverrouiller l'application";
 "_updated" = "Mis à jour";
