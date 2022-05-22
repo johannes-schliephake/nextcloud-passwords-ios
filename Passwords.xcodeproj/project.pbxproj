@@ -1279,7 +1279,7 @@
 			);
 			mainGroup = 8F118746253C9EE10019FECA;
 			packageReferences = (
-				8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */,
+				8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */,
 			);
 			productRefGroup = 8F118750253C9EE10019FECA /* Products */;
 			projectDirPath = "";
@@ -2371,7 +2371,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */ = {
+		8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jedisct1/swift-sodium.git";
 			requirement = {
@@ -2384,32 +2384,32 @@
 /* Begin XCSwiftPackageProductDependency section */
 		8F10C6482602BD9200FA5B1D /* Clibsodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
 			productName = Clibsodium;
 		};
 		8F10C64A2602BD9200FA5B1D /* Sodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
 			productName = Sodium;
 		};
 		8F10C64C2602C05F00FA5B1D /* Clibsodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
 			productName = Clibsodium;
 		};
 		8F10C64E2602C05F00FA5B1D /* Sodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
 			productName = Sodium;
 		};
 		DDB1696527D1FD2900F4D752 /* Clibsodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
 			productName = Clibsodium;
 		};
 		DDB1696727D1FD2900F4D752 /* Sodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
 			productName = Sodium;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -51,9 +51,9 @@ lane :bump_version do |parameters|
     increment_build_number_in_xcodeproj(target: "Passwords")
     increment_build_number_in_xcodeproj(target: "Provider")
     increment_build_number_in_xcodeproj(target: "Extension")
-    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], target: "Passwords")
-    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], target: "Provider")
-    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], target: "Extension")
+    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], omit_zero_patch_version: true, target: "Passwords")
+    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], omit_zero_patch_version: true, target: "Provider")
+    increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], omit_zero_patch_version: true, target: "Extension")
     commit_version_bump(message: "Bump version")
 end
 
@@ -63,8 +63,8 @@ lane :build_and_upload do
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Extension")
-    build_app(scheme: "Passwords", clean: true, skip_package_ipa: true, export_method: "app-store")
-    upload_to_app_store
+    build_app(scheme: "Passwords", clean: true, output_directory: "fastlane/tmp", export_method: "app-store")
+    upload_to_app_store(overwrite_screenshots: true)
 end
 
 desc("Merges release into main branch and publishes as a GitHub release.")
