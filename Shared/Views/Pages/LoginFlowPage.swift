@@ -31,7 +31,7 @@ struct LoginFlowPage: View {
 
 extension LoginFlowPage {
     
-    struct LoginFlowWebView: UIViewRepresentable {
+    private struct LoginFlowWebView: UIViewRepresentable {
         
         private let loginUrl: URL
         private let loginFlowNavigationController: LoginFlowNavigationController
@@ -42,9 +42,12 @@ extension LoginFlowPage {
         }
         
         func makeUIView(context: Context) -> BottomlessWKWebView {
-            let webView = BottomlessWKWebView()
+            let configuration = WKWebViewConfiguration()
+            configuration.websiteDataStore = .nonPersistent()
+            let webView = BottomlessWKWebView(frame: .zero, configuration: configuration)
             webView.isOpaque = false
             webView.navigationDelegate = loginFlowNavigationController
+            webView.customUserAgent = Configuration.clientName
             
             var request = URLRequest(url: loginUrl)
             if let language = NSLocale.preferredLanguages.first {

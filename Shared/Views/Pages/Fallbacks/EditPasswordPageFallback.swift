@@ -12,18 +12,17 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editPasswordController: EditPasswordController
-    @ScaledMetric private var sliderLabelWidth = 87.0
     @ScaledMetric private var customFieldTypeIconWidth = 30.0
     // @available(iOS 15, *) @FocusState private var focusedField: FocusField?
-    @State private var showPasswordGenerator: Bool
+    @AppStorage("didAcceptAboutOtps", store: Configuration.userDefaults) private var didAcceptAboutOtps = Configuration.defaults["didAcceptAboutOtps"] as! Bool // swiftlint:disable:this force_cast
     @State private var editMode = false
-    @State private var showSelectTagsView = false
-    @State private var showSelectFolderView = false
+    @State private var sheetItem: SheetItem?
+    @State private var showAboutOtpsTooltip = false
+    @State private var showDeleteAlert = false
     @State private var showCancelAlert = false
     
     init(entriesController: EntriesController, password: Password) {
         _editPasswordController = StateObject(wrappedValue: EditPasswordController(entriesController: entriesController, password: password))
-        _showPasswordGenerator = State(initialValue: password.id.isEmpty && !Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
     }
     
     // MARK: Views
@@ -61,12 +60,6 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                         }
                 }
             }
-            .onAppear {
-                if editPasswordController.password.id.isEmpty,
-                   Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords") {
-                    editPasswordController.generatePassword()
-                }
-            }
             .environment(\.editMode, .constant(editMode ? .active : .inactive))
     }
     
@@ -74,12 +67,14 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
         List {
             serviceSection()
             accountSection()
-            passwordGeneratorSection()
             customFieldsSection()
             notesSection()
             favoriteButton()
             tagsSection()
             moveSection()
+            if !editPasswordController.password.id.isEmpty {
+                deleteButton()
+            }
         }
         .listStyle(.insetGrouped)
         .apply {
@@ -89,19 +84,19 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                     .toolbar {
                         ToolbarItemGroup(placement: .keyboard) {
                             Button {
-                                // focusedField = focusedField?.previous()
+                                // focusedField = focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
                             }
                             label: {
                                 Image(systemName: "chevron.up")
                             }
-                            // .disabled(focusedField?.previous() == nil)
+                            // .disabled(focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
                             Button {
-                                // focusedField = focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count)
+                                // focusedField = focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
                             }
                             label: {
                                 Image(systemName: "chevron.down")
                             }
-                            // .disabled(focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) == nil)
+                            // .disabled(focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
                             Spacer()
                             Button {
                                 // focusedField = nil
@@ -113,17 +108,71 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                         }
                     }
                     .onSubmit {
-                        guard !showSelectFolderView,
-                              !showSelectTagsView else { /// Prevent submit handling when page is not visible
+                        guard sheetItem == nil else { /// Prevent submit handling when page is not visible
                             return
                         }
-                        // if let next = focusedField?.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) {
+                        // if let next = focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) {
                             // focusedField = next
                         // }
                         // else {
                             applyAndDismiss()
                         // }
                     }
+            }
+        }
+        .sheet(item: $sheetItem) {
+            item in
+            switch item {
+            case .edit(let otp):
+                EditOTPNavigation(otp: OTP(type: otp.type, algorithm: otp.algorithm, secret: otp.secret, digits: otp.digits, counter: otp.counter, period: otp.period, issuer: editPasswordController.passwordLabel, accountname: editPasswordController.passwordUsername) ?? otp, updateOtp: {
+                    otp in
+                    editPasswordController.passwordOtp = otp
+                })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(settingsController)
+                    .environmentObject(tipController)
+            case .scanQrCode:
+                CaptureOTPNavigation {
+                    otp in
+                    editPasswordController.passwordOtp = otp
+                }
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(settingsController)
+                .environmentObject(tipController)
+            case .detectQrCode:
+                ImagePicker {
+                    image in
+                    editPasswordController.extractOtp(from: image)
+                }
+                .environmentObject(autoFillController)
+                .environmentObject(biometricAuthenticationController)
+                .environmentObject(sessionController)
+                .environmentObject(settingsController)
+                .environmentObject(tipController)
+            case .selectTags:
+                SelectTagsNavigation(entriesController: editPasswordController.entriesController, temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
+                    validTags, _ in
+                    editPasswordController.passwordValidTags = validTags
+                })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(settingsController)
+                    .environmentObject(tipController)
+            case .selectFolder:
+                SelectFolderNavigation(entriesController: editPasswordController.entriesController, entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), selectFolder: {
+                    parent in
+                    editPasswordController.passwordFolder = parent.id
+                })
+                    .environmentObject(autoFillController)
+                    .environmentObject(biometricAuthenticationController)
+                    .environmentObject(sessionController)
+                    .environmentObject(settingsController)
+                    .environmentObject(tipController)
             }
         }
     }
@@ -162,58 +211,105 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                             .submitLabel(.next)
                     }
                 }
-            EditLabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: $editPasswordController.passwordPassword)
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            // .focused($focusedField, equals: .passwordPassword)
-                            .submitLabel(FocusField.passwordPassword.next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) != nil ? .next : .done)
+            HStack(spacing: 16) {
+                EditLabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: $editPasswordController.passwordPassword)
+                    .apply {
+                        view in
+                        if #available(iOS 15, *) {
+                            view
+                                // .focused($focusedField, equals: .passwordPassword)
+                                .submitLabel(FocusField.passwordPassword.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) != nil ? .next : .done)
+                        }
                     }
-                }
-                .accessibility(identifier: "showPasswordButton")
+                    .accessibility(identifier: "showPasswordButton")
+                PasswordGenerator(password: $editPasswordController.passwordPassword, generateInitial: Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
+                    .accessibility(identifier: "passwordGenerator")
+            }
+            otpButton()
         }
     }
     
-    private func passwordGeneratorSection() -> some View {
-        DisclosureGroup("_passwordGenerator", isExpanded: $showPasswordGenerator) {
-            if horizontalSizeClass == .regular {
-                HStack {
-                    Toggle("_numbers", isOn: $editPasswordController.generatorNumbers)
-                    Divider()
-                        .padding(.horizontal)
-                    Toggle("_specialCharacters", isOn: $editPasswordController.generatorSpecial)
-                }
-            }
-            else {
-                Toggle("_numbers", isOn: $editPasswordController.generatorNumbers)
-                Toggle("_specialCharacters", isOn: $editPasswordController.generatorSpecial)
-            }
-            HStack {
-                Text(String(format: "_length(length)".localized, String(Int(editPasswordController.generatorLength))))
-                    .frame(width: sliderLabelWidth, alignment: .leading)
-                Spacer()
-                Slider(value: $editPasswordController.generatorLength, in: 1...36, step: 1)
-                    .frame(maxWidth: 400)
-            }
+    @ViewBuilder private func otpButton() -> some View {
+        if let otp = editPasswordController.passwordOtp {
             Button {
-                editPasswordController.generatePassword()
+                sheetItem = .edit(otp: otp)
             }
             label: {
                 HStack {
-                    Label("_generatePassword", systemImage: "key")
-                    if editPasswordController.showProgressView {
+                    VStack(alignment: .leading) {
+                        Text("_otp")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
                         Spacer()
-                        ProgressView()
+                        Label("_configured", systemImage: "checkmark.circle")
+                            .foregroundColor(.green)
                     }
+                    Spacer()
+                    NavigationLink(destination: EmptyView()) {
+                        EmptyView()
+                    }
+                    .fixedSize()
                 }
             }
-            .disabled(editPasswordController.showProgressView)
-            .alert(isPresented: $editPasswordController.showErrorAlert) {
-                Alert(title: Text("_error"), message: Text("_passwordServiceErrorMessage"))
+        }
+        else if !didAcceptAboutOtps {
+            Button {
+                showAboutOtpsTooltip = true
+            }
+            label: {
+                Label("_addOtp", systemImage: "ellipsis.rectangle")
+            }
+            .disabled(editPasswordController.passwordCustomFieldCount >= 20)
+            .tooltip(isPresented: $showAboutOtpsTooltip, content: {
+                VStack(alignment: .leading, spacing: 15) {
+                    Text("_aboutOtps")
+                        .font(.title2.bold())
+                    Text("_aboutOtpsMessage")
+                    Button {
+                        showAboutOtpsTooltip = false
+                        didAcceptAboutOtps = true
+                    }
+                    label: {
+                        Text("_confirm")
+                    }
+                    .buttonStyle(.action)
+                }
+            })
+        }
+        else {
+            Menu {
+                Button {
+                    sheetItem = .scanQrCode
+                }
+                label: {
+                    Label("_scanQrCode", systemImage: "qrcode")
+                }
+                .disabled(UIApplication.isExtension)
+                Button {
+                    sheetItem = .detectQrCode
+                }
+                label: {
+                    Label("_detectQrCodeInPicture", systemImage: "photo")
+                }
+                Button {
+                    guard let otp = OTP() else {
+                        return
+                    }
+                    sheetItem = .edit(otp: otp)
+                }
+                label: {
+                    Label("_addManually", systemImage: "rectangle.and.pencil.and.ellipsis")
+                }
+            }
+            label: {
+                Label("_addOtp", systemImage: "ellipsis.rectangle")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .disabled(editPasswordController.passwordCustomFieldCount >= 20)
+            .alert(isPresented: $editPasswordController.showExtractOtpErrorAlert) {
+                Alert(title: Text("_error"), message: Text("_extractOtpErrorMessage"))
             }
         }
-        .accessibility(identifier: "passwordGenerator")
     }
     
     private func customFieldsSection() -> some View {
@@ -231,12 +327,14 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                     Text("_edit")
                 }
             }
+            .disabled(editPasswordController.passwordCustomUserFields.isEmpty)
+            .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { editMode = editMode && !$0 }
         }) {
-            ForEach(editPasswordController.passwordCustomUserFields.indices, id: \.self) {
-                customUserFieldIndex in
+            ForEach($editPasswordController.passwordCustomUserFields) {
+                $customUserField in
                 HStack {
                     Menu {
-                        Picker("", selection: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].type) {
+                        Picker("", selection: $customUserField.type) {
                             Label("_text", systemImage: Password.CustomField.CustomFieldType.text.systemName)
                                 .tag(Password.CustomField.CustomFieldType.text)
                             Label("_secret", systemImage: Password.CustomField.CustomFieldType.secret.systemName)
@@ -250,33 +348,38 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                         }
                     }
                     label: {
-                        Image(systemName: editPasswordController.passwordCustomUserFields[customUserFieldIndex].type.systemName)
+                        Image(systemName: customUserField.type.systemName)
                             .frame(minWidth: customFieldTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     }
                     Spacer()
                     VStack {
-                        EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].label)
+                        EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $customUserField.label)
                             .apply {
                                 view in
                                 if #available(iOS 15, *) {
                                     view
-                                        // .focused($focusedField, equals: .passwordCustomFields(index: customUserFieldIndex, row: .label))
+                                        // .focused($focusedField, equals: .passwordCustomFields(id: customUserField.id, row: .label))
                                         .submitLabel(.next)
                                 }
                             }
                         Divider()
-                        EditLabeledRow(type: LabeledRow.RowType(rawValue: editPasswordController.passwordCustomUserFields[customUserFieldIndex].type.rawValue) ?? .text, label: "_\(editPasswordController.passwordCustomUserFields[customUserFieldIndex].type)".localized, value: $editPasswordController.passwordCustomUserFields[customUserFieldIndex].value)
-                            .apply {
-                                view in
-                                if #available(iOS 15, *) {
-                                    view
-                                        // .focused($focusedField, equals: .passwordCustomFields(index: customUserFieldIndex, row: .value))
-                                        .submitLabel(FocusField.passwordCustomFields(index: customUserFieldIndex, row: .value).next(customUserFieldsCount: editPasswordController.passwordCustomUserFields.count) != nil ? .next : .done)
+                        HStack(spacing: 16) {
+                            EditLabeledRow(type: LabeledRow.RowType(rawValue: customUserField.type.rawValue) ?? .text, label: "_\(customUserField.type)".localized, value: $customUserField.value)
+                                .apply {
+                                    view in
+                                    if #available(iOS 15, *) {
+                                        view
+                                            // .focused($focusedField, equals: .passwordCustomFields(id: customUserField.id, row: .value))
+                                            .submitLabel(FocusField.passwordCustomFields(id: customUserField.id, row: .value).next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) != nil ? .next : .done)
+                                    }
                                 }
+                            if customUserField.type == .secret {
+                                PasswordGenerator(password: $customUserField.value)
                             }
+                        }
                     }
                 }
-                .id(editPasswordController.passwordCustomUserFields[customUserFieldIndex].id)
+                .id(customUserField.id)
             }
             .onMove {
                 indices, offset in
@@ -290,8 +393,9 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                 editPasswordController.passwordCustomUserFields.append(Password.CustomField(label: "", type: .text, value: ""))
             }
             label: {
-                Label("_addCustomField", systemImage: "plus.circle")
+                Label("_addCustomField", systemImage: "rectangle.and.paperclip")
             }
+            .disabled(editPasswordController.passwordCustomFieldCount >= 20)
         }
     }
     
@@ -303,18 +407,20 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     }
     
     private func favoriteButton() -> some View {
-        Button {
-            editPasswordController.passwordFavorite.toggle()
-        }
-        label: {
-            Label("_favorite", systemImage: editPasswordController.passwordFavorite ? "star.fill" : "star")
+        Section {
+            Button {
+                editPasswordController.passwordFavorite.toggle()
+            }
+            label: {
+                Label("_favorite", systemImage: editPasswordController.passwordFavorite ? "star.fill" : "star")
+            }
         }
     }
     
     private func tagsSection() -> some View {
         Section(header: Text("_tags")) {
             Button {
-                showSelectTagsView = true
+                sheetItem = .selectTags
             }
             label: {
                 HStack {
@@ -335,24 +441,13 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                     .fixedSize()
                 }
             }
-            .sheet(isPresented: $showSelectTagsView) {
-                SelectTagsNavigation(entriesController: editPasswordController.entriesController, temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
-                    validTags, _ in
-                    editPasswordController.passwordValidTags = validTags
-                })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
-            }
         }
     }
     
     private func moveSection() -> some View {
         Section(header: Text("_folder")) {
             Button {
-                showSelectFolderView = true
+                sheetItem = .selectFolder
             }
             label: {
                 HStack {
@@ -364,16 +459,43 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                     .fixedSize()
                 }
             }
-            .sheet(isPresented: $showSelectFolderView) {
-                SelectFolderNavigation(entriesController: editPasswordController.entriesController, entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), selectFolder: {
-                    parent in
-                    editPasswordController.passwordFolder = parent.id
-                })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
+        }
+    }
+    
+    @ViewBuilder private func deleteButton() -> some View {
+        if #available(iOS 15.0, *) {
+            Button(role: .destructive) {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deletePassword")
+                    Spacer()
+                }
+            }
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                    deleteAndDismiss()
+                }])
+            }
+        }
+        else {
+            Button {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deletePassword")
+                        .foregroundColor(.red)
+                    Spacer()
+                }
+            }
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                    deleteAndDismiss()
+                }])
             }
         }
     }
@@ -424,12 +546,36 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
         presentationMode.wrappedValue.dismiss()
     }
     
+    private func deleteAndDismiss() {
+        editPasswordController.clearPassword()
+        presentationMode.wrappedValue.dismiss()
+    }
+    
 }
 
 
 extension EditPasswordPageFallback {
     
-    enum FocusField: Hashable {
+    private enum SheetItem: Identifiable, Hashable {
+        
+        case edit(otp: OTP)
+        case scanQrCode
+        case detectQrCode
+        case selectTags
+        case selectFolder
+        
+        var id: Int {
+            hashValue
+        }
+        
+    }
+    
+}
+
+
+extension EditPasswordPageFallback {
+    
+    private enum FocusField: Hashable {
         
         enum CustomFieldRow { // swiftlint:disable:this nesting
             case label
@@ -440,9 +586,9 @@ extension EditPasswordPageFallback {
         case passwordUrl
         case passwordUsername
         case passwordPassword
-        case passwordCustomFields(index: Int, row: CustomFieldRow)
+        case passwordCustomFields(id: UUID, row: CustomFieldRow)
         
-        func previous() -> Self? {
+        func previous(customUserFieldIds: [UUID]) -> Self? {
             switch self {
             case .passwordLabel:
                 return nil
@@ -452,17 +598,20 @@ extension EditPasswordPageFallback {
                 return .passwordUrl
             case .passwordPassword:
                 return .passwordUsername
-            case .passwordCustomFields(let index, let row):
+            case .passwordCustomFields(let id, let row):
                 switch row {
                 case .label:
-                    return index - 1 >= 0 ? .passwordCustomFields(index: index - 1, row: .value) : .passwordPassword
+                    guard let previousId = customUserFieldIds.reversed().reduce(Optional(id), { $0 == nil ? $1 : $0 == $1 ? nil : $0 }) else {
+                        return .passwordPassword
+                    }
+                    return .passwordCustomFields(id: previousId, row: .value)
                 case .value:
-                    return .passwordCustomFields(index: index, row: .label)
+                    return .passwordCustomFields(id: id, row: .label)
                 }
             }
         }
         
-        func next(customUserFieldsCount: Int) -> Self? {
+        func next(customUserFieldIds: [UUID]) -> Self? {
             switch self {
             case .passwordLabel:
                 return .passwordUrl
@@ -471,13 +620,19 @@ extension EditPasswordPageFallback {
             case .passwordUsername:
                 return .passwordPassword
             case .passwordPassword:
-                return customUserFieldsCount > 0 ? .passwordCustomFields(index: 0, row: .label) : nil
-            case .passwordCustomFields(let index, let row):
+                guard let firstId = customUserFieldIds.first else {
+                    return nil
+                }
+                return .passwordCustomFields(id: firstId, row: .label)
+            case .passwordCustomFields(let id, let row):
                 switch row {
                 case .label:
-                    return .passwordCustomFields(index: index, row: .value)
+                    return .passwordCustomFields(id: id, row: .value)
                 case .value:
-                    return index + 1 < customUserFieldsCount ? .passwordCustomFields(index: index + 1, row: .label) : nil
+                    guard let nextId = customUserFieldIds.reduce(Optional(id), { $0 == nil ? $1 : $0 == $1 ? nil : $0 }) else {
+                        return nil
+                    }
+                    return .passwordCustomFields(id: nextId, row: .label)
                 }
             }
         }

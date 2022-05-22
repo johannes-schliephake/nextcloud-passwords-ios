@@ -1,0 +1,312 @@
+"_createPasswordErrorMessage" = "S'ha produït un error en crear la contrasenya. Torna a desar la contrasenya.";
+/* I.e. about this app */
+"_about" = "Quant a";
+"_addCustomField" = "Afegir un camp personalitzat";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture" */
+"_addManually" = "Afegir manualment";
+
+/* I.e. add tags to a password */
+"_addTags" = "Afegir etiquetes";
+"_algorithm" = "Algorisme";
+
+/* I.e. all passwords */
+"_all" = "Tots";
+"_anErrorOccurred" = "Hi ha hagut un error …";
+"_createFolderErrorMessage" = "S'ha produït un error en crear la carpeta. Torna a desar la carpeta.";
+"_aboutOtps" = "Quant a les contrasenyes d'un sol ús";
+"_addOtp" = "Afegir una contrasenya d'un sol ús";
+"_copyOtp" = "Copiar la contrasenya d'un sol ús";
+"_appDeauthorized" = "App desautoritzada";
+"_appDeauthorizedMessage" = "El servidor ha desautoritzat aquesta app per massa intents d'inici de sessió fallits. Torna a provar més tard.";
+
+/* This is a label for a settings toggle */
+"_automaticallyGeneratePasswords" = "Generar contrasenyes automàticament";
+
+/* Use the same wording Apple uses across iOS */
+"_cancel" = "Cancel·lar";
+
+/* Possible value for "Encryption" field on password detail page, other key is "_serverSide" */
+"_clientSide" = "Costat del client";
+
+/* This refers to the noun ("the color"), i.e. the color of a tag */
+"_color" = "Color";
+
+/* I.e. a one-time password is configured */
+"_configured" = "Configurat";
+
+/* I.e. confirm that the OTP message has been read */
+"_confirm" = "Confirmar";
+
+/* E.g. confirm deletion or confirm log out */
+"_confirmAction" = "Confirmar acció";
+
+/* I.e. connect to server */
+"_connect" = "Connectar";
+"_connectToServer" = "Connectar-se al servidor";
+"_copyPassword" = "Copiar la contrasenya";
+"_copyUsername" = "Copiar el nom d'usuari";
+
+/* This refers to the noun ("the counter") and counts how many OTPs have been used */
+"_counter" = "Comptador";
+
+/* I.e. this OTP is a counter-based one, possible value for "Type" field in OTP editor, other key is "_timeBased" */
+"_counterBased" = "Basat en comptadors";
+
+/* I.e. create folder or password */
+"_create" = "Crear";
+"_createTagErrorMessage" = "S'ha produït un error en crear l'etiqueta. Torna a desar l'etiqueta.";
+"_decryptFolderErrorMessage" = "S'ha produït un error en desxifrar la carpeta.";
+"_decryptPasswordErrorMessage" = "S'ha produït un error en desxifrar la contrasenya.";
+"_decryptTagErrorMessage" = "S'ha produït un error en desxifrar l'etiqueta.";
+"_deleteFolderErrorMessage" = "S'ha produït un error en suprimir la carpeta. Torna a suprimir la carpeta.";
+"_deletePasswordErrorMessage" = "S'ha produït un error en suprimir la contrasenya. Si us plau, esborra la contrasenya de nou.";
+"_deleteTagErrorMessage" = "S'ha produït un error en suprimir l'etiqueta. Torna a suprimir l'etiqueta.";
+"_editFolderErrorMessage" = "S'ha produït un error en editar la carpeta. Torna a desar la carpeta.";
+"_deleteOtp" = "Suprimir la contrasenya d'un sol ús";
+
+/* Nextcloud credentials that were used to connect to an instance */
+"_credentials" = "Credencials";
+"_deleteTag" = "Suprimir l'etiqueta";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_addManually" */
+"_detectQrCodeInPicture" = "Detectar el codi QR a la imatge";
+
+/* I.e. the number of digits to show of an OTP */
+"_digits" = "Dígits";
+"_discardChanges" = "Descartar els canvis";
+
+/* Use the same wording Apple uses across iOS */
+"_dismiss" = "Descartar";
+
+/* Use the same wording Apple uses across iOS */
+"_done" = "Fet";
+"_editPasswordErrorMessage" = "S'ha produït un error en editar la contrasenya. Torna a desar la contrasenya.";
+"_editTagErrorMessage" = "S'ha produït un error en editar l'etiqueta. Torna a desar l'etiqueta.";
+"_editTags" = "Editar les etiquetes";
+
+/* Make sure to use the correct notation in your language, e.g. in German a dash is added: "E-Mail" */
+"_email" = "Correu electrònic";
+
+/* This is a label for a settings toggle */
+"_encryptedOfflineStorage" = "Emmagatzematge fora de línia xifrat";
+
+/* I.e. server or client side encryption */
+"_encryption" = "Xifratge";
+"_error" = "Error";
+
+/* I.e. export this OTP as a QR code */
+"_exportAsQrCode" = "Exportar com a codi QR";
+"_extractOtpErrorMessage" = "S'ha produït un error en cercar un codi QR a la imatge seleccionada.";
+
+/* This refers to the noun ("the favorite") */
+"_favorite" = "Favorit";
+
+/* This refers to the noun ("the favorites") */
+"_favorites" = "Favorits";
+
+/* This refers to the noun ("the file") */
+"_file" = "Fitxer";
+"_folder" = "Carpeta";
+"_folders" = "Carpetes";
+"_generatePassword" = "Generar una contrasenya";
+
+/* This is the label for starting an In-App purchase */
+"_giveATip" = "Aconsellar";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_invalidCertificateMessage(hash)" = "El certificat del servidor no és vàlid. No es pot garantir una connexió segura. S'ha d'utilitzar encara el certificat?\n\nSHA-256 del certificat:\n%@";
+
+/* E.g. a SHA1 hash */
+"_hash" = "Hash";
+
+/* Keep this in English */
+"_highFive" = "Xoca aquests cinc! 👏";
+"_id" = "ID";
+"_incorrectPassword" = "Contrasenya incorrecta";
+"_incorrectPasswordMessage" = "Torna-ho a provar.";
+
+/* Possible value for "Strength" picker when generating a password */
+"_medium" = "Mitjà";
+"_passwordServiceErrorMessage" = "S'ha produït un error en generar la contrasenya.";
+"_otp" = "Contrasenya d'un sol ús";
+"_otps" = "Contrasenyes d'un sol ús";
+"_passwordStatusUnknownMessage" = "Aquesta contrasenya encara no s'ha comprovat per a la seva seguretat o l'opció d'emmagatzemar hash per a comprovacions de seguretat està desactivada.";
+
+/* This refers to the noun ("the notes") */
+"_notes" = "Notes";
+
+/* Shown in empty lists */
+"_nothingToSeeHere" = "No hi ha res a veure aquí …";
+
+/* This is a label for a password generator toggle */
+"_numbers" = "Nombres";
+"_passwordStatusDuplicateMessage" = "Aquesta contrasenya s'està utilitzant més d'un cop.";
+
+/* In earlier versions this value was split into three strings */
+"_passwordStatusGoodMessage" = "Aquesta contrasenya és segura. No ha incomplert i no infringeix les regles definides per l'usuari.";
+
+/* "Maximum age": Use the same wording that the web client uses in its settings */
+"_passwordStatusOutdatedMessage" = "Aquesta contrasenya ha arribat al temps màxim.";
+
+/* How long each OTP is valid in seconds */
+"_periodSeconds" = "Període (segons)";
+"_qrCaptureErrorMessage" = "S'ha produït un error en iniciar la càmera.";
+"_shareOtpWarningMessage" = "Aquest codi QR conté dades molt sensibles sobre la contrasenya d'un sol ús";
+
+/* I.e. reject this certificate */
+"_reject" = "Refusar";
+
+/* The folder all passwords and folders are placed in, which are not in a subfolder */
+"_rootFolder" = "Carpeta arrel";
+
+/* I.e. security status of a password */
+"_security" = "Seguretat";
+
+/* This refers to the verb ("to select"), i.e. select a password */
+"_select" = "Seleccionar";
+
+/* I.e. select a color for a tag */
+"_selectColor" = "Seleccionar color";
+"_settings" = "Configuració";
+"_shareQrCode" = "Compartir el codi QR";
+"_sourceCode" = "Codi font";
+
+/* This is a label for a password generator toggle */
+"_specialCharacters" = "Caràcters especials";
+
+/* I.e. store the E2E password */
+"_storePassword" = "Emmagatzemar la contrasenya";
+"_storePasswordMessage" = "Si aquesta opció està habilitada, la contrasenya E2E s'emmagatzemarà xifrada al clauer del dispositiu.";
+"_tipFailedMessage" = "S'ha produït un error en processar el teu consell.";
+"_tipReceivedMessage" = "Gràcies per donar suport a aquest projecte amb el teu consell!";
+
+/* Shown when Apple's "Ask to Buy" feature (parental control) is active */
+"_tipDeferred" = "Consell diferit";
+"_tipFailed" = "El consell ha fallat";
+"_tipReceived" = "Consell rebut";
+"_tipDeferredMessage" = "El teu consell està a l'espera d'aprovació.";
+
+/* I.e. strength of the password to generate */
+"_strength" = "Força";
+
+/* I.e. password suggestions when using Password AutoFill */
+"_suggestions" = "Suggeriments";
+"_supportThisProject" = "Dóna suport a aquest projecte";
+
+/* This refers to the noun ("the tag") */
+"_tag" = "Etiqueta";
+"_tags" = "Etiquetes";
+
+/* This refers to the noun ("the text") */
+"_text" = "Text";
+"_thanksMessage" = "Gràcies a tota la comunitat Nextcloud i a tots els implicats per habilitar un ecosistema tan sorprenent. Espero poder aportar alguna cosa amb aquesta app.";
+
+/* I.e. this OTP is a time-based one, possible value for "Type" field in OTP editor, other key is "_counterBased" */
+"_timeBased" = "Basat en el temps";
+
+/* I.e. try again to load the data */
+"_tryAgain" = "Tornar-ho a provar";
+
+/* This refers to the noun ("the type") */
+"_type" = "Tipus";
+
+/* Possible value for "Strength" picker when generating a password */
+"_ultra" = "Ultra";
+
+/* Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/InfoPlist.strings and Provider/InfoPlist.strings and Extension/InfoPlist.strings */
+"_unlockApp" = "Desbloquejar l'app";
+
+/* I.e. date when a password was last updated */
+"_updated" = "Actualitzat";
+"_url" = "URL";
+"_username" = "Nom d'usuari";
+
+/* E.g. password, username or URL was copied to the clipboard */
+"_valueCopied" = "Valor copiat";
+
+/* I.e. installed version of the app */
+"_version" = "Versió";
+
+/* I.e. accept this certificate */
+"_accept" = "Acceptar";
+
+/* This message is shown before the user can add the first one-time password */
+"_aboutOtpsMessage" = "Aquesta aplicació només admet contrasenyes d'un sol ús per comoditat. Emmagatzemar la contrasenya d'un sol ús juntament amb la contrasenya del teu compte derrota alguns dels avantatges de seguretat de l'autenticació multifactor. Habilitar un segon factor és millor que no utilitzar cap, però una aplicació independent de contrasenya d'un sol ús és més segura. NO emmagatzemeu contrasenyes d'un sol ús al vostre compte de Nextcloud o comptes crítics, com ara comptes de correu electrònic o de banca en línia. Les contrasenyes d'un sol ús es sincronitzaran a la instància Passwords de Nextcloud, però actualment només són compatibles amb l'aplicació per a iOS (v2.6 o més).";
+
+/* This refers to the noun ("the account") */
+"_account" = "Compte";
+
+/* I.e. date when a password was created */
+"_created" = "Creat";
+"_createFolder" = "Crear una carpeta";
+
+/* Use the same wording Apple uses across iOS */
+"_delete" = "Suprimir";
+"_deletedPasswordMessage" = "S'ha suprimit aquesta contrasenya.";
+"_createPassword" = "Crear una contrasenya";
+"_noConnectionMessage" = "No s'ha pogut connectar a la instància Passwords de Nextcloud.";
+"_deleteFolder" = "Suprimir la carpeta";
+"_deletePassword" = "Suprimir la contrasenya";
+
+/* In earlier versions this value was split into two strings */
+"_passwordStatusBreachedMessage" = "Aquesta contrasenya no és segura. S'ha trobat en una base de dades de contrasenyes compromeses.";
+"_createTag" = "Crear una etiqueta";
+"_customFields" = "Camps personalitzats";
+"_editPassword" = "Editar la contrasenya";
+
+/* This refers to the verb ("to edit"), use the same wording Apple uses across iOS */
+"_edit" = "Editar";
+
+/* I.e. end-to-end password */
+"_e2ePassword" = "Contrasenya E2E";
+"_invalidCertificate" = "El certificat no és vàlid";
+
+/* Possible value for "Strength" picker when generating a password */
+"_low" = "Baix";
+"_metadata" = "Metadades";
+
+/* I.e. integration into the OS (Password AutoFill) */
+"_integration" = "Integració";
+
+/* This refers to the verb ("to log out") */
+"_logOut" = "Tancar Sessió";
+
+/* I.e. show more options */
+"_moreOptions" = "Més opcions";
+
+/* This refers to the verb ("to move"), i.e. move a file to another folder */
+"_move" = "Moure";
+
+/* I.e. the app has no connection to the server and is offline */
+"_offline" = "Fora de línia";
+
+/* This refers to the verb ("to log in") */
+"_logIn" = "Iniciar Sessió";
+"_passwords" = "Contrasenyes";
+
+/* This refers to the noun ("the name") */
+"_name" = "Nom";
+"_nextcloudServerAddress" = "Adreça del servidor Nextcloud";
+"_noConnection" = "Sense conexió";
+"_openUrl" = "Obrir l'URL";
+
+/* I.e. settings options */
+"_options" = "Opcions";
+"_password" = "Contrasenya";
+
+/* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
+"_providerInstructionsMessage" = "Aquesta app admet l'emplenament automàtic de contrasenyes. La funció s'ha d'habilitar a Configuració d'iOS:\n1. Obre l'aplicació Configuració\n2. Toca Contrasenyes\n3. Toca Emplena automàticament les contrasenyes\n4. Habilita les contrasenyes d'emplenament automàtic\n5. Habilita aquesta aplicació";
+
+/* Possible option when adding an OTP, other keys are "_detectQrCodeInPicture" and "_addManually" */
+"_scanQrCode" = "Escanejar el codi QR";
+
+/* This refers to the noun ("the secret") and is used in similar places as "password" */
+"_secret" = "Secret";
+
+/* E.g. a website, an app, etc. */
+"_service" = "Servei";
+"_serverAddressFieldMessage" = "Cal una connexió HTTPS.";
+
+/* Possible value for "Encryption" field on password detail page, other key is "_clientSide" */
+"_serverSide" = "Costat del servidor";

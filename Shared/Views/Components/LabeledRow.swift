@@ -39,6 +39,8 @@ struct LabeledRow: View {
             urlStack()
         case .file:
             fileStack()
+        case .pin:
+            textStack()
         }
     }
     
@@ -132,19 +134,25 @@ struct LabeledRow: View {
                 Text(labelKey)
                     .font(.subheadline)
                     .foregroundColor(.gray)
+                Spacer()
             }
-            else if let labelString = labelString {
+            else if let labelString = labelString,
+                    !labelString.isEmpty {
                 Text(labelString)
                     .font(.subheadline)
                     .foregroundColor(.gray)
+                Spacer()
             }
-            Spacer()
-            if type == .secret {
+            switch type {
+            case .secret:
                 Text(hideSecret ? "••••••••••••" : value)
                     .foregroundColor(.primary)
                     .font(.system(.body, design: .monospaced))
-            }
-            else {
+            case .pin:
+                Text(value.segmented)
+                    .foregroundColor(.primary)
+                    .font(.system(.body, design: .monospaced))
+            default:
                 Text(!value.isEmpty ? value : "-")
                     .foregroundColor(.primary)
             }
@@ -162,6 +170,7 @@ extension LabeledRow {
         case email
         case url
         case file
+        case pin
     }
     
 }

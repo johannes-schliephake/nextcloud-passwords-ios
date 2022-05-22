@@ -1,0 +1,7 @@
+Ein Client für die Nextcloud Passwörter App.
+
+Diese App ermöglicht es dir, Einträge auf deinem Nextcloud Server zu sehen, erstellen, bearbeiten und löschen. Sie bietet eine Reihe an Filter- und Sortieroptionen. Die Ende-zu-Ende-/Client-Side-Verschlüsselung und der verschlüsselte Offline-Speicher stellen sicher, dass deine Daten geschützt sind.
+
+Ein Password AutoFill Provider ist in die App integriert, um nahtlose Loginabläufe zu ermöglichen. Du kannst diese Funktion in der iOS Einstellungen App aktivieren.
+
+Diese App setzt einen Nextcloud Server mit installierter Passwords App voraus.

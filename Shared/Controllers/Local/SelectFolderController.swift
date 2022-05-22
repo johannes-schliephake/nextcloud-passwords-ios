@@ -23,7 +23,7 @@ final class SelectFolderController: ObservableObject {
         selection = entriesController.folders?.first { $0.id == temporaryEntry.parent } ?? baseFolder
         self.baseFolder = baseFolder
         
-        entriesController.objectWillChange
+        entriesController.objectDidChangeRecently
             .sink {
                 [weak self] in
                 self?.selection = self?.entriesController.folders?.first { $0 === self?.selection } ?? baseFolder /// Not only serves the purpose to reset selection if selected folder is deleted but also refreshes view when entries controller changes

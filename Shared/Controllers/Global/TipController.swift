@@ -11,7 +11,7 @@ final class TipController: NSObject, ObservableObject {
     override init() {
         super.init()
         
-        /// IAP property list is only available to main app and not the credential provider
+        /// IAP property list is only available to main app and not the AutoFill credential provider and action extension
         guard SKPaymentQueue.canMakePayments(),
               let url = Bundle.main.url(forResource: "IAP", withExtension: "plist"),
               let data = try? Data(contentsOf: url),

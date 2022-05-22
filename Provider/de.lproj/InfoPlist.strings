@@ -1,1 +1,3 @@
+"NSCameraUsageDescription" = "QR-Code scannen";
 "NSFaceIDUsageDescription" = "App entsperren";
+"NSPhotoLibraryAddUsageDescription" = "QR-Code teilen";

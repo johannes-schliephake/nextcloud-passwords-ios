@@ -129,7 +129,7 @@ final class Tag: ObservableObject, Identifiable {
 
 extension Tag: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id
         case label
         case color
@@ -209,13 +209,13 @@ extension Array where Element == Tag {
 extension Tag: MockObject {
     
     static var mock: Tag {
-        Tag(id: "00000000-0000-0000-0003-000000000000", label: "_tag".localized, color: "#F44336")
+        Tag(id: "00000000-0000-0000-0003-000000000000", label: "_tag".localized, color: "#F44336", edited: Date(), created: Date(), updated: Date())
     }
     
     static var mocks: [Tag] {
         [
-            Tag(id: "00000000-0000-0000-0003-000000000001", label: "Development", color: "#F44336"),
-            Tag(id: "00000000-0000-0000-0003-000000000002", label: "Self-Hosted", color: "#673AB7")
+            Tag(id: "00000000-0000-0000-0003-000000000001", label: "Development", color: "#F44336", edited: Date(), created: Date(), updated: Date()),
+            Tag(id: "00000000-0000-0000-0003-000000000002", label: "Self-Hosted", color: "#673AB7", edited: Date(), created: Date(), updated: Date())
         ]
     }
     

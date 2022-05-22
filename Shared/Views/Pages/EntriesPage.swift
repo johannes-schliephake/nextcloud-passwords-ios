@@ -19,7 +19,7 @@ struct EntriesPage: View {
     @State private var showSettingsView = false
     @State private var challengePassword = ""
     @State private var storeChallengePassword = false
-    @State private var showStorePasswordMessage = false
+    @State private var showStorePasswordTooltip = false
     @State private var sheetItem: SheetItem?
     @State private var actionSheetItem: ActionSheetItem?
     @State private var showFolderErrorAlert = false
@@ -69,6 +69,9 @@ struct EntriesPage: View {
               autoFillController.credentialIdentifier == nil else {
             return "_passwords".localized
         }
+        guard autoFillController.mode != .extension else {
+            return "_otps".localized
+        }
         switch (entriesController.filterBy, folderController.folder.isBaseFolder, folderController.tag) {
         case (.all, true, nil):
             return "_passwords".localized
@@ -78,6 +81,8 @@ struct EntriesPage: View {
             return "_favorites".localized
         case (.tags, true, nil):
             return "_tags".localized
+        case (.otps, true, nil):
+            return "_otps".localized
         case (_, _, .some(let tag)):
             return tag.label
         case (_, false, _):
@@ -206,14 +211,16 @@ struct EntriesPage: View {
                     HStack {
                         Text("_storePassword")
                         Button {
-                            showStorePasswordMessage = true
+                            showStorePasswordTooltip = true
                         }
                         label: {
                             Image(systemName: "questionmark.circle")
                         }
                         .buttonStyle(.borderless)
-                        .alert(isPresented: $showStorePasswordMessage) {
-                            Alert(title: Text("_storePassword"), message: Text("_storePasswordMessage"))
+                        .tooltip(isPresented: $showStorePasswordTooltip) {
+                            VStack(alignment: .leading, spacing: 15) {
+                                Text("_storePasswordMessage")
+                            }
                         }
                     }
                 }
@@ -256,7 +263,7 @@ struct EntriesPage: View {
         VStack {
             if let suggestions = folderController.suggestions,
                folderController.searchTerm.isEmpty,
-               suggestions.isEmpty || folderController.folder.isBaseFolder && folderController.tag == nil {
+               suggestions.isEmpty && autoFillController.mode == .provider || !suggestions.isEmpty && folderController.folder.isBaseFolder && folderController.tag == nil {
                 List {
                     Section(header: Text("_suggestions")) {
                         if !suggestions.isEmpty {
@@ -409,7 +416,7 @@ struct EntriesPage: View {
     private func suggestionRows(suggestions: [Password]) -> some View {
         ForEach(suggestions) {
             password in
-            PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
+            PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
                 sheetItem = .edit(entry: .password(password))
             }, movePassword: {
                 sheetItem = .move(entry: .password(password))
@@ -420,12 +427,18 @@ struct EntriesPage: View {
             })
             .deleteDisabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
-        .onDelete { // when not #available(iOS 15.0, *)
-            indices in
-            guard let password = suggestions[safe: indices.first] else {
-                return
+        .apply {
+            view in
+            if #unavailable(iOS 15) {
+                view
+                    .onDelete {
+                        indices in
+                        guard let password = suggestions[safe: indices.first] else {
+                            return
+                        }
+                        actionSheetItem = .delete(entry: .password(password))
+                    }
             }
-            actionSheetItem = .delete(entry: .password(password))
         }
     }
     
@@ -444,7 +457,7 @@ struct EntriesPage: View {
                 .deleteDisabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 return AnyView(folderRow)
             case .password(let password):
-                let passwordRow = PasswordRow(entriesController: entriesController, password: password, showStatus: entriesController.sortBy == .status, editPassword: {
+                let passwordRow = PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
                     sheetItem = .edit(entry: .password(password))
                 }, movePassword: {
                     sheetItem = .move(entry: .password(password))
@@ -465,9 +478,15 @@ struct EntriesPage: View {
                 return AnyView(tagRow)
             }
         }
-        .onDelete { // when not #available(iOS 15.0, *)
-            indices in
-            onDeleteEntry(entry: entries[safe: indices.first])
+        .apply {
+            view in
+            if #unavailable(iOS 15) {
+                view
+                    .onDelete {
+                        indices in
+                        onDeleteEntry(entry: entries[safe: indices.first])
+                    }
+            }
         }
     }
     
@@ -515,10 +534,12 @@ struct EntriesPage: View {
                 }
                 Spacer()
             }
-            if showFilterSortMenu {
-                filterSortMenu()
+            if autoFillController.mode != .extension {
+                if showFilterSortMenu {
+                    filterSortMenu()
+                }
+                createMenu()
             }
-            createMenu()
         }
     }
     
@@ -609,6 +630,8 @@ struct EntriesPage: View {
                     .tag(EntriesController.Filter.favorites)
                 Label("_tags", systemImage: "tag")
                     .tag(EntriesController.Filter.tags)
+                Label("_otps", systemImage: "ellipsis.rectangle")
+                    .tag(EntriesController.Filter.otps)
             }
             Picker("", selection: $entriesController.sortBy) {
                 Label("_name", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
@@ -698,7 +721,7 @@ struct EntriesPage: View {
 
 extension EntriesPage {
     
-    enum SheetItem: Identifiable {
+    private enum SheetItem: Identifiable {
         
         case edit(entry: Entry)
         case move(entry: Entry)
@@ -718,7 +741,7 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    enum ActionSheetItem: Identifiable {
+    private enum ActionSheetItem: Identifiable {
         
         case delete(entry: Entry)
         
@@ -736,7 +759,7 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case challengePassword
     }
     
@@ -745,7 +768,7 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    struct FolderRow: View {
+    private struct FolderRow: View {
         
         @ObservedObject var entriesController: EntriesController
         @ObservedObject var folder: Folder
@@ -936,11 +959,11 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    struct PasswordRow: View {
+    private struct PasswordRow: View {
         
         @ObservedObject var entriesController: EntriesController
+        @ObservedObject var folderController: FolderController
         @ObservedObject var password: Password
-        let showStatus: Bool
         let editPassword: () -> Void
         let movePassword: () -> Void
         let tagPassword: () -> Void
@@ -1009,57 +1032,67 @@ extension EntriesPage {
                     }
                 }
                 .contextMenu {
-                    Button {
-                        UIPasteboard.general.privateString = password.password
-                    }
-                    label: {
-                        Label("_copyPassword", systemImage: "doc.on.doc")
-                    }
-                    if !password.username.isEmpty {
+                    Section {
+                        if let url = URL(string: password.url) {
+                            Link(destination: url) {
+                                Label("_openUrl", systemImage: "safari")
+                            }
+                        }
+                        if !password.username.isEmpty {
+                            Button {
+                                UIPasteboard.general.string = password.username
+                            }
+                            label: {
+                                Label("_copyUsername", systemImage: "doc.on.doc")
+                            }
+                        }
                         Button {
-                            UIPasteboard.general.string = password.username
+                            UIPasteboard.general.privateString = password.password
                         }
                         label: {
-                            Label("_copyUsername", systemImage: "doc.on.doc")
+                            Label("_copyPassword", systemImage: "doc.on.doc")
+                        }
+                        if let otp = password.otp {
+                            Button {
+                                UIPasteboard.general.privateString = otp.current
+                            }
+                            label: {
+                                Label("_copyOtp", systemImage: "doc.on.doc")
+                            }
                         }
                     }
-                    if let url = URL(string: password.url) {
-                        Link(destination: url) {
-                            Label("_openUrl", systemImage: "safari")
+                    Section {
+                        if password.editable {
+                            Button {
+                                editPassword()
+                            }
+                            label: {
+                                Label("_edit", systemImage: "pencil")
+                            }
+                            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                         }
-                    }
-                    Divider()
-                    if password.editable {
                         Button {
-                            editPassword()
+                            toggleFavorite()
                         }
                         label: {
-                            Label("_edit", systemImage: "pencil")
+                            Label("_favorite", systemImage: password.favorite ? "star.fill" : "star")
+                        }
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                        Button {
+                            tagPassword()
+                        }
+                        label: {
+                            Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
+                        }
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                        Button {
+                            movePassword()
+                        }
+                        label: {
+                            Label("_move", systemImage: "folder")
                         }
                         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
-                    Button {
-                        toggleFavorite()
-                    }
-                    label: {
-                        Label("_favorite", systemImage: password.favorite ? "star.fill" : "star")
-                    }
-                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                    Button {
-                        movePassword()
-                    }
-                    label: {
-                        Label("_move", systemImage: "folder")
-                    }
-                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                    Button {
-                        tagPassword()
-                    }
-                    label: {
-                        Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
-                    }
-                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                    Divider()
                     if #available(iOS 15.0, *) {
                         Button(role: .destructive) {
                             deletePassword()
@@ -1083,19 +1116,36 @@ extension EntriesPage {
         
         private func wrapperStack() -> some View {
             HStack {
-                if let folders = entriesController.folders,
-                   let tags = entriesController.tags {
-                    if let complete = autoFillController.complete {
-                        Button {
+                if let complete = autoFillController.complete {
+                    Button {
+                        switch autoFillController.mode {
+                        case .app:
+                            break
+                        case .provider:
                             complete(password.username, password.password)
+                        case .extension:
+                            guard let currentOtp = password.otp?.current else {
+                                return
+                            }
+                            complete(password.username, currentOtp)
                         }
-                        label: {
-                            mainStack()
-                                .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                        .frame(maxWidth: .infinity)
-                        Spacer()
+                    }
+                    label: {
+                        mainStack()
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .frame(maxWidth: .infinity)
+                    Spacer()
+                    ZStack {
+                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
+                            entriesController.update(password: password)
+                        }, deletePassword: {
+                            entriesController.delete(password: password)
+                        }), isActive: $showPasswordDetailView) {}
+                        .isDetailLink(true)
+                        .frame(width: 0, height: 0)
+                        .hidden()
                         Button {
                             showPasswordDetailView = true
                         }
@@ -1103,25 +1153,17 @@ extension EntriesPage {
                             Image(systemName: "info.circle")
                         }
                         .buttonStyle(.borderless)
-                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, tags: tags, updatePassword: {
-                            entriesController.update(password: password)
-                        }, deletePassword: {
-                            entriesController.delete(password: password)
-                        }), isActive: $showPasswordDetailView) {}
-                        .isDetailLink(true)
-                        .frame(width: 0, height: 0)
-                        .opacity(0)
                     }
-                    else {
-                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, folders: folders, tags: tags, updatePassword: {
-                            entriesController.update(password: password)
-                        }, deletePassword: {
-                            entriesController.delete(password: password)
-                        })) {
-                            mainStack()
-                        }
-                        .isDetailLink(true)
+                }
+                else {
+                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
+                        entriesController.update(password: password)
+                    }, deletePassword: {
+                        entriesController.delete(password: password)
+                    })) {
+                        mainStack()
                     }
+                    .isDetailLink(true)
                 }
             }
         }
@@ -1142,33 +1184,58 @@ extension EntriesPage {
                             Spacer()
                         }
                     }
-                    if let tags = entriesController.tags,
-                       let validTags = EntriesController.tags(for: password.tags, in: tags).valid,
-                       !validTags.isEmpty {
-                        HStack(spacing: -6) {
-                            ForEach(Array(validTags.sortedByLabel().prefix(10).enumerated()), id: \.element.id) {
-                                index, tag in
-                                Circle()
-                                    .stroke(Color(UIColor.systemBackground), lineWidth: 2)
-                                    .background(
-                                        Circle()
-                                            .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
-                                            .background(
-                                                Circle()
-                                                    .fill(Color(hex: tag.color) ?? .primary)
-                                            )
-                                            .frame(width: 14, height: 14)
-                                    )
-                                    .zIndex(Double(validTags.count - index))
-                                    .frame(width: 16, height: 16)
+                    if entriesController.filterBy == .otps || autoFillController.mode == .extension,
+                       let otp = password.otp {
+                        OTPDisplay(otp: otp) {
+                            otp in
+                            password.updated = Date()
+                            password.otp = otp
+                            entriesController.update(password: password)
+                        }
+                        content: {
+                            current, accessoryView in
+                            Text((current ?? "").segmented)
+                                .foregroundColor(.primary)
+                                .font(.system(.body, design: .monospaced))
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 4)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .fill(Color(.secondarySystemBackground))
+                                )
+                            accessoryView
+                        }
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    }
+                    else {
+                        if let tags = entriesController.tags,
+                           let validTags = EntriesController.tags(for: password.tags, in: tags).valid,
+                           !validTags.isEmpty {
+                            HStack(spacing: -6) {
+                                ForEach(Array(validTags.sortedByLabel().prefix(10).enumerated()), id: \.element.id) {
+                                    index, tag in
+                                    Circle()
+                                        .stroke(Color(UIColor.systemBackground), lineWidth: 2)
+                                        .background(
+                                            Circle()
+                                                .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
+                                                .background(
+                                                    Circle()
+                                                        .fill(Color(hex: tag.color) ?? .primary)
+                                                )
+                                                .frame(width: 14, height: 14)
+                                        )
+                                        .zIndex(Double(validTags.count - index))
+                                        .frame(width: 16, height: 16)
+                                }
                             }
                         }
-                    }
-                    if password.favorite {
-                        favoriteImage()
-                    }
-                    if showStatus {
-                        statusImage()
+                        if password.favorite {
+                            favoriteImage()
+                        }
+                        if folderController.defaultSorting ?? entriesController.sortBy == .status {
+                            statusImage()
+                        }
                     }
                 }
                 .fixedSize()
@@ -1277,7 +1344,7 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    struct TagRow: View {
+    private struct TagRow: View {
         
         @ObservedObject var entriesController: EntriesController
         @ObservedObject var tag: Tag

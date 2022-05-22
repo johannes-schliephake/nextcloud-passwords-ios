@@ -59,7 +59,7 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
 
 extension LoginFlowNavigationController {
     
-    struct Response: Decodable {
+    private struct Response: Decodable {
         
         let server: String
         let loginName: String

@@ -1,0 +1,11 @@
+
+/* Shown when user is asked for photo library permissions, same as "_shareQrCode" in Localizable.strings and "NSPhotoLibraryAddUsageDescription" in App/InfoPlist.strings and "NSPhotoLibraryAddUsageDescription" in Provider/InfoPlist.strings */
+"NSPhotoLibraryAddUsageDescription" = "Compartir el codi QR";
+
+/* Shown when user is asked for Camera permissions for scanning an OTP QR code, same as "_scanQrCode" in Localizable.strings and "NSCameraUsageDescription" in App/InfoPlist.strings and "NSCameraUsageDescription" in Provider/InfoPlist.strings */
+"NSCameraUsageDescription" = "Escanejar el codi QR";
+
+/* Shown when user is asked for Face ID permissions, same as "_unlockApp" in Localizable.strings and "NSFaceIDUsageDescription" in App/InfoPlist.strings and "NSFaceIDUsageDescription" in Provider/InfoPlist.strings */
+"NSFaceIDUsageDescription" = "Desbloquejar l'app";
+/* Name of the action button in Safari's share sheet */
+"CFBundleDisplayName" = "Inserir una contrasenya d'un sol us";

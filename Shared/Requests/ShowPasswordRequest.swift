@@ -28,7 +28,7 @@ extension ShowPasswordRequest: NCPasswordsRequest {
 
 extension ShowPasswordRequest {
     
-    struct Request: Encodable {
+    private struct Request: Encodable {
         
         let id: String
         let details: String

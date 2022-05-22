@@ -16,7 +16,7 @@ final class Settings {
 
 extension Settings: Codable {
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case userPasswordSecurityHash = "user.password.security.hash"
         case userSessionLifetime = "user.session.lifetime"
     }

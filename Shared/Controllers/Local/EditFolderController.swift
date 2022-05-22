@@ -21,7 +21,7 @@ final class EditFolderController: ObservableObject {
     }
     
     var parentLabel: String {
-        entriesController.folders?.first(where: { $0.id == folderParent })?.label ?? "_passwords".localized
+        entriesController.folders?.first(where: { $0.id == folderParent })?.label ?? "_rootFolder".localized
     }
     
     var hasChanges: Bool {
@@ -52,6 +52,10 @@ final class EditFolderController: ObservableObject {
         else {
             entriesController.update(folder: folder)
         }
+    }
+    
+    func clearFolder() {
+        entriesController.delete(folder: folder)
     }
     
 }

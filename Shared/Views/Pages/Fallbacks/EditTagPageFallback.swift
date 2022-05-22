@@ -1,13 +1,14 @@
 import SwiftUI
 
 
-struct EditTagPageFallback: View {
+struct EditTagPageFallback: View { /// This insanely dumb workaround (duplicated view) prevents a crash on iOS 14 when an attribute is marked with `@available(iOS 15, *) @FocusState`
     
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var sessionController: SessionController
     
     @StateObject private var editTagController: EditTagController
     // @available(iOS 15, *) @FocusState private var focusedField: FocusField?
+    @State private var showDeleteAlert = false
     @State private var showCancelAlert = false
     
     init(entriesController: EntriesController, tag: Tag) {
@@ -55,8 +56,9 @@ struct EditTagPageFallback: View {
         List {
             tagLabelField()
             colorSelector()
-            if editTagController.tag.id.isEmpty {
-                favoriteButton()
+            favoriteButton()
+            if !editTagController.tag.id.isEmpty {
+                deleteButton()
             }
         }
         .listStyle(.insetGrouped)
@@ -140,7 +142,7 @@ struct EditTagPageFallback: View {
                 HStack {
                     Label("_selectColor", systemImage: "paintpalette")
                         .foregroundColor(.primary)
-                    Image(systemName: "arrow.right")
+                    Image(systemName: "arrow.forward")
                         .foregroundColor(.primary)
                     Spacer()
                     ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)
@@ -151,11 +153,51 @@ struct EditTagPageFallback: View {
     }
     
     private func favoriteButton() -> some View {
-        Button {
-            editTagController.tagFavorite.toggle()
+        Section {
+            Button {
+                editTagController.tagFavorite.toggle()
+            }
+            label: {
+                Label("_favorite", systemImage: editTagController.tagFavorite ? "star.fill" : "star")
+            }
         }
-        label: {
-            Label("_favorite", systemImage: editTagController.tagFavorite ? "star.fill" : "star")
+    }
+    
+    @ViewBuilder private func deleteButton() -> some View {
+        if #available(iOS 15.0, *) {
+            Button(role: .destructive) {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deleteTag")
+                    Spacer()
+                }
+            }
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteTag")) {
+                    deleteAndDismiss()
+                }])
+            }
+        }
+        else {
+            Button {
+                showDeleteAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_deletePassword")
+                        .foregroundColor(.red)
+                    Spacer()
+                }
+            }
+            .actionSheet(isPresented: $showDeleteAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteTag")) {
+                    deleteAndDismiss()
+                }])
+            }
         }
     }
     
@@ -204,12 +246,17 @@ struct EditTagPageFallback: View {
         presentationMode.wrappedValue.dismiss()
     }
     
+    private func deleteAndDismiss() {
+        editTagController.clearTag()
+        presentationMode.wrappedValue.dismiss()
+    }
+    
 }
 
 
 extension EditTagPageFallback {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case tagLabel
     }
     

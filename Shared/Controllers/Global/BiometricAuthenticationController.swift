@@ -41,6 +41,7 @@ final class BiometricAuthenticationController: ObservableObject {
             guard SessionController.default.session != nil,
                   context.canEvaluatePolicy(policy, error: &error) else {
                 DispatchQueue.main.async {
+                    [self] in
                     isUnlocked = true
                     semaphore.signal()
                 }

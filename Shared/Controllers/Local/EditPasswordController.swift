@@ -6,35 +6,29 @@ final class EditPasswordController: ObservableObject {
     let entriesController: EntriesController
     let password: Password
     
-    @Published var generatorNumbers = Configuration.userDefaults.object(forKey: "generatorNumbers") as? Bool ?? true {
-        willSet {
-            Configuration.userDefaults.set(newValue, forKey: "generatorNumbers")
-        }
-    }
-    @Published var generatorSpecial = Configuration.userDefaults.object(forKey: "generatorSpecial") as? Bool ?? true {
-        willSet {
-            Configuration.userDefaults.set(newValue, forKey: "generatorSpecial")
-        }
-    }
-    @Published var generatorLength = Configuration.userDefaults.object(forKey: "generatorLength") as? Double ?? 36.0 {
-        willSet {
-            Configuration.userDefaults.set(newValue, forKey: "generatorLength")
-        }
-    }
     @Published var passwordPassword: String
     @Published var passwordLabel: String
     @Published var passwordUsername: String
     @Published var passwordUrl: String
     @Published var passwordCustomUserFields: [Password.CustomField]
+    @Published var passwordOtp: OTP? {
+        didSet {
+            if passwordLabel.isEmpty,
+               let issuer = passwordOtp?.issuer {
+                passwordLabel = issuer
+            }
+            if passwordUsername.isEmpty,
+               let username = passwordOtp?.accountname {
+                passwordUsername = username
+            }
+        }
+    }
     @Published var passwordNotes: String
     @Published var passwordFavorite: Bool
     @Published var passwordValidTags: [Tag]
     let passwordInvalidTags: [String]
     @Published var passwordFolder: String
-    @Published var showErrorAlert = false
-    @Published var showProgressView = false
-    
-    private let passwordCustomDataFields: [Password.CustomField]
+    @Published var showExtractOtpErrorAlert = false
     
     init(entriesController: EntriesController, password: Password) {
         self.entriesController = entriesController
@@ -43,8 +37,8 @@ final class EditPasswordController: ObservableObject {
         passwordLabel = password.label
         passwordUsername = password.username
         passwordUrl = password.url
-        passwordCustomUserFields = password.customFields.filter { $0.type != .data }
-        passwordCustomDataFields = password.customFields.filter { $0.type == .data }
+        passwordCustomUserFields = password.customUserFields
+        passwordOtp = password.otp
         passwordNotes = password.notes
         passwordFavorite = password.favorite
         (passwordValidTags, passwordInvalidTags) = EntriesController.tags(for: password.tags, in: entriesController.tags ?? [])
@@ -52,7 +46,7 @@ final class EditPasswordController: ObservableObject {
     }
     
     var folderLabel: String {
-        entriesController.folders?.first(where: { $0.id == passwordFolder })?.label ?? "_passwords".localized
+        entriesController.folders?.first(where: { $0.id == passwordFolder })?.label ?? "_rootFolder".localized
     }
     
     var hasChanges: Bool {
@@ -60,7 +54,8 @@ final class EditPasswordController: ObservableObject {
         passwordLabel != password.label ||
         passwordUsername != password.username ||
         passwordUrl != password.url ||
-        passwordCustomUserFields != password.customFields.filter { $0.type != .data } ||
+        passwordCustomUserFields != password.customUserFields ||
+        passwordOtp != password.otp ||
         passwordNotes != password.notes ||
         passwordFavorite != password.favorite ||
         passwordValidTags.map { $0.id }.sorted() != EntriesController.tags(for: password.tags, in: entriesController.tags ?? []).valid.map { $0.id }.sorted() ||
@@ -73,27 +68,27 @@ final class EditPasswordController: ObservableObject {
         1...256 ~= passwordPassword.count &&
         passwordUrl.count <= 2048 &&
         passwordNotes.count <= 4096 &&
-        passwordCustomUserFields.count + passwordCustomDataFields.count <= 20 &&
+        passwordCustomFieldCount <= 20 &&
         passwordCustomUserFields.allSatisfy { 1...48 ~= $0.label.count && 1...320 ~= $0.value.count }
     }
     
-    func generatePassword() {
-        guard let session = SessionController.default.session else {
-            showErrorAlert = true
+    var passwordCustomFieldCount: Int {
+        passwordCustomUserFields.count + password.customDataFields.count + (passwordOtp != nil ? 1 : 0)
+    }
+    
+    func extractOtp(from image: UIImage) {
+        guard let ciImage = CIImage(image: image),
+              let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: nil),
+              let features = detector.features(in: ciImage) as? [CIQRCodeFeature],
+              let url = URL(string: features.compactMap(\.messageString).joined()),
+              let otp = OTP(from: url) else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                [weak self] in
+                self?.showExtractOtpErrorAlert = true
+            }
             return
         }
-        
-        showProgressView = true
-        PasswordServiceRequest(session: session, numbers: generatorNumbers, special: generatorSpecial).send {
-            [weak self] password in
-            self?.showProgressView = false
-            guard let password = password,
-                  let generatorLength = self?.generatorLength else {
-                self?.showErrorAlert = true
-                return
-            }
-            self?.passwordPassword = String(password.prefix(Int(generatorLength)))
-        }
+        passwordOtp = otp
     }
     
     func applyToPassword() {
@@ -112,7 +107,8 @@ final class EditPasswordController: ObservableObject {
         password.label = passwordLabel
         password.username = passwordUsername
         password.url = passwordUrl
-        password.customFields = passwordCustomUserFields + passwordCustomDataFields
+        password.customUserFields = passwordCustomUserFields
+        password.otp = passwordOtp
         password.notes = passwordNotes
         password.favorite = passwordFavorite
         password.tags = passwordValidTags.map { $0.id } + passwordInvalidTags
@@ -124,6 +120,10 @@ final class EditPasswordController: ObservableObject {
         else {
             entriesController.update(password: password)
         }
+    }
+    
+    func clearPassword() {
+        entriesController.delete(password: password)
     }
     
 }

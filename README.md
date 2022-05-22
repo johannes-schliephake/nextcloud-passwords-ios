@@ -1,6 +1,6 @@
 # Passwords for Nextcloud (iOS Client)
 
-![](https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/AppIcon@1x.png)
+<img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Icon.svg" width="150">
 
 An iOS client for the [Nextcloud Passwords](https://git.mdns.eu/nextcloud/passwords) app. Available on the [App Store](https://apps.apple.com/app/id1546212226).
 
@@ -10,9 +10,14 @@ A Password AutoFill provider is integrated into the app for seamless login exper
 
 This app requires a Nextcloud server with the Passwords app installed.
 
-![](https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Snapshot/Screenshots/en-US/iPhone%20SE%20(2nd%20generation)-1-scaled.png) ![](https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Snapshot/Screenshots/en-US/iPhone%20SE%20(2nd%20generation)-2-scaled.png) ![](https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Snapshot/Screenshots/en-US/iPhone%20SE%20(2nd%20generation)-3-scaled.png) ![](https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Snapshot/Screenshots/en-US/iPhone%20SE%20(2nd%20generation)-4-scaled.png) ![](https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/Snapshot/Screenshots/en-US/iPhone%20SE%20(2nd%20generation)-5-scaled.png)
+<img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-1.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-2.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-3.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-4.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-5.png" width="19%">
 
-## Contributors
-- Czech translation: [Pavel Borecki](https://github.com/p-bo)
-- French translation: [Maxime Killinger](https://github.com/maxime-killinger)
-- Russian translation: [jensaymoo](https://github.com/jensaymoo)
+## Translators
+
+- Czech: [Pavel Borecki](https://github.com/p-bo)
+- French: [Maxime Killinger](https://github.com/maxime-killinger)
+- Russian: [jensaymoo](https://github.com/jensaymoo)
+- Norwegian: [Allan Nordhøy](https://github.com/comradekingu)
+- Catalan: [Maite Guix](https://hosted.weblate.org/user/maite.guix)
+
+Everybody is welcome to contribute translations via [Weblate](https://hosted.weblate.org/engage/nextcloud-passwords-ios)!

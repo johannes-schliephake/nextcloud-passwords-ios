@@ -58,7 +58,7 @@ extension Crypto {
                 keys = try container.decode([String: String].self, forKey: .keys).compactMapValues { sodium.utils.hex2bin($0) }
             }
             
-            enum CodingKeys: String, CodingKey { // swiftlint:disable:this nesting
+            private enum CodingKeys: String, CodingKey { // swiftlint:disable:this nesting
                 case current
                 case keys
             }
@@ -113,7 +113,7 @@ extension Crypto {
         
         static func hash(_ data: Data, humanReadable: Bool = false) -> String {
             if humanReadable {
-                return Insecure.SHA1.hash(data: data).map { String(format: "%02X", $0) }.joined(separator: ":")
+                return Insecure.SHA1.hash(data: data).map { String(format: "%02X", $0) }.joined(separator: ":\u{200B}")
             }
             return Insecure.SHA1.hash(data: data).map { String(format: "%02x", $0) }.joined()
         }
@@ -129,7 +129,7 @@ extension Crypto {
         
         static func hash(_ data: Data, humanReadable: Bool = false) -> String {
             if humanReadable {
-                return CryptoKit.SHA256.hash(data: data).map { String(format: "%02X", $0) }.joined(separator: ":")
+                return CryptoKit.SHA256.hash(data: data).map { String(format: "%02X", $0) }.joined(separator: ":\u{200B}")
             }
             return CryptoKit.SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
         }
@@ -243,4 +243,51 @@ extension Crypto {
         
     }
     
+}
+
+
+extension Crypto {
+
+    enum OTP {
+        
+        enum Algorithm: String, Codable, Identifiable, CaseIterable { // swiftlint:disable:this nesting
+            
+            case sha1 = "SHA1"
+            case sha256 = "SHA256"
+            case sha512 = "SHA512"
+            
+            var id: String {
+                rawValue
+            }
+            
+        }
+        
+        static func value(algorithm: Algorithm, secret: Data, digits: Int, counter: Int) -> String? {
+            let counterData = withUnsafeBytes(of: counter.bigEndian) { Data($0) }
+            let secretKey = SymmetricKey(data: secret)
+            
+            let hmac: Data
+            switch algorithm {
+            case .sha1:
+                hmac = Data(HMAC<Insecure.SHA1>.authenticationCode(for: counterData, using: secretKey))
+            case .sha256:
+                hmac = Data(HMAC<CryptoKit.SHA256>.authenticationCode(for: counterData, using: secretKey))
+            case .sha512:
+                hmac = Data(HMAC<SHA512>.authenticationCode(for: counterData, using: secretKey))
+            }
+            
+            guard var offset = hmac.last else {
+                return nil
+            }
+            offset &= 0x0f
+            let subdata = hmac.subdata(in: Int(offset)..<Int(offset) + 4)
+            var number = withUnsafeBytes(of: subdata) { $0.load(as: UInt32.self) }.bigEndian
+            number &= 0x7fffffff
+            number %= UInt32(pow(10, Double(digits)))
+            
+            return String(format: "%0\(digits)d", number)
+        }
+        
+    }
+
 }

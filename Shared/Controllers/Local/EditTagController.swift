@@ -47,4 +47,8 @@ final class EditTagController: ObservableObject {
         }
     }
     
+    func clearTag() {
+        entriesController.delete(tag: tag)
+    }
+    
 }

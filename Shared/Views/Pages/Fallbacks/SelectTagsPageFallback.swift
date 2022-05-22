@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-struct SelectTagsPageFallback: View {
+struct SelectTagsPageFallback: View { /// This insanely dumb workaround (duplicated view) prevents a crash on iOS 14 when an attribute is marked with `@available(iOS 15, *) @FocusState`
     
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var sessionController: SessionController
@@ -187,7 +187,8 @@ struct SelectTagsPageFallback: View {
     // MARK: Functions
     
     private func applyAndDismiss() {
-        guard selectTagsController.hasChanges else {
+        guard selectTagsController.hasChanges,
+              selectTagsController.selection.allSatisfy({ $0.state?.isProcessing != true }) else {
             return
         }
         selectTagsController.selectTags(selectTagsController.selection, selectTagsController.invalidTags)
@@ -199,7 +200,7 @@ struct SelectTagsPageFallback: View {
 
 extension SelectTagsPageFallback {
     
-    enum FocusField: Hashable {
+    private enum FocusField: Hashable {
         case addTagLabel
     }
     
@@ -208,7 +209,7 @@ extension SelectTagsPageFallback {
 
 extension SelectTagsPageFallback {
     
-    struct PasswordRow: View {
+    private struct PasswordRow: View {
         
         let label: String
         let username: String

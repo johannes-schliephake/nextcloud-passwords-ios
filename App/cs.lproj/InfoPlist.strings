@@ -1,2 +1,4 @@
 "CFBundleDisplayName" = "Hesla";
+"NSCameraUsageDescription" = "Naskenovat QR kód";
 "NSFaceIDUsageDescription" = "Odemknout aplikaci";
+"NSPhotoLibraryAddUsageDescription" = "Nasdílet QR kód";
