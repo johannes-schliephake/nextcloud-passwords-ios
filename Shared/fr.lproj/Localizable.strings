@@ -49,7 +49,7 @@
 "_editTags" = "Modifier l'étiquette";
 "_email" = "E-mail";
 "_encryptedOfflineStorage" = "Stockage crypté hors-ligne";
-"_encryption" = "Encryption";
+"_encryption" = "Cryptage";
 "_error" = "Erreur";
 "_favorite" = "Favoris";
 "_favorites" = "Favoris";
@@ -148,7 +148,7 @@
 "_aboutOtps" = "À propos des mots de passe à usage unique";
 
 /* This message is shown before the user can add the first one-time password */
-"_aboutOtpsMessage" = "Cette application prend en charge les mots de passe à usage unique uniquement pour plus de facilité. Le stockage de votre mot de passe à usage unique avec le mot de passe de votre compte annule certains des avantages de sécurité de l'authentification multifacteur. Activer un deuxième facteur est préférable à ne pas en utiliser du tout, mais une application différente de mot de passe à usage unique sera plus sécurisée. Ne stockez PAS de mots de passe à usage unique pour votre compte Nextcloud ou vos comptes importants, tels que les comptes de messagerie ou les comptes bancaires. Les mots de passe à usage unique se synchroniseront sur votre instance Nextcloud Passwords mais ne sont actuellement pris en charge que par l'application iOS (v2.6 ou plus récente).";
+"_aboutOtpsMessage" = "Cette application prend en charge les mots de passe à usage unique uniquement pour plus de facilité. Le stockage de votre mot de passe à usage unique avec le mot de passe de votre compte annule certains des avantages de sécurité de l'authentification multifacteur. Activer un deuxième facteur est préférable à ne pas en utiliser du tout, mais une application de mot de passe à usage unique différente sera plus sécurisée. Ne stockez PAS de mots de passe à usage unique pour votre compte Nextcloud ou vos comptes importants, tels que les comptes de messagerie ou les comptes bancaires. Les mots de passe à usage unique se synchroniseront sur votre instance Nextcloud Passwords mais ne sont actuellement pris en charge que par l'application iOS (v2.6 ou plus récente).";
 
 /* Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture" */
 "_addManually" = "Ajouter manuellement";
