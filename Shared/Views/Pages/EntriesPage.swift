@@ -14,7 +14,7 @@ struct EntriesPage: View {
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var folderController: FolderController
-    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
+    @FocusState private var focusedField: FocusField?
     @State private var showServerSetupView = SessionController.default.session == nil
     @State private var showSettingsView = false
     @State private var challengePassword = ""
@@ -51,10 +51,8 @@ struct EntriesPage: View {
                     }
                 }
                 ToolbarItem(placement: .principal) {
-                    if #available(iOS 15, *) {
-                        if entriesController.state == .offline || sessionController.state == .offlineChallengeAvailable {
-                            principalToolbarView()
-                        }
+                    if entriesController.state == .offline || sessionController.state == .offlineChallengeAvailable {
+                        principalToolbarView()
                     }
                 }
             }
@@ -166,23 +164,8 @@ struct EntriesPage: View {
             .frame(maxWidth: .infinity)
             .listRowBackground(Color(UIColor.systemGroupedBackground))
         }
-        .apply {
-            view in
-            if #available(iOS 15, *) {
-                view
-                    .refreshable {
-                        await entriesController.refresh()
-                    }
-            }
-            else {
-                view
-                    .refreshGesture {
-                        endRefreshing in
-                        entriesController.refresh {
-                            endRefreshing()
-                        }
-                    }
-            }
+        .refreshable {
+            await entriesController.refresh()
         }
         .listStyle(.insetGrouped)
     }
@@ -194,14 +177,8 @@ struct EntriesPage: View {
                     solveChallenge()
                 })
                 .frame(maxWidth: 600)
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .focused($focusedField, equals: .challengePassword)
-                            .submitLabel(.done)
-                    }
-                }
+                .focused($focusedField, equals: .challengePassword)
+                .submitLabel(.done)
                 .onAppear {
                     challengePassword = ""
                 }
@@ -238,25 +215,19 @@ struct EntriesPage: View {
         }
         .listStyle(.insetGrouped)
         .frame(maxWidth: 600)
-        .apply {
-            view in
-            if #available(iOS 15, *) {
-                view
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-                            Button {
-                                focusedField = nil
-                            }
-                            label: {
-                                Text("_dismiss")
-                                    .bold()
-                            }
-                        }
-                    }
-                    .initialize(focus: $focusedField, with: .challengePassword)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button {
+                    focusedField = nil
+                }
+                label: {
+                    Text("_dismiss")
+                        .bold()
+                }
             }
         }
+        .initialize(focus: $focusedField, with: .challengePassword)
     }
     
     private func listView(entries: [Entry], folders: [Folder], tags: [Tag]) -> some View {
@@ -306,28 +277,12 @@ struct EntriesPage: View {
                 .listStyle(.insetGrouped)
             }
         }
-        .apply {
-            view in
-            if #available(iOS 15, *) {
-                view
-                    .searchable(text: $folderController.searchTerm)
-                    .keyboardType(.alphabet)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .refreshable {
-                        await entriesController.refresh()
-                    }
-            }
-            else {
-                view
-                    .searchBar(term: $folderController.searchTerm)
-                    .refreshGesture {
-                        endRefreshing in
-                        entriesController.refresh {
-                            endRefreshing()
-                        }
-                    }
-            }
+        .searchable(text: $folderController.searchTerm)
+        .keyboardType(.alphabet)
+        .autocapitalization(.none)
+        .disableAutocorrection(true)
+        .refreshable {
+            await entriesController.refresh()
         }
         .sheet(item: $sheetItem) {
             item in
@@ -427,19 +382,6 @@ struct EntriesPage: View {
             })
             .deleteDisabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
-        .apply {
-            view in
-            if #unavailable(iOS 15) {
-                view
-                    .onDelete {
-                        indices in
-                        guard let password = suggestions[safe: indices.first] else {
-                            return
-                        }
-                        actionSheetItem = .delete(entry: .password(password))
-                    }
-            }
-        }
     }
     
     private func entryRows(entries: [Entry]) -> some View {
@@ -478,31 +420,14 @@ struct EntriesPage: View {
                 return AnyView(tagRow)
             }
         }
-        .apply {
-            view in
-            if #unavailable(iOS 15) {
-                view
-                    .onDelete {
-                        indices in
-                        onDeleteEntry(entry: entries[safe: indices.first])
-                    }
-            }
-        }
     }
     
     private func leadingToolbarView() -> some View {
         HStack {
             if folderController.folder.isBaseFolder && folderController.tag == nil {
                 if let cancel = autoFillController.cancel {
-                    if #available(iOS 15.0, *) {
-                        Button("_cancel", role: .cancel) {
-                            cancel()
-                        }
-                    }
-                    else {
-                        Button("_cancel") {
-                            cancel()
-                        }
+                    Button("_cancel", role: .cancel) {
+                        cancel()
                     }
                 }
                 else {
@@ -782,46 +707,40 @@ extension EntriesPage {
         
         var body: some View {
             entriesPageLink()
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                Button {
-                                    toggleFavorite()
-                                }
-                                label: {
-                                    Label("_favorite", systemImage: folder.favorite ? "star.slash.fill" : "star.fill")
-                                }
-                                .tint(.yellow)
-                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
-                                Button {
-                                    editFolder()
-                                }
-                                label: {
-                                    Label("_edit", systemImage: "pencil")
-                                }
-                                .tint(.blue)
-                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
-                            }
-                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                Button(role: .destructive) {
-                                    deleteFolder()
-                                }
-                                label: {
-                                    Label("_delete", systemImage: "trash")
-                                }
-                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
-                                Button {
-                                    moveFolder()
-                                }
-                                label: {
-                                    Label("_move", systemImage: "folder")
-                                }
-                                .tint(.purple)
-                                .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
-                            }
+                .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                    Button {
+                        toggleFavorite()
                     }
+                    label: {
+                        Label("_favorite", systemImage: folder.favorite ? "star.slash.fill" : "star.fill")
+                    }
+                    .tint(.yellow)
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    Button {
+                        editFolder()
+                    }
+                    label: {
+                        Label("_edit", systemImage: "pencil")
+                    }
+                    .tint(.blue)
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                }
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    Button(role: .destructive) {
+                        deleteFolder()
+                    }
+                    label: {
+                        Label("_delete", systemImage: "trash")
+                    }
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    Button {
+                        moveFolder()
+                    }
+                    label: {
+                        Label("_move", systemImage: "folder")
+                    }
+                    .tint(.purple)
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 }
                 .contextMenu {
                     Button {
@@ -846,24 +765,13 @@ extension EntriesPage {
                     }
                     .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Divider()
-                    if #available(iOS 15.0, *) {
-                        Button(role: .destructive) {
-                            deleteFolder()
-                        }
-                        label: {
-                            Label("_delete", systemImage: "trash")
-                        }
-                        .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    Button(role: .destructive) {
+                        deleteFolder()
                     }
-                    else {
-                        Button {
-                            deleteFolder()
-                        }
-                        label: {
-                            Label("_delete", systemImage: "trash")
-                        }
-                        .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
+                    label: {
+                        Label("_delete", systemImage: "trash")
                     }
+                    .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 }
         }
         
@@ -980,56 +888,50 @@ extension EntriesPage {
         
         var body: some View {
             wrapperStack()
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                Button {
-                                    toggleFavorite()
-                                }
-                                label: {
-                                    Label("_favorite", systemImage: password.favorite ? "star.slash.fill" : "star.fill")
-                                }
-                                .tint(.yellow)
-                                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                                Button {
-                                    tagPassword()
-                                }
-                                label: {
-                                    Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
-                                }
-                                .tint(.orange)
-                                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                                if password.editable {
-                                    Button {
-                                        editPassword()
-                                    }
-                                    label: {
-                                        Label("_edit", systemImage: "pencil")
-                                    }
-                                    .tint(.blue)
-                                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                                }
-                            }
-                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                Button(role: .destructive) {
-                                    deletePassword()
-                                }
-                                label: {
-                                    Label("_delete", systemImage: "trash")
-                                }
-                                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                                Button {
-                                    movePassword()
-                                }
-                                label: {
-                                    Label("_move", systemImage: "folder")
-                                }
-                                .tint(.purple)
-                                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                            }
+                .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                    Button {
+                        toggleFavorite()
                     }
+                    label: {
+                        Label("_favorite", systemImage: password.favorite ? "star.slash.fill" : "star.fill")
+                    }
+                    .tint(.yellow)
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    Button {
+                        tagPassword()
+                    }
+                    label: {
+                        Label(password.tags.isEmpty ? "_addTags" : "_editTags", systemImage: "tag")
+                    }
+                    .tint(.orange)
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    if password.editable {
+                        Button {
+                            editPassword()
+                        }
+                        label: {
+                            Label("_edit", systemImage: "pencil")
+                        }
+                        .tint(.blue)
+                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    }
+                }
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    Button(role: .destructive) {
+                        deletePassword()
+                    }
+                    label: {
+                        Label("_delete", systemImage: "trash")
+                    }
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    Button {
+                        movePassword()
+                    }
+                    label: {
+                        Label("_move", systemImage: "folder")
+                    }
+                    .tint(.purple)
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
                 .contextMenu {
                     Section {
@@ -1093,24 +995,13 @@ extension EntriesPage {
                         }
                         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
-                    if #available(iOS 15.0, *) {
-                        Button(role: .destructive) {
-                            deletePassword()
-                        }
-                        label: {
-                            Label("_delete", systemImage: "trash")
-                        }
-                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    Button(role: .destructive) {
+                        deletePassword()
                     }
-                    else {
-                        Button {
-                            deletePassword()
-                        }
-                        label: {
-                            Label("_delete", systemImage: "trash")
-                        }
-                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                    label: {
+                        Label("_delete", systemImage: "trash")
                     }
+                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
         }
         
@@ -1357,38 +1248,32 @@ extension EntriesPage {
         
         var body: some View {
             entriesPageLink()
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                Button {
-                                    toggleFavorite()
-                                }
-                                label: {
-                                    Label("_favorite", systemImage: tag.favorite ? "star.slash.fill" : "star.fill")
-                                }
-                                .tint(.yellow)
-                                .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
-                                Button {
-                                    editTag()
-                                }
-                                label: {
-                                    Label("_edit", systemImage: "pencil")
-                                }
-                                .tint(.blue)
-                                .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
-                            }
-                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                Button(role: .destructive) {
-                                    deleteTag()
-                                }
-                                label: {
-                                    Label("_delete", systemImage: "trash")
-                                }
-                                .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
-                            }
+                .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                    Button {
+                        toggleFavorite()
                     }
+                    label: {
+                        Label("_favorite", systemImage: tag.favorite ? "star.slash.fill" : "star.fill")
+                    }
+                    .tint(.yellow)
+                    .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                    Button {
+                        editTag()
+                    }
+                    label: {
+                        Label("_edit", systemImage: "pencil")
+                    }
+                    .tint(.blue)
+                    .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                }
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    Button(role: .destructive) {
+                        deleteTag()
+                    }
+                    label: {
+                        Label("_delete", systemImage: "trash")
+                    }
+                    .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
                 }
                 .contextMenu {
                     Button {
@@ -1406,24 +1291,13 @@ extension EntriesPage {
                     }
                     .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
                     Divider()
-                    if #available(iOS 15.0, *) {
-                        Button(role: .destructive) {
-                            deleteTag()
-                        }
-                        label: {
-                            Label("_delete", systemImage: "trash")
-                        }
-                        .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                    Button(role: .destructive) {
+                        deleteTag()
                     }
-                    else {
-                        Button {
-                            deleteTag()
-                        }
-                        label: {
-                            Label("_delete", systemImage: "trash")
-                        }
-                        .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
+                    label: {
+                        Label("_delete", systemImage: "trash")
                     }
+                    .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
                 }
         }
         

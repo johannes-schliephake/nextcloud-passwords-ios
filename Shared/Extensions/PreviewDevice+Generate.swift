@@ -16,13 +16,7 @@ extension PreviewDevice {
                     .previewDisplayName("\(deviceNames.first!) (\(locales.first!.identifier.uppercased()), \(colorScheme))")
                     .environment(\.locale, locales.first!)
                     .preferredColorScheme(colorScheme)
-                    .apply {
-                        view in
-                        if #available(iOS 15, *) {
-                            view
-                                .previewInterfaceOrientation(deviceNames.first!.contains("iPad") ? .landscapeLeft : .portrait)
-                        }
-                    }
+                    .previewInterfaceOrientation(deviceNames.first!.contains("iPad") ? .landscapeLeft : .portrait)
             }
             ForEach(locales, id: \.identifier) {
                 locale in
@@ -31,13 +25,7 @@ extension PreviewDevice {
                     .previewDisplayName("\(deviceNames.first!) (\(locale.identifier.uppercased()), \(colorSchemes.first!))")
                     .environment(\.locale, locale)
                     .preferredColorScheme(colorSchemes.first!)
-                    .apply {
-                        view in
-                        if #available(iOS 15, *) {
-                            view
-                                .previewInterfaceOrientation(deviceNames.first!.contains("iPad") ? .landscapeLeft : .portrait)
-                        }
-                    }
+                    .previewInterfaceOrientation(deviceNames.first!.contains("iPad") ? .landscapeLeft : .portrait)
             }
             ForEach(deviceNames.dropFirst(), id: \.self) {
                 deviceName in
@@ -46,13 +34,7 @@ extension PreviewDevice {
                     .previewDisplayName("\(deviceName) (\(locales.first!.identifier.uppercased()), \(colorSchemes.first!))")
                     .environment(\.locale, locales.first!)
                     .preferredColorScheme(colorSchemes.first!)
-                    .apply {
-                        view in
-                        if #available(iOS 15, *) {
-                            view
-                                .previewInterfaceOrientation(deviceName.contains("iPad") ? .landscapeLeft : .portrait)
-                        }
-                    }
+                    .previewInterfaceOrientation(deviceName.contains("iPad") ? .landscapeLeft : .portrait)
             }
         }
     }

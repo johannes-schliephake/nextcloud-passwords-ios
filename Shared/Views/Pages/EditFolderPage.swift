@@ -11,7 +11,7 @@ struct EditFolderPage: View {
     @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editFolderController: EditFolderController
-    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
+    @FocusState private var focusedField: FocusField?
     @State private var showSelectFolderView = false
     @State private var showDeleteAlert = false
     @State private var showCancelAlert = false
@@ -39,22 +39,8 @@ struct EditFolderPage: View {
                     presentationMode.wrappedValue.dismiss()
                 }
             }
-            .apply {
-                view in
-                if #available(iOS 15, *) {
-                    view
-                        .initialize(focus: $focusedField, with: editFolderController.folder.id.isEmpty ? .folderLabel : nil)
-                        .interactiveDismissDisabled(editFolderController.hasChanges)
-                }
-                else {
-                    view
-                        .actionSheet(isPresented: $showCancelAlert) {
-                            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                                presentationMode.wrappedValue.dismiss()
-                            }])
-                        }
-                }
-            }
+            .initialize(focus: $focusedField, with: editFolderController.folder.id.isEmpty ? .folderLabel : nil)
+            .interactiveDismissDisabled(editFolderController.hasChanges)
     }
     
     private func listView() -> some View {
@@ -67,22 +53,16 @@ struct EditFolderPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .apply {
-            view in
-            if #available(iOS 15, *) {
-                view
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-                            Button {
-                                focusedField = nil
-                            }
-                            label: {
-                                Text("_dismiss")
-                                    .bold()
-                            }
-                        }
-                    }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button {
+                    focusedField = nil
+                }
+                label: {
+                    Text("_dismiss")
+                        .bold()
+                }
             }
         }
     }
@@ -92,14 +72,8 @@ struct EditFolderPage: View {
             TextField("-", text: $editFolderController.folderLabel, onCommit: {
                 applyAndDismiss()
             })
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .focused($focusedField, equals: .folderLabel)
-                            .submitLabel(.done)
-                    }
-                }
+            .focused($focusedField, equals: .folderLabel)
+            .submitLabel(.done)
         }
     }
     
@@ -136,59 +110,32 @@ struct EditFolderPage: View {
         }
     }
     
-    @ViewBuilder private func deleteButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button(role: .destructive) {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deleteFolder")
-                    Spacer()
-                }
-            }
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
-                    deleteAndDismiss()
-                }])
+    private func deleteButton() -> some View {
+        Button(role: .destructive) {
+            showDeleteAlert = true
+        }
+        label: {
+            HStack {
+                Spacer()
+                Text("_deleteFolder")
+                Spacer()
             }
         }
-        else {
-            Button {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deletePassword")
-                        .foregroundColor(.red)
-                    Spacer()
-                }
-            }
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
-                    deleteAndDismiss()
-                }])
-            }
+        .actionSheet(isPresented: $showDeleteAlert) {
+            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
+                deleteAndDismiss()
+            }])
         }
     }
     
-    @ViewBuilder private func cancelButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button("_cancel", role: .cancel) {
-                cancelAndDismiss()
-            }
-            .actionSheet(isPresented: $showCancelAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                    presentationMode.wrappedValue.dismiss()
-                }])
-            }
+    private func cancelButton() -> some View {
+        Button("_cancel", role: .cancel) {
+            cancelAndDismiss()
         }
-        else {
-            Button("_cancel") {
-                cancelAndDismiss()
-            }
+        .actionSheet(isPresented: $showCancelAlert) {
+            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                presentationMode.wrappedValue.dismiss()
+            }])
         }
     }
     

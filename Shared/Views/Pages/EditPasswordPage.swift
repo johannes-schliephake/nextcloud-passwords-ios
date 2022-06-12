@@ -13,7 +13,7 @@ struct EditPasswordPage: View {
     
     @StateObject private var editPasswordController: EditPasswordController
     @ScaledMetric private var customFieldTypeIconWidth = 30.0
-    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
+    @FocusState private var focusedField: FocusField?
     @AppStorage("didAcceptAboutOtps", store: Configuration.userDefaults) private var didAcceptAboutOtps = Configuration.defaults["didAcceptAboutOtps"] as! Bool // swiftlint:disable:this force_cast
     @State private var editMode = false
     @State private var sheetItem: SheetItem?
@@ -44,22 +44,8 @@ struct EditPasswordPage: View {
                     presentationMode.wrappedValue.dismiss()
                 }
             }
-            .apply {
-                view in
-                if #available(iOS 15, *) {
-                    view
-                        .initialize(focus: $focusedField, with: editPasswordController.password.id.isEmpty ? .passwordLabel : nil)
-                        .interactiveDismissDisabled(editPasswordController.hasChanges)
-                }
-                else {
-                    view
-                        .actionSheet(isPresented: $showCancelAlert) {
-                            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                                presentationMode.wrappedValue.dismiss()
-                            }])
-                        }
-                }
-            }
+            .initialize(focus: $focusedField, with: editPasswordController.password.id.isEmpty ? .passwordLabel : nil)
+            .interactiveDismissDisabled(editPasswordController.hasChanges)
             .environment(\.editMode, .constant(editMode ? .active : .inactive))
     }
     
@@ -77,47 +63,41 @@ struct EditPasswordPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .apply {
-            view in
-            if #available(iOS 15, *) {
-                view
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Button {
-                                focusedField = focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
-                            }
-                            label: {
-                                Image(systemName: "chevron.up")
-                            }
-                            .disabled(focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
-                            Button {
-                                focusedField = focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
-                            }
-                            label: {
-                                Image(systemName: "chevron.down")
-                            }
-                            .disabled(focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
-                            Spacer()
-                            Button {
-                                focusedField = nil
-                            }
-                            label: {
-                                Text("_dismiss")
-                                    .bold()
-                            }
-                        }
-                    }
-                    .onSubmit {
-                        guard sheetItem == nil else { /// Prevent submit handling when page is not visible
-                            return
-                        }
-                        if let next = focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) {
-                            focusedField = next
-                        }
-                        else {
-                            applyAndDismiss()
-                        }
-                    }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Button {
+                    focusedField = focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
+                }
+                label: {
+                    Image(systemName: "chevron.up")
+                }
+                .disabled(focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
+                Button {
+                    focusedField = focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
+                }
+                label: {
+                    Image(systemName: "chevron.down")
+                }
+                .disabled(focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
+                Spacer()
+                Button {
+                    focusedField = nil
+                }
+                label: {
+                    Text("_dismiss")
+                        .bold()
+                }
+            }
+        }
+        .onSubmit {
+            guard sheetItem == nil else { /// Prevent submit handling when page is not visible
+                return
+            }
+            if let next = focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) {
+                focusedField = next
+            }
+            else {
+                applyAndDismiss()
             }
         }
         .sheet(item: $sheetItem) {
@@ -180,47 +160,23 @@ struct EditPasswordPage: View {
     private func serviceSection() -> some View {
         Section(header: Text("_service")) {
             EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $editPasswordController.passwordLabel)
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .focused($focusedField, equals: .passwordLabel)
-                            .submitLabel(.next)
-                    }
-                }
+                .focused($focusedField, equals: .passwordLabel)
+                .submitLabel(.next)
             EditLabeledRow(type: .url, label: "_url" as LocalizedStringKey, value: $editPasswordController.passwordUrl)
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .focused($focusedField, equals: .passwordUrl)
-                            .submitLabel(.next)
-                    }
-                }
+                .focused($focusedField, equals: .passwordUrl)
+                .submitLabel(.next)
         }
     }
     
     private func accountSection() -> some View {
         Section(header: Text("_account")) {
             EditLabeledRow(type: .email, label: "_username" as LocalizedStringKey, value: $editPasswordController.passwordUsername)
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .focused($focusedField, equals: .passwordUsername)
-                            .submitLabel(.next)
-                    }
-                }
+                .focused($focusedField, equals: .passwordUsername)
+                .submitLabel(.next)
             HStack(spacing: 16) {
                 EditLabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: $editPasswordController.passwordPassword)
-                    .apply {
-                        view in
-                        if #available(iOS 15, *) {
-                            view
-                                .focused($focusedField, equals: .passwordPassword)
-                                .submitLabel(FocusField.passwordPassword.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) != nil ? .next : .done)
-                        }
-                    }
+                    .focused($focusedField, equals: .passwordPassword)
+                    .submitLabel(FocusField.passwordPassword.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) != nil ? .next : .done)
                     .accessibility(identifier: "showPasswordButton")
                 PasswordGenerator(password: $editPasswordController.passwordPassword, generateInitial: Configuration.userDefaults.bool(forKey: "automaticallyGeneratePasswords"))
                     .accessibility(identifier: "passwordGenerator")
@@ -354,25 +310,13 @@ struct EditPasswordPage: View {
                     Spacer()
                     VStack {
                         EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $customUserField.label)
-                            .apply {
-                                view in
-                                if #available(iOS 15, *) {
-                                    view
-                                        .focused($focusedField, equals: .passwordCustomFields(id: customUserField.id, row: .label))
-                                        .submitLabel(.next)
-                                }
-                            }
+                            .focused($focusedField, equals: .passwordCustomFields(id: customUserField.id, row: .label))
+                            .submitLabel(.next)
                         Divider()
                         HStack(spacing: 16) {
                             EditLabeledRow(type: LabeledRow.RowType(rawValue: customUserField.type.rawValue) ?? .text, label: "_\(customUserField.type)".localized, value: $customUserField.value)
-                                .apply {
-                                    view in
-                                    if #available(iOS 15, *) {
-                                        view
-                                            .focused($focusedField, equals: .passwordCustomFields(id: customUserField.id, row: .value))
-                                            .submitLabel(FocusField.passwordCustomFields(id: customUserField.id, row: .value).next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) != nil ? .next : .done)
-                                    }
-                                }
+                                .focused($focusedField, equals: .passwordCustomFields(id: customUserField.id, row: .value))
+                                .submitLabel(FocusField.passwordCustomFields(id: customUserField.id, row: .value).next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) != nil ? .next : .done)
                             if customUserField.type == .secret {
                                 PasswordGenerator(password: $customUserField.value)
                             }
@@ -462,59 +406,32 @@ struct EditPasswordPage: View {
         }
     }
     
-    @ViewBuilder private func deleteButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button(role: .destructive) {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deletePassword")
-                    Spacer()
-                }
-            }
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                    deleteAndDismiss()
-                }])
+    private func deleteButton() -> some View {
+        Button(role: .destructive) {
+            showDeleteAlert = true
+        }
+        label: {
+            HStack {
+                Spacer()
+                Text("_deletePassword")
+                Spacer()
             }
         }
-        else {
-            Button {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deletePassword")
-                        .foregroundColor(.red)
-                    Spacer()
-                }
-            }
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
-                    deleteAndDismiss()
-                }])
-            }
+        .actionSheet(isPresented: $showDeleteAlert) {
+            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                deleteAndDismiss()
+            }])
         }
     }
     
-    @ViewBuilder private func cancelButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button("_cancel", role: .cancel) {
-                cancelAndDismiss()
-            }
-            .actionSheet(isPresented: $showCancelAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                    presentationMode.wrappedValue.dismiss()
-                }])
-            }
+    private func cancelButton() -> some View {
+        Button("_cancel", role: .cancel) {
+            cancelAndDismiss()
         }
-        else {
-            Button("_cancel") {
-                cancelAndDismiss()
-            }
+        .actionSheet(isPresented: $showCancelAlert) {
+            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                presentationMode.wrappedValue.dismiss()
+            }])
         }
     }
     

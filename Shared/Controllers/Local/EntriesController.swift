@@ -124,7 +124,7 @@ final class EntriesController: ObservableObject {
         fetchOnlineEntries(session: session)
     }
     
-    @available(iOS 15, *) func refresh() async {
+    func refresh() async {
         guard let session = SessionController.default.session else {
             return
         }

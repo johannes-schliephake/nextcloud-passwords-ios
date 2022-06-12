@@ -7,7 +7,7 @@ struct SelectTagsPage: View {
     @EnvironmentObject private var sessionController: SessionController
     
     @StateObject private var selectTagsController: SelectTagsController
-    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
+    @FocusState private var focusedField: FocusField?
     
     init(entriesController: EntriesController, temporaryEntry: SelectTagsController.TemporaryEntry, selectTags: @escaping ([Tag], [String]) -> Void) {
         _selectTagsController = StateObject(wrappedValue: SelectTagsController(entriesController: entriesController, temporaryEntry: temporaryEntry, selectTags: selectTags))
@@ -58,48 +58,28 @@ struct SelectTagsPage: View {
     
     private func listView() -> some View {
         List {
-            if #available(iOS 15, *) {
-                VStack {
-                    Spacer()
-                    addTagBadge()
-                }
-                .listRowSeparator(.hidden)
-                ForEach(selectTagsController.tags) {
-                    tag in
-                    toggleTagBadge(tag: tag)
-                }
-                .listRowSeparator(.hidden)
+            VStack {
+                Spacer()
+                addTagBadge()
             }
-            else {
-                VStack(spacing: 12) {
-                    VStack {
-                        Spacer()
-                        addTagBadge()
-                    }
-                    ForEach(selectTagsController.tags) {
-                        tag in
-                        toggleTagBadge(tag: tag)
-                    }
-                }
+            .listRowSeparator(.hidden)
+            ForEach(selectTagsController.tags) {
+                tag in
+                toggleTagBadge(tag: tag)
             }
+            .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
-        .apply {
-            view in
-            if #available(iOS 15, *) {
-                view
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-                            Button {
-                                focusedField = nil
-                            }
-                            label: {
-                                Text("_dismiss")
-                                    .bold()
-                            }
-                        }
-                    }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button {
+                    focusedField = nil
+                }
+                label: {
+                    Text("_dismiss")
+                        .bold()
+                }
             }
         }
     }
@@ -111,18 +91,10 @@ struct SelectTagsPage: View {
                 .frame(width: 15.8, height: 15.8)
             TextField("_createTag" as LocalizedStringKey, text: $selectTagsController.tagLabel, onCommit: {
                 selectTagsController.addTag()
-                if #available(iOS 15, *) {
-                    focusedField = .addTagLabel
-                }
+                focusedField = .addTagLabel
             })
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .focused($focusedField, equals: .addTagLabel)
-                            .submitLabel(.done)
-                    }
-                }
+            .focused($focusedField, equals: .addTagLabel)
+            .submitLabel(.done)
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 7)
@@ -164,16 +136,9 @@ struct SelectTagsPage: View {
         }
     }
     
-    @ViewBuilder private func cancelButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button("_cancel", role: .cancel) {
-                presentationMode.wrappedValue.dismiss()
-            }
-        }
-        else {
-            Button("_cancel") {
-                presentationMode.wrappedValue.dismiss()
-            }
+    private func cancelButton() -> some View {
+        Button("_cancel", role: .cancel) {
+            presentationMode.wrappedValue.dismiss()
         }
     }
     

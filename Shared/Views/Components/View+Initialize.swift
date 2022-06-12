@@ -2,7 +2,7 @@ import SwiftUI
 
 
 /// Initially sets a FocusState, which isn't possible from e.g. onAppear
-@available(iOS 15, *) struct Initialize<Value: Hashable>: ViewModifier {
+struct Initialize<Value: Hashable>: ViewModifier {
     
     let binding: FocusState<Value?>.Binding
     let initial: Value?
@@ -44,7 +44,7 @@ import SwiftUI
 }
 
 
-@available(iOS 15, *) extension View {
+extension View {
     
     func initialize<Value: Hashable>(focus binding: FocusState<Value?>.Binding, with initial: Value?) -> some View {
         modifier(Initialize(binding: binding, initial: initial))

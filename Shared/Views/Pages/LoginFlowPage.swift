@@ -12,13 +12,7 @@ struct LoginFlowPage: View {
         webView()
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("_logIn")
-            .apply {
-                view in
-                if #available(iOS 15, *) {
-                    view
-                        .interactiveDismissDisabled()
-                }
-            }
+            .interactiveDismissDisabled()
     }
     
     private func webView() -> some View {

@@ -143,13 +143,6 @@ struct PasswordDetailPage: View {
             case .duplicate:
                 ZStack {
                     if let duplicates = entriesController.passwords?.filter({ $0.password == password.password && $0.id != password.id }) {
-                        if #unavailable(iOS 15) {
-                            NavigationLink(destination: EmptyView()) { /// Fixes navigation bugs on iOS 14
-                                EmptyView()
-                            }
-                            .frame(width: 0, height: 0)
-                            .hidden()
-                        }
                         ForEach(duplicates) {
                             duplicate in
                             NavigationLink("", tag: .duplicate(password: duplicate), selection: $navigationSelection) {
@@ -301,13 +294,6 @@ struct PasswordDetailPage: View {
             .textCase(.uppercase)
             .buttonStyle(.borderless)
             .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-            .apply {
-                view in
-                if #unavailable(iOS 15) {
-                    view
-                        .padding(.top, 5)
-                }
-            }
             Spacer()
         }) {
             if !validTags.isEmpty {
@@ -322,12 +308,7 @@ struct PasswordDetailPage: View {
                         ForEach(validTags) {
                             tag in
                             NavigationLink("", tag: .entries(tag: tag), selection: $navigationSelection) {
-                                if #available(iOS 15, *) { /// This insanely dumb workaround (duplicated view) prevents a crash on iOS 14 when an attribute is marked with `@available(iOS 15, *) @FocusState`
-                                    EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
-                                }
-                                else {
-                                    EntriesPageFallback(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
-                                }
+                                EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
                             }
                             .isDetailLink(false)
                             .frame(width: 0, height: 0)

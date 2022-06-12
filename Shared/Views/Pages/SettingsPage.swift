@@ -50,40 +50,20 @@ struct SettingsPage: View {
         Section(header: Text("_credentials")) {
             LabeledRow(type: .text, label: "_nextcloudServerAddress" as LocalizedStringKey, value: session.server)
             LabeledRow(type: .text, label: "_username" as LocalizedStringKey, value: session.user)
-            if #available(iOS 15.0, *) {
-                Button(role: .destructive) {
-                    showLogoutAlert = true
-                }
-                label: {
-                    HStack {
-                        Spacer()
-                        Text("_logOut")
-                        Spacer()
-                    }
-                }
-                .actionSheet(isPresented: $showLogoutAlert) {
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
-                        logoutAndDismiss()
-                    }])
+            Button(role: .destructive) {
+                showLogoutAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_logOut")
+                    Spacer()
                 }
             }
-            else {
-                Button {
-                    showLogoutAlert = true
-                }
-                label: {
-                    HStack {
-                        Spacer()
-                        Text("_logOut")
-                            .foregroundColor(.red)
-                        Spacer()
-                    }
-                }
-                .actionSheet(isPresented: $showLogoutAlert) {
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
-                        logoutAndDismiss()
-                    }])
-                }
+            .actionSheet(isPresented: $showLogoutAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
+                    logoutAndDismiss()
+                }])
             }
         }
     }
@@ -101,13 +81,6 @@ struct SettingsPage: View {
                 Text("_providerInstructionsMessage")
                     .font(.footnote)
                     .foregroundColor(.gray)
-            }
-        }
-        .apply {
-            view in
-            if #unavailable(iOS 15) {
-                view
-                    .listRowInsets(EdgeInsets())
             }
         }
         .listRowBackground(Color(UIColor.systemGroupedBackground))
@@ -170,13 +143,6 @@ struct SettingsPage: View {
                         .foregroundColor(.gray)
                     Spacer()
                 }
-            }
-        }
-        .apply {
-            view in
-            if #unavailable(iOS 15) {
-                view
-                    .listRowInsets(EdgeInsets())
             }
         }
         .listRowBackground(Color(UIColor.systemGroupedBackground))
