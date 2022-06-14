@@ -46,8 +46,8 @@ struct EntriesPage: View {
                        !sessionController.state.isChallengeAvailable,
                        entriesController.state == .offline || entriesController.state == .online,
                        autoFillController.credentialIdentifier == nil,
-                       let entries = folderController.entries {
-                        trailingToolbarView(entries: entries)
+                       folderController.entries != nil {
+                        trailingToolbarView()
                     }
                 }
                 ToolbarItem(placement: .principal) {
@@ -101,10 +101,8 @@ struct EntriesPage: View {
             }
             else if entriesController.state == .offline || entriesController.state == .online,
                     autoFillController.credentialIdentifier == nil,
-                    let entries = folderController.entries,
-                    let folders = entriesController.folders,
-                    let tags = entriesController.tags {
-                listView(entries: entries, folders: folders, tags: tags)
+                    let entries = folderController.entries {
+                listView(entries: entries)
             }
             else {
                 ProgressView()
@@ -230,7 +228,7 @@ struct EntriesPage: View {
         .initialize(focus: $focusedField, with: .challengePassword)
     }
     
-    private func listView(entries: [Entry], folders: [Folder], tags: [Tag]) -> some View {
+    private func listView(entries: [Entry]) -> some View {
         VStack {
             if let suggestions = folderController.suggestions,
                folderController.searchTerm.isEmpty,
@@ -439,7 +437,7 @@ struct EntriesPage: View {
         }
     }
     
-    private func trailingToolbarView(entries: [Entry]) -> some View {
+    private func trailingToolbarView() -> some View {
         HStack {
             if let state = folderController.folder.state {
                 if state.isError {
@@ -618,19 +616,6 @@ struct EntriesPage: View {
     private func solveChallenge() {
         if !challengePassword.isEmpty {
             sessionController.solveChallenge(password: challengePassword, store: storeChallengePassword)
-        }
-    }
-    
-    private func onDeleteEntry(entry: Entry?) {
-        switch entry {
-        case .folder(let folder):
-            actionSheetItem = .delete(entry: .folder(folder))
-        case .password(let password):
-            actionSheetItem = .delete(entry: .password(password))
-        case .tag(let tag):
-            actionSheetItem = .delete(entry: .tag(tag))
-        case .none:
-            break
         }
     }
     

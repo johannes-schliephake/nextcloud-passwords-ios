@@ -4,7 +4,6 @@ import SwiftUI
 struct EditPasswordPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController

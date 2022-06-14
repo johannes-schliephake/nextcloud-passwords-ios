@@ -25,8 +25,6 @@
 		8F51428F2573F91800DD96C0 /* EditPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51428E2573F91800DD96C0 /* EditPasswordController.swift */; };
 		8F52EFC925B1D0FC00DCFAC1 /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */; };
 		8F52EFCA25B1D0FC00DCFAC1 /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */; };
-		8F52EFDB25B200DD00DCFAC1 /* Collection+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */; };
-		8F52EFDC25B200DD00DCFAC1 /* Collection+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */; };
 		8F52F3C725936FDE00B4EFCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F52F3C625936FDE00B4EFCE /* StoreKit.framework */; };
 		8F52F3C92593746F00B4EFCE /* TipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F3C82593746F00B4EFCE /* TipController.swift */; };
 		8F52F3D22593784B00B4EFCE /* TipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F3C82593746F00B4EFCE /* TipController.swift */; };
@@ -290,7 +288,6 @@
 		DDB1699927D20CC200F4D752 /* Date+FormattedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */; };
 		DDB1699A27D20CC200F4D752 /* TipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F3C82593746F00B4EFCE /* TipController.swift */; };
 		DDB1699B27D20CC200F4D752 /* EditPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51428E2573F91800DD96C0 /* EditPasswordController.swift */; };
-		DDB1699C27D20CC200F4D752 /* Collection+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */; };
 		DDB1699D27D20CC200F4D752 /* NCPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */; };
 		DDB1699E27D20CC200F4D752 /* EditOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */; };
 		DDB1699F27D20CC200F4D752 /* OTPDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DFA6327CE94F0003C2352 /* OTPDisplay.swift */; };
@@ -463,7 +460,6 @@
 		8F51428A2573BEFA00DD96C0 /* CreatePasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasswordRequest.swift; sourceTree = "<group>"; };
 		8F51428E2573F91800DD96C0 /* EditPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordController.swift; sourceTree = "<group>"; };
 		8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObject.swift; sourceTree = "<group>"; };
-		8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Subscript.swift"; sourceTree = "<group>"; };
 		8F52F3C625936FDE00B4EFCE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8F52F3C82593746F00B4EFCE /* TipController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipController.swift; sourceTree = "<group>"; };
 		8F52F3DA259379F500B4EFCE /* SKProduct+LocalizedPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKProduct+LocalizedPrice.swift"; sourceTree = "<group>"; };
@@ -958,7 +954,6 @@
 			children = (
 				8F703BFB26245C6100CC7018 /* Array+Zip.swift */,
 				8F7237992651468700832A88 /* Collection+Avg.swift */,
-				8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */,
 				DD0E59B427414EB5003D7D50 /* Color+Hex.swift */,
 				DD0E59B127414AFE003D7D50 /* Color+Init.swift */,
 				8F7237962651466000832A88 /* Comparable+Clamped.swift */,
@@ -1425,7 +1420,6 @@
 				8F997FA12572F40D00B5F784 /* EditFolderController.swift in Sources */,
 				8F71A8252607634E00863C27 /* CloseSessionRequest.swift in Sources */,
 				8F854E66262390FA008885C3 /* CoreData.xcdatamodeld in Sources */,
-				8F52EFDB25B200DD00DCFAC1 /* Collection+Subscript.swift in Sources */,
 				8F52F3C92593746F00B4EFCE /* TipController.swift in Sources */,
 				DD718F2827B568E200F85780 /* String+Segmented.swift in Sources */,
 				DD29D1E427CF684A00B06835 /* ImagePicker.swift in Sources */,
@@ -1565,7 +1559,6 @@
 				8FC361D125827E5D00785371 /* DeleteFolderRequest.swift in Sources */,
 				8F71A8262607634E00863C27 /* CloseSessionRequest.swift in Sources */,
 				8F854E67262390FA008885C3 /* CoreData.xcdatamodeld in Sources */,
-				8F52EFDC25B200DD00DCFAC1 /* Collection+Subscript.swift in Sources */,
 				8FC361CE25827E5D00785371 /* ListPasswordsRequest.swift in Sources */,
 				DD718F2927B568E200F85780 /* String+Segmented.swift in Sources */,
 				DD29D1E527CF684A00B06835 /* ImagePicker.swift in Sources */,
@@ -1696,7 +1689,6 @@
 				DDB169B727D20CC200F4D752 /* SettingsController.swift in Sources */,
 				DDB169C827D20CC200F4D752 /* EntriesPage.swift in Sources */,
 				DDB169C327D20CC200F4D752 /* Color+Hex.swift in Sources */,
-				DDB1699C27D20CC200F4D752 /* Collection+Subscript.swift in Sources */,
 				DDB169E527D20CC300F4D752 /* CaptureOTPNavigation.swift in Sources */,
 				DDB169A527D20CC200F4D752 /* ListTagsRequest.swift in Sources */,
 				DDB169CA27D20CC200F4D752 /* SelectFolderController.swift in Sources */,

@@ -19,7 +19,7 @@ final class Keychain {
         }
     }
     
-    public func store(key: String, value: String) {
+    func store(key: String, value: String) {
         if Configuration.isTestEnvironment {
             return
         }
@@ -44,7 +44,7 @@ final class Keychain {
         }
     }
     
-    public func load(key: String) -> String? {
+    func load(key: String) -> String? {
         if Configuration.isTestEnvironment {
             return nil
         }
@@ -65,7 +65,7 @@ final class Keychain {
         return String(data: data, encoding: .utf8)
     }
     
-    public func remove(key: String) {
+    func remove(key: String) {
         if Configuration.isTestEnvironment {
             return
         }
@@ -77,7 +77,7 @@ final class Keychain {
         SecItemDelete(attributes)
     }
     
-    public func clear() {
+    func clear() {
         if Configuration.isTestEnvironment {
             return
         }

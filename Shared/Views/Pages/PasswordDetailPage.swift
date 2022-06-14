@@ -109,7 +109,7 @@ struct PasswordDetailPage: View {
             .listRowBackground(Color(UIColor.systemGroupedBackground))
             if let tags = entriesController.tags,
                let validTags = EntriesController.tags(for: password.tags, in: tags).valid {
-                tagsSection(tags: tags, validTags: validTags)
+                tagsSection(validTags: validTags)
                     .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
             serviceSection()
@@ -284,7 +284,7 @@ struct PasswordDetailPage: View {
         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
-    private func tagsSection(tags: [Tag], validTags: [Tag]) -> some View {
+    private func tagsSection(validTags: [Tag]) -> some View {
         Section(footer: HStack {
             Spacer()
             Button(validTags.isEmpty ? "_addTags" : "_editTags") {
