@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EditTagPage: View {
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var editTagController: EditTagController
     @FocusState private var focusedField: FocusField?
@@ -141,7 +141,7 @@ struct EditTagPage: View {
         }
         .actionSheet(isPresented: $showCancelAlert) {
             ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }])
         }
     }
@@ -160,7 +160,7 @@ struct EditTagPage: View {
             showCancelAlert = true
         }
         else {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     
@@ -170,12 +170,12 @@ struct EditTagPage: View {
             return
         }
         editTagController.applyToTag()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
     private func deleteAndDismiss() {
         editTagController.clearTag()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }

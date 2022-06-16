@@ -3,7 +3,7 @@ import SwiftUI
 
 struct SelectFolderPage: View {
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var selectFolderController: SelectFolderController
     @State private var sheetItem: SheetItem?
@@ -72,7 +72,7 @@ struct SelectFolderPage: View {
     
     private func cancelButton() -> some View {
         Button("_cancel", role: .cancel) {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     
@@ -110,7 +110,7 @@ struct SelectFolderPage: View {
             return
         }
         selectFolderController.selectFolder(selectFolderController.selection)
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }

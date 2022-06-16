@@ -5,7 +5,7 @@ struct SettingsPage: View {
     
     let updateOfflineData: () -> Void
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
@@ -150,7 +150,7 @@ struct SettingsPage: View {
     
     private func doneButton() -> some View {
         Button("_done") {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     
@@ -158,7 +158,7 @@ struct SettingsPage: View {
     
     private func logoutAndDismiss() {
         sessionController.logout()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }

@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ServerSetupPage: View {
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var serverSetupController = ServerSetupController()
     @FocusState private var focusedField: FocusField?
@@ -83,7 +83,7 @@ struct ServerSetupPage: View {
     
     private func cancelButton() -> some View {
         Button("_cancel", role: .cancel) {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     

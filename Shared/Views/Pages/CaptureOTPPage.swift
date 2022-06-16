@@ -6,7 +6,7 @@ struct CaptureOTPPage: View {
     
     let capture: (OTP) -> Void
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     @State private var showErrorAlert = false
     @State private var isTorchActive = false
@@ -39,7 +39,7 @@ struct CaptureOTPPage: View {
                     .background(Color.black)
                     .alert(isPresented: $showErrorAlert) {
                         Alert(title: Text("_error"), message: Text("_qrCaptureErrorMessage"), dismissButton: .cancel {
-                            presentationMode.wrappedValue.dismiss()
+                            dismiss()
                         })
                     }
                 let sideLength = min(geometryProxy.size.width, geometryProxy.size.height) * 0.8
@@ -54,7 +54,7 @@ struct CaptureOTPPage: View {
     
     private func cancelButton() -> some View {
         Button("_cancel", role: .cancel) {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     
@@ -83,7 +83,7 @@ struct CaptureOTPPage: View {
             return
         }
         capture(otp)
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
     private func toggleTorch(videoCaptureDevice: AVCaptureDevice) {

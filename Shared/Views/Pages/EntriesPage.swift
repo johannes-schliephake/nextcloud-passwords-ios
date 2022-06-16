@@ -501,7 +501,7 @@ struct EntriesPage: View {
                     .tag(EntriesController.Filter.favorites)
                 Label("_tags", systemImage: "tag")
                     .tag(EntriesController.Filter.tags)
-                Label("_otps", systemImage: "ellipsis.rectangle")
+                Label("_otps", systemImage: "123.rectangle")
                     .tag(EntriesController.Filter.otps)
             }
             Picker("", selection: $entriesController.sortBy) {
@@ -645,7 +645,7 @@ extension EntriesPage {
                         editFolder()
                     }
                     label: {
-                        Label("_edit", systemImage: "pencil")
+                        Label("_edit", systemImage: "square.and.pencil")
                     }
                     .tint(.blue)
                     .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
@@ -672,7 +672,7 @@ extension EntriesPage {
                         editFolder()
                     }
                     label: {
-                        Label("_edit", systemImage: "pencil")
+                        Label("_edit", systemImage: "square.and.pencil")
                     }
                     .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                     Button {
@@ -835,7 +835,7 @@ extension EntriesPage {
                             editPassword()
                         }
                         label: {
-                            Label("_edit", systemImage: "pencil")
+                            Label("_edit", systemImage: "square.and.pencil")
                         }
                         .tint(.blue)
                         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
@@ -894,7 +894,7 @@ extension EntriesPage {
                                 editPassword()
                             }
                             label: {
-                                Label("_edit", systemImage: "pencil")
+                                Label("_edit", systemImage: "square.and.pencil")
                             }
                             .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                         }
@@ -1186,7 +1186,7 @@ extension EntriesPage {
                         editTag()
                     }
                     label: {
-                        Label("_edit", systemImage: "pencil")
+                        Label("_edit", systemImage: "square.and.pencil")
                     }
                     .tint(.blue)
                     .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
@@ -1205,7 +1205,7 @@ extension EntriesPage {
                         editTag()
                     }
                     label: {
-                        Label("_edit", systemImage: "pencil")
+                        Label("_edit", systemImage: "square.and.pencil")
                     }
                     .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
                     Button {

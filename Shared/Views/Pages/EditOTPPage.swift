@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EditOTPPage: View {
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var editOtpController: EditOTPController
     @FocusState private var focusedField: FocusField?
@@ -191,7 +191,7 @@ struct EditOTPPage: View {
         }
         .actionSheet(isPresented: $showCancelAlert) {
             ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }])
         }
     }
@@ -210,7 +210,7 @@ struct EditOTPPage: View {
             showCancelAlert = true
         }
         else {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     
@@ -219,12 +219,12 @@ struct EditOTPPage: View {
             return
         }
         editOtpController.applyToOtp()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
     private func deleteAndDismiss() {
         editOtpController.clearOtp()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }

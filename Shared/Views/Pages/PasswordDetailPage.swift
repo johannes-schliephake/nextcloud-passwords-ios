@@ -8,7 +8,7 @@ struct PasswordDetailPage: View {
     let updatePassword: () -> Void
     let deletePassword: () -> Void
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var sessionController: SessionController
     
@@ -42,7 +42,7 @@ struct PasswordDetailPage: View {
                 }
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name("deletePassword"), object: password)) {
                     _ in
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                     
                     /// Clear password detail page on iPad when password was deleted (SwiftUI doesn't close view when NavigationLink is removed)
                     /// This has to be done with a notification because a password can also be deleted from the EntriesPage
@@ -186,7 +186,7 @@ struct PasswordDetailPage: View {
                         showEditPasswordView = true
                     }
                     label: {
-                        Label("_editPassword", systemImage: "pencil")
+                        Label("_editPassword", systemImage: "square.and.pencil")
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)

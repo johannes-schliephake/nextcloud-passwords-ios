@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EditFolderPage: View {
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var editFolderController: EditFolderController
     @FocusState private var focusedField: FocusField?
@@ -118,7 +118,7 @@ struct EditFolderPage: View {
         }
         .actionSheet(isPresented: $showCancelAlert) {
             ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }])
         }
     }
@@ -137,7 +137,7 @@ struct EditFolderPage: View {
             showCancelAlert = true
         }
         else {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     
@@ -147,12 +147,12 @@ struct EditFolderPage: View {
             return
         }
         editFolderController.applyToFolder()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
     private func deleteAndDismiss() {
         editFolderController.clearFolder()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }

@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EditPasswordPage: View {
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var settingsController: SettingsController
     
     @StateObject private var editPasswordController: EditPasswordController
@@ -177,7 +177,7 @@ struct EditPasswordPage: View {
                 showAboutOtpsTooltip = true
             }
             label: {
-                Label("_addOtp", systemImage: "ellipsis.rectangle")
+                Label("_addOtp", systemImage: "123.rectangle")
             }
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
             .tooltip(isPresented: $showAboutOtpsTooltip, content: {
@@ -218,11 +218,11 @@ struct EditPasswordPage: View {
                     sheetItem = .edit(otp: otp)
                 }
                 label: {
-                    Label("_addManually", systemImage: "rectangle.and.pencil.and.ellipsis")
+                    Label("_addManually", systemImage: "square.and.pencil")
                 }
             }
             label: {
-                Label("_addOtp", systemImage: "ellipsis.rectangle")
+                Label("_addOtp", systemImage: "123.rectangle")
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
@@ -394,7 +394,7 @@ struct EditPasswordPage: View {
         }
         .actionSheet(isPresented: $showCancelAlert) {
             ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }])
         }
     }
@@ -413,7 +413,7 @@ struct EditPasswordPage: View {
             showCancelAlert = true
         }
         else {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     
@@ -424,12 +424,12 @@ struct EditPasswordPage: View {
             return
         }
         editPasswordController.applyToPassword()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
     private func deleteAndDismiss() {
         editPasswordController.clearPassword()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }
