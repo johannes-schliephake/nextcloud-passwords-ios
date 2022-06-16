@@ -57,7 +57,8 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
             completionHandler(.performDefaultHandling, nil)
             return
         }
-        guard let certificate = SecTrustGetCertificateAtIndex(serverTrust, 0) else {
+        guard let certificateChain = SecTrustCopyCertificateChain(serverTrust) as? [SecCertificate],
+              let certificate = certificateChain.first else {
             completionHandler(.performDefaultHandling, nil)
             return
         }

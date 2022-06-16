@@ -436,7 +436,7 @@ struct EntriesPage: View {
             }
         }
         .fixedSize()
-        .animation(.easeInOut(duration: 0.2))
+        .animation(.easeInOut(duration: 0.2), value: showOfflineText)
         .foregroundColor(Color(UIColor.systemGray3))
     }
     

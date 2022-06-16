@@ -100,7 +100,6 @@ struct EditLabeledRow: View {
     private func secretStack() -> some View {
         HStack {
             mainStack()
-                .animation(nil)
             Spacer()
             Button {
                 hideSecret.toggle()

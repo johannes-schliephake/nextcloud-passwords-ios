@@ -11,7 +11,7 @@ extension View {
                 .ignoresSafeArea()
                 .foregroundStyle(.ultraThinMaterial)
                 .opacity(isOccluded ? 1 : 0)
-                .animation(.easeInOut(duration: 0.2))
+                .animation(.easeInOut(duration: 0.2), value: isOccluded)
         }
     }
     

@@ -123,7 +123,7 @@ struct SelectTagsPage: View {
                     .opacity(selected ? 1 : 0)
             }
         )
-        .animation(.easeInOut(duration: 0.2))
+        .animation(.easeInOut(duration: 0.2), value: selected)
         .onTapGesture {
             selectTagsController.toggleTag(tag)
         }
