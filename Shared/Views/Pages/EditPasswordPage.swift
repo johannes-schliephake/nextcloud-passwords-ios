@@ -249,7 +249,8 @@ struct EditPasswordPage: View {
             }
             .disabled(editPasswordController.passwordCustomUserFields.isEmpty)
             .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { editMode = editMode && !$0 }
-        }) {
+        }
+            .font(.footnote)) {
             ForEach($editPasswordController.passwordCustomUserFields) {
                 $customUserField in
                 HStack {
