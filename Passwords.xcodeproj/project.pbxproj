@@ -142,7 +142,7 @@
 		8FBE43D4258D5A8C003F7F34 /* Date+FormattedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */; };
 		8FBE43D5258D5A8C003F7F34 /* Label+ShowIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */; };
 		8FC361992582762600785371 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F118764253CA2980019FECA /* AuthenticationServices.framework */; };
-		8FC361A42582762600785371 /* Provider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8FC361982582762600785371 /* Provider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8FC361A42582762600785371 /* Provider.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8FC361982582762600785371 /* Provider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8FC361B025827D3400785371 /* EntriesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F118754253C9EE10019FECA /* EntriesPage.swift */; };
 		8FC361B325827E4C00785371 /* LoginFlowPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F582BF9255EA63D00F1E3DA /* LoginFlowPage.swift */; };
 		8FC361B425827E4C00785371 /* EditPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FA4257300A600B5F784 /* EditPasswordPage.swift */; };
@@ -246,7 +246,7 @@
 		DDB1695527D1FCFF00F4D752 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */; };
 		DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */; };
 		DDB1695D27D1FCFF00F4D752 /* ExtensionView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDB1695B27D1FCFF00F4D752 /* ExtensionView.storyboard */; };
-		DDB1696127D1FCFF00F4D752 /* Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DDB1695327D1FCFF00F4D752 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DDB1696127D1FCFF00F4D752 /* Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DDB1695327D1FCFF00F4D752 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DDB1696627D1FD2900F4D752 /* Clibsodium in Frameworks */ = {isa = PBXBuildFile; productRef = DDB1696527D1FD2900F4D752 /* Clibsodium */; };
 		DDB1696827D1FD2900F4D752 /* Sodium in Frameworks */ = {isa = PBXBuildFile; productRef = DDB1696727D1FD2900F4D752 /* Sodium */; };
 		DDB1696D27D2040300F4D752 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDB1696F27D2040300F4D752 /* InfoPlist.strings */; };
@@ -428,16 +428,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		8F11877B253CA2C90019FECA /* Embed App Extensions */ = {
+		8F11877B253CA2C90019FECA /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				DDB1696127D1FCFF00F4D752 /* Extension.appex in Embed App Extensions */,
-				8FC361A42582762600785371 /* Provider.appex in Embed App Extensions */,
+				DDB1696127D1FCFF00F4D752 /* Extension.appex in Embed Foundation Extensions */,
+				8FC361A42582762600785371 /* Provider.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -1079,7 +1079,7 @@
 				8F0136FA25DE8DED009455D7 /* ShellScript */,
 				8F11874C253C9EE10019FECA /* Frameworks */,
 				8F11874D253C9EE10019FECA /* Resources */,
-				8F11877B253CA2C90019FECA /* Embed App Extensions */,
+				8F11877B253CA2C90019FECA /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1185,7 +1185,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					8F11874E253C9EE10019FECA = {
 						CreatedOnToolsVersion = 12.0.1;
@@ -2054,6 +2054,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = LogicTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2074,6 +2075,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = LogicTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
