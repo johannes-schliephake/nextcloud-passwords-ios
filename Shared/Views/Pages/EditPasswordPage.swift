@@ -4,11 +4,7 @@ import SwiftUI
 struct EditPasswordPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var autoFillController: AutoFillController
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var settingsController: SettingsController
-    @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editPasswordController: EditPasswordController
     @ScaledMetric private var customFieldTypeIconWidth = 30.0
@@ -35,12 +31,6 @@ struct EditPasswordPage: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
-                }
-            }
-            .onChange(of: sessionController.state) {
-                state in
-                if state.isChallengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
                 }
             }
             .initialize(focus: $focusedField, with: editPasswordController.password.id.isEmpty ? .passwordLabel : nil)
@@ -107,51 +97,26 @@ struct EditPasswordPage: View {
                     otp in
                     editPasswordController.passwordOtp = otp
                 })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(settingsController)
-                    .environmentObject(tipController)
             case .scanQrCode:
                 CaptureOTPNavigation {
                     otp in
                     editPasswordController.passwordOtp = otp
                 }
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
             case .detectQrCode:
                 ImagePicker {
                     image in
                     editPasswordController.extractOtp(from: image)
                 }
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
             case .selectTags:
                 SelectTagsNavigation(entriesController: editPasswordController.entriesController, temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
                     validTags, _ in
                     editPasswordController.passwordValidTags = validTags
                 })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(settingsController)
-                    .environmentObject(tipController)
             case .selectFolder:
                 SelectFolderNavigation(entriesController: editPasswordController.entriesController, entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), selectFolder: {
                     parent in
                     editPasswordController.passwordFolder = parent.id
                 })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(settingsController)
-                    .environmentObject(tipController)
             }
         }
     }

@@ -19,7 +19,6 @@ struct MainView: View {
             .onChange(of: tipController.transactionState, perform: didChange)
             .onChange(of: authenticationChallengeController.certificateConfirmationRequests, perform: didChange)
             .copyToast()
-            .environmentObject(autoFillController)
             .environmentObject(biometricAuthenticationController)
             .environmentObject(sessionController)
             .environmentObject(settingsController)

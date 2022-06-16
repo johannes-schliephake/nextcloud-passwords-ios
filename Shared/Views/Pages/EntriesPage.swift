@@ -6,12 +6,8 @@ struct EntriesPage: View {
     @ObservedObject var entriesController: EntriesController
     private let showFilterSortMenu: Bool
     
-    @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
-    @EnvironmentObject private var settingsController: SettingsController
-    @EnvironmentObject private var tipController: TipController
     
     @StateObject private var folderController: FolderController
     @FocusState private var focusedField: FocusField?
@@ -108,21 +104,6 @@ struct EntriesPage: View {
                 ProgressView()
             }
         }
-        .background(
-            /// This hack is necessary because the toolbar, where this sheet would actually belong, is buggy, iOS 14 can't stack sheets (not even throughout the view hierarchy) and iOS 15 can't use sheets on EmptyView (previous hack)
-            Color.clear
-                .sheet(isPresented: $showSettingsView) {
-                    SettingsNavigation(updateOfflineData: {
-                        entriesController.updateOfflineContainers()
-                        entriesController.updateAutoFillCredentials()
-                    })
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(settingsController)
-                    .environmentObject(tipController)
-                }
-        )
     }
     
     private func connectView() -> some View {
@@ -134,11 +115,6 @@ struct EntriesPage: View {
             .buttonStyle(.action)
             .sheet(isPresented: $showServerSetupView) {
                 ServerSetupNavigation()
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(settingsController)
-                    .environmentObject(tipController)
             }
         }
         .padding()
@@ -287,47 +263,22 @@ struct EntriesPage: View {
             switch item {
             case .edit(.folder(let folder)):
                 EditFolderNavigation(entriesController: entriesController, folder: folder)
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(settingsController)
-                    .environmentObject(tipController)
             case .edit(.password(let password)):
                 EditPasswordNavigation(entriesController: entriesController, password: password)
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(settingsController)
-                    .environmentObject(tipController)
             case .edit(.tag(let tag)):
                 EditTagNavigation(entriesController: entriesController, tag: tag)
-                    .environmentObject(autoFillController)
-                    .environmentObject(biometricAuthenticationController)
-                    .environmentObject(sessionController)
-                    .environmentObject(settingsController)
-                    .environmentObject(tipController)
             case .move(.folder(let folder)):
                 SelectFolderNavigation(entriesController: entriesController, entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), selectFolder: {
                     parent in
                     folder.parent = parent.id
                     entriesController.update(folder: folder)
                 })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
             case .move(.password(let password)):
                 SelectFolderNavigation(entriesController: entriesController, entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), selectFolder: {
                     parent in
                     password.folder = parent.id
                     entriesController.update(password: password)
                 })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
             case .move(.tag):
                 EmptyView()
             case .tag(.folder):
@@ -338,11 +289,6 @@ struct EntriesPage: View {
                     password.tags = validTags.map { $0.id } + invalidTags
                     entriesController.update(password: password)
                 })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
             case .tag(.tag):
                 EmptyView()
             }
@@ -378,7 +324,6 @@ struct EntriesPage: View {
             }, deletePassword: {
                 actionSheetItem = .delete(entry: .password(password))
             })
-            .deleteDisabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
         }
     }
     
@@ -394,7 +339,6 @@ struct EntriesPage: View {
                 }, deleteFolder: {
                     actionSheetItem = .delete(entry: .folder(folder))
                 })
-                .deleteDisabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 return AnyView(folderRow)
             case .password(let password):
                 let passwordRow = PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
@@ -406,7 +350,6 @@ struct EntriesPage: View {
                 }, deletePassword: {
                     actionSheetItem = .delete(entry: .password(password))
                 })
-                .deleteDisabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 return AnyView(passwordRow)
             case .tag(let tag):
                 let tagRow = TagRow(entriesController: entriesController, tag: tag, editTag: {
@@ -414,7 +357,6 @@ struct EntriesPage: View {
                 }, deleteTag: {
                     actionSheetItem = .delete(entry: .tag(tag))
                 })
-                .deleteDisabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
                 return AnyView(tagRow)
             }
         }
@@ -431,6 +373,12 @@ struct EntriesPage: View {
                 else {
                     Button("_settings") {
                         showSettingsView = true
+                    }
+                    .sheet(isPresented: $showSettingsView) {
+                        SettingsNavigation(updateOfflineData: {
+                            entriesController.updateOfflineContainers()
+                            entriesController.updateAutoFillCredentials()
+                        })
                     }
                 }
             }
@@ -581,7 +529,6 @@ struct EntriesPage: View {
             }
         }
         .accessibility(identifier: "filterSortMenu")
-        .onChange(of: entriesController.filterBy, perform: didChange)
     }
     
     private func createMenu() -> some View {
@@ -616,13 +563,6 @@ struct EntriesPage: View {
     private func solveChallenge() {
         if !challengePassword.isEmpty {
             sessionController.solveChallenge(password: challengePassword, store: storeChallengePassword)
-        }
-    }
-    
-    private func didChange(filterBy: EntriesController.Filter) {
-        if !folderController.folder.isBaseFolder || folderController.tag != nil,
-           filterBy != .folders {
-            presentationMode.wrappedValue.dismiss()
         }
     }
     

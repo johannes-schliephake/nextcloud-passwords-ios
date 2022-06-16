@@ -10,10 +10,7 @@ struct PasswordDetailPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var autoFillController: AutoFillController
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
-    @EnvironmentObject private var settingsController: SettingsController
-    @EnvironmentObject private var tipController: TipController
     
     @AppStorage("showMetadata", store: Configuration.userDefaults) private var showMetadata = Configuration.defaults["showMetadata"] as! Bool // swiftlint:disable:this force_cast
     @State private var favicon: UIImage?
@@ -43,20 +40,13 @@ struct PasswordDetailPage: View {
                         }
                     }
                 }
-                .onChange(of: sessionController.state) {
-                    state in
-                    if state.isChallengeAvailable {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }
                 .onReceive(NotificationCenter.default.publisher(for: Notification.Name("deletePassword"), object: password)) {
                     _ in
+                    presentationMode.wrappedValue.dismiss()
+                    
                     /// Clear password detail page on iPad when password was deleted (SwiftUI doesn't close view when NavigationLink is removed)
                     /// This has to be done with a notification because a password can also be deleted from the EntriesPage
                     passwordDeleted = true
-                    
-                    /// Manually dismiss password detail page for iOS 14
-                    presentationMode.wrappedValue.dismiss()
                 }
         }
     }
@@ -84,11 +74,6 @@ struct PasswordDetailPage: View {
         }
         .sheet(isPresented: $showEditPasswordView, content: {
             EditPasswordNavigation(entriesController: entriesController, password: password)
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
         })
     }
     
@@ -249,11 +234,6 @@ struct PasswordDetailPage: View {
                     }
                 }
             }
-            .environmentObject(autoFillController)
-            .environmentObject(biometricAuthenticationController)
-            .environmentObject(sessionController)
-            .environmentObject(settingsController)
-            .environmentObject(tipController)
         }
     }
     
@@ -334,11 +314,6 @@ struct PasswordDetailPage: View {
                 password.tags = validTags.map { $0.id } + invalidTags
                 entriesController.update(password: password)
             })
-            .environmentObject(autoFillController)
-            .environmentObject(biometricAuthenticationController)
-            .environmentObject(sessionController)
-            .environmentObject(settingsController)
-            .environmentObject(tipController)
         }
     }
     

@@ -4,7 +4,6 @@ import SwiftUI
 struct SelectTagsPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var sessionController: SessionController
     
     @StateObject private var selectTagsController: SelectTagsController
     @FocusState private var focusedField: FocusField?
@@ -24,12 +23,6 @@ struct SelectTagsPage: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
-                }
-            }
-            .onChange(of: sessionController.state) {
-                state in
-                if state.isChallengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
                 }
             }
     }
@@ -89,7 +82,7 @@ struct SelectTagsPage: View {
             Circle()
                 .strokeBorder(Color(.placeholderText), lineWidth: 1.5)
                 .frame(width: 15.8, height: 15.8)
-            TextField("_createTag" as LocalizedStringKey, text: $selectTagsController.tagLabel, onCommit: {
+            TextField("_createTag", text: $selectTagsController.tagLabel, onCommit: {
                 selectTagsController.addTag()
                 focusedField = .addTagLabel
             })

@@ -4,7 +4,6 @@ import SwiftUI
 struct EditTagPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var sessionController: SessionController
     
     @StateObject private var editTagController: EditTagController
     @FocusState private var focusedField: FocusField?
@@ -26,12 +25,6 @@ struct EditTagPage: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
-                }
-            }
-            .onChange(of: sessionController.state) {
-                state in
-                if state.isChallengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
                 }
             }
             .initialize(focus: $focusedField, with: editTagController.tag.id.isEmpty ? .tagLabel : nil)

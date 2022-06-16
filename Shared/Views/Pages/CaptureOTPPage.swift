@@ -7,7 +7,6 @@ struct CaptureOTPPage: View {
     let capture: (OTP) -> Void
     
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var sessionController: SessionController
     
     @State private var showErrorAlert = false
     @State private var isTorchActive = false
@@ -28,12 +27,6 @@ struct CaptureOTPPage: View {
                        videoCaptureDevice.isTorchAvailable {
                         torchToggle(videoCaptureDevice: videoCaptureDevice)
                     }
-                }
-            }
-            .onChange(of: sessionController.state) {
-                state in
-                if state.isChallengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
                 }
             }
     }

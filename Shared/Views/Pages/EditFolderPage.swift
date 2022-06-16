@@ -4,11 +4,6 @@ import SwiftUI
 struct EditFolderPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var autoFillController: AutoFillController
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    @EnvironmentObject private var sessionController: SessionController
-    @EnvironmentObject private var settingsController: SettingsController
-    @EnvironmentObject private var tipController: TipController
     
     @StateObject private var editFolderController: EditFolderController
     @FocusState private var focusedField: FocusField?
@@ -31,12 +26,6 @@ struct EditFolderPage: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
-                }
-            }
-            .onChange(of: sessionController.state) {
-                state in
-                if state.isChallengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
                 }
             }
             .initialize(focus: $focusedField, with: editFolderController.folder.id.isEmpty ? .folderLabel : nil)
@@ -90,11 +79,6 @@ struct EditFolderPage: View {
                     parent in
                     editFolderController.folderParent = parent.id
                 })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
             }
         }
     }

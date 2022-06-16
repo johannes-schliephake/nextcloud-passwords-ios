@@ -4,7 +4,6 @@ import SwiftUI
 struct EditOTPPage: View {
     
     @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var sessionController: SessionController
     
     @StateObject private var editOtpController: EditOTPController
     @FocusState private var focusedField: FocusField?
@@ -28,12 +27,6 @@ struct EditOTPPage: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
-                }
-            }
-            .onChange(of: sessionController.state) {
-                state in
-                if state.isChallengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
                 }
             }
             .initialize(focus: $focusedField, with: editOtpController.otp.secret.isEmpty ? .otpSecret : nil)
