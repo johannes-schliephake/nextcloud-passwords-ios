@@ -64,7 +64,7 @@ extension String {
         var scores = searchWords.map {
             searchWord in
             stringWords.map {
-                stringWord -> Double in
+                stringWord in
                 stringWord.score(word: searchWord, penalty: penalty)
             }
         }

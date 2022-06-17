@@ -185,7 +185,7 @@ struct OTP: Equatable, Hashable {
         Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()
             .flatMap {
-                date -> AnyPublisher<Void, Never> in
+                date in
                 let delay = 1 - date.timeIntervalSince1970.truncatingRemainder(dividingBy: 1)
                 return Just(())
                     .delay(for: DispatchQueue.SchedulerTimeType.Stride(floatLiteral: delay), scheduler: DispatchQueue.main)

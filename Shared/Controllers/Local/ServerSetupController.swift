@@ -36,7 +36,7 @@ final class ServerSetupController: ObservableObject {
                 AuthenticationChallengeController.default.clearAcceptedCertificateHash()
             })
             .map {
-                url -> URLRequest in
+                url in
                 let loginFlowUrl = url.appendingPathComponent("index.php/login/v2")
                 var request = URLRequest(url: loginFlowUrl)
                 request.httpMethod = "POST"
@@ -46,7 +46,7 @@ final class ServerSetupController: ObservableObject {
                 [weak self] request in
                 NetworkClient.default.dataTaskPublisher(for: request)
                     .compactMap {
-                        [weak self] result -> Data? in
+                        [weak self] result in
                         guard let serverAddress = self?.serverAddress,
                               let testUrl = URL(string: serverAddress)?.appendingPathComponent("index.php/login/v2"),
                               testUrl == result.response.url else {
