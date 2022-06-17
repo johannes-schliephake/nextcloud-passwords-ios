@@ -77,8 +77,8 @@ struct CaptureOTPPage: View {
         return OTP(from: url)
     }
     
-    private func finishCapture(_ result: OTP?) {
-        guard let otp = result else {
+    private func finishCapture(_ otp: OTP?) {
+        guard let otp else {
             showErrorAlert = true
             return
         }

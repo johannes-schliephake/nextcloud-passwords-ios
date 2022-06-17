@@ -34,7 +34,7 @@ struct ShareOTPPage: View {
     private func qrCode() -> some View {
         HStack {
             Spacer()
-            if let qrCodeImage = qrCodeImage {
+            if let qrCodeImage {
                 Image(uiImage: qrCodeImage)
                     .interpolation(.none)
                     .resizable()

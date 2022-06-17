@@ -100,7 +100,7 @@ final class EntriesController: ObservableObject {
     }
     
     private func requestEntries(session: Session?) {
-        guard let session = session else {
+        guard let session else {
             state = .loading
             folders = nil
             passwords = nil
@@ -145,8 +145,8 @@ final class EntriesController: ObservableObject {
     }
     
     private func refresh(_: Notification) {
-        if let fetchOnlineEntriesDate = onlineEntriesFetchDate {
-            guard fetchOnlineEntriesDate.advanced(by: 5 * 60) < Date() else {
+        if let onlineEntriesFetchDate {
+            guard onlineEntriesFetchDate.advanced(by: 5 * 60) < Date() else {
                 return
             }
         }
@@ -167,7 +167,7 @@ final class EntriesController: ObservableObject {
             promise in
             ListFoldersRequest(session: session).send {
                 folders in
-                guard let folders = folders else {
+                guard let folders else {
                     promise(.failure(.requestError))
                     return
                 }
@@ -178,7 +178,7 @@ final class EntriesController: ObservableObject {
             promise in
             ListPasswordsRequest(session: session).send {
                 passwords in
-                guard let passwords = passwords else {
+                guard let passwords else {
                     promise(.failure(.requestError))
                     return
                 }
@@ -189,7 +189,7 @@ final class EntriesController: ObservableObject {
             promise in
             ListTagsRequest(session: session).send {
                 tags in
-                guard let tags = tags else {
+                guard let tags else {
                     promise(.failure(.requestError))
                     return
                 }
@@ -233,7 +233,7 @@ final class EntriesController: ObservableObject {
             let entries = try? Crypto.AES256.decrypt(offlineContainers: offlineContainers, key: key)
             
             DispatchQueue.main.async {
-                guard let entries = entries else {
+                guard let entries else {
                     CoreData.default.clear(type: OfflineContainer.self)
                     self?.merge(folders: [], passwords: [], tags: [], offline: true)
                     return
@@ -425,7 +425,7 @@ final class EntriesController: ObservableObject {
         ASCredentialIdentityStore.shared.getState {
             [weak self] state in
             guard state.isEnabled,
-                  let self = self else {
+                  let self else {
                 return
             }
             if Configuration.userDefaults.bool(forKey: "storeOffline"),
@@ -472,14 +472,14 @@ final class EntriesController: ObservableObject {
         
         CreateFolderRequest(session: session, folder: folder).send {
             response in
-            guard let response = response else {
+            guard let response else {
                 folder.state = .creationFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createFolderErrorMessage".localized)
                 return
             }
             ShowFolderRequest(session: session, id: response.id).send {
                 response in
-                guard let response = response else {
+                guard let response else {
                     folder.state = .creationFailed
                     UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createFolderErrorMessage".localized)
                     return
@@ -501,14 +501,14 @@ final class EntriesController: ObservableObject {
         
         CreatePasswordRequest(session: session, password: password).send {
             [weak self] response in
-            guard let response = response else {
+            guard let response else {
                 password.state = .creationFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
                 return
             }
             ShowPasswordRequest(session: session, id: response.id).send {
                 [weak self] response in
-                guard let response = response else {
+                guard let response else {
                     password.state = .creationFailed
                     UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createPasswordErrorMessage".localized)
                     return
@@ -531,14 +531,14 @@ final class EntriesController: ObservableObject {
         
         CreateTagRequest(session: session, tag: tag).send {
             response in
-            guard let response = response else {
+            guard let response else {
                 tag.state = .creationFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createTagErrorMessage".localized)
                 return
             }
             ShowTagRequest(session: session, id: response.id).send {
                 response in
-                guard let response = response else {
+                guard let response else {
                     tag.state = .creationFailed
                     UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_createTagErrorMessage".localized)
                     return
@@ -559,14 +559,14 @@ final class EntriesController: ObservableObject {
         
         UpdateFolderRequest(session: session, folder: folder).send {
             response in
-            guard let response = response else {
+            guard let response else {
                 folder.state = .updateFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editFolderErrorMessage".localized)
                 return
             }
             ShowFolderRequest(session: session, id: response.id).send {
                 response in
-                guard let response = response else {
+                guard let response else {
                     folder.state = .updateFailed
                     UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editFolderErrorMessage".localized)
                     return
@@ -586,14 +586,14 @@ final class EntriesController: ObservableObject {
         
         UpdatePasswordRequest(session: session, password: password).send {
             [weak self] response in
-            guard let response = response else {
+            guard let response else {
                 password.state = .updateFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
                 return
             }
             ShowPasswordRequest(session: session, id: response.id).send {
                 [weak self] response in
-                guard let response = response else {
+                guard let response else {
                     password.state = .updateFailed
                     UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editPasswordErrorMessage".localized)
                     return
@@ -614,14 +614,14 @@ final class EntriesController: ObservableObject {
         
         UpdateTagRequest(session: session, tag: tag).send {
             response in
-            guard let response = response else {
+            guard let response else {
                 tag.state = .updateFailed
                 UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editTagErrorMessage".localized)
                 return
             }
             ShowTagRequest(session: session, id: response.id).send {
                 response in
-                guard let response = response else {
+                guard let response else {
                     tag.state = .updateFailed
                     UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_editTagErrorMessage".localized)
                     return
@@ -635,8 +635,8 @@ final class EntriesController: ObservableObject {
         folder.state = .deleting
         
         guard let session = SessionController.default.session,
-              let folders = folders,
-              let passwords = passwords else {
+              let folders,
+              let passwords else {
             folder.state = .deletionFailed
             return
         }
@@ -721,9 +721,9 @@ final class EntriesController: ObservableObject {
     }
     
     func processEntries(folder: Folder, tag: Tag?, searchTerm: String, defaultSorting: Sorting?) -> [Entry]? {
-        guard var passwords = passwords,
-              var folders = folders,
-              var tags = tags else {
+        guard var passwords,
+              var folders,
+              var tags else {
             return nil
         }
         let searchTerm = searchTerm.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -808,7 +808,7 @@ final class EntriesController: ObservableObject {
                 passwords = passwords.filter { $0.isDescendentOf(folder: folder, in: folders) }
             }
         case .tags:
-            if let tag = tag {
+            if let tag {
                 passwords = passwords.filter { $0.tags.contains(tag.id) }
             }
             else if searchTerm.isEmpty {
@@ -910,8 +910,8 @@ final class EntriesController: ObservableObject {
     }
     
     func processSuggestions(serviceURLs: [URL]?) -> [Password]? {
-        guard let passwords = passwords,
-              let serviceURLs = serviceURLs else {
+        guard let passwords,
+              let serviceURLs else {
             return nil
         }
         

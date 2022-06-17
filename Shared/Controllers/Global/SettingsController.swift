@@ -25,7 +25,7 @@ final class SettingsController: ObservableObject {
     }
     
     private func requestSettings(session: Session?) {
-        guard let session = session else {
+        guard let session else {
             settings = nil
             settingsFetchDate = nil
             Crypto.AES256.removeKey(named: "settingsKey")
@@ -38,7 +38,7 @@ final class SettingsController: ObservableObject {
     }
     
     private func refresh(_: Notification) {
-        if let settingsFetchDate = settingsFetchDate {
+        if let settingsFetchDate {
             guard settingsFetchDate.advanced(by: 5 * 60) < Date() else {
                 return
             }
@@ -55,7 +55,7 @@ final class SettingsController: ObservableObject {
         
         ListSettingsRequest(session: session).send {
             [weak self] settings in
-            guard let settings = settings else {
+            guard let settings else {
                 self?.settingsFetchDate = nil
                 return
             }
@@ -81,7 +81,7 @@ final class SettingsController: ObservableObject {
             let key = Crypto.AES256.getKey(named: "settingsKey")
             let settings = try? Crypto.AES256.decrypt(offlineSettings: offlineSettings, key: key)
             
-            guard let settings = settings else {
+            guard let settings else {
                 Configuration.userDefaults.removeObject(forKey: "settings")
                 return
             }

@@ -22,7 +22,7 @@ struct Initialize<Value: Hashable>: ViewModifier {
     }
     
     private func initialize() {
-        guard let initial = initial,
+        guard let initial,
               !didInitialize else {
             return
         }

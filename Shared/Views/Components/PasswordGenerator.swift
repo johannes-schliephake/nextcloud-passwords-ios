@@ -112,7 +112,7 @@ struct PasswordGenerator: View {
         PasswordServiceRequest(session: session, strength: generatorStrength, numbers: generatorNumbers, special: generatorSpecial).send {
             password in
             showProgressView = false
-            guard let password = password else {
+            guard let password else {
                 showPasswordServiceErrorAlert = true
                 return
             }

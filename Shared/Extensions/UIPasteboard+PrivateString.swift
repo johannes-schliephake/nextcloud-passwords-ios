@@ -8,7 +8,7 @@ extension UIPasteboard {
             string
         }
         set {
-            guard let newValue = newValue else {
+            guard let newValue else {
                 return
             }
             UIPasteboard.general.setItems([[UIPasteboard.typeAutomatic: newValue]], options: [.localOnly: true, .expirationDate: Date(timeIntervalSinceNow: 60)])

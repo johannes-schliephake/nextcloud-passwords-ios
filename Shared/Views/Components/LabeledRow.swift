@@ -130,13 +130,13 @@ struct LabeledRow: View {
     
     private func labeledStack() -> some View {
         VStack(alignment: .leading) {
-            if let labelKey = labelKey {
+            if let labelKey {
                 Text(labelKey)
                     .font(.subheadline)
                     .foregroundColor(.gray)
                 Spacer()
             }
-            else if let labelString = labelString,
+            else if let labelString,
                     !labelString.isEmpty {
                 Text(labelString)
                     .font(.subheadline)

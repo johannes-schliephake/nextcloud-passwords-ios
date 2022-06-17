@@ -9,7 +9,7 @@ extension URL {
         }
         
         /// Prepare host names to avoid common matches
-        guard var host = host,
+        guard var host,
               var searchHost = searchUrl.host else {
             return 0.0
         }

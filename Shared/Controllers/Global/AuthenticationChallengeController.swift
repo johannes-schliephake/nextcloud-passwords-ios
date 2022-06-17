@@ -10,7 +10,7 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
     
     private var acceptedCertificateHash: String? {
         didSet {
-            guard let acceptedCertificateHash = acceptedCertificateHash else {
+            guard let acceptedCertificateHash else {
                 Keychain.default.remove(key: "acceptedCertificateHash")
                 return
             }

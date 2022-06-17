@@ -11,7 +11,7 @@ extension UIAlertController {
             _ in
             dismissHandler?()
         }))
-        if let confirmText = confirmText {
+        if let confirmText {
             alertController.addAction(UIAlertAction(title: confirmText, style: destructive ? .destructive : .default, handler: {
                 _ in
                 confirmHandler?()

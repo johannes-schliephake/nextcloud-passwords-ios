@@ -30,7 +30,7 @@ struct OTPDisplay<Content: View>: View {
                 Circle()
                     .stroke(Color(.tertiarySystemGroupedBackground), lineWidth: 1.5)
                     .frame(width: 18, height: 18)
-                if let totpAge = totpAge {
+                if let totpAge {
                     Circle()
                         .trim(from: 0, to: 1 - totpAge / Double(otp.period))
                         .stroke(style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
@@ -72,7 +72,7 @@ struct OTPDisplay<Content: View>: View {
     }
     
     private func updateTotp(_ totp: OTP, date: Date?, isInitial: Bool = false) {
-        guard let date = date else {
+        guard let date else {
             totpAge = nil
             return
         }

@@ -35,7 +35,7 @@ struct MainView: View {
     // MARK: Functions
     
     private func didChange(transactionState: SKPaymentTransactionState?) {
-        guard let transactionState = transactionState else {
+        guard let transactionState else {
             return
         }
         switch transactionState {
