@@ -81,6 +81,7 @@ struct SettingsPage: View {
                 Text("_providerInstructionsMessage")
                     .font(.footnote)
                     .foregroundColor(.gray)
+                    .monospacedDigit()
             }
         }
         .listRowBackground(Color(UIColor.systemGroupedBackground))

@@ -1012,7 +1012,17 @@ extension EntriesPage {
                             current, accessoryView in
                             Text((current ?? "").segmented)
                                 .foregroundColor(.primary)
-                                .font(.system(.body, design: .monospaced))
+                                .apply {
+                                    view in
+                                    if #available(iOS 16, *) {
+                                        view
+                                            .monospaced()
+                                    }
+                                    else {
+                                        view
+                                            .font(.system(.body, design: .monospaced))
+                                    }
+                                }
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 4)
                                 .background(

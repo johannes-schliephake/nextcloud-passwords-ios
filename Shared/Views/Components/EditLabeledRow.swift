@@ -187,7 +187,17 @@ struct EditLabeledRow: View {
                 if hideSecret {
                     ZStack(alignment: .leading) {
                         TextField("", text: .constant(""))
-                            .font(.system(.body, design: .monospaced))
+                            .apply {
+                                view in
+                                if #available(iOS 16, *) {
+                                    view
+                                        .monospaced()
+                                }
+                                else {
+                                    view
+                                        .font(.system(.body, design: .monospaced))
+                                }
+                            }
                             .disabled(true)
                             .hidden()
                         SecureField("-", text: $stringValue)
@@ -196,7 +206,17 @@ struct EditLabeledRow: View {
                 }
                 else {
                     TextField("-", text: $stringValue)
-                        .font(.system(.body, design: .monospaced))
+                        .apply {
+                            view in
+                            if #available(iOS 16, *) {
+                                view
+                                    .monospaced()
+                            }
+                            else {
+                                view
+                                    .font(.system(.body, design: .monospaced))
+                            }
+                        }
                         .keyboardType(.alphabet)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
@@ -215,7 +235,17 @@ struct EditLabeledRow: View {
                     .disableAutocorrection(true)
             case .pin:
                 TextField("-", text: $stringValue)
-                    .font(.system(.body, design: .monospaced))
+                    .apply {
+                        view in
+                        if #available(iOS 16, *) {
+                            view
+                                .monospaced()
+                        }
+                        else {
+                            view
+                                .font(.system(.body, design: .monospaced))
+                        }
+                    }
                     .keyboardType(.numberPad)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
