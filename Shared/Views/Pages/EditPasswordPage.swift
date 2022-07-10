@@ -1,4 +1,5 @@
 import SwiftUI
+import PhotosUI
 
 
 struct EditPasswordPage: View {
@@ -13,6 +14,7 @@ struct EditPasswordPage: View {
     @State private var editMode = false
     @State private var sheetItem: SheetItem?
     @State private var showAboutOtpsTooltip = false
+    @State private var showPhotosPicker = false
     @State private var showDeleteAlert = false
     @State private var showCancelAlert = false
     
@@ -89,6 +91,20 @@ struct EditPasswordPage: View {
                 applyAndDismiss()
             }
         }
+        .apply {
+            view in
+            if #available(iOS 16, *) {
+                view
+                    .photosPicker(isPresented: $showPhotosPicker, selection: Binding(get: {
+                        nil
+                    }, set: { selection in
+                        guard let selection else {
+                            return
+                        }
+                        editPasswordController.extractOtp(from: selection)
+                    }), matching: .images)
+            }
+        }
         .sheet(item: $sheetItem) {
             item in
             switch item {
@@ -103,9 +119,11 @@ struct EditPasswordPage: View {
                     editPasswordController.passwordOtp = otp
                 }
             case .detectQrCode:
-                ImagePicker {
-                    image in
-                    editPasswordController.extractOtp(from: image)
+                if #unavailable(iOS 16) {
+                    ImagePicker {
+                        image in
+                        editPasswordController.extractOtp(from: image)
+                    }
                 }
             case .selectTags:
                 SelectTagsNavigation(entriesController: editPasswordController.entriesController, temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
@@ -206,7 +224,12 @@ struct EditPasswordPage: View {
                 }
                 .disabled(UIApplication.isExtension)
                 Button {
-                    sheetItem = .detectQrCode
+                    if #available(iOS 16, *) {
+                        showPhotosPicker = true
+                    }
+                    else {
+                        sheetItem = .detectQrCode
+                    }
                 }
                 label: {
                     Label("_detectQrCodeInPicture", systemImage: "photo")

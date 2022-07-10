@@ -77,7 +77,7 @@ struct EntriesPage: View {
             return "_tags".localized
         case (.otps, true, nil):
             return "_otps".localized
-        case (_, _, .some(let tag)):
+        case (_, _, let tag?):
             return tag.label
         case (_, false, _):
             return folderController.folder.label
