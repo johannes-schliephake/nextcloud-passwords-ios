@@ -48,38 +48,41 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
     }
     
     private func handler(didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        /// Check certificate and calculate SHA-256 if invalid
-        guard let serverTrust = challenge.protectionSpace.serverTrust else {
-            completionHandler(.performDefaultHandling, nil)
-            return
-        }
-        if SecTrustEvaluateWithError(serverTrust, nil) {
-            completionHandler(.performDefaultHandling, nil)
-            return
-        }
-        guard let certificateChain = SecTrustCopyCertificateChain(serverTrust) as? [SecCertificate],
-              let certificate = certificateChain.first else {
-            completionHandler(.performDefaultHandling, nil)
-            return
-        }
-        let certificateData = SecCertificateCopyData(certificate) as Data
-        let certificateHash = Crypto.SHA256.hash(certificateData, humanReadable: true)
-        
-        /// Check certificate hash against accepted hash
-        if certificateHash == acceptedCertificateHash {
-            completionHandler(.useCredential, URLCredential(trust: serverTrust))
-            return
-        }
-        
-        /// Add data needed for certificate confirmation
-        let certificateConfirmationRequest = CertificateConfirmationRequest(hash: certificateHash, accept: {
-            completionHandler(.useCredential, URLCredential(trust: serverTrust))
-        }, deny: {
-            completionHandler(.performDefaultHandling, nil)
-        })
-        DispatchQueue.main.async {
-            [self] in
-            certificateConfirmationRequests.append(certificateConfirmationRequest)
+        DispatchQueue.global(qos: .userInitiated).async {
+            [weak self] in
+            
+            /// Check certificate and calculate SHA-256 if invalid
+            guard let serverTrust = challenge.protectionSpace.serverTrust else {
+                completionHandler(.performDefaultHandling, nil)
+                return
+            }
+            if SecTrustEvaluateWithError(serverTrust, nil) {
+                completionHandler(.performDefaultHandling, nil)
+                return
+            }
+            guard let certificateChain = SecTrustCopyCertificateChain(serverTrust) as? [SecCertificate],
+                  let certificate = certificateChain.first else {
+                completionHandler(.performDefaultHandling, nil)
+                return
+            }
+            let certificateData = SecCertificateCopyData(certificate) as Data
+            let certificateHash = Crypto.SHA256.hash(certificateData, humanReadable: true)
+            
+            /// Check certificate hash against accepted hash
+            if certificateHash == self?.acceptedCertificateHash {
+                completionHandler(.useCredential, URLCredential(trust: serverTrust))
+                return
+            }
+            
+            /// Add data needed for certificate confirmation
+            let certificateConfirmationRequest = CertificateConfirmationRequest(hash: certificateHash, accept: {
+                completionHandler(.useCredential, URLCredential(trust: serverTrust))
+            }, deny: {
+                completionHandler(.performDefaultHandling, nil)
+            })
+            DispatchQueue.main.async {
+                self?.certificateConfirmationRequests.append(certificateConfirmationRequest)
+            }
         }
     }
     
