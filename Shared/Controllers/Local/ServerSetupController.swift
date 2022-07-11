@@ -12,6 +12,7 @@ final class ServerSetupController: ObservableObject {
     
     init() {
         $serverAddress
+            .removeDuplicates()
             .handleEvents(receiveOutput: {
                 [weak self] _ in
                 self?.response = nil
