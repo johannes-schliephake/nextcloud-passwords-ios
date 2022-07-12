@@ -295,6 +295,13 @@ struct EditPasswordPage: View {
                         Image(systemName: customUserField.type.systemName)
                             .frame(minWidth: customFieldTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     }
+                    .apply {
+                        view in
+                        if #available(iOS 16, *) {
+                            view
+                                .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
+                        }
+                    }
                     Spacer()
                     VStack {
                         EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $customUserField.label)
