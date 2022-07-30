@@ -187,6 +187,7 @@ struct EditPasswordPage: View {
                         EmptyView()
                     }
                     .fixedSize()
+                    .tint(.primary)
                 }
             }
         }
@@ -389,6 +390,7 @@ struct EditPasswordPage: View {
                         EmptyView()
                     }
                     .fixedSize()
+                    .tint(.primary)
                 }
             }
         }
@@ -407,6 +409,7 @@ struct EditPasswordPage: View {
                         EmptyView()
                     }
                     .fixedSize()
+                    .tint(.primary)
                 }
             }
         }
