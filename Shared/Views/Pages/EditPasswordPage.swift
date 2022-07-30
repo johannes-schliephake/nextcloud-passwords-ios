@@ -367,11 +367,22 @@ struct EditPasswordPage: View {
                         Label("_addTags", systemImage: "tag")
                     }
                     else {
-                        FlowView(editPasswordController.passwordValidTags.sortedByLabel(), alignment: .leading) {
-                            tag in
-                            TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
+                        if #available(iOS 16, *) {
+                            FlowView(alignment: .leading) {
+                                ForEach(editPasswordController.passwordValidTags.sortedByLabel()) {
+                                    tag in
+                                    TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
+                                }
+                            }
+                            .padding(.vertical, 6)
                         }
-                        .padding(.vertical, 6)
+                        else {
+                            LegacyFlowView(editPasswordController.passwordValidTags.sortedByLabel(), alignment: .leading) {
+                                tag in
+                                TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
+                            }
+                            .padding(.vertical, 6)
+                        }
                     }
                     Spacer()
                     NavigationLink(destination: EmptyView()) {

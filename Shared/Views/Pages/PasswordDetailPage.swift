@@ -292,9 +292,19 @@ struct PasswordDetailPage: View {
         }) {
             if !validTags.isEmpty {
                 if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
-                    FlowView(validTags.sortedByLabel()) {
-                        tag in
-                        TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
+                    if #available(iOS 16, *) {
+                        FlowView {
+                            ForEach(validTags.sortedByLabel()) {
+                                tag in
+                                TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
+                            }
+                        }
+                    }
+                    else {
+                        LegacyFlowView(validTags.sortedByLabel()) {
+                            tag in
+                            TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
+                        }
                     }
                 }
                 else {
@@ -308,15 +318,31 @@ struct PasswordDetailPage: View {
                             .frame(width: 0, height: 0)
                         }
                         .hidden()
-                        FlowView(validTags.sortedByLabel()) {
-                            tag in
-                            Button {
-                                navigationSelection = .entries(tag: tag)
+                        if #available(iOS 16, *) {
+                            FlowView {
+                                ForEach(validTags.sortedByLabel()) {
+                                    tag in
+                                    Button {
+                                        navigationSelection = .entries(tag: tag)
+                                    }
+                                    label: {
+                                        TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
+                                    }
+                                    .buttonStyle(.borderless)
+                                }
                             }
-                            label: {
-                                TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
+                        }
+                        else {
+                            LegacyFlowView(validTags.sortedByLabel()) {
+                                tag in
+                                Button {
+                                    navigationSelection = .entries(tag: tag)
+                                }
+                                label: {
+                                    TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
+                                }
+                                .buttonStyle(.borderless)
                             }
-                            .buttonStyle(.borderless)
                         }
                     }
                 }
@@ -413,13 +439,29 @@ struct PasswordDetailPage: View {
                     if let folders = entriesController.folders {
                         Spacer()
                         labeledFootnote("_folder") {
-                            FlowView(password.ancestors(in: folders), spacing: 5, alignment: .trailing) {
-                                ancestor in
-                                HStack(spacing: 5) {
-                                    Text(ancestor.label)
-                                    if password.folder != ancestor.id {
-                                        Image(systemName: "chevron.forward")
-                                            .foregroundColor(.gray)
+                            if #available(iOS 16, *) {
+                                FlowView(spacing: 5, alignment: .trailing) {
+                                    ForEach(password.ancestors(in: folders)) {
+                                        ancestor in
+                                        HStack(spacing: 5) {
+                                            Text(ancestor.label)
+                                            if password.folder != ancestor.id {
+                                                Image(systemName: "chevron.forward")
+                                                    .foregroundColor(.gray)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                LegacyFlowView(password.ancestors(in: folders), spacing: 5, alignment: .trailing) {
+                                    ancestor in
+                                    HStack(spacing: 5) {
+                                        Text(ancestor.label)
+                                        if password.folder != ancestor.id {
+                                            Image(systemName: "chevron.forward")
+                                                .foregroundColor(.gray)
+                                        }
                                     }
                                 }
                             }
