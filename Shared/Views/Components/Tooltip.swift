@@ -36,9 +36,8 @@ private struct Tooltip<Content: View>: View {
                     }
                     else {
                         ScrollView(contentHeight - 0.1 > containerHeight ? .vertical : []) {
-                            Group { // Group fixes layout issues on iOS 15
-                                view
-                            }
+                            view
+                                .apply { $0 } // Apply fixes layout issues on iOS 15
                         }
                     }
                 }
