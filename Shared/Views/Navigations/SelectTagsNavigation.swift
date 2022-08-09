@@ -16,6 +16,13 @@ struct SelectTagsNavigation: View {
             SelectTagsPage(entriesController: entriesController, temporaryEntry: temporaryEntry, selectTags: selectTags)
         }
         .showColumns(false)
+        .apply {
+            view in
+            if #available(iOS 16, *) {
+                view
+                    .scrollDismissesKeyboard(.interactively)
+            }
+        }
         .occlude(!biometricAuthenticationController.isUnlocked)
     }
     

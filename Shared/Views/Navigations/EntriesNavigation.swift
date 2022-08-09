@@ -15,6 +15,13 @@ struct EntriesNavigation: View {
             EntriesPage(entriesController: entriesController)
         }
         .showColumns(sessionController.session != nil && !sessionController.state.isChallengeAvailable)
+        .apply {
+            view in
+            if #available(iOS 16, *) {
+                view
+                    .scrollDismissesKeyboard(.interactively)
+            }
+        }
         .occlude(!biometricAuthenticationController.isUnlocked)
     }
     

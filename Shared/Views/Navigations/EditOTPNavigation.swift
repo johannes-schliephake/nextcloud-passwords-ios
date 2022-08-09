@@ -15,6 +15,13 @@ struct EditOTPNavigation: View {
             EditOTPPage(otp: otp, updateOtp: updateOtp)
         }
         .showColumns(false)
+        .apply {
+            view in
+            if #available(iOS 16, *) {
+                view
+                    .scrollDismissesKeyboard(.interactively)
+            }
+        }
         .occlude(!biometricAuthenticationController.isUnlocked)
     }
     
