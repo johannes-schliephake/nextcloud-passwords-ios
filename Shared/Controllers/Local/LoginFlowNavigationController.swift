@@ -45,6 +45,31 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
             .compactMap { $0 }
             .map { Session(server: $0.server, user: $0.loginName, password: $0.appPassword) }
             .receive(on: DispatchQueue.main)
+            .zip(Future<HTTPCookie?, Never> {
+                promise in
+                webView.configuration.websiteDataStore.httpCookieStore.getAllCookies {
+                    cookies in
+                    let flowSessionCookie = cookies.first { $0.name == "nc_session_id" }
+                    promise(.success(flowSessionCookie))
+                }
+            })
+            .map {
+                appSession, flowSessionCookie in
+                let webSession = flowSessionCookie.map { Session(server: appSession.server, user: appSession.user, password: $0.value) }
+                return (appSession, webSession)
+            }
+            .flatMap {
+                (appSession: Session, webSession: Session?) -> AnyPublisher<Session, Never> in
+                guard let webSession = webSession else {
+                    return Just(appSession)
+                        .eraseToAnyPublisher()
+                }
+                return DeleteAppPasswordOCSRequest(session: webSession).publisher
+                    .replaceError(with: ())
+                    .map { appSession }
+                    .receive(on: DispatchQueue.main)
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
         
         SessionController.default.attachSessionPublisher(sessionPublisher)
