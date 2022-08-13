@@ -241,6 +241,9 @@
 		DD72AE1928A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */; };
 		DD72AE1A28A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */; };
 		DD72AE1B28A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */; };
+		DD72AE1D28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */; };
+		DD72AE1E28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */; };
+		DD72AE1F28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */; };
 		DD889A1B27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */; };
 		DD889A1C27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */; };
 		DD889A1D27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */; };
@@ -647,6 +650,7 @@
 		DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledRow.swift; sourceTree = "<group>"; };
 		DD718F2727B568E200F85780 /* String+Segmented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Segmented.swift"; sourceTree = "<group>"; };
 		DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAppPasswordOCSRequest.swift; sourceTree = "<group>"; };
+		DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Root.swift"; sourceTree = "<group>"; };
 		DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+OnSizeChange.swift"; sourceTree = "<group>"; };
 		DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceSpecificPadding.swift"; sourceTree = "<group>"; };
 		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
@@ -997,6 +1001,7 @@
 			isa = PBXGroup;
 			children = (
 				8F703BFB26245C6100CC7018 /* Array+Zip.swift */,
+				DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */,
 				8F7237992651468700832A88 /* Collection+Avg.swift */,
 				8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */,
 				DD0E59B427414EB5003D7D50 /* Color+Hex.swift */,
@@ -1556,6 +1561,7 @@
 				DDCE125C2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
 				8F55F71625727CB600E00B28 /* DeleteFolderRequest.swift in Sources */,
 				8F582BFE255EAD7000F1E3DA /* Keychain.swift in Sources */,
+				DD72AE1D28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */,
 				8F5637C62562C57800A0BF9D /* FaviconServiceRequest.swift in Sources */,
 				DDCE125F2741408D003912D0 /* ListTagsRequest.swift in Sources */,
 				8F57A5B6256267BF00BC1CA0 /* ListPasswordsRequest.swift in Sources */,
@@ -1705,6 +1711,7 @@
 				DDCE125D2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
 				8FC361BE25827E5200785371 /* SessionController.swift in Sources */,
 				8FBE43D5258D5A8C003F7F34 /* Label+ShowIcon.swift in Sources */,
+				DD72AE1E28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */,
 				8FC361B025827D3400785371 /* EntriesPage.swift in Sources */,
 				DDCE12602741408D003912D0 /* ListTagsRequest.swift in Sources */,
 				8F55D99F2582D0DE00CE4FC2 /* AutoFillController.swift in Sources */,
@@ -1851,6 +1858,7 @@
 				DDB169BF27D20CC200F4D752 /* Tag.swift in Sources */,
 				DDB169B927D20CC200F4D752 /* KeepaliveSessionRequest.swift in Sources */,
 				DDB1697E27D20CC100F4D752 /* RequestSessionRequest.swift in Sources */,
+				DD72AE1F28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */,
 				DDB1698227D20CC100F4D752 /* EditLabeledRow.swift in Sources */,
 				DDB169C227D20CC200F4D752 /* SearchBar.swift in Sources */,
 				DDB1697927D20CC100F4D752 /* FolderController.swift in Sources */,
