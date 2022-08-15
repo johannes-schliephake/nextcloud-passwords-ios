@@ -14,6 +14,17 @@ struct EditLabeledRow: View {
     @State private var numberStringValue: String
     private let isInt: Bool
     
+    @_disfavoredOverload init(type: LabeledRow.RowType, label: String? = nil, value: Binding<String>) {
+        self.type = type
+        labelKey = nil
+        self.labelString = label
+        _stringValue = value
+        _intValue = .constant(0)
+        bounds = nil
+        numberStringValue = ""
+        isInt = false
+    }
+    
     init(type: LabeledRow.RowType, label: LocalizedStringKey, value: Binding<String>) {
         self.type = type
         self.labelKey = label
@@ -25,21 +36,10 @@ struct EditLabeledRow: View {
         isInt = false
     }
     
-    init(type: LabeledRow.RowType, label: String, value: Binding<String>) {
-        self.type = type
+    @_disfavoredOverload init(label: String? = nil, value: Binding<Int>, bounds: ClosedRange<Int>? = nil) {
+        self.type = .text
         labelKey = nil
         self.labelString = label
-        _stringValue = value
-        _intValue = .constant(0)
-        bounds = nil
-        numberStringValue = ""
-        isInt = false
-    }
-    
-    init(label: LocalizedStringKey, value: Binding<Int>, bounds: ClosedRange<Int>? = nil) {
-        self.type = .text
-        self.labelKey = label
-        labelString = nil
         _stringValue = .constant("")
         _intValue = value
         self.bounds = bounds
@@ -47,10 +47,10 @@ struct EditLabeledRow: View {
         isInt = true
     }
     
-    init(label: String, value: Binding<Int>, bounds: ClosedRange<Int>? = nil) {
+    init(label: LocalizedStringKey, value: Binding<Int>, bounds: ClosedRange<Int>? = nil) {
         self.type = .text
-        labelKey = nil
-        self.labelString = label
+        self.labelKey = label
+        labelString = nil
         _stringValue = .constant("")
         _intValue = value
         self.bounds = bounds
@@ -136,8 +136,7 @@ struct EditLabeledRow: View {
                     .foregroundColor(.gray)
                 Spacer()
             }
-            else if let labelString = labelString,
-                    !labelString.isEmpty {
+            else if let labelString = labelString {
                 Text(labelString)
                     .font(.subheadline)
                     .foregroundColor(.gray)
