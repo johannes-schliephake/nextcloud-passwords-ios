@@ -179,7 +179,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     
     private func serviceSection() -> some View {
         Section(header: Text("_service")) {
-            EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $editPasswordController.passwordLabel)
+            EditLabeledRow(type: .text, label: "_name", value: $editPasswordController.passwordLabel)
                 .apply {
                     view in
                     if #available(iOS 15, *) {
@@ -188,7 +188,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                             .submitLabel(.next)
                     }
                 }
-            EditLabeledRow(type: .url, label: "_url" as LocalizedStringKey, value: $editPasswordController.passwordUrl)
+            EditLabeledRow(type: .url, label: "_url", value: $editPasswordController.passwordUrl)
                 .apply {
                     view in
                     if #available(iOS 15, *) {
@@ -202,7 +202,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
     
     private func accountSection() -> some View {
         Section(header: Text("_account")) {
-            EditLabeledRow(type: .email, label: "_username" as LocalizedStringKey, value: $editPasswordController.passwordUsername)
+            EditLabeledRow(type: .email, label: "_username", value: $editPasswordController.passwordUsername)
                 .apply {
                     view in
                     if #available(iOS 15, *) {
@@ -212,7 +212,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                     }
                 }
             HStack(spacing: 16) {
-                EditLabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: $editPasswordController.passwordPassword)
+                EditLabeledRow(type: .secret, label: "_password", value: $editPasswordController.passwordPassword)
                     .apply {
                         view in
                         if #available(iOS 15, *) {
@@ -353,7 +353,7 @@ struct EditPasswordPageFallback: View { /// This insanely dumb workaround (dupli
                     }
                     Spacer()
                     VStack {
-                        EditLabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: $customUserField.label)
+                        EditLabeledRow(type: .text, label: "_name", value: $customUserField.label)
                             .apply {
                                 view in
                                 if #available(iOS 15, *) {
