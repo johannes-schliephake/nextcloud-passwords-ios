@@ -218,7 +218,7 @@ struct PasswordDetailPage: View {
                     Divider()
                         .padding(.trailing, -100)
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("_duplicates")
+                        Text("_duplicates".localizedWithFallback) // TODO: find a better solution than localizedWithFallback
                             .font(.subheadline)
                             .bold()
                             .foregroundColor(.gray)
@@ -227,7 +227,7 @@ struct PasswordDetailPage: View {
                         Divider()
                             .padding(.trailing, -100)
                         if duplicates.isEmpty {
-                            Text("_duplicatesTrashMessage")
+                            Text("_duplicatesTrashMessage".localizedWithFallback) // TODO: find a better solution than localizedWithFallback
                                 .foregroundColor(.gray)
                                 .padding(.top, 15)
                         }
