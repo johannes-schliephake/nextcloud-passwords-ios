@@ -24,6 +24,10 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<true/>
+	<key>ITSEncryptionExportComplianceCode</key>
+	<string>fd90a828-520a-494d-8460-bb0f4f6d7764</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>nextcloud</string>
