@@ -109,7 +109,7 @@ struct SelectTagsPageFallback: View { /// This insanely dumb workaround (duplica
             Circle()
                 .strokeBorder(Color(.placeholderText), lineWidth: 1.5)
                 .frame(width: 15.8, height: 15.8)
-            TextField("_createTag" as LocalizedStringKey, text: $selectTagsController.tagLabel, onCommit: {
+            TextField("_createTag", text: $selectTagsController.tagLabel, onCommit: {
                 selectTagsController.addTag()
                 if #available(iOS 15, *) {
                     // focusedField = .addTagLabel

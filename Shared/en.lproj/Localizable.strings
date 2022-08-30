@@ -103,6 +103,10 @@
 /* Use the same wording Apple uses across iOS */
 "_done" = "Done";
 
+/* I.e. duplicates of a password */
+"_duplicates" = "Duplicates";
+"_duplicatesTrashMessage" = "All duplicates of this password are located in the trash.";
+
 /* I.e. end-to-end password */
 "_e2ePassword" = "E2E Password";
 

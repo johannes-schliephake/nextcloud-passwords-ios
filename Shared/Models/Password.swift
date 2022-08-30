@@ -383,6 +383,19 @@ extension Password: Codable {
 }
 
 
+extension Password: Hashable {
+    
+    static func == (lhs: Password, rhs: Password) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+}
+
+
 extension Password {
     
     enum StatusCode: String, Codable, Comparable {
@@ -462,6 +475,15 @@ extension Password {
             type == .data && label == CustomField.OtpKey
         }
         
+    }
+    
+}
+
+
+extension Array where Element == Password {
+    
+    func sortedByLabel() -> [Password] {
+        sorted { $0.label.compare($1.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
     }
     
 }

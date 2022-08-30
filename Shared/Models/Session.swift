@@ -39,6 +39,13 @@ final class Session: ObservableObject {
         invalidationReason == nil
     }
     
+    var hasAppPassword: Bool {
+        let humanReadableCharacters = "abcdefgijkmnopqrstwxyzABCDEFGHJKLMNPQRSTWXYZ23456789" /// Taken from https://github.com/nextcloud/server/blob/master/lib/public/Security/ISecureRandom.php
+        let segmentRegex = "[\(humanReadableCharacters)]{5}"
+        let appPasswordRegex = "^(\(segmentRegex)-){4}\(segmentRegex)$"
+        return password.range(of: appPasswordRegex, options: .regularExpression) != nil
+    }
+    
     init(server: String, user: String, password: String) {
         self.server = server
         self.user = user

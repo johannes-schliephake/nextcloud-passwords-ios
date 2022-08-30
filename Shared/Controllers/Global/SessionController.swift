@@ -28,27 +28,23 @@ final class SessionController: ObservableObject {
             Keychain.default.store(key: "password", value: session.password)
             
             session.$pendingRequestsAvailable
+                .filter { $0 }
                 .sink {
-                    [weak self] pendingRequestsAvailable in
-                    if pendingRequestsAvailable {
-                        self?.requestSession()
-                    }
+                    [weak self] _ in
+                    self?.requestSession()
                 }
                 .store(in: &subscriptions)
             session.$pendingCompletionsAvailable
+                .filter { $0 }
                 .sink {
-                    [weak self] pendingCompletionsAvailable in
-                    if pendingCompletionsAvailable {
-                        self?.requestKeychain()
-                    }
+                    [weak self] _ in
+                    self?.requestKeychain()
                 }
                 .store(in: &subscriptions)
             session.$invalidationReason
+                .compactMap { $0 }
                 .sink {
                     [weak self] invalidationReason in
-                    guard let invalidationReason = invalidationReason else {
-                        return
-                    }
                     self?.session = nil
                     switch invalidationReason {
                     case .logout:
@@ -83,6 +79,7 @@ final class SessionController: ObservableObject {
     }
     private var keepaliveTimer: Timer?
     private var subscriptions = Set<AnyCancellable>()
+    private var logoutSubscription: AnyCancellable?
     
     private init() {
         guard let server = Keychain.default.load(key: "server"),
@@ -269,8 +266,16 @@ final class SessionController: ObservableObject {
         guard let session = session else {
             return
         }
-        CloseSessionRequest(session: session).send { _ in AuthenticationChallengeController.default.clearAcceptedCertificateHash() }
-        session.invalidate(reason: .logout)
+        logoutSubscription = Future {
+            promise in
+            CloseSessionRequest(session: session).send { _ in promise(.success(())) }
+            session.invalidate(reason: .logout)
+        }
+        .flatMap {
+            DeleteAppPasswordOCSRequest(session: session).publisher
+                .replaceError(with: ())
+        }
+        .sink { AuthenticationChallengeController.default.clearAcceptedCertificateHash() }
     }
     
 }

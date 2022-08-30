@@ -136,10 +136,38 @@ struct PasswordDetailPage: View {
                 Image(systemName: "checkmark.shield.fill")
                     .font(.title)
                     .foregroundColor(.green)
-            case .outdated, .duplicate:
+            case .outdated:
                 Image(systemName: "exclamationmark.shield.fill")
                     .font(.title)
                     .foregroundColor(.yellow)
+            case .duplicate:
+                ZStack {
+                    if let duplicates = entriesController.passwords?.filter({ $0.password == password.password && $0.id != password.id }) {
+                        if #unavailable(iOS 15) {
+                            NavigationLink(destination: EmptyView()) { /// Fixes navigation bugs on iOS 14
+                                EmptyView()
+                            }
+                            .frame(width: 0, height: 0)
+                            .hidden()
+                        }
+                        ForEach(duplicates) {
+                            duplicate in
+                            NavigationLink("", tag: .duplicate(password: duplicate), selection: $navigationSelection) {
+                                PasswordDetailPage(entriesController: entriesController, password: duplicate, updatePassword: {
+                                    entriesController.update(password: duplicate)
+                                }, deletePassword: {
+                                    entriesController.delete(password: duplicate)
+                                })
+                            }
+                            .isDetailLink(true)
+                            .frame(width: 0, height: 0)
+                        }
+                        .hidden()
+                    }
+                    Image(systemName: "exclamationmark.shield.fill")
+                        .font(.title)
+                        .foregroundColor(.yellow)
+                }
             case .breached:
                 Image(systemName: "xmark.shield.fill")
                     .font(.title)
@@ -185,7 +213,54 @@ struct PasswordDetailPage: View {
                     }
                     .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
+                if password.statusCode == .duplicate,
+                   let duplicates = entriesController.passwords?.filter({ $0.password == password.password && $0.id != password.id }) {
+                    Divider()
+                        .padding(.trailing, -100)
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("_duplicates".localizedWithFallback) // TODO: find a better solution than localizedWithFallback
+                            .font(.subheadline)
+                            .bold()
+                            .foregroundColor(.gray)
+                            .padding(.top, 12)
+                            .padding(.bottom, 6)
+                        Divider()
+                            .padding(.trailing, -100)
+                        if duplicates.isEmpty {
+                            Text("_duplicatesTrashMessage".localizedWithFallback) // TODO: find a better solution than localizedWithFallback
+                                .foregroundColor(.gray)
+                                .padding(.top, 15)
+                        }
+                        else {
+                            ForEach(duplicates.sortedByLabel()) {
+                                duplicate in
+                                Button {
+                                    showPasswordStatusTooltip = false
+                                    navigationSelection = .duplicate(password: duplicate)
+                                }
+                                label: {
+                                    HStack {
+                                        PasswordRow(label: duplicate.label, username: duplicate.username, url: duplicate.url)
+                                            .padding(.vertical, 5.7)
+                                            .foregroundColor(.primary)
+                                        Spacer()
+                                        Image(systemName: "chevron.forward")
+                                            .font(.system(size: 13.5, weight: .semibold))
+                                            .foregroundColor(Color(.tertiaryLabel))
+                                    }
+                                }
+                                Divider()
+                                    .padding(.trailing, -100)
+                            }
+                        }
+                    }
+                }
             }
+            .environmentObject(autoFillController)
+            .environmentObject(biometricAuthenticationController)
+            .environmentObject(sessionController)
+            .environmentObject(settingsController)
+            .environmentObject(tipController)
         }
     }
     
@@ -288,15 +363,15 @@ struct PasswordDetailPage: View {
     
     private func serviceSection() -> some View {
         Section(header: Text("_service")) {
-            LabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: password.label, copiable: true)
-            LabeledRow(type: .url, label: "_url" as LocalizedStringKey, value: password.url, copiable: true)
+            LabeledRow(type: .text, label: "_name", value: password.label, copiable: true)
+            LabeledRow(type: .url, label: "_url", value: password.url, copiable: true)
         }
     }
     
     private func accountSection() -> some View {
         Section(header: Text("_account")) {
-            LabeledRow(type: .text, label: "_username" as LocalizedStringKey, value: password.username, copiable: true)
-            LabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: password.password, copiable: true)
+            LabeledRow(type: .text, label: "_username", value: password.username, copiable: true)
+            LabeledRow(type: .secret, label: "_password", value: password.password, copiable: true)
             if let otp = password.otp {
                 HStack {
                     OTPDisplay(otp: otp) {
@@ -307,7 +382,7 @@ struct PasswordDetailPage: View {
                     }
                     content: {
                         current, accessoryView in
-                        LabeledRow(type: .pin, label: "_otp" as LocalizedStringKey, value: current ?? "", copiable: true)
+                        LabeledRow(type: .pin, label: "_otp", value: current ?? "", copiable: true)
                         Spacer()
                         switch otp.type {
                         case .hotp:
@@ -511,6 +586,56 @@ extension PasswordDetailPage {
     private enum NavigationSelection: Hashable {
         
         case entries(tag: Tag)
+        case duplicate(password: Password)
+        
+    }
+    
+}
+
+
+extension PasswordDetailPage {
+    
+    private struct PasswordRow: View {
+        
+        let label: String
+        let username: String
+        let url: String
+        
+        @EnvironmentObject private var sessionController: SessionController
+        
+        @State private var favicon: UIImage?
+        
+        var body: some View {
+            HStack {
+                Image(uiImage: favicon ?? UIImage())
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                    .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
+                    .cornerRadius(3.75)
+                    .onAppear {
+                        requestFavicon()
+                    }
+                VStack(alignment: .leading) {
+                    Text(!label.isEmpty ? label : "-")
+                        .lineLimit(1)
+                    Text(!username.isEmpty ? username : "-")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .lineLimit(1)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        
+        // MARK: Functions
+        
+        private func requestFavicon() {
+            guard let domain = URL(string: url)?.host ?? URL(string: "https://\(url)")?.host,
+                  let session = sessionController.session else {
+                return
+            }
+            FaviconServiceRequest(session: session, domain: domain).send { favicon = $0 }
+        }
         
     }
     

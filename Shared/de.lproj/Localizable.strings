@@ -151,3 +151,7 @@
 "_username" = "Benutzername";
 "_valueCopied" = "Wert kopiert";
 "_version" = "Version";
+"_duplicatesTrashMessage" = "Alle Duplikate dieses Passworts befinden sich im Papierkorb.";
+
+/* I.e. duplicates of a password */
+"_duplicates" = "Duplikate";

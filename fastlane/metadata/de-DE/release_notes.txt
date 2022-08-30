@@ -1,6 +1,6 @@
-• Unterstützung für Einmalpasswörter (aktuell nur iOS)
-• Neu gestalteter Passwortmetadatenbereich
-• Verbesserter Passwortgenerator
-• Norwegische Übersetzung (Danke Allan Nordhøy!)
-• Katalanische Übersetzung (Danke Maite Guix!)
+• Liste der Passwortduplikate im Status-Tooltip
 • Fehlerbehebungen und Optimierungen
+
+Aus rechtlichen Gründen war die App seit über einem Jahr nicht mehr in Frankreich verfügbar. Nachdem die nötigen Genehmigungen eingeholt wurden, ist sie nun zurück! Die Änderungshistorie von v2.0 bis v2.6 listet alle neuen Funktionen auf.
+
+Dies ist sehr wahrscheinlich die letzte Version, die iOS 14 unterstützt. Bitte aktualisiere dein Gerät, um weiterhin Fehlerbehebungen, Sicherheitsverbesserungen und neue Funktionen zu erhalten. Alle Geräte, auf denen iOS 14 läuft, unterstützen auch iOS 15.

@@ -48,8 +48,8 @@ struct SettingsPage: View {
     
     private func credentialsSection(session: Session) -> some View {
         Section(header: Text("_credentials")) {
-            LabeledRow(type: .text, label: "_nextcloudServerAddress" as LocalizedStringKey, value: session.server)
-            LabeledRow(type: .text, label: "_username" as LocalizedStringKey, value: session.user)
+            LabeledRow(type: .text, label: "_nextcloudServerAddress", value: session.server)
+            LabeledRow(type: .text, label: "_username", value: session.user)
             if #available(iOS 15.0, *) {
                 Button(role: .destructive) {
                     showLogoutAlert = true
@@ -146,7 +146,7 @@ struct SettingsPage: View {
     
     private func aboutSection() -> some View {
         Section(header: Text("_about")) {
-            LabeledRow(type: .text, label: "_version" as LocalizedStringKey, value: Configuration.shortVersionString)
+            LabeledRow(type: .text, label: "_version", value: Configuration.shortVersionString)
             if let url = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios") {
                 Link(destination: url) {
                     Label("_sourceCode", systemImage: "curlybraces")

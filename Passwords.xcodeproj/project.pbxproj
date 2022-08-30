@@ -182,7 +182,6 @@
 		8FC361FF25828B0500785371 /* EntriesNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC361FB25828AE600785371 /* EntriesNavigation.swift */; };
 		8FCBF8BD25AE152500F75B33 /* ScreenshotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8BC25AE152500F75B33 /* ScreenshotGenerator.swift */; };
 		8FCBF8D925AE160B00F75B33 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8D725AE15E900F75B33 /* SnapshotHelper.swift */; };
-		8FE5BCFC258370E7007993F5 /* ProviderView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE5BCFA258370E7007993F5 /* ProviderView.storyboard */; };
 		DD0C2872276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
 		DD0C2873276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
 		DD0C28752766028500E3DAEF /* SelectTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28742766028500E3DAEF /* SelectTagsPage.swift */; };
@@ -239,6 +238,12 @@
 		DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
 		DD718F2827B568E200F85780 /* String+Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD718F2727B568E200F85780 /* String+Segmented.swift */; };
 		DD718F2927B568E200F85780 /* String+Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD718F2727B568E200F85780 /* String+Segmented.swift */; };
+		DD72AE1928A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */; };
+		DD72AE1A28A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */; };
+		DD72AE1B28A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */; };
+		DD72AE1D28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */; };
+		DD72AE1E28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */; };
+		DD72AE1F28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */; };
 		DD889A1B27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */; };
 		DD889A1C27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */; };
 		DD889A1D27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */; };
@@ -255,7 +260,6 @@
 		DDAE4A9127087E1D00088DD5 /* RefreshGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE4A8F27087E1D00088DD5 /* RefreshGesture.swift */; };
 		DDB1695527D1FCFF00F4D752 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */; };
 		DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */; };
-		DDB1695D27D1FCFF00F4D752 /* ExtensionView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDB1695B27D1FCFF00F4D752 /* ExtensionView.storyboard */; };
 		DDB1696127D1FCFF00F4D752 /* Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DDB1695327D1FCFF00F4D752 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DDB1696627D1FD2900F4D752 /* Clibsodium in Frameworks */ = {isa = PBXBuildFile; productRef = DDB1696527D1FD2900F4D752 /* Clibsodium */; };
 		DDB1696827D1FD2900F4D752 /* Sodium in Frameworks */ = {isa = PBXBuildFile; productRef = DDB1696727D1FD2900F4D752 /* Sodium */; };
@@ -402,6 +406,9 @@
 		DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE1261274140A9003912D0 /* ShowTagRequest.swift */; };
 		DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
 		DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
+		DDD0E69428BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD0E69328BD5D880060C5C9 /* String+LocalizedWithFallback.swift */; };
+		DDD0E69528BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD0E69328BD5D880060C5C9 /* String+LocalizedWithFallback.swift */; };
+		DDD0E69628BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD0E69328BD5D880060C5C9 /* String+LocalizedWithFallback.swift */; };
 		DDDB6B5627A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5727A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5927A806ED007572B1 /* CaptureOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */; };
@@ -484,7 +491,6 @@
 		8F11875B253C9EE30019FECA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F118762253CA2980019FECA /* Passwords.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Passwords.entitlements; sourceTree = "<group>"; };
 		8F118764253CA2980019FECA /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
-		8F51289C25838F0000CF2A55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ProviderView.storyboard; sourceTree = "<group>"; };
 		8F513A5E2560624F001C6EF9 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		8F513A62256064E9001C6EF9 /* ServerSetupPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSetupPage.swift; sourceTree = "<group>"; };
 		8F51428A2573BEFA00DD96C0 /* CreatePasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasswordRequest.swift; sourceTree = "<group>"; };
@@ -646,6 +652,8 @@
 		DD6953EC27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledRow.swift; sourceTree = "<group>"; };
 		DD718F2727B568E200F85780 /* String+Segmented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Segmented.swift"; sourceTree = "<group>"; };
+		DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAppPasswordOCSRequest.swift; sourceTree = "<group>"; };
+		DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Root.swift"; sourceTree = "<group>"; };
 		DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+OnSizeChange.swift"; sourceTree = "<group>"; };
 		DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceSpecificPadding.swift"; sourceTree = "<group>"; };
 		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
@@ -655,7 +663,6 @@
 		DDB1695327D1FCFF00F4D752 /* Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionViewController.swift; sourceTree = "<group>"; };
-		DDB1695C27D1FCFF00F4D752 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ExtensionView.storyboard; sourceTree = "<group>"; };
 		DDB1695E27D1FCFF00F4D752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDB1696927D1FDEA00F4D752 /* Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Extension.entitlements; sourceTree = "<group>"; };
 		DDB1696E27D2040300F4D752 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -676,6 +683,7 @@
 		DDCE125E2741408D003912D0 /* ListTagsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTagsRequest.swift; sourceTree = "<group>"; };
 		DDCE1261274140A9003912D0 /* ShowTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagRequest.swift; sourceTree = "<group>"; };
 		DDCE126427414101003912D0 /* UpdateTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTagRequest.swift; sourceTree = "<group>"; };
+		DDD0E69328BD5D880060C5C9 /* String+LocalizedWithFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedWithFallback.swift"; sourceTree = "<group>"; };
 		DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPNavigation.swift; sourceTree = "<group>"; };
 		DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPPage.swift; sourceTree = "<group>"; };
 		DDDF3387276F7FDE008EEB3F /* TagBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagBadge.swift; sourceTree = "<group>"; };
@@ -909,6 +917,7 @@
 				8F997F9C2572ED7800B5F784 /* CreateFolderRequest.swift */,
 				8F51428A2573BEFA00DD96C0 /* CreatePasswordRequest.swift */,
 				DDCE125827413FF6003912D0 /* CreateTagRequest.swift */,
+				DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */,
 				8F55F71525727CB600E00B28 /* DeleteFolderRequest.swift */,
 				8F55564925716BD200F5D805 /* DeletePasswordRequest.swift */,
 				DDCE125B2741404C003912D0 /* DeleteTagRequest.swift */,
@@ -996,6 +1005,7 @@
 			isa = PBXGroup;
 			children = (
 				8F703BFB26245C6100CC7018 /* Array+Zip.swift */,
+				DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */,
 				8F7237992651468700832A88 /* Collection+Avg.swift */,
 				8F52EFDA25B200DD00DCFAC1 /* Collection+Subscript.swift */,
 				DD0E59B427414EB5003D7D50 /* Color+Hex.swift */,
@@ -1009,6 +1019,7 @@
 				8F63617B25A741A400C832C9 /* PreviewDevice+Generate.swift */,
 				8F52F3DA259379F500B4EFCE /* SKProduct+LocalizedPrice.swift */,
 				8FBE43C4258D5A09003F7F34 /* String+Localized.swift */,
+				DDD0E69328BD5D880060C5C9 /* String+LocalizedWithFallback.swift */,
 				8FBAC9CF264A7B050038A626 /* String+Score.swift */,
 				DD718F2727B568E200F85780 /* String+Segmented.swift */,
 				8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */,
@@ -1029,7 +1040,6 @@
 				8FC361A02582762600785371 /* Info.plist */,
 				8FC361EF258284F400785371 /* ProviderViewController.swift */,
 				8F5BBC9025F2B6D3001271F7 /* InfoPlist.strings */,
-				8FE5BCFA258370E7007993F5 /* ProviderView.storyboard */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -1106,7 +1116,6 @@
 				DD6953EC27FADEA10007DAEE /* Icon.svg */,
 				DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */,
 				DDB16A0B27D24D6300F4D752 /* Assets.xcassets */,
-				DDB1695B27D1FCFF00F4D752 /* ExtensionView.storyboard */,
 				DDB1696F27D2040300F4D752 /* InfoPlist.strings */,
 			);
 			path = Extension;
@@ -1319,7 +1328,6 @@
 			files = (
 				8FC361E325827E6700785371 /* Localizable.strings in Resources */,
 				8F5BBC8E25F2B6D3001271F7 /* InfoPlist.strings in Resources */,
-				8FE5BCFC258370E7007993F5 /* ProviderView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1335,7 +1343,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDB16A0927D2308600F4D752 /* OTPAutoFillScript.js in Resources */,
-				DDB1695D27D1FCFF00F4D752 /* ExtensionView.storyboard in Resources */,
 				DDB1697427D20C1F00F4D752 /* Localizable.strings in Resources */,
 				DDB1696D27D2040300F4D752 /* InfoPlist.strings in Resources */,
 				DDB16A0C27D24D6300F4D752 /* Assets.xcassets in Resources */,
@@ -1454,6 +1461,7 @@
 				8F51428B2573BEFA00DD96C0 /* CreatePasswordRequest.swift in Sources */,
 				8FBAC9D0264A7B050038A626 /* String+Score.swift in Sources */,
 				8F57A5BA2562699A00BC1CA0 /* Password.swift in Sources */,
+				DD72AE1928A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */,
 				DD0E59A9274146C8003D7D50 /* EditTagPage.swift in Sources */,
 				8F5A8440259A4FA700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
 				8F59888925799C3200843696 /* SearchBar.swift in Sources */,
@@ -1556,8 +1564,10 @@
 				DD67204527BAFDC40078CF47 /* EditOTPController.swift in Sources */,
 				8FBE43C5258D5A09003F7F34 /* String+Localized.swift in Sources */,
 				DDCE125C2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
+				DDD0E69428BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */,
 				8F55F71625727CB600E00B28 /* DeleteFolderRequest.swift in Sources */,
 				8F582BFE255EAD7000F1E3DA /* Keychain.swift in Sources */,
+				DD72AE1D28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */,
 				8F5637C62562C57800A0BF9D /* FaviconServiceRequest.swift in Sources */,
 				DDCE125F2741408D003912D0 /* ListTagsRequest.swift in Sources */,
 				8F57A5B6256267BF00BC1CA0 /* ListPasswordsRequest.swift in Sources */,
@@ -1602,6 +1612,7 @@
 				8FC361C025827E5200785371 /* EntriesController.swift in Sources */,
 				8FBAC9D1264A7B050038A626 /* String+Score.swift in Sources */,
 				8F5A8445259A501700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
+				DD72AE1A28A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */,
 				DD0E59AA274146C8003D7D50 /* EditTagPage.swift in Sources */,
 				8FC361D525827E5D00785371 /* PasswordServiceRequest.swift in Sources */,
 				8FC361C825827E5500785371 /* Password.swift in Sources */,
@@ -1704,8 +1715,10 @@
 				DD67204627BAFDC40078CF47 /* EditOTPController.swift in Sources */,
 				8FC361BA25827E4C00785371 /* ActionButtonStyle.swift in Sources */,
 				DDCE125D2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
+				DDD0E69528BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */,
 				8FC361BE25827E5200785371 /* SessionController.swift in Sources */,
 				8FBE43D5258D5A8C003F7F34 /* Label+ShowIcon.swift in Sources */,
+				DD72AE1E28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */,
 				8FC361B025827D3400785371 /* EntriesPage.swift in Sources */,
 				DDCE12602741408D003912D0 /* ListTagsRequest.swift in Sources */,
 				8F55D99F2582D0DE00CE4FC2 /* AutoFillController.swift in Sources */,
@@ -1747,6 +1760,7 @@
 				DDB169AF27D20CC200F4D752 /* ServerSetupNavigation.swift in Sources */,
 				DDB169B527D20CC200F4D752 /* UIPasteboard+PrivateString.swift in Sources */,
 				DDB1697627D20C2500F4D752 /* Configuration.swift in Sources */,
+				DD72AE1B28A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */,
 				DDB1698E27D20CC200F4D752 /* ImagePicker.swift in Sources */,
 				DDB1697A27D20CC100F4D752 /* MainView.swift in Sources */,
 				DDB169DC27D20CC200F4D752 /* EditFolderPageFallback.swift in Sources */,
@@ -1849,8 +1863,10 @@
 				DDB169EB27D20CC300F4D752 /* URL+Score.swift in Sources */,
 				DDB169D127D20CC200F4D752 /* SelectTagsController.swift in Sources */,
 				DDB169BF27D20CC200F4D752 /* Tag.swift in Sources */,
+				DDD0E69628BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */,
 				DDB169B927D20CC200F4D752 /* KeepaliveSessionRequest.swift in Sources */,
 				DDB1697E27D20CC100F4D752 /* RequestSessionRequest.swift in Sources */,
+				DD72AE1F28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */,
 				DDB1698227D20CC100F4D752 /* EditLabeledRow.swift in Sources */,
 				DDB169C227D20CC200F4D752 /* SearchBar.swift in Sources */,
 				DDB1697927D20CC100F4D752 /* FolderController.swift in Sources */,
@@ -1928,22 +1944,6 @@
 				DD0424662829853A00E9B9DE /* ca */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		8FE5BCFA258370E7007993F5 /* ProviderView.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8F51289C25838F0000CF2A55 /* Base */,
-			);
-			name = ProviderView.storyboard;
-			sourceTree = "<group>";
-		};
-		DDB1695B27D1FCFF00F4D752 /* ExtensionView.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDB1695C27D1FCFF00F4D752 /* Base */,
-			);
-			name = ExtensionView.storyboard;
 			sourceTree = "<group>";
 		};
 		DDB1696F27D2040300F4D752 /* InfoPlist.strings */ = {
@@ -2091,7 +2091,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -2101,7 +2101,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -2118,7 +2118,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -2128,7 +2128,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -2182,7 +2182,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -2191,7 +2191,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2205,7 +2205,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -2214,7 +2214,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2269,7 +2269,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -2278,7 +2278,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2293,7 +2293,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -2302,7 +2302,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.6;
+				MARKETING_VERSION = 2.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
