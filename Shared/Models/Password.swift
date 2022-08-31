@@ -165,7 +165,25 @@ final class Password: ObservableObject, Identifiable {
         guard let customFieldsData = customFieldsString.data(using: .utf8) else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed"))
         }
-        customFields = try Configuration.jsonDecoder.decode([CustomField].self, from: customFieldsData)
+        do {
+            customFields = try Configuration.jsonDecoder.decode([CustomField].self, from: customFieldsData)
+        }
+        catch {
+            customFields = try Configuration.jsonDecoder.decode([String: [String: String]].self, from: customFieldsData)
+                .map {
+                    (name: String, object: [String: String]) in
+                    guard let type = object["type"].flatMap(CustomField.CustomFieldType.init),
+                          let value = object["value"] else {
+                        throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Legacy custom fields decoding failed"))
+                    }
+                    if name.hasPrefix("_") {
+                        return CustomField(label: String(name.dropFirst()), type: .data, value: value)
+                    }
+                    else {
+                        return CustomField(label: name, type: type, value: value)
+                    }
+                }
+        }
     }
     
     func score(searchTerm: String) -> Double {
