@@ -638,6 +638,8 @@
 		DD3FAD632775DC86002202DE /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		DD3FAD6627772C15002202DE /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLabeledRow.swift; sourceTree = "<group>"; };
+		DD4F0BED28C0FFD2005AA668 /* feedback_email.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = feedback_email.txt; sourceTree = "<group>"; };
+		DD4F0BEE28C0FFE3005AA668 /* feedback_email.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = feedback_email.txt; sourceTree = "<group>"; };
 		DD5189ED27A16BFA00264A0D /* Data+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Init.swift"; sourceTree = "<group>"; };
 		DD542E8B27C2E2C700043A2B /* EditOTPPageFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPPageFallback.swift; sourceTree = "<group>"; };
 		DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableObject+ObjectDidChangeRecently.swift"; sourceTree = "<group>"; };
@@ -1083,6 +1085,7 @@
 			isa = PBXGroup;
 			children = (
 				DD2B7D1527EE6E630018E07E /* description.txt */,
+				DD4F0BED28C0FFD2005AA668 /* feedback_email.txt */,
 				DD2B7D1127EE6E630018E07E /* keywords.txt */,
 				DD2B7D1427EE6E630018E07E /* marketing_url.txt */,
 				DD2B7D1327EE6E630018E07E /* name.txt */,
@@ -1097,6 +1100,7 @@
 			isa = PBXGroup;
 			children = (
 				DD2B7D1F27EE6E630018E07E /* description.txt */,
+				DD4F0BEE28C0FFE3005AA668 /* feedback_email.txt */,
 				DD2B7D1B27EE6E630018E07E /* keywords.txt */,
 				DD2B7D1E27EE6E630018E07E /* marketing_url.txt */,
 				DD2B7D1D27EE6E630018E07E /* name.txt */,

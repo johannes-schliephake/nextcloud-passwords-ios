@@ -27,26 +27,34 @@ Generates all icon sets and commits the changes.
 [bundle exec] fastlane take_screenshots
 ```
 
-Takes all screenshots required for App Store and commits the changes.
+Takes all screenshots required for the App Store and commits the changes.
 
-### bump_version
+### bump_version_numbers
 
 ```sh
-[bundle exec] fastlane bump_version
+[bundle exec] fastlane bump_version_numbers
 ```
 
-Bumps all build and version numbers and commits the version bump.
+Bumps all version numbers and commits the version bump.
 
 **Parameters**
 - `bump_type`: `major` or `minor` or `patch` (defaults to `patch`)
 
-### build_and_upload
+### build_and_upload_to_testflight
 
 ```sh
-[bundle exec] fastlane build_and_upload
+[bundle exec] fastlane build_and_upload_to_testflight
 ```
 
-Downloads certificates and provisioning profiles, archives the app and uploads the binary and all metadata to the App Store.
+Downloads certificates and provisioning profiles, bumps build numbers, commits the build bump, archives the app and uploads the binary to TestFlight.
+
+### build_and_upload_to_app_store
+
+```sh
+[bundle exec] fastlane build_and_upload_to_app_store
+```
+
+Downloads certificates and provisioning profiles, bumps build numbers, commits the build bump, archives the app and uploads the binary and all metadata to the App Store.
 
 ### git_release
 
