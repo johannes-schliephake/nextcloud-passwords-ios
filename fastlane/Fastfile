@@ -106,7 +106,8 @@ lane :build_and_upload_to_app_store do
         UI.user_error!("The version number didn't change")
     end
     build
-    upload_to_app_store(overwrite_screenshots: true)
+    copyright = eval("\"#{File.read("metadata/copyright.txt").strip}\"")
+    upload_to_app_store(overwrite_screenshots: true, copyright: copyright)
 end
 
 desc("Merges release into main branch and publishes as a GitHub release.")
