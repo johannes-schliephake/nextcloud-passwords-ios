@@ -14,7 +14,7 @@ final class LoggingController: ObservableObject {
     func log(error: Error) {
         DispatchQueue.main.async {
             [self] in
-            events?.append(Event(type: .error, message: error.localizedDescription))
+            events?.append(Event(type: .error, message: String(describing: error)))
         }
     }
     
