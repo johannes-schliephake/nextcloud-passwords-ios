@@ -55,6 +55,13 @@ final class ServerSetupController: ObservableObject {
                         return result.data
                     }
                     .decode(type: Response?.self, decoder: Configuration.jsonDecoder)
+                    .handleEvents(receiveCompletion: {
+                        completion in
+                        if case .failure(let error) = completion,
+                           error is DecodingError {
+                            LoggingController.shared.log(error: error)
+                        }
+                    })
                     .replaceError(with: nil)
             }
             .receive(on: DispatchQueue.main)

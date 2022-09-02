@@ -79,17 +79,19 @@ final class SettingsController: ObservableObject {
             }
             
             let key = Crypto.AES256.getKey(named: "settingsKey")
-            let settings = try? Crypto.AES256.decrypt(offlineSettings: offlineSettings, key: key)
-            
-            guard let settings = settings else {
-                Configuration.userDefaults.removeObject(forKey: "settings")
-                return
-            }
-            DispatchQueue.main.async {
-                guard self?.settings == nil else {
-                    return
+            do {
+                let settings = try Crypto.AES256.decrypt(offlineSettings: offlineSettings, key: key)
+                DispatchQueue.main.async {
+                    guard self?.settings == nil else {
+                        return
+                    }
+                    self?.settings = settings
                 }
-                self?.settings = settings
+            }
+            catch {
+                Configuration.userDefaults.removeObject(forKey: "settings")
+                LoggingController.shared.log(error: error)
+                return
             }
         }
     }

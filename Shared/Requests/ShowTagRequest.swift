@@ -19,8 +19,8 @@ extension ShowTagRequest: NCPasswordsRequest {
         post(action: "tag/show", session: session, completion: completion)
     }
     
-    func decode(data: Data) -> Tag? {
-        try? Configuration.jsonDecoder.decode(Tag.self, from: data)
+    func decode(data: Data) throws -> Tag? {
+        try Configuration.jsonDecoder.decode(Tag.self, from: data)
     }
     
 }

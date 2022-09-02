@@ -18,6 +18,13 @@ final class LoggingController: ObservableObject {
         }
     }
     
+    func log(error: String) {
+        DispatchQueue.main.async {
+            [self] in
+            events?.append(Event(type: .error, message: error))
+        }
+    }
+    
     func log(info: String) {
         DispatchQueue.main.async {
             [self] in
