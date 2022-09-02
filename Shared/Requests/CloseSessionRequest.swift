@@ -18,8 +18,8 @@ extension CloseSessionRequest: NCPasswordsRequest {
         get(action: "session/close", session: session, completion: completion)
     }
     
-    func decode(data: Data) -> Response? {
-        try? Configuration.jsonDecoder.decode(Response.self, from: data)
+    func decode(data: Data) throws -> Response? {
+        try Configuration.jsonDecoder.decode(Response.self, from: data)
     }
     
 }

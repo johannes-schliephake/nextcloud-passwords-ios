@@ -14,8 +14,8 @@ extension ListFoldersRequest: NCPasswordsRequest {
         get(action: "folder/list", session: session, completion: completion)
     }
     
-    func decode(data: Data) -> [Folder]? {
-        try? Configuration.jsonDecoder.decode([Folder].self, from: data)
+    func decode(data: Data) throws -> [Folder]? {
+        try Configuration.jsonDecoder.decode([Folder].self, from: data)
     }
     
 }

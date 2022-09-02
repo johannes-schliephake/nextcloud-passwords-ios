@@ -59,7 +59,13 @@ final class Password: ObservableObject, Identifiable {
                   let otpData = otpValue.data(using: .utf8) else {
                 return nil
             }
-            return try? Configuration.jsonDecoder.decode(OTP.self, from: otpData)
+            do {
+                return try Configuration.jsonDecoder.decode(OTP.self, from: otpData)
+            }
+            catch {
+                LoggingController.shared.log(error: error)
+                return nil
+            }
         }
         set {
             customFields = customUserFields + customDataFields
@@ -147,6 +153,7 @@ final class Password: ObservableObject, Identifiable {
                   let decryptedNotes = Crypto.CSEv1r1.decrypt(payload: notes, key: key),
                   let decryptedCustomFieldsString = Crypto.CSEv1r1.decrypt(payload: customFieldsString, key: key) else {
                 state = .decryptionFailed
+                LoggingController.shared.log(error: "Failed to decrypt password")
                 return
             }
             label = decryptedLabel
@@ -157,6 +164,7 @@ final class Password: ObservableObject, Identifiable {
             customFieldsString = decryptedCustomFieldsString
         default:
             state = .decryptionFailed
+            LoggingController.shared.log(error: "Unknown client side encryption type")
         }
         
         if customFieldsString.isEmpty {
@@ -169,7 +177,10 @@ final class Password: ObservableObject, Identifiable {
             customFields = try Configuration.jsonDecoder.decode([CustomField].self, from: customFieldsData)
         }
         catch {
-            customFields = try Configuration.jsonDecoder.decode([String: [String: String]].self, from: customFieldsData)
+            guard let legacyCustomFields = try? Configuration.jsonDecoder.decode([String: [String: String]].self, from: customFieldsData) else {
+                throw error
+            }
+            customFields = try legacyCustomFields
                 .map {
                     (name: String, object: [String: String]) in
                     guard let type = object["type"].flatMap(CustomField.CustomFieldType.init),

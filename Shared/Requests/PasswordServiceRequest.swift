@@ -21,8 +21,8 @@ extension PasswordServiceRequest: NCPasswordsRequest {
         post(action: "service/password", session: session, completion: completion)
     }
     
-    func decode(data: Data) -> String? {
-        try? Configuration.jsonDecoder.decode(Response.self, from: data).password
+    func decode(data: Data) throws -> String? {
+        try Configuration.jsonDecoder.decode(Response.self, from: data).password
     }
     
 }

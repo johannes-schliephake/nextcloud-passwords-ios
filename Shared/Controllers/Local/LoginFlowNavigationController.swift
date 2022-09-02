@@ -36,6 +36,13 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
                 return $0.data
             }
             .decode(type: Response?.self, decoder: Configuration.jsonDecoder)
+            .handleEvents(receiveCompletion: {
+                completion in
+                if case .failure(let error) = completion,
+                   error is DecodingError {
+                    LoggingController.shared.log(error: error)
+                }
+            })
             .catch {
                 Fail(error: $0)
                     .delay(for: 1, scheduler: DispatchQueue.global(qos: .utility))
