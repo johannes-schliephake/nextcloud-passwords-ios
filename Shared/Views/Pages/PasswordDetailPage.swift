@@ -199,7 +199,7 @@ struct PasswordDetailPage: View {
                     Divider()
                         .padding(.trailing, -100)
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("_duplicates")
+                        Text("_duplicates".localizedWithFallback) // TODO: find a better solution than localizedWithFallback
                             .font(.subheadline)
                             .bold()
                             .foregroundColor(.gray)
@@ -208,7 +208,7 @@ struct PasswordDetailPage: View {
                         Divider()
                             .padding(.trailing, -100)
                         if duplicates.isEmpty {
-                            Text("_duplicatesTrashMessage")
+                            Text("_duplicatesTrashMessage".localizedWithFallback) // TODO: find a better solution than localizedWithFallback
                                 .foregroundColor(.gray)
                                 .padding(.top, 15)
                         }
@@ -359,15 +359,15 @@ struct PasswordDetailPage: View {
     
     private func serviceSection() -> some View {
         Section(header: Text("_service")) {
-            LabeledRow(type: .text, label: "_name" as LocalizedStringKey, value: password.label, copiable: true)
-            LabeledRow(type: .url, label: "_url" as LocalizedStringKey, value: password.url, copiable: true)
+            LabeledRow(type: .text, label: "_name", value: password.label, copiable: true)
+            LabeledRow(type: .url, label: "_url", value: password.url, copiable: true)
         }
     }
     
     private func accountSection() -> some View {
         Section(header: Text("_account")) {
-            LabeledRow(type: .text, label: "_username" as LocalizedStringKey, value: password.username, copiable: true)
-            LabeledRow(type: .secret, label: "_password" as LocalizedStringKey, value: password.password, copiable: true)
+            LabeledRow(type: .text, label: "_username", value: password.username, copiable: true)
+            LabeledRow(type: .secret, label: "_password", value: password.password, copiable: true)
             if let otp = password.otp {
                 HStack {
                     OTPDisplay(otp: otp) {
@@ -378,7 +378,7 @@ struct PasswordDetailPage: View {
                     }
                     content: {
                         current, accessoryView in
-                        LabeledRow(type: .pin, label: "_otp" as LocalizedStringKey, value: current ?? "", copiable: true)
+                        LabeledRow(type: .pin, label: "_otp", value: current ?? "", copiable: true)
                         Spacer()
                         switch otp.type {
                         case .hotp:

@@ -72,11 +72,13 @@ final class Folder: ObservableObject, Identifiable {
                   let key = keychain.keys[cseKey],
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key) else {
                 state = .decryptionFailed
+                LoggingController.shared.log(error: "Failed to decrypt folder")
                 return
             }
             label = decryptedLabel
         default:
             state = .decryptionFailed
+            LoggingController.shared.log(error: "Unknown client side encryption type")
         }
     }
     

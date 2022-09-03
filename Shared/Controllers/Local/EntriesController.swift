@@ -230,16 +230,19 @@ final class EntriesController: ObservableObject {
             }
             
             let key = Crypto.AES256.getKey(named: "offlineKey")
-            let entries = try? Crypto.AES256.decrypt(offlineContainers: offlineContainers, key: key)
-            
-            DispatchQueue.main.async {
-                guard let entries else {
+            do {
+                let entries = try Crypto.AES256.decrypt(offlineContainers: offlineContainers, key: key)
+                DispatchQueue.main.async {
+                    self?.merge(folders: entries.folders, passwords: entries.passwords, tags: entries.tags, offline: true)
+                    self?.completeCredentialIdentifierAutoFill()
+                }
+            }
+            catch {
+                DispatchQueue.main.async {
                     CoreData.default.clear(type: OfflineContainer.self)
                     self?.merge(folders: [], passwords: [], tags: [], offline: true)
-                    return
                 }
-                self?.merge(folders: entries.folders, passwords: entries.passwords, tags: entries.tags, offline: true)
-                self?.completeCredentialIdentifierAutoFill()
+                LoggingController.shared.log(error: error)
             }
         }
     }

@@ -18,8 +18,8 @@ extension RequestSessionRequest: NCPasswordsRequest {
         get(action: "session/request", session: session, completion: completion)
     }
     
-    func decode(data: Data) -> Response? {
-        try? Configuration.jsonDecoder.decode(Response.self, from: data)
+    func decode(data: Data) throws -> Response? {
+        try Configuration.jsonDecoder.decode(Response.self, from: data)
     }
     
 }

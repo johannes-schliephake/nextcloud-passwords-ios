@@ -81,7 +81,7 @@ struct EditOTPPage: View {
     
     private func otpSecretField() -> some View {
         Section(header: Text("_secret")) {
-            EditLabeledRow(type: .secret, label: "", value: $editOtpController.otpSecret)
+            EditLabeledRow(type: .secret, value: $editOtpController.otpSecret)
                 .focused($focusedField, equals: .otpSecret)
                 .submitLabel(showMore ? .next : .done)
         }
@@ -133,16 +133,16 @@ struct EditOTPPage: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                EditLabeledRow(label: "_digits" as LocalizedStringKey, value: $editOtpController.otpDigits, bounds: 6...8)
+                EditLabeledRow(label: "_digits", value: $editOtpController.otpDigits, bounds: 6...8)
                     .focused($focusedField, equals: .otpDigits)
                     .submitLabel(.next)
                 if editOtpController.otpType == .hotp {
-                    EditLabeledRow(label: "_counter" as LocalizedStringKey, value: $editOtpController.otpCounter, bounds: 0...Int.max)
+                    EditLabeledRow(label: "_counter", value: $editOtpController.otpCounter, bounds: 0...Int.max)
                         .focused($focusedField, equals: .otpCounter)
                         .submitLabel(.done)
                 }
                 else if editOtpController.otpType == .totp {
-                    EditLabeledRow(label: "_periodSeconds" as LocalizedStringKey, value: $editOtpController.otpPeriod, bounds: 1...Int.max)
+                    EditLabeledRow(label: "_periodSeconds", value: $editOtpController.otpPeriod, bounds: 1...Int.max)
                         .focused($focusedField, equals: .otpPeriod)
                         .submitLabel(.done)
                 }

@@ -11,18 +11,18 @@ struct LabeledRow: View {
     
     @State private var hideSecret = true
     
-    init(type: RowType, label: LocalizedStringKey, value: String, copiable: Bool = false) {
+    @_disfavoredOverload init(type: RowType, label: String? = nil, value: String, copiable: Bool = false) {
         self.type = type
-        self.labelKey = label
-        labelString = nil
+        labelKey = nil
+        self.labelString = label
         self.value = value
         self.copiable = copiable
     }
     
-    init(type: RowType, label: String, value: String, copiable: Bool = false) {
+    init(type: RowType, label: LocalizedStringKey, value: String, copiable: Bool = false) {
         self.type = type
-        labelKey = nil
-        self.labelString = label
+        self.labelKey = label
+        labelString = nil
         self.value = value
         self.copiable = copiable
     }
@@ -136,8 +136,7 @@ struct LabeledRow: View {
                     .foregroundColor(.gray)
                 Spacer()
             }
-            else if let labelString,
-                    !labelString.isEmpty {
+            else if let labelString {
                 Text(labelString)
                     .font(.subheadline)
                     .foregroundColor(.gray)

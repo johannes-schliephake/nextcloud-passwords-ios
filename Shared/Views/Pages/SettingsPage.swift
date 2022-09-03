@@ -9,6 +9,7 @@ struct SettingsPage: View {
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
+    @StateObject private var loggingController = LoggingController.shared
     @AppStorage("storeOffline", store: Configuration.userDefaults) private var storeOffline = Configuration.defaults["storeOffline"] as! Bool // swiftlint:disable:this force_cast
     @AppStorage("automaticallyGeneratePasswords", store: Configuration.userDefaults) private var automaticallyGeneratePasswords = Configuration.defaults["automaticallyGeneratePasswords"] as! Bool // swiftlint:disable:this force_cast
     @State private var showLogoutAlert = false
@@ -48,8 +49,8 @@ struct SettingsPage: View {
     
     private func credentialsSection(session: Session) -> some View {
         Section(header: Text("_credentials")) {
-            LabeledRow(type: .text, label: "_nextcloudServerAddress" as LocalizedStringKey, value: session.server)
-            LabeledRow(type: .text, label: "_username" as LocalizedStringKey, value: session.user)
+            LabeledRow(type: .text, label: "_nextcloudServerAddress", value: session.server)
+            LabeledRow(type: .text, label: "_username", value: session.user)
             Button(role: .destructive) {
                 showLogoutAlert = true
             }
@@ -120,7 +121,17 @@ struct SettingsPage: View {
     
     private func aboutSection() -> some View {
         Section(header: Text("_about")) {
-            LabeledRow(type: .text, label: "_version" as LocalizedStringKey, value: Configuration.shortVersionString)
+            if loggingController.events != nil {
+                NavigationLink {
+                    LogPage()
+                }
+                label: {
+                    Label("Log", systemImage: "doc.text.magnifyingglass")
+                        .foregroundColor(.accentColor)
+                }
+                .isDetailLink(false)
+            }
+            LabeledRow(type: .text, label: "_version", value: Configuration.shortVersionString)
             if let url = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios") {
                 Link(destination: url) {
                     Label("_sourceCode", systemImage: "curlybraces")

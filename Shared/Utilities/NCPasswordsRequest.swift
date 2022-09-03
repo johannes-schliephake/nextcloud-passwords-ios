@@ -28,7 +28,7 @@ protocol NCPasswordsRequest {
     var requiresSession: Bool { get }
     func encode() throws -> Data?
     func send(completion: @escaping (ResultType?) -> Void)
-    func decode(data: Data) -> ResultType?
+    func decode(data: Data) throws -> ResultType?
     
 }
 
@@ -95,6 +95,7 @@ extension NCPasswordsRequest {
                 DispatchQueue.main.async {
                     completion(nil)
                 }
+                LoggingController.shared.log(error: error)
                 return
             }
             
@@ -114,6 +115,7 @@ extension NCPasswordsRequest {
                     DispatchQueue.main.async {
                         completion(nil)
                     }
+                    LoggingController.shared.log(error: "Failed to retrieve response")
                     return
                 }
                 
@@ -132,7 +134,7 @@ extension NCPasswordsRequest {
                         session.invalidate(reason: .deauthorization)
                         return
                     default:
-                        break
+                        LoggingController.shared.log(info: "Unknown error response")
                     }
                 }
                 else if let messageResponse = try? Configuration.jsonDecoder.decode(NCPasswordsRequestMessageResponse.self, from: data) {
@@ -144,16 +146,24 @@ extension NCPasswordsRequest {
                         session.invalidate(reason: .noConnection)
                         return
                     default:
-                        break
+                        LoggingController.shared.log(info: "Unknown message response")
                     }
                 }
                 if let sessionID = response.value(forHTTPHeaderField: "X-Api-Session") {
                     session.sessionID = sessionID
                 }
                 
-                let result = decode(data: data)
-                DispatchQueue.main.async {
-                    completion(result)
+                do {
+                    let result = try decode(data: data)
+                    DispatchQueue.main.async {
+                        completion(result)
+                    }
+                }
+                catch {
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                    LoggingController.shared.log(error: error)
                 }
             }
             .resume()

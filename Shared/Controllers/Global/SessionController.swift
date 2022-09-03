@@ -21,6 +21,7 @@ final class SessionController: ObservableObject {
                 subscriptions.removeAll()
                 Keychain.default.remove(key: "challengePassword")
                 Keychain.default.remove(key: "offlineKeychain")
+                LoggingController.shared.reset()
                 return
             }
             Keychain.default.store(key: "server", value: session.server)
@@ -28,27 +29,23 @@ final class SessionController: ObservableObject {
             Keychain.default.store(key: "password", value: session.password)
             
             session.$pendingRequestsAvailable
+                .filter { $0 }
                 .sink {
-                    [weak self] pendingRequestsAvailable in
-                    if pendingRequestsAvailable {
-                        self?.requestSession()
-                    }
+                    [weak self] _ in
+                    self?.requestSession()
                 }
                 .store(in: &subscriptions)
             session.$pendingCompletionsAvailable
+                .filter { $0 }
                 .sink {
-                    [weak self] pendingCompletionsAvailable in
-                    if pendingCompletionsAvailable {
-                        self?.requestKeychain()
-                    }
+                    [weak self] _ in
+                    self?.requestKeychain()
                 }
                 .store(in: &subscriptions)
             session.$invalidationReason
+                .compactMap { $0 }
                 .sink {
                     [weak self] invalidationReason in
-                    guard let invalidationReason else {
-                        return
-                    }
                     self?.session = nil
                     switch invalidationReason {
                     case .logout:
@@ -83,6 +80,7 @@ final class SessionController: ObservableObject {
     }
     private var keepaliveTimer: Timer?
     private var subscriptions = Set<AnyCancellable>()
+    private var logoutSubscription: AnyCancellable?
     
     private init() {
         guard let server = Keychain.default.load(key: "server"),
@@ -177,6 +175,7 @@ final class SessionController: ObservableObject {
             guard let solution = Crypto.PWDv1r1.solve(challenge: challenge, password: password) else {
                 state = .error
                 session.runPendingRequestFailures()
+                LoggingController.shared.log(error: "Failed to solve PWDv1r1 challenge")
                 return
             }
             openSession(password: password, solution: solution, store: store)
@@ -186,6 +185,7 @@ final class SessionController: ObservableObject {
                 state = .offlineChallengeAvailable
                 Keychain.default.remove(key: "challengePassword")
                 UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
+                LoggingController.shared.log(error: "Failed to decrypt offline keychain")
                 return
             }
             session.keychain = keychain
@@ -222,10 +222,17 @@ final class SessionController: ObservableObject {
                     self?.state = .onlineChallengeAvailable
                     Keychain.default.remove(key: "challengePassword")
                     UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
+                    LoggingController.shared.log(error: "Failed to open session with client side encryption")
+                    return
+                }
+                guard let keychain = Crypto.CSEv1r1.decrypt(keys: keys, password: password) else {
+                    self?.state = .onlineChallengeAvailable
+                    Keychain.default.remove(key: "challengePassword")
+                    UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
+                    LoggingController.shared.log(error: "Failed to decrypt online keychain")
                     return
                 }
                 Keychain.default.store(key: "offlineKeychain", value: keys)
-                let keychain = Crypto.CSEv1r1.decrypt(keys: keys, password: password)
                 session.keychain = keychain
                 self?.cachedChallengePassword = password
                 if store {
@@ -237,6 +244,7 @@ final class SessionController: ObservableObject {
                 guard response.success else {
                     self?.state = .error
                     session.runPendingRequestFailures()
+                    LoggingController.shared.log(error: "Failed to open session without client side encryption")
                     return
                 }
             }
@@ -269,8 +277,16 @@ final class SessionController: ObservableObject {
         guard let session else {
             return
         }
-        CloseSessionRequest(session: session).send { _ in AuthenticationChallengeController.default.clearAcceptedCertificateHash() }
-        session.invalidate(reason: .logout)
+        logoutSubscription = Future {
+            promise in
+            CloseSessionRequest(session: session).send { _ in promise(.success(())) }
+            session.invalidate(reason: .logout)
+        }
+        .flatMap {
+            DeleteAppPasswordOCSRequest(session: session).publisher
+                .replaceError(with: ())
+        }
+        .sink { AuthenticationChallengeController.default.clearAcceptedCertificateHash() }
     }
     
 }
