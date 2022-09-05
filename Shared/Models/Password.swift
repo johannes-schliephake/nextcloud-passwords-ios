@@ -178,7 +178,7 @@ final class Password: ObservableObject, Identifiable {
         }
         catch {
             guard let legacyCustomFields = try? Configuration.jsonDecoder.decode([String: [String: String]].self, from: customFieldsData) else {
-                throw error
+                throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed -- JSON object is \(customFieldsString)", underlyingError: error))
             }
             customFields = try legacyCustomFields
                 .map {
