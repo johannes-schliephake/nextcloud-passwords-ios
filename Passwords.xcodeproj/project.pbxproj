@@ -202,6 +202,9 @@
 		DD0E59B627414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
 		DD29D1E427CF684A00B06835 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D1E327CF684A00B06835 /* ImagePicker.swift */; };
 		DD29D1E527CF684A00B06835 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D1E327CF684A00B06835 /* ImagePicker.swift */; };
+		DD2D701028C7ED1F000F1607 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */; };
+		DD2D701128C7ED1F000F1607 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */; };
+		DD2D701228C7ED1F000F1607 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */; };
 		DD38ACF927DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
 		DD38ACFA27DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
 		DD38ACFB27DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
@@ -637,6 +640,7 @@
 		DD2B7D1F27EE6E630018E07E /* description.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = description.txt; sourceTree = "<group>"; };
 		DD2B7D2027EE6E630018E07E /* primary_category.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = primary_category.txt; sourceTree = "<group>"; };
 		DD2B7D2127EF2F010018E07E /* Pluginfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pluginfile; sourceTree = "<group>"; };
+		DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableDecodable.swift; sourceTree = "<group>"; };
 		DD34DEEB2828F56F004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DD34DEEC2828F592004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DD34DEED2828F5A3004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -960,6 +964,7 @@
 			children = (
 				8F854E6826239314008885C3 /* CoreData.swift */,
 				8F74244526039BD600B73646 /* Crypto.swift */,
+				DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */,
 				8F582BFD255EAD7000F1E3DA /* Keychain.swift */,
 				8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */,
 				8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */,
@@ -1598,6 +1603,7 @@
 				DD67204227BAFCAD0078CF47 /* EditOTPPage.swift in Sources */,
 				DD889A1B27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */,
 				DD0E59AF27414873003D7D50 /* EditTagPageFallback.swift in Sources */,
+				DD2D701028C7ED1F000F1607 /* FailableDecodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1752,6 +1758,7 @@
 				DD67204327BAFCAD0078CF47 /* EditOTPPage.swift in Sources */,
 				DD889A1C27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */,
 				DD0E59B027414873003D7D50 /* EditTagPageFallback.swift in Sources */,
+				DD2D701128C7ED1F000F1607 /* FailableDecodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1903,6 +1910,7 @@
 				DDB1698C27D20CC200F4D752 /* EditOTPPage.swift in Sources */,
 				DD889A1D27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */,
 				DDB1697F27D20CC100F4D752 /* SelectFolderNavigation.swift in Sources */,
+				DD2D701228C7ED1F000F1607 /* FailableDecodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
