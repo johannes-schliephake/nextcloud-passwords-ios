@@ -136,7 +136,7 @@
 "_integration" = "Integrasjon";
 
 /* Make sure to keep newlines (\n) and the placeholder (%@) */
-"_invalidCertificateMessage(hash)" = "Tjenersertifikatet er ugyldig. Bruk sertifikatet elv om en sikker tilkobling ikke kan garanteres?\n\nSHA-256 av sertifikatet:\n%@";
+"_invalidCertificateMessage(hash)" = "Tjenersertifikatet er ugyldig. Bruk sertifikatet elv om en sikker tilkobling ikke kan garanteres?\n\nSHA-256 av sertifikatet:\n%s";
 "_editTagErrorMessage" = "Kunne ikke redigere etiketten. Lagre etiketten igjen.";
 "_editPasswordErrorMessage" = "Kunne ikke redigere passordet. Lagre passordet igjen.";
 
