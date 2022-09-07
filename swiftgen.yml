@@ -1,0 +1,8 @@
+strings:
+  inputs: Shared/en.lproj/Localizable.strings
+  outputs:
+    templateName: flat-swift5
+    output: Shared/Generated/Strings.swift
+    params:
+      enumName: Strings
+      noComments: true

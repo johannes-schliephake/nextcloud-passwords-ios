@@ -178,6 +178,12 @@
 		8FC361FF25828B0500785371 /* EntriesNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC361FB25828AE600785371 /* EntriesNavigation.swift */; };
 		8FCBF8BD25AE152500F75B33 /* ScreenshotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8BC25AE152500F75B33 /* ScreenshotGenerator.swift */; };
 		8FCBF8D925AE160B00F75B33 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8D725AE15E900F75B33 /* SnapshotHelper.swift */; };
+		DD03D9BD28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
+		DD03D9BE28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
+		DD03D9BF28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
+		DD03D9C128C8DFCB006118F2 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD03D9C028C8DFCB006118F2 /* swiftgen.yml */; };
+		DD03D9C228C8DFCB006118F2 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD03D9C028C8DFCB006118F2 /* swiftgen.yml */; };
+		DD03D9C328C8DFCB006118F2 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD03D9C028C8DFCB006118F2 /* swiftgen.yml */; };
 		DD0C2872276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
 		DD0C2873276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
 		DD0C28752766028500E3DAEF /* SelectTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28742766028500E3DAEF /* SelectTagsPage.swift */; };
@@ -196,6 +202,9 @@
 		DD0E59B627414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
 		DD29D1E427CF684A00B06835 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D1E327CF684A00B06835 /* ImagePicker.swift */; };
 		DD29D1E527CF684A00B06835 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD29D1E327CF684A00B06835 /* ImagePicker.swift */; };
+		DD2D701028C7ED1F000F1607 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */; };
+		DD2D701128C7ED1F000F1607 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */; };
+		DD2D701228C7ED1F000F1607 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */; };
 		DD38ACF927DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
 		DD38ACFA27DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
 		DD38ACFB27DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
@@ -398,9 +407,6 @@
 		DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE1261274140A9003912D0 /* ShowTagRequest.swift */; };
 		DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
 		DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
-		DDD0E69428BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD0E69328BD5D880060C5C9 /* String+LocalizedWithFallback.swift */; };
-		DDD0E69528BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD0E69328BD5D880060C5C9 /* String+LocalizedWithFallback.swift */; };
-		DDD0E69628BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD0E69328BD5D880060C5C9 /* String+LocalizedWithFallback.swift */; };
 		DDDB6B5627A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5727A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5927A806ED007572B1 /* CaptureOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */; };
@@ -576,6 +582,8 @@
 		9F5B819C26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819D26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819E26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD03D9BC28C8DE92006118F2 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		DD03D9C028C8DFCB006118F2 /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		DD0424652829853100E9B9DE /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DD0424662829853A00E9B9DE /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DD0424672829854900E9B9DE /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -610,6 +618,7 @@
 		DD2B7D1F27EE6E630018E07E /* description.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = description.txt; sourceTree = "<group>"; };
 		DD2B7D2027EE6E630018E07E /* primary_category.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = primary_category.txt; sourceTree = "<group>"; };
 		DD2B7D2127EF2F010018E07E /* Pluginfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pluginfile; sourceTree = "<group>"; };
+		DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableDecodable.swift; sourceTree = "<group>"; };
 		DD34DEEB2828F56F004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DD34DEEC2828F592004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DD34DEED2828F5A3004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -669,7 +678,6 @@
 		DDCE125E2741408D003912D0 /* ListTagsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTagsRequest.swift; sourceTree = "<group>"; };
 		DDCE1261274140A9003912D0 /* ShowTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagRequest.swift; sourceTree = "<group>"; };
 		DDCE126427414101003912D0 /* UpdateTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTagRequest.swift; sourceTree = "<group>"; };
-		DDD0E69328BD5D880060C5C9 /* String+LocalizedWithFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedWithFallback.swift"; sourceTree = "<group>"; };
 		DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPNavigation.swift; sourceTree = "<group>"; };
 		DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPPage.swift; sourceTree = "<group>"; };
 		DDDF3387276F7FDE008EEB3F /* TagBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagBadge.swift; sourceTree = "<group>"; };
@@ -739,6 +747,7 @@
 				8F118751253C9EE10019FECA /* Shared */,
 				8FD1039625A7BFFC0055A8F3 /* .gitignore */,
 				8F0136FF25DE903E009455D7 /* .swiftlint.yml */,
+				DD03D9C028C8DFCB006118F2 /* swiftgen.yml */,
 				DD2B7D0827EE6D5E0018E07E /* fastlane */,
 				8FD1038C25A790EC0055A8F3 /* README.md */,
 				DD3A993827FDD9AA000E1938 /* Icon.svg */,
@@ -770,6 +779,7 @@
 				8F55F71125727BDC00E00B28 /* Requests */,
 				8F56D34A2561CC1400FBCB1B /* Utilities */,
 				8FBE43B7258D5942003F7F34 /* Extensions */,
+				DD03D9C628C8E827006118F2 /* Generated */,
 				8F5E120725D3CC33007A2166 /* Configuration.swift */,
 				8F854E64262390FA008885C3 /* CoreData.xcdatamodeld */,
 				8F5331AA25605B9400AB6FED /* Localizable.strings */,
@@ -926,6 +936,7 @@
 			children = (
 				8F854E6826239314008885C3 /* CoreData.swift */,
 				8F74244526039BD600B73646 /* Crypto.swift */,
+				DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */,
 				8F582BFD255EAD7000F1E3DA /* Keychain.swift */,
 				8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */,
 				8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */,
@@ -1002,7 +1013,6 @@
 				8F63617B25A741A400C832C9 /* PreviewDevice+Generate.swift */,
 				8F52F3DA259379F500B4EFCE /* SKProduct+LocalizedPrice.swift */,
 				8FBE43C4258D5A09003F7F34 /* String+Localized.swift */,
-				DDD0E69328BD5D880060C5C9 /* String+LocalizedWithFallback.swift */,
 				8FBAC9CF264A7B050038A626 /* String+Score.swift */,
 				DD718F2727B568E200F85780 /* String+Segmented.swift */,
 				8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */,
@@ -1036,6 +1046,14 @@
 				8F72008F25EC1D2E00B12A76 /* XCUIElementQuery+LastMatch.swift */,
 			);
 			path = Snapshot;
+			sourceTree = "<group>";
+		};
+		DD03D9C628C8E827006118F2 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				DD03D9BC28C8DE92006118F2 /* Strings.swift */,
+			);
+			path = Generated;
 			sourceTree = "<group>";
 		};
 		DD2B7D0827EE6D5E0018E07E /* fastlane */ = {
@@ -1113,6 +1131,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F11875E253C9EE30019FECA /* Build configuration list for PBXNativeTarget "Passwords" */;
 			buildPhases = (
+				DD03D9C428C8E09E006118F2 /* ShellScript */,
 				8F11874B253C9EE10019FECA /* Sources */,
 				8F0136FA25DE8DED009455D7 /* ShellScript */,
 				8F11874C253C9EE10019FECA /* Frameworks */,
@@ -1259,7 +1278,7 @@
 			);
 			mainGroup = 8F118746253C9EE10019FECA;
 			packageReferences = (
-				8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */,
+				8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */,
 			);
 			productRefGroup = 8F118750253C9EE10019FECA /* Products */;
 			projectDirPath = "";
@@ -1280,6 +1299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F5331A825605B9400AB6FED /* Localizable.strings in Resources */,
+				DD03D9C128C8DFCB006118F2 /* swiftgen.yml in Resources */,
 				8F52F3E225937B2700B4EFCE /* IAP.plist in Resources */,
 				8F09583725D14FDD0082D438 /* Assets.xcassets in Resources */,
 				8F5757E425671EA4003F1E9F /* InfoPlist.strings in Resources */,
@@ -1299,6 +1319,7 @@
 			files = (
 				8FC361E325827E6700785371 /* Localizable.strings in Resources */,
 				8F5BBC8E25F2B6D3001271F7 /* InfoPlist.strings in Resources */,
+				DD03D9C228C8DFCB006118F2 /* swiftgen.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1314,6 +1335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDB16A0927D2308600F4D752 /* OTPAutoFillScript.js in Resources */,
+				DD03D9C328C8DFCB006118F2 /* swiftgen.yml in Resources */,
 				DDB1697427D20C1F00F4D752 /* Localizable.strings in Resources */,
 				DDB1696D27D2040300F4D752 /* InfoPlist.strings in Resources */,
 				DDB16A0C27D24D6300F4D752 /* Assets.xcassets in Resources */,
@@ -1391,6 +1413,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint --path LogicTests\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		DD03D9C428C8E09E006118F2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "if which swiftgen >/dev/null; then\n  swiftgen\nelse\n  echo \"warning: SwiftGen not installed, download from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
 		};
 		DDB1696C27D2033200F4D752 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1524,13 +1563,13 @@
 				DD0E59B227414AFE003D7D50 /* Color+Init.swift in Sources */,
 				DDDF3388276F7FDE008EEB3F /* TagBadge.swift in Sources */,
 				8F55D99A2582D04200CE4FC2 /* AutoFillController.swift in Sources */,
+				DD03D9BD28C8DE92006118F2 /* Strings.swift in Sources */,
 				DDED770526E2186D0037A18D /* View+Apply.swift in Sources */,
 				8F10C6512602C4AB00FA5B1D /* OpenSessionRequest.swift in Sources */,
 				8F553384257A47D0003987E6 /* UpdateFolderRequest.swift in Sources */,
 				DD67204527BAFDC40078CF47 /* EditOTPController.swift in Sources */,
 				8FBE43C5258D5A09003F7F34 /* String+Localized.swift in Sources */,
 				DDCE125C2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
-				DDD0E69428BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */,
 				8F55F71625727CB600E00B28 /* DeleteFolderRequest.swift in Sources */,
 				DDC7C94428C1F2E700451B81 /* LoggingController.swift in Sources */,
 				DD84EEF5288ECC4C0094B5A6 /* CGPoint+Operators.swift in Sources */,
@@ -1542,6 +1581,7 @@
 				8F59F521256AE65800D9FE40 /* ActionButtonStyle.swift in Sources */,
 				DD67204227BAFCAD0078CF47 /* EditOTPPage.swift in Sources */,
 				DD889A1B27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */,
+				DD2D701028C7ED1F000F1607 /* FailableDecodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1670,13 +1710,13 @@
 				DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */,
 				DDDF3389276F7FDE008EEB3F /* TagBadge.swift in Sources */,
 				8FC361FF25828B0500785371 /* EntriesNavigation.swift in Sources */,
+				DD03D9BE28C8DE92006118F2 /* Strings.swift in Sources */,
 				DDED770626E2186D0037A18D /* View+Apply.swift in Sources */,
 				8F10C6522602C4AB00FA5B1D /* OpenSessionRequest.swift in Sources */,
 				8FC361B325827E4C00785371 /* LoginFlowPage.swift in Sources */,
 				DD67204627BAFDC40078CF47 /* EditOTPController.swift in Sources */,
 				8FC361BA25827E4C00785371 /* ActionButtonStyle.swift in Sources */,
 				DDCE125D2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
-				DDD0E69528BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */,
 				8FC361BE25827E5200785371 /* SessionController.swift in Sources */,
 				DDC7C94528C1F2E700451B81 /* LoggingController.swift in Sources */,
 				DD84EEF6288ECC4C0094B5A6 /* CGPoint+Operators.swift in Sources */,
@@ -1688,6 +1728,7 @@
 				8FC361DA25827E6100785371 /* Keychain.swift in Sources */,
 				DD67204327BAFCAD0078CF47 /* EditOTPPage.swift in Sources */,
 				DD889A1C27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */,
+				DD2D701128C7ED1F000F1607 /* FailableDecodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1811,6 +1852,7 @@
 				DDB1698F27D20CC200F4D752 /* View+Apply.swift in Sources */,
 				DDB169E627D20CC300F4D752 /* UIApplication+SafeShared.swift in Sources */,
 				DDB169A427D20CC200F4D752 /* PasswordServiceRequest.swift in Sources */,
+				DD03D9BF28C8DE92006118F2 /* Strings.swift in Sources */,
 				DDB1698927D20CC200F4D752 /* Label+ShowIcon.swift in Sources */,
 				DDB1699E27D20CC200F4D752 /* EditOTPNavigation.swift in Sources */,
 				DDB1698A27D20CC200F4D752 /* SettingsNavigation.swift in Sources */,
@@ -1818,7 +1860,6 @@
 				DDB169EB27D20CC300F4D752 /* URL+Score.swift in Sources */,
 				DDB169D127D20CC200F4D752 /* SelectTagsController.swift in Sources */,
 				DDB169BF27D20CC200F4D752 /* Tag.swift in Sources */,
-				DDD0E69628BD5D880060C5C9 /* String+LocalizedWithFallback.swift in Sources */,
 				DDB169B927D20CC200F4D752 /* KeepaliveSessionRequest.swift in Sources */,
 				DDC7C94628C1F2E700451B81 /* LoggingController.swift in Sources */,
 				DDB1697E27D20CC100F4D752 /* RequestSessionRequest.swift in Sources */,
@@ -1831,6 +1872,7 @@
 				DDB1698C27D20CC200F4D752 /* EditOTPPage.swift in Sources */,
 				DD889A1D27DB4AB40021AF5F /* View+OnSizeChange.swift in Sources */,
 				DDB1697F27D20CC100F4D752 /* SelectFolderNavigation.swift in Sources */,
+				DD2D701228C7ED1F000F1607 /* FailableDecodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2047,7 +2089,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -2074,7 +2116,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -2140,7 +2182,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2163,7 +2205,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2227,7 +2269,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2251,7 +2293,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2329,7 +2371,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */ = {
+		8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jedisct1/swift-sodium.git";
 			requirement = {
@@ -2342,32 +2384,32 @@
 /* Begin XCSwiftPackageProductDependency section */
 		8F10C6482602BD9200FA5B1D /* Clibsodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
 			productName = Clibsodium;
 		};
 		8F10C64A2602BD9200FA5B1D /* Sodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
 			productName = Sodium;
 		};
 		8F10C64C2602C05F00FA5B1D /* Clibsodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
 			productName = Clibsodium;
 		};
 		8F10C64E2602C05F00FA5B1D /* Sodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
 			productName = Sodium;
 		};
 		DDB1696527D1FD2900F4D752 /* Clibsodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
 			productName = Clibsodium;
 		};
 		DDB1696727D1FD2900F4D752 /* Sodium */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium.git" */;
+			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
 			productName = Sodium;
 		};
 /* End XCSwiftPackageProductDependency section */

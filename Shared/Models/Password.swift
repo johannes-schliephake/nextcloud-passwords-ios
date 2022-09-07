@@ -174,18 +174,21 @@ final class Password: ObservableObject, Identifiable {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed"))
         }
         do {
-            customFields = try Configuration.jsonDecoder.decode([CustomField].self, from: customFieldsData)
+            customFields = try Configuration.jsonDecoder.decode([FailableDecodable<CustomField>].self, from: customFieldsData)
+                .compactMap { try? $0.result.get() } /// Catch null values and non-conforming custom fields
         }
         catch {
             guard let legacyCustomFields = try? Configuration.jsonDecoder.decode([String: [String: String]].self, from: customFieldsData) else {
-                throw error
+                LoggingController.shared.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed -- JSON object is \(customFieldsString)", underlyingError: error)))
+                return
             }
-            customFields = try legacyCustomFields
-                .map {
+            customFields = legacyCustomFields
+                .compactMap {
                     name, object in
                     guard let type = object["type"].flatMap(CustomField.CustomFieldType.init),
                           let value = object["value"] else {
-                        throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Legacy custom fields decoding failed"))
+                        LoggingController.shared.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Legacy custom fields decoding failed -- JSON object is \(customFieldsString)")))
+                        return nil
                     }
                     if name.hasPrefix("_") {
                         return CustomField(label: String(name.dropFirst()), type: .data, value: value)
