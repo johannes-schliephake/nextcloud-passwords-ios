@@ -1,6 +1,6 @@
 "_about" = "O aplikaci";
 "_aboutOtps" = "O jednorázových heslech";
-"_aboutOtpsMessage" = "Tato aplikace podporuje jednorázová hesla pouze z důvodu pohodlí. Ukládání jednorázového hesla pohromadě s heslem k vašemu účtu maže některé z přínosů pro zabezpečení, plynoucí z vícefaktrového ověřování se. Zapnutí druhého faktoru je lepší než nepoužívání vůbec žádného, ale samostatná aplika pro jednorázová hesla bude bezpečnější. NEUKLÁDEJTE jednorázová hesla pro váš účet v Nextcloud nebo pro kritické účty, jako je e-mail nebo elektronické bankovnictví. Jednorázová hesla budou synchronizována prostřednitvím vámi používané instance Nextcloud Hesla, ale v tuto chvíli je podporováno pouze aplikací pro iOS (v2.6 a novější).";
+"_aboutOtpsMessage" = "Tato aplikace podporuje jednorázová hesla pouze z důvodu pohodlí. Ukládání jednorázového hesla pohromadě s heslem k vašemu účtu maže některé z přínosů pro zabezpečení, plynoucí z vícefaktorového ověřování se. Zapnutí druhého faktoru je lepší než nepoužívání vůbec žádného, ale samostatná aplikace pro jednorázová hesla bude bezpečnější. NEUKLÁDEJTE jednorázová hesla pro váš účet v Nextcloud nebo pro kritické účty, jako je e-mail nebo elektronické bankovnictví. Jednorázová hesla budou synchronizována prostřednictvím vámi používané instance Nextcloud Hesla, ale v tuto chvíli je podporováno pouze aplikací pro iOS (v2.6 a novější).";
 "_accept" = "Přijmout";
 "_account" = "Účet";
 "_addCustomField" = "Přidat uživatelsky určenou kolonku";
@@ -45,7 +45,7 @@
 "_deleteFolderErrorMessage" = "Při mazání složky došlo k chybě. Smažte ji znovu.";
 "_deleteOtp" = "Smazat jednorázové heslo";
 "_deletePassword" = "Smazat heslo";
-"_deletePasswordErrorMessage" = "Při mazání hesla doško k chybě. Smažte ho znovu.";
+"_deletePasswordErrorMessage" = "Při mazání hesla došlo k chybě. Smažte ho znovu.";
 "_deleteTag" = "Smazat štítek";
 "_deleteTagErrorMessage" = "Při mazání štítku došlo k chybě. Smažte ho znovu.";
 "_detectQrCodeInPicture" = "Zjistit QR kód v obrázku";
@@ -58,7 +58,7 @@
 "_editFolderErrorMessage" = "Při upravování složky došlo k chybě. Uložte ji znovu.";
 "_editPassword" = "Upravit heslo";
 "_editPasswordErrorMessage" = "Při upravování hesla došlo k chybě. Uložte ho znovu.";
-"_editTagErrorMessage" = "Při mazání štítku došlo k chybě. Zkuste ho smazat znovu.";
+"_editTagErrorMessage" = "Při upravování štítku došlo k chybě. Zkuste ho uložit znovu.";
 "_editTags" = "Upravit štítky";
 "_email" = "E-mail";
 "_encryptedOfflineStorage" = "Šifrované úložiště dostupné bez sítě";
@@ -72,18 +72,18 @@
 "_folder" = "Složka";
 "_folders" = "Složky";
 "_generatePassword" = "Vytvořit heslo";
-"_giveATip" = "Dát příspěvek";
+"_giveATip" = "Přispět na vývoj";
 "_hash" = "Otisk";
 "_highFive" = "High Five! 👏";
 "_id" = "Identif.";
-"_incorrectPassword" = "Neplatné heslo";
+"_incorrectPassword" = "Nesprávné heslo";
 "_incorrectPasswordMessage" = "Zkuste to znovu.";
 "_integration" = "Napojení";
 "_invalidCertificate" = "Neplatný certifikát";
 "_invalidCertificateMessage(hash)" = "Certifikát serveru není platný. Bezpečnost spojení není možné zaručit. Má být certifikát i přesto použit?\n\nSHA-256 otisk certifikátu:\n%s";
 "_logIn" = "Přihlásit";
 "_logOut" = "Odhlásit";
-"_low" = "Nízké";
+"_low" = "Nízká";
 "_medium" = "Střední";
 "_metadata" = "Metadata";
 "_moreOptions" = "Další volby";
@@ -91,7 +91,7 @@
 "_name" = "Název";
 "_nextcloudServerAddress" = "Adresa Nextcloud serveru";
 "_noConnection" = "Žádné připojení";
-"_noConnectionMessage" = "Nedaří se připojit k aplikaci Nextcloud Hesla.";
+"_noConnectionMessage" = "Nedaří se připojit k instanci aplikace Hesla na Nextcloud.";
 "_notes" = "Poznámky";
 "_nothingToSeeHere" = "Tady není nic k vidění …";
 "_numbers" = "Číslice";
@@ -106,8 +106,8 @@
 "_passwordStatusBreachedMessage" = "Toto heslo není bezpečné používat. Bylo nalezeno v databázi kompromitovaných hesel.";
 "_passwordStatusDuplicateMessage" = "Toto heslo už používáte pro něco jiného.";
 "_passwordStatusGoodMessage" = "Toto heslo je bezpečné. Nebylo prolomeno a neporušuje uživatelem určená pravidla.";
-"_passwordStatusOutdatedMessage" = "Heslo už bylo příliš dlouho nezměněno.";
-"_passwordStatusUnknownMessage" = "Toto heslo jetště nebylo zkontrolováo ohledně jeho bezpečnostiy nebo je vypnutá volba pro ukládání otisků pro kontroly jejich bezpečnosti.";
+"_passwordStatusOutdatedMessage" = "Toto heslo zůstalo už příliš dlouho nezměněno.";
+"_passwordStatusUnknownMessage" = "Toto heslo ještě nebylo zkontrolováno ohledně jeho bezpečnosti nebo je vypnutá volba pro ukládání otisků pro kontroly jejich bezpečnosti.";
 "_periodSeconds" = "Doba platnosti (sekundy)";
 "_providerInstructionsMessage" = "Tato aplikace podporuje automatické vyplňování hesel. Tuto funkci je třeba zapnout v nastavení systému iOS:\n1. Otevřete aplikaci Nastavení\n2. Klepněte na Hesla\n3. Klepněte na automatické vyplňování hesel\n4. Zapněte automatické vyplňování hesel\n5. Povolte pro tuto aplikaci";
 "_qrCaptureErrorMessage" = "Došlo k chybě při spouštění kamery.";
@@ -136,9 +136,9 @@
 "_text" = "Text";
 "_thanksMessage" = "Poděkování celé komunitě kolem projektu Nextcloud a všem, kdo se podílejí na existenci takového úžasného ekosystému. Doufám, že touto aplikací mohu nějak přispět.";
 "_timeBased" = "Založené na času";
-"_tipDeferred" = "Příspěvek odložen";
+"_tipDeferred" = "Podpoření vývoje odloženo rodičovskou kontrolou";
 "_tipDeferredMessage" = "Váš příspěvek nyní čeká na schválení.";
-"_tipFailed" = "Příspěvek se nezdařil";
+"_tipFailed" = "Zaslání příspěvku se nezdařilo";
 "_tipFailedMessage" = "Došlo k chybě při zpracovávání vašeho příspěvku.";
 "_tipReceived" = "Příspěvek obdržen";
 "_tipReceivedMessage" = "Děkujeme za podporu tohoto projektu vaším příspěvkem!";
@@ -151,3 +151,7 @@
 "_username" = "Uživatelské jméno";
 "_valueCopied" = "Hodnota zkopírována";
 "_version" = "Verze";
+
+/* I.e. duplicates of a password */
+"_duplicates" = "Duplicity";
+"_duplicatesTrashMessage" = "Veškeré duplicity tohoto hesla se nacházejí v koši.";
