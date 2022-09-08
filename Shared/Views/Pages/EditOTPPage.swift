@@ -90,11 +90,10 @@ struct EditOTPPage: View {
     private func moreSection() -> some View {
         Section {
             DisclosureGroup("_moreOptions", isExpanded: $showMore) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text("_type")
                         .font(.subheadline)
                         .foregroundColor(.gray)
-                    Spacer()
                     Picker("", selection: $editOtpController.otpType) {
                         ForEach(OTP.OTPType.allCases.reversed()) {
                             type in
@@ -110,11 +109,10 @@ struct EditOTPPage: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text("_algorithm")
                         .font(.subheadline)
                         .foregroundColor(.gray)
-                    Spacer()
                     Picker("", selection: $editOtpController.otpAlgorithm) {
                         ForEach(Crypto.OTP.Algorithm.allCases) {
                             algorithm in

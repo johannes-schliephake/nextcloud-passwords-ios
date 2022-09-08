@@ -52,8 +52,8 @@ struct SelectTagsPage: View {
     private func listView() -> some View {
         List {
             VStack {
-                Spacer()
                 addTagBadge()
+                    .padding(.top, 8)
             }
             .listRowSeparator(.hidden)
             ForEach(selectTagsController.tags) {

@@ -122,11 +122,10 @@ struct EntriesPage: View {
     
     private func errorView() -> some View {
         List {
-            VStack(alignment: .center) {
+            VStack(alignment: .center, spacing: 8) {
                 Text("_anErrorOccurred")
                     .foregroundColor(.gray)
                     .padding()
-                Spacer()
                 Button {
                     entriesController.refresh()
                 }

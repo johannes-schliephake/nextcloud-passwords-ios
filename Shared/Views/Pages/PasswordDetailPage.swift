@@ -413,15 +413,13 @@ struct PasswordDetailPage: View {
     private func metadataSection() -> some View {
         Section {
             DisclosureGroup(isExpanded: $showMetadata) {
-                VStack {
+                VStack(spacing: 8) {
                     labeledFootnote("_created") {
                         Text(password.created.formattedString)
                     }
-                    Spacer()
                     labeledFootnote("_updated") {
                         Text(password.updated.formattedString)
                     }
-                    Spacer()
                     labeledFootnote("_encryption") {
                         switch (password.cseType, password.sseType) {
                         case ("none", "none"),
@@ -437,7 +435,6 @@ struct PasswordDetailPage: View {
                         }
                     }
                     if let folders = entriesController.folders {
-                        Spacer()
                         labeledFootnote("_folder") {
                             if #available(iOS 16, *) {
                                 FlowView(spacing: 5, alignment: .trailing) {
@@ -474,7 +471,6 @@ struct PasswordDetailPage: View {
                         }
                     }
                     if let hashData = password.password.data(using: .utf8) {
-                        Spacer()
                         labeledFootnote("_hash") {
                             Text(Crypto.SHA1.hash(hashData, humanReadable: true))
                         }

@@ -142,11 +142,10 @@ struct SettingsPage: View {
     
     private func thanksSection() -> some View {
         Section {
-            VStack {
+            VStack(spacing: 8) {
                 Text("_thanksMessage")
                     .font(.footnote)
                     .foregroundColor(.gray)
-                Spacer()
                 HStack {
                     Spacer()
                     Text("Johannes Schliephake")

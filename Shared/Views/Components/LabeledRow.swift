@@ -129,18 +129,16 @@ struct LabeledRow: View {
     }
     
     private func labeledStack() -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 8) {
             if let labelKey {
                 Text(labelKey)
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                Spacer()
             }
             else if let labelString {
                 Text(labelString)
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                Spacer()
             }
             switch type {
             case .secret:

@@ -174,11 +174,10 @@ struct EditPasswordPage: View {
             }
             label: {
                 HStack {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 8) {
                         Text("_otp")
                             .font(.subheadline)
                             .foregroundColor(.gray)
-                        Spacer()
                         Label("_configured", systemImage: "checkmark.circle")
                             .foregroundColor(.green)
                     }
