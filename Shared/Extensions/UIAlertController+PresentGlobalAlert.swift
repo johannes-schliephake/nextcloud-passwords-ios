@@ -11,7 +11,7 @@ extension UIAlertController {
             _ in
             dismissHandler?()
         }))
-        if let confirmText = confirmText {
+        if let confirmText {
             alertController.addAction(UIAlertAction(title: confirmText, style: destructive ? .destructive : .default, handler: {
                 _ in
                 confirmHandler?()
@@ -19,7 +19,7 @@ extension UIAlertController {
         }
         
         /// Present alert on topmost view controller
-        guard var topViewController = UIApplication.safeShared?.windows.first(where: { $0.isKeyWindow })?.rootViewController ?? rootViewController else {
+        guard var topViewController = rootViewController ?? UIApplication.safeShared?.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
             return
         }
         while let presentedViewController = topViewController.presentedViewController,

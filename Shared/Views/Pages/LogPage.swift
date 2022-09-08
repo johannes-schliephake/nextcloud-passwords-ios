@@ -62,9 +62,8 @@ struct LogPage: View {
                 HStack {
                     eventIcon(loggedEvent: loggedEvent)
                         .frame(minWidth: eventTypeIconWidth, maxHeight: .infinity, alignment: .leading)
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 8) {
                         LabeledRow(type: .text, label: loggedEvent.date.formattedString, value: loggedEvent.message)
-                        Spacer()
                         HStack {
                             Button("Copy") {
                                 UIPasteboard.general.string = String(describing: loggedEvent)

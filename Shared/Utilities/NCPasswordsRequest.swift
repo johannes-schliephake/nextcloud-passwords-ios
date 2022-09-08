@@ -110,7 +110,7 @@ extension NCPasswordsRequest {
             
             NetworkClient.default.dataTask(with: request) {
                 [self] data, response, _ in
-                guard let data = data,
+                guard let data,
                       let response = response as? HTTPURLResponse else {
                     DispatchQueue.main.async {
                         completion(nil)

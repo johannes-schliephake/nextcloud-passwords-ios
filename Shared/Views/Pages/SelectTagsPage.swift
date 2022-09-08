@@ -3,11 +3,10 @@ import SwiftUI
 
 struct SelectTagsPage: View {
     
-    @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var sessionController: SessionController
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var selectTagsController: SelectTagsController
-    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
+    @FocusState private var focusedField: FocusField?
     
     init(entriesController: EntriesController, temporaryEntry: SelectTagsController.TemporaryEntry, selectTags: @escaping ([Tag], [String]) -> Void) {
         _selectTagsController = StateObject(wrappedValue: SelectTagsController(entriesController: entriesController, temporaryEntry: temporaryEntry, selectTags: selectTags))
@@ -24,12 +23,6 @@ struct SelectTagsPage: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
-                }
-            }
-            .onChange(of: sessionController.state) {
-                state in
-                if state.isChallengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
                 }
             }
     }
@@ -58,48 +51,28 @@ struct SelectTagsPage: View {
     
     private func listView() -> some View {
         List {
-            if #available(iOS 15, *) {
-                VStack {
-                    Spacer()
-                    addTagBadge()
-                }
-                .listRowSeparator(.hidden)
-                ForEach(selectTagsController.tags) {
-                    tag in
-                    toggleTagBadge(tag: tag)
-                }
-                .listRowSeparator(.hidden)
+            VStack {
+                addTagBadge()
+                    .padding(.top, 8)
             }
-            else {
-                VStack(spacing: 12) {
-                    VStack {
-                        Spacer()
-                        addTagBadge()
-                    }
-                    ForEach(selectTagsController.tags) {
-                        tag in
-                        toggleTagBadge(tag: tag)
-                    }
-                }
+            .listRowSeparator(.hidden)
+            ForEach(selectTagsController.tags) {
+                tag in
+                toggleTagBadge(tag: tag)
             }
+            .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
-        .apply {
-            view in
-            if #available(iOS 15, *) {
-                view
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-                            Button {
-                                focusedField = nil
-                            }
-                            label: {
-                                Text("_dismiss")
-                                    .bold()
-                            }
-                        }
-                    }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button {
+                    focusedField = nil
+                }
+                label: {
+                    Text("_dismiss")
+                        .bold()
+                }
             }
         }
     }
@@ -111,18 +84,10 @@ struct SelectTagsPage: View {
                 .frame(width: 15.8, height: 15.8)
             TextField("_createTag", text: $selectTagsController.tagLabel, onCommit: {
                 selectTagsController.addTag()
-                if #available(iOS 15, *) {
-                    focusedField = .addTagLabel
-                }
+                focusedField = .addTagLabel
             })
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .focused($focusedField, equals: .addTagLabel)
-                            .submitLabel(.done)
-                    }
-                }
+            .focused($focusedField, equals: .addTagLabel)
+            .submitLabel(.done)
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 7)
@@ -158,22 +123,15 @@ struct SelectTagsPage: View {
                     .opacity(selected ? 1 : 0)
             }
         )
-        .animation(.easeInOut(duration: 0.2))
+        .animation(.easeInOut(duration: 0.2), value: selected)
         .onTapGesture {
             selectTagsController.toggleTag(tag)
         }
     }
     
-    @ViewBuilder private func cancelButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button("_cancel", role: .cancel) {
-                presentationMode.wrappedValue.dismiss()
-            }
-        }
-        else {
-            Button("_cancel") {
-                presentationMode.wrappedValue.dismiss()
-            }
+    private func cancelButton() -> some View {
+        Button("_cancel", role: .cancel) {
+            dismiss()
         }
     }
     
@@ -192,7 +150,7 @@ struct SelectTagsPage: View {
             return
         }
         selectTagsController.selectTags(selectTagsController.selection, selectTagsController.invalidTags)
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }

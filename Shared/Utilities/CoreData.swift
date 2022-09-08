@@ -35,7 +35,7 @@ final class CoreData {
     }
     
     func delete(_ object: NSManagedObject?) {
-        guard let object = object else {
+        guard let object else {
             return
         }
         container.viewContext.delete(object)

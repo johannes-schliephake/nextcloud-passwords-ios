@@ -5,7 +5,7 @@ struct SettingsPage: View {
     
     let updateOfflineData: () -> Void
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
@@ -51,40 +51,20 @@ struct SettingsPage: View {
         Section(header: Text("_credentials")) {
             LabeledRow(type: .text, label: "_nextcloudServerAddress", value: session.server)
             LabeledRow(type: .text, label: "_username", value: session.user)
-            if #available(iOS 15.0, *) {
-                Button(role: .destructive) {
-                    showLogoutAlert = true
-                }
-                label: {
-                    HStack {
-                        Spacer()
-                        Text("_logOut")
-                        Spacer()
-                    }
-                }
-                .actionSheet(isPresented: $showLogoutAlert) {
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
-                        logoutAndDismiss()
-                    }])
+            Button(role: .destructive) {
+                showLogoutAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_logOut")
+                    Spacer()
                 }
             }
-            else {
-                Button {
-                    showLogoutAlert = true
-                }
-                label: {
-                    HStack {
-                        Spacer()
-                        Text("_logOut")
-                            .foregroundColor(.red)
-                        Spacer()
-                    }
-                }
-                .actionSheet(isPresented: $showLogoutAlert) {
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
-                        logoutAndDismiss()
-                    }])
-                }
+            .actionSheet(isPresented: $showLogoutAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
+                    logoutAndDismiss()
+                }])
             }
         }
     }
@@ -102,13 +82,7 @@ struct SettingsPage: View {
                 Text("_providerInstructionsMessage")
                     .font(.footnote)
                     .foregroundColor(.gray)
-            }
-        }
-        .apply {
-            view in
-            if #unavailable(iOS 15) {
-                view
-                    .listRowInsets(EdgeInsets())
+                    .monospacedDigit()
             }
         }
         .listRowBackground(Color(UIColor.systemGroupedBackground))
@@ -168,11 +142,10 @@ struct SettingsPage: View {
     
     private func thanksSection() -> some View {
         Section {
-            VStack {
+            VStack(spacing: 8) {
                 Text("_thanksMessage")
                     .font(.footnote)
                     .foregroundColor(.gray)
-                Spacer()
                 HStack {
                     Spacer()
                     Text("Johannes Schliephake")
@@ -183,19 +156,12 @@ struct SettingsPage: View {
                 }
             }
         }
-        .apply {
-            view in
-            if #unavailable(iOS 15) {
-                view
-                    .listRowInsets(EdgeInsets())
-            }
-        }
         .listRowBackground(Color(UIColor.systemGroupedBackground))
     }
     
     private func doneButton() -> some View {
         Button("_done") {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     
@@ -203,7 +169,7 @@ struct SettingsPage: View {
     
     private func logoutAndDismiss() {
         sessionController.logout()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }

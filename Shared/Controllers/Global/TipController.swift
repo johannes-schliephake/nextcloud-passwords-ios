@@ -38,7 +38,10 @@ extension TipController: SKProductsRequestDelegate {
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         DispatchQueue.main.async {
             [self] in
-            products = response.products.sorted { $0.price.compare($1.price) == .orderedDescending }
+            products = response.products.sorted { $0.price.compare($1.price) == .orderedAscending }
+            if #unavailable(iOS 16) {
+                products?.reverse()
+            }
         }
     }
     

@@ -88,7 +88,7 @@ struct EditLabeledRow: View {
         HStack {
             mainStack()
             Spacer()
-            if let bounds = bounds {
+            if let bounds {
                 Stepper("", value: $intValue, in: bounds)
             }
             else {
@@ -100,7 +100,6 @@ struct EditLabeledRow: View {
     private func secretStack() -> some View {
         HStack {
             mainStack()
-                .animation(nil)
             Spacer()
             Button {
                 hideSecret.toggle()
@@ -129,18 +128,16 @@ struct EditLabeledRow: View {
     }
     
     private func labeledStack() -> some View {
-        VStack(alignment: .leading) {
-            if let labelKey = labelKey {
+        VStack(alignment: .leading, spacing: 8) {
+            if let labelKey {
                 Text(labelKey)
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                Spacer()
             }
-            else if let labelString = labelString {
+            else if let labelString {
                 Text(labelString)
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                Spacer()
             }
             switch type {
             case .text:
@@ -157,7 +154,7 @@ struct EditLabeledRow: View {
                                 self.numberStringValue = numberStringValue
                                 return
                             }
-                            if let bounds = bounds {
+                            if let bounds {
                                 if bounds.lowerBound > 0 {
                                     intValue = intValue.clamped(to: 1...bounds.upperBound)
                                 }
@@ -187,7 +184,17 @@ struct EditLabeledRow: View {
                 if hideSecret {
                     ZStack(alignment: .leading) {
                         TextField("", text: .constant(""))
-                            .font(.system(.body, design: .monospaced))
+                            .apply {
+                                view in
+                                if #available(iOS 16, *) {
+                                    view
+                                        .monospaced()
+                                }
+                                else {
+                                    view
+                                        .font(.system(.body, design: .monospaced))
+                                }
+                            }
                             .disabled(true)
                             .hidden()
                         SecureField("-", text: $stringValue)
@@ -196,7 +203,17 @@ struct EditLabeledRow: View {
                 }
                 else {
                     TextField("-", text: $stringValue)
-                        .font(.system(.body, design: .monospaced))
+                        .apply {
+                            view in
+                            if #available(iOS 16, *) {
+                                view
+                                    .monospaced()
+                            }
+                            else {
+                                view
+                                    .font(.system(.body, design: .monospaced))
+                            }
+                        }
                         .keyboardType(.alphabet)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
@@ -215,7 +232,17 @@ struct EditLabeledRow: View {
                     .disableAutocorrection(true)
             case .pin:
                 TextField("-", text: $stringValue)
-                    .font(.system(.body, design: .monospaced))
+                    .apply {
+                        view in
+                        if #available(iOS 16, *) {
+                            view
+                                .monospaced()
+                        }
+                        else {
+                            view
+                                .font(.system(.body, design: .monospaced))
+                        }
+                    }
                     .keyboardType(.numberPad)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)

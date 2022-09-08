@@ -9,7 +9,7 @@ final class SessionController: ObservableObject {
     @Published private(set) var state: State = .loading
     @Published private(set) var session: Session? {
         didSet {
-            guard let session = session else {
+            guard let session else {
                 Keychain.default.remove(key: "server")
                 Keychain.default.remove(key: "user")
                 Keychain.default.remove(key: "password")
@@ -103,7 +103,7 @@ final class SessionController: ObservableObject {
     }
     
     private func requestSession() {
-        guard let session = session else {
+        guard let session else {
             return
         }
         
@@ -114,7 +114,7 @@ final class SessionController: ObservableObject {
         
         RequestSessionRequest(session: session).send {
             [weak self] response in
-            guard let response = response else {
+            guard let response else {
                 if self?.state != .offline && self?.state != .offlineChallengeAvailable {
                     self?.state = .error
                 }
@@ -138,7 +138,7 @@ final class SessionController: ObservableObject {
     }
     
     private func requestKeychain() {
-        guard let session = session else {
+        guard let session else {
             return
         }
         
@@ -165,13 +165,13 @@ final class SessionController: ObservableObject {
     }
     
     func solveChallenge(password: String, store: Bool = false) {
-        guard let session = session else {
+        guard let session else {
             return
         }
         
         state = .loading
         
-        if let challenge = challenge {
+        if let challenge {
             guard let solution = Crypto.PWDv1r1.solve(challenge: challenge, password: password) else {
                 state = .error
                 session.runPendingRequestFailures()
@@ -200,13 +200,13 @@ final class SessionController: ObservableObject {
     }
     
     private func openSession(password: String? = nil, solution: String? = nil, store: Bool? = nil) {
-        guard let session = session else {
+        guard let session else {
             return
         }
         
         OpenSessionRequest(session: session, solution: solution).send {
             [weak self] response in
-            guard let response = response else {
+            guard let response else {
                 if self?.state != .offline && self?.state != .offlineChallengeAvailable {
                     self?.state = .error
                 }
@@ -214,9 +214,9 @@ final class SessionController: ObservableObject {
                 return
             }
             
-            if let password = password,
+            if let password,
                solution != nil,
-               let store = store {
+               let store {
                 guard response.success,
                       let keys = response.keys["CSEv1r1"] else {
                     self?.state = .onlineChallengeAvailable
@@ -264,7 +264,7 @@ final class SessionController: ObservableObject {
             }
             KeepaliveSessionRequest(session: session).send {
                 [weak self] response in
-                guard let response = response,
+                guard let response,
                       response.success else {
                     return
                 }
@@ -274,7 +274,7 @@ final class SessionController: ObservableObject {
     }
     
     func logout() {
-        guard let session = session else {
+        guard let session else {
             return
         }
         logoutSubscription = Future {

@@ -1,4 +1,5 @@
 import SwiftUI
+import PhotosUI
 
 
 final class EditPasswordController: ObservableObject {
@@ -74,6 +75,22 @@ final class EditPasswordController: ObservableObject {
     
     var passwordCustomFieldCount: Int {
         passwordCustomUserFields.count + password.customDataFields.count + (passwordOtp != nil ? 1 : 0)
+    }
+    
+    @available(iOS 16, *) func extractOtp(from selection: PhotosPickerItem) {
+        selection.loadTransferable(type: Data.self) {
+            [weak self] result in
+            guard let data = try? result.get(),
+                  let image = UIImage(data: data) else {
+                DispatchQueue.main.async {
+                    self?.showExtractOtpErrorAlert = true
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self?.extractOtp(from: image)
+            }
+        }
     }
     
     func extractOtp(from image: UIImage) {

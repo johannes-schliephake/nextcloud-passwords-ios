@@ -66,8 +66,8 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
                 return (appSession, webSession)
             }
             .flatMap {
-                (appSession: Session, webSession: Session?) -> AnyPublisher<Session, Never> in
-                guard let webSession = webSession else {
+                appSession, webSession in
+                guard let webSession else {
                     return Just(appSession)
                         .eraseToAnyPublisher()
                 }

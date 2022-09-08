@@ -112,7 +112,7 @@ final class Tag: ObservableObject, Identifiable {
             CoreData.default.delete(offlineContainer)
             offlineContainer = nil
         }
-        else if let offlineContainer = offlineContainer {
+        else if let offlineContainer {
             offlineContainer.update(from: self)
         }
         else {

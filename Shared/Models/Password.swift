@@ -69,7 +69,7 @@ final class Password: ObservableObject, Identifiable {
         }
         set {
             customFields = customUserFields + customDataFields
-            guard let newValue = newValue,
+            guard let newValue,
                   customFields.count < 20,
                   let data = try? Configuration.updatingJsonEncoder.encode(newValue),
                   let value = String(data: data, encoding: .utf8) else {
@@ -184,7 +184,7 @@ final class Password: ObservableObject, Identifiable {
             }
             customFields = legacyCustomFields
                 .compactMap {
-                    (name: String, object: [String: String]) in
+                    name, object in
                     guard let type = object["type"].flatMap(CustomField.CustomFieldType.init),
                           let value = object["value"] else {
                         LoggingController.shared.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Legacy custom fields decoding failed -- JSON object is \(customFieldsString)")))
@@ -292,7 +292,7 @@ final class Password: ObservableObject, Identifiable {
             CoreData.default.delete(offlineContainer)
             offlineContainer = nil
         }
-        else if let offlineContainer = offlineContainer {
+        else if let offlineContainer {
             offlineContainer.update(from: self)
         }
         else {

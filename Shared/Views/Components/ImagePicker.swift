@@ -6,7 +6,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     
     let action: (_ image: UIImage) -> Void
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     func makeCoordinator() -> Coordinator {
         Coordinator(imagePicker: self)
@@ -38,7 +38,7 @@ extension ImagePicker {
         
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
             guard !results.isEmpty else {
-                imagePicker.presentationMode.wrappedValue.dismiss()
+                imagePicker.dismiss()
                 return
             }
             results
@@ -55,7 +55,7 @@ extension ImagePicker {
                         }
                         DispatchQueue.main.async {
                             self?.imagePicker.action(image)
-                            self?.imagePicker.presentationMode.wrappedValue.dismiss()
+                            self?.imagePicker.dismiss()
                         }
                     }
                 }

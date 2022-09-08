@@ -6,8 +6,7 @@ struct CaptureOTPPage: View {
     
     let capture: (OTP) -> Void
     
-    @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var sessionController: SessionController
+    @Environment(\.dismiss) private var dismiss
     
     @State private var showErrorAlert = false
     @State private var isTorchActive = false
@@ -30,12 +29,6 @@ struct CaptureOTPPage: View {
                     }
                 }
             }
-            .onChange(of: sessionController.state) {
-                state in
-                if state.isChallengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
-                }
-            }
     }
     
     private func mainStack() -> some View {
@@ -46,7 +39,7 @@ struct CaptureOTPPage: View {
                     .background(Color.black)
                     .alert(isPresented: $showErrorAlert) {
                         Alert(title: Text("_error"), message: Text("_qrCaptureErrorMessage"), dismissButton: .cancel {
-                            presentationMode.wrappedValue.dismiss()
+                            dismiss()
                         })
                     }
                 let sideLength = min(geometryProxy.size.width, geometryProxy.size.height) * 0.8
@@ -59,16 +52,9 @@ struct CaptureOTPPage: View {
         }
     }
     
-    @ViewBuilder private func cancelButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button("_cancel", role: .cancel) {
-                presentationMode.wrappedValue.dismiss()
-            }
-        }
-        else {
-            Button("_cancel") {
-                presentationMode.wrappedValue.dismiss()
-            }
+    private func cancelButton() -> some View {
+        Button("_cancel", role: .cancel) {
+            dismiss()
         }
     }
     
@@ -91,13 +77,13 @@ struct CaptureOTPPage: View {
         return OTP(from: url)
     }
     
-    private func finishCapture(_ result: OTP?) {
-        guard let otp = result else {
+    private func finishCapture(_ otp: OTP?) {
+        guard let otp else {
             showErrorAlert = true
             return
         }
         capture(otp)
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
     private func toggleTorch(videoCaptureDevice: AVCaptureDevice) {

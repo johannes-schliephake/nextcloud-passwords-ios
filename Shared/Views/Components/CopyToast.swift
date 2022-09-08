@@ -65,6 +65,7 @@ extension CopyToast {
         
         init() {
             NotificationCenter.default.publisher(for: UIPasteboard.changedNotification)
+                .receive(on: DispatchQueue.main)
                 .sink(receiveValue: showCopyToast)
                 .store(in: &subscriptions)
         }

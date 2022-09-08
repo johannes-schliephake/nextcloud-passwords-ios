@@ -17,28 +17,6 @@ enum Entry: Identifiable {
         }
     }
     
-    var label: String {
-        switch self {
-        case .folder(let folder):
-            return folder.label
-        case .password(let password):
-            return password.label
-        case .tag(let tag):
-            return tag.label
-        }
-    }
-    
-    var parent: String? {
-        switch self {
-        case .folder(let folder):
-            return folder.parent
-        case .password(let password):
-            return password.folder
-        case .tag:
-            return nil
-        }
-    }
-    
     func score(searchTerm: String) -> Double {
         switch self {
         case .folder(let folder):

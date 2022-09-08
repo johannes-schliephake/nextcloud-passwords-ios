@@ -129,28 +129,46 @@ struct LabeledRow: View {
     }
     
     private func labeledStack() -> some View {
-        VStack(alignment: .leading) {
-            if let labelKey = labelKey {
+        VStack(alignment: .leading, spacing: 8) {
+            if let labelKey {
                 Text(labelKey)
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                Spacer()
             }
-            else if let labelString = labelString {
+            else if let labelString {
                 Text(labelString)
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                Spacer()
             }
             switch type {
             case .secret:
                 Text(hideSecret ? "••••••••••••" : value)
                     .foregroundColor(.primary)
-                    .font(.system(.body, design: .monospaced))
+                    .apply {
+                        view in
+                        if #available(iOS 16, *) {
+                            view
+                                .monospaced()
+                        }
+                        else {
+                            view
+                                .font(.system(.body, design: .monospaced))
+                        }
+                    }
             case .pin:
                 Text(value.segmented)
                     .foregroundColor(.primary)
-                    .font(.system(.body, design: .monospaced))
+                    .apply {
+                        view in
+                        if #available(iOS 16, *) {
+                            view
+                                .monospaced()
+                        }
+                        else {
+                            view
+                                .font(.system(.body, design: .monospaced))
+                        }
+                    }
             default:
                 Text(!value.isEmpty ? value : "-")
                     .foregroundColor(.primary)

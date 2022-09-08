@@ -3,11 +3,10 @@ import SwiftUI
 
 struct EditOTPPage: View {
     
-    @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var sessionController: SessionController
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var editOtpController: EditOTPController
-    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
+    @FocusState private var focusedField: FocusField?
     @State private var showMore: Bool
     @State private var showDeleteAlert = false
     @State private var showCancelAlert = false
@@ -30,28 +29,8 @@ struct EditOTPPage: View {
                     confirmButton()
                 }
             }
-            .onChange(of: sessionController.state) {
-                state in
-                if state.isChallengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
-                }
-            }
-            .apply {
-                view in
-                if #available(iOS 15, *) {
-                    view
-                        .initialize(focus: $focusedField, with: editOtpController.otp.secret.isEmpty ? .otpSecret : nil)
-                        .interactiveDismissDisabled(editOtpController.hasChanges)
-                }
-                else {
-                    view
-                        .actionSheet(isPresented: $showCancelAlert) {
-                            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                                presentationMode.wrappedValue.dismiss()
-                            }])
-                        }
-                }
-            }
+            .initialize(focus: $focusedField, with: editOtpController.otp.secret.isEmpty ? .otpSecret : nil)
+            .interactiveDismissDisabled(editOtpController.hasChanges)
     }
     
     private func listView() -> some View {
@@ -64,44 +43,38 @@ struct EditOTPPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .apply {
-            view in
-            if #available(iOS 15, *) {
-                view
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Button {
-                                focusedField = focusedField?.previous()
-                            }
-                            label: {
-                                Image(systemName: "chevron.up")
-                            }
-                            .disabled(focusedField?.previous() == nil)
-                            Button {
-                                focusedField = focusedField?.next(showMore: showMore, isTimeBased: editOtpController.otpType == .totp)
-                            }
-                            label: {
-                                Image(systemName: "chevron.down")
-                            }
-                            .disabled(focusedField?.next(showMore: showMore, isTimeBased: editOtpController.otpType == .totp) == nil)
-                            Spacer()
-                            Button {
-                                focusedField = nil
-                            }
-                            label: {
-                                Text("_dismiss")
-                                    .bold()
-                            }
-                        }
-                    }
-                    .onSubmit {
-                        if let next = focusedField?.next(showMore: showMore, isTimeBased: editOtpController.otpType == .totp) {
-                            focusedField = next
-                        }
-                        else {
-                            applyAndDismiss()
-                        }
-                    }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Button {
+                    focusedField = focusedField?.previous()
+                }
+                label: {
+                    Image(systemName: "chevron.up")
+                }
+                .disabled(focusedField?.previous() == nil)
+                Button {
+                    focusedField = focusedField?.next(showMore: showMore, isTimeBased: editOtpController.otpType == .totp)
+                }
+                label: {
+                    Image(systemName: "chevron.down")
+                }
+                .disabled(focusedField?.next(showMore: showMore, isTimeBased: editOtpController.otpType == .totp) == nil)
+                Spacer()
+                Button {
+                    focusedField = nil
+                }
+                label: {
+                    Text("_dismiss")
+                        .bold()
+                }
+            }
+        }
+        .onSubmit {
+            if let next = focusedField?.next(showMore: showMore, isTimeBased: editOtpController.otpType == .totp) {
+                focusedField = next
+            }
+            else {
+                applyAndDismiss()
             }
         }
     }
@@ -109,25 +82,18 @@ struct EditOTPPage: View {
     private func otpSecretField() -> some View {
         Section(header: Text("_secret")) {
             EditLabeledRow(type: .secret, value: $editOtpController.otpSecret)
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .focused($focusedField, equals: .otpSecret)
-                            .submitLabel(showMore ? .next : .done)
-                    }
-                }
+                .focused($focusedField, equals: .otpSecret)
+                .submitLabel(showMore ? .next : .done)
         }
     }
     
     private func moreSection() -> some View {
         Section {
             DisclosureGroup("_moreOptions", isExpanded: $showMore) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text("_type")
                         .font(.subheadline)
                         .foregroundColor(.gray)
-                    Spacer()
                     Picker("", selection: $editOtpController.otpType) {
                         ForEach(OTP.OTPType.allCases.reversed()) {
                             type in
@@ -143,11 +109,10 @@ struct EditOTPPage: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text("_algorithm")
                         .font(.subheadline)
                         .foregroundColor(.gray)
-                    Spacer()
                     Picker("", selection: $editOtpController.otpAlgorithm) {
                         ForEach(Crypto.OTP.Algorithm.allCases) {
                             algorithm in
@@ -167,35 +132,17 @@ struct EditOTPPage: View {
                     .pickerStyle(.segmented)
                 }
                 EditLabeledRow(label: "_digits", value: $editOtpController.otpDigits, bounds: 6...8)
-                    .apply {
-                        view in
-                        if #available(iOS 15, *) {
-                            view
-                                .focused($focusedField, equals: .otpDigits)
-                                .submitLabel(.next)
-                        }
-                    }
+                    .focused($focusedField, equals: .otpDigits)
+                    .submitLabel(.next)
                 if editOtpController.otpType == .hotp {
                     EditLabeledRow(label: "_counter", value: $editOtpController.otpCounter, bounds: 0...Int.max)
-                        .apply {
-                            view in
-                            if #available(iOS 15, *) {
-                                view
-                                    .focused($focusedField, equals: .otpCounter)
-                                    .submitLabel(.done)
-                            }
-                        }
+                        .focused($focusedField, equals: .otpCounter)
+                        .submitLabel(.done)
                 }
                 else if editOtpController.otpType == .totp {
                     EditLabeledRow(label: "_periodSeconds", value: $editOtpController.otpPeriod, bounds: 1...Int.max)
-                        .apply {
-                            view in
-                            if #available(iOS 15, *) {
-                                view
-                                    .focused($focusedField, equals: .otpPeriod)
-                                    .submitLabel(.done)
-                            }
-                        }
+                        .focused($focusedField, equals: .otpPeriod)
+                        .submitLabel(.done)
                 }
             }
         }
@@ -205,7 +152,7 @@ struct EditOTPPage: View {
         Section {
             let data = OTP(type: editOtpController.otpType, algorithm: editOtpController.otpAlgorithm, secret: editOtpController.otpSecret, digits: editOtpController.otpDigits, counter: editOtpController.otpCounter, period: editOtpController.otpPeriod, issuer: editOtpController.otp.issuer, accountname: editOtpController.otp.accountname)?.url?.absoluteString.data(using: .utf8)
             NavigationLink {
-                if let data = data {
+                if let data {
                     ShareOTPPage(data: data)
                 }
             }
@@ -218,59 +165,32 @@ struct EditOTPPage: View {
         }
     }
     
-    @ViewBuilder private func deleteButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button(role: .destructive) {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deleteOtp")
-                    Spacer()
-                }
-            }
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteOtp")) {
-                    deleteAndDismiss()
-                }])
+    private func deleteButton() -> some View {
+        Button(role: .destructive) {
+            showDeleteAlert = true
+        }
+        label: {
+            HStack {
+                Spacer()
+                Text("_deleteOtp")
+                Spacer()
             }
         }
-        else {
-            Button {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deletePassword")
-                        .foregroundColor(.red)
-                    Spacer()
-                }
-            }
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteOtp")) {
-                    deleteAndDismiss()
-                }])
-            }
+        .actionSheet(isPresented: $showDeleteAlert) {
+            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteOtp")) {
+                deleteAndDismiss()
+            }])
         }
     }
     
-    @ViewBuilder private func cancelButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button("_cancel", role: .cancel) {
-                cancelAndDismiss()
-            }
-            .actionSheet(isPresented: $showCancelAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                    presentationMode.wrappedValue.dismiss()
-                }])
-            }
+    private func cancelButton() -> some View {
+        Button("_cancel", role: .cancel) {
+            cancelAndDismiss()
         }
-        else {
-            Button("_cancel") {
-                cancelAndDismiss()
-            }
+        .actionSheet(isPresented: $showCancelAlert) {
+            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                dismiss()
+            }])
         }
     }
     
@@ -288,7 +208,7 @@ struct EditOTPPage: View {
             showCancelAlert = true
         }
         else {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     
@@ -297,12 +217,12 @@ struct EditOTPPage: View {
             return
         }
         editOtpController.applyToOtp()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
     private func deleteAndDismiss() {
         editOtpController.clearOtp()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }
