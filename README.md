@@ -12,6 +12,10 @@ This app requires a Nextcloud server with the Passwords app installed.
 
 <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-1.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-2.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-3.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-4.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-5.png" width="19%">
 
+## TestFlight
+
+You can install beta builds by joining the [TestFlight](https://testflight.apple.com/join/iuljLJ4u) program. These builds also include logging functionality to get detailed information about errors.
+
 ## Translators
 
 - Czech: [Pavel Borecki](https://github.com/p-bo)
