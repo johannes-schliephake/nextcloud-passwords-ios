@@ -1,1 +1,2 @@
+• iOS 16 Kompatibilität
 • Fehlerbehebungen
