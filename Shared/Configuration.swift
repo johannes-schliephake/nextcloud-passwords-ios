@@ -13,6 +13,7 @@ enum Configuration {
         "generatorStrength": PasswordServiceRequest.Strength.ultra.rawValue
     ]
     
+    static let buildNumberString = Bundle.main.infoDictionary?["CFBundleVersion"] as! String // swiftlint:disable:this force_cast
     static let shortVersionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String // swiftlint:disable:this force_cast
     static let appService = Bundle.main.object(forInfoDictionaryKey: "AppService") as! String // swiftlint:disable:this force_cast
     static let appGroup = Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String // swiftlint:disable:this force_cast
