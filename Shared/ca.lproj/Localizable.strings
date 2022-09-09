@@ -115,7 +115,7 @@
 "_giveATip" = "Aconsellar";
 
 /* Make sure to keep newlines (\n) and the placeholder (%@) */
-"_invalidCertificateMessage(hash)" = "El certificat del servidor no és vàlid. No es pot garantir una connexió segura. S'ha d'utilitzar encara el certificat?\n\nSHA-256 del certificat:\n%s";
+"_invalidCertificateMessage(hash)" = "El certificat del servidor no és vàlid. No es pot garantir una connexió segura. S'ha d'utilitzar encara el certificat?\n\nSHA-256 del certificat:\n%@";
 
 /* E.g. a SHA1 hash */
 "_hash" = "Hash";
