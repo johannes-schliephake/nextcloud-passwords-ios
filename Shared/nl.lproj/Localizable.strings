@@ -128,7 +128,7 @@
 "_invalidCertificate" = "Ongeldig certificaat";
 
 /* Make sure to keep newlines (\n) and the placeholder (%@) */
-"_invalidCertificateMessage(hash)" = "Het servercertificaat is ongeldig. Een veilige verbinding kan niet worden gegarandeerd. Moet het certificaat nog worden gebruikt?\n\nSHA-256 van het certificaat:\n%s";
+"_invalidCertificateMessage(hash)" = "Het servercertificaat is ongeldig. Een veilige verbinding kan niet worden gegarandeerd. Moet het certificaat nog worden gebruikt?\n\nSHA-256 van het certificaat:\n%@";
 
 /* Use the same wording Apple uses across iOS */
 "_cancel" = "Annuleren";
