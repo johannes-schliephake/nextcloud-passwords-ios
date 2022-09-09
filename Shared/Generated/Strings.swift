@@ -93,8 +93,8 @@ internal enum Strings {
   internal static let incorrectPasswordMessage = Strings.tr("Localizable", "_incorrectPasswordMessage", fallback: "Please try again.")
   internal static let integration = Strings.tr("Localizable", "_integration", fallback: "Integration")
   internal static let invalidCertificate = Strings.tr("Localizable", "_invalidCertificate", fallback: "Invalid Certificate")
-  internal static func invalidCertificateMessageHash(_ p1: UnsafePointer<CChar>) -> String {
-    return Strings.tr("Localizable", "_invalidCertificateMessage(hash)", p1, fallback: "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%s")
+  internal static func invalidCertificateMessageHash(_ p1: Any) -> String {
+    return Strings.tr("Localizable", "_invalidCertificateMessage(hash)", String(describing: p1), fallback: "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%@")
   }
   internal static let logIn = Strings.tr("Localizable", "_logIn", fallback: "Log In")
   internal static let logOut = Strings.tr("Localizable", "_logOut", fallback: "Log Out")
