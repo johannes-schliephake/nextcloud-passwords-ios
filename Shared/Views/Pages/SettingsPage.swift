@@ -130,6 +130,13 @@ struct SettingsPage: View {
                         .foregroundColor(.accentColor)
                 }
                 .isDetailLink(false)
+                .apply {
+                    view in
+                    if #available(iOS 16, *) {
+                        view
+                            .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
+                    }
+                }
             }
             LabeledRow(type: .text, label: "_version", value: "\(Configuration.shortVersionString)\(Bundle.root.isTestFlight || Configuration.isDebug ? " (\(Bundle.root.isTestFlight ? "TestFlight" : Configuration.isDebug ? "Debug" : "Unknown"), Build \(Configuration.buildNumberString))" : "")")
             if let url = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios") {
