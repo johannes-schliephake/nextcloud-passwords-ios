@@ -80,7 +80,7 @@
 "_incorrectPasswordMessage" = "Zkuste to znovu.";
 "_integration" = "Napojení";
 "_invalidCertificate" = "Neplatný certifikát";
-"_invalidCertificateMessage(hash)" = "Certifikát serveru není platný. Bezpečnost spojení není možné zaručit. Má být certifikát i přesto použit?\n\nSHA-256 otisk certifikátu:\n%s";
+"_invalidCertificateMessage(hash)" = "Certifikát serveru není platný. Bezpečnost spojení není možné zaručit. Má být certifikát i přesto použit?\n\nSHA-256 otisk certifikátu:\n%@";
 "_logIn" = "Přihlásit";
 "_logOut" = "Odhlásit";
 "_low" = "Nízká";
