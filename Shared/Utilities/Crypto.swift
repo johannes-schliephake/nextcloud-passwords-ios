@@ -172,7 +172,7 @@ extension Crypto {
                 .map { try Configuration.jsonDecoder.decode(Folder.self, from: $0) }
                 .zip(with: folderOfflineContainers)
                 .map {
-                    folder, offlineContainer -> Folder in
+                    folder, offlineContainer in
                     folder.offlineContainer = offlineContainer
                     return folder
                 }
@@ -183,7 +183,7 @@ extension Crypto {
                 .map { try Configuration.jsonDecoder.decode(Password.self, from: $0) }
                 .zip(with: passwordOfflineContainers)
                 .map {
-                    password, offlineContainer -> Password in
+                    password, offlineContainer in
                     password.offlineContainer = offlineContainer
                     return password
                 }
@@ -194,7 +194,7 @@ extension Crypto {
                 .map { try Configuration.jsonDecoder.decode(Tag.self, from: $0) }
                 .zip(with: passwordOfflineContainers)
                 .map {
-                    tag, offlineContainer -> Tag in
+                    tag, offlineContainer in
                     tag.offlineContainer = offlineContainer
                     return tag
                 }

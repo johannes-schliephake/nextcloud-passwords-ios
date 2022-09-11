@@ -14,6 +14,13 @@ struct CaptureOTPNavigation: View {
             CaptureOTPPage(capture: capture)
         }
         .showColumns(false)
+        .apply {
+            view in
+            if #available(iOS 16, *) {
+                view
+                    .scrollDismissesKeyboard(.interactively)
+            }
+        }
         .occlude(!biometricAuthenticationController.isUnlocked)
     }
     

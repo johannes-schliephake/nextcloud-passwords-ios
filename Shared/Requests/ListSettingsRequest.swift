@@ -18,8 +18,8 @@ extension ListSettingsRequest: NCPasswordsRequest {
         post(action: "settings/list", session: session, completion: completion)
     }
     
-    func decode(data: Data) -> Settings? {
-        try? Configuration.jsonDecoder.decode(Settings.self, from: data)
+    func decode(data: Data) throws -> Settings? {
+        try Configuration.jsonDecoder.decode(Settings.self, from: data)
     }
     
 }

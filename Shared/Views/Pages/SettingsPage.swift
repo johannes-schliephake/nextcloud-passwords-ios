@@ -5,10 +5,11 @@ struct SettingsPage: View {
     
     let updateOfflineData: () -> Void
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
+    @StateObject private var loggingController = LoggingController.shared
     @AppStorage("storeOffline", store: Configuration.userDefaults) private var storeOffline = Configuration.defaults["storeOffline"] as! Bool // swiftlint:disable:this force_cast
     @AppStorage("automaticallyGeneratePasswords", store: Configuration.userDefaults) private var automaticallyGeneratePasswords = Configuration.defaults["automaticallyGeneratePasswords"] as! Bool // swiftlint:disable:this force_cast
     @State private var showLogoutAlert = false
@@ -50,40 +51,20 @@ struct SettingsPage: View {
         Section(header: Text("_credentials")) {
             LabeledRow(type: .text, label: "_nextcloudServerAddress", value: session.server)
             LabeledRow(type: .text, label: "_username", value: session.user)
-            if #available(iOS 15.0, *) {
-                Button(role: .destructive) {
-                    showLogoutAlert = true
-                }
-                label: {
-                    HStack {
-                        Spacer()
-                        Text("_logOut")
-                        Spacer()
-                    }
-                }
-                .actionSheet(isPresented: $showLogoutAlert) {
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
-                        logoutAndDismiss()
-                    }])
+            Button(role: .destructive) {
+                showLogoutAlert = true
+            }
+            label: {
+                HStack {
+                    Spacer()
+                    Text("_logOut")
+                    Spacer()
                 }
             }
-            else {
-                Button {
-                    showLogoutAlert = true
-                }
-                label: {
-                    HStack {
-                        Spacer()
-                        Text("_logOut")
-                            .foregroundColor(.red)
-                        Spacer()
-                    }
-                }
-                .actionSheet(isPresented: $showLogoutAlert) {
-                    ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
-                        logoutAndDismiss()
-                    }])
-                }
+            .actionSheet(isPresented: $showLogoutAlert) {
+                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
+                    logoutAndDismiss()
+                }])
             }
         }
     }
@@ -101,13 +82,7 @@ struct SettingsPage: View {
                 Text("_providerInstructionsMessage")
                     .font(.footnote)
                     .foregroundColor(.gray)
-            }
-        }
-        .apply {
-            view in
-            if #unavailable(iOS 15) {
-                view
-                    .listRowInsets(EdgeInsets())
+                    .monospacedDigit()
             }
         }
         .listRowBackground(Color(UIColor.systemGroupedBackground))
@@ -146,7 +121,24 @@ struct SettingsPage: View {
     
     private func aboutSection() -> some View {
         Section(header: Text("_about")) {
-            LabeledRow(type: .text, label: "_version", value: Configuration.shortVersionString)
+            if loggingController.events != nil {
+                NavigationLink {
+                    LogPage()
+                }
+                label: {
+                    Label("Log", systemImage: "doc.text.magnifyingglass")
+                        .foregroundColor(.accentColor)
+                }
+                .isDetailLink(false)
+                .apply {
+                    view in
+                    if #available(iOS 16, *) {
+                        view
+                            .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
+                    }
+                }
+            }
+            LabeledRow(type: .text, label: "_version", value: "\(Configuration.shortVersionString)\(Bundle.root.isTestFlight || Configuration.isDebug ? " (\(Bundle.root.isTestFlight ? "TestFlight" : Configuration.isDebug ? "Debug" : "Unknown"), Build \(Configuration.buildNumberString))" : "")")
             if let url = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios") {
                 Link(destination: url) {
                     Label("_sourceCode", systemImage: "curlybraces")
@@ -157,11 +149,10 @@ struct SettingsPage: View {
     
     private func thanksSection() -> some View {
         Section {
-            VStack {
+            VStack(spacing: 8) {
                 Text("_thanksMessage")
                     .font(.footnote)
                     .foregroundColor(.gray)
-                Spacer()
                 HStack {
                     Spacer()
                     Text("Johannes Schliephake")
@@ -172,19 +163,12 @@ struct SettingsPage: View {
                 }
             }
         }
-        .apply {
-            view in
-            if #unavailable(iOS 15) {
-                view
-                    .listRowInsets(EdgeInsets())
-            }
-        }
         .listRowBackground(Color(UIColor.systemGroupedBackground))
     }
     
     private func doneButton() -> some View {
         Button("_done") {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     
@@ -192,7 +176,7 @@ struct SettingsPage: View {
     
     private func logoutAndDismiss() {
         sessionController.logout()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }

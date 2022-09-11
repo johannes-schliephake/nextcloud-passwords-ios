@@ -59,11 +59,17 @@ final class Password: ObservableObject, Identifiable {
                   let otpData = otpValue.data(using: .utf8) else {
                 return nil
             }
-            return try? Configuration.jsonDecoder.decode(OTP.self, from: otpData)
+            do {
+                return try Configuration.jsonDecoder.decode(OTP.self, from: otpData)
+            }
+            catch {
+                LoggingController.shared.log(error: error)
+                return nil
+            }
         }
         set {
             customFields = customUserFields + customDataFields
-            guard let newValue = newValue,
+            guard let newValue,
                   customFields.count < 20,
                   let data = try? Configuration.updatingJsonEncoder.encode(newValue),
                   let value = String(data: data, encoding: .utf8) else {
@@ -147,6 +153,7 @@ final class Password: ObservableObject, Identifiable {
                   let decryptedNotes = Crypto.CSEv1r1.decrypt(payload: notes, key: key),
                   let decryptedCustomFieldsString = Crypto.CSEv1r1.decrypt(payload: customFieldsString, key: key) else {
                 state = .decryptionFailed
+                LoggingController.shared.log(error: "Failed to decrypt password")
                 return
             }
             label = decryptedLabel
@@ -157,6 +164,7 @@ final class Password: ObservableObject, Identifiable {
             customFieldsString = decryptedCustomFieldsString
         default:
             state = .decryptionFailed
+            LoggingController.shared.log(error: "Unknown client side encryption type")
         }
         
         if customFieldsString.isEmpty {
@@ -165,7 +173,31 @@ final class Password: ObservableObject, Identifiable {
         guard let customFieldsData = customFieldsString.data(using: .utf8) else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed"))
         }
-        customFields = try Configuration.jsonDecoder.decode([CustomField].self, from: customFieldsData)
+        do {
+            customFields = try Configuration.jsonDecoder.decode([FailableDecodable<CustomField>].self, from: customFieldsData)
+                .compactMap { try? $0.result.get() } /// Catch null values and non-conforming custom fields
+        }
+        catch {
+            guard let legacyCustomFields = try? Configuration.jsonDecoder.decode([String: [String: String]].self, from: customFieldsData) else {
+                LoggingController.shared.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed -- JSON object is \(customFieldsString)", underlyingError: error)))
+                return
+            }
+            customFields = legacyCustomFields
+                .compactMap {
+                    name, object in
+                    guard let type = object["type"].flatMap(CustomField.CustomFieldType.init),
+                          let value = object["value"] else {
+                        LoggingController.shared.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Legacy custom fields decoding failed -- JSON object is \(customFieldsString)")))
+                        return nil
+                    }
+                    if name.hasPrefix("_") {
+                        return CustomField(label: String(name.dropFirst()), type: .data, value: value)
+                    }
+                    else {
+                        return CustomField(label: name, type: type, value: value)
+                    }
+                }
+        }
     }
     
     func score(searchTerm: String) -> Double {
@@ -260,7 +292,7 @@ final class Password: ObservableObject, Identifiable {
             CoreData.default.delete(offlineContainer)
             offlineContainer = nil
         }
-        else if let offlineContainer = offlineContainer {
+        else if let offlineContainer {
             offlineContainer.update(from: self)
         }
         else {

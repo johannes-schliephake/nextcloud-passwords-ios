@@ -23,19 +23,21 @@ extension OpenSessionRequest: NCPasswordsRequest {
         post(action: "session/open", session: session, completion: completion)
     }
     
-    func decode(data: Data) -> Response? {
-        if let response = try? Configuration.jsonDecoder.decode(Response.self, from: data) {
-            return response
+    func decode(data: Data) throws -> Response? {
+        do {
+            return try Configuration.jsonDecoder.decode(Response.self, from: data)
         }
-        if let errorResponse = try? Configuration.jsonDecoder.decode(NCPasswordsRequestErrorResponse.self, from: data) {
-            switch (errorResponse.status, errorResponse.id) {
-            case ("error", "a361c427"): /// "Password invalid"
-                return Response(success: false, keys: [:])
-            default:
-                break
+        catch {
+            if let errorResponse = try? Configuration.jsonDecoder.decode(NCPasswordsRequestErrorResponse.self, from: data) {
+                switch (errorResponse.status, errorResponse.id) {
+                case ("error", "a361c427"): /// "Password invalid"
+                    return Response(success: false, keys: [:])
+                default:
+                    break
+                }
             }
+            throw error
         }
-        return nil
     }
     
 }

@@ -3,7 +3,7 @@ default_platform(:ios)
 opt_out_usage
 
 before_all do
-    ensure_xcode_version(version: "13.4.1")
+    ensure_xcode_version(version: "14.0")
     ensure_git_status_clean
     ensure_git_branch(branch: "develop")
 end
@@ -21,7 +21,7 @@ lane :generate_icons do
     end
 end
 
-desc("Takes all screenshots required for App Store and commits the changes.")
+desc("Takes all screenshots required for the App Store and commits the changes.")
 lane :take_screenshots do
     devices = [
         "iPhone 13 Pro Max",
@@ -45,40 +45,78 @@ lane :take_screenshots do
     sh("git commit -m \"Update screenshots\"")
 end
 
-desc("Bumps all build and version numbers and commits the version bump.")
+desc("Bumps all version numbers and commits the version bump.")
 desc("**Parameters**\n- `bump_type`: `major` or `minor` or `patch` (defaults to `patch`)")
-lane :bump_version do |parameters|
-    increment_build_number_in_xcodeproj(target: "Passwords")
-    increment_build_number_in_xcodeproj(target: "Provider")
-    increment_build_number_in_xcodeproj(target: "Extension")
+lane :bump_version_numbers do |parameters|
     increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], omit_zero_patch_version: true, target: "Passwords")
     increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], omit_zero_patch_version: true, target: "Provider")
     increment_version_number_in_xcodeproj(bump_type: parameters[:bump_type], omit_zero_patch_version: true, target: "Extension")
-    commit_version_bump(message: "Bump version")
+    commit_version_bump(message: "Bump version numbers")
 end
 
-desc("Downloads certificates and provisioning profiles, archives the app and uploads the binary and all metadata to the App Store.")
+desc("Downloads certificates and provisioning profiles, bumps build numbers, archives the app, uploads the binary to TestFlight, distributes to public beta and commits the build bump.")
 lane :build_and_upload do
+    unless last_git_tag != "v#{get_version_number(target: "Passwords")}"
+        UI.user_error!("The version number didn't change")
+    end
     get_certificates(output_path: "fastlane/tmp")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Extension")
+    increment_build_number_in_xcodeproj(target: "Passwords")
+    increment_build_number_in_xcodeproj(target: "Provider")
+    increment_build_number_in_xcodeproj(target: "Extension")
     build_app(scheme: "Passwords", clean: true, output_directory: "fastlane/tmp", export_method: "app-store")
-    upload_to_app_store(overwrite_screenshots: true)
+    localized_app_info = {
+        "en-US": {
+            feedback_email: File.read("metadata/en-US/feedback_email.txt").strip,
+            marketing_url: File.read("metadata/en-US/marketing_url.txt").strip,
+            privacy_policy_url: File.read("metadata/en-US/privacy_url.txt").strip,
+            description: File.read("metadata/en-US/description.txt").strip
+        },
+        "de-DE": {
+            feedback_email: File.read("metadata/de-DE/feedback_email.txt").strip,
+            marketing_url: File.read("metadata/de-DE/marketing_url.txt").strip,
+            privacy_policy_url: File.read("metadata/de-DE/privacy_url.txt").strip,
+            description: File.read("metadata/de-DE/description.txt").strip
+        }
+    }
+    localized_build_info = {
+        "en-US": {
+            whats_new: File.read("metadata/en-US/release_notes.txt").strip
+        },
+        "de-DE": {
+            whats_new: File.read("metadata/de-DE/release_notes.txt").strip
+        }
+    }
+    upload_to_testflight(localized_app_info: localized_app_info, localized_build_info: localized_build_info, distribute_external: true, groups: ["Public Beta"])
+    commit_version_bump(message: "Bump build numbers")
+end
+
+desc("Uploads all metadata to the App Store and promotes the latest TestFlight build.")
+lane :promote_build do
+    unless last_git_tag != "v#{get_version_number(target: "Passwords")}"
+        UI.user_error!("The version number didn't change")
+    end
+    copyright = eval("\"#{File.read("metadata/copyright.txt").strip}\"")
+    upload_to_app_store(app_version: get_version_number(target: "Passwords"), skip_binary_upload: true, overwrite_screenshots: true, copyright: copyright)
+    app = Deliver.cache[:app]
+    build = Spaceship::ConnectAPI::Build.all(app_id: app.id).first
+    app.get_edit_app_store_version.select_build(build_id: build.id)
 end
 
 desc("Merges release into main branch and publishes as a GitHub release.")
 lane :git_release do
-    unless last_git_commit[:message].strip == "Bump version"
-        UI.user_error!("The latest commit is not a version bump")
-    end
     version = "v#{get_version_number(target: "Passwords")}"
-    changelog = File.read("metadata/en-US/release_notes.txt").strip
+    unless last_git_tag != version
+        UI.user_error!("The version number didn't change")
+    end
+    release_notes = File.read("metadata/en-US/release_notes.txt").strip
     sh("git checkout main")
     sh("git merge develop -m \"#{version}\"")
     sh("git push")
     sh("git checkout develop")
     api_token = prompt(text: "Your GitHub API token: ", secure_text: true)
-    set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: changelog)
+    set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: release_notes)
     sh("git fetch --tags")
 end

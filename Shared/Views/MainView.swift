@@ -19,7 +19,6 @@ struct MainView: View {
             .onChange(of: tipController.transactionState, perform: didChange)
             .onChange(of: authenticationChallengeController.certificateConfirmationRequests, perform: didChange)
             .copyToast()
-            .environmentObject(autoFillController)
             .environmentObject(biometricAuthenticationController)
             .environmentObject(sessionController)
             .environmentObject(settingsController)
@@ -36,7 +35,7 @@ struct MainView: View {
     // MARK: Functions
     
     private func didChange(transactionState: SKPaymentTransactionState?) {
-        guard let transactionState = transactionState else {
+        guard let transactionState else {
             return
         }
         switch transactionState {

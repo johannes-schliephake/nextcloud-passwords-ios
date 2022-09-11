@@ -186,7 +186,7 @@ class LogicTests: XCTestCase {
 
 extension LogicTests {
     
-    public func XCTAssertDescendingOrder<T>(_ expressions: T..., file: StaticString = #filePath, line: UInt = #line) where T: Comparable {
+    func XCTAssertDescendingOrder<T>(_ expressions: T..., file: StaticString = #filePath, line: UInt = #line) where T: Comparable {
         for (index, (lhs, rhs)) in zip(expressions, expressions[1...]).enumerated() {
             guard lhs > rhs else {
                 XCTFail("XCTAssertDescendingOrder: Wrong order for elements at indices \(index) and \(index + 1), (\"\(lhs)\") is not greater than (\"\(rhs)\")", file: file, line: line)

@@ -1,6 +1,2 @@
-• List of duplicate passwords in status tooltip
-• Bugfixes and optimizations
-
-Due to legal reasons, the app hadn't been available in France for over a year. After getting the necessary permits it is now back! You can check the changelog from v2.0 to v2.6 to learn about all new features.
-
-This is most likely the last version to support iOS 14. Please update your device to keep receiving bugfixes, security improvements and new features. All devices running iOS 14 also support iOS 15.
+• iOS 16 compatibility
+• Bugfixes

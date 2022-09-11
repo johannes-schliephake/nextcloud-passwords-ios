@@ -1,68 +1,79 @@
 import SwiftUI
 
 
-/// Inspired by https://github.com/FiveStarsBlog/CodeSamples/tree/main/Flexible-SwiftUI
-struct FlowView<Data: Collection, Content: View>: View where Data.Element: Hashable {
+@available(iOS 16, *) struct FlowView: Layout {
     
-    private let data: Data
-    private let spacing: Double
-    private let alignment: HorizontalAlignment
-    private let content: (Data.Element) -> Content
+    @Environment(\.layoutDirection) private var layoutDirection // Use environment value because Subviews.layoutDirection is out of sync
     
-    @State private var width = 0.0
-    @State private var elementWidths = [Data.Element: Double]()
+    let spacing: Double
+    let alignment: HorizontalAlignment
     
-    init(_ data: Data, spacing: Double = 10, alignment: HorizontalAlignment = .center, content: @escaping (Data.Element) -> Content) {
-        self.data = data
+    init(spacing: Double = 10, alignment: HorizontalAlignment = .center) {
         self.spacing = spacing
         self.alignment = alignment
-        self.content = content
     }
     
-    var body: some View {
-        ZStack {
-            /// Detect size changes in duplicated content views to handle views which are wider than the superview
-            ForEach(Array(data), id: \.self) {
-                element in
-                content(element)
-                    .fixedSize()
-                    .onSizeChange { elementWidths[element] = $0.width }
-            }
-            .frame(width: 1)
-            .hidden()
-            VStack(alignment: alignment, spacing: spacing) {
-                ForEach(rows, id: \.self) {
-                    row in
-                    HStack(spacing: spacing) {
-                        ForEach(row, id: \.self) {
-                            element in
-                            content(element)
-                        }
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: Alignment(horizontal: alignment, vertical: .center))
-            .onSizeChange { width = $0.width }
-        }
+    static var layoutProperties: LayoutProperties {
+        var properties = LayoutProperties()
+        properties.stackOrientation = .vertical
+        return properties
     }
     
-    private var rows: [[Data.Element]] {
-        var rows = [[Data.Element]]()
-        var lastRowWidth = Double.infinity
+    func makeCache(subviews: Subviews) -> [CGPoint] {
+        []
+    }
+    
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout [CGPoint]) -> CGSize {
+        cache.removeAll()
         
-        for element in data {
-            let elementWidth = elementWidths[element] ?? width
-            if lastRowWidth + spacing + elementWidth > width {
-                rows.append([element])
-                lastRowWidth = elementWidth
+        let availableWidth = proposal.width ?? .infinity
+        var rows = [(subviewSizes: [CGSize], size: CGSize)]()
+        
+        for subview in subviews {
+            let subviewSize = subview.sizeThatFits(proposal)
+            if let lastWidth = rows.last?.size.width,
+               lastWidth + spacing + subviewSize.width <= availableWidth {
+                rows[rows.count - 1].subviewSizes.append(subviewSize)
+                rows[rows.count - 1].size.width += spacing + subviewSize.width
+                rows[rows.count - 1].size.height = max(rows[rows.count - 1].size.height, subviewSize.height)
             }
             else {
-                rows[rows.count - 1].append(element)
-                lastRowWidth += spacing + elementWidth
+                rows.append((subviewSizes: [subviewSize], size: subviewSize))
             }
         }
         
-        return rows
+        var offsetY = 0.0
+        for row in rows {
+            if offsetY != 0 {
+                offsetY += spacing
+            }
+            var offsetX: Double
+            switch (alignment, layoutDirection) {
+            case (.leading, .leftToRight), (.listRowSeparatorLeading, .leftToRight),
+                (.trailing, .rightToLeft), (.listRowSeparatorTrailing, .rightToLeft):
+                offsetX = 0
+            case (.trailing, .leftToRight), (.listRowSeparatorTrailing, .leftToRight),
+                (.leading, .rightToLeft), (.listRowSeparatorLeading, .rightToLeft):
+                offsetX = availableWidth - row.size.width
+            default:
+                offsetX = (availableWidth - row.size.width) / 2
+            }
+            let subviewSizes = layoutDirection == .leftToRight ? row.subviewSizes : row.subviewSizes.reversed()
+            for subviewSize in subviewSizes {
+                cache.append(CGPoint(x: offsetX, y: offsetY + row.size.height / 2))
+                offsetX += subviewSize.width + spacing
+            }
+            offsetY += row.size.height
+        }
+        
+        let width = rows.map(\.size.width).max() ?? 0
+        let height = offsetY
+        return proposal.replacingUnspecifiedDimensions(by: CGSize(width: width, height: height))
+    }
+    
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout [CGPoint]) {
+        zip(subviews, cache)
+            .forEach { $0.place(at: $1 + bounds.origin, anchor: .leading, proposal: proposal) }
     }
     
 }

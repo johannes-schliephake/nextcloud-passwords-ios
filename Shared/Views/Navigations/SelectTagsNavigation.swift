@@ -13,14 +13,16 @@ struct SelectTagsNavigation: View {
     
     var body: some View {
         NavigationView {
-            if #available(iOS 15, *) { /// This insanely dumb workaround (duplicated view) prevents a crash on iOS 14 when an attribute is marked with `@available(iOS 15, *) @FocusState`
-                SelectTagsPage(entriesController: entriesController, temporaryEntry: temporaryEntry, selectTags: selectTags)
-            }
-            else {
-                SelectTagsPageFallback(entriesController: entriesController, temporaryEntry: temporaryEntry, selectTags: selectTags)
-            }
+            SelectTagsPage(entriesController: entriesController, temporaryEntry: temporaryEntry, selectTags: selectTags)
         }
         .showColumns(false)
+        .apply {
+            view in
+            if #available(iOS 16, *) {
+                view
+                    .scrollDismissesKeyboard(.interactively)
+            }
+        }
         .occlude(!biometricAuthenticationController.isUnlocked)
     }
     

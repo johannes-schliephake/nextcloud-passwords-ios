@@ -34,7 +34,7 @@ struct ShareOTPPage: View {
     private func qrCode() -> some View {
         HStack {
             Spacer()
-            if let qrCodeImage = qrCodeImage {
+            if let qrCodeImage {
                 Image(uiImage: qrCodeImage)
                     .interpolation(.none)
                     .resizable()
@@ -54,16 +54,23 @@ struct ShareOTPPage: View {
             .foregroundColor(.red)
     }
     
-    private func shareButton() -> some View {
-        Button {
-            showShareSheet = true
+    @ViewBuilder private func shareButton() -> some View {
+        if #available(iOS 16, *) {
+            let item = Image(uiImage: qrCodeImage ?? UIImage())
+            ShareLink("_shareQrCode", item: item, preview: SharePreview("_otp", image: item))
+                .disabled(qrCodeImage == nil)
         }
-        label: {
-            Label("_shareQrCode", systemImage: "square.and.arrow.up")
-        }
-        .disabled(qrCodeImage == nil)
-        .sheet(isPresented: $showShareSheet) {
-            ShareSheet(activityItems: [qrCodeImage as Any, "_otp".localized])
+        else {
+            Button {
+                showShareSheet = true
+            }
+            label: {
+                Label("_shareQrCode", systemImage: "square.and.arrow.up")
+            }
+            .disabled(qrCodeImage == nil)
+            .sheet(isPresented: $showShareSheet) {
+                ShareSheet(activityItems: [qrCodeImage as Any, "_otp".localized])
+            }
         }
     }
     

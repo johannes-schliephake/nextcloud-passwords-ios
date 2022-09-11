@@ -2,7 +2,7 @@ import SwiftUI
 
 
 /// Initially sets a FocusState, which isn't possible from e.g. onAppear
-@available(iOS 15, *) struct Initialize<Value: Hashable>: ViewModifier {
+struct Initialize<Value: Hashable>: ViewModifier {
     
     let binding: FocusState<Value?>.Binding
     let initial: Value?
@@ -22,7 +22,7 @@ import SwiftUI
     }
     
     private func initialize() {
-        guard let initial = initial,
+        guard let initial,
               !didInitialize else {
             return
         }
@@ -36,7 +36,12 @@ import SwiftUI
                 await MainActor.run {
                     binding.wrappedValue = initial
                 }
-                try await Task.sleep(nanoseconds: 100_000_000)
+                if #available(iOS 16, *) {
+                    try await Task.sleep(until: .now + .milliseconds(100), tolerance: .milliseconds(50), clock: .suspending)
+                }
+                else {
+                    try await Task.sleep(nanoseconds: 100_000_000)
+                }
             }
         }
     }
@@ -44,7 +49,7 @@ import SwiftUI
 }
 
 
-@available(iOS 15, *) extension View {
+extension View {
     
     func initialize<Value: Hashable>(focus binding: FocusState<Value?>.Binding, with initial: Value?) -> some View {
         modifier(Initialize(binding: binding, initial: initial))

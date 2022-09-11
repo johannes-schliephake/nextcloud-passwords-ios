@@ -144,12 +144,12 @@ struct OTP: Equatable, Hashable {
                 components.queryItems?.append(URLQueryItem(name: "period", value: String(period)))
             }
         }
-        if let issuer = issuer {
+        if let issuer {
             components.queryItems?.append(URLQueryItem(name: "issuer", value: issuer))
         }
-        if let accountname = accountname,
+        if let accountname,
            !accountname.isEmpty {
-            if let issuer = issuer,
+            if let issuer,
                !issuer.isEmpty {
                 components.path = "/\(issuer):\(accountname)"
             }
@@ -185,7 +185,7 @@ struct OTP: Equatable, Hashable {
         Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()
             .flatMap {
-                date -> AnyPublisher<Void, Never> in
+                date in
                 let delay = 1 - date.timeIntervalSince1970.truncatingRemainder(dividingBy: 1)
                 return Just(())
                     .delay(for: DispatchQueue.SchedulerTimeType.Stride(floatLiteral: delay), scheduler: DispatchQueue.main)

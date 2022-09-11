@@ -3,12 +3,7 @@ import SwiftUI
 
 struct SelectFolderPage: View {
     
-    @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var autoFillController: AutoFillController
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    @EnvironmentObject private var sessionController: SessionController
-    @EnvironmentObject private var settingsController: SettingsController
-    @EnvironmentObject private var tipController: TipController
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var selectFolderController: SelectFolderController
     @State private var sheetItem: SheetItem?
@@ -31,12 +26,6 @@ struct SelectFolderPage: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
-                }
-            }
-            .onChange(of: sessionController.state) {
-                state in
-                if state.isChallengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
                 }
             }
     }
@@ -70,13 +59,7 @@ struct SelectFolderPage: View {
             scrollViewProxy in
             List {
                 FolderGroup(folder: selectFolderController.baseFolder, folders: selectFolderController.folders, selection: $selectFolderController.selection, isExpanded: true)
-                    .apply {
-                        view in
-                        if #available(iOS 15, *) {
-                            view
-                                .listSectionSeparator(.hidden, edges: .top)
-                        }
-                    }
+                    .listSectionSeparator(.hidden, edges: .top)
             }
             .listStyle(.plain)
             .onAppear {
@@ -87,16 +70,9 @@ struct SelectFolderPage: View {
         }
     }
     
-    @ViewBuilder private func cancelButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button("_cancel", role: .cancel) {
-                presentationMode.wrappedValue.dismiss()
-            }
-        }
-        else {
-            Button("_cancel") {
-                presentationMode.wrappedValue.dismiss()
-            }
+    private func cancelButton() -> some View {
+        Button("_cancel", role: .cancel) {
+            dismiss()
         }
     }
     
@@ -115,11 +91,6 @@ struct SelectFolderPage: View {
                     folder in
                     selectFolderController.selection = folder
                 })
-                .environmentObject(autoFillController)
-                .environmentObject(biometricAuthenticationController)
-                .environmentObject(sessionController)
-                .environmentObject(settingsController)
-                .environmentObject(tipController)
             }
         }
     }
@@ -139,7 +110,7 @@ struct SelectFolderPage: View {
             return
         }
         selectFolderController.selectFolder(selectFolderController.selection)
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }

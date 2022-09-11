@@ -3,10 +3,10 @@ import SwiftUI
 
 struct ServerSetupPage: View {
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var serverSetupController = ServerSetupController()
-    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
+    @FocusState private var focusedField: FocusField?
     @State private var showLoginFlowPage = false
     
     // MARK: Views
@@ -22,13 +22,7 @@ struct ServerSetupPage: View {
                     connectButton()
                 }
             }
-            .apply {
-                view in
-                if #available(iOS 15, *) {
-                    view
-                        .initialize(focus: $focusedField, with: .serverAddress)
-                }
-            }
+            .initialize(focus: $focusedField, with: .serverAddress)
     }
     
     private func listView() -> some View {
@@ -37,22 +31,16 @@ struct ServerSetupPage: View {
                 serverAddressField()
             }
             .listStyle(.insetGrouped)
-            .apply {
-                view in
-                if #available(iOS 15, *) {
-                    view
-                        .toolbar {
-                            ToolbarItemGroup(placement: .keyboard) {
-                                Spacer()
-                                Button {
-                                    focusedField = nil
-                                }
-                                label: {
-                                    Text("_dismiss")
-                                        .bold()
-                                }
-                            }
-                        }
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button {
+                        focusedField = nil
+                    }
+                    label: {
+                        Text("_dismiss")
+                            .bold()
+                    }
                 }
             }
         }
@@ -75,14 +63,8 @@ struct ServerSetupPage: View {
                     .keyboardType(.URL)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
-                    .apply {
-                        view in
-                        if #available(iOS 15, *) {
-                            view
-                                .focused($focusedField, equals: .serverAddress)
-                                .submitLabel(.done)
-                        }
-                    }
+                    .focused($focusedField, equals: .serverAddress)
+                    .submitLabel(.done)
                     if serverSetupController.isValidating {
                         Spacer()
                         ProgressView()
@@ -99,16 +81,9 @@ struct ServerSetupPage: View {
             .padding(.vertical, 6)
     }
     
-    @ViewBuilder private func cancelButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button("_cancel", role: .cancel) {
-                presentationMode.wrappedValue.dismiss()
-            }
-        }
-        else {
-            Button("_cancel") {
-                presentationMode.wrappedValue.dismiss()
-            }
+    private func cancelButton() -> some View {
+        Button("_cancel", role: .cancel) {
+            dismiss()
         }
     }
     

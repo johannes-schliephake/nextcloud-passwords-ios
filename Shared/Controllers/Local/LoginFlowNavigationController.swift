@@ -36,6 +36,13 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
                 return $0.data
             }
             .decode(type: Response?.self, decoder: Configuration.jsonDecoder)
+            .handleEvents(receiveCompletion: {
+                completion in
+                if case .failure(let error) = completion,
+                   error is DecodingError {
+                    LoggingController.shared.log(error: error)
+                }
+            })
             .catch {
                 Fail(error: $0)
                     .delay(for: 1, scheduler: DispatchQueue.global(qos: .utility))
@@ -59,8 +66,8 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
                 return (appSession, webSession)
             }
             .flatMap {
-                (appSession: Session, webSession: Session?) -> AnyPublisher<Session, Never> in
-                guard let webSession = webSession else {
+                appSession, webSession in
+                guard let webSession else {
                     return Just(appSession)
                         .eraseToAnyPublisher()
                 }

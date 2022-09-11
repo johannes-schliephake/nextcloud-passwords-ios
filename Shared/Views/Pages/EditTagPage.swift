@@ -3,11 +3,10 @@ import SwiftUI
 
 struct EditTagPage: View {
     
-    @Environment(\.presentationMode) private var presentationMode
-    @EnvironmentObject private var sessionController: SessionController
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var editTagController: EditTagController
-    @available(iOS 15, *) @FocusState private var focusedField: FocusField?
+    @FocusState private var focusedField: FocusField?
     @State private var showDeleteAlert = false
     @State private var showCancelAlert = false
     
@@ -28,28 +27,8 @@ struct EditTagPage: View {
                     confirmButton()
                 }
             }
-            .onChange(of: sessionController.state) {
-                state in
-                if state.isChallengeAvailable {
-                    presentationMode.wrappedValue.dismiss()
-                }
-            }
-            .apply {
-                view in
-                if #available(iOS 15, *) {
-                    view
-                        .initialize(focus: $focusedField, with: editTagController.tag.id.isEmpty ? .tagLabel : nil)
-                        .interactiveDismissDisabled(editTagController.hasChanges)
-                }
-                else {
-                    view
-                        .actionSheet(isPresented: $showCancelAlert) {
-                            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                                presentationMode.wrappedValue.dismiss()
-                            }])
-                        }
-                }
-            }
+            .initialize(focus: $focusedField, with: editTagController.tag.id.isEmpty ? .tagLabel : nil)
+            .interactiveDismissDisabled(editTagController.hasChanges)
     }
     
     private func listView() -> some View {
@@ -62,22 +41,16 @@ struct EditTagPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .apply {
-            view in
-            if #available(iOS 15, *) {
-                view
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-                            Button {
-                                focusedField = nil
-                            }
-                            label: {
-                                Text("_dismiss")
-                                    .bold()
-                            }
-                        }
-                    }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button {
+                    focusedField = nil
+                }
+                label: {
+                    Text("_dismiss")
+                        .bold()
+                }
             }
         }
     }
@@ -87,68 +60,49 @@ struct EditTagPage: View {
             TextField("-", text: $editTagController.tagLabel, onCommit: {
                 applyAndDismiss()
             })
-                .apply {
-                    view in
-                    if #available(iOS 15, *) {
-                        view
-                            .focused($focusedField, equals: .tagLabel)
-                            .submitLabel(.done)
-                    }
-                }
+            .focused($focusedField, equals: .tagLabel)
+            .submitLabel(.done)
         }
     }
     
     private func colorSelector() -> some View {
         Section(header: Text("_color")) {
-            if #available(iOS 15, *) {
-                HStack {
-                    Label("_selectColor", systemImage: "paintpalette")
-                        .foregroundColor(.accentColor)
-                    Spacer()
-                    RoundedRectangle(cornerRadius: 5)
-                        .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
-                        .background(
-                            RoundedRectangle(cornerRadius: 5)
-                                .fill(editTagController.tagColor)
-                        )
-                        .frame(width: 20, height: 20)
-                }
-                .allowsHitTesting(false)
-                .background(
-                    ZStack {
-                        if UIDevice.current.userInterfaceIdiom == .pad {
-                            /// `scaleEffect` and `ColorPicker` can't be combined on iPad to enlarge tap area because the color picker view isn't a sheet
-                            LazyHStack(spacing: 0) {
-                                ForEach(0..<50) {
-                                    _ in
-                                    ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)
-                                        .labelsHidden()
-                                }
+            HStack {
+                Label("_selectColor", systemImage: "paintpalette")
+                    .foregroundColor(.accentColor)
+                Spacer()
+                RoundedRectangle(cornerRadius: 5)
+                    .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
+                    .background(
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(editTagController.tagColor)
+                    )
+                    .frame(width: 20, height: 20)
+            }
+            .allowsHitTesting(false)
+            .background(
+                ZStack {
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        /// `scaleEffect` and `ColorPicker` can't be combined on iPad to enlarge tap area because the color picker view isn't a sheet
+                        LazyHStack(spacing: 0) {
+                            ForEach(0..<50) {
+                                _ in
+                                ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)
+                                    .labelsHidden()
                             }
                         }
-                        else {
-                            ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)
-                                .labelsHidden()
-                                .scaleEffect(100)
-                        }
-                        Rectangle()
-                            .foregroundColor(Color(UIColor.secondarySystemGroupedBackground))
-                            .scaleEffect(10)
-                            .allowsHitTesting(false)
                     }
-                )
-            }
-            else {
-                HStack {
-                    Label("_selectColor", systemImage: "paintpalette")
-                        .foregroundColor(.primary)
-                    Image(systemName: "arrow.forward")
-                        .foregroundColor(.primary)
-                    Spacer()
-                    ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)
-                        .labelsHidden()
+                    else {
+                        ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)
+                            .labelsHidden()
+                            .scaleEffect(100)
+                    }
+                    Rectangle()
+                        .foregroundColor(Color(UIColor.secondarySystemGroupedBackground))
+                        .scaleEffect(10)
+                        .allowsHitTesting(false)
                 }
-            }
+            )
         }
     }
     
@@ -163,59 +117,32 @@ struct EditTagPage: View {
         }
     }
     
-    @ViewBuilder private func deleteButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button(role: .destructive) {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deleteTag")
-                    Spacer()
-                }
-            }
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteTag")) {
-                    deleteAndDismiss()
-                }])
+    private func deleteButton() -> some View {
+        Button(role: .destructive) {
+            showDeleteAlert = true
+        }
+        label: {
+            HStack {
+                Spacer()
+                Text("_deleteTag")
+                Spacer()
             }
         }
-        else {
-            Button {
-                showDeleteAlert = true
-            }
-            label: {
-                HStack {
-                    Spacer()
-                    Text("_deletePassword")
-                        .foregroundColor(.red)
-                    Spacer()
-                }
-            }
-            .actionSheet(isPresented: $showDeleteAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteTag")) {
-                    deleteAndDismiss()
-                }])
-            }
+        .actionSheet(isPresented: $showDeleteAlert) {
+            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteTag")) {
+                deleteAndDismiss()
+            }])
         }
     }
     
-    @ViewBuilder private func cancelButton() -> some View {
-        if #available(iOS 15.0, *) {
-            Button("_cancel", role: .cancel) {
-                cancelAndDismiss()
-            }
-            .actionSheet(isPresented: $showCancelAlert) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                    presentationMode.wrappedValue.dismiss()
-                }])
-            }
+    private func cancelButton() -> some View {
+        Button("_cancel", role: .cancel) {
+            cancelAndDismiss()
         }
-        else {
-            Button("_cancel") {
-                cancelAndDismiss()
-            }
+        .actionSheet(isPresented: $showCancelAlert) {
+            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+                dismiss()
+            }])
         }
     }
     
@@ -233,7 +160,7 @@ struct EditTagPage: View {
             showCancelAlert = true
         }
         else {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
     }
     
@@ -243,12 +170,12 @@ struct EditTagPage: View {
             return
         }
         editTagController.applyToTag()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
     private func deleteAndDismiss() {
         editTagController.clearTag()
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
 }
