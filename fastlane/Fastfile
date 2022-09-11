@@ -54,7 +54,7 @@ lane :bump_version_numbers do |parameters|
     commit_version_bump(message: "Bump version numbers")
 end
 
-desc("Downloads certificates and provisioning profiles, bumps build numbers, archives the app, uploads the binary to TestFlight and commits the build bump.")
+desc("Downloads certificates and provisioning profiles, bumps build numbers, archives the app, uploads the binary to TestFlight, distributes to public beta and commits the build bump.")
 lane :build_and_upload do
     unless last_git_tag != "v#{get_version_number(target: "Passwords")}"
         UI.user_error!("The version number didn't change")
@@ -89,7 +89,7 @@ lane :build_and_upload do
             whats_new: File.read("metadata/de-DE/release_notes.txt").strip
         }
     }
-    upload_to_testflight(localized_app_info: localized_app_info, localized_build_info: localized_build_info, submit_beta_review: false)
+    upload_to_testflight(localized_app_info: localized_app_info, localized_build_info: localized_build_info, distribute_external: true, groups: ["Public Beta"])
     commit_version_bump(message: "Bump build numbers")
 end
 

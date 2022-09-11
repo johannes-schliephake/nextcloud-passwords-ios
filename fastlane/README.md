@@ -46,7 +46,7 @@ Bumps all version numbers and commits the version bump.
 [bundle exec] fastlane build_and_upload
 ```
 
-Downloads certificates and provisioning profiles, bumps build numbers, archives the app, uploads the binary to TestFlight and commits the build bump.
+Downloads certificates and provisioning profiles, bumps build numbers, archives the app, uploads the binary to TestFlight, distributes to public beta and commits the build bump.
 
 ### promote_build
 
