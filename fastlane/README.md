@@ -40,21 +40,21 @@ Bumps all version numbers and commits the version bump.
 **Parameters**
 - `bump_type`: `major` or `minor` or `patch` (defaults to `patch`)
 
-### build_and_upload_to_testflight
+### build_and_upload
 
 ```sh
-[bundle exec] fastlane build_and_upload_to_testflight
+[bundle exec] fastlane build_and_upload
 ```
 
-Downloads certificates and provisioning profiles, bumps build numbers, commits the build bump, archives the app and uploads the binary to TestFlight.
+Downloads certificates and provisioning profiles, bumps build numbers, archives the app, uploads the binary to TestFlight and commits the build bump.
 
-### build_and_upload_to_app_store
+### promote_build
 
 ```sh
-[bundle exec] fastlane build_and_upload_to_app_store
+[bundle exec] fastlane promote_build
 ```
 
-Downloads certificates and provisioning profiles, bumps build numbers, commits the build bump, archives the app and uploads the binary and all metadata to the App Store.
+Uploads all metadata to the App Store and promotes the latest TestFlight build.
 
 ### git_release
 

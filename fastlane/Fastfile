@@ -8,19 +8,6 @@ before_all do
     ensure_git_branch(branch: "develop")
 end
 
-desc("Downloads certificates and provisioning profiles, bumps build numbers, commits the build bump and archives the app")
-private_lane :build do
-    get_certificates(output_path: "fastlane/tmp")
-    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
-    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")
-    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Extension")
-    increment_build_number_in_xcodeproj(target: "Passwords")
-    increment_build_number_in_xcodeproj(target: "Provider")
-    increment_build_number_in_xcodeproj(target: "Extension")
-    commit_version_bump(message: "Bump build numbers")
-    build_app(scheme: "Passwords", clean: true, output_directory: "fastlane/tmp", export_method: "app-store")
-end
-
 desc("Generates all icon sets and commits the changes.")
 lane :generate_icons do
     Dir.chdir("..") do
@@ -67,13 +54,19 @@ lane :bump_version_numbers do |parameters|
     commit_version_bump(message: "Bump version numbers")
 end
 
-desc("Downloads certificates and provisioning profiles, bumps build numbers, commits the build bump, archives the app and uploads the binary to TestFlight.")
-lane :build_and_upload_to_testflight do
-    version = "v#{get_version_number(target: "Passwords")}"
-    unless last_git_tag != version
+desc("Downloads certificates and provisioning profiles, bumps build numbers, archives the app, uploads the binary to TestFlight and commits the build bump.")
+lane :build_and_upload do
+    unless last_git_tag != "v#{get_version_number(target: "Passwords")}"
         UI.user_error!("The version number didn't change")
     end
-    build
+    get_certificates(output_path: "fastlane/tmp")
+    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
+    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")
+    get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Extension")
+    increment_build_number_in_xcodeproj(target: "Passwords")
+    increment_build_number_in_xcodeproj(target: "Provider")
+    increment_build_number_in_xcodeproj(target: "Extension")
+    build_app(scheme: "Passwords", clean: true, output_directory: "fastlane/tmp", export_method: "app-store")
     localized_app_info = {
         "en-US": {
             feedback_email: File.read("metadata/en-US/feedback_email.txt").strip,
@@ -97,17 +90,19 @@ lane :build_and_upload_to_testflight do
         }
     }
     upload_to_testflight(localized_app_info: localized_app_info, localized_build_info: localized_build_info, submit_beta_review: false)
+    commit_version_bump(message: "Bump build numbers")
 end
 
-desc("Downloads certificates and provisioning profiles, bumps build numbers, commits the build bump, archives the app and uploads the binary and all metadata to the App Store.")
-lane :build_and_upload_to_app_store do
-    version = "v#{get_version_number(target: "Passwords")}"
-    unless last_git_tag != version
+desc("Uploads all metadata to the App Store and promotes the latest TestFlight build.")
+lane :promote_build do
+    unless last_git_tag != "v#{get_version_number(target: "Passwords")}"
         UI.user_error!("The version number didn't change")
     end
-    build
     copyright = eval("\"#{File.read("metadata/copyright.txt").strip}\"")
-    upload_to_app_store(overwrite_screenshots: true, copyright: copyright)
+    upload_to_app_store(app_version: get_version_number(target: "Passwords"), skip_binary_upload: true, overwrite_screenshots: true, copyright: copyright)
+    app = Deliver.cache[:app]
+    build = Spaceship::ConnectAPI::Build.all(app_id: app.id).first
+    app.get_edit_app_store_version.select_build(build_id: build.id)
 end
 
 desc("Merges release into main branch and publishes as a GitHub release.")
