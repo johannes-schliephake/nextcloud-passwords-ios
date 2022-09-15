@@ -310,3 +310,7 @@
 
 /* Possible value for "Encryption" field on password detail page, other key is "_clientSide" */
 "_serverSide" = "Costat del servidor";
+
+/* I.e. duplicates of a password */
+"_duplicates" = "Duplicats";
+"_duplicatesTrashMessage" = "Tots els duplicats d'aquesta contrasenya es troben a la paperera.";
