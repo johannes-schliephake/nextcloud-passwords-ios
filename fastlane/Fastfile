@@ -6,6 +6,9 @@ before_all do
     ensure_xcode_version(version: "14.0")
     ensure_git_status_clean
     ensure_git_branch(branch: "develop")
+    unless sh("git fetch --dry-run").empty?
+        UI.user_error!("Git repository is not up to date")
+    end
 end
 
 desc("Generates all icon sets and commits the changes.")
