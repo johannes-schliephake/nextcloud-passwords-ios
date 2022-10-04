@@ -24,7 +24,7 @@ struct QRCapture<D>: UIViewRepresentable {
         QRCaptureView(delegate: context.coordinator)
     }
     
-    func updateUIView(_ uiView: QRCaptureView, context: Context) {}
+    func updateUIView(_: QRCaptureView, context: Context) {}
     
 }
 
