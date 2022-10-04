@@ -328,19 +328,18 @@ struct EntriesPage: View {
     
     private func entryRows(entries: [Entry]) -> some View {
         ForEach(entries) {
-            entry -> AnyView in
+            entry in
             switch entry {
             case .folder(let folder):
-                let folderRow = FolderRow(entriesController: entriesController, folder: folder, editFolder: {
+                FolderRow(entriesController: entriesController, folder: folder, editFolder: {
                     sheetItem = .edit(entry: .folder(folder))
                 }, moveFolder: {
                     sheetItem = .move(entry: .folder(folder))
                 }, deleteFolder: {
                     actionSheetItem = .delete(entry: .folder(folder))
                 })
-                return AnyView(folderRow)
             case .password(let password):
-                let passwordRow = PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
+                PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
                     sheetItem = .edit(entry: .password(password))
                 }, movePassword: {
                     sheetItem = .move(entry: .password(password))
@@ -349,14 +348,12 @@ struct EntriesPage: View {
                 }, deletePassword: {
                     actionSheetItem = .delete(entry: .password(password))
                 })
-                return AnyView(passwordRow)
             case .tag(let tag):
-                let tagRow = TagRow(entriesController: entriesController, tag: tag, editTag: {
+                TagRow(entriesController: entriesController, tag: tag, editTag: {
                     sheetItem = .edit(entry: .tag(tag))
                 }, deleteTag: {
                     actionSheetItem = .delete(entry: .tag(tag))
                 })
-                return AnyView(tagRow)
             }
         }
     }
