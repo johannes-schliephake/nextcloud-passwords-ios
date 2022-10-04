@@ -138,7 +138,7 @@ struct SettingsPage: View {
                     }
                 }
             }
-            LabeledRow(type: .text, label: "_version", value: "\(Configuration.shortVersionString)\(Bundle.root.isTestFlight || Configuration.isDebug ? " (\(Bundle.root.isTestFlight ? "TestFlight" : Configuration.isDebug ? "Debug" : "Unknown"), Build \(Configuration.buildNumberString))" : "")")
+            LabeledRow(type: .text, label: "_version", value: "\(Configuration.shortVersionString)\(Configuration.isDebug || Bundle.root.isTestFlight ? " (\(Configuration.isDebug ? "Debug" : Bundle.root.isTestFlight ? "TestFlight" : "Unknown"), Build \(Configuration.buildNumberString))" : "")")
             if let url = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios") {
                 Link(destination: url) {
                     Label("_sourceCode", systemImage: "curlybraces")
