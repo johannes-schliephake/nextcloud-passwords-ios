@@ -115,7 +115,13 @@ struct SettingsPage: View {
                     }
                 }
             }
-            .disabled(tipController.products == nil || tipController.transactionState != nil)
+            .disabled(tipController.products?.isEmpty ?? true || tipController.transactionState != nil)
+            if !Bundle.root.isTestFlight,
+               let url = URL(string: "https://testflight.apple.com/join/iuljLJ4u") {
+                Link(destination: url) {
+                    Label(Strings.joinTestFlightBeta, systemImage: "testtube.2")
+                }
+            }
         }
     }
     
