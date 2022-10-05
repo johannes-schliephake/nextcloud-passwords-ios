@@ -96,6 +96,7 @@ internal enum Strings {
   internal static func invalidCertificateMessageHash(_ p1: Any) -> String {
     return Strings.tr("Localizable", "_invalidCertificateMessage(hash)", String(describing: p1), fallback: "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%@")
   }
+  internal static let joinTestFlightBeta = Strings.tr("Localizable", "_joinTestFlightBeta", fallback: "Join TestFlight Beta")
   internal static let logIn = Strings.tr("Localizable", "_logIn", fallback: "Log In")
   internal static let logOut = Strings.tr("Localizable", "_logOut", fallback: "Log Out")
   internal static let low = Strings.tr("Localizable", "_low", fallback: "Low")

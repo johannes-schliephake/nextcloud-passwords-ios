@@ -162,6 +162,7 @@
 
 /* Make sure to keep newlines (\n) and the placeholder (%@) */
 "_invalidCertificateMessage(hash)" = "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%@";
+"_joinTestFlightBeta" = "Join TestFlight Beta";
 
 /* This refers to the verb ("to log in") */
 "_logIn" = "Log In";
