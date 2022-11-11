@@ -295,6 +295,7 @@ struct EditPasswordPage: View {
                         Image(systemName: customUserField.type.systemName)
                             .frame(minWidth: customFieldTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     }
+                    .fixedSize(horizontal: false, vertical: true)
                     .apply {
                         view in
                         if #available(iOS 16, *) {
