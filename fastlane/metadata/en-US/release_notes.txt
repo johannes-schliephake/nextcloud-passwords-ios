@@ -1,2 +1,2 @@
-• iOS 16 compatibility
-• Bugfixes
+• Button for joining TestFlight beta
+• Bugfixes and optimizations
