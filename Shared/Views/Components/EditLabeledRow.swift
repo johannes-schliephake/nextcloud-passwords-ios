@@ -214,7 +214,6 @@ struct EditLabeledRow: View {
                                     .font(.system(.body, design: .monospaced))
                             }
                         }
-                        .keyboardType(.alphabet)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                 }

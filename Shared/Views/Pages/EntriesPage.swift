@@ -251,7 +251,6 @@ struct EntriesPage: View {
             }
         }
         .searchable(text: $folderController.searchTerm)
-        .keyboardType(.alphabet)
         .autocapitalization(.none)
         .disableAutocorrection(true)
         .refreshable {
