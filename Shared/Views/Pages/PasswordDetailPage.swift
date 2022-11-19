@@ -477,7 +477,11 @@ struct PasswordDetailPage: View {
                         }
                     }
                 }
-                .listRowInsets(EdgeInsets(top: 8, leading: -UIDevice.current.deviceSpecificPadding, bottom: 8, trailing: 16 - UIDevice.current.deviceSpecificPadding))
+#if targetEnvironment(simulator)
+                .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 20))
+#else
+                .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
+#endif
             }
             label: {
                 Text("_metadata")
