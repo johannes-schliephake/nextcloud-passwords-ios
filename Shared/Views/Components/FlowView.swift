@@ -63,7 +63,7 @@ import SwiftUI
         
         let width = rows.map(\.size.width).max() ?? 0
         let height = offsetY
-        return proposal.replacingUnspecifiedDimensions(by: CGSize(width: width, height: height))
+        return CGSize(width: proposal.replacingUnspecifiedDimensions(by: CGSize(width: width, height: height)).width, height: height)
     }
     
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout [CGPoint]) {
