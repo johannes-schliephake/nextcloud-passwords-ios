@@ -209,23 +209,32 @@ struct EntriesPage: View {
                folderController.searchTerm.isEmpty,
                suggestions.isEmpty && autoFillController.mode == .provider || !suggestions.isEmpty && folderController.folder.isBaseFolder && folderController.tag == nil {
                 List {
-                    Section(header: Text("_suggestions")) {
-                        if !suggestions.isEmpty {
-                            suggestionRows(suggestions: suggestions)
+                    Group {
+                        Section(header: Text("_suggestions")) {
+                            if !suggestions.isEmpty {
+                                suggestionRows(suggestions: suggestions)
+                            }
+                            else {
+                                Button(action: {
+                                    sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
+                                }, label: {
+                                    Text("_createPassword")
+                                })
+                                .buttonStyle(.action)
+                                .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
+                            }
                         }
-                        else {
-                            Button(action: {
-                                sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
-                            }, label: {
-                                Text("_createPassword")
-                            })
-                            .buttonStyle(.action)
-                            .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
+                        if !entries.isEmpty {
+                            Section(header: Text("_all")) {
+                                entryRows(entries: entries)
+                            }
                         }
                     }
-                    if !entries.isEmpty {
-                        Section(header: Text("_all")) {
-                            entryRows(entries: entries)
+                    .apply {
+                        view in
+                        if #available(iOS 16, *) {
+                            view
+                                .listRowInsets(.listRow)
                         }
                     }
                 }
@@ -234,6 +243,13 @@ struct EntriesPage: View {
             else if !entries.isEmpty {
                 List {
                     entryRows(entries: entries)
+                        .apply {
+                            view in
+                            if #available(iOS 16, *) {
+                                view
+                                    .listRowInsets(.listRow)
+                            }
+                        }
                 }
                 .listStyle(.plain)
             }

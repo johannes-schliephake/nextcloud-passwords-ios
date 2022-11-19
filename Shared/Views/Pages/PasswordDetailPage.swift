@@ -204,7 +204,7 @@ struct PasswordDetailPage: View {
                             .bold()
                             .foregroundColor(.gray)
                             .padding(.top, 12)
-                            .padding(.bottom, 6)
+                            .padding(.bottom, EdgeInsets.listRow.bottom)
                         Divider()
                             .padding(.trailing, -100)
                         if duplicates.isEmpty {
@@ -222,7 +222,8 @@ struct PasswordDetailPage: View {
                                 label: {
                                     HStack {
                                         PasswordRow(label: duplicate.label, username: duplicate.username, url: duplicate.url)
-                                            .padding(.vertical, 5.7)
+                                            .padding(.top, EdgeInsets.listRow.top)
+                                            .padding(.bottom, EdgeInsets.listRow.bottom)
                                             .foregroundColor(.primary)
                                         Spacer()
                                         Image(systemName: "chevron.forward")
