@@ -420,6 +420,9 @@
 		DDE6E31C28604F090089BB0B /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE6E31B28604F090089BB0B /* FlowView.swift */; };
 		DDE6E31D28604F090089BB0B /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE6E31B28604F090089BB0B /* FlowView.swift */; };
 		DDE6E31E28604F090089BB0B /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE6E31B28604F090089BB0B /* FlowView.swift */; };
+		DDEC98FF2926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */; };
+		DDEC99002926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */; };
+		DDEC99012926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */; };
 		DDED770526E2186D0037A18D /* View+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDED770426E2186D0037A18D /* View+Apply.swift */; };
 		DDED770626E2186D0037A18D /* View+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDED770426E2186D0037A18D /* View+Apply.swift */; };
 /* End PBXBuildFile section */
@@ -684,6 +687,7 @@
 		DDE0701D27C8F83B00FC65E2 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
 		DDE4F5D5274BEB3D00518167 /* LegacyFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyFlowView.swift; sourceTree = "<group>"; };
 		DDE6E31B28604F090089BB0B /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
+		DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EdgeInsets+ListRow.swift"; sourceTree = "<group>"; };
 		DDED770426E2186D0037A18D /* View+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Apply.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -840,6 +844,7 @@
 			children = (
 				8F59F520256AE65800D9FE40 /* ActionButtonStyle.swift */,
 				8F77DA5C25699F8900CFDA8D /* CopyToast.swift */,
+				DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */,
 				DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */,
 				DDE6E31B28604F090089BB0B /* FlowView.swift */,
 				DD29D1E327CF684A00B06835 /* ImagePicker.swift */,
@@ -1534,6 +1539,7 @@
 				8F55FBD72570276800CC6920 /* SessionController.swift in Sources */,
 				8F997FA5257300A600B5F784 /* EditPasswordPage.swift in Sources */,
 				8F997FAB2573043400B5F784 /* PasswordServiceRequest.swift in Sources */,
+				DDEC98FF2926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */,
 				8F118753253C9EE10019FECA /* PasswordsApp.swift in Sources */,
 				8FBC049C268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
 				DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */,
@@ -1681,6 +1687,7 @@
 				8FC361B925827E4C00785371 /* ServerSetupPage.swift in Sources */,
 				8FC361C325827E5200785371 /* BiometricAuthenticationController.swift in Sources */,
 				8FC361D425827E5D00785371 /* CreatePasswordRequest.swift in Sources */,
+				DDEC99002926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */,
 				8FC361D025827E5D00785371 /* UpdatePasswordRequest.swift in Sources */,
 				8FBC049D268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
 				DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */,
@@ -1825,6 +1832,7 @@
 				DDB169AB27D20CC200F4D752 /* TagBadge.swift in Sources */,
 				DDB169D227D20CC200F4D752 /* Crypto.swift in Sources */,
 				DDB169D927D20CC200F4D752 /* DeletePasswordRequest.swift in Sources */,
+				DDEC99012926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */,
 				DDB1698527D20CC200F4D752 /* UpdatePasswordRequest.swift in Sources */,
 				DDB169DE27D20CC200F4D752 /* EditTagController.swift in Sources */,
 				DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */,

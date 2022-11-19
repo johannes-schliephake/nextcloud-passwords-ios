@@ -60,6 +60,13 @@ struct SelectFolderPage: View {
             List {
                 FolderGroup(folder: selectFolderController.baseFolder, folders: selectFolderController.folders, selection: $selectFolderController.selection, isExpanded: true)
                     .listSectionSeparator(.hidden, edges: .top)
+                    .apply {
+                        view in
+                        if #available(iOS 16, *) {
+                            view
+                                .listRowInsets(.listRow)
+                        }
+                    }
             }
             .listStyle(.plain)
             .onAppear {

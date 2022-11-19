@@ -375,7 +375,7 @@ struct EditPasswordPage: View {
                                     TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
                                 }
                             }
-                            .padding(.vertical, 6)
+                            .padding(.vertical, 3)
                         }
                         else {
                             LegacyFlowView(editPasswordController.passwordValidTags.sortedByLabel(), alignment: .leading) {
