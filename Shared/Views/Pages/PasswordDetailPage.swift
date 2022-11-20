@@ -233,6 +233,13 @@ struct PasswordDetailPage: View {
                                 }
                                 Divider()
                                     .padding(.trailing, -100)
+                                    .apply {
+                                        view in
+                                        if #available(iOS 16, *) {
+                                            view
+                                                .padding(.leading, 40 + 12)
+                                        }
+                                    }
                             }
                         }
                     }
@@ -628,6 +635,7 @@ extension PasswordDetailPage {
                     .onAppear {
                         requestFavicon()
                     }
+                Spacer(minLength: 12)
                 VStack(alignment: .leading) {
                     Text(!label.isEmpty ? label : "-")
                         .lineLimit(1)
