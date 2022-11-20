@@ -195,6 +195,7 @@ extension SelectTagsPage {
                     .onAppear {
                         requestFavicon()
                     }
+                Spacer(minLength: 12)
                 VStack(alignment: .leading) {
                     Text(!label.isEmpty ? label : "-")
                         .lineLimit(1)

@@ -721,6 +721,7 @@ extension EntriesPage {
         private func mainStack() -> some View {
             HStack {
                 folderImage()
+                Spacer(minLength: 12)
                 labelText()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
@@ -998,6 +999,7 @@ extension EntriesPage {
         private func mainStack() -> some View {
             HStack {
                 faviconImage()
+                Spacer(minLength: 12)
                 labelStack()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
@@ -1257,6 +1259,7 @@ extension EntriesPage {
         private func mainStack() -> some View {
             HStack {
                 tagImage()
+                Spacer(minLength: 12)
                 labelText()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
