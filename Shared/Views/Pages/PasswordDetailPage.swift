@@ -245,17 +245,11 @@ struct PasswordDetailPage: View {
                     }
                 }
             }
-            .apply {
-                view in
-                if #unavailable(iOS 16) {
-                    view
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(sessionController)
-                        .environmentObject(settingsController)
-                        .environmentObject(tipController)
-                }
-            }
+            .environmentObject(autoFillController)
+            .environmentObject(biometricAuthenticationController)
+            .environmentObject(sessionController)
+            .environmentObject(settingsController)
+            .environmentObject(tipController)
         }
     }
     
