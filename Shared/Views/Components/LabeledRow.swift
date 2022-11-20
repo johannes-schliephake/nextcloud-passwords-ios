@@ -129,7 +129,7 @@ struct LabeledRow: View {
     }
     
     private func labeledStack() -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
             if let labelKey {
                 Text(labelKey)
                     .font(.subheadline)
