@@ -11,7 +11,7 @@ struct EntriesPage: View {
     
     @StateObject private var folderController: FolderController
     @FocusState private var focusedField: FocusField?
-    @State private var showServerSetupView = SessionController.default.session == nil
+    @State private var showServerSetupView = false
     @State private var showSettingsView = false
     @State private var challengePassword = ""
     @State private var storeChallengePassword = false
@@ -55,6 +55,12 @@ struct EntriesPage: View {
             .navigationTitle(navigationTitle)
             .onAppear {
                 folderController.autoFillController = autoFillController
+                
+                DispatchQueue.main.async {
+                    if SessionController.default.session == nil {
+                        showServerSetupView = true
+                    }
+                }
             }
     }
     
