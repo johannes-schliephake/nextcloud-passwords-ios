@@ -224,8 +224,9 @@ extension Folder: MockObject {
     
     static var mocks: [Folder] {
         [
-            Folder(id: "00000000-0000-0000-0001-000000000001", label: "Websites", parent: Entry.baseId, edited: Date(), created: Date(), updated: Date(), revision: Entry.baseId, favorite: true),
-            Folder(id: "00000000-0000-0000-0001-000000000002", label: "Apps", parent: Entry.baseId, edited: Date(), created: Date(), updated: Date(), revision: Entry.baseId)
+            Folder(id: "00000000-0000-0000-0001-000000000001", label: Locale.current.languageCode == "en" ? "Finances" : "Finanzen", parent: Entry.baseId, edited: Date(), created: Date(), updated: Date(), revision: Entry.baseId, favorite: true),
+            Folder(id: "00000000-0000-0000-0001-000000000002", label: Locale.current.languageCode == "en" ? "Work" : "Arbeit", parent: Entry.baseId, edited: Date(), created: Date(), updated: Date(), revision: Entry.baseId),
+            Folder(id: "00000000-0000-0000-0001-000000000003", label: Locale.current.languageCode == "en" ? "Entertainment" : "Unterhaltung", parent: Entry.baseId, edited: Date(), created: Date(), updated: Date(), revision: Entry.baseId)
         ]
     }
     
