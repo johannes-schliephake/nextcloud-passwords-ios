@@ -81,37 +81,47 @@ struct PasswordDetailPage: View {
     }
     
     private func listView() -> some View {
-        List {
-            Section {
-                HStack {
-                    Spacer()
-                    passwordStatusIcon()
-                    Spacer()
-                    faviconImage()
-                    Spacer()
-                    favoriteButton()
-                    Spacer()
+        ScrollViewReader {
+            scrollViewProxy in
+            List {
+                Section {
+                    HStack {
+                        Spacer()
+                        passwordStatusIcon()
+                        Spacer()
+                        faviconImage()
+                        Spacer()
+                        favoriteButton()
+                        Spacer()
+                    }
+                    .padding(.top)
                 }
-                .padding(.top)
-            }
-            .listRowBackground(Color(UIColor.systemGroupedBackground))
-            if let tags = entriesController.tags,
-               let validTags = EntriesController.tags(for: password.tags, in: tags).valid {
-                tagsSection(validTags: validTags)
+                .listRowBackground(Color(UIColor.systemGroupedBackground))
+                .id("top")
+                if let tags = entriesController.tags,
+                   let validTags = EntriesController.tags(for: password.tags, in: tags).valid {
+                    tagsSection(validTags: validTags)
+                        .listRowBackground(Color(UIColor.systemGroupedBackground))
+                }
+                serviceSection()
+                accountSection()
+                if !password.customUserFields.isEmpty {
+                    customFieldsSection()
+                }
+                if !password.notes.isEmpty {
+                    notesSection()
+                }
+                metadataSection()
                     .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
-            serviceSection()
-            accountSection()
-            if !password.customUserFields.isEmpty {
-                customFieldsSection()
+            .listStyle(.insetGrouped)
+            .onAppear {
+                /// Fix offset scroll view on iOS 16
+                DispatchQueue.main.async {
+                    scrollViewProxy.scrollTo("top", anchor: .top)
+                }
             }
-            if !password.notes.isEmpty {
-                notesSection()
-            }
-            metadataSection()
-                .listRowBackground(Color(UIColor.systemGroupedBackground))
         }
-        .listStyle(.insetGrouped)
     }
     
     private func passwordStatusIcon() -> some View {
