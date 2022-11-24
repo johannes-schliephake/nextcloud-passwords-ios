@@ -489,7 +489,7 @@ struct PasswordDetailPage: View {
                     }
                 }
 #if targetEnvironment(simulator)
-                .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 20))
+                .listRowInsets(EdgeInsets(top: 8, leading: UIDevice.current.deviceSpecificPadding - 4, bottom: 8, trailing: 16 + UIDevice.current.deviceSpecificPadding))
 #else
                 .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
 #endif
