@@ -10,7 +10,7 @@ A Password AutoFill provider is integrated into the app for seamless login exper
 
 This app requires a Nextcloud server with the Passwords app installed.
 
-<img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-1.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-2.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-3.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-4.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2013%20Pro-5.png" width="19%">
+<img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2014-1.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2014-2.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2014-3.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2014-4.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2014-5.png" width="19%">
 
 ## TestFlight
 
