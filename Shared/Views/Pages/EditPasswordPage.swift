@@ -174,7 +174,7 @@ struct EditPasswordPage: View {
             }
             label: {
                 HStack {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 6) {
                         Text("_otp")
                             .font(.subheadline)
                             .foregroundColor(.gray)
@@ -295,6 +295,7 @@ struct EditPasswordPage: View {
                         Image(systemName: customUserField.type.systemName)
                             .frame(minWidth: customFieldTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     }
+                    .fixedSize(horizontal: false, vertical: true)
                     .apply {
                         view in
                         if #available(iOS 16, *) {
@@ -374,7 +375,7 @@ struct EditPasswordPage: View {
                                     TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
                                 }
                             }
-                            .padding(.vertical, 6)
+                            .padding(.vertical, 3)
                         }
                         else {
                             LegacyFlowView(editPasswordController.passwordValidTags.sortedByLabel(), alignment: .leading) {

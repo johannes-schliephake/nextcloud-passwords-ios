@@ -40,6 +40,7 @@ custom_rules:
 
 excluded:
   - Snapshot/SnapshotHelper.swift
+  - Shared/Generated
 
 identifier_name:
   excluded:

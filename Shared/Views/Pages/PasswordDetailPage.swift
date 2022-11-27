@@ -81,37 +81,47 @@ struct PasswordDetailPage: View {
     }
     
     private func listView() -> some View {
-        List {
-            Section {
-                HStack {
-                    Spacer()
-                    passwordStatusIcon()
-                    Spacer()
-                    faviconImage()
-                    Spacer()
-                    favoriteButton()
-                    Spacer()
+        ScrollViewReader {
+            scrollViewProxy in
+            List {
+                Section {
+                    HStack {
+                        Spacer()
+                        passwordStatusIcon()
+                        Spacer()
+                        faviconImage()
+                        Spacer()
+                        favoriteButton()
+                        Spacer()
+                    }
+                    .padding(.top)
                 }
-                .padding(.top)
-            }
-            .listRowBackground(Color(UIColor.systemGroupedBackground))
-            if let tags = entriesController.tags,
-               let validTags = EntriesController.tags(for: password.tags, in: tags).valid {
-                tagsSection(validTags: validTags)
+                .listRowBackground(Color(UIColor.systemGroupedBackground))
+                .id("top")
+                if let tags = entriesController.tags,
+                   let validTags = EntriesController.tags(for: password.tags, in: tags).valid {
+                    tagsSection(validTags: validTags)
+                        .listRowBackground(Color(UIColor.systemGroupedBackground))
+                }
+                serviceSection()
+                accountSection()
+                if !password.customUserFields.isEmpty {
+                    customFieldsSection()
+                }
+                if !password.notes.isEmpty {
+                    notesSection()
+                }
+                metadataSection()
                     .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
-            serviceSection()
-            accountSection()
-            if !password.customUserFields.isEmpty {
-                customFieldsSection()
+            .listStyle(.insetGrouped)
+            .onAppear {
+                /// Fix offset scroll view on iOS 16
+                DispatchQueue.main.async {
+                    scrollViewProxy.scrollTo("top", anchor: .top)
+                }
             }
-            if !password.notes.isEmpty {
-                notesSection()
-            }
-            metadataSection()
-                .listRowBackground(Color(UIColor.systemGroupedBackground))
         }
-        .listStyle(.insetGrouped)
     }
     
     private func passwordStatusIcon() -> some View {
@@ -204,7 +214,7 @@ struct PasswordDetailPage: View {
                             .bold()
                             .foregroundColor(.gray)
                             .padding(.top, 12)
-                            .padding(.bottom, 6)
+                            .padding(.bottom, EdgeInsets.listRow.bottom)
                         Divider()
                             .padding(.trailing, -100)
                         if duplicates.isEmpty {
@@ -222,7 +232,8 @@ struct PasswordDetailPage: View {
                                 label: {
                                     HStack {
                                         PasswordRow(label: duplicate.label, username: duplicate.username, url: duplicate.url)
-                                            .padding(.vertical, 5.7)
+                                            .padding(.top, EdgeInsets.listRow.top)
+                                            .padding(.bottom, EdgeInsets.listRow.bottom)
                                             .foregroundColor(.primary)
                                         Spacer()
                                         Image(systemName: "chevron.forward")
@@ -232,22 +243,23 @@ struct PasswordDetailPage: View {
                                 }
                                 Divider()
                                     .padding(.trailing, -100)
+                                    .apply {
+                                        view in
+                                        if #available(iOS 16, *) {
+                                            view
+                                                .padding(.leading, 40 + 12)
+                                        }
+                                    }
                             }
                         }
                     }
                 }
             }
-            .apply {
-                view in
-                if #unavailable(iOS 16) {
-                    view
-                        .environmentObject(autoFillController)
-                        .environmentObject(biometricAuthenticationController)
-                        .environmentObject(sessionController)
-                        .environmentObject(settingsController)
-                        .environmentObject(tipController)
-                }
-            }
+            .environmentObject(autoFillController)
+            .environmentObject(biometricAuthenticationController)
+            .environmentObject(sessionController)
+            .environmentObject(settingsController)
+            .environmentObject(tipController)
         }
     }
     
@@ -476,7 +488,11 @@ struct PasswordDetailPage: View {
                         }
                     }
                 }
-                .listRowInsets(EdgeInsets(top: 8, leading: -UIDevice.current.deviceSpecificPadding, bottom: 8, trailing: 16 - UIDevice.current.deviceSpecificPadding))
+#if targetEnvironment(simulator)
+                .listRowInsets(EdgeInsets(top: 8, leading: UIDevice.current.deviceSpecificPadding - 4, bottom: 8, trailing: 16 + UIDevice.current.deviceSpecificPadding))
+#else
+                .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
+#endif
             }
             label: {
                 Text("_metadata")
@@ -623,6 +639,7 @@ extension PasswordDetailPage {
                     .onAppear {
                         requestFavicon()
                     }
+                Spacer(minLength: 12)
                 VStack(alignment: .leading) {
                     Text(!label.isEmpty ? label : "-")
                         .lineLimit(1)

@@ -1,2 +1,2 @@
-• iOS 16 Kompatibilität
-• Fehlerbehebungen
+• Button zum Teilnehmen an der TestFlight-Beta
+• Fehlerbehebungen und Optimierungen

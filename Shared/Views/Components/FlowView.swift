@@ -3,8 +3,6 @@ import SwiftUI
 
 @available(iOS 16, *) struct FlowView: Layout {
     
-    @Environment(\.layoutDirection) private var layoutDirection // Use environment value because Subviews.layoutDirection is out of sync
-    
     let spacing: Double
     let alignment: HorizontalAlignment
     
@@ -48,19 +46,16 @@ import SwiftUI
                 offsetY += spacing
             }
             var offsetX: Double
-            switch (alignment, layoutDirection) {
-            case (.leading, .leftToRight), (.listRowSeparatorLeading, .leftToRight),
-                (.trailing, .rightToLeft), (.listRowSeparatorTrailing, .rightToLeft):
+            switch alignment {
+            case .leading, .listRowSeparatorLeading:
                 offsetX = 0
-            case (.trailing, .leftToRight), (.listRowSeparatorTrailing, .leftToRight),
-                (.leading, .rightToLeft), (.listRowSeparatorLeading, .rightToLeft):
+            case .trailing, .listRowSeparatorTrailing:
                 offsetX = availableWidth - row.size.width
             default:
                 offsetX = (availableWidth - row.size.width) / 2
             }
-            let subviewSizes = layoutDirection == .leftToRight ? row.subviewSizes : row.subviewSizes.reversed()
-            for subviewSize in subviewSizes {
-                cache.append(CGPoint(x: offsetX, y: offsetY + row.size.height / 2))
+            for subviewSize in row.subviewSizes {
+                cache.append(CGPoint(x: offsetX + subviewSize.width / 2, y: offsetY + row.size.height / 2))
                 offsetX += subviewSize.width + spacing
             }
             offsetY += row.size.height
@@ -68,12 +63,12 @@ import SwiftUI
         
         let width = rows.map(\.size.width).max() ?? 0
         let height = offsetY
-        return proposal.replacingUnspecifiedDimensions(by: CGSize(width: width, height: height))
+        return CGSize(width: proposal.replacingUnspecifiedDimensions(by: CGSize(width: width, height: height)).width, height: height)
     }
     
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout [CGPoint]) {
         zip(subviews, cache)
-            .forEach { $0.place(at: $1 + bounds.origin, anchor: .leading, proposal: proposal) }
+            .forEach { $0.place(at: $1 + bounds.origin, anchor: .center, proposal: proposal) }
     }
     
 }

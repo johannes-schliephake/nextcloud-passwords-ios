@@ -216,8 +216,8 @@ extension Tag: MockObject {
     
     static var mocks: [Tag] {
         [
-            Tag(id: "00000000-0000-0000-0003-000000000001", label: "Development", color: "#F44336", edited: Date(), created: Date(), updated: Date()),
-            Tag(id: "00000000-0000-0000-0003-000000000002", label: "Self-Hosted", color: "#673AB7", edited: Date(), created: Date(), updated: Date())
+            Tag(id: "00000000-0000-0000-0003-000000000001", label: Locale.current.languageCode == "en" ? "Development" : "Entwicklung", color: "#F44336", edited: Date(), created: Date(), updated: Date()),
+            Tag(id: "00000000-0000-0000-0003-000000000002", label: Locale.current.languageCode == "en" ? "Self-Hosted" : "Selbst gehostet", color: "#673AB7", edited: Date(), created: Date(), updated: Date())
         ]
     }
     

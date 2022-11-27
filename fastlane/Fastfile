@@ -3,9 +3,12 @@ default_platform(:ios)
 opt_out_usage
 
 before_all do
-    ensure_xcode_version(version: "14.0")
+    ensure_xcode_version(version: "14.1")
     ensure_git_status_clean
     ensure_git_branch(branch: "develop")
+    unless sh("git fetch --dry-run").empty?
+        UI.user_error!("Git repository is not up to date")
+    end
 end
 
 desc("Generates all icon sets and commits the changes.")
@@ -23,15 +26,18 @@ end
 
 desc("Takes all screenshots required for the App Store and commits the changes.")
 lane :take_screenshots do
+    # Screenshot specifications at https://help.apple.com/app-store-connect/#/devd274dd925
     devices = [
-        "iPhone 13 Pro Max",
-        "iPhone 13 Pro",
+        "iPhone 14 Plus",
+        "iPhone 14 Pro Max",
+        "iPhone 14 Pro",
+        "iPhone 14",
         "iPhone 8 Plus",
         "iPhone SE (3rd generation)",
         "iPhone SE (1st generation)",
-        "iPad Pro (12.9-inch) (5th generation)",
+        "iPad Pro (12.9-inch) (6th generation)",
         "iPad Pro (12.9-inch) (2nd generation)",
-        "iPad Pro (11-inch) (3rd generation)",
+        "iPad Pro (11-inch) (4th generation)",
         "iPad Air (3rd generation)",
         "iPad (6th generation)"
     ]

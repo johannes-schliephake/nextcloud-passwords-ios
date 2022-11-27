@@ -90,7 +90,7 @@ struct EditOTPPage: View {
     private func moreSection() -> some View {
         Section {
             DisclosureGroup("_moreOptions", isExpanded: $showMore) {
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 6) {
                     Text("_type")
                         .font(.subheadline)
                         .foregroundColor(.gray)
@@ -109,7 +109,7 @@ struct EditOTPPage: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 6) {
                     Text("_algorithm")
                         .font(.subheadline)
                         .foregroundColor(.gray)

@@ -51,16 +51,24 @@ struct SelectTagsPage: View {
     
     private func listView() -> some View {
         List {
-            VStack {
-                addTagBadge()
-                    .padding(.top, 8)
+            Group {
+                VStack {
+                    addTagBadge()
+                        .padding(.top, 8)
+                }
+                ForEach(selectTagsController.tags) {
+                    tag in
+                    toggleTagBadge(tag: tag)
+                }
             }
             .listRowSeparator(.hidden)
-            ForEach(selectTagsController.tags) {
-                tag in
-                toggleTagBadge(tag: tag)
+            .apply {
+                view in
+                if #available(iOS 16, *) {
+                    view
+                        .listRowInsets(.listRow)
+                }
             }
-            .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
         .toolbar {
@@ -187,6 +195,7 @@ extension SelectTagsPage {
                     .onAppear {
                         requestFavicon()
                     }
+                Spacer(minLength: 12)
                 VStack(alignment: .leading) {
                     Text(!label.isEmpty ? label : "-")
                         .lineLimit(1)

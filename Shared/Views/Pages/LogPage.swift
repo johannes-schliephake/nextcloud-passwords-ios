@@ -62,7 +62,7 @@ struct LogPage: View {
                 HStack {
                     eventIcon(loggedEvent: loggedEvent)
                         .frame(minWidth: eventTypeIconWidth, maxHeight: .infinity, alignment: .leading)
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 6) {
                         LabeledRow(type: .text, label: loggedEvent.date.formattedString, value: loggedEvent.message)
                         HStack {
                             Button("Copy") {

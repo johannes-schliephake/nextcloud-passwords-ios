@@ -60,6 +60,13 @@ struct SelectFolderPage: View {
             List {
                 FolderGroup(folder: selectFolderController.baseFolder, folders: selectFolderController.folders, selection: $selectFolderController.selection, isExpanded: true)
                     .listSectionSeparator(.hidden, edges: .top)
+                    .apply {
+                        view in
+                        if #available(iOS 16, *) {
+                            view
+                                .listRowInsets(.listRow)
+                        }
+                    }
             }
             .listStyle(.plain)
             .onAppear {
@@ -187,6 +194,7 @@ extension SelectFolderPage {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 40, height: 40)
                     .foregroundColor(Color.accentColor)
+                Spacer(minLength: 12)
                 VStack(alignment: .leading) {
                     Text(!label.isEmpty ? label : "-")
                         .lineLimit(1)
@@ -222,6 +230,7 @@ extension SelectFolderPage {
                     .onAppear {
                         requestFavicon()
                     }
+                Spacer(minLength: 12)
                 VStack(alignment: .leading) {
                     Text(!label.isEmpty ? label : "-")
                         .lineLimit(1)

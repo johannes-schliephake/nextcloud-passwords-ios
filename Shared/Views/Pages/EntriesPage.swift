@@ -11,7 +11,7 @@ struct EntriesPage: View {
     
     @StateObject private var folderController: FolderController
     @FocusState private var focusedField: FocusField?
-    @State private var showServerSetupView = SessionController.default.session == nil
+    @State private var showServerSetupView = false
     @State private var showSettingsView = false
     @State private var challengePassword = ""
     @State private var storeChallengePassword = false
@@ -55,6 +55,12 @@ struct EntriesPage: View {
             .navigationTitle(navigationTitle)
             .onAppear {
                 folderController.autoFillController = autoFillController
+                
+                DispatchQueue.main.async {
+                    if SessionController.default.session == nil {
+                        showServerSetupView = true
+                    }
+                }
             }
     }
     
@@ -209,23 +215,32 @@ struct EntriesPage: View {
                folderController.searchTerm.isEmpty,
                suggestions.isEmpty && autoFillController.mode == .provider || !suggestions.isEmpty && folderController.folder.isBaseFolder && folderController.tag == nil {
                 List {
-                    Section(header: Text("_suggestions")) {
-                        if !suggestions.isEmpty {
-                            suggestionRows(suggestions: suggestions)
+                    Group {
+                        Section(header: Text("_suggestions")) {
+                            if !suggestions.isEmpty {
+                                suggestionRows(suggestions: suggestions)
+                            }
+                            else {
+                                Button(action: {
+                                    sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
+                                }, label: {
+                                    Text("_createPassword")
+                                })
+                                .buttonStyle(.action)
+                                .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
+                            }
                         }
-                        else {
-                            Button(action: {
-                                sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
-                            }, label: {
-                                Text("_createPassword")
-                            })
-                            .buttonStyle(.action)
-                            .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
+                        if !entries.isEmpty {
+                            Section(header: Text("_all")) {
+                                entryRows(entries: entries)
+                            }
                         }
                     }
-                    if !entries.isEmpty {
-                        Section(header: Text("_all")) {
-                            entryRows(entries: entries)
+                    .apply {
+                        view in
+                        if #available(iOS 16, *) {
+                            view
+                                .listRowInsets(.listRow)
                         }
                     }
                 }
@@ -234,6 +249,13 @@ struct EntriesPage: View {
             else if !entries.isEmpty {
                 List {
                     entryRows(entries: entries)
+                        .apply {
+                            view in
+                            if #available(iOS 16, *) {
+                                view
+                                    .listRowInsets(.listRow)
+                            }
+                        }
                 }
                 .listStyle(.plain)
             }
@@ -251,7 +273,6 @@ struct EntriesPage: View {
             }
         }
         .searchable(text: $folderController.searchTerm)
-        .keyboardType(.alphabet)
         .autocapitalization(.none)
         .disableAutocorrection(true)
         .refreshable {
@@ -328,19 +349,18 @@ struct EntriesPage: View {
     
     private func entryRows(entries: [Entry]) -> some View {
         ForEach(entries) {
-            entry -> AnyView in
+            entry in
             switch entry {
             case .folder(let folder):
-                let folderRow = FolderRow(entriesController: entriesController, folder: folder, editFolder: {
+                FolderRow(entriesController: entriesController, folder: folder, editFolder: {
                     sheetItem = .edit(entry: .folder(folder))
                 }, moveFolder: {
                     sheetItem = .move(entry: .folder(folder))
                 }, deleteFolder: {
                     actionSheetItem = .delete(entry: .folder(folder))
                 })
-                return AnyView(folderRow)
             case .password(let password):
-                let passwordRow = PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
+                PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
                     sheetItem = .edit(entry: .password(password))
                 }, movePassword: {
                     sheetItem = .move(entry: .password(password))
@@ -349,14 +369,12 @@ struct EntriesPage: View {
                 }, deletePassword: {
                     actionSheetItem = .delete(entry: .password(password))
                 })
-                return AnyView(passwordRow)
             case .tag(let tag):
-                let tagRow = TagRow(entriesController: entriesController, tag: tag, editTag: {
+                TagRow(entriesController: entriesController, tag: tag, editTag: {
                     sheetItem = .edit(entry: .tag(tag))
                 }, deleteTag: {
                     actionSheetItem = .delete(entry: .tag(tag))
                 })
-                return AnyView(tagRow)
             }
         }
     }
@@ -709,6 +727,7 @@ extension EntriesPage {
         private func mainStack() -> some View {
             HStack {
                 folderImage()
+                Spacer(minLength: 12)
                 labelText()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
@@ -986,6 +1005,7 @@ extension EntriesPage {
         private func mainStack() -> some View {
             HStack {
                 faviconImage()
+                Spacer(minLength: 12)
                 labelStack()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
@@ -1245,6 +1265,7 @@ extension EntriesPage {
         private func mainStack() -> some View {
             HStack {
                 tagImage()
+                Spacer(minLength: 12)
                 labelText()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()

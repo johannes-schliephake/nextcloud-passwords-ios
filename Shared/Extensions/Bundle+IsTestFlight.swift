@@ -4,7 +4,7 @@ import Foundation
 extension Bundle {
     
     var isTestFlight: Bool {
-        appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
+        appStoreReceiptURL?.lastPathComponent == "sandboxReceipt" && !Configuration.isDebug
     }
     
 }

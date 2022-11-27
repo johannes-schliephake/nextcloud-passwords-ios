@@ -155,3 +155,4 @@
 /* I.e. duplicates of a password */
 "_duplicates" = "Duplicity";
 "_duplicatesTrashMessage" = "Veškeré duplicity tohoto hesla se nacházejí v koši.";
+"_joinTestFlightBeta" = "Pomozte s testováním vývojových verzí";
