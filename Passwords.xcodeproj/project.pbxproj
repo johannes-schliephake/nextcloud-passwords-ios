@@ -181,9 +181,6 @@
 		DD03D9BD28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
 		DD03D9BE28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
 		DD03D9BF28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
-		DD03D9C128C8DFCB006118F2 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD03D9C028C8DFCB006118F2 /* swiftgen.yml */; };
-		DD03D9C228C8DFCB006118F2 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD03D9C028C8DFCB006118F2 /* swiftgen.yml */; };
-		DD03D9C328C8DFCB006118F2 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD03D9C028C8DFCB006118F2 /* swiftgen.yml */; };
 		DD0C2872276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
 		DD0C2873276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
 		DD0C28752766028500E3DAEF /* SelectTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28742766028500E3DAEF /* SelectTagsPage.swift */; };
@@ -1307,7 +1304,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F5331A825605B9400AB6FED /* Localizable.strings in Resources */,
-				DD03D9C128C8DFCB006118F2 /* swiftgen.yml in Resources */,
 				8F52F3E225937B2700B4EFCE /* IAP.plist in Resources */,
 				8F09583725D14FDD0082D438 /* Assets.xcassets in Resources */,
 				8F5757E425671EA4003F1E9F /* InfoPlist.strings in Resources */,
@@ -1327,7 +1323,6 @@
 			files = (
 				8FC361E325827E6700785371 /* Localizable.strings in Resources */,
 				8F5BBC8E25F2B6D3001271F7 /* InfoPlist.strings in Resources */,
-				DD03D9C228C8DFCB006118F2 /* swiftgen.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1343,7 +1338,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDB16A0927D2308600F4D752 /* OTPAutoFillScript.js in Resources */,
-				DD03D9C328C8DFCB006118F2 /* swiftgen.yml in Resources */,
 				DDB1697427D20C1F00F4D752 /* Localizable.strings in Resources */,
 				DDB1696D27D2040300F4D752 /* InfoPlist.strings in Resources */,
 				DDB16A0C27D24D6300F4D752 /* Assets.xcassets in Resources */,
