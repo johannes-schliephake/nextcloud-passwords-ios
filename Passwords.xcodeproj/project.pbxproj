@@ -2381,8 +2381,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jedisct1/swift-sodium.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.1;
+				kind = revision;
+				revision = a19da78de3b4467d46c0bd3593b42ee033aa716d;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
