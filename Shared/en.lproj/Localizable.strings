@@ -49,6 +49,9 @@
 
 /* I.e. connect to server */
 "_connect" = "Connect";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_connectingToNextcloudInstanceAt(url)" = "Connecting to Nextcloud Instance at\n%@";
 "_connectToServer" = "Connect to Server";
 "_copyOtp" = "Copy One-Time Password";
 "_copyPassword" = "Copy Password";
@@ -172,6 +175,7 @@
 
 /* Possible value for "Strength" picker when generating a password */
 "_low" = "Low";
+"_managedServerUrlErrorMessage" = "The Nextcloud server address has been pre-configured, but the app could not connect to the Nextcloud instance. Please contact your administrator.";
 
 /* Possible value for "Strength" picker when generating a password */
 "_medium" = "Medium";
