@@ -31,6 +31,9 @@ internal enum Strings {
   internal static let confirm = Strings.tr("Localizable", "_confirm", fallback: "Confirm")
   internal static let confirmAction = Strings.tr("Localizable", "_confirmAction", fallback: "Confirm Action")
   internal static let connect = Strings.tr("Localizable", "_connect", fallback: "Connect")
+  internal static func connectingToNextcloudInstanceAtUrl(_ p1: Any) -> String {
+    return Strings.tr("Localizable", "_connectingToNextcloudInstanceAt(url)", String(describing: p1), fallback: "Connecting to Nextcloud Instance at\n%@")
+  }
   internal static let connectToServer = Strings.tr("Localizable", "_connectToServer", fallback: "Connect to Server")
   internal static let copyOtp = Strings.tr("Localizable", "_copyOtp", fallback: "Copy One-Time Password")
   internal static let copyPassword = Strings.tr("Localizable", "_copyPassword", fallback: "Copy Password")
@@ -100,6 +103,7 @@ internal enum Strings {
   internal static let logIn = Strings.tr("Localizable", "_logIn", fallback: "Log In")
   internal static let logOut = Strings.tr("Localizable", "_logOut", fallback: "Log Out")
   internal static let low = Strings.tr("Localizable", "_low", fallback: "Low")
+  internal static let managedServerUrlErrorMessage = Strings.tr("Localizable", "_managedServerUrlErrorMessage", fallback: "The Nextcloud server address has been pre-configured, but the app could not connect to the Nextcloud instance. Please contact your administrator.")
   internal static let medium = Strings.tr("Localizable", "_medium", fallback: "Medium")
   internal static let metadata = Strings.tr("Localizable", "_metadata", fallback: "Metadata")
   internal static let moreOptions = Strings.tr("Localizable", "_moreOptions", fallback: "More Options")

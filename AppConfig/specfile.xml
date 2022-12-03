@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- Generated using https://beta.appconfig.jamfresearch.com/spec-creator -->
+<managedAppConfiguration>
+  <version>1</version>
+  <bundleId>de.cdslash.Passwords</bundleId>
+  <dict>
+    <string keyName="serverUrl">
+      <defaultValue>
+        <value>https://</value>
+      </defaultValue>
+    </string>
+  </dict>
+  <presentation defaultLocale="en-US">
+    <field keyName="serverUrl" type="input">
+      <label>
+        <language value="en-US">Nextcloud Instance URL</language>
+      </label>
+      <description>
+        <language value="en-US">An HTTPS connection is required.</language>
+      </description>
+    </field>
+  </presentation>
+</managedAppConfiguration>

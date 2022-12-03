@@ -1,2 +1,2 @@
-• Button for joining TestFlight beta
+• Support for managed app configuration
 • Bugfixes and optimizations

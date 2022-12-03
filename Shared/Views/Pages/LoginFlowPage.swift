@@ -31,7 +31,7 @@ extension LoginFlowPage {
         private let loginFlowNavigationController: LoginFlowNavigationController
         
         init(serverSetupResponse: ServerSetupController.Response) {
-            self.loginUrl = serverSetupResponse.login
+            loginUrl = serverSetupResponse.login
             loginFlowNavigationController = LoginFlowNavigationController(poll: serverSetupResponse.poll)
         }
         
