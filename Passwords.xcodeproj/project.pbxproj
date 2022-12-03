@@ -212,7 +212,6 @@
 		DD3FAD652775DC86002202DE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3FAD632775DC86002202DE /* Settings.swift */; };
 		DD3FAD6727772C15002202DE /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3FAD6627772C15002202DE /* SettingsController.swift */; };
 		DD3FAD6827772C15002202DE /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3FAD6627772C15002202DE /* SettingsController.swift */; };
-		DD42600D293B7384004A77AB /* specfile.xml in Resources */ = {isa = PBXBuildFile; fileRef = DD42600C293B7384004A77AB /* specfile.xml */; };
 		DD4A9E89269F84B9007268E2 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
 		DD4A9E8A269F84B9007268E2 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
 		DD5189EE27A16BFA00264A0D /* Data+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5189ED27A16BFA00264A0D /* Data+Init.swift */; };
@@ -1315,7 +1314,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F5331A825605B9400AB6FED /* Localizable.strings in Resources */,
-				DD42600D293B7384004A77AB /* specfile.xml in Resources */,
 				8F52F3E225937B2700B4EFCE /* IAP.plist in Resources */,
 				8F09583725D14FDD0082D438 /* Assets.xcassets in Resources */,
 				8F5757E425671EA4003F1E9F /* InfoPlist.strings in Resources */,
