@@ -6,7 +6,7 @@ final class ServerSetupController: ObservableObject {
     
     @Published private(set) var isValidating = false
     @Published private(set) var response: Response?
-    @Published var serverAddress = "https://"
+    @Published var serverAddress = ""
     @Published private(set) var serverUrlIsManaged = false
     @Published var showManagedServerUrlErrorAlert = false
     
@@ -26,7 +26,7 @@ final class ServerSetupController: ObservableObject {
                 guard let url = URL(string: serverAddress),
                       url.host != nil,
                       url.scheme?.lowercased() == "https" else {
-                    self?.showManagedServerUrlErrorAlert = true
+                    self?.showManagedServerUrlErrorAlert = self?.serverUrlIsManaged == true
                     return nil
                 }
                 return url
@@ -66,7 +66,7 @@ final class ServerSetupController: ObservableObject {
                             return
                         }
                         DispatchQueue.main.async {
-                            self?.showManagedServerUrlErrorAlert = true
+                            self?.showManagedServerUrlErrorAlert = self?.serverUrlIsManaged == true
                         }
                         guard error is DecodingError else {
                             return
@@ -84,17 +84,17 @@ final class ServerSetupController: ObservableObject {
             .sink { [weak self] in self?.response = $0 }
             .store(in: &subscriptions)
         
-        NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)
-            .map { _ in () }
-            .receive(on: DispatchQueue.main)
+        Timer.publish(every: 1, on: .main, in: .default)
+            .autoconnect()
+            .map { _ in }
             .prepend(())
             .map { UserDefaults.standard.dictionary(forKey: "com.apple.configuration.managed")?["serverUrl"] as? String }
+            .removeDuplicates()
             .handleEvents(receiveOutput: {
                 [weak self] serverAddress in
                 self?.serverUrlIsManaged = serverAddress != nil
             })
-            .compactMap { $0 }
-            .sink { [weak self] in self?.serverAddress = $0 }
+            .sink { [weak self] in self?.serverAddress = $0 ?? "https://" }
             .store(in: &subscriptions)
     }
     
