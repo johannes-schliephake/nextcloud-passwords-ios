@@ -6,12 +6,15 @@ final class ServerSetupController: ObservableObject {
     
     @Published private(set) var isValidating = false
     @Published private(set) var response: Response?
-    @Published var serverAddress = "https://"
+    @Published var serverAddress = ""
+    @Published private(set) var serverUrlIsManaged = false
+    @Published var showManagedServerUrlErrorAlert = false
     
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
         $serverAddress
+            .dropFirst()
             .removeDuplicates()
             .handleEvents(receiveOutput: {
                 [weak self] _ in
@@ -19,10 +22,11 @@ final class ServerSetupController: ObservableObject {
                 self?.isValidating = false
             })
             .compactMap {
-                serverAddress -> URL? in
+                [weak self] serverAddress -> URL? in
                 guard let url = URL(string: serverAddress),
                       url.host != nil,
                       url.scheme?.lowercased() == "https" else {
+                    self?.showManagedServerUrlErrorAlert = self?.serverUrlIsManaged == true
                     return nil
                 }
                 return url
@@ -57,11 +61,17 @@ final class ServerSetupController: ObservableObject {
                     }
                     .decode(type: Response?.self, decoder: Configuration.jsonDecoder)
                     .handleEvents(receiveCompletion: {
-                        completion in
-                        if case .failure(let error) = completion,
-                           error is DecodingError {
-                            LoggingController.shared.log(error: error)
+                        [weak self] completion in
+                        guard case .failure(let error) = completion else {
+                            return
                         }
+                        DispatchQueue.main.async {
+                            self?.showManagedServerUrlErrorAlert = self?.serverUrlIsManaged == true
+                        }
+                        guard error is DecodingError else {
+                            return
+                        }
+                        LoggingController.shared.log(error: error)
                     })
                     .replaceError(with: nil)
             }
@@ -72,6 +82,19 @@ final class ServerSetupController: ObservableObject {
             })
             .compactMap { $0 }
             .sink { [weak self] in self?.response = $0 }
+            .store(in: &subscriptions)
+        
+        Timer.publish(every: 1, on: .main, in: .default)
+            .autoconnect()
+            .map { _ in }
+            .prepend(())
+            .map { UserDefaults.standard.dictionary(forKey: "com.apple.configuration.managed")?["serverUrl"] as? String }
+            .removeDuplicates()
+            .handleEvents(receiveOutput: {
+                [weak self] serverAddress in
+                self?.serverUrlIsManaged = serverAddress != nil
+            })
+            .sink { [weak self] in self?.serverAddress = $0 ?? "https://" }
             .store(in: &subscriptions)
     }
     

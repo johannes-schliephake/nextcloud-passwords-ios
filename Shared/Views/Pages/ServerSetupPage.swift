@@ -12,35 +12,63 @@ struct ServerSetupPage: View {
     // MARK: Views
     
     var body: some View {
-        listView()
-            .navigationTitle("_connectToServer")
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    cancelButton()
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    connectButton()
-                }
+        Group {
+            if serverSetupController.serverUrlIsManaged {
+                managedSetupPage()
             }
-            .initialize(focus: $focusedField, with: .serverAddress)
+            else {
+                listView()
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            connectButton()
+                        }
+                    }
+                    .initialize(focus: $focusedField, with: .serverAddress)
+            }
+        }
+        .navigationTitle("_connectToServer")
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                cancelButton()
+            }
+        }
+    }
+    
+    @ViewBuilder private func managedSetupPage() -> some View {
+        if let serverSetupResponse = serverSetupController.response {
+            LoginFlowPage(serverSetupResponse: serverSetupResponse)
+        }
+        else {
+            VStack(spacing: 8) {
+                ProgressView()
+                Text(Strings.connectingToNextcloudInstanceAtUrl(serverSetupController.serverAddress))
+                    .font(.subheadline)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.gray)
+                
+            }
+            .alert(isPresented: $serverSetupController.showManagedServerUrlErrorAlert) {
+                Alert(title: Text("_error"), message: Text(Strings.managedServerUrlErrorMessage), dismissButton: .cancel {
+                    dismiss()
+                })
+            }
+        }
     }
     
     private func listView() -> some View {
-        VStack {
-            List {
-                serverAddressField()
-            }
-            .listStyle(.insetGrouped)
-            .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button {
-                        focusedField = nil
-                    }
-                    label: {
-                        Text("_dismiss")
-                            .bold()
-                    }
+        List {
+            serverAddressField()
+        }
+        .listStyle(.insetGrouped)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button {
+                    focusedField = nil
+                }
+                label: {
+                    Text("_dismiss")
+                        .bold()
                 }
             }
         }

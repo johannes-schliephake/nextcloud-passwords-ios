@@ -181,9 +181,6 @@
 		DD03D9BD28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
 		DD03D9BE28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
 		DD03D9BF28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
-		DD03D9C128C8DFCB006118F2 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD03D9C028C8DFCB006118F2 /* swiftgen.yml */; };
-		DD03D9C228C8DFCB006118F2 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD03D9C028C8DFCB006118F2 /* swiftgen.yml */; };
-		DD03D9C328C8DFCB006118F2 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD03D9C028C8DFCB006118F2 /* swiftgen.yml */; };
 		DD0C2872276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
 		DD0C2873276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
 		DD0C28752766028500E3DAEF /* SelectTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28742766028500E3DAEF /* SelectTagsPage.swift */; };
@@ -633,6 +630,7 @@
 		DD3FAD602775DC54002202DE /* ListSettingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSettingsRequest.swift; sourceTree = "<group>"; };
 		DD3FAD632775DC86002202DE /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		DD3FAD6627772C15002202DE /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		DD42600C293B7384004A77AB /* specfile.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = specfile.xml; sourceTree = "<group>"; };
 		DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLabeledRow.swift; sourceTree = "<group>"; };
 		DD4F0BED28C0FFD2005AA668 /* feedback_email.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = feedback_email.txt; sourceTree = "<group>"; };
 		DD4F0BEE28C0FFE3005AA668 /* feedback_email.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = feedback_email.txt; sourceTree = "<group>"; };
@@ -755,6 +753,7 @@
 				8F0136FF25DE903E009455D7 /* .swiftlint.yml */,
 				DD03D9C028C8DFCB006118F2 /* swiftgen.yml */,
 				DD2B7D0827EE6D5E0018E07E /* fastlane */,
+				DD42600B293B736E004A77AB /* AppConfig */,
 				8FD1038C25A790EC0055A8F3 /* README.md */,
 				DD3A993827FDD9AA000E1938 /* Icon.svg */,
 				8FD1038625A790B00055A8F3 /* LICENSE */,
@@ -1118,6 +1117,14 @@
 			path = "en-US";
 			sourceTree = "<group>";
 		};
+		DD42600B293B736E004A77AB /* AppConfig */ = {
+			isa = PBXGroup;
+			children = (
+				DD42600C293B7384004A77AB /* specfile.xml */,
+			);
+			path = AppConfig;
+			sourceTree = "<group>";
+		};
 		DDB1695627D1FCFF00F4D752 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -1307,7 +1314,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F5331A825605B9400AB6FED /* Localizable.strings in Resources */,
-				DD03D9C128C8DFCB006118F2 /* swiftgen.yml in Resources */,
 				8F52F3E225937B2700B4EFCE /* IAP.plist in Resources */,
 				8F09583725D14FDD0082D438 /* Assets.xcassets in Resources */,
 				8F5757E425671EA4003F1E9F /* InfoPlist.strings in Resources */,
@@ -1327,7 +1333,6 @@
 			files = (
 				8FC361E325827E6700785371 /* Localizable.strings in Resources */,
 				8F5BBC8E25F2B6D3001271F7 /* InfoPlist.strings in Resources */,
-				DD03D9C228C8DFCB006118F2 /* swiftgen.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1343,7 +1348,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDB16A0927D2308600F4D752 /* OTPAutoFillScript.js in Resources */,
-				DD03D9C328C8DFCB006118F2 /* swiftgen.yml in Resources */,
 				DDB1697427D20C1F00F4D752 /* Localizable.strings in Resources */,
 				DDB1696D27D2040300F4D752 /* InfoPlist.strings in Resources */,
 				DDB16A0C27D24D6300F4D752 /* Assets.xcassets in Resources */,
@@ -2101,7 +2105,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -2111,7 +2115,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.3;
+				MARKETING_VERSION = 2.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -2128,7 +2132,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -2138,7 +2142,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.3;
+				MARKETING_VERSION = 2.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -2194,7 +2198,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2203,7 +2207,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.6.3;
+				MARKETING_VERSION = 2.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2217,7 +2221,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2226,7 +2230,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.6.3;
+				MARKETING_VERSION = 2.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2281,7 +2285,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2290,7 +2294,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.6.3;
+				MARKETING_VERSION = 2.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2305,7 +2309,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2314,7 +2318,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.6.3;
+				MARKETING_VERSION = 2.6.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2387,8 +2391,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jedisct1/swift-sodium.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.1;
+				kind = revision;
+				revision = a19da78de3b4467d46c0bd3593b42ee033aa716d;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

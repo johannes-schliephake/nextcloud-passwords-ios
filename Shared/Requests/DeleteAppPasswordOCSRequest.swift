@@ -34,7 +34,7 @@ extension DeleteAppPasswordOCSRequest {
         
         return NetworkClient.default.dataTaskPublisher(for: request)
             .retry(1)
-            .map { _ in () }
+            .map { _ in }
             .eraseToAnyPublisher()
     }
     

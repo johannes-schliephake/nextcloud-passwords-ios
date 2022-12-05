@@ -1,2 +1,2 @@
-• Button zum Teilnehmen an der TestFlight-Beta
+• Unterstützung für verwaltete App-Konfiguration
 • Fehlerbehebungen und Optimierungen
