@@ -65,6 +65,7 @@ lane :build_and_upload do
     unless last_git_tag != "v#{get_version_number(target: "Passwords")}"
         UI.user_error!("The version number didn't change")
     end
+    run_tests(scheme: "Passwords")
     get_certificates(output_path: "fastlane/tmp")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")

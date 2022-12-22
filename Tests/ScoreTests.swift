@@ -1,7 +1,9 @@
 import XCTest
+@testable import Passwords
 
 
-class LogicTests: XCTestCase {
+// TODO: refactor
+final class ScoreTests: XCTestCase {
     
     func test_stringScoreSearchTerm_emptyString() {
         XCTAssertEqual(0.0, "".score(searchTerm: ""))
@@ -184,7 +186,7 @@ class LogicTests: XCTestCase {
 }
 
 
-extension LogicTests {
+extension ScoreTests {
     
     func XCTAssertDescendingOrder<T>(_ expressions: T..., file: StaticString = #filePath, line: UInt = #line) where T: Comparable {
         for (index, (lhs, rhs)) in zip(expressions, expressions[1...]).enumerated() {

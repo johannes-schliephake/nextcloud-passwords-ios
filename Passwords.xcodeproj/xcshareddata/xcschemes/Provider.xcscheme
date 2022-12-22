@@ -44,12 +44,14 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            parallelizable = "YES"
+            testExecutionOrdering = "random">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8FCBF8B925AE152500F75B33"
-               BuildableName = "Snapshot.xctest"
-               BlueprintName = "Snapshot"
+               BlueprintIdentifier = "DD5E3CAD295363DB0032F517"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
                ReferencedContainer = "container:Passwords.xcodeproj">
             </BuildableReference>
          </TestableReference>
