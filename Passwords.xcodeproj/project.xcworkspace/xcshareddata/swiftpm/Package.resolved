@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "factory",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hmlongco/Factory",
+      "state" : {
+        "revision" : "ca5788b8621b185a0fbe6ef05bb9a73b3ef2833f",
+        "version" : "1.2.9"
+      }
+    },
+    {
       "identity" : "swift-sodium",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jedisct1/swift-sodium.git",
