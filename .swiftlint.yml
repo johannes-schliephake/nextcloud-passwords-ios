@@ -9,6 +9,7 @@ disabled_rules:
   - statement_position
   - closure_parameter_position
   - orphaned_doc_comment
+  - redundant_discardable_let
 
 opt_in_rules:
   - file_types_order
@@ -36,6 +37,12 @@ custom_rules:
     name: "Print"
     regex: "((\\bprint)|(Swift\\.print))\\s*\\("
     message: "Prints should be removed"
+    severity: warning
+  view_model_state_access:
+    included: ".*\\.swift"
+    name: "ViewModel State Access"
+    regex: "\\bviewModel\\s*\\.\\s*state"
+    message: "ViewModel state should be accessed via subscript"
     severity: warning
 
 excluded:
