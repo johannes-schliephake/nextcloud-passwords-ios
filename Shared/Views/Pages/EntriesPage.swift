@@ -304,7 +304,7 @@ struct EntriesPage: View {
             case .tag(.folder):
                 EmptyView()
             case .tag(.password(let password)):
-                SelectTagsNavigation(entriesController: entriesController, temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
+                SelectTagsNavigation(temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
                     validTags, invalidTags in
                     password.tags = validTags.map { $0.id } + invalidTags
                     entriesController.update(password: password)
@@ -1057,7 +1057,7 @@ extension EntriesPage {
                            let validTags = EntriesController.tags(for: password.tags, in: tags).valid,
                            !validTags.isEmpty {
                             HStack(spacing: -6) {
-                                ForEach(Array(validTags.sortedByLabel().prefix(10).enumerated()), id: \.element.id) {
+                                ForEach(Array(validTags.sorted().prefix(10).enumerated()), id: \.element.id) {
                                     index, tag in
                                     Circle()
                                         .stroke(Color(UIColor.systemBackground), lineWidth: 2)
@@ -1368,6 +1368,8 @@ extension EntriesPage {
 }
 
 
+#if DEBUG
+
 struct EntriesPagePreview: PreviewProvider {
     
     static var previews: some View {
@@ -1384,3 +1386,5 @@ struct EntriesPagePreview: PreviewProvider {
     }
     
 }
+
+#endif

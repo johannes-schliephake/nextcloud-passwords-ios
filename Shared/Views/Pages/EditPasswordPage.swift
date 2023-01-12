@@ -126,7 +126,7 @@ struct EditPasswordPage: View {
                     }
                 }
             case .selectTags:
-                SelectTagsNavigation(entriesController: editPasswordController.entriesController, temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
+                SelectTagsNavigation(temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
                     validTags, _ in
                     editPasswordController.passwordValidTags = validTags
                 })
@@ -370,7 +370,7 @@ struct EditPasswordPage: View {
                     else {
                         if #available(iOS 16, *) {
                             FlowView(alignment: .leading) {
-                                ForEach(editPasswordController.passwordValidTags.sortedByLabel()) {
+                                ForEach(editPasswordController.passwordValidTags.sorted()) {
                                     tag in
                                     TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
                                 }
@@ -378,7 +378,7 @@ struct EditPasswordPage: View {
                             .padding(.vertical, 3)
                         }
                         else {
-                            LegacyFlowView(editPasswordController.passwordValidTags.sortedByLabel(), alignment: .leading) {
+                            LegacyFlowView(editPasswordController.passwordValidTags.sorted(), alignment: .leading) {
                                 tag in
                                 TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
                             }
@@ -568,6 +568,8 @@ extension EditPasswordPage {
 }
 
 
+#if DEBUG
+
 struct EditPasswordPagePreview: PreviewProvider {
     
     static var previews: some View {
@@ -580,3 +582,5 @@ struct EditPasswordPagePreview: PreviewProvider {
     }
     
 }
+
+#endif

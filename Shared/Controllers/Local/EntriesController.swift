@@ -989,6 +989,8 @@ extension EntriesController {
 }
 
 
+#if DEBUG
+
 extension EntriesController: MockObject {
     
     static var mock: EntriesController {
@@ -996,3 +998,5 @@ extension EntriesController: MockObject {
     }
     
 }
+
+#endif

@@ -186,11 +186,16 @@ extension Tag: Codable {
 }
 
 
-extension Tag: Hashable {
+extension Tag: Equatable {
     
     static func == (lhs: Tag, rhs: Tag) -> Bool {
         lhs.id == rhs.id
     }
+    
+}
+
+
+extension Tag: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -199,14 +204,16 @@ extension Tag: Hashable {
 }
 
 
-extension Array where Element == Tag {
+extension Tag: Comparable {
     
-    func sortedByLabel() -> [Tag] {
-        sorted { $0.label.compare($1.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
+    static func < (lhs: Tag, rhs: Tag) -> Bool {
+        lhs.label.compare(rhs.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending
     }
     
 }
 
+
+#if DEBUG
 
 extension Tag: MockObject {
     
@@ -222,3 +229,5 @@ extension Tag: MockObject {
     }
     
 }
+
+#endif

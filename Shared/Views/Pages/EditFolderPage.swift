@@ -167,6 +167,8 @@ extension EditFolderPage {
 }
 
 
+#if DEBUG
+
 struct EditFolderPagePreview: PreviewProvider {
     
     static var previews: some View {
@@ -179,3 +181,5 @@ struct EditFolderPagePreview: PreviewProvider {
     }
     
 }
+
+#endif

@@ -1,7 +1,7 @@
 import Foundation
 
 
-protocol ViewModel: ObservableObject {
+protocol ViewModel: ObservableObject { // swiftlint:disable:this file_types_order
     
     associatedtype State: ObservableObject
     associatedtype Action
@@ -13,7 +13,7 @@ protocol ViewModel: ObservableObject {
 }
 
 
-extension ViewModel {
+extension ViewModel { // swiftlint:disable:this file_types_order
     
     var objectWillChange: State.ObjectWillChangePublisher {
         state.objectWillChange
@@ -39,7 +39,7 @@ extension ViewModel {
 }
 
 
-extension ViewModel where Action == Never {
+extension ViewModel where Action == Never { // swiftlint:disable:this file_types_order
     
     func callAsFunction(_ action: Action) {}
     

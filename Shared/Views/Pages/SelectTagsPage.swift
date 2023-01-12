@@ -1,18 +1,12 @@
 import SwiftUI
+import Factory
 
 
 struct SelectTagsPage: View {
     
-    @Environment(\.dismiss) private var dismiss
+    @StateObject var viewModel: AnyViewModel<SelectTagsViewModel.State, SelectTagsViewModel.Action>
     
-    @StateObject private var selectTagsController: SelectTagsController
-    @FocusState private var focusedField: FocusField?
-    
-    init(entriesController: EntriesController, temporaryEntry: SelectTagsController.TemporaryEntry, selectTags: @escaping ([Tag], [String]) -> Void) {
-        _selectTagsController = StateObject(wrappedValue: SelectTagsController(entriesController: entriesController, temporaryEntry: temporaryEntry, selectTags: selectTags))
-    }
-    
-    // MARK: Views
+    @FocusState private var focusedField: SelectTagsViewModel.FocusField?
     
     var body: some View {
         mainStack()
@@ -25,13 +19,15 @@ struct SelectTagsPage: View {
                     confirmButton()
                 }
             }
+            .bind($viewModel[\.focusedField], to: _focusedField)
+            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
     }
     
     private func mainStack() -> some View {
         VStack(spacing: 0) {
             VStack {
                 Group {
-                    switch selectTagsController.temporaryEntry {
+                    switch viewModel[\.temporaryEntry] {
                     case .password(let label, let username, let url, _):
                         PasswordRow(label: label, username: username, url: url)
                     }
@@ -56,9 +52,9 @@ struct SelectTagsPage: View {
                     addTagBadge()
                         .padding(.top, 8)
                 }
-                ForEach(selectTagsController.tags) {
-                    tag in
-                    toggleTagBadge(tag: tag)
+                ForEach(viewModel[\.selectableTags], id: \.tag) {
+                    tag, isSelected in
+                    toggleTagBadge(tag: tag, isSelected: isSelected)
                 }
             }
             .listRowSeparator(.hidden)
@@ -75,9 +71,8 @@ struct SelectTagsPage: View {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 Button {
-                    focusedField = nil
-                }
-                label: {
+                    viewModel(.dismissKeyboard)
+                } label: {
                     Text("_dismiss")
                         .bold()
                 }
@@ -90,12 +85,12 @@ struct SelectTagsPage: View {
             Circle()
                 .strokeBorder(Color(.placeholderText), lineWidth: 1.5)
                 .frame(width: 15.8, height: 15.8)
-            TextField("_createTag", text: $selectTagsController.tagLabel, onCommit: {
-                selectTagsController.addTag()
-                focusedField = .addTagLabel
-            })
-            .focused($focusedField, equals: .addTagLabel)
-            .submitLabel(.done)
+            TextField("_createTag", text: $viewModel[\.tagLabel])
+                .focused($focusedField, equals: .addTagLabel)
+                .submitLabel(.done)
+                .onSubmit {
+                    viewModel(.addTag)
+                }
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 7)
@@ -105,8 +100,7 @@ struct SelectTagsPage: View {
         )
     }
     
-    @ViewBuilder private func toggleTagBadge(tag: Tag) -> some View {
-        let selected = selectTagsController.selection.contains { $0.id == tag.id }
+    private func toggleTagBadge(tag: Tag, isSelected: Bool) -> some View {
         HStack(spacing: 10) {
             Circle()
                 .fill(Color(hex: tag.color) ?? .primary)
@@ -118,7 +112,7 @@ struct SelectTagsPage: View {
             Image(systemName: "checkmark")
                 .font(.body.bold())
                 .foregroundColor(Color(hex: tag.color) ?? .primary)
-                .opacity(selected ? 1 : 0)
+                .opacity(isSelected ? 1 : 0)
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 8)
@@ -128,46 +122,26 @@ struct SelectTagsPage: View {
                     .fill(Color(UIColor { $0.userInterfaceStyle == .dark ? .black : .secondarySystemBackground }))
                 RoundedRectangle(cornerRadius: 5.7)
                     .fill((Color(hex: tag.color) ?? .primary).opacity(0.3))
-                    .opacity(selected ? 1 : 0)
+                    .opacity(isSelected ? 1 : 0)
             }
         )
-        .animation(.easeInOut(duration: 0.2), value: selected)
+        .animation(.easeInOut(duration: 0.2), value: isSelected)
         .onTapGesture {
-            selectTagsController.toggleTag(tag)
+            viewModel(.toggleTag(tag))
         }
     }
     
     private func cancelButton() -> some View {
         Button("_cancel", role: .cancel) {
-            dismiss()
+            viewModel(.cancel)
         }
     }
     
     private func confirmButton() -> some View {
         Button("_done") {
-            applyAndDismiss()
+            viewModel(.selectTags)
         }
-        .disabled(!selectTagsController.hasChanges)
-    }
-    
-    // MARK: Functions
-    
-    private func applyAndDismiss() {
-        guard selectTagsController.hasChanges,
-              selectTagsController.selection.allSatisfy({ $0.state?.isProcessing != true }) else {
-            return
-        }
-        selectTagsController.selectTags(selectTagsController.selection, selectTagsController.invalidTags)
-        dismiss()
-    }
-    
-}
-
-
-extension SelectTagsPage {
-    
-    private enum FocusField: Hashable {
-        case addTagLabel
+        .disabled(!viewModel[\.hasChanges])
     }
     
 }
@@ -223,15 +197,20 @@ extension SelectTagsPage {
 }
 
 
+#if DEBUG
+
 struct SelectTagsPagePreview: PreviewProvider {
     
     static var previews: some View {
+        let _ = Container.registerMocks()
         PreviewDevice.generate {
             NavigationView {
-                SelectTagsPage(entriesController: EntriesController.mock, temporaryEntry: .password(label: Password.mock.label, username: Password.mock.username, url: Password.mock.url, tags: Password.mock.tags), selectTags: { _, _  in })
+                SelectTagsPage(viewModel: SelectTagsViewModelMock().eraseToAnyViewModel())
             }
             .showColumns(false)
         }
     }
     
 }
+
+#endif

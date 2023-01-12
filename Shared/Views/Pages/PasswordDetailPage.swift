@@ -306,14 +306,14 @@ struct PasswordDetailPage: View {
                 if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
                     if #available(iOS 16, *) {
                         FlowView {
-                            ForEach(validTags.sortedByLabel()) {
+                            ForEach(validTags.sorted()) {
                                 tag in
                                 TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
                             }
                         }
                     }
                     else {
-                        LegacyFlowView(validTags.sortedByLabel()) {
+                        LegacyFlowView(validTags.sorted()) {
                             tag in
                             TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
                         }
@@ -332,7 +332,7 @@ struct PasswordDetailPage: View {
                         .hidden()
                         if #available(iOS 16, *) {
                             FlowView {
-                                ForEach(validTags.sortedByLabel()) {
+                                ForEach(validTags.sorted()) {
                                     tag in
                                     Button {
                                         navigationSelection = .entries(tag: tag)
@@ -345,7 +345,7 @@ struct PasswordDetailPage: View {
                             }
                         }
                         else {
-                            LegacyFlowView(validTags.sortedByLabel()) {
+                            LegacyFlowView(validTags.sorted()) {
                                 tag in
                                 Button {
                                     navigationSelection = .entries(tag: tag)
@@ -361,7 +361,7 @@ struct PasswordDetailPage: View {
             }
         }
         .sheet(isPresented: $showSelectTagsView) {
-            SelectTagsNavigation(entriesController: entriesController, temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
+            SelectTagsNavigation(temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
                 validTags, invalidTags in
                 password.tags = validTags.map { $0.id } + invalidTags
                 entriesController.update(password: password)
@@ -667,6 +667,8 @@ extension PasswordDetailPage {
 }
 
 
+#if DEBUG
+
 struct PasswordDetailPagePreview: PreviewProvider {
     
     static var previews: some View {
@@ -683,3 +685,5 @@ struct PasswordDetailPagePreview: PreviewProvider {
     }
     
 }
+
+#endif

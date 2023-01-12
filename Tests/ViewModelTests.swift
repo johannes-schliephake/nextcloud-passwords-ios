@@ -5,11 +5,17 @@ import Combine
 
 
 final class ViewModelTests: XCTestCase {
-
+    
     override func setUp() {
         super.setUp()
         
         Container.registerMocks()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        
+        Container.Registrations.reset()
     }
 
     func testObjectWillChange_changePublishedState_publisherEmits() {

@@ -190,6 +190,8 @@ extension EditTagPage {
 }
 
 
+#if DEBUG
+
 struct EditTagPagePreview: PreviewProvider {
     
     static var previews: some View {
@@ -202,3 +204,5 @@ struct EditTagPagePreview: PreviewProvider {
     }
     
 }
+
+#endif

@@ -258,6 +258,8 @@ extension SelectFolderPage {
 }
 
 
+#if DEBUG
+
 struct SelectFolderPagePreview: PreviewProvider {
     
     static var previews: some View {
@@ -270,3 +272,5 @@ struct SelectFolderPagePreview: PreviewProvider {
     }
     
 }
+
+#endif

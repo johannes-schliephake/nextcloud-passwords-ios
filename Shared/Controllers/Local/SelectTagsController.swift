@@ -27,7 +27,7 @@ final class SelectTagsController: ObservableObject {
     }
     
     var tags: [Tag] {
-        entriesController.tags?.sortedByLabel() ?? []
+        entriesController.tags?.sorted() ?? []
     }
     
     var hasChanges: Bool {
