@@ -156,3 +156,7 @@
 /* I.e. duplicates of a password */
 "_duplicates" = "Duplikate";
 "_joinTestFlightBeta" = "An TestFlight-Beta teilnehmen";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_connectingToNextcloudInstanceAt(url)" = "Verbinde mit der Nextcloud-Instanz auf\n%@";
+"_managedServerUrlErrorMessage" = "Die Nextcloud-Serveradresse wurde vorkonfiguriert, aber die App konnte keine Verbindung zur Nextcloud-Instanz herstellen. Bitte kontaktiere deinen Administrator.";
