@@ -156,3 +156,7 @@
 "_duplicates" = "Duplicity";
 "_duplicatesTrashMessage" = "Veškeré duplicity tohoto hesla se nacházejí v koši.";
 "_joinTestFlightBeta" = "Pomozte s testováním vývojových verzí";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_connectingToNextcloudInstanceAt(url)" = "Připojování k instanci Nextcloud na\n%@";
+"_managedServerUrlErrorMessage" = "Adresa Nextcloud serveru byla předem nastavena, ale aplikaci se nepodařilo se k této instanci Nextcloud připojit. Obraťte se na správce.";
