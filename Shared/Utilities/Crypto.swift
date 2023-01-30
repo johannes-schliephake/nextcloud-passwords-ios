@@ -199,7 +199,16 @@ extension Crypto {
                     return tag
                 }
             
-            return (folders, passwords, tags)
+            // TODO: Find a better to fix duplicate entries
+            // When creating a new entry from this app, in very rare cases, the entry is created multiple times and even stored multiple times in Core Data. The cause of this issue is still unknown. Those duplicate entries cause a lot of rare bugs, including:
+            // - The same entry is shown multiple times in the entries list (obviously)
+            // - When receiving new remote data, the updated*Pairs in EntriesController can get out of sync, thus preventing the new data from showing up in the iOS app
+            // - The previous bug also implies that affected entries can't be updated from the iOS app because the local revision is outdated
+            // - Lists might behave in undefined ways, as indicated by debug logs
+            // To at least bypass this issue, all entries that are duplicates are removed as soon as the IDs are known, which is the next line.
+            let decryptedEntries = (Array(Set(folders)), Array(Set(passwords)), Array(Set(tags)))
+            
+            return decryptedEntries
         }
         
         static func decrypt(offlineSettings: Data, key: SymmetricKey) throws -> Settings {
