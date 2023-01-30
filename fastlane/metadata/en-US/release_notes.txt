@@ -1,2 +1,1 @@
-• Support for managed app configuration
-• Bugfixes and optimizations
+• Bugfixes
