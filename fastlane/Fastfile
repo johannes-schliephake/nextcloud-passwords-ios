@@ -3,7 +3,7 @@ default_platform(:ios)
 opt_out_usage
 
 before_all do
-    ensure_xcode_version(version: "14.1")
+    ensure_xcode_version(version: "14.2")
     ensure_git_status_clean
     ensure_git_branch(branch: "develop")
     unless sh("git fetch --dry-run").empty?
