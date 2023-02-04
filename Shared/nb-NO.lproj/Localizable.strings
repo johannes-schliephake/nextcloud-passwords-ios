@@ -310,3 +310,8 @@
 /* Use the same wording Apple uses across iOS */
 "_dismiss" = "Avslå";
 "_thanksMessage" = "Takk til hele Nextcloud-gemenskapen og alle som involverer seg i dette flotte økosystemet. Jeg håper jeg bidrar på mitt vis med dette programmet.";
+"_duplicatesTrashMessage" = "Alle duplikater av dette passordet befinner seg i papirkurven.";
+
+/* I.e. duplicates of a password */
+"_duplicates" = "Duplikater";
+"_joinTestFlightBeta" = "Ta del i TestFlight-beta";
