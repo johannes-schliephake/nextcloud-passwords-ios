@@ -129,7 +129,7 @@
 "_giveATip" = "Gi en donasjon";
 
 /* Keep this in English */
-"_highFive" = "Takk. 👏";
+"_highFive" = "Gi meg fem! 👏";
 "_incorrectPassword" = "Feil passord";
 
 /* I.e. integration into the OS (Password AutoFill) */
