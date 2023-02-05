@@ -1,25 +1,17 @@
 import SwiftUI
+import Factory
 
 
 struct EditFolderPage: View {
     
-    @Environment(\.dismiss) private var dismiss
+    @StateObject var viewModel: AnyViewModel<EditFolderViewModel.State, EditFolderViewModel.Action>
     
-    @StateObject private var editFolderController: EditFolderController
-    @FocusState private var focusedField: FocusField?
-    @State private var showSelectFolderView = false
-    @State private var showDeleteAlert = false
-    @State private var showCancelAlert = false
-    
-    init(entriesController: EntriesController, folder: Folder, didAdd: ((Folder) -> Void)? = nil) {
-        _editFolderController = StateObject(wrappedValue: EditFolderController(entriesController: entriesController, folder: folder, didAdd: didAdd))
-    }
-    
-    // MARK: Views
+    @FocusState private var focusedField: EditFolderViewModel.FocusField?
     
     var body: some View {
         listView()
             .navigationTitle("_folder")
+            .interactiveDismissDisabled(viewModel[\.hasChanges])
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     cancelButton()
@@ -28,8 +20,8 @@ struct EditFolderPage: View {
                     confirmButton()
                 }
             }
-            .initialize(focus: $focusedField, with: editFolderController.folder.id.isEmpty ? .folderLabel : nil)
-            .interactiveDismissDisabled(editFolderController.hasChanges)
+            .bind($viewModel[\.focusedField], to: _focusedField)
+            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
     }
     
     private func listView() -> some View {
@@ -37,7 +29,7 @@ struct EditFolderPage: View {
             folderLabelField()
             favoriteButton()
             moveSection()
-            if !editFolderController.folder.id.isEmpty {
+            if !viewModel[\.isCreating] {
                 deleteButton()
             }
         }
@@ -46,7 +38,7 @@ struct EditFolderPage: View {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 Button {
-                    focusedField = nil
+                    viewModel(.dismissKeyboard)
                 }
                 label: {
                     Text("_dismiss")
@@ -58,45 +50,46 @@ struct EditFolderPage: View {
     
     private func folderLabelField() -> some View {
         Section(header: Text("_name")) {
-            TextField("-", text: $editFolderController.folderLabel, onCommit: {
-                applyAndDismiss()
-            })
-            .focused($focusedField, equals: .folderLabel)
-            .submitLabel(.done)
-        }
-    }
-    
-    private func moveSection() -> some View {
-        Section(header: Text("_folder")) {
-            Button {
-                showSelectFolderView = true
-            }
-            label: {
-                Label(editFolderController.parentLabel, systemImage: "folder")
-            }
-            .sheet(isPresented: $showSelectFolderView) {
-                SelectFolderNavigation(entriesController: editFolderController.entriesController, entry: .folder(editFolderController.folder), temporaryEntry: .folder(label: editFolderController.folderLabel, parent: editFolderController.folderParent), selectFolder: {
-                    parent in
-                    editFolderController.folderParent = parent.id
-                })
-            }
+            TextField("-", text: $viewModel[\.folderLabel])
+                .focused($focusedField, equals: .folderLabel)
+                .submitLabel(.done)
+                .onSubmit {
+                    viewModel(.applyToFolder)
+                }
         }
     }
     
     private func favoriteButton() -> some View {
         Section {
             Button {
-                editFolderController.folderFavorite.toggle()
+                viewModel(.toggleFavorite)
             }
             label: {
-                Label("_favorite", systemImage: editFolderController.folderFavorite ? "star.fill" : "star")
+                Label("_favorite", systemImage: viewModel[\.folderFavorite] ? "star.fill" : "star")
+            }
+        }
+    }
+    
+    private func moveSection() -> some View {
+        Section(header: Text("_folder")) {
+            Button {
+                viewModel(.showParentSelection)
+            }
+            label: {
+                Label(viewModel[\.parentLabel], systemImage: "folder")
+            }
+            .sheet(isPresented: $viewModel[\.showSelectFolderView]) {
+                SelectFolderNavigation(entriesController: Container.entriesController(), entry: .folder(viewModel[\.folder]), temporaryEntry: .folder(label: viewModel[\.folderLabel], parent: viewModel[\.folderParent]), selectFolder: {
+                    parent in
+                    viewModel(.selectParent(parent))
+                })
             }
         }
     }
     
     private func deleteButton() -> some View {
         Button(role: .destructive) {
-            showDeleteAlert = true
+            viewModel(.deleteFolder)
         }
         label: {
             HStack {
@@ -105,63 +98,29 @@ struct EditFolderPage: View {
                 Spacer()
             }
         }
-        .actionSheet(isPresented: $showDeleteAlert) {
+        .actionSheet(isPresented: $viewModel[\.showDeleteAlert]) {
             ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
-                deleteAndDismiss()
+                viewModel(.confirmDelete)
             }])
         }
     }
     
     private func cancelButton() -> some View {
         Button("_cancel", role: .cancel) {
-            cancelAndDismiss()
+            viewModel(.cancel)
         }
-        .actionSheet(isPresented: $showCancelAlert) {
+        .actionSheet(isPresented: $viewModel[\.showCancelAlert]) {
             ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                dismiss()
+                viewModel(.discardChanges)
             }])
         }
     }
     
     private func confirmButton() -> some View {
-        Button(editFolderController.folder.id.isEmpty ? "_create" : "_done") {
-            applyAndDismiss()
+        Button(viewModel[\.isCreating] ? "_create" : "_done") {
+            viewModel(.applyToFolder)
         }
-        .disabled(!editFolderController.editIsValid)
-    }
-    
-    // MARK: Functions
-    
-    private func cancelAndDismiss() {
-        if editFolderController.hasChanges {
-            showCancelAlert = true
-        }
-        else {
-            dismiss()
-        }
-    }
-    
-    private func applyAndDismiss() {
-        guard editFolderController.editIsValid,
-              editFolderController.folder.state?.isProcessing != true else {
-            return
-        }
-        editFolderController.applyToFolder()
-        dismiss()
-    }
-    
-    private func deleteAndDismiss() {
-        editFolderController.clearFolder()
-        dismiss()
-    }
-    
-}
-
-
-extension EditFolderPage {
-    
-    private enum FocusField: Hashable {
-        case folderLabel
+        .disabled(!viewModel[\.editIsValid])
     }
     
 }
@@ -172,9 +131,10 @@ extension EditFolderPage {
 struct EditFolderPagePreview: PreviewProvider {
     
     static var previews: some View {
+        let _ = Container.registerMocks()
         PreviewDevice.generate {
             NavigationView {
-                EditFolderPage(entriesController: EntriesController.mock, folder: Folder.mocks.first!)
+                EditFolderPage(viewModel: EditFolderViewModelMock().eraseToAnyViewModel())
             }
             .showColumns(false)
         }

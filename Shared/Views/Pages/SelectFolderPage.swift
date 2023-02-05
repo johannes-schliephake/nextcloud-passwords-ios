@@ -94,7 +94,7 @@ struct SelectFolderPage: View {
             item in
             switch item {
             case .edit(let folder):
-                EditFolderNavigation(entriesController: selectFolderController.entriesController, folder: folder, didAdd: {
+                EditFolderNavigation(entriesController: selectFolderController.entriesController, folder: folder, didEdit: {
                     folder in
                     selectFolderController.selection = folder
                 })

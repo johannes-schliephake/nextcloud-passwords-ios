@@ -7,13 +7,13 @@ struct EditFolderNavigation: View {
     
     let entriesController: EntriesController
     let folder: Folder
-    var didAdd: ((Folder) -> Void)?
+    var didEdit: ((Folder) -> Void)?
     
     // MARK: Views
     
     var body: some View {
         NavigationView {
-            EditFolderPage(entriesController: entriesController, folder: folder, didAdd: didAdd)
+            EditFolderPage(viewModel: EditFolderViewModel(folder: folder, didEdit: didEdit).eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {

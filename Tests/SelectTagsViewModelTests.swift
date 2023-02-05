@@ -33,6 +33,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         
         XCTAssertEqual(selectTagsViewModel[\.temporaryEntry], temporaryEntry)
         XCTAssertEqual(selectTagsViewModel[\.tagLabel], "")
+        XCTAssertEqual(selectTagsViewModel[\.selectableTags].map(\.tag), [])
         XCTAssertEqual(selectTagsViewModel[\.hasChanges], false)
         XCTAssertEqual(selectTagsViewModel[\.focusedField], nil)
     }
@@ -88,9 +89,8 @@ final class SelectTagsViewModelTests: XCTestCase {
         selectTagsViewModel[\.tagLabel] = newTagLabel
         selectTagsViewModel(.addTag)
         
-        XCTAssertEqual(tagLabelValidatorMock.functionCallLog.count, 1)
-        XCTAssertEqual(tagLabelValidatorMock.functionCallLog[0].functionName, "validate(_:)")
-        XCTAssertEqual(tagLabelValidatorMock.functionCallLog[0].parameters as? [String], [newTagLabel])
+        XCTAssertEqual(tagLabelValidatorMock.functionCallLog(of: "validate(_:)").count, 1)
+        XCTAssertEqual(tagLabelValidatorMock.functionCallLog(of: "validate(_:)")[0].parameters as? [String], [newTagLabel])
     }
     
     func testCallAsFunction_addTagWithValidTagLabel_clearsTagLabel() {
@@ -121,20 +121,20 @@ final class SelectTagsViewModelTests: XCTestCase {
         tagLabelValidatorMock._validateEntity = true
         selectTagsViewModel(.addTag)
         
-        XCTAssertEqual(tagsServiceMock.functionCallLog.count, 2)
-        XCTAssertEqual(tagsServiceMock.functionCallLog[1].functionName, "add(tag:)")
-        XCTAssertEqual((tagsServiceMock.functionCallLog[1].parameters as? [Tag])?.map(\.label), [newTagLabel])
+        XCTAssertEqual(tagsServiceMock.functionCallLog(of: "add(tag:)").count, 1)
+        XCTAssertEqual((tagsServiceMock.functionCallLog(of: "add(tag:)")[0].parameters as? [Tag])?.map(\.label), [newTagLabel])
     }
     
     func testCallAsFunction_addTagWithInvalidTagLabel_doesntCallTagService() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
+        let initialFunctionCallCount = tagsServiceMock.functionCallLog.count
         
         let newTagLabel = String.random()
         selectTagsViewModel[\.tagLabel] = newTagLabel
         tagLabelValidatorMock._validateEntity = false
         selectTagsViewModel(.addTag)
         
-        XCTAssertEqual(tagsServiceMock.functionCallLog.count, 1)
+        XCTAssertEqual(tagsServiceMock.functionCallLog.count, initialFunctionCallCount)
     }
     
     func testCallAsFunction_addTagWithValidTagLabel_updatesSelectableTags() {
@@ -160,7 +160,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         XCTAssertTrue(selectTagsViewModel[\.selectableTags].isEmpty)
     }
     
-    func testCallAsFunction_toggleTag_setsHasChangesToTrue() {
+    func testCallAsFunction_toggleTagWithValidTag_setsHasChangesToTrue() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         
         tagsServiceMock._tags.send(tagMocks.shuffled())
@@ -170,7 +170,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         XCTAssertTrue(selectTagsViewModel[\.hasChanges])
     }
     
-    func testCallAsFunction_toggleTag_updatesSelectableTags() {
+    func testCallAsFunction_toggleTagWithValidTag_updatesSelectableTags() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         
         tagsServiceMock._tags.send(tagMocks.shuffled())
@@ -181,6 +181,17 @@ final class SelectTagsViewModelTests: XCTestCase {
         XCTAssertEqual(selectTagsViewModel[\.selectableTags].map(\.isSelected), [true, false])
     }
     
+    func testCallAsFunction_toggleTagWithInvalidTag_doesntUpdateSelectableTags() {
+        let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
+        
+        tagsServiceMock._tags.send(tagMocks.shuffled())
+        tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
+        selectTagsViewModel(.toggleTag(.init()))
+        
+        XCTAssertEqual(selectTagsViewModel[\.selectableTags].map(\.tag), [tagMocks[0], tagMocks[1]])
+        XCTAssertEqual(selectTagsViewModel[\.selectableTags].map(\.isSelected), [false, false])
+    }
+    
     func testCallAsFunction_selectTagsWithHasChangesTrue_callsTagsProcessingValidator() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         
@@ -189,9 +200,8 @@ final class SelectTagsViewModelTests: XCTestCase {
         selectTagsViewModel(.toggleTag(tagMocks[0]))
         selectTagsViewModel(.selectTags)
         
-        XCTAssertEqual(tagsProcessingValidatorMock.functionCallLog.count, 1)
-        XCTAssertEqual(tagsProcessingValidatorMock.functionCallLog[0].functionName, "validate(_:)")
-        XCTAssertEqual(tagsProcessingValidatorMock.functionCallLog[0].parameters as? [[Tag]], [[tagMocks[0]]])
+        XCTAssertEqual(tagsProcessingValidatorMock.functionCallLog(of: "validate(_:)").count, 1)
+        XCTAssertEqual(tagsProcessingValidatorMock.functionCallLog(of: "validate(_:)")[0].parameters as? [[Tag]], [[tagMocks[0]]])
     }
     
     func testCallAsFunction_selectTagsWithHasChangesTrue_callsSelectTagsClosure() {

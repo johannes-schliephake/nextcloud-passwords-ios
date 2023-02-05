@@ -4,7 +4,7 @@ import Factory
 import Combine
 
 
-final class ViewModelTests: XCTestCase {
+final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_order
     
     override func setUp() {
         super.setUp()
