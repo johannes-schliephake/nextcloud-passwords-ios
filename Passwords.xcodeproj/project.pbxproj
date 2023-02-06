@@ -655,6 +655,10 @@
 		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
 		DDA4FE7526E755C000D6F92E /* View+Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Initialize.swift"; sourceTree = "<group>"; };
+		DDAF982529910B86005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDAF982629910B8F005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDAF982729910B9A005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDAF982829910BA7005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DDB1695327D1FCFF00F4D752 /* Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionViewController.swift; sourceTree = "<group>"; };
@@ -1290,6 +1294,7 @@
 				ru,
 				"nb-NO",
 				ca,
+				sv,
 			);
 			mainGroup = 8F118746253C9EE10019FECA;
 			packageReferences = (
@@ -1928,6 +1933,7 @@
 				DDBD6EA32702F708003A747D /* ru */,
 				DD34DEEB2828F56F004DA186 /* nb-NO */,
 				DD0424682829858900E9B9DE /* ca */,
+				DDAF982829910BA7005D062D /* sv */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1942,6 +1948,7 @@
 				DDBD6EA12702F708003A747D /* ru */,
 				DD34DEEC2828F592004DA186 /* nb-NO */,
 				DD0424652829853100E9B9DE /* ca */,
+				DDAF982529910B86005D062D /* sv */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1956,6 +1963,7 @@
 				DDBD6EA22702F708003A747D /* ru */,
 				DD34DEED2828F5A3004DA186 /* nb-NO */,
 				DD0424662829853A00E9B9DE /* ca */,
+				DDAF982629910B8F005D062D /* sv */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1970,6 +1978,7 @@
 				DDB1697327D2040D00F4D752 /* ru */,
 				DD34DEEE2828F5AF004DA186 /* nb-NO */,
 				DD0424672829854900E9B9DE /* ca */,
+				DDAF982729910B9A005D062D /* sv */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
