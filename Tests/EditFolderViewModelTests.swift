@@ -67,10 +67,13 @@ final class EditFolderViewModelTests: XCTestCase {
         let newParentFolder = Folder(id: parentId, parent: nil)
         editFolderViewModel(.selectParent(newParentFolder))
         
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "folderLabel(forId:)").count, 2)
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "folderLabel(forId:)")[1].parameters as? [String], [parentId])
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "validate(folderLabel:folderParent:)").count, 2)
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "validate(folderLabel:folderParent:)")[1].parameters as? [String], [folderMock.label, parentId])
+        let calls1 = foldersServiceMock.functionCallLog(of: "folderLabel(forId:)")
+        XCTAssertEqual(calls1.count, 2)
+        XCTAssertEqual(calls1[1].parameters[0] as? String?, parentId)
+        let calls2 = foldersServiceMock.functionCallLog(of: "validate(folderLabel:folderParent:)")
+        XCTAssertEqual(calls2.count, 2)
+        XCTAssertEqual(calls2[1].parameters[0] as? String, folderMock.label)
+        XCTAssertEqual(calls2[1].parameters[1] as? String?, parentId)
     }
     
     func testInit_foldersServiceEmitsFolderLabel_setsParentLabel() {
@@ -129,8 +132,10 @@ final class EditFolderViewModelTests: XCTestCase {
         let newFolderLabel = String.random()
         editFolderViewModel[\.folderLabel] = newFolderLabel
         
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "validate(folderLabel:folderParent:)").count, 2)
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "validate(folderLabel:folderParent:)")[1].parameters as? [String], [newFolderLabel, folderMock.parent!])
+        let calls = foldersServiceMock.functionCallLog(of: "validate(folderLabel:folderParent:)")
+        XCTAssertEqual(calls.count, 2)
+        XCTAssertEqual(calls[1].parameters[0] as? String, newFolderLabel)
+        XCTAssertEqual(calls[1].parameters[1] as? String?, folderMock.parent)
     }
     
     func testInit_setFolderLabel_updatesEditIsValid() {
@@ -197,8 +202,9 @@ final class EditFolderViewModelTests: XCTestCase {
         
         editFolderViewModel(.confirmDelete)
         
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "delete(folder:)").count, 1)
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "delete(folder:)")[0].parameters as? [Folder], [folderMock])
+        let calls = foldersServiceMock.functionCallLog(of: "delete(folder:)")
+        XCTAssertEqual(calls.count, 1)
+        XCTAssertEqual(calls[0].parameters[0] as? Folder, folderMock)
     }
     
     func testCallAsFunction_confirmDelete_shouldDismissEmits() {
@@ -219,11 +225,12 @@ final class EditFolderViewModelTests: XCTestCase {
         
         editFolderViewModel(.applyToFolder)
         
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "apply(to:folderLabel:folderFavorite:folderParent:)").count, 1)
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "apply(to:folderLabel:folderFavorite:folderParent:)")[0].parameters[0] as? Folder, folderMock)
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "apply(to:folderLabel:folderFavorite:folderParent:)")[0].parameters[1] as? String, folderMock.label)
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "apply(to:folderLabel:folderFavorite:folderParent:)")[0].parameters[2] as? Bool, folderMock.favorite)
-        XCTAssertEqual(foldersServiceMock.functionCallLog(of: "apply(to:folderLabel:folderFavorite:folderParent:)")[0].parameters[3] as? String?, folderMock.parent)
+        let calls = foldersServiceMock.functionCallLog(of: "apply(to:folderLabel:folderFavorite:folderParent:)")
+        XCTAssertEqual(calls.count, 1)
+        XCTAssertEqual(calls[0].parameters[0] as? Folder, folderMock)
+        XCTAssertEqual(calls[0].parameters[1] as? String, folderMock.label)
+        XCTAssertEqual(calls[0].parameters[2] as? Bool, folderMock.favorite)
+        XCTAssertEqual(calls[0].parameters[3] as? String?, folderMock.parent)
     }
     
     func testCallAsFunction_applyToFolderWithoutError_callsDidEdit() {
