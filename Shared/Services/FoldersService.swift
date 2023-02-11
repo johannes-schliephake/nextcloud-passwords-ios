@@ -17,7 +17,7 @@ protocol FoldersServiceProtocol {
 
 enum FolderApplyError: Error {
     case validationFailed
-    case remoteIdNotAvailable
+    case idNotAvailableLocally
 }
 
 
@@ -26,7 +26,6 @@ final class FoldersService: FoldersServiceProtocol { // swiftlint:disable:this f
     
     @Injected(Container.entriesController) private var entriesController
     @LazyInjected(Container.folderLabelValidator) private var folderLabelValidator
-    @LazyInjected(Container.folderProcessingValidator) private var folderProcessingValidator
     
     lazy private(set) var folders = entriesController.objectDidChangeRecently
         .prepend(())
@@ -50,8 +49,8 @@ final class FoldersService: FoldersServiceProtocol { // swiftlint:disable:this f
         guard validate(folderLabel: folderLabel, folderParent: folderParent) else {
             throw FolderApplyError.validationFailed
         }
-        guard !folderProcessingValidator.validate(folder) else {
-            throw FolderApplyError.remoteIdNotAvailable
+        guard folder.isIdLocallyAvailable else {
+            throw FolderApplyError.idNotAvailableLocally
         }
         
         if folder.id.isEmpty {

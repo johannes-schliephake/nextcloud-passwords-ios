@@ -25,6 +25,10 @@ final class Tag: ObservableObject, Identifiable {
     @Published var state: Entry.State?
     var offlineContainer: OfflineContainer?
     
+    var isIdLocallyAvailable: Bool {
+        !id.isEmpty
+    }
+    
     init(id: String = "", label: String = "", color: String = randomTagColor(), revision: String = "", cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
         self.id = id
         self.label = label

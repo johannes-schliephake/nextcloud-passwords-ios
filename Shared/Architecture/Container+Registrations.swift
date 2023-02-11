@@ -5,11 +5,9 @@ extension Container {
     
     static let editFolderViewModelType = Factory<any EditFolderViewModelProtocol.Type> { EditFolderViewModel.self }
     static let folderLabelValidator = Factory<any FolderLabelValidating>(scope: .singleton) { FolderLabelValidator() }
-    static let folderProcessingValidator = Factory<any FolderProcessingValidating>(scope: .singleton) { FolderProcessingValidator() }
     static let foldersService = Factory<any FoldersServiceProtocol>(scope: .singleton) { FoldersService() }
     static let selectTagsViewModelType = Factory<any SelectTagsViewModelProtocol.Type> { SelectTagsViewModel.self }
     static let tagLabelValidator = Factory<any TagLabelValidating>(scope: .singleton) { TagLabelValidator() }
-    static let tagsProcessingValidator = Factory<any TagsProcessingValidating>(scope: .singleton) { TagsProcessingValidator() }
     static let tagsService = Factory<any TagsServiceProtocol>(scope: .singleton) { TagsService() }
     
     // TODO: remove
@@ -32,11 +30,9 @@ extension Container {
     static func registerMocks() {
         editFolderViewModelType.register { EditFolderViewModelMock.self }
         folderLabelValidator.register { FolderLabelValidatorMock() }
-        folderProcessingValidator.register { FolderProcessingValidatorMock() }
         foldersService.register { FoldersServiceMock() }
         selectTagsViewModelType.register { SelectTagsViewModelMock.self }
         tagLabelValidator.register { TagLabelValidatorMock() }
-        tagsProcessingValidator.register { TagsProcessingValidatorMock() }
         tagsService.register { TagsServiceMock() }
         
         // TODO: remove

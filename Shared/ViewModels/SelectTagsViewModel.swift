@@ -59,7 +59,6 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol { // swiftlint:disa
     
     @Injected(Container.tagsService) private var tagsService
     @LazyInjected(Container.tagLabelValidator) private var tagLabelValidator
-    @LazyInjected(Container.tagsProcessingValidator) private var tagsProcessingValidator
     
     let state: State
     
@@ -140,7 +139,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol { // swiftlint:disa
         case .selectTags:
             let selectedTags = state.selectableTags.filter(\.isSelected).map(\.tag)
             guard state.hasChanges,
-                  !tagsProcessingValidator.validate(selectedTags) else {
+                  selectedTags.allSatisfy(\.isIdLocallyAvailable) else {
                 return
             }
             selectTags(selectedTags, invalidTags)

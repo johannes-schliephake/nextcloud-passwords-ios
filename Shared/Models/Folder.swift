@@ -25,6 +25,14 @@ final class Folder: ObservableObject, Identifiable {
     @Published var state: Entry.State?
     var offlineContainer: OfflineContainer?
     
+    var isIdLocallyAvailable: Bool {
+        !id.isEmpty
+    }
+    
+    var isBaseFolder: Bool {
+        id == Entry.baseId
+    }
+    
     convenience init() {
         self.init(id: Entry.baseId, label: "_rootFolder".localized, parent: nil)
     }
@@ -80,10 +88,6 @@ final class Folder: ObservableObject, Identifiable {
             state = .decryptionFailed
             LoggingController.shared.log(error: "Unknown client side encryption type")
         }
-    }
-    
-    var isBaseFolder: Bool {
-        id == Entry.baseId
     }
     
     func score(searchTerm: String) -> Double {

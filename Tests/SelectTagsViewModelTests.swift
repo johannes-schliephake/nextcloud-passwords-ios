@@ -10,7 +10,6 @@ final class SelectTagsViewModelTests: XCTestCase {
     private let tagMocks = Container.tags()
     
     private let tagLabelValidatorMock = TagLabelValidatorMock()
-    private let tagsProcessingValidatorMock = TagsProcessingValidatorMock()
     private let tagsServiceMock = TagsServiceMock()
 
     override func setUp() {
@@ -18,7 +17,6 @@ final class SelectTagsViewModelTests: XCTestCase {
         
         Container.registerMocks()
         Container.tagLabelValidator.register { self.tagLabelValidatorMock }
-        Container.tagsProcessingValidator.register { self.tagsProcessingValidatorMock }
         Container.tagsService.register { self.tagsServiceMock }
     }
     
@@ -205,19 +203,6 @@ final class SelectTagsViewModelTests: XCTestCase {
         XCTAssertEqual(selectTagsViewModel[\.selectableTags].map(\.isSelected), [false, false])
     }
     
-    func testCallAsFunction_selectTagsWithHasChangesTrue_callsTagsProcessingValidator() {
-        let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
-        tagsServiceMock._tags.send(tagMocks.shuffled())
-        tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
-        selectTagsViewModel(.toggleTag(tagMocks[0]))
-        selectTagsViewModel(.selectTags)
-        
-        let calls = tagsProcessingValidatorMock.functionCallLog(of: "validate(_:)")
-        XCTAssertEqual(calls.count, 1)
-        XCTAssertEqual(calls[0].parameters[0] as? [Tag], [tagMocks[0]])
-    }
-    
     func testCallAsFunction_selectTagsWithHasChangesTrue_callsSelectTagsClosure() {
         let invalidTag = String.random()
         let expectation = expectation(description: "selectTags closure called")
@@ -227,7 +212,6 @@ final class SelectTagsViewModelTests: XCTestCase {
             XCTAssertEqual(invalidTags, [invalidTag])
         }
         
-        tagsProcessingValidatorMock._validateEntity = false
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[1]], invalid: [invalidTag]))
         selectTagsViewModel(.toggleTag(tagMocks[0]))
@@ -241,7 +225,6 @@ final class SelectTagsViewModelTests: XCTestCase {
         expectation.isInverted = true
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in expectation.fulfill() }
         
-        tagsProcessingValidatorMock._validateEntity = false
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[1]], invalid: [.random()]))
         selectTagsViewModel(.selectTags)
@@ -249,12 +232,12 @@ final class SelectTagsViewModelTests: XCTestCase {
         waitForExpectations(timeout: 0.1)
     }
     
-    func testCallAsFunction_selectTagsWithProcessingTags_doesntCallSelectTagsClosure() {
+    func testCallAsFunction_selectTagsWithoutLocallyAvailableId_doesntCallSelectTagsClosure() {
         let expectation = expectation(description: "selectTags closure called")
         expectation.isInverted = true
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in expectation.fulfill() }
         
-        tagsProcessingValidatorMock._validateEntity = true
+        tagMocks[0].id = ""
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[1]], invalid: [.random()]))
         selectTagsViewModel(.toggleTag(tagMocks[0]))
@@ -266,7 +249,6 @@ final class SelectTagsViewModelTests: XCTestCase {
     func testCallAsFunction_selectTagsWithHasChangesTrue_shouldDismissEmits() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         
-        tagsProcessingValidatorMock._validateEntity = false
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
         selectTagsViewModel(.toggleTag(tagMocks[0]))
@@ -283,7 +265,6 @@ final class SelectTagsViewModelTests: XCTestCase {
     func testCallAsFunction_selectTagsWithHasChangesFalse_shouldDismissDoesntEmit() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         
-        tagsProcessingValidatorMock._validateEntity = false
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
         let expectation = expectation(description: "shouldDismiss emitted")
@@ -297,10 +278,10 @@ final class SelectTagsViewModelTests: XCTestCase {
         waitForExpectations(timeout: 0.1)
     }
     
-    func testCallAsFunction_selectTagsWithProcessingTags_shouldDismissDoesntEmit() {
+    func testCallAsFunction_selectTagsWithoutLocallyAvailableId_shouldDismissDoesntEmit() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         
-        tagsProcessingValidatorMock._validateEntity = true
+        tagMocks[0].id = ""
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
         selectTagsViewModel(.toggleTag(tagMocks[0]))

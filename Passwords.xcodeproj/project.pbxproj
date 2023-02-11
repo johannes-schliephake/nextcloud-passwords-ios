@@ -184,11 +184,7 @@
 		DD0B7AE72972CA5400A59E3C /* FolderLabelValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7AE62972CA5400A59E3C /* FolderLabelValidator.swift */; };
 		DD0B7AE82972CA5400A59E3C /* FolderLabelValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7AE62972CA5400A59E3C /* FolderLabelValidator.swift */; };
 		DD0B7AE92972CA5400A59E3C /* FolderLabelValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7AE62972CA5400A59E3C /* FolderLabelValidator.swift */; };
-		DD0B7AEB2972CB5200A59E3C /* FolderProcessingValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7AEA2972CB5200A59E3C /* FolderProcessingValidator.swift */; };
-		DD0B7AEC2972CB5200A59E3C /* FolderProcessingValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7AEA2972CB5200A59E3C /* FolderProcessingValidator.swift */; };
-		DD0B7AED2972CB5200A59E3C /* FolderProcessingValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7AEA2972CB5200A59E3C /* FolderProcessingValidator.swift */; };
 		DD0B7AEF2972CEBD00A59E3C /* FolderLabelValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7AEE2972CEBD00A59E3C /* FolderLabelValidatorTests.swift */; };
-		DD0B7AF12972CF0800A59E3C /* FolderProcessingValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7AF02972CF0800A59E3C /* FolderProcessingValidatorTests.swift */; };
 		DD0B7AF32972CFE400A59E3C /* EditFolderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */; };
 		DD0C2872276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
 		DD0C2873276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
@@ -206,10 +202,6 @@
 		DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B127414AFE003D7D50 /* Color+Init.swift */; };
 		DD0E59B527414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
 		DD0E59B627414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
-		DD1A2DD12965FD3800410FAF /* TagsProcessingValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1A2DD02965FD3800410FAF /* TagsProcessingValidator.swift */; };
-		DD1A2DD22965FD3800410FAF /* TagsProcessingValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1A2DD02965FD3800410FAF /* TagsProcessingValidator.swift */; };
-		DD1A2DD32965FD3800410FAF /* TagsProcessingValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1A2DD02965FD3800410FAF /* TagsProcessingValidator.swift */; };
-		DD1A2DD52966254000410FAF /* TagsProcessingValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1A2DD42966254000410FAF /* TagsProcessingValidatorTests.swift */; };
 		DD214362295A014B006C08DD /* TagsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214361295A014B006C08DD /* TagsService.swift */; };
 		DD214363295A014B006C08DD /* TagsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214361295A014B006C08DD /* TagsService.swift */; };
 		DD214364295A014B006C08DD /* TagsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214361295A014B006C08DD /* TagsService.swift */; };
@@ -647,9 +639,7 @@
 		DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderViewModel.swift; sourceTree = "<group>"; };
 		DD0B7AE22971B35B00A59E3C /* FoldersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersService.swift; sourceTree = "<group>"; };
 		DD0B7AE62972CA5400A59E3C /* FolderLabelValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderLabelValidator.swift; sourceTree = "<group>"; };
-		DD0B7AEA2972CB5200A59E3C /* FolderProcessingValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderProcessingValidator.swift; sourceTree = "<group>"; };
 		DD0B7AEE2972CEBD00A59E3C /* FolderLabelValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderLabelValidatorTests.swift; sourceTree = "<group>"; };
-		DD0B7AF02972CF0800A59E3C /* FolderProcessingValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderProcessingValidatorTests.swift; sourceTree = "<group>"; };
 		DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderViewModelTests.swift; sourceTree = "<group>"; };
 		DD0BE01527FD969D001687A1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsNavigation.swift; sourceTree = "<group>"; };
@@ -660,8 +650,6 @@
 		DD0E59AB274147CC003D7D50 /* EditTagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagController.swift; sourceTree = "<group>"; };
 		DD0E59B127414AFE003D7D50 /* Color+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Init.swift"; sourceTree = "<group>"; };
 		DD0E59B427414EB5003D7D50 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
-		DD1A2DD02965FD3800410FAF /* TagsProcessingValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsProcessingValidator.swift; sourceTree = "<group>"; };
-		DD1A2DD42966254000410FAF /* TagsProcessingValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsProcessingValidatorTests.swift; sourceTree = "<group>"; };
 		DD214361295A014B006C08DD /* TagsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsService.swift; sourceTree = "<group>"; };
 		DD251A2F29301B60001F6F2A /* XCUIElement+UnhittableInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+UnhittableInteractions.swift"; sourceTree = "<group>"; };
 		DD29D1E327CF684A00B06835 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -1233,9 +1221,7 @@
 			isa = PBXGroup;
 			children = (
 				DD0B7AE62972CA5400A59E3C /* FolderLabelValidator.swift */,
-				DD0B7AEA2972CB5200A59E3C /* FolderProcessingValidator.swift */,
 				DD5E3C70295360000032F517 /* TagLabelValidator.swift */,
-				DD1A2DD02965FD3800410FAF /* TagsProcessingValidator.swift */,
 			);
 			path = Validators;
 			sourceTree = "<group>";
@@ -1246,11 +1232,9 @@
 				DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */,
 				DD5E3CBB2954571B0032F517 /* Extensions */,
 				DD0B7AEE2972CEBD00A59E3C /* FolderLabelValidatorTests.swift */,
-				DD0B7AF02972CF0800A59E3C /* FolderProcessingValidatorTests.swift */,
 				8F6ED7C0265BC807008CF387 /* ScoreTests.swift */,
 				DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */,
 				DD5E3CB0295363DB0032F517 /* TagLabelValidatorTests.swift */,
-				DD1A2DD42966254000410FAF /* TagsProcessingValidatorTests.swift */,
 				DDF413892955AFD000B886EB /* ViewModelTests.swift */,
 			);
 			path = Tests;
@@ -1633,7 +1617,6 @@
 				8F5E120825D3CC33007A2166 /* Configuration.swift in Sources */,
 				DDE4F5D6274BEB3D00518167 /* LegacyFlowView.swift in Sources */,
 				8FB645F225D6949900A0F316 /* UIPasteboard+PrivateString.swift in Sources */,
-				DD1A2DD12965FD3800410FAF /* TagsProcessingValidator.swift in Sources */,
 				DD5189EE27A16BFA00264A0D /* Data+Init.swift in Sources */,
 				8F570BFB25693F5C00BA4B74 /* ListFoldersRequest.swift in Sources */,
 				8F51428B2573BEFA00DD96C0 /* CreatePasswordRequest.swift in Sources */,
@@ -1654,7 +1637,6 @@
 				DDF4138F29571D4200B886EB /* FunctionCallLogging.swift in Sources */,
 				8F57B426256C0DD600329B05 /* SettingsPage.swift in Sources */,
 				8F559A1325A0AE2700D7A39F /* SettingsNavigation.swift in Sources */,
-				DD0B7AEB2972CB5200A59E3C /* FolderProcessingValidator.swift in Sources */,
 				DDDB6B5627A80639007572B1 /* CaptureOTPNavigation.swift in Sources */,
 				DD4A9E89269F84B9007268E2 /* EditLabeledRow.swift in Sources */,
 				8F559A0E25A0AE1C00D7A39F /* ServerSetupNavigation.swift in Sources */,
@@ -1785,7 +1767,6 @@
 				8FB645F325D6949900A0F316 /* UIPasteboard+PrivateString.swift in Sources */,
 				DDE4F5D7274BEB3D00518167 /* LegacyFlowView.swift in Sources */,
 				8FBE43D4258D5A8C003F7F34 /* Date+FormattedString.swift in Sources */,
-				DD1A2DD22965FD3800410FAF /* TagsProcessingValidator.swift in Sources */,
 				DD5189EF27A16BFA00264A0D /* Data+Init.swift in Sources */,
 				8FC361B625827E4C00785371 /* CopyToast.swift in Sources */,
 				8FC361C025827E5200785371 /* EntriesController.swift in Sources */,
@@ -1806,7 +1787,6 @@
 				DDF4138E29571D4100B886EB /* FunctionCallLogging.swift in Sources */,
 				8F559A2325A0B23E00D7A39F /* MainView.swift in Sources */,
 				8FC361C625827E5500785371 /* Entry.swift in Sources */,
-				DD0B7AEC2972CB5200A59E3C /* FolderProcessingValidator.swift in Sources */,
 				8FC361CD25827E5D00785371 /* CreateFolderRequest.swift in Sources */,
 				DDDB6B5727A80639007572B1 /* CaptureOTPNavigation.swift in Sources */,
 				8F559A1425A0AE2700D7A39F /* SettingsNavigation.swift in Sources */,
@@ -1937,11 +1917,9 @@
 			files = (
 				DD0B7AF32972CFE400A59E3C /* EditFolderViewModelTests.swift in Sources */,
 				DDF4137A2954C28100B886EB /* ScoreTests.swift in Sources */,
-				DD0B7AF12972CF0800A59E3C /* FolderProcessingValidatorTests.swift in Sources */,
 				DD5E3CB1295363DB0032F517 /* TagLabelValidatorTests.swift in Sources */,
 				DDF4138A2955AFD000B886EB /* ViewModelTests.swift in Sources */,
 				DD5E3CBA2953BD620032F517 /* SelectTagsViewModelTests.swift in Sources */,
-				DD1A2DD52966254000410FAF /* TagsProcessingValidatorTests.swift in Sources */,
 				DD0B7AEF2972CEBD00A59E3C /* FolderLabelValidatorTests.swift in Sources */,
 				DD5E3CB82953B9690032F517 /* String+Random.swift in Sources */,
 			);
@@ -1964,7 +1942,6 @@
 				DDB169C027D20CC200F4D752 /* SettingsPage.swift in Sources */,
 				DDB169C927D20CC200F4D752 /* UpdateTagRequest.swift in Sources */,
 				DDB169BB27D20CC200F4D752 /* ShowTagRequest.swift in Sources */,
-				DD1A2DD32965FD3800410FAF /* TagsProcessingValidator.swift in Sources */,
 				DDB169C727D20CC200F4D752 /* LegacyFlowView.swift in Sources */,
 				DDB169AF27D20CC200F4D752 /* ServerSetupNavigation.swift in Sources */,
 				DDB169B527D20CC200F4D752 /* UIPasteboard+PrivateString.swift in Sources */,
@@ -1985,7 +1962,6 @@
 				DDF4138D29571D4000B886EB /* FunctionCallLogging.swift in Sources */,
 				DDB1699327D20CC200F4D752 /* Array+Zip.swift in Sources */,
 				DDB1699727D20CC200F4D752 /* SKProduct+LocalizedPrice.swift in Sources */,
-				DD0B7AED2972CB5200A59E3C /* FolderProcessingValidator.swift in Sources */,
 				DDB169AE27D20CC200F4D752 /* EditFolderPage.swift in Sources */,
 				DDB1699427D20CC200F4D752 /* Data+Init.swift in Sources */,
 				DDB169D427D20CC200F4D752 /* EditFolderController.swift in Sources */,
