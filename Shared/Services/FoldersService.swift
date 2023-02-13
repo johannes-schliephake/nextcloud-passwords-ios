@@ -42,7 +42,7 @@ final class FoldersService: FoldersServiceProtocol { // swiftlint:disable:this f
     
     func validate(folderLabel: String, folderParent: String?) -> Bool {
         folderLabelValidator.validate(folderLabel)
-            && entriesController.folders?.contains { $0.id == folderParent } == true
+            && (folderParent == Entry.baseId || entriesController.folders?.contains { $0.id == folderParent } == true)
     }
     
     func apply(to folder: Folder, folderLabel: String, folderFavorite: Bool, folderParent: String?) throws {
