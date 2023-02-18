@@ -1288,7 +1288,6 @@
 			knownRegions = (
 				en,
 				de,
-				Base,
 				cs,
 				fr,
 				ru,
