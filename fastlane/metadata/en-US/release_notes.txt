@@ -1,1 +1,2 @@
 • Swedish translation (Thanks Anders Johansson!)
+• Optimizations
