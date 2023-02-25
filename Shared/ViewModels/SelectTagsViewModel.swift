@@ -153,6 +153,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol { // swiftlint:disa
     
 }
 
+
 #if DEBUG
 
 final class SelectTagsViewModelMock: ViewModelMock<SelectTagsViewModel.State, SelectTagsViewModel.Action>, SelectTagsViewModelProtocol {

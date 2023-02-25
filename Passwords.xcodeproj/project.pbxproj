@@ -247,6 +247,7 @@
 		DD5E3CBD295466F90032F517 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5E3CBC295466F90032F517 /* Mock.swift */; };
 		DD5E3CBE295466F90032F517 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5E3CBC295466F90032F517 /* Mock.swift */; };
 		DD5E3CBF295466F90032F517 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5E3CBC295466F90032F517 /* Mock.swift */; };
+		DD5E99EE29AA894100A7A4B9 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = DD5E99ED29AA894100A7A4B9 /* Nimble */; };
 		DD6350DB293FEC7E0058A787 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DD6350DA293FEC7E0058A787 /* Factory */; };
 		DD6350DD293FEC9B0058A787 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DD6350DC293FEC9B0058A787 /* Factory */; };
 		DD6350DF293FECA00058A787 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DD6350DE293FECA00058A787 /* Factory */; };
@@ -799,6 +800,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD5E99EE29AA894100A7A4B9 /* Nimble in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1362,6 +1364,9 @@
 				DD5E3CB3295363DB0032F517 /* PBXTargetDependency */,
 			);
 			name = Tests;
+			packageProductDependencies = (
+				DD5E99ED29AA894100A7A4B9 /* Nimble */,
+			);
 			productName = Tests;
 			productReference = DD5E3CAE295363DB0032F517 /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1435,6 +1440,7 @@
 			packageReferences = (
 				8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */,
 				DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */,
+				DD5E99EA29AA88C500A7A4B9 /* XCRemoteSwiftPackageReference "Nimble" */,
 			);
 			productRefGroup = 8F118750253C9EE10019FECA /* Products */;
 			projectDirPath = "";
@@ -2596,6 +2602,14 @@
 				revision = f67e6e0814ca9ab67f9ab20a1c0e63870bd52322;
 			};
 		};
+		DD5E99EA29AA88C500A7A4B9 /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Nimble";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
 		DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hmlongco/Factory";
@@ -2626,6 +2640,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
 			productName = Sodium;
+		};
+		DD5E99ED29AA894100A7A4B9 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD5E99EA29AA88C500A7A4B9 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
 		};
 		DD6350DA293FEC7E0058A787 /* Factory */ = {
 			isa = XCSwiftPackageProductDependency;
