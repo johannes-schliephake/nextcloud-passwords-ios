@@ -1,2 +1,2 @@
-• Unterstützung für verwaltete App-Konfiguration
-• Fehlerbehebungen und Optimierungen
+• Schwedische Übersetzung (Danke Anders Johansson!)
+• Optimierungen

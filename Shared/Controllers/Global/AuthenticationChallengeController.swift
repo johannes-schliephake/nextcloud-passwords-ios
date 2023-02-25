@@ -24,10 +24,7 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
         acceptedCertificateHash = Keychain.default.load(key: "acceptedCertificateHash")
     }
     
-    func clearAcceptedCertificateHash(session: Session? = nil) {
-        guard session == nil else {
-            return
-        }
+    func clearAcceptedCertificateHash() {
         acceptedCertificateHash = nil
     }
     

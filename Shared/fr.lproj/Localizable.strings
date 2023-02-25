@@ -58,7 +58,7 @@
 "_folders" = "Dossiers";
 "_generatePassword" = "Générer un mot de passe";
 "_giveATip" = "Donner un pourboire";
-"_highFive" = "High Five! 👏";
+"_highFive" = "Tape-m'en cinq ! 👏";
 "_incorrectPassword" = "Mauvais mot de passe";
 "_incorrectPasswordMessage" = "Veuillez réessayer.";
 "_integration" = "Intégration";
@@ -195,3 +195,12 @@
 
 /* I.e. this OTP is a time-based one, possible value for "Type" field in OTP editor, other key is "_counterBased" */
 "_timeBased" = "Basé sur le temps";
+"_duplicatesTrashMessage" = "Tous les doublons de ce mot de passe se trouvent dans la poubelle.";
+"_joinTestFlightBeta" = "Rejoindre la Bêta TestFlight";
+
+/* I.e. duplicates of a password */
+"_duplicates" = "Doublons";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_connectingToNextcloudInstanceAt(url)" = "Connexion à l'instance Nextcloud à\n%@";
+"_managedServerUrlErrorMessage" = "L'adresse du serveur Nextcloud a été préconfigurée, mais l'application n'a pas pu se connecter à l'instance Nextcloud. Veuillez contacter votre administrateur.";

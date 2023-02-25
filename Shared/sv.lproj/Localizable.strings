@@ -1,0 +1,321 @@
+
+/* This refers to the noun ("the account") */
+"_account" = "Konto";
+"_addCustomField" = "Lägg till anpassat fält";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture" */
+"_addManually" = "Lägg till manuellt";
+"_addOtp" = "Lägg till engångslösenord";
+
+/* I.e. add tags to a password */
+"_addTags" = "Lägg till taggar";
+"_algorithm" = "Algoritm";
+
+/* I.e. all passwords */
+"_all" = "Alla";
+"_anErrorOccurred" = "Ett fel uppstod …";
+"_appDeauthorized" = "App avauktoriserad";
+"_appDeauthorizedMessage" = "På grund av för många misslyckade inloggningsförsök avauktoriserades denna app av servern. Vänligen försök igen senare.";
+
+/* This is a label for a settings toggle */
+"_automaticallyGeneratePasswords" = "Generera lösenord automatiskt";
+
+/* Use the same wording Apple uses across iOS */
+"_cancel" = "Avbryt";
+
+/* Possible value for "Encryption" field on password detail page, other key is "_serverSide" */
+"_clientSide" = "Klientsida";
+
+/* This refers to the noun ("the color"), i.e. the color of a tag */
+"_color" = "Färg";
+
+/* I.e. a one-time password is configured */
+"_configured" = "Inställd";
+
+/* E.g. confirm deletion or confirm log out */
+"_confirmAction" = "Bekräfta åtgärd";
+
+/* I.e. connect to server */
+"_connect" = "Koppla upp";
+"_connectToServer" = "Koppla upp till servern";
+"_copyOtp" = "Kopiera engångslösenordet";
+"_copyPassword" = "Kopiera lösenordet";
+"_copyUsername" = "Kopiera användarnamn";
+
+/* I.e. create folder or password */
+"_create" = "Skapa";
+
+/* I.e. date when a password was created */
+"_created" = "Skapad";
+"_createFolder" = "Skapa mapp";
+"_createPassword" = "Skapa lösenord";
+"_createPasswordErrorMessage" = "Ett fel uppstod när lösenordet skapades. Spara lösenordet igen.";
+
+/* Nextcloud credentials that were used to connect to an instance */
+"_credentials" = "Referenser";
+"_customFields" = "Anpassade fält";
+"_decryptFolderErrorMessage" = "Ett fel uppstod vid dekrypteringen av mappen.";
+"_decryptPasswordErrorMessage" = "Ett fel inträffade när lösenordet dekrypterades.";
+"_decryptTagErrorMessage" = "Ett fel uppstod vid dekryptering av taggen.";
+"_deletedPasswordMessage" = "Lösenordet är borttaget.";
+"_deleteOtp" = "Ta bort engångslösenordet";
+"_deletePassword" = "Ta bort lösenord";
+"_deleteTag" = "Ta bort tagg";
+"_deleteTagErrorMessage" = "Ett fel uppstod när taggen skulle tas bort. Ta bort taggen igen.";
+
+/* I.e. the number of digits to show of an OTP */
+"_digits" = "Siffror";
+"_discardChanges" = "Ignorera ändringar";
+
+/* Use the same wording Apple uses across iOS */
+"_dismiss" = "Avfärda";
+
+/* I.e. end-to-end password */
+"_e2ePassword" = "E2E lösenord";
+"_editFolderErrorMessage" = "Ett fel uppstod när mappen skulle redigeras. Spara mappen igen.";
+"_editPassword" = "Ändra lösenord";
+"_editPasswordErrorMessage" = "Ett fel uppstod när lösenordet skulle redigeras. Spara lösenordet igen.";
+"_editTagErrorMessage" = "Ett fel uppstod när taggen skulle redigeras. Spara taggen igen.";
+"_editTags" = "Ändra taggar";
+
+/* This is a label for a settings toggle */
+"_encryptedOfflineStorage" = "Krypterad offlinelagring";
+"_error" = "Fel";
+
+/* This refers to the noun ("the file") */
+"_file" = "Fil";
+"_folder" = "Mapp";
+"_generatePassword" = "Generera lösenord";
+
+/* E.g. a SHA1 hash */
+"_hash" = "Hash";
+
+/* Keep this in English */
+"_highFive" = "High Five! 👏";
+"_id" = "ID";
+"_incorrectPassword" = "Felaktigt lösenord";
+"_incorrectPasswordMessage" = "Försök igen.";
+
+/* I.e. integration into the OS (Password AutoFill) */
+"_integration" = "Integration";
+"_invalidCertificate" = "Felaktigt cerifikat";
+
+/* This refers to the verb ("to log in") */
+"_logIn" = "Logga in";
+
+/* Possible value for "Strength" picker when generating a password */
+"_low" = "Låg";
+
+/* Possible value for "Strength" picker when generating a password */
+"_medium" = "Medium";
+"_metadata" = "Metadata";
+
+/* I.e. show more options */
+"_moreOptions" = "Fler alternativ";
+
+/* This refers to the verb ("to move"), i.e. move a file to another folder */
+"_move" = "Flytta";
+"_nextcloudServerAddress" = "Nextcloud serveradress";
+
+/* This refers to the noun ("the notes") */
+"_notes" = "Anteckningar";
+
+/* Shown in empty lists */
+"_nothingToSeeHere" = "Inget att se här …";
+
+/* This is a label for a password generator toggle */
+"_numbers" = "Siffror";
+
+/* I.e. the app has no connection to the server and is offline */
+"_offline" = "Off-line";
+"_openUrl" = "Öppna URL";
+"_otps" = "Engångslösenord";
+"_password" = "Lösenord";
+"_passwordServiceErrorMessage" = "Ett fel uppstod när lösenordet skapades.";
+"_passwordStatusDuplicateMessage" = "Detta lösenord används mer än en gång.";
+
+/* In earlier versions this value was split into three strings */
+"_passwordStatusGoodMessage" = "Detta lösenord är säkert att använda. Den har inte brutits och bryter inte mot användardefinierade regler.";
+
+/* How long each OTP is valid in seconds */
+"_periodSeconds" = "Period(sekunder)";
+"_qrCaptureErrorMessage" = "Ett fel uppstod när kameran startas.";
+
+/* I.e. reject this certificate */
+"_reject" = "Avvisa";
+
+/* The folder all passwords and folders are placed in, which are not in a subfolder */
+"_rootFolder" = "Root-mapp";
+
+/* Possible option when adding an OTP, other keys are "_detectQrCodeInPicture" and "_addManually" */
+"_scanQrCode" = "Skanna QR-kod";
+
+/* This refers to the noun ("the secret") and is used in similar places as "password" */
+"_secret" = "Hemlighet";
+
+/* I.e. select a color for a tag */
+"_selectColor" = "Välj färg";
+"_serverAddressFieldMessage" = "En HTTPS uppkoppling krävs.";
+
+/* Possible value for "Encryption" field on password detail page, other key is "_clientSide" */
+"_serverSide" = "Serversida";
+
+/* E.g. a website, an app, etc. */
+"_service" = "Service";
+"_settings" = "Inställningar";
+"_shareOtpWarningMessage" = "Denna QR-kod innehåller mycket känslig information om engångslösenordet";
+"_shareQrCode" = "Dela QR-kod";
+"_sourceCode" = "Källkod";
+
+/* I.e. store the E2E password */
+"_storePassword" = "Lagra lösenord";
+"_storePasswordMessage" = "Om det här alternativet är aktiverat lagras E2E-lösenordet krypterat i enhetens nyckelring.";
+
+/* I.e. strength of the password to generate */
+"_strength" = "Styrka";
+
+/* I.e. password suggestions when using Password AutoFill */
+"_suggestions" = "Förslag";
+"_supportThisProject" = "Stöd detta projekt";
+"_tags" = "Taggar";
+
+/* This refers to the noun ("the text") */
+"_text" = "Text";
+
+/* Shown when Apple's "Ask to Buy" feature (parental control) is active */
+"_tipDeferred" = "Tips uppskjuten";
+"_tipFailed" = "Tipset misslyckades";
+"_tipFailedMessage" = "Ett fel uppstod när ditt tips bearbetades.";
+"_tipReceived" = "Tips mottaget";
+"_tipReceivedMessage" = "Tack för att du stöttar detta projekt med ditt tips!";
+
+/* I.e. try again to load the data */
+"_tryAgain" = "Försök igen";
+
+/* This refers to the noun ("the type") */
+"_type" = "Skriv";
+
+/* Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/InfoPlist.strings and Provider/InfoPlist.strings and Extension/InfoPlist.strings */
+"_unlockApp" = "Lås app";
+
+/* I.e. date when a password was last updated */
+"_updated" = "Uppdaterad";
+"_url" = "URL";
+"_username" = "Användarnamn";
+
+/* E.g. password, username or URL was copied to the clipboard */
+"_valueCopied" = "Värde kopierat";
+
+/* I.e. installed version of the app */
+"_version" = "Version";
+"_aboutOtps" = "Om engångslösenord";
+/* I.e. about this app */
+"_about" = "Om";
+
+/* This message is shown before the user can add the first one-time password */
+"_aboutOtpsMessage" = "Den här appen stöder endast engångslösenord för enkelhets skull. Att lagra ditt engångslösenord tillsammans med ditt kontos lösenord motverkar några av säkerhetsfördelarna med multifaktorautentisering. Att aktivera en andra faktor är bättre än att inte använda en alls, men en fristående engångslösenordsapp kommer att vara säkrare. Lagra INTE engångslösenord för ditt Nextcloud-konto eller viktiga konton, som e-post eller onlinebankkonton. Engångslösenord synkroniseras över din Nextcloud Passwords-instans men stöds för närvarande endast av iOS-appen (v2.6 eller senare).";
+
+/* I.e. accept this certificate */
+"_accept" = "Acceptera";
+"_deleteFolderErrorMessage" = "Ett fel uppstod vid borttagning av mappen. Vänligen radera mappen igen.";
+
+/* I.e. confirm that the OTP message has been read */
+"_confirm" = "Bekräfta";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_connectingToNextcloudInstanceAt(url)" = "Ansluter till Nextcloud-instansen på\n%@";
+
+/* This refers to the noun ("the counter") and counts how many OTPs have been used */
+"_counter" = "Räknare";
+"_createTagErrorMessage" = "Ett fel uppstod när taggen skapades. Spara taggen igen.";
+
+/* I.e. this OTP is a counter-based one, possible value for "Type" field in OTP editor, other key is "_timeBased" */
+"_counterBased" = "Motbaserad";
+"_createFolderErrorMessage" = "Ett fel uppstod när mappen skapades. Spara mappen igen.";
+"_createTag" = "Skapa tagg";
+
+/* Use the same wording Apple uses across iOS */
+"_delete" = "Ta bort";
+"_deleteFolder" = "Ta bort mapp";
+"_deletePasswordErrorMessage" = "Ett fel uppstod när lösenordet skulle raderas. Vänligen radera lösenordet igen.";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_addManually" */
+"_detectQrCodeInPicture" = "Upptäck QR-kod i bilden";
+"_duplicatesTrashMessage" = "Alla dubbletter av det här lösenordet ligger i papperskorgen.";
+
+/* This refers to the noun ("the favorites") */
+"_favorites" = "Favoriter";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_invalidCertificateMessage(hash)" = "Serverns certifikat är ogiltigt. En säker anslutning kan inte garanteras. Ska certifikatet fortfarande användas?\n\nSHA-256 för certifikatet:\n%@";
+"_otp" = "Engångslösenord";
+"_passwordStatusUnknownMessage" = "Detta lösenord har ännu inte kontrollerats för dess säkerhet eller alternativet att lagra hash för säkerhetskontroller är inaktiverat.";
+
+/* This is a label for a password generator toggle */
+"_specialCharacters" = "Specialtecken";
+
+/* Use the same wording Apple uses across iOS */
+"_done" = "Klar";
+
+/* I.e. duplicates of a password */
+"_duplicates" = "Kopior";
+
+/* This refers to the verb ("to edit"), use the same wording Apple uses across iOS */
+"_edit" = "Ändra";
+
+/* Make sure to use the correct notation in your language, e.g. in German a dash is added: "E-Mail" */
+"_email" = "Epost";
+
+/* I.e. export this OTP as a QR code */
+"_exportAsQrCode" = "Exportera som QR-kod";
+
+/* This is the label for starting an In-App purchase */
+"_giveATip" = "Ge ett tips";
+
+/* I.e. server or client side encryption */
+"_encryption" = "Kryptering";
+"_extractOtpErrorMessage" = "Ett fel uppstod vid sökning efter en QR-kod i den valda bilden.";
+
+/* This refers to the noun ("the favorite") */
+"_favorite" = "Favorit";
+"_folders" = "Mappar";
+
+/* This refers to the noun ("the tag") */
+"_tag" = "Tagg";
+"_joinTestFlightBeta" = "Gå med i TestFlight Beta";
+
+/* This refers to the verb ("to log out") */
+"_logOut" = "Logga ut";
+"_noConnection" = "Ingen anslutning";
+"_managedServerUrlErrorMessage" = "Nextcloud-serveradressen har förkonfigurerats, men appen kunde inte ansluta till Nextcloud-instansen. Kontakta din administratör.";
+
+/* This refers to the noun ("the name") */
+"_name" = "Namn";
+"_noConnectionMessage" = "Kunde inte ansluta till Nextcloud-lösenordsinstansen.";
+
+/* I.e. settings options */
+"_options" = "Alternativ";
+"_thanksMessage" = "Tack till hela Nextcloud-gemenskapen och alla inblandade för att ha möjliggjort ett så fantastiskt ekosystem. Jag hoppas att jag kan bidra med något med den här appen.";
+
+/* I.e. this OTP is a time-based one, possible value for "Type" field in OTP editor, other key is "_counterBased" */
+"_timeBased" = "Tidbaserad";
+"_tipDeferredMessage" = "Ditt tips väntar nu på godkännande.";
+
+/* Possible value for "Strength" picker when generating a password */
+"_ultra" = "Ultra";
+
+/* In earlier versions this value was split into two strings */
+"_passwordStatusBreachedMessage" = "Detta lösenord är inte säkert att använda. Det har hittats i en databas med komprometterade lösenord.";
+
+/* "Maximum age": Use the same wording that the web client uses in its settings */
+"_passwordStatusOutdatedMessage" = "Detta lösenord har nått maxåldern.";
+
+/* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
+"_providerInstructionsMessage" = "Den här appen stöder Autofyll av lösenord. Funktionen måste vara aktiverad i iOSs Inställningar-app:\n1. Öppna appen Inställningar\n2. Tryck på Lösenord\n3. Tryck på Autofyll lösenord\n4. Aktivera Autofyll lösenord\n5. Aktivera den här appen";
+
+/* I.e. security status of a password */
+"_security" = "Säkerhet";
+
+/* This refers to the verb ("to select"), i.e. select a password */
+"_select" = "Välj";
+"_passwords" = "Lösenord";

@@ -1,2 +1,2 @@
-• Support for managed app configuration
-• Bugfixes and optimizations
+• Swedish translation (Thanks Anders Johansson!)
+• Optimizations

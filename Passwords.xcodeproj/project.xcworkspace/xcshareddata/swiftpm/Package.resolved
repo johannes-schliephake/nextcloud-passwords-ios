@@ -14,7 +14,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jedisct1/swift-sodium.git",
       "state" : {
-        "revision" : "a19da78de3b4467d46c0bd3593b42ee033aa716d"
+        "revision" : "f67e6e0814ca9ab67f9ab20a1c0e63870bd52322"
       }
     }
   ],
