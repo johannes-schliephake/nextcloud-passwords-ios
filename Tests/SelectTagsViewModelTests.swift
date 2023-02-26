@@ -1,7 +1,7 @@
 import XCTest
-@testable import Passwords
 import Factory
 import Combine
+@testable import Passwords
 
 
 final class SelectTagsViewModelTests: XCTestCase {
@@ -11,7 +11,7 @@ final class SelectTagsViewModelTests: XCTestCase {
     
     private let tagLabelValidatorMock = TagLabelValidatorMock()
     private let tagsServiceMock = TagsServiceMock()
-
+    
     override func setUp() {
         super.setUp()
         
@@ -216,7 +216,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[1]], invalid: [invalidTag]))
         selectTagsViewModel(.toggleTag(tagMocks[0]))
         selectTagsViewModel(.selectTags)
-
+        
         waitForExpectations(timeout: 0.1)
     }
     
@@ -228,7 +228,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[1]], invalid: [.random()]))
         selectTagsViewModel(.selectTags)
-
+        
         waitForExpectations(timeout: 0.1)
     }
     
@@ -242,7 +242,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[1]], invalid: [.random()]))
         selectTagsViewModel(.toggleTag(tagMocks[0]))
         selectTagsViewModel(.selectTags)
-
+        
         waitForExpectations(timeout: 0.1)
     }
     
@@ -317,5 +317,5 @@ final class SelectTagsViewModelTests: XCTestCase {
         
         XCTAssertNil(selectTagsViewModel[\.focusedField])
     }
-
+    
 }

@@ -1,6 +1,6 @@
 import XCTest
-@testable import Passwords
 import Factory
+@testable import Passwords
 
 
 final class FolderLabelValidatorTests: XCTestCase {

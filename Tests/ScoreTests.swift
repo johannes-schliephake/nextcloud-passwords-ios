@@ -1,8 +1,8 @@
 import XCTest
 @testable import Passwords
 
-
 // TODO: refactor
+
 final class ScoreTests: XCTestCase {
     
     func test_stringScoreSearchTerm_emptyString() {

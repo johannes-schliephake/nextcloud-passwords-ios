@@ -249,6 +249,8 @@
 		DD5E3CBF295466F90032F517 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5E3CBC295466F90032F517 /* Mock.swift */; };
 		DD5E99EE29AA894100A7A4B9 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = DD5E99ED29AA894100A7A4B9 /* Nimble */; };
 		DD5E99F129AAA15500A7A4B9 /* Emit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5E99F029AAA15500A7A4B9 /* Emit.swift */; };
+		DD5E99F329AB6D3700A7A4B9 /* BeCalled.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5E99F229AB6D3700A7A4B9 /* BeCalled.swift */; };
+		DD5E99F629ABFF4000A7A4B9 /* ClosureMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5E99F529ABFF4000A7A4B9 /* ClosureMock.swift */; };
 		DD6350DB293FEC7E0058A787 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DD6350DA293FEC7E0058A787 /* Factory */; };
 		DD6350DD293FEC9B0058A787 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DD6350DC293FEC9B0058A787 /* Factory */; };
 		DD6350DF293FECA00058A787 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DD6350DE293FECA00058A787 /* Factory */; };
@@ -703,6 +705,8 @@
 		DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsViewModelTests.swift; sourceTree = "<group>"; };
 		DD5E3CBC295466F90032F517 /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
 		DD5E99F029AAA15500A7A4B9 /* Emit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emit.swift; sourceTree = "<group>"; };
+		DD5E99F229AB6D3700A7A4B9 /* BeCalled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeCalled.swift; sourceTree = "<group>"; };
+		DD5E99F529ABFF4000A7A4B9 /* ClosureMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureMock.swift; sourceTree = "<group>"; };
 		DD6350E0293FED030058A787 /* Container+Registrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Registrations.swift"; sourceTree = "<group>"; };
 		DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPPage.swift; sourceTree = "<group>"; };
 		DD67204427BAFDC40078CF47 /* EditOTPController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPController.swift; sourceTree = "<group>"; };
@@ -1238,9 +1242,10 @@
 			isa = PBXGroup;
 			children = (
 				DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */,
-				DD5E99EF29AAA14A00A7A4B9 /* Matchers */,
 				DD5E3CBB2954571B0032F517 /* Extensions */,
 				DD0B7AEE2972CEBD00A59E3C /* FolderLabelValidatorTests.swift */,
+				DD5E99EF29AAA14A00A7A4B9 /* Matchers */,
+				DD5E99F429ABFF3300A7A4B9 /* Mocks */,
 				8F6ED7C0265BC807008CF387 /* ScoreTests.swift */,
 				DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */,
 				DD5E3CB0295363DB0032F517 /* TagLabelValidatorTests.swift */,
@@ -1260,9 +1265,18 @@
 		DD5E99EF29AAA14A00A7A4B9 /* Matchers */ = {
 			isa = PBXGroup;
 			children = (
+				DD5E99F229AB6D3700A7A4B9 /* BeCalled.swift */,
 				DD5E99F029AAA15500A7A4B9 /* Emit.swift */,
 			);
 			path = Matchers;
+			sourceTree = "<group>";
+		};
+		DD5E99F429ABFF3300A7A4B9 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				DD5E99F529ABFF4000A7A4B9 /* ClosureMock.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		DD8282BC2937684B0085115D /* ViewModels */ = {
@@ -1937,7 +1951,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD0B7AF32972CFE400A59E3C /* EditFolderViewModelTests.swift in Sources */,
+				DD5E99F329AB6D3700A7A4B9 /* BeCalled.swift in Sources */,
 				DDF4137A2954C28100B886EB /* ScoreTests.swift in Sources */,
+				DD5E99F629ABFF4000A7A4B9 /* ClosureMock.swift in Sources */,
 				DD5E3CB1295363DB0032F517 /* TagLabelValidatorTests.swift in Sources */,
 				DDF4138A2955AFD000B886EB /* ViewModelTests.swift in Sources */,
 				DD5E99F129AAA15500A7A4B9 /* Emit.swift in Sources */,

@@ -1,7 +1,7 @@
 import XCTest
-@testable import Passwords
 import Factory
 import Combine
+@testable import Passwords
 
 
 final class EditFolderViewModelTests: XCTestCase {
@@ -9,7 +9,7 @@ final class EditFolderViewModelTests: XCTestCase {
     private let folderMock = Container.folder()
     
     private let foldersServiceMock = FoldersServiceMock()
-
+    
     override func setUp() {
         super.setUp()
         

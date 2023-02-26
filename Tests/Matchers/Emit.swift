@@ -3,7 +3,7 @@ import XCTest
 import Combine
 
 
-func emit<P: Publisher>(within timeout: TimeInterval = 0.1, when block: @escaping () -> Void) -> Predicate<P> where P.Output == Void {
+func emit<P: Publisher>(within timeout: TimeInterval = 0.1, when block: (() -> Void)? = nil) -> Predicate<P> where P.Output == Void {
     Predicate { expression in
         let message = ExpectationMessage.expectedTo("emit")
         
@@ -26,14 +26,14 @@ func emit<P: Publisher>(within timeout: TimeInterval = 0.1, when block: @escapin
             }
             .store(in: &cancellables)
         
-        block()
+        block?()
         XCTWaiter().wait(for: [expectation], timeout: timeout)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: ", but didn't"))
     }
 }
 
 
-func emit<P: Publisher>(_ expectedValue: P.Output, within timeout: TimeInterval = 0.1, when block: @escaping () -> Void) -> Predicate<P> where P.Output: Equatable {
+func emit<P: Publisher>(_ expectedValue: P.Output, within timeout: TimeInterval = 0.1, when block: (() -> Void)? = nil) -> Predicate<P> where P.Output: Equatable {
     Predicate { expression in
         let message = ExpectationMessage.expectedTo("emit <\(stringify(expectedValue))>")
         
@@ -60,14 +60,14 @@ func emit<P: Publisher>(_ expectedValue: P.Output, within timeout: TimeInterval 
             }
             .store(in: &cancellables)
         
-        block()
+        block?()
         XCTWaiter().wait(for: [expectation], timeout: timeout)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: ", but didn't"))
     }
 }
 
 
-func notEmit<P: Publisher>(within timeout: TimeInterval = 0.1, when block: @escaping () -> Void) -> Predicate<P> {
+func notEmit<P: Publisher>(within timeout: TimeInterval = 0.1, when block: (() -> Void)? = nil) -> Predicate<P> {
     Predicate { expression in
         let message = ExpectationMessage.expectedTo("not emit")
         
@@ -91,16 +91,21 @@ func notEmit<P: Publisher>(within timeout: TimeInterval = 0.1, when block: @esca
             }
             .store(in: &cancellables)
         
-        block()
+        block?()
         XCTWaiter().wait(for: [expectation], timeout: timeout)
         return result ?? .init(status: .matches, message: message)
     }
 }
 
 
-func fail<P: Publisher>(_ expectedError: P.Failure? = nil, within timeout: TimeInterval = 0.1, when block: @escaping () -> Void) -> Predicate<P> where P.Failure: Equatable {
+func fail<P: Publisher>(_ expectedError: P.Failure? = nil, within timeout: TimeInterval = 0.1, when block: (() -> Void)? = nil) -> Predicate<P> where P.Failure: Equatable {
     Predicate { expression in
-        let message = ExpectationMessage.expectedTo(expectedError != nil ? "fail with <\(stringify(expectedError!))>" : "fail")
+        let message: ExpectationMessage
+        if let expectedError {
+            message = .expectedTo("fail with <\(stringify(expectedError))>")
+        } else {
+            message = .expectedTo("fail")
+        }
         
         guard let publisher = try expression.evaluate() else {
             return .init(status: .fail, message: message.appendedBeNilHint())
@@ -127,7 +132,7 @@ func fail<P: Publisher>(_ expectedError: P.Failure? = nil, within timeout: TimeI
             }
             .store(in: &cancellables)
         
-        block()
+        block?()
         XCTWaiter().wait(for: [expectation], timeout: timeout)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: ", but didn't"))
     }

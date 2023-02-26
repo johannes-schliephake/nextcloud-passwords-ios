@@ -1,7 +1,7 @@
 import XCTest
-@testable import Passwords
 import Factory
 import Combine
+@testable import Passwords
 
 
 final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_order
@@ -17,7 +17,7 @@ final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_or
         
         Container.Registrations.reset()
     }
-
+    
     func testObjectWillChange_changePublishedState_publisherEmits() {
         let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
         
