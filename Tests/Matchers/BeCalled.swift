@@ -42,7 +42,7 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
             message = .expectedTo("call")
         }
         if callCount.rawValue > 0 {
-            message = message.appended(message: " \(callCount) times")
+            message = message.appended(message: " \(callCount.rawValue) times")
         }
         
         guard let functionCallLogger = try expression.evaluate() else {

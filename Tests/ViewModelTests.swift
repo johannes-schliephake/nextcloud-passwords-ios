@@ -1,6 +1,6 @@
 import XCTest
+import Nimble
 import Factory
-import Combine
 @testable import Passwords
 
 
@@ -21,51 +21,40 @@ final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_or
     func testObjectWillChange_changePublishedState_publisherEmits() {
         let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
         
-        let expectation = expectation(description: "objectWillChange emitted")
-        var cancellables = Set<AnyCancellable>()
-        basicViewModel.objectWillChange
-            .sink { expectation.fulfill() }
-            .store(in: &cancellables)
-        basicViewModel.state.value = .random()
-
-        waitForExpectations(timeout: 0.1)
+        expect(basicViewModel.objectWillChange).to(emit(when: { basicViewModel.state.value = .random() }))
     }
     
     func testSubscript_getValueViaKeyPath_returnsValueFromState() {
         let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
         
-        let result = basicViewModel[\.value as KeyPath]
-        
-        XCTAssertEqual(result, basicViewModel.state.value)
+        expect(basicViewModel[\.value as KeyPath]).to(equal(basicViewModel.state.value))
     }
     
     func testSubscript_getValueViaReferenceWritableKeyPath_returnsValueFromState() {
         let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
         
-        let result = basicViewModel[\.value as ReferenceWritableKeyPath]
-        
-        XCTAssertEqual(result, basicViewModel.state.value)
+        expect(basicViewModel[\.value as ReferenceWritableKeyPath]).to(equal(basicViewModel.state.value))
     }
     
     func testSubscript_setValue_updatesValueInState() {
         let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
-        
         let newValue = String.random()
+        
         basicViewModel[\.value] = newValue
         
-        XCTAssertEqual(basicViewModel.state.value, newValue)
+        expect(basicViewModel.state.value).to(equal(newValue))
     }
     
     func testEraseToAnyViewModel_changeStateOfErasedViewModelViaAction_containsSameStateAndActionAsWrappedViewModel() {
         let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
-        
         let newValue = String.random()
+        
         let result = basicViewModel.eraseToAnyViewModel()
         result(.setValue(newValue: newValue))
         
-        XCTAssert(result.state === basicViewModel.state)
-        XCTAssertEqual(result.state.value, basicViewModel.state.value)
-        XCTAssertEqual(result.state.value, newValue)
+        expect(result.state).to(be(basicViewModel.state))
+        expect(result.state.value).to(equal(basicViewModel.state.value))
+        expect(result.state.value).to(equal(newValue))
     }
     
 }
