@@ -18,25 +18,25 @@ final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_or
         Container.Registrations.reset()
     }
     
-    func testObjectWillChange_changePublishedState_publisherEmits() {
+    func testObjectWillChange_whenChangingPublishedState_thenPublisherEmits() {
         let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
         
         expect(basicViewModel.objectWillChange).to(emit(when: { basicViewModel.state.value = .random() }))
     }
     
-    func testSubscript_getValueViaKeyPath_returnsValueFromState() {
+    func testSubscript_whenGettingValueViaKeyPath_thenReturnsValueFromState() {
         let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
         
         expect(basicViewModel[\.value as KeyPath]).to(equal(basicViewModel.state.value))
     }
     
-    func testSubscript_getValueViaReferenceWritableKeyPath_returnsValueFromState() {
+    func testSubscript_whenGettingValueViaReferenceWritableKeyPath_thenReturnsValueFromState() {
         let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
         
         expect(basicViewModel[\.value as ReferenceWritableKeyPath]).to(equal(basicViewModel.state.value))
     }
     
-    func testSubscript_setValue_updatesValueInState() {
+    func testSubscript_whenSettingValue_thenUpdatesValueInState() {
         let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
         let newValue = String.random()
         
@@ -45,7 +45,7 @@ final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_or
         expect(basicViewModel.state.value).to(equal(newValue))
     }
     
-    func testEraseToAnyViewModel_changeStateOfErasedViewModelViaAction_containsSameStateAndActionAsWrappedViewModel() {
+    func testEraseToAnyViewModel_whenChangingStateOfErasedViewModelViaAction_thenContainsSameStateAndActionAsWrappedViewModel() {
         let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
         let newValue = String.random()
         

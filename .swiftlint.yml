@@ -33,16 +33,22 @@ opt_in_rules:
 
 custom_rules:
   print:
-    included: ".*\\.swift"
-    name: "Print"
-    regex: "((\\bprint)|(Swift\\.print))\\s*\\("
-    message: "Prints should be removed"
+    included: '.*\.swift'
+    name: 'Print'
+    regex: '((\bprint)|(Swift\.print))\s*\('
+    message: 'Prints should be removed'
     severity: warning
   view_model_state_access:
-    included: ".*\\.swift"
-    name: "ViewModel State Access"
-    regex: "\\bviewModel\\s*\\.\\s*state"
-    message: "ViewModel state should be accessed via subscript"
+    included: '.*\.swift'
+    name: 'ViewModel State Access'
+    regex: '\bviewModel\s*\.\s*state'
+    message: 'ViewModel state should be accessed via subscript'
+    severity: warning
+  test_naming:
+    included: '.*Tests\.swift'
+    name: 'Test Naming'
+    regex: '\bfunc\s+test(?![a-zA-Z0-9]+(_given[a-zA-Z0-9]+)?(_when[a-zA-Z0-9]+)?_then[a-zA-Z0-9]+\s*\(\))'
+    message: 'Tests should be named "testFunction_givenX_whenY_thenZ", with "given" and "when" being optional'
     severity: warning
 
 excluded:

@@ -26,7 +26,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         Container.Registrations.reset()
     }
     
-    func testInit_noFurtherAction_setsInitialState() {
+    func testInit_thenSetsInitialState() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         
         expect(selectTagsViewModel[\.temporaryEntry]).to(equal(temporaryEntry))
@@ -36,7 +36,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         expect(selectTagsViewModel[\.focusedField]).to(beNil())
     }
     
-    func testInit_tagsServiceEmitsTags_setsSelectableTags() {
+    func testInit_whenTagsServiceEmittingTags_thenSetsSelectableTags() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         
         tagsServiceMock._tags.send(tagMocks.shuffled())
@@ -46,11 +46,11 @@ final class SelectTagsViewModelTests: XCTestCase {
         expect(selectTagsViewModel[\.selectableTags].map(\.isSelected)).to(equal([false, true]))
     }
     
-    func testInit_tagsServiceEmitsChangedTags_updatesSelectableTags() {
+    func testInit_whenTagsServiceEmittingChangedTags_thenUpdatesSelectableTags() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[1]], invalid: []))
+        
         tagsServiceMock._tags.send([tagMocks[0]])
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[0]], invalid: []))
         
@@ -58,12 +58,12 @@ final class SelectTagsViewModelTests: XCTestCase {
         expect(selectTagsViewModel[\.selectableTags].map(\.isSelected)).to(equal([true]))
     }
     
-    func testInit_tagsServiceEmitsChangedTagsAfterToggleTag_updatesSelectableTags() {
+    func testInit_givenToggledTag_whenTagsServiceEmittingChangedTags_thenUpdatesSelectableTags() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         tagsServiceMock._tags.send([tagMocks[0]])
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[0]], invalid: []))
         selectTagsViewModel(.toggleTag(tagMocks[0]))
+        
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[1]], invalid: []))
         
@@ -71,174 +71,177 @@ final class SelectTagsViewModelTests: XCTestCase {
         expect(selectTagsViewModel[\.selectableTags].map(\.isSelected)).to(equal([false, false]))
     }
     
-    func testCallAsFunction_addTag_doesntChangeFocusedField() {
+    func testCallAsFunction_givenFocusedFieldIsNotNil_whenCallingAddTag_thenDoesntChangeFocusedField() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         selectTagsViewModel[\.focusedField] = .addTagLabel
+        
         selectTagsViewModel(.addTag)
         
         expect(selectTagsViewModel[\.focusedField]).to(equal(.addTagLabel))
     }
     
-    func testCallAsFunction_addTag_callsTagLabelValidator() {
+    func testCallAsFunction_whenCallingAddTag_thenCallsTagLabelValidator() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         let newTagLabel = String.random()
         selectTagsViewModel[\.tagLabel] = newTagLabel
+        
         selectTagsViewModel(.addTag)
         
         expect(self.tagLabelValidatorMock).to(beCalled(.once, on: "validate(_:)", withParameters: [newTagLabel]))
     }
     
-    func testCallAsFunction_addTagWithValidTagLabel_clearsTagLabel() {
+    func testCallAsFunction_givenValidTagLabel_whenCallingAddTag_thenClearsTagLabel() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         selectTagsViewModel[\.tagLabel] = .random()
         tagLabelValidatorMock._validateEntity = true
+        
         selectTagsViewModel(.addTag)
         
         expect(selectTagsViewModel[\.tagLabel]).to(beEmpty())
     }
     
-    func testCallAsFunction_addTagWithInvalidTagLabel_doesntClearTagLabel() {
+    func testCallAsFunction_givenInvalidTagLabel_whenCallingAddTag_thenDoesntClearTagLabel() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         selectTagsViewModel[\.tagLabel] = .random()
         tagLabelValidatorMock._validateEntity = false
+        
         selectTagsViewModel(.addTag)
         
         expect(selectTagsViewModel[\.tagLabel]).toNot(beEmpty())
     }
     
-    func testCallAsFunction_addTagWithValidTagLabel_callsTagService() {
+    func testCallAsFunction_givenValidTagLabel_whenCallingAddTag_thenCallsTagService() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         let newTagLabel = String.random()
         selectTagsViewModel[\.tagLabel] = newTagLabel
         tagLabelValidatorMock._validateEntity = true
+        
         selectTagsViewModel(.addTag)
         
         expect(self.tagsServiceMock).to(beCalled(.once, on: "add(tag:)", withParameters: [newTagLabel])) // TODO: check tag label against newTagLabel
     }
     
-    func testCallAsFunction_addTagWithInvalidTagLabel_doesntCallTagService() {
+    func testCallAsFunction_givenInvalidTagLabel_whenCallingAddTag_thenDoesntCallTagService() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         let initialFunctionCallCount = tagsServiceMock.functionCallLog.count
-        
         let newTagLabel = String.random()
         selectTagsViewModel[\.tagLabel] = newTagLabel
         tagLabelValidatorMock._validateEntity = false
+        
         selectTagsViewModel(.addTag)
         
         expect(self.tagsServiceMock).to(beCalled(.aSpecifiedAmount(initialFunctionCallCount)))
     }
     
-    func testCallAsFunction_addTagWithValidTagLabel_updatesSelectableTags() {
+    func testCallAsFunction_givenValidTagLabel_whenCallingAddTag_thenUpdatesSelectableTags() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         let newTagLabel = String.random()
         selectTagsViewModel[\.tagLabel] = newTagLabel
         tagLabelValidatorMock._validateEntity = true
+        
         selectTagsViewModel(.addTag)
         
         expect(selectTagsViewModel[\.selectableTags].map(\.tag.label)).to(equal([newTagLabel]))
         expect(selectTagsViewModel[\.selectableTags].map(\.isSelected)).to(equal([true]))
     }
     
-    func testCallAsFunction_addTagWithValidTagLabel_doesntUpdateSelectableTags() {
+    func testCallAsFunction_givenValidTagLabel_whenCallingAddTag_thenDoesntUpdateSelectableTags() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         let newTagLabel = String.random()
         selectTagsViewModel[\.tagLabel] = newTagLabel
         tagLabelValidatorMock._validateEntity = false
+        
         selectTagsViewModel(.addTag)
         
         expect(selectTagsViewModel[\.selectableTags]).to(beEmpty())
     }
     
-    func testCallAsFunction_toggleTagWithValidTag_setsHasChangesToTrue() {
+    func testCallAsFunction_givenValidTag_whenCallingToggleTag_thenSetsHasChangesToTrue() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
+        let validTag = tagMocks[0]
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
-        selectTagsViewModel(.toggleTag(tagMocks[0]))
+        
+        selectTagsViewModel(.toggleTag(validTag))
         
         expect(selectTagsViewModel[\.hasChanges]).to(beTrue())
     }
     
-    func testCallAsFunction_toggleTagTwiceWithValidTag_setsHasChangesToFalse() {
+    func testCallAsFunction_givenValidTag_whenCallingToggleTagTwice_thenSetsHasChangesToFalse() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
+        let validTag = tagMocks[0]
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
-        selectTagsViewModel(.toggleTag(tagMocks[0]))
-        selectTagsViewModel(.toggleTag(tagMocks[0]))
+        
+        selectTagsViewModel(.toggleTag(validTag))
+        selectTagsViewModel(.toggleTag(validTag))
         
         expect(selectTagsViewModel[\.hasChanges]).to(beFalse())
     }
     
-    func testCallAsFunction_toggleTagWithValidTag_updatesSelectableTags() {
+    func testCallAsFunction_givenValidTag_whenCallingToggleTag_thenUpdatesSelectableTags() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
+        let validTag = tagMocks[0]
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
-        selectTagsViewModel(.toggleTag(tagMocks[0]))
+        
+        selectTagsViewModel(.toggleTag(validTag))
         
         expect(selectTagsViewModel[\.selectableTags].map(\.tag)).to(equal([tagMocks[0], tagMocks[1]]))
         expect(selectTagsViewModel[\.selectableTags].map(\.isSelected)).to(equal([true, false]))
     }
     
-    func testCallAsFunction_toggleTagWithInvalidTag_doesntUpdateSelectableTags() {
+    func testCallAsFunction_givenInvalidTag_whenCallingToggleTag_thenDoesntUpdateSelectableTags() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
+        let invalidTag = Tag()
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
-        selectTagsViewModel(.toggleTag(.init()))
+        
+        selectTagsViewModel(.toggleTag(invalidTag))
         
         expect(selectTagsViewModel[\.selectableTags].map(\.tag)).to(equal([tagMocks[0], tagMocks[1]]))
         expect(selectTagsViewModel[\.selectableTags].map(\.isSelected)).to(equal([false, false]))
     }
     
-    func testCallAsFunction_selectTagsWithHasChangesTrue_callsSelectTagsClosure() {
-        let invalidTag = String.random()
+    func testCallAsFunction_givenHasChangesIsTrue_whenCallingSelectTags_thenCallsSelectTagsClosure() {
         let closure = ClosureMock()
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry, selectTags: closure.log)
-        
+        let invalidTag = String.random()
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[1]], invalid: [invalidTag]))
         selectTagsViewModel(.toggleTag(tagMocks[0]))
+        
         selectTagsViewModel(.selectTags)
         
         expect(closure).to(beCalled(.once, withParameters: [tagMocks, [invalidTag]]))
     }
     
-    func testCallAsFunction_selectTagsWithHasChangesFalse_doesntCallSelectTagsClosure() {
+    func testCallAsFunction_givenHasChangesIsFalse_whenCallingSelectTags_thenDoesntCallSelectTagsClosure() {
         let closure = ClosureMock()
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry, selectTags: closure.log)
-        
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[1]], invalid: [.random()]))
+        
         selectTagsViewModel(.selectTags)
         
         expect(closure).toNot(beCalled())
     }
     
-    func testCallAsFunction_selectTagsWithoutLocallyAvailableId_doesntCallSelectTagsClosure() {
+    func testCallAsFunction_givenLocallyMissingId_whenCallingSelectTags_thenDoesntCallSelectTagsClosure() {
         let closure = ClosureMock()
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry, selectTags: closure.log)
-        
         tagMocks[0].id = ""
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [tagMocks[1]], invalid: [.random()]))
         selectTagsViewModel(.toggleTag(tagMocks[0]))
+        
         selectTagsViewModel(.selectTags)
         
         expect(closure).toNot(beCalled())
     }
     
-    func testCallAsFunction_selectTagsWithHasChangesTrue_shouldDismissEmits() {
+    func testCallAsFunction_givenHasChangesIsTrue_whenCallingSelectTags_thenShouldDismissEmits() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
         selectTagsViewModel(.toggleTag(tagMocks[0]))
@@ -246,18 +249,16 @@ final class SelectTagsViewModelTests: XCTestCase {
         expect(selectTagsViewModel[\.shouldDismiss]).to(emit(when: { selectTagsViewModel(.selectTags) }))
     }
     
-    func testCallAsFunction_selectTagsWithHasChangesFalse_shouldDismissDoesntEmit() {
+    func testCallAsFunction_givenHasChangesIsFalse_whenCallingSelectTags_thenShouldDismissDoesntEmit() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
         
         expect(selectTagsViewModel[\.shouldDismiss]).to(notEmit(when: { selectTagsViewModel(.selectTags) }))
     }
     
-    func testCallAsFunction_selectTagsWithoutLocallyAvailableId_shouldDismissDoesntEmit() {
+    func testCallAsFunction_givenLocallyMissingId_whenCallingSelectTags_thenShouldDismissDoesntEmit() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         tagMocks[0].id = ""
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
@@ -266,16 +267,16 @@ final class SelectTagsViewModelTests: XCTestCase {
         expect(selectTagsViewModel[\.shouldDismiss]).to(notEmit(when: { selectTagsViewModel(.selectTags) }))
     }
     
-    func testCallAsFunction_cancel_shouldDismissEmits() {
+    func testCallAsFunction_whenCallingCancel_thenShouldDismissEmits() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         
         expect(selectTagsViewModel[\.shouldDismiss]).to(emit(when: { selectTagsViewModel(.cancel) }))
     }
     
-    func testCallAsFunction_dismissKeyboard_setsFocusedFieldToNil() {
+    func testCallAsFunction_whenCallingDismissKeyboard_thenSetsFocusedFieldToNil() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
-        
         selectTagsViewModel[\.focusedField] = .addTagLabel
+        
         selectTagsViewModel(.dismissKeyboard)
         
         expect(selectTagsViewModel[\.focusedField]).to(beNil())

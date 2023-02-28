@@ -1,3 +1,5 @@
+// swiftlint:disable:this file_name
+
 import Nimble
 @testable import Passwords
 

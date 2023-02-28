@@ -2,6 +2,7 @@ import XCTest
 @testable import Passwords
 
 // TODO: refactor
+// swiftlint:disable test_naming
 
 final class ScoreTests: XCTestCase {
     
