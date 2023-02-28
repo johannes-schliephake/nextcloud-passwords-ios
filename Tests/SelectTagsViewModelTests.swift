@@ -254,7 +254,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         tagsServiceMock._tags.send(tagMocks.shuffled())
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
         
-        expect(selectTagsViewModel[\.shouldDismiss]).to(notEmit(when: { selectTagsViewModel(.selectTags) }))
+        expect(selectTagsViewModel[\.shouldDismiss]).toNot(emit(when: { selectTagsViewModel(.selectTags) }))
     }
     
     func testCallAsFunction_givenLocallyMissingId_whenCallingSelectTags_thenShouldDismissDoesntEmit() {
@@ -264,7 +264,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         tagsServiceMock._tagsForTagIds.send((valid: [], invalid: []))
         selectTagsViewModel(.toggleTag(tagMocks[0]))
         
-        expect(selectTagsViewModel[\.shouldDismiss]).to(notEmit(when: { selectTagsViewModel(.selectTags) }))
+        expect(selectTagsViewModel[\.shouldDismiss]).toNot(emit(when: { selectTagsViewModel(.selectTags) }))
     }
     
     func testCallAsFunction_whenCallingCancel_thenShouldDismissEmits() {

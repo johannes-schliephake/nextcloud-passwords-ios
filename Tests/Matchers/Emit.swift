@@ -16,19 +16,20 @@ func emit<P: Publisher>(within timeout: TimeInterval = 0.1, when block: (() -> V
         var cancellables = Set<AnyCancellable>()
         publisher
             .sink { completion in
-                if case let .failure(error) = completion {
-                    result = .init(status: .doesNotMatch, message: message.appended(message: ", but completed with failure <\(error)>"))
-                    expectation.fulfill()
+                guard case let .failure(error) = completion else {
+                    return
                 }
+                result = .init(status: .fail, message: message.appended(message: " - completed with failure <\(error)>"))
+                expectation.fulfill()
             } receiveValue: {
-                result = .init(status: .matches, message: message)
+                result = .init(status: .matches, message: message.appended(message: " - received value"))
                 expectation.fulfill()
             }
             .store(in: &cancellables)
         
         block?()
         XCTWaiter().wait(for: [expectation], timeout: timeout)
-        return result ?? .init(status: .doesNotMatch, message: message.appended(message: ", but didn't"))
+        return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't receive value"))
     }
 }
 
@@ -46,54 +47,20 @@ func emit<P: Publisher>(_ expectedValue: P.Output, within timeout: TimeInterval 
         var cancellables = Set<AnyCancellable>()
         publisher
             .sink { completion in
-                if case let .failure(error) = completion {
-                    result = .init(status: .doesNotMatch, message: message.appended(message: ", but completed with failure <\(error)>"))
-                    expectation.fulfill()
+                guard case let .failure(error) = completion else {
+                    return
                 }
+                result = .init(status: .fail, message: message.appended(message: " - completed with failure <\(error)>"))
+                expectation.fulfill()
             } receiveValue: { value in
-                if value == expectedValue {
-                    result = .init(status: .matches, message: message)
-                } else {
-                    result = .init(status: .doesNotMatch, message: message.appended(message: ", got <\(stringify(value))>"))
-                }
+                result = .init(status: value == expectedValue ? .matches : .doesNotMatch, message: message.appended(message: " - received value <\(stringify(value))>"))
                 expectation.fulfill()
             }
             .store(in: &cancellables)
         
         block?()
         XCTWaiter().wait(for: [expectation], timeout: timeout)
-        return result ?? .init(status: .doesNotMatch, message: message.appended(message: ", but didn't"))
-    }
-}
-
-
-func notEmit<P: Publisher>(within timeout: TimeInterval = 0.1, when block: (() -> Void)? = nil) -> Predicate<P> {
-    Predicate { expression in
-        let message = ExpectationMessage.expectedTo("not emit")
-        
-        guard let publisher = try expression.evaluate() else {
-            return .init(status: .fail, message: message.appendedBeNilHint())
-        }
-        
-        let expectation = XCTestExpectation()
-        expectation.isInverted = true
-        var result: PredicateResult?
-        var cancellables = Set<AnyCancellable>()
-        publisher
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    result = .init(status: .doesNotMatch, message: message.appended(message: ", but completed with failure <\(error)>"))
-                    expectation.fulfill()
-                }
-            } receiveValue: { value in
-                result = .init(status: .doesNotMatch, message: message.appended(message: ", but emitted <\(stringify(value))>"))
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-        
-        block?()
-        XCTWaiter().wait(for: [expectation], timeout: timeout)
-        return result ?? .init(status: .matches, message: message)
+        return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't receive value"))
     }
 }
 
@@ -119,21 +86,22 @@ func fail<P: Publisher>(_ expectedError: P.Failure? = nil, within timeout: TimeI
                 guard case let .failure(error) = completion else {
                     return
                 }
+                let message = message.appended(message: " - completed with failure <\(error)>")
                 if let expectedError,
                    error != expectedError {
-                    result = .init(status: .doesNotMatch, message: message.appended(message: ", got <\(stringify(error))>"))
+                    result = .init(status: .doesNotMatch, message: message)
                 } else {
                     result = .init(status: .matches, message: message)
                 }
                 expectation.fulfill()
             } receiveValue: { value in
-                result = .init(status: .doesNotMatch, message: message.appended(message: ", but emitted <\(stringify(value))>"))
+                result = .init(status: .doesNotMatch, message: message.appended(message: " - received value <\(stringify(value))>"))
                 expectation.fulfill()
             }
             .store(in: &cancellables)
         
         block?()
         XCTWaiter().wait(for: [expectation], timeout: timeout)
-        return result ?? .init(status: .doesNotMatch, message: message.appended(message: ", but didn't"))
+        return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't complete with failure"))
     }
 }

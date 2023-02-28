@@ -240,7 +240,7 @@ final class EditFolderViewModelTests: XCTestCase {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
         foldersServiceMock._applyTo = .failure(.validationFailed)
         
-        expect(editFolderViewModel[\.shouldDismiss]).to(notEmit(when: { editFolderViewModel(.applyToFolder) }))
+        expect(editFolderViewModel[\.shouldDismiss]).toNot(emit(when: { editFolderViewModel(.applyToFolder) }))
     }
     
     func testCallAsFunction_givenHasChangesIsTrue_whenCallingCancel_thenSetsShowCancelAlertToTrue() {
