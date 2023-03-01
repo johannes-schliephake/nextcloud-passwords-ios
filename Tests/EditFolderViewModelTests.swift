@@ -67,8 +67,8 @@ final class EditFolderViewModelTests: XCTestCase {
         
         editFolderViewModel(.selectParent(newParentFolder))
         
-        expect(self.foldersServiceMock).to(beCalled(.twice, on: "folderLabel(forId:)", withParameters: [parentId], onCallIndex: 1))
-        expect(self.foldersServiceMock).to(beCalled(.twice, on: "validate(folderLabel:folderParent:)", withParameters: [folderMock.label, parentId], onCallIndex: 1))
+        expect(self.foldersServiceMock).to(beCalled(.twice, on: "folderLabel(forId:)", withParameters: [parentId], atCallIndex: 1))
+        expect(self.foldersServiceMock).to(beCalled(.twice, on: "validate(folderLabel:folderParent:)", withParameters: [folderMock.label, parentId], atCallIndex: 1))
     }
     
     func testInit_whenFoldersServiceEmittingFolderLabel_thenSetsParentLabel() {
@@ -127,7 +127,7 @@ final class EditFolderViewModelTests: XCTestCase {
         
         editFolderViewModel[\.folderLabel] = newFolderLabel
         
-        expect(self.foldersServiceMock).to(beCalled(.twice, on: "validate(folderLabel:folderParent:)", withParameters: [newFolderLabel, folderMock.parent as Any], onCallIndex: 1))
+        expect(self.foldersServiceMock).to(beCalled(.twice, on: "validate(folderLabel:folderParent:)", withParameters: [newFolderLabel, folderMock.parent as Any], atCallIndex: 1))
     }
     
     func testInit_whenChangingFolderLabel_thenUpdatesEditIsValid() {

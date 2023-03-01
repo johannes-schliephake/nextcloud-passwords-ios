@@ -31,11 +31,11 @@ enum CallCount {
 
 
 func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil) -> Predicate<L> {
-    beCalled(callCount, on: expectedCall, withParameters: [], onCallIndex: nil)
+    beCalled(callCount, on: expectedCall, withParameters: [], atCallIndex: nil)
 }
 
 
-func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameters expectedParameters: [Any], onCallIndex parameterCallIndex: Int? = nil) -> Predicate<L> {
+func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameters expectedParameters: [Any], atCallIndex parameterCallIndex: Int? = nil) -> Predicate<L> {
     Predicate { expression in
         var message: ExpectationMessage
         if let expectedCall {
