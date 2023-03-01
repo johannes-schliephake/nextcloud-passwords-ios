@@ -1,5 +1,4 @@
 import SwiftUI
-import Factory
 
 
 struct SelectTagsPage: View {
@@ -202,10 +201,10 @@ extension SelectTagsPage {
 struct SelectTagsPagePreview: PreviewProvider {
     
     static var previews: some View {
-        let _ = Container.registerMocks()
+        // let _ = Container.registerMocks()
         PreviewDevice.generate {
             NavigationView {
-                SelectTagsPage(viewModel: SelectTagsViewModelMock().eraseToAnyViewModel())
+                //SelectTagsPage(viewModel: SelectTagsViewModelMock().eraseToAnyViewModel())
             }
             .showColumns(false)
         }

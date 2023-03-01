@@ -1,7 +1,7 @@
 import Foundation
 
 
-protocol ViewModel: ObservableObject { // swiftlint:disable:this file_types_order
+protocol ViewModel: ObservableObject {
     
     associatedtype State: ObservableObject
     associatedtype Action
@@ -13,7 +13,7 @@ protocol ViewModel: ObservableObject { // swiftlint:disable:this file_types_orde
 }
 
 
-extension ViewModel { // swiftlint:disable:this file_types_order
+extension ViewModel {
     
     var objectWillChange: State.ObjectWillChangePublisher {
         state.objectWillChange
@@ -39,28 +39,8 @@ extension ViewModel { // swiftlint:disable:this file_types_order
 }
 
 
-extension ViewModel where Action == Never { // swiftlint:disable:this file_types_order
+extension ViewModel where Action == Never {
     
     func callAsFunction(_ action: Action) {}
     
 }
-
-
-#if DEBUG
-
-class ViewModelMock<State: ObservableObject & Mock, Action>: ViewModel, Mock, FunctionCallLogging {
-    
-    let state: State
-    var functionCallLog = [(functionName: String, parameters: [Any])]()
-    
-    required init() {
-        state = .init()
-    }
-    
-    func callAsFunction(_ action: Action) {
-        logFunctionCall(parameters: [action])
-    }
-    
-}
-
-#endif

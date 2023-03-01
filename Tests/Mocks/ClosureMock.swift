@@ -1,6 +1,3 @@
-@testable import Passwords
-
-
 final class ClosureMock: FunctionCallLogging {
     
     var functionCallLog = [(functionName: String, parameters: [Any])]()

@@ -131,10 +131,10 @@ struct EditFolderPage: View {
 struct EditFolderPagePreview: PreviewProvider {
     
     static var previews: some View {
-        let _ = Container.registerMocks()
+        // let _ = Container.registerMocks()
         PreviewDevice.generate {
             NavigationView {
-                EditFolderPage(viewModel: EditFolderViewModelMock().eraseToAnyViewModel())
+                //EditFolderPage(viewModel: EditFolderViewModelMock().eraseToAnyViewModel())
             }
             .showColumns(false)
         }

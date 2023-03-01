@@ -1,5 +1,3 @@
-#if DEBUG
-
 protocol PropertyAccessLogging: AnyObject {
     
     var propertyAccessLog: [String] { get set }
@@ -14,5 +12,3 @@ extension PropertyAccessLogging {
     }
     
 }
-
-#endif

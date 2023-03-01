@@ -1,5 +1,3 @@
-#if DEBUG
-
 protocol FunctionCallLogging: AnyObject {
     
     typealias FunctionCall = (functionName: String, parameters: [Any])
@@ -20,5 +18,3 @@ extension FunctionCallLogging {
     }
     
 }
-
-#endif
