@@ -79,7 +79,7 @@ struct EditFolderPage: View {
                 Label(viewModel[\.parentLabel], systemImage: "folder")
             }
             .sheet(isPresented: $viewModel[\.showSelectFolderView]) {
-                SelectFolderNavigation(entriesController: Container.entriesController(), entry: .folder(viewModel[\.folder]), temporaryEntry: .folder(label: viewModel[\.folderLabel], parent: viewModel[\.folderParent]), selectFolder: {
+                SelectFolderNavigation(entriesController: Container.shared.entriesController(), entry: .folder(viewModel[\.folder]), temporaryEntry: .folder(label: viewModel[\.folderLabel], parent: viewModel[\.folderParent]), selectFolder: {
                     parent in
                     viewModel(.selectParent(parent))
                 })
@@ -131,7 +131,7 @@ struct EditFolderPage: View {
 struct EditFolderPagePreview: PreviewProvider {
     
     static var previews: some View {
-        // let _ = Container.registerMocks()
+        // let _ = Container.shared.registerMocks()
         PreviewDevice.generate {
             NavigationView {
                 //EditFolderPage(viewModel: EditFolderViewModelMock().eraseToAnyViewModel())

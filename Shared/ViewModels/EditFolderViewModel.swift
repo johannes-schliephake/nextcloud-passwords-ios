@@ -62,7 +62,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         case folderLabel
     }
     
-    @Injected(Container.foldersService) private var foldersService
+    @Injected(\.foldersService) private var foldersService
     
     let state: State
     

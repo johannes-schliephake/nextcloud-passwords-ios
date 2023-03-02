@@ -6,21 +6,21 @@ import Factory
 
 final class EditFolderViewModelTests: XCTestCase {
     
-    private let folderMock = Container.folder()
+    private let folderMock = Container.shared.folder()
     
     private let foldersServiceMock = FoldersServiceMock()
     
     override func setUp() {
         super.setUp()
         
-        Container.registerMocks()
-        Container.foldersService.register { self.foldersServiceMock }
+        Container.shared.registerMocks()
+        Container.shared.foldersService.register { self.foldersServiceMock }
     }
     
     override func tearDown() {
         super.tearDown()
         
-        Container.Registrations.reset()
+        Container.shared.manager.reset()
     }
     
     func testInit_givenExistingFolder_thenSetsInitialState() {

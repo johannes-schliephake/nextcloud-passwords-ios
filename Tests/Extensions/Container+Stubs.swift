@@ -4,11 +4,29 @@ import Factory
 
 extension Container {
     
-    static let password = Factory<Password>(scope: .shared) { .mock }
-    static let passwords = Factory<[Password]>(scope: .shared) { Password.mocks }
-    static let folder = Factory<Folder>(scope: .shared) { .mock }
-    static let folders = Factory<[Folder]>(scope: .shared) { Folder.mocks }
-    static let tag = Factory<Tag>(scope: .shared) { .mock }
-    static let tags = Factory<[Tag]>(scope: .shared) { Tag.mocks }
+    var password: Factory<Password> {
+        self { .mock }
+            .shared
+    }
+    var passwords: Factory<[Password]> {
+        self { Password.mocks }
+            .shared
+    }
+    var folder: Factory<Folder> {
+        self { .mock }
+            .shared
+    }
+    var folders: Factory<[Folder]> {
+        self { Folder.mocks }
+            .shared
+    }
+    var tag: Factory<Tag> {
+        self { .mock }
+            .shared
+    }
+    var tags: Factory<[Tag]> {
+        self { Tag.mocks }
+            .shared
+    }
     
 }

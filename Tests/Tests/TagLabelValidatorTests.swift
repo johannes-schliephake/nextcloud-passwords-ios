@@ -8,13 +8,13 @@ final class TagLabelValidatorTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        Container.registerMocks()
+        Container.shared.registerMocks()
     }
     
     override func tearDown() {
         super.tearDown()
         
-        Container.Registrations.reset()
+        Container.shared.manager.reset()
     }
     
     func testValidate_inputRangeOfLengths_allowedLengthsReturnTrue() {

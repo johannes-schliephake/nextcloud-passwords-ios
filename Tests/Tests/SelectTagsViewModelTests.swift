@@ -7,7 +7,7 @@ import Factory
 final class SelectTagsViewModelTests: XCTestCase {
     
     private let temporaryEntry: SelectTagsViewModel.TemporaryEntry = .password(label: .random(), username: .random(), url: .random(), tags: [.random()])
-    private let tagMocks = Container.tags()
+    private let tagMocks = Container.shared.tags()
     
     private let tagLabelValidatorMock = TagLabelValidatorMock()
     private let tagsServiceMock = TagsServiceMock()
@@ -15,15 +15,15 @@ final class SelectTagsViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        Container.registerMocks()
-        Container.tagLabelValidator.register { self.tagLabelValidatorMock }
-        Container.tagsService.register { self.tagsServiceMock }
+        Container.shared.registerMocks()
+        Container.shared.tagLabelValidator.register { self.tagLabelValidatorMock }
+        Container.shared.tagsService.register { self.tagsServiceMock }
     }
     
     override func tearDown() {
         super.tearDown()
         
-        Container.Registrations.reset()
+        Container.shared.manager.reset()
     }
     
     func testInit_thenSetsInitialState() {

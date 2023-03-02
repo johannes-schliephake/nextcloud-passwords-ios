@@ -15,7 +15,7 @@ protocol TagsServiceProtocol {
 // TODO: replace temporary implementation
 final class TagsService: TagsServiceProtocol {
     
-    @Injected(Container.entriesController) private var entriesController
+    @Injected(\.entriesController) private var entriesController
     
     lazy private(set) var tags = entriesController.objectDidChangeRecently
         .prepend(())

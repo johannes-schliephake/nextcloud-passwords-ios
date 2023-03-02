@@ -4,7 +4,7 @@ import Factory
 
 extension Container {
     
-    static func registerMocks() {
+    func registerMocks() {
         editFolderViewModelType.register { EditFolderViewModelMock.self }
         folderLabelValidator.register { FolderLabelValidatorMock() }
         foldersService.register { FoldersServiceMock() }

@@ -57,8 +57,8 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
         case addTagLabel
     }
     
-    @Injected(Container.tagsService) private var tagsService
-    @LazyInjected(Container.tagLabelValidator) private var tagLabelValidator
+    @Injected(\.tagsService) private var tagsService
+    @LazyInjected(\.tagLabelValidator) private var tagLabelValidator
     
     let state: State
     

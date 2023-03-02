@@ -201,7 +201,7 @@ extension SelectTagsPage {
 struct SelectTagsPagePreview: PreviewProvider {
     
     static var previews: some View {
-        // let _ = Container.registerMocks()
+        // let _ = Container.shared.registerMocks()
         PreviewDevice.generate {
             NavigationView {
                 //SelectTagsPage(viewModel: SelectTagsViewModelMock().eraseToAnyViewModel())

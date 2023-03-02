@@ -24,8 +24,8 @@ enum FolderApplyError: Error {
 // TODO: replace temporary implementation
 final class FoldersService: FoldersServiceProtocol {
     
-    @Injected(Container.entriesController) private var entriesController
-    @LazyInjected(Container.folderLabelValidator) private var folderLabelValidator
+    @Injected(\.entriesController) private var entriesController
+    @LazyInjected(\.folderLabelValidator) private var folderLabelValidator
     
     lazy private(set) var folders = entriesController.objectDidChangeRecently
         .prepend(())
