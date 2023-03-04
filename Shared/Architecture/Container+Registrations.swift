@@ -6,8 +6,8 @@ extension Container {
     var editFolderViewModelType: Factory<any EditFolderViewModelProtocol.Type> {
         self { EditFolderViewModel.self }
     }
-    var folderLabelValidator: Factory<any FolderLabelValidating> {
-        self { FolderLabelValidator() }
+    var folderValidationService: Factory<any FolderValidationServiceProtocol> {
+        self { FolderValidationService() }
             .singleton
     }
     var foldersService: Factory<any FoldersServiceProtocol> {
@@ -17,8 +17,8 @@ extension Container {
     var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {
         self { SelectTagsViewModel.self }
     }
-    var tagLabelValidator: Factory<any TagLabelValidating> {
-        self { TagLabelValidator() }
+    var tagValidationService: Factory<any TagValidationServiceProtocol> {
+        self { TagValidationService() }
             .singleton
     }
     var tagsService: Factory<any TagsServiceProtocol> {

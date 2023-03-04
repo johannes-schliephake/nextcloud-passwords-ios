@@ -9,15 +9,15 @@ final class SelectTagsViewModelTests: XCTestCase {
     private let temporaryEntry: SelectTagsViewModel.TemporaryEntry = .password(label: .random(), username: .random(), url: .random(), tags: [.random()])
     private let tagMocks = Container.shared.tags()
     
-    private let tagLabelValidatorMock = TagLabelValidatorMock()
     private let tagsServiceMock = TagsServiceMock()
+    private let tagValidationServiceMock = TagValidationServiceMock()
     
     override func setUp() {
         super.setUp()
         
         Container.shared.registerMocks()
-        Container.shared.tagLabelValidator.register { self.tagLabelValidatorMock }
         Container.shared.tagsService.register { self.tagsServiceMock }
+        Container.shared.tagValidationService.register { self.tagValidationServiceMock }
     }
     
     override func tearDown() {
@@ -80,20 +80,20 @@ final class SelectTagsViewModelTests: XCTestCase {
         expect(selectTagsViewModel[\.focusedField]).to(equal(.addTagLabel))
     }
     
-    func testCallAsFunction_whenCallingAddTag_thenCallsTagLabelValidator() {
+    func testCallAsFunction_whenCallingAddTag_thenCallsTagValidationService() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         let newTagLabel = String.random()
         selectTagsViewModel[\.tagLabel] = newTagLabel
         
         selectTagsViewModel(.addTag)
         
-        expect(self.tagLabelValidatorMock).to(beCalled(.once, on: "validate(_:)", withParameters: [newTagLabel]))
+        expect(self.tagValidationServiceMock).to(beCalled(.once, on: "validate(label:)", withParameters: [newTagLabel]))
     }
     
     func testCallAsFunction_givenValidTagLabel_whenCallingAddTag_thenClearsTagLabel() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         selectTagsViewModel[\.tagLabel] = .random()
-        tagLabelValidatorMock._validateEntity = true
+        tagValidationServiceMock._validate = true
         
         selectTagsViewModel(.addTag)
         
@@ -103,7 +103,7 @@ final class SelectTagsViewModelTests: XCTestCase {
     func testCallAsFunction_givenInvalidTagLabel_whenCallingAddTag_thenDoesntClearTagLabel() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         selectTagsViewModel[\.tagLabel] = .random()
-        tagLabelValidatorMock._validateEntity = false
+        tagValidationServiceMock._validate = false
         
         selectTagsViewModel(.addTag)
         
@@ -114,7 +114,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         let newTagLabel = String.random()
         selectTagsViewModel[\.tagLabel] = newTagLabel
-        tagLabelValidatorMock._validateEntity = true
+        tagValidationServiceMock._validate = true
         
         selectTagsViewModel(.addTag)
         
@@ -126,7 +126,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         let initialFunctionCallCount = tagsServiceMock.functionCallLog.count
         let newTagLabel = String.random()
         selectTagsViewModel[\.tagLabel] = newTagLabel
-        tagLabelValidatorMock._validateEntity = false
+        tagValidationServiceMock._validate = false
         
         selectTagsViewModel(.addTag)
         
@@ -137,7 +137,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         let newTagLabel = String.random()
         selectTagsViewModel[\.tagLabel] = newTagLabel
-        tagLabelValidatorMock._validateEntity = true
+        tagValidationServiceMock._validate = true
         
         selectTagsViewModel(.addTag)
         
@@ -149,7 +149,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         let newTagLabel = String.random()
         selectTagsViewModel[\.tagLabel] = newTagLabel
-        tagLabelValidatorMock._validateEntity = false
+        tagValidationServiceMock._validate = false
         
         selectTagsViewModel(.addTag)
         

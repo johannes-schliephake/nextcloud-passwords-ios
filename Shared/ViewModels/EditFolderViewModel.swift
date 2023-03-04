@@ -63,6 +63,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
     }
     
     @Injected(\.foldersService) private var foldersService
+    @Injected(\.folderValidationService) private var folderValidationService
     
     let state: State
     
@@ -101,7 +102,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
             state.$folderLabel,
             state.$folderParent
         )
-        .compactMap { self?.foldersService.validate(folderLabel: $0, folderParent: $1) }
+        .compactMap { self?.folderValidationService.validate(label: $0, parent: $1) }
         .sink { self?.state.editIsValid = $0 }
         .store(in: &cancellables)
     }

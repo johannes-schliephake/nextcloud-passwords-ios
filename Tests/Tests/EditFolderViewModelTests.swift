@@ -9,12 +9,14 @@ final class EditFolderViewModelTests: XCTestCase {
     private let folderMock = Container.shared.folder()
     
     private let foldersServiceMock = FoldersServiceMock()
+    private let folderValidationServiceMock = FolderValidationServiceMock()
     
     override func setUp() {
         super.setUp()
         
         Container.shared.registerMocks()
         Container.shared.foldersService.register { self.foldersServiceMock }
+        Container.shared.folderValidationService.register { self.folderValidationServiceMock }
     }
     
     override func tearDown() {
@@ -24,7 +26,7 @@ final class EditFolderViewModelTests: XCTestCase {
     }
     
     func testInit_givenExistingFolder_thenSetsInitialState() {
-        foldersServiceMock._validateFolderLabel = true
+        folderValidationServiceMock._validate = true
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
         
         expect(editFolderViewModel[\.folder]).to(be(folderMock))
@@ -42,7 +44,7 @@ final class EditFolderViewModelTests: XCTestCase {
     }
     
     func testInit_givenNewlyCreatedFolder_thenSetsInitialState() {
-        foldersServiceMock._validateFolderLabel = true
+        folderValidationServiceMock._validate = true
         let newFolder = Folder(label: .random(), parent: .random(), favorite: .random())
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: newFolder) { _ in }
         
@@ -68,7 +70,7 @@ final class EditFolderViewModelTests: XCTestCase {
         editFolderViewModel(.selectParent(newParentFolder))
         
         expect(self.foldersServiceMock).to(beCalled(.twice, on: "folderLabel(forId:)", withParameters: [parentId], atCallIndex: 1))
-        expect(self.foldersServiceMock).to(beCalled(.twice, on: "validate(folderLabel:folderParent:)", withParameters: [folderMock.label, parentId], atCallIndex: 1))
+        expect(self.folderValidationServiceMock).to(beCalled(.twice, on: "validate(label:parent:)", withParameters: [folderMock.label, parentId], atCallIndex: 1))
     }
     
     func testInit_whenFoldersServiceEmittingFolderLabel_thenSetsParentLabel() {
@@ -76,7 +78,7 @@ final class EditFolderViewModelTests: XCTestCase {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: newFolder) { _ in }
         let parentLabelMock = String.random()
         
-        foldersServiceMock._folderLabelForIdFolderId.send(parentLabelMock)
+        foldersServiceMock._folderLabel.send(parentLabelMock)
         
         expect(editFolderViewModel[\.parentLabel]).to(equal(parentLabelMock))
     }
@@ -127,14 +129,14 @@ final class EditFolderViewModelTests: XCTestCase {
         
         editFolderViewModel[\.folderLabel] = newFolderLabel
         
-        expect(self.foldersServiceMock).to(beCalled(.twice, on: "validate(folderLabel:folderParent:)", withParameters: [newFolderLabel, folderMock.parent as Any], atCallIndex: 1))
+        expect(self.folderValidationServiceMock).to(beCalled(.twice, on: "validate(label:parent:)", withParameters: [newFolderLabel, folderMock.parent as Any], atCallIndex: 1))
     }
     
     func testInit_whenChangingFolderLabel_thenUpdatesEditIsValid() {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
         let validateFolderLabelMock = Bool.random()
         let newFolderLabel = String.random()
-        foldersServiceMock._validateFolderLabel = validateFolderLabelMock
+        folderValidationServiceMock._validate = validateFolderLabelMock
         
         editFolderViewModel[\.folderLabel] = newFolderLabel
         
@@ -146,7 +148,7 @@ final class EditFolderViewModelTests: XCTestCase {
         let validateFolderLabelMock = Bool.random()
         let parentId = String.random()
         let newParentFolder = Folder(id: parentId, parent: nil)
-        foldersServiceMock._validateFolderLabel = validateFolderLabelMock
+        folderValidationServiceMock._validate = validateFolderLabelMock
         
         editFolderViewModel(.selectParent(newParentFolder))
         
@@ -223,7 +225,7 @@ final class EditFolderViewModelTests: XCTestCase {
     func testCallAsFunction_givenError_whenCallingApplyToFolder_thenDoesntCallDidEdit() {
         let closure = ClosureMock()
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock, didEdit: closure.log)
-        foldersServiceMock._applyTo = .failure(.validationFailed)
+        foldersServiceMock._apply = .failure(.validationFailed)
         
         editFolderViewModel(.applyToFolder)
         
@@ -238,7 +240,7 @@ final class EditFolderViewModelTests: XCTestCase {
     
     func testCallAsFunction_givenError_whenCallingApplyToFolder_thenShouldDismissDoesntEmit() {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
-        foldersServiceMock._applyTo = .failure(.validationFailed)
+        foldersServiceMock._apply = .failure(.validationFailed)
         
         expect(editFolderViewModel[\.shouldDismiss]).toNot(emit(when: { editFolderViewModel(.applyToFolder) }))
     }

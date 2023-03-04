@@ -8,7 +8,6 @@ protocol FoldersServiceProtocol {
     var folders: AnyPublisher<[Folder], Never> { get }
     
     func folderLabel(forId folderId: String?) -> AnyPublisher<String, Never>
-    func validate(folderLabel: String, folderParent: String?) -> Bool
     func apply(to folder: Folder, folderLabel: String, folderFavorite: Bool, folderParent: String?) throws
     func delete(folder: Folder)
     
@@ -25,7 +24,7 @@ enum FolderApplyError: Error {
 final class FoldersService: FoldersServiceProtocol {
     
     @Injected(\.entriesController) private var entriesController
-    @LazyInjected(\.folderLabelValidator) private var folderLabelValidator
+    @LazyInjected(\.folderValidationService) private var folderValidationService
     
     lazy private(set) var folders = entriesController.objectDidChangeRecently
         .prepend(())
@@ -40,13 +39,8 @@ final class FoldersService: FoldersServiceProtocol {
             .eraseToAnyPublisher()
     }
     
-    func validate(folderLabel: String, folderParent: String?) -> Bool {
-        folderLabelValidator.validate(folderLabel)
-            && (folderParent == Entry.baseId || entriesController.folders?.contains { $0.id == folderParent } == true)
-    }
-    
     func apply(to folder: Folder, folderLabel: String, folderFavorite: Bool, folderParent: String?) throws {
-        guard validate(folderLabel: folderLabel, folderParent: folderParent) else {
+        guard folderValidationService.validate(label: folderLabel, parent: folderParent) else {
             throw FolderApplyError.validationFailed
         }
         guard folder.isIdLocallyAvailable else {

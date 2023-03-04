@@ -6,10 +6,10 @@ extension Container {
     
     func registerMocks() {
         editFolderViewModelType.register { EditFolderViewModelMock.self }
-        folderLabelValidator.register { FolderLabelValidatorMock() }
+        folderValidationService.register { FolderValidationServiceMock() }
         foldersService.register { FoldersServiceMock() }
         selectTagsViewModelType.register { SelectTagsViewModelMock.self }
-        tagLabelValidator.register { TagLabelValidatorMock() }
+        tagValidationService.register { TagValidationServiceMock() }
         tagsService.register { TagsServiceMock() }
         
         // TODO: remove

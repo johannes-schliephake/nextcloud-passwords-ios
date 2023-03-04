@@ -58,7 +58,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
     }
     
     @Injected(\.tagsService) private var tagsService
-    @LazyInjected(\.tagLabelValidator) private var tagLabelValidator
+    @LazyInjected(\.tagValidationService) private var tagValidationService
     
     let state: State
     
@@ -124,7 +124,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
     func callAsFunction(_ action: Action) {
         switch action {
         case .addTag:
-            guard tagLabelValidator.validate(state.tagLabel) else {
+            guard tagValidationService.validate(label: state.tagLabel) else {
                 return
             }
             let tag = Tag(label: state.tagLabel, client: Configuration.clientName, edited: Date(), created: Date(), updated: Date())
