@@ -34,7 +34,7 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
 }
 
 
-func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameters expectedParameters: [Any], atCallIndex parameterCallIndex: Int? = nil) -> Predicate<L> {
+func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameters expectedParameters: [any Equatable], atCallIndex parameterCallIndex: Int? = nil) -> Predicate<L> {
     Predicate { expression in
         var message: ExpectationMessage
         if let expectedCall {
@@ -59,9 +59,7 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
         if callCount.rawValue > 0,
            calls.count != callCount.rawValue {
             return .init(status: .doesNotMatch, message: message.appended(message: ", but got called \(calls.count) times"))
-        }
-        
-        if calls.isEmpty {
+        } else if calls.isEmpty {
             return .init(status: .doesNotMatch, message: message.appended(message: ", but didn't"))
         }
         
@@ -69,7 +67,7 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
             return .init(status: .matches, message: message)
         }
         
-        let parameters: [[Any]]
+        let parameters: [[any Equatable]]
         if let parameterCallIndex {
             parameters = [calls[parameterCallIndex].parameters]
         } else {
@@ -78,13 +76,24 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
         guard parameters.map(\.count).allSatisfy({ $0 == expectedParameters.count }) else {
             return .init(status: .doesNotMatch, message: message.appended(message: ", but parameter count doesn't match"))
         }
-        guard parameters.allSatisfy({
-            zip($0, expectedParameters).allSatisfy { parameter, expectedParameter in
-                return stringify(parameter) == stringify(expectedParameter)
-            }
-        }) else {
+        guard parameters.allSatisfy({ compare($0, to: expectedParameters) }) else {
             return .init(status: .doesNotMatch, message: message.appended(message: ", but parameters don't match"))
         }
         return .init(status: .matches, message: message)
     }
+}
+
+
+private func compare(_ equatables: [any Equatable], to expected: [any Equatable]) -> Bool {
+    for (equatable, expected) in zip(equatables, expected) {
+        guard compare(equatable, to: expected) else {
+            return false
+        }
+    }
+    return true
+}
+
+
+private func compare<E: Equatable>(_ equatable: E, to expected: some Equatable) -> Bool {
+    equatable == expected as? E
 }

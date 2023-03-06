@@ -1,6 +1,6 @@
 protocol FunctionCallLogging: AnyObject {
     
-    typealias FunctionCall = (functionName: String, parameters: [Any])
+    typealias FunctionCall = (functionName: String, parameters: [any Equatable])
     
     var functionCallLog: [FunctionCall] { get set }
     
@@ -13,7 +13,7 @@ extension FunctionCallLogging {
         functionCallLog.filter { $0.functionName == functionName }
     }
     
-    func logFunctionCall(of functionName: String = #function, parameters: [Any] = []) {
+    func logFunctionCall(of functionName: String = #function, parameters: any Equatable...) {
         functionCallLog.append((functionName: functionName, parameters: parameters))
     }
     
