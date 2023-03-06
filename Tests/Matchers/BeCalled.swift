@@ -38,7 +38,7 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
     Predicate { expression in
         var message: ExpectationMessage
         if let expectedCall {
-            message = .expectedTo("call <\(stringify(expectedCall))>")
+            message = .expectedTo("call <\(expectedCall)>")
         } else {
             message = .expectedTo("call")
         }
@@ -59,7 +59,8 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
         if callCount.rawValue > 0,
            calls.count != callCount.rawValue {
             return .init(status: .doesNotMatch, message: message.appended(message: ", but got called \(calls.count) times"))
-        } else if calls.isEmpty {
+        }
+        if calls.isEmpty {
             return .init(status: .doesNotMatch, message: message.appended(message: ", but didn't"))
         }
         

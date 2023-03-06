@@ -430,6 +430,7 @@
 		DDBE8AB629B3FEFF0054F179 /* TagValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */; };
 		DDBE8AB729B3FEFF0054F179 /* TagValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */; };
 		DDBE8AB829B3FEFF0054F179 /* TagValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */; };
+		DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB929B68D100054F179 /* BeAccessed.swift */; };
 		DDC7C94428C1F2E700451B81 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* LoggingController.swift */; };
 		DDC7C94528C1F2E700451B81 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* LoggingController.swift */; };
 		DDC7C94628C1F2E700451B81 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* LoggingController.swift */; };
@@ -756,6 +757,7 @@
 		DDBD6EA32702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderValidationService.swift; sourceTree = "<group>"; };
 		DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagValidationService.swift; sourceTree = "<group>"; };
+		DDBE8AB929B68D100054F179 /* BeAccessed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeAccessed.swift; sourceTree = "<group>"; };
 		DDC7C94328C1F2E700451B81 /* LoggingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingController.swift; sourceTree = "<group>"; };
 		DDC7C94728C1FA3A00451B81 /* Bundle+IsTestFlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+IsTestFlight.swift"; sourceTree = "<group>"; };
 		DDC7C94B28C20D1B00451B81 /* LogPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPage.swift; sourceTree = "<group>"; };
@@ -1259,6 +1261,7 @@
 		DD5E99EF29AAA14A00A7A4B9 /* Matchers */ = {
 			isa = PBXGroup;
 			children = (
+				DDBE8AB929B68D100054F179 /* BeAccessed.swift */,
 				DD5E99F229AB6D3700A7A4B9 /* BeCalled.swift */,
 				DD5E99F029AAA15500A7A4B9 /* Emit.swift */,
 			);
@@ -1969,6 +1972,7 @@
 				DD0B7AF32972CFE400A59E3C /* EditFolderViewModelTests.swift in Sources */,
 				DD7BC52629AFFDC3004AA7BC /* SelectTagsViewModelMock.swift in Sources */,
 				DD5E99F329AB6D3700A7A4B9 /* BeCalled.swift in Sources */,
+				DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */,
 				DD7BC51E29AFFCCF004AA7BC /* TagValidationServiceMock.swift in Sources */,
 				DDF4137A2954C28100B886EB /* ScoreTests.swift in Sources */,
 				DD7BC52229AFFD33004AA7BC /* TagsServiceMock.swift in Sources */,
