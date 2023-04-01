@@ -98,8 +98,8 @@ struct PasswordDetailPage: View {
                 }
                 .listRowBackground(Color(UIColor.systemGroupedBackground))
                 .id("top")
-                if let tags = entriesController.tags,
-                   let validTags = EntriesController.tags(for: password.tags, in: tags).valid {
+                if let tags = entriesController.tags {
+                    let validTags = EntriesController.tags(for: password.tags, in: tags).valid
                     tagsSection(validTags: validTags)
                         .listRowBackground(Color(UIColor.systemGroupedBackground))
                 }

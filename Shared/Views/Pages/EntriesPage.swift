@@ -1053,25 +1053,26 @@ extension EntriesPage {
                         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
                     else {
-                        if let tags = entriesController.tags,
-                           let validTags = EntriesController.tags(for: password.tags, in: tags).valid,
-                           !validTags.isEmpty {
-                            HStack(spacing: -6) {
-                                ForEach(Array(validTags.sortedByLabel().prefix(10).enumerated()), id: \.element.id) {
-                                    index, tag in
-                                    Circle()
-                                        .stroke(Color(UIColor.systemBackground), lineWidth: 2)
-                                        .background(
-                                            Circle()
-                                                .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
-                                                .background(
-                                                    Circle()
-                                                        .fill(Color(hex: tag.color) ?? .primary)
-                                                )
-                                                .frame(width: 14, height: 14)
-                                        )
-                                        .zIndex(Double(validTags.count - index))
-                                        .frame(width: 16, height: 16)
+                        if let tags = entriesController.tags {
+                            let validTags = EntriesController.tags(for: password.tags, in: tags).valid
+                            if !validTags.isEmpty {
+                                HStack(spacing: -6) {
+                                    ForEach(Array(validTags.sortedByLabel().prefix(10).enumerated()), id: \.element.id) {
+                                        index, tag in
+                                        Circle()
+                                            .stroke(Color(UIColor.systemBackground), lineWidth: 2)
+                                            .background(
+                                                Circle()
+                                                    .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
+                                                    .background(
+                                                        Circle()
+                                                            .fill(Color(hex: tag.color) ?? .primary)
+                                                    )
+                                                    .frame(width: 14, height: 14)
+                                            )
+                                            .zIndex(Double(validTags.count - index))
+                                            .frame(width: 16, height: 16)
+                                    }
                                 }
                             }
                         }
