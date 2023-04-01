@@ -27,20 +27,20 @@ final class Keychain {
         guard let dataFromString = value.data(using: .utf8) else {
             return
         }
-        var attributes = [kSecAttrService: service,
+        var attributes: [CFString: Any] = [kSecAttrService: service,
                           kSecAttrAccessGroup: accessGroup,
                           kSecClass: kSecClassGenericPassword,
-                          kSecAttrAccount: key] as CFDictionary
-        let attributesToUpdate = [kSecValueData: dataFromString] as CFDictionary
-        let status = SecItemUpdate(attributes, attributesToUpdate)
+                          kSecAttrAccount: key]
+        let attributesToUpdate: [CFString: Any] = [kSecValueData: dataFromString]
+        let status = SecItemUpdate(attributes as CFDictionary, attributesToUpdate as CFDictionary)
         
         if status == errSecItemNotFound {
             attributes = [kSecAttrService: service,
                           kSecAttrAccessGroup: accessGroup,
                           kSecClass: kSecClassGenericPassword,
                           kSecAttrAccount: key,
-                          kSecValueData: dataFromString] as CFDictionary
-            SecItemAdd(attributes, nil)
+                          kSecValueData: dataFromString]
+            SecItemAdd(attributes as CFDictionary, nil)
         }
     }
     
@@ -49,14 +49,14 @@ final class Keychain {
             return nil
         }
         
-        let attributes = [kSecAttrService: service,
+        let attributes: [CFString: Any] = [kSecAttrService: service,
                           kSecAttrAccessGroup: accessGroup,
                           kSecClass: kSecClassGenericPassword,
                           kSecAttrAccount: key,
                           kSecReturnData: kCFBooleanTrue!,
-                          kSecMatchLimit: kSecMatchLimitOne] as CFDictionary
+                          kSecMatchLimit: kSecMatchLimitOne]
         var result: AnyObject?
-        let status = SecItemCopyMatching(attributes, &result)
+        let status = SecItemCopyMatching(attributes as CFDictionary, &result)
         
         guard status == errSecSuccess,
               let data = result as? Data else {
@@ -70,11 +70,11 @@ final class Keychain {
             return
         }
         
-        let attributes = [kSecAttrService: service,
+        let attributes: [CFString: Any] = [kSecAttrService: service,
                           kSecAttrAccessGroup: accessGroup,
                           kSecClass: kSecClassGenericPassword,
-                          kSecAttrAccount: key] as CFDictionary
-        SecItemDelete(attributes)
+                          kSecAttrAccount: key]
+        SecItemDelete(attributes as CFDictionary)
     }
     
     func clear() {
@@ -82,10 +82,10 @@ final class Keychain {
             return
         }
         
-        let attributes = [kSecAttrService: service,
+        let attributes: [CFString: Any] = [kSecAttrService: service,
                           kSecAttrAccessGroup: accessGroup,
-                          kSecClass: kSecClassGenericPassword] as CFDictionary
-        SecItemDelete(attributes)
+                          kSecClass: kSecClassGenericPassword]
+        SecItemDelete(attributes as CFDictionary)
     }
     
 }
