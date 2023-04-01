@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hmlongco/Factory",
       "state" : {
-        "revision" : "718466174b5e8eb0dc6548260f447d2b5b639111",
-        "version" : "2.0.0"
+        "revision" : "86c72fccbc8b4f978b46c629c46038d2e59a62f1",
+        "version" : "2.1.2"
       }
     },
     {
