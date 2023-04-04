@@ -35,11 +35,20 @@ extension URL {
         let reversedHostScore = searchHost.score(searchTerm: host, penalty: penalty * 0.6) * 0.85
         var score = max(hostScore, reversedHostScore)
         
+        /// Penalize non-equal ports
+        if port != searchUrl.port {
+            score *= 0.8
+        }
+        
         if relativeReference.isEmpty {
-            /// Only scoring host with host, but they aren't equal
-            score *= searchUrl.relativeReference.isEmpty
-                ? 0.85
-                : 0.8 /// The URL has a relative reference but the search URL hasn't
+            if hostScore < 1 {
+                /// Hosts arent matching
+                score *= 0.85
+            }
+            if !searchUrl.relativeReference.isEmpty {
+                /// The URL has a relative reference but the search URL hasn't
+                score *= 0.95
+            }
         }
         else {
             /// Reduce host score to account for the relative reference, if the search URL has one
