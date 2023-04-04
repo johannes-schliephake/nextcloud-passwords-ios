@@ -172,13 +172,20 @@ class LogicTests: XCTestCase {
         XCTAssertEqual(0.65, URL(string: "https://example.com")!.score(searchUrl: URL(string: "https://cloud.example.com")!), accuracy: 0.05)
         
         XCTAssertEqual(1.0, URL(string: "https://cloud.example.com/index.php/login?redirect_url=/index.php/apps/files")!.score(searchUrl: URL(string: "https://cloud.example.com/index.php/login?redirect_url=/index.php/apps/files")!), accuracy: 0.05)
-        XCTAssertEqual(0.8, URL(string: "https://cloud.example.com/index.php/login?redirect_url=/index.php/apps/files")!.score(searchUrl: URL(string: "https://cloud.example.com")!), accuracy: 0.05)
-        XCTAssertEqual(0.7, URL(string: "https://cloud.example.com")!.score(searchUrl: URL(string: "https://cloud.example.com/index.php/login?redirect_url=/index.php/apps/files")!), accuracy: 0.05)
+        XCTAssertEqual(0.95, URL(string: "https://cloud.example.com")!.score(searchUrl: URL(string: "https://cloud.example.com/index.php/login?redirect_url=/index.php/apps/files")!), accuracy: 0.05)
+        XCTAssertEqual(0.7, URL(string: "https://cloud.example.com/index.php/login?redirect_url=/index.php/apps/files")!.score(searchUrl: URL(string: "https://cloud.example.com")!), accuracy: 0.05)
         
-        XCTAssertEqual(0.7, URL(string: "https://cloud.example.com/index.php/login?redirect_url=/index.php/apps/files")!.score(searchUrl: URL(string: "https://example.com")!), accuracy: 0.05)
-        XCTAssertEqual(0.6, URL(string: "https://cloud.example.com")!.score(searchUrl: URL(string: "https://example.com/index.php/login?redirect_url=/index.php/apps/files")!), accuracy: 0.05)
-        XCTAssertEqual(0.6, URL(string: "https://example.com/index.php/login?redirect_url=/index.php/apps/files")!.score(searchUrl: URL(string: "https://cloud.example.com")!), accuracy: 0.05)
-        XCTAssertEqual(0.5, URL(string: "https://example.com")!.score(searchUrl: URL(string: "https://cloud.example.com/index.php/login?redirect_url=/index.php/apps/files")!), accuracy: 0.05)
+        XCTAssertEqual(0.7, URL(string: "https://cloud.example.com")!.score(searchUrl: URL(string: "https://example.com/index.php/login?redirect_url=/index.php/apps/files")!), accuracy: 0.05)
+        XCTAssertEqual(0.65, URL(string: "https://cloud.example.com/index.php/login?redirect_url=/index.php/apps/files")!.score(searchUrl: URL(string: "https://example.com")!), accuracy: 0.05)
+        XCTAssertEqual(0.6, URL(string: "https://example.com")!.score(searchUrl: URL(string: "https://cloud.example.com/index.php/login?redirect_url=/index.php/apps/files")!), accuracy: 0.05)
+        XCTAssertEqual(0.55, URL(string: "https://example.com/index.php/login?redirect_url=/index.php/apps/files")!.score(searchUrl: URL(string: "https://cloud.example.com")!), accuracy: 0.05)
+        
+        XCTAssertEqual(1.0, URL(string: "https://cloud.example.com:1234")!.score(searchUrl: URL(string: "https://cloud.example.com:1234")!), accuracy: 0.05)
+        XCTAssertEqual(0.8, URL(string: "https://cloud.example.com:1234")!.score(searchUrl: URL(string: "https://cloud.example.com:4321")!), accuracy: 0.05)
+        XCTAssertEqual(0.8, URL(string: "https://cloud.example.com:1234")!.score(searchUrl: URL(string: "https://cloud.example.com")!), accuracy: 0.05)
+        XCTAssertEqual(0.8, URL(string: "https://cloud.example.com")!.score(searchUrl: URL(string: "https://cloud.example.com:1234")!), accuracy: 0.05)
+        XCTAssertEqual(0.6, URL(string: "https://cloud.example.com")!.score(searchUrl: URL(string: "https://example.com:1234")!), accuracy: 0.05)
+        XCTAssertEqual(0.5, URL(string: "https://example.com")!.score(searchUrl: URL(string: "https://cloud.example.com:1234")!), accuracy: 0.05)
     }
     
 }
