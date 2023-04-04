@@ -35,9 +35,9 @@ extension URL {
         let reversedHostScore = searchHost.score(searchTerm: host, penalty: penalty * 0.6) * 0.85
         var score = max(hostScore, reversedHostScore)
         
-        if searchUrl.relativeReference.isEmpty {
+        if relativeReference.isEmpty {
             /// Only scoring host with host, but they aren't equal
-            score *= relativeReference.isEmpty
+            score *= searchUrl.relativeReference.isEmpty
                 ? 0.85
                 : 0.8 /// The URL has a relative reference but the search URL hasn't
         }
