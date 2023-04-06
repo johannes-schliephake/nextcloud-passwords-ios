@@ -277,6 +277,7 @@
 /* I.e. password suggestions when using Password AutoFill */
 "_suggestions" = "Suggestions";
 "_supportThisProject" = "Support This Project";
+"_supportThisProjectMessage" = "The TestFlight version of this app is installed. Any purchases made are for testing purposes only and won't be billed.";
 
 /* This refers to the noun ("the tag") */
 "_tag" = "Tag";
