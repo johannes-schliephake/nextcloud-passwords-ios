@@ -151,6 +151,7 @@ internal enum Strings {
   internal static let strength = Strings.tr("Localizable", "_strength", fallback: "Strength")
   internal static let suggestions = Strings.tr("Localizable", "_suggestions", fallback: "Suggestions")
   internal static let supportThisProject = Strings.tr("Localizable", "_supportThisProject", fallback: "Support This Project")
+  internal static let supportThisProjectMessage = Strings.tr("Localizable", "_supportThisProjectMessage", fallback: "The TestFlight version of this app is installed. Any purchases made are for testing purposes only and won't be billed.")
   internal static let tag = Strings.tr("Localizable", "_tag", fallback: "Tag")
   internal static let tags = Strings.tr("Localizable", "_tags", fallback: "Tags")
   internal static let text = Strings.tr("Localizable", "_text", fallback: "Text")

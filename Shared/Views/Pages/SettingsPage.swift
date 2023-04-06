@@ -89,7 +89,7 @@ struct SettingsPage: View {
     }
     
     private func supportThisProjectSection() -> some View {
-        Section(header: Text("_supportThisProject")) {
+        Section(header: Text("_supportThisProject"), footer: supportThisProjectFooter()) {
             Menu {
                 if let products = tipController.products {
                     ForEach(products, id: \.productIdentifier) {
@@ -122,6 +122,12 @@ struct SettingsPage: View {
                     Label(Strings.joinTestFlightBeta, systemImage: "testtube.2")
                 }
             }
+        }
+    }
+    
+    @ViewBuilder private func supportThisProjectFooter() -> some View {
+        if Bundle.root.isTestFlight {
+            Text(Strings.supportThisProjectMessage)
         }
     }
     
