@@ -160,3 +160,4 @@
 /* Make sure to keep newlines (\n) and the placeholder (%@) */
 "_connectingToNextcloudInstanceAt(url)" = "Připojování k instanci Nextcloud na\n%@";
 "_managedServerUrlErrorMessage" = "Adresa Nextcloud serveru byla předem nastavena, ale aplikaci se nepodařilo se k této instanci Nextcloud připojit. Obraťte se na správce.";
+"_supportThisProjectMessage" = "Je nainstalována testovací vývojová verze této aplikace. Jakékoli nákupy slouží pouze testovacím účelům a nebudou účtovány.";
