@@ -15,4 +15,4 @@ body:
   - type: textarea
     attributes:
       label: Rationale
-      description: Describe why this feature is important for you and how it would befenit other users.
+      description: Describe why this feature is important for you and how it would benefit other users.
