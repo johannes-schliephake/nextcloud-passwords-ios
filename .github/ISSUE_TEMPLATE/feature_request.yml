@@ -1,0 +1,18 @@
+name: 🚀 Feature Request
+description: Suggest an idea
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please take the time to fill out this feature request as detailed as possible. This will help to understand your idea and the resulting requirements.
+  - type: textarea
+    attributes:
+      label: Feature Description
+      description: Describe in detail what the feature should do.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Rationale
+      description: Describe why this feature is important for you and how it would befenit other users.
