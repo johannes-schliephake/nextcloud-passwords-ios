@@ -3,8 +3,6 @@ import Foundation
 
 final class ClosureMock: FunctionCallLogging {
     
-    var functionCallLog = [(functionName: String, parameters: [any Equatable])]()
-    
     func log() {
         logFunctionCall(of: "")
     }

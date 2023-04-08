@@ -1,15 +1,40 @@
+import ObjectiveC.runtime
+
+
 protocol FunctionCallLogging: AnyObject {
     
-    typealias FunctionCall = (functionName: String, parameters: [any Equatable])
+    typealias Log = [(functionName: String, parameters: [any Equatable])]
     
-    var functionCallLog: [FunctionCall] { get set }
+    var functionCallLog: Log { get set }
+    
+}
+
+
+private var kFunctionCallLog = "kFunctionCallLog"
+
+
+extension FunctionCallLogging {
+    
+    var functionCallLog: Log {
+        get {
+            guard let functionCallLog = objc_getAssociatedObject(self, &kFunctionCallLog) as? Log else {
+                let functionCallLog = Log()
+                self.functionCallLog = functionCallLog
+                return functionCallLog
+            }
+            return functionCallLog
+        }
+        set {
+            objc_setAssociatedObject(self, &kFunctionCallLog, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+    }
     
 }
 
 
 extension FunctionCallLogging {
     
-    func functionCallLog(of functionName: String) -> [FunctionCall] {
+    func functionCallLog(of functionName: String) -> Log {
         functionCallLog.filter { $0.functionName == functionName }
     }
     

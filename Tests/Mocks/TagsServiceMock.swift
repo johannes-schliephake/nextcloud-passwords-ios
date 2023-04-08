@@ -5,9 +5,6 @@ import Combine
 
 final class TagsServiceMock: TagsServiceProtocol, Mock, PropertyAccessLogging, FunctionCallLogging {
     
-    var propertyAccessLog = [String]()
-    var functionCallLog = [(functionName: String, parameters: [any Equatable])]()
-    
     let _tags = PassthroughSubject<[Tag], Never>() // swiftlint:disable:this identifier_name
     var tags: AnyPublisher<[Tag], Never> {
         logPropertyAccess()

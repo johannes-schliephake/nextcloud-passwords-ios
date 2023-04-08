@@ -44,7 +44,7 @@ func beAccessed<L: PropertyAccessLogging>(_ accessCount: AccessCount = .anyNumbe
         guard let propertyAccessLogger = try expression.evaluate() else {
             return .init(status: .fail, message: message.appendedBeNilHint())
         }
-        let accesses: [PropertyAccessLogging.PropertyAccess]
+        let accesses: PropertyAccessLogging.Log
         if let expectedAccess {
             accesses = propertyAccessLogger.propertyAccessLog(of: expectedAccess)
         } else {

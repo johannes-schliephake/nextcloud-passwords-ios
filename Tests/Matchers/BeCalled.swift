@@ -49,7 +49,7 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
         guard let functionCallLogger = try expression.evaluate() else {
             return .init(status: .fail, message: message.appendedBeNilHint())
         }
-        let calls: [FunctionCallLogging.FunctionCall]
+        let calls: FunctionCallLogging.Log
         if let expectedCall {
             calls = functionCallLogger.functionCallLog(of: expectedCall)
         } else {

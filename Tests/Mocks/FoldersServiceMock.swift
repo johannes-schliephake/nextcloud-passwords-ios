@@ -5,9 +5,6 @@ import Combine
 
 final class FoldersServiceMock: FoldersServiceProtocol, Mock, PropertyAccessLogging, FunctionCallLogging {
     
-    var propertyAccessLog = [String]()
-    var functionCallLog = [(functionName: String, parameters: [any Equatable])]()
-    
     let _folders = PassthroughSubject<[Folder], Never>() // swiftlint:disable:this identifier_name
     var folders: AnyPublisher<[Folder], Never> {
         logPropertyAccess()
