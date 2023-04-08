@@ -124,22 +124,3 @@ struct EditFolderPage: View {
     }
     
 }
-
-
-#if DEBUG
-
-struct EditFolderPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        // let _ = Container.shared.registerMocks()
-        PreviewDevice.generate {
-            NavigationView {
-                //EditFolderPage(viewModel: EditFolderViewModelMock().eraseToAnyViewModel())
-            }
-            .showColumns(false)
-        }
-    }
-    
-}
-
-#endif

@@ -8,28 +8,28 @@ extension Container {
     }
     var folderValidationService: Factory<any FolderValidationServiceProtocol> {
         self { FolderValidationService() }
-            .singleton
+            .cached
     }
     var foldersService: Factory<any FoldersServiceProtocol> {
         self { FoldersService() }
-            .singleton
+            .cached
     }
     var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {
         self { SelectTagsViewModel.self }
     }
     var tagValidationService: Factory<any TagValidationServiceProtocol> {
         self { TagValidationService() }
-            .singleton
+            .cached
     }
     var tagsService: Factory<any TagsServiceProtocol> {
         self { TagsService() }
-            .singleton
+            .cached
     }
     
     // TODO: remove
     var entriesController: Factory<EntriesController> {
         self { .init() }
-            .singleton
+            .cached
     }
     
 }

@@ -7,18 +7,10 @@ import Factory
 final class SelectTagsViewModelTests: XCTestCase {
     
     private let temporaryEntry: SelectTagsViewModel.TemporaryEntry = .password(label: .random(), username: .random(), url: .random(), tags: [.random()])
-    private let tagMocks = Container.shared.tags()
+    @Injected(\.tags) private var tagMocks
     
-    private let tagsServiceMock = TagsServiceMock()
-    private let tagValidationServiceMock = TagValidationServiceMock()
-    
-    override func setUp() {
-        super.setUp()
-        
-        Container.shared.registerMocks()
-        Container.shared.tagsService.register { self.tagsServiceMock }
-        Container.shared.tagValidationService.register { self.tagValidationServiceMock }
-    }
+    @MockInjected(\.tagsService) private var tagsServiceMock: TagsServiceMock
+    @MockInjected(\.tagValidationService) private var tagValidationServiceMock: TagValidationServiceMock
     
     override func tearDown() {
         super.tearDown()

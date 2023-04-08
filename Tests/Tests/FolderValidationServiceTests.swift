@@ -6,12 +6,6 @@ import Factory
 
 final class FolderValidationServiceTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        
-        Container.shared.registerMocks()
-    }
-    
     override func tearDown() {
         super.tearDown()
         

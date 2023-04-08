@@ -6,18 +6,10 @@ import Factory
 
 final class EditFolderViewModelTests: XCTestCase {
     
-    private let folderMock = Container.shared.folder()
+    @Injected(\.folder) private var folderMock
     
-    private let foldersServiceMock = FoldersServiceMock()
-    private let folderValidationServiceMock = FolderValidationServiceMock()
-    
-    override func setUp() {
-        super.setUp()
-        
-        Container.shared.registerMocks()
-        Container.shared.foldersService.register { self.foldersServiceMock }
-        Container.shared.folderValidationService.register { self.folderValidationServiceMock }
-    }
+    @MockInjected(\.foldersService) private var foldersServiceMock: FoldersServiceMock
+    @MockInjected(\.folderValidationService) private var folderValidationServiceMock: FolderValidationServiceMock
     
     override func tearDown() {
         super.tearDown()

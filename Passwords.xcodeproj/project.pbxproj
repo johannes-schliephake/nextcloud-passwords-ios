@@ -267,8 +267,7 @@
 		DD76068C295F731200109075 /* View+Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76068B295F731200109075 /* View+Dismiss.swift */; };
 		DD76068D295F731200109075 /* View+Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76068B295F731200109075 /* View+Dismiss.swift */; };
 		DD76068E295F731200109075 /* View+Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76068B295F731200109075 /* View+Dismiss.swift */; };
-		DD7BC51629AFB9C2004AA7BC /* Container+RegisterMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7BC51529AFB9C2004AA7BC /* Container+RegisterMocks.swift */; };
-		DD7BC51829AFBA00004AA7BC /* Container+Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7BC51729AFBA00004AA7BC /* Container+Stubs.swift */; };
+		DD7BC51829AFBA00004AA7BC /* Container+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7BC51729AFBA00004AA7BC /* Container+Mocks.swift */; };
 		DD7BC51A29AFBAD8004AA7BC /* PropertyAccessLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD760683295E498000109075 /* PropertyAccessLogging.swift */; };
 		DD7BC51B29AFBAD8004AA7BC /* FunctionCallLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF4138B29571D1D00B886EB /* FunctionCallLogging.swift */; };
 		DD7BC51C29AFBAD8004AA7BC /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5E3CBC295466F90032F517 /* Mock.swift */; };
@@ -477,6 +476,8 @@
 		DDF413872955ADF500B886EB /* AnyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF413852955ADF500B886EB /* AnyViewModel.swift */; };
 		DDF413882955ADF500B886EB /* AnyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF413852955ADF500B886EB /* AnyViewModel.swift */; };
 		DDF4138A2955AFD000B886EB /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF413892955AFD000B886EB /* ViewModelTests.swift */; };
+		DDFF5D4829D8443B00422603 /* Container+AutoRegistering.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */; };
+		DDFF5D4A29D850ED00422603 /* MockInjected.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFF5D4929D850ED00422603 /* MockInjected.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -718,8 +719,7 @@
 		DD760683295E498000109075 /* PropertyAccessLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyAccessLogging.swift; sourceTree = "<group>"; };
 		DD760687295F72BC00109075 /* View+Bind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Bind.swift"; sourceTree = "<group>"; };
 		DD76068B295F731200109075 /* View+Dismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Dismiss.swift"; sourceTree = "<group>"; };
-		DD7BC51529AFB9C2004AA7BC /* Container+RegisterMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+RegisterMocks.swift"; sourceTree = "<group>"; };
-		DD7BC51729AFBA00004AA7BC /* Container+Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Stubs.swift"; sourceTree = "<group>"; };
+		DD7BC51729AFBA00004AA7BC /* Container+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Mocks.swift"; sourceTree = "<group>"; };
 		DD7BC51D29AFFCCF004AA7BC /* TagValidationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagValidationServiceMock.swift; sourceTree = "<group>"; };
 		DD7BC51F29AFFD01004AA7BC /* FolderValidationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderValidationServiceMock.swift; sourceTree = "<group>"; };
 		DD7BC52129AFFD33004AA7BC /* TagsServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsServiceMock.swift; sourceTree = "<group>"; };
@@ -779,6 +779,8 @@
 		DDF413852955ADF500B886EB /* AnyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyViewModel.swift; sourceTree = "<group>"; };
 		DDF413892955AFD000B886EB /* ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
 		DDF4138B29571D1D00B886EB /* FunctionCallLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionCallLogging.swift; sourceTree = "<group>"; };
+		DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+AutoRegistering.swift"; sourceTree = "<group>"; };
+		DDFF5D4929D850ED00422603 /* MockInjected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInjected.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1251,8 +1253,8 @@
 		DD5E3CBB2954571B0032F517 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DD7BC51529AFB9C2004AA7BC /* Container+RegisterMocks.swift */,
-				DD7BC51729AFBA00004AA7BC /* Container+Stubs.swift */,
+				DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */,
+				DD7BC51729AFBA00004AA7BC /* Container+Mocks.swift */,
 				DD5E3CB72953B9690032F517 /* String+Random.swift */,
 			);
 			path = Extensions;
@@ -1288,6 +1290,7 @@
 			children = (
 				DDF4138B29571D1D00B886EB /* FunctionCallLogging.swift */,
 				DD5E3CBC295466F90032F517 /* Mock.swift */,
+				DDFF5D4929D850ED00422603 /* MockInjected.swift */,
 				DD760683295E498000109075 /* PropertyAccessLogging.swift */,
 			);
 			path = Architecture;
@@ -1975,9 +1978,10 @@
 				DD5E99F329AB6D3700A7A4B9 /* BeCalled.swift in Sources */,
 				DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */,
 				DD7BC51E29AFFCCF004AA7BC /* TagValidationServiceMock.swift in Sources */,
+				DDFF5D4A29D850ED00422603 /* MockInjected.swift in Sources */,
 				DDF4137A2954C28100B886EB /* ScoreTests.swift in Sources */,
 				DD7BC52229AFFD33004AA7BC /* TagsServiceMock.swift in Sources */,
-				DD7BC51829AFBA00004AA7BC /* Container+Stubs.swift in Sources */,
+				DD7BC51829AFBA00004AA7BC /* Container+Mocks.swift in Sources */,
 				DD5E99F629ABFF4000A7A4B9 /* ClosureMock.swift in Sources */,
 				DD7BC52429AFFD6E004AA7BC /* FoldersServiceMock.swift in Sources */,
 				DD7BC52829AFFE0A004AA7BC /* EditFolderViewModelMock.swift in Sources */,
@@ -1989,7 +1993,7 @@
 				DD7BC51B29AFBAD8004AA7BC /* FunctionCallLogging.swift in Sources */,
 				DD5E3CBA2953BD620032F517 /* SelectTagsViewModelTests.swift in Sources */,
 				DD7BC51C29AFBAD8004AA7BC /* Mock.swift in Sources */,
-				DD7BC51629AFB9C2004AA7BC /* Container+RegisterMocks.swift in Sources */,
+				DDFF5D4829D8443B00422603 /* Container+AutoRegistering.swift in Sources */,
 				DD0B7AEF2972CEBD00A59E3C /* FolderValidationServiceTests.swift in Sources */,
 				DD7BC52A29AFFE43004AA7BC /* ViewModelMock.swift in Sources */,
 				DD5E3CB82953B9690032F517 /* String+Random.swift in Sources */,

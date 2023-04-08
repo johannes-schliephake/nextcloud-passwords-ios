@@ -194,22 +194,3 @@ extension SelectTagsPage {
     }
     
 }
-
-
-#if DEBUG
-
-struct SelectTagsPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        // let _ = Container.shared.registerMocks()
-        PreviewDevice.generate {
-            NavigationView {
-                //SelectTagsPage(viewModel: SelectTagsViewModelMock().eraseToAnyViewModel())
-            }
-            .showColumns(false)
-        }
-    }
-    
-}
-
-#endif

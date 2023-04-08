@@ -6,12 +6,6 @@ import Factory
 
 final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_order
     
-    override func setUp() {
-        super.setUp()
-        
-        Container.shared.registerMocks()
-    }
-    
     override func tearDown() {
         super.tearDown()
         
