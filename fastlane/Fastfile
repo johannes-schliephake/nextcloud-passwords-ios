@@ -42,7 +42,7 @@ lane :take_screenshots do
         "iPad (6th generation)"
     ]
     languages = ["en-US", "de-DE"]
-    capture_screenshots(devices: devices, languages: languages, clear_previous_screenshots: true, override_status_bar: true, scheme: "Snapshot", number_of_retries: 0, stop_after_first_error: true)
+    capture_screenshots(devices: devices, languages: languages, clear_previous_screenshots: true, override_status_bar: true, scheme: "Passwords", number_of_retries: 0, stop_after_first_error: true, testplan: "Snapshot")
     unless prompt(text: "Does the preview on path './fastlane/screenshots/screenshots.html' look okay for you?", boolean: true)
         reset_git_repo(force: true)
         UI.user_error!("Did not keep screenshots, because the HTML file was rejected by the user")

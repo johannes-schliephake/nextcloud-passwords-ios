@@ -628,7 +628,6 @@
 		8FC361FB25828AE600785371 /* EntriesNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesNavigation.swift; sourceTree = "<group>"; };
 		8FCBF8BA25AE152500F75B33 /* Snapshot.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Snapshot.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FCBF8BC25AE152500F75B33 /* ScreenshotGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotGenerator.swift; sourceTree = "<group>"; };
-		8FCBF8BE25AE152500F75B33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FCBF8D725AE15E900F75B33 /* SnapshotHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		8FD1038625A790B00055A8F3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		8FD1038C25A790EC0055A8F3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -751,6 +750,8 @@
 		DDB1697327D2040D00F4D752 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDB16A0827D2308600F4D752 /* OTPAutoFillScript.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = OTPAutoFillScript.js; sourceTree = "<group>"; };
 		DDB16A0B27D24D6300F4D752 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DDB409BE29E211F30002517F /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
+		DDB409C029E216750002517F /* Snapshot.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Snapshot.xctestplan; sourceTree = "<group>"; };
 		DDB680D427A3DA6A00DEE540 /* QRCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCapture.swift; sourceTree = "<group>"; };
 		DDBD6EA12702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA22702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1138,11 +1139,11 @@
 		8FCBF8BB25AE152500F75B33 /* Snapshot */ = {
 			isa = PBXGroup;
 			children = (
-				8FCBF8BE25AE152500F75B33 /* Info.plist */,
 				8FCBF8BC25AE152500F75B33 /* ScreenshotGenerator.swift */,
 				8FCBF8D725AE15E900F75B33 /* SnapshotHelper.swift */,
 				DD251A2F29301B60001F6F2A /* XCUIElement+UnhittableInteractions.swift */,
 				8F72008F25EC1D2E00B12A76 /* XCUIElementQuery+LastMatch.swift */,
+				DDB409C029E216750002517F /* Snapshot.xctestplan */,
 			);
 			path = Snapshot;
 			sourceTree = "<group>";
@@ -1246,6 +1247,7 @@
 				DD5E99EF29AAA14A00A7A4B9 /* Matchers */,
 				DD5E99F429ABFF3300A7A4B9 /* Mocks */,
 				DD7BC52B29B00233004AA7BC /* Tests */,
+				DDB409BE29E211F30002517F /* Unit.xctestplan */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2460,7 +2462,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3L4U93393E;
-				INFOPLIST_FILE = Snapshot/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2483,7 +2485,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3L4U93393E;
-				INFOPLIST_FILE = Snapshot/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
