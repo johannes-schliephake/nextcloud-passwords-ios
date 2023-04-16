@@ -58,7 +58,6 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
     }
     
     @Injected(\.tagsService) private var tagsService
-    @LazyInjected(\.tagValidationService) private var tagValidationService
     
     let state: State
     
@@ -124,13 +123,14 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
     func callAsFunction(_ action: Action) {
         switch action {
         case .addTag:
-            guard tagValidationService.validate(label: state.tagLabel) else {
+            let tag: Tag
+            do {
+                tag = try tagsService.addTag(label: state.tagLabel)
+            } catch {
                 return
             }
-            let tag = Tag(label: state.tagLabel, client: Configuration.clientName, edited: Date(), created: Date(), updated: Date())
-            state.selectableTags.append((tag: tag, isSelected: true))
             state.tagLabel = ""
-            tagsService.add(tag: tag)
+            self(.toggleTag(tag)) // TODO: expects new tag to already be emitted by tags service
         case let .toggleTag(tag):
             guard let index = state.selectableTags.firstIndex(where: { $0.tag == tag }) else {
                 return
@@ -139,7 +139,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
         case .selectTags:
             let selectedTags = state.selectableTags.filter(\.isSelected).map(\.tag)
             guard state.hasChanges,
-                  selectedTags.allSatisfy(\.isIdLocallyAvailable) else {
+                  tagsService.allIdsLocallyAvailable(of: selectedTags) else {
                 return
             }
             selectTags(selectedTags, invalidTags)

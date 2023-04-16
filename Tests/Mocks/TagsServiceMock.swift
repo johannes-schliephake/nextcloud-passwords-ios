@@ -19,8 +19,16 @@ final class TagsServiceMock: TagsServiceProtocol, Mock, PropertyAccessLogging, F
         return _tagsForTagIds.eraseToAnyPublisher()
     }
     
-    func add(tag: Tag) {
-        logFunctionCall(parameters: tag)
+    var _addTag: Result <Tag, TagAddError> = .success(.init()) // swiftlint:disable:this identifier_name
+    func addTag(label: String) throws -> Tag {
+        logFunctionCall(parameters: label)
+        return try _addTag.get()
+    }
+    
+    var _allIdsLocallyAvailable = true  // swiftlint:disable:this identifier_name
+    func allIdsLocallyAvailable(of tags: [Passwords.Tag]) -> Bool {
+        logFunctionCall(parameters: tags)
+        return _allIdsLocallyAvailable
     }
     
 }

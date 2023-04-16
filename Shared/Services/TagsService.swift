@@ -1,3 +1,4 @@
+import Foundation
 import Combine
 import Factory
 
@@ -7,8 +8,14 @@ protocol TagsServiceProtocol {
     var tags: AnyPublisher<[Tag], Never> { get }
     
     func tags(for tagIds: [String]) -> AnyPublisher<(valid: [Tag], invalid: [String]), Never>
-    func add(tag: Tag)
+    func addTag(label: String) throws -> Tag
+    func allIdsLocallyAvailable(of tags: [Tag]) -> Bool
     
+}
+
+
+enum TagAddError: Error {
+    case validationFailed
 }
 
 
@@ -16,6 +23,7 @@ protocol TagsServiceProtocol {
 final class TagsService: TagsServiceProtocol {
     
     @Injected(\.entriesController) private var entriesController
+    @LazyInjected(\.tagValidationService) private var tagValidationService
     
     lazy private(set) var tags = entriesController.objectDidChangeRecently
         .prepend(())
@@ -28,8 +36,18 @@ final class TagsService: TagsServiceProtocol {
             .eraseToAnyPublisher()
     }
     
-    func add(tag: Tag) {
+    func addTag(label: String) throws -> Tag {
+        guard tagValidationService.validate(label: label) else {
+            throw TagAddError.validationFailed
+        }
+        
+        let tag = Tag(label: label, client: Configuration.clientName, edited: Date(), created: Date(), updated: Date())
         entriesController.add(tag: tag)
+        return tag
+    }
+    
+    func allIdsLocallyAvailable(of tags: [Tag]) -> Bool {
+        tags.allSatisfy(\.isIdLocallyAvailable)
     }
     
 }
