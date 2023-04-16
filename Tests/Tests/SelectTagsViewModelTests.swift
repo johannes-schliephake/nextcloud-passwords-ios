@@ -79,7 +79,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         
         selectTagsViewModel(.addTag)
         
-        expect(self.tagValidationServiceMock).to(beCalled(.once, on: "validate(label:)", withParameters: [newTagLabel]))
+        expect(self.tagValidationServiceMock).to(beCalled(.once, on: "validate(label:)", withParameter: newTagLabel))
     }
     
     func testCallAsFunction_givenValidTagLabel_whenCallingAddTag_thenClearsTagLabel() {
@@ -110,7 +110,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         
         selectTagsViewModel(.addTag)
         
-        expect(self.tagsServiceMock).to(beCalled(.once, on: "add(tag:)", withParameters: [newTagLabel])) // TODO: check tag label against newTagLabel
+        expect(self.tagsServiceMock).to(beCalled(.once, on: "add(tag:)", withParameter: newTagLabel)) // TODO: check tag label against newTagLabel
     }
     
     func testCallAsFunction_givenInvalidTagLabel_whenCallingAddTag_thenDoesntCallTagService() {
@@ -205,7 +205,7 @@ final class SelectTagsViewModelTests: XCTestCase {
         
         selectTagsViewModel(.selectTags)
         
-        expect(closure).to(beCalled(.once, withParameters: [tagMocks, [invalidTag]]))
+        expect(closure).to(beCalled(.once, withParameters: tagMocks, [invalidTag]))
     }
     
     func testCallAsFunction_givenHasChangesIsFalse_whenCallingSelectTags_thenDoesntCallSelectTagsClosure() {

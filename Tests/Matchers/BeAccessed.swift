@@ -53,10 +53,10 @@ func beAccessed<L: PropertyAccessLogging>(_ accessCount: AccessCount = .anyNumbe
         
         if accessCount.rawValue > 0,
            accesses.count != accessCount.rawValue {
-            return .init(status: .doesNotMatch, message: message.appended(message: ", but got accessed \(accesses.count) times"))
+            return .init(status: .doesNotMatch, message: message.appended(message: " - got accessed \(accesses.count) times"))
         }
         if accesses.isEmpty {
-            return .init(status: .doesNotMatch, message: message.appended(message: ", but didn't"))
+            return .init(status: .doesNotMatch, message: message.appended(message: " - didn't get accessed"))
         }
         
         return .init(status: .matches, message: message)

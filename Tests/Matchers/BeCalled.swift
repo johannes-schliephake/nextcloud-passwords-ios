@@ -30,11 +30,16 @@ enum CallCount {
 
 
 func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil) -> Predicate<L> {
-    beCalled(callCount, on: expectedCall, withParameters: [], atCallIndex: nil)
+    beCalled(callCount, on: expectedCall, atCallIndex: nil)
 }
 
 
-func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameters expectedParameters: [any Equatable], atCallIndex parameterCallIndex: Int? = nil) -> Predicate<L> {
+func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameter expectedParameter: any Equatable, atCallIndex parameterCallIndex: Int? = nil) -> Predicate<L> {
+    beCalled(callCount, on: expectedCall, withParameters: expectedParameter, atCallIndex: parameterCallIndex)
+}
+
+
+func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameters expectedParameters: any Equatable..., atCallIndex parameterCallIndex: Int? = nil) -> Predicate<L> {
     Predicate { expression in
         var message: ExpectationMessage
         if let expectedCall {
@@ -58,10 +63,10 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
         
         if callCount.rawValue > 0,
            calls.count != callCount.rawValue {
-            return .init(status: .doesNotMatch, message: message.appended(message: ", but got called \(calls.count) times"))
+            return .init(status: .doesNotMatch, message: message.appended(message: " - got called \(calls.count) times"))
         }
         if calls.isEmpty {
-            return .init(status: .doesNotMatch, message: message.appended(message: ", but didn't"))
+            return .init(status: .doesNotMatch, message: message.appended(message: " - didn't get called"))
         }
         
         guard !expectedParameters.isEmpty else {
@@ -75,10 +80,10 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
             parameters = calls.map(\.parameters)
         }
         guard parameters.map(\.count).allSatisfy({ $0 == expectedParameters.count }) else {
-            return .init(status: .doesNotMatch, message: message.appended(message: ", but parameter count doesn't match"))
+            return .init(status: .doesNotMatch, message: message.appended(message: " - parameter count doesn't match"))
         }
         guard parameters.allSatisfy({ compare($0, to: expectedParameters) }) else {
-            return .init(status: .doesNotMatch, message: message.appended(message: ", but parameters don't match"))
+            return .init(status: .doesNotMatch, message: message.appended(message: " - parameters don't match"))
         }
         return .init(status: .matches, message: message)
     }
@@ -86,6 +91,9 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
 
 
 private func compare(_ equatables: [any Equatable], to expected: [any Equatable]) -> Bool {
+    guard equatables.count == expected.count else {
+        return false
+    }
     for (equatable, expected) in zip(equatables, expected) {
         guard compare(equatable, to: expected) else {
             return false
