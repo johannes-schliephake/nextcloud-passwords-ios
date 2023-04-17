@@ -299,6 +299,9 @@
 		DD9FAD5C26A3796500770FEA /* SelectFolderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */; };
 		DDA4FE7626E755C000D6F92E /* View+Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* View+Initialize.swift */; };
 		DDA4FE7726E755C000D6F92E /* View+Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* View+Initialize.swift */; };
+		DDACC44E29EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
+		DDACC44F29EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
+		DDACC45029EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
 		DDB1695527D1FCFF00F4D752 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */; };
 		DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */; };
 		DDB1696127D1FCFF00F4D752 /* Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DDB1695327D1FCFF00F4D752 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -430,9 +433,9 @@
 		DDBE8AB729B3FEFF0054F179 /* TagValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */; };
 		DDBE8AB829B3FEFF0054F179 /* TagValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */; };
 		DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB929B68D100054F179 /* BeAccessed.swift */; };
-		DDC7C94428C1F2E700451B81 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* LoggingController.swift */; };
-		DDC7C94528C1F2E700451B81 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* LoggingController.swift */; };
-		DDC7C94628C1F2E700451B81 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* LoggingController.swift */; };
+		DDC7C94428C1F2E700451B81 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* Logger.swift */; };
+		DDC7C94528C1F2E700451B81 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* Logger.swift */; };
+		DDC7C94628C1F2E700451B81 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* Logger.swift */; };
 		DDC7C94828C1FA3A00451B81 /* Bundle+IsTestFlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94728C1FA3A00451B81 /* Bundle+IsTestFlight.swift */; };
 		DDC7C94928C1FA3A00451B81 /* Bundle+IsTestFlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94728C1FA3A00451B81 /* Bundle+IsTestFlight.swift */; };
 		DDC7C94A28C1FA3A00451B81 /* Bundle+IsTestFlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94728C1FA3A00451B81 /* Bundle+IsTestFlight.swift */; };
@@ -734,6 +737,7 @@
 		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
 		DDA4FE7526E755C000D6F92E /* View+Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Initialize.swift"; sourceTree = "<group>"; };
+		DDACC44D29EDEF500094D141 /* LogEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
 		DDAF982529910B86005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDAF982629910B8F005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDAF982729910B9A005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -759,7 +763,7 @@
 		DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderValidationService.swift; sourceTree = "<group>"; };
 		DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagValidationService.swift; sourceTree = "<group>"; };
 		DDBE8AB929B68D100054F179 /* BeAccessed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeAccessed.swift; sourceTree = "<group>"; };
-		DDC7C94328C1F2E700451B81 /* LoggingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingController.swift; sourceTree = "<group>"; };
+		DDC7C94328C1F2E700451B81 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		DDC7C94728C1FA3A00451B81 /* Bundle+IsTestFlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+IsTestFlight.swift"; sourceTree = "<group>"; };
 		DDC7C94B28C20D1B00451B81 /* LogPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPage.swift; sourceTree = "<group>"; };
 		DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderController.swift; sourceTree = "<group>"; };
@@ -883,6 +887,7 @@
 				8F55B9FF25611A99008AAC63 /* Models */,
 				8F55F71125727BDC00E00B28 /* Requests */,
 				8F56D34A2561CC1400FBCB1B /* Utilities */,
+				DDACC44C29EDEDFE0094D141 /* Helpers */,
 				8FBE43B7258D5942003F7F34 /* Extensions */,
 				DD03D9C628C8E827006118F2 /* Generated */,
 				8F5E120725D3CC33007A2166 /* Configuration.swift */,
@@ -999,6 +1004,7 @@
 			children = (
 				8F55B2D3256DBF530011C92D /* Entry.swift */,
 				8F552955259CAF4900419233 /* Folder.swift */,
+				DDACC44D29EDEF500094D141 /* LogEvent.swift */,
 				8F854E6B26239457008885C3 /* OfflineContainer.swift */,
 				DD5AECA727B1150B002DAA87 /* OTP.swift */,
 				8F57A5B92562699A00BC1CA0 /* Password.swift */,
@@ -1068,7 +1074,6 @@
 				8F09585025D159F10082D438 /* AuthenticationChallengeController.swift */,
 				8F55D9992582D04200CE4FC2 /* AutoFillController.swift */,
 				8F5C1A83257D7D5F009FF66F /* BiometricAuthenticationController.swift */,
-				DDC7C94328C1F2E700451B81 /* LoggingController.swift */,
 				8F55FBD62570276800CC6920 /* SessionController.swift */,
 				DD3FAD6627772C15002202DE /* SettingsController.swift */,
 				8F52F3C82593746F00B4EFCE /* TipController.swift */,
@@ -1318,6 +1323,14 @@
 				DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		DDACC44C29EDEDFE0094D141 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DDC7C94328C1F2E700451B81 /* Logger.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		DDB1695627D1FCFF00F4D752 /* Extension */ = {
@@ -1799,12 +1812,13 @@
 				8FBE43C5258D5A09003F7F34 /* String+Localized.swift in Sources */,
 				DDCE125C2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
 				8F55F71625727CB600E00B28 /* DeleteFolderRequest.swift in Sources */,
-				DDC7C94428C1F2E700451B81 /* LoggingController.swift in Sources */,
+				DDC7C94428C1F2E700451B81 /* Logger.swift in Sources */,
 				DD84EEF5288ECC4C0094B5A6 /* CGPoint+Operators.swift in Sources */,
 				8F582BFE255EAD7000F1E3DA /* Keychain.swift in Sources */,
 				DD72AE1D28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */,
 				8F5637C62562C57800A0BF9D /* FaviconServiceRequest.swift in Sources */,
 				DDF413862955ADF500B886EB /* AnyViewModel.swift in Sources */,
+				DDACC44E29EDEF500094D141 /* LogEvent.swift in Sources */,
 				DDCE125F2741408D003912D0 /* ListTagsRequest.swift in Sources */,
 				8F57A5B6256267BF00BC1CA0 /* ListPasswordsRequest.swift in Sources */,
 				8F59F521256AE65800D9FE40 /* ActionButtonStyle.swift in Sources */,
@@ -1945,12 +1959,13 @@
 				8FC361BA25827E4C00785371 /* ActionButtonStyle.swift in Sources */,
 				DDCE125D2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
 				8FC361BE25827E5200785371 /* SessionController.swift in Sources */,
-				DDC7C94528C1F2E700451B81 /* LoggingController.swift in Sources */,
+				DDC7C94528C1F2E700451B81 /* Logger.swift in Sources */,
 				DD84EEF6288ECC4C0094B5A6 /* CGPoint+Operators.swift in Sources */,
 				8FBE43D5258D5A8C003F7F34 /* Label+ShowIcon.swift in Sources */,
 				DD72AE1E28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */,
 				8FC361B025827D3400785371 /* EntriesPage.swift in Sources */,
 				DDF413872955ADF500B886EB /* AnyViewModel.swift in Sources */,
+				DDACC44F29EDEF500094D141 /* LogEvent.swift in Sources */,
 				DDCE12602741408D003912D0 /* ListTagsRequest.swift in Sources */,
 				8F55D99F2582D0DE00CE4FC2 /* AutoFillController.swift in Sources */,
 				8FC361DA25827E6100785371 /* Keychain.swift in Sources */,
@@ -2132,13 +2147,14 @@
 				DDB169D127D20CC200F4D752 /* SelectTagsController.swift in Sources */,
 				DDB169BF27D20CC200F4D752 /* Tag.swift in Sources */,
 				DDB169B927D20CC200F4D752 /* KeepaliveSessionRequest.swift in Sources */,
-				DDC7C94628C1F2E700451B81 /* LoggingController.swift in Sources */,
+				DDC7C94628C1F2E700451B81 /* Logger.swift in Sources */,
 				DDB1697E27D20CC100F4D752 /* RequestSessionRequest.swift in Sources */,
 				DD72AE1F28A7A78A00E72DB7 /* Bundle+Root.swift in Sources */,
 				DD84EEF7288ECC4C0094B5A6 /* CGPoint+Operators.swift in Sources */,
 				DDB1698227D20CC100F4D752 /* EditLabeledRow.swift in Sources */,
 				DDB1697927D20CC100F4D752 /* FolderController.swift in Sources */,
 				DDF413882955ADF500B886EB /* AnyViewModel.swift in Sources */,
+				DDACC45029EDEF500094D141 /* LogEvent.swift in Sources */,
 				DDB1698827D20CC200F4D752 /* EditPasswordNavigation.swift in Sources */,
 				DDB169DD27D20CC200F4D752 /* QRCapture.swift in Sources */,
 				DDB1698C27D20CC200F4D752 /* EditOTPPage.swift in Sources */,

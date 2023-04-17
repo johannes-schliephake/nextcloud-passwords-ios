@@ -63,7 +63,7 @@ final class Password: ObservableObject, Identifiable {
                 return try Configuration.jsonDecoder.decode(OTP.self, from: otpData)
             }
             catch {
-                LoggingController.shared.log(error: error)
+                Logger.shared.log(error: error)
                 return nil
             }
         }
@@ -157,7 +157,7 @@ final class Password: ObservableObject, Identifiable {
                   let decryptedNotes = Crypto.CSEv1r1.decrypt(payload: notes, key: key),
                   let decryptedCustomFieldsString = Crypto.CSEv1r1.decrypt(payload: customFieldsString, key: key) else {
                 state = .decryptionFailed
-                LoggingController.shared.log(error: "Failed to decrypt password")
+                Logger.shared.log(error: "Failed to decrypt password")
                 return
             }
             label = decryptedLabel
@@ -168,7 +168,7 @@ final class Password: ObservableObject, Identifiable {
             customFieldsString = decryptedCustomFieldsString
         default:
             state = .decryptionFailed
-            LoggingController.shared.log(error: "Unknown client side encryption type")
+            Logger.shared.log(error: "Unknown client side encryption type")
         }
         
         if customFieldsString.isEmpty {
@@ -183,7 +183,7 @@ final class Password: ObservableObject, Identifiable {
         }
         catch {
             guard let legacyCustomFields = try? Configuration.jsonDecoder.decode([String: [String: String]].self, from: customFieldsData) else {
-                LoggingController.shared.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed -- JSON object is \(customFieldsString)", underlyingError: error)))
+                Logger.shared.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed -- JSON object is \(customFieldsString)", underlyingError: error)))
                 return
             }
             customFields = legacyCustomFields
@@ -191,7 +191,7 @@ final class Password: ObservableObject, Identifiable {
                     name, object in
                     guard let type = object["type"].flatMap(CustomField.CustomFieldType.init),
                           let value = object["value"] else {
-                        LoggingController.shared.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Legacy custom fields decoding failed -- JSON object is \(customFieldsString)")))
+                        Logger.shared.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Legacy custom fields decoding failed -- JSON object is \(customFieldsString)")))
                         return nil
                     }
                     if name.hasPrefix("_") {

@@ -3,7 +3,7 @@ import SwiftUI
 
 struct LogPage: View {
     
-    @StateObject private var loggingController = LoggingController.shared
+    @StateObject private var logger = Logger.shared
     @ScaledMetric private var eventTypeIconWidth = 30.0
     
     var body: some View {
@@ -13,7 +13,7 @@ struct LogPage: View {
     
     private func listView() -> some View {
         List {
-            if let loggedEvents = loggingController.events,
+            if let loggedEvents = logger.events,
                !loggedEvents.isEmpty {
                 Section {
                     warningLabel()

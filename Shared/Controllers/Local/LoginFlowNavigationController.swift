@@ -40,7 +40,7 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
                 completion in
                 if case .failure(let error) = completion,
                    error is DecodingError {
-                    LoggingController.shared.log(error: error)
+                    Logger.shared.log(error: error)
                 }
             })
             .catch {

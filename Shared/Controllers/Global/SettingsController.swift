@@ -90,7 +90,7 @@ final class SettingsController: ObservableObject {
             }
             catch {
                 Configuration.userDefaults.removeObject(forKey: "settings")
-                LoggingController.shared.log(error: error)
+                Logger.shared.log(error: error)
                 return
             }
         }

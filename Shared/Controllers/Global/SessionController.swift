@@ -21,7 +21,7 @@ final class SessionController: ObservableObject {
                 subscriptions.removeAll()
                 Keychain.default.remove(key: "challengePassword")
                 Keychain.default.remove(key: "offlineKeychain")
-                LoggingController.shared.reset()
+                Logger.shared.reset()
                 return
             }
             Keychain.default.store(key: "server", value: session.server)
@@ -175,7 +175,7 @@ final class SessionController: ObservableObject {
             guard let solution = Crypto.PWDv1r1.solve(challenge: challenge, password: password) else {
                 state = .error
                 session.runPendingRequestFailures()
-                LoggingController.shared.log(error: "Failed to solve PWDv1r1 challenge")
+                Logger.shared.log(error: "Failed to solve PWDv1r1 challenge")
                 return
             }
             openSession(password: password, solution: solution, store: store)
@@ -185,7 +185,7 @@ final class SessionController: ObservableObject {
                 state = .offlineChallengeAvailable
                 Keychain.default.remove(key: "challengePassword")
                 UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
-                LoggingController.shared.log(error: "Failed to decrypt offline keychain")
+                Logger.shared.log(error: "Failed to decrypt offline keychain")
                 return
             }
             session.keychain = keychain
@@ -222,14 +222,14 @@ final class SessionController: ObservableObject {
                     self?.state = .onlineChallengeAvailable
                     Keychain.default.remove(key: "challengePassword")
                     UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
-                    LoggingController.shared.log(error: "Failed to open session with client side encryption")
+                    Logger.shared.log(error: "Failed to open session with client side encryption")
                     return
                 }
                 guard let keychain = Crypto.CSEv1r1.decrypt(keys: keys, password: password) else {
                     self?.state = .onlineChallengeAvailable
                     Keychain.default.remove(key: "challengePassword")
                     UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
-                    LoggingController.shared.log(error: "Failed to decrypt online keychain")
+                    Logger.shared.log(error: "Failed to decrypt online keychain")
                     return
                 }
                 Keychain.default.store(key: "offlineKeychain", value: keys)
@@ -244,7 +244,7 @@ final class SessionController: ObservableObject {
                 guard response.success else {
                     self?.state = .error
                     session.runPendingRequestFailures()
-                    LoggingController.shared.log(error: "Failed to open session without client side encryption")
+                    Logger.shared.log(error: "Failed to open session without client side encryption")
                     return
                 }
             }

@@ -95,7 +95,7 @@ extension NCPasswordsRequest {
                 DispatchQueue.main.async {
                     completion(nil)
                 }
-                LoggingController.shared.log(error: error)
+                Logger.shared.log(error: error)
                 return
             }
             
@@ -115,7 +115,7 @@ extension NCPasswordsRequest {
                     DispatchQueue.main.async {
                         completion(nil)
                     }
-                    LoggingController.shared.log(error: "Failed to retrieve response")
+                    Logger.shared.log(error: "Failed to retrieve response")
                     return
                 }
                 
@@ -134,7 +134,7 @@ extension NCPasswordsRequest {
                         session.invalidate(reason: .deauthorization)
                         return
                     default:
-                        LoggingController.shared.log(info: "Unknown error response")
+                        Logger.shared.log(info: "Unknown error response")
                     }
                 }
                 else if let messageResponse = try? Configuration.jsonDecoder.decode(NCPasswordsRequestMessageResponse.self, from: data) {
@@ -146,7 +146,7 @@ extension NCPasswordsRequest {
                         session.invalidate(reason: .noConnection)
                         return
                     default:
-                        LoggingController.shared.log(info: "Unknown message response")
+                        Logger.shared.log(info: "Unknown message response")
                     }
                 }
                 if let sessionID = response.value(forHTTPHeaderField: "X-Api-Session") {
@@ -163,7 +163,7 @@ extension NCPasswordsRequest {
                     DispatchQueue.main.async {
                         completion(nil)
                     }
-                    LoggingController.shared.log(error: error)
+                    Logger.shared.log(error: error)
                 }
             }
             .resume()

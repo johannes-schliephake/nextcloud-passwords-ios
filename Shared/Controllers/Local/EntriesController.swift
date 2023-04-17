@@ -242,7 +242,7 @@ final class EntriesController: ObservableObject {
                     CoreData.default.clear(type: OfflineContainer.self)
                     self?.merge(folders: [], passwords: [], tags: [], offline: true)
                 }
-                LoggingController.shared.log(error: error)
+                Logger.shared.log(error: error)
             }
         }
     }

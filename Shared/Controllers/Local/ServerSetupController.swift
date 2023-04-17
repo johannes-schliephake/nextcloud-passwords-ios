@@ -71,7 +71,7 @@ final class ServerSetupController: ObservableObject {
                         guard error is DecodingError else {
                             return
                         }
-                        LoggingController.shared.log(error: error)
+                        Logger.shared.log(error: error)
                     })
                     .replaceError(with: nil)
             }

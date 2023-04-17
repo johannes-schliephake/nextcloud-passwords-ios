@@ -15,7 +15,7 @@ extension Container {
             .cached
     }
     var logger: Factory<any Logging> {
-        self { LoggingController.shared }
+        self { Logger.shared }
             .singleton
     }
     var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {

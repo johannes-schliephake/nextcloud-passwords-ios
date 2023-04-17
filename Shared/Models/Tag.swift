@@ -73,14 +73,14 @@ final class Tag: ObservableObject, Identifiable {
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key),
                   let decryptedColor = Crypto.CSEv1r1.decrypt(payload: color, key: key) else {
                 state = .decryptionFailed
-                LoggingController.shared.log(error: "Failed to decrypt tag")
+                Logger.shared.log(error: "Failed to decrypt tag")
                 return
             }
             label = decryptedLabel
             color = decryptedColor
         default:
             state = .decryptionFailed
-            LoggingController.shared.log(error: "Unknown client side encryption type")
+            Logger.shared.log(error: "Unknown client side encryption type")
         }
     }
     

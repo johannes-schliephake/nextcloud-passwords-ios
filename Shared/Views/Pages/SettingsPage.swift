@@ -9,7 +9,7 @@ struct SettingsPage: View {
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var tipController: TipController
     
-    @StateObject private var loggingController = LoggingController.shared
+    @StateObject private var logger = Logger.shared
     @AppStorage("storeOffline", store: Configuration.userDefaults) private var storeOffline = Configuration.defaults["storeOffline"] as! Bool // swiftlint:disable:this force_cast
     @AppStorage("automaticallyGeneratePasswords", store: Configuration.userDefaults) private var automaticallyGeneratePasswords = Configuration.defaults["automaticallyGeneratePasswords"] as! Bool // swiftlint:disable:this force_cast
     @State private var showLogoutAlert = false
@@ -127,7 +127,7 @@ struct SettingsPage: View {
     
     private func aboutSection() -> some View {
         Section(header: Text("_about")) {
-            if loggingController.events != nil {
+            if logger.events != nil {
                 NavigationLink {
                     LogPage()
                 }
