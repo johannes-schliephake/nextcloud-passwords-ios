@@ -42,7 +42,7 @@ struct LogPage: View {
             .foregroundColor(.red)
     }
     
-    private func copyLogButton(loggedEvents: [LoggingController.Event]) -> some View {
+    private func copyLogButton(loggedEvents: [LogEvent]) -> some View {
         Button {
             UIPasteboard.general.string = loggedEvents.map(String.init).joined(separator: "\n")
         }
@@ -55,7 +55,7 @@ struct LogPage: View {
         Text("The log might contain information useful for debugging purposes. It is not shared or uploaded by the app. The log is deleted when the app is hard-closed.")
     }
     
-    private func eventsSection(loggedEvents: [LoggingController.Event]) -> some View {
+    private func eventsSection(loggedEvents: [LogEvent]) -> some View {
         Section(header: Text("Events")) {
             ForEach(loggedEvents.reversed()) {
                 loggedEvent in
@@ -76,7 +76,7 @@ struct LogPage: View {
         }
     }
     
-    @ViewBuilder private func eventIcon(loggedEvent: LoggingController.Event) -> some View {
+    @ViewBuilder private func eventIcon(loggedEvent: LogEvent) -> some View {
         switch loggedEvent.type {
         case .error:
             Image(systemName: "exclamationmark.triangle")

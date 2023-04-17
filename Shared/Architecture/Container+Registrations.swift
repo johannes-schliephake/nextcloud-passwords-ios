@@ -14,6 +14,10 @@ extension Container {
         self { FoldersService() }
             .cached
     }
+    var logger: Factory<any Logging> {
+        self { LoggingController.shared }
+            .singleton
+    }
     var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {
         self { SelectTagsViewModel.self }
     }
