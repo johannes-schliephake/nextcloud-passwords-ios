@@ -302,6 +302,7 @@
 		DDACC44E29EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
 		DDACC44F29EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
 		DDACC45029EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
+		DDACC45229EE73090094D141 /* LoggerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45129EE73090094D141 /* LoggerMock.swift */; };
 		DDB1695527D1FCFF00F4D752 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */; };
 		DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */; };
 		DDB1696127D1FCFF00F4D752 /* Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DDB1695327D1FCFF00F4D752 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -738,6 +739,7 @@
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
 		DDA4FE7526E755C000D6F92E /* View+Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Initialize.swift"; sourceTree = "<group>"; };
 		DDACC44D29EDEF500094D141 /* LogEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
+		DDACC45129EE73090094D141 /* LoggerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerMock.swift; sourceTree = "<group>"; };
 		DDAF982529910B86005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDAF982629910B8F005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDAF982729910B9A005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1284,6 +1286,7 @@
 				DD7BC52729AFFE0A004AA7BC /* EditFolderViewModelMock.swift */,
 				DD7BC52329AFFD6E004AA7BC /* FoldersServiceMock.swift */,
 				DD7BC51F29AFFD01004AA7BC /* FolderValidationServiceMock.swift */,
+				DDACC45129EE73090094D141 /* LoggerMock.swift */,
 				DD7BC52529AFFDC3004AA7BC /* SelectTagsViewModelMock.swift */,
 				DD7BC52129AFFD33004AA7BC /* TagsServiceMock.swift */,
 				DD7BC51D29AFFCCF004AA7BC /* TagValidationServiceMock.swift */,
@@ -2005,6 +2008,7 @@
 				DD5E3CB1295363DB0032F517 /* TagValidationServiceTests.swift in Sources */,
 				DD7BC51A29AFBAD8004AA7BC /* PropertyAccessLogging.swift in Sources */,
 				DD7BC52029AFFD01004AA7BC /* FolderValidationServiceMock.swift in Sources */,
+				DDACC45229EE73090094D141 /* LoggerMock.swift in Sources */,
 				DDF4138A2955AFD000B886EB /* ViewModelTests.swift in Sources */,
 				DD5E99F129AAA15500A7A4B9 /* Emit.swift in Sources */,
 				DD7BC51B29AFBAD8004AA7BC /* FunctionCallLogging.swift in Sources */,

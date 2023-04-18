@@ -1,7 +1,7 @@
 import Foundation
 
 
-final class ClosureMock: FunctionCallLogging {
+final class ClosureMock: Mock, FunctionCallLogging {
     
     func log() {
         logFunctionCall(of: "")
