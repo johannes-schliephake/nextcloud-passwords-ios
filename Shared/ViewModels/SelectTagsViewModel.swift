@@ -58,6 +58,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
     }
     
     @Injected(\.tagsService) private var tagsService
+    @LazyInjected(\.logger) private var logger
     
     let state: State
     
@@ -127,12 +128,14 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
             do {
                 tag = try tagsService.addTag(label: state.tagLabel)
             } catch {
+                logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
                 return
             }
             state.tagLabel = ""
             self(.toggleTag(tag)) // TODO: expects new tag to already be emitted by tags service
         case let .toggleTag(tag):
             guard let index = state.selectableTags.firstIndex(where: { $0.tag == tag }) else {
+                logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
                 return
             }
             state.selectableTags[index].isSelected.toggle()
@@ -140,6 +143,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
             let selectedTags = state.selectableTags.filter(\.isSelected).map(\.tag)
             guard state.hasChanges,
                   tagsService.allIdsLocallyAvailable(of: selectedTags) else {
+                logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
                 return
             }
             selectTags(selectedTags, invalidTags)

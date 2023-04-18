@@ -64,6 +64,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
     
     @Injected(\.foldersService) private var foldersService
     @Injected(\.folderValidationService) private var folderValidationService
+    @LazyInjected(\.logger) private var logger
     
     let state: State
     
@@ -124,6 +125,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
             do {
                 try foldersService.apply(to: state.folder, folderLabel: state.folderLabel, folderFavorite: state.folderFavorite, folderParent: state.folderParent)
             } catch {
+                logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
                 return
             }
             didEdit?(state.folder)
