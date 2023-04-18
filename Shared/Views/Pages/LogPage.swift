@@ -63,13 +63,43 @@ struct LogPage: View {
                     eventIcon(loggedEvent: loggedEvent)
                         .frame(minWidth: eventTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     VStack(alignment: .leading, spacing: 6) {
-                        LabeledRow(type: .text, label: loggedEvent.date.formattedString, value: loggedEvent.message)
-                        HStack {
-                            Button("Copy") {
-                                UIPasteboard.general.string = String(describing: loggedEvent)
+                        LabeledRow(type: .text, label: loggedEvent.dateDescription, value: loggedEvent.message)
+                        Group {
+                            if #available(iOS 16, *) {
+                                FlowView(spacing: 4, alignment: .leading) {
+                                    ForEach(loggedEvent.trace, id: \.self) {
+                                        traceItem in
+                                        HStack(spacing: 4) {
+                                            Text(traceItem)
+                                            if traceItem != loggedEvent.trace.last {
+                                                Image(systemName: "chevron.forward")
+                                                    .foregroundColor(Color(.systemGray3))
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                            .buttonStyle(.borderless)
+                            else {
+                                LegacyFlowView(loggedEvent.trace, spacing: 4, alignment: .leading) {
+                                    traceItem in
+                                    HStack(spacing: 4) {
+                                        Text(traceItem)
+                                        if traceItem != loggedEvent.trace.last {
+                                            Image(systemName: "chevron.forward")
+                                                .foregroundColor(Color(.systemGray3))
+                                        }
+                                    }
+                                }
+                            }
                         }
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.leading)
+                        .imageScale(.medium)
+                        Button("Copy") {
+                            UIPasteboard.general.string = String(describing: loggedEvent)
+                        }
+                        .buttonStyle(.borderless)
                     }
                 }
             }

@@ -456,7 +456,7 @@ struct PasswordDetailPage: View {
                                             Text(ancestor.label)
                                             if password.folder != ancestor.id {
                                                 Image(systemName: "chevron.forward")
-                                                    .foregroundColor(.gray)
+                                                    .foregroundColor(Color(.systemGray))
                                             }
                                         }
                                     }
@@ -469,7 +469,7 @@ struct PasswordDetailPage: View {
                                         Text(ancestor.label)
                                         if password.folder != ancestor.id {
                                             Image(systemName: "chevron.forward")
-                                                .foregroundColor(.gray)
+                                                .foregroundColor(Color(.systemGray))
                                         }
                                     }
                                 }

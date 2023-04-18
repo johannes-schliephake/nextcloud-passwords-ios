@@ -30,9 +30,25 @@ struct LogEvent: Identifiable, CustomStringConvertible {
     var description: String {
         """
         \(type) \(message.replacingOccurrences(of: "\n", with: "\n    "))
-            [file \(fileID), function \(functionName), line \(line)]
-            [\(Self.dateFormatter.string(from: date))]
+            [\(traceDescription)]
+            [\(dateDescription)]
         """
+    }
+    
+    var trace: [String] {
+        [
+            "File \(fileID)",
+            "Function \(functionName)",
+            "Line \(line)"
+        ]
+    }
+    
+    var traceDescription: String {
+        trace.joined(separator: ", ")
+    }
+    
+    var dateDescription: String {
+        Self.dateFormatter.string(from: date)
     }
     
     private static let dateFormatter = {
