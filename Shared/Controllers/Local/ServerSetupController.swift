@@ -1,8 +1,11 @@
 import Foundation
+import Factory
 import Combine
 
 
 final class ServerSetupController: ObservableObject {
+    
+    @LazyInjected(\.logger) private var logger
     
     @Published private(set) var isValidating = false
     @Published private(set) var response: Response?
@@ -71,7 +74,7 @@ final class ServerSetupController: ObservableObject {
                         guard error is DecodingError else {
                             return
                         }
-                        Logger.shared.log(error: error)
+                        self?.logger.log(error: error)
                     })
                     .replaceError(with: nil)
             }

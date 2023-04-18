@@ -1,7 +1,10 @@
 import Foundation
+import Factory
 
 
 final class Tag: ObservableObject, Identifiable {
+    
+    @LazyInjected(\.logger) private var logger
     
     @Published var id: String
     @Published var label: String
@@ -73,14 +76,14 @@ final class Tag: ObservableObject, Identifiable {
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key),
                   let decryptedColor = Crypto.CSEv1r1.decrypt(payload: color, key: key) else {
                 state = .decryptionFailed
-                Logger.shared.log(error: "Failed to decrypt tag")
+                logger.log(error: "Failed to decrypt tag")
                 return
             }
             label = decryptedLabel
             color = decryptedColor
         default:
             state = .decryptionFailed
-            Logger.shared.log(error: "Unknown client side encryption type")
+            logger.log(error: "Unknown client side encryption type")
         }
     }
     

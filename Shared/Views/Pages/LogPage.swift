@@ -66,10 +66,10 @@ struct LogPage: View {
                         LabeledRow(type: .text, label: loggedEvent.dateDescription, value: loggedEvent.message)
                         Group {
                             if #available(iOS 16, *) {
-                                FlowView(spacing: 4, alignment: .leading) {
+                                FlowView(spacing: 5, alignment: .leading) {
                                     ForEach(loggedEvent.trace, id: \.self) {
                                         traceItem in
-                                        HStack(spacing: 4) {
+                                        HStack(spacing: 5) {
                                             Text(traceItem)
                                             if traceItem != loggedEvent.trace.last {
                                                 Image(systemName: "chevron.forward")
@@ -80,9 +80,9 @@ struct LogPage: View {
                                 }
                             }
                             else {
-                                LegacyFlowView(loggedEvent.trace, spacing: 4, alignment: .leading) {
+                                LegacyFlowView(loggedEvent.trace, spacing: 5, alignment: .leading) {
                                     traceItem in
-                                    HStack(spacing: 4) {
+                                    HStack(spacing: 5) {
                                         Text(traceItem)
                                         if traceItem != loggedEvent.trace.last {
                                             Image(systemName: "chevron.forward")

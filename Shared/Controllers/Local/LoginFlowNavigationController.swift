@@ -1,8 +1,11 @@
 import Combine
+import Factory
 import WebKit
 
 
 final class LoginFlowNavigationController: NSObject {
+    
+    @LazyInjected(\.logger) private var logger
     
     private let poll: ServerSetupController.Response.Poll
     
@@ -37,10 +40,10 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
             }
             .decode(type: Response?.self, decoder: Configuration.jsonDecoder)
             .handleEvents(receiveCompletion: {
-                completion in
+                [weak self] completion in
                 if case .failure(let error) = completion,
                    error is DecodingError {
-                    Logger.shared.log(error: error)
+                    self?.logger.log(error: error)
                 }
             })
             .catch {

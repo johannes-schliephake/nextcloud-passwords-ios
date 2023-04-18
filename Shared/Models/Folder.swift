@@ -1,7 +1,10 @@
 import Foundation
+import Factory
 
 
 final class Folder: ObservableObject, Identifiable {
+    
+    @LazyInjected(\.logger) private var logger
     
     @Published var id: String
     @Published var label: String
@@ -80,13 +83,13 @@ final class Folder: ObservableObject, Identifiable {
                   let key = keychain.keys[cseKey],
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key) else {
                 state = .decryptionFailed
-                Logger.shared.log(error: "Failed to decrypt folder")
+                logger.log(error: "Failed to decrypt folder")
                 return
             }
             label = decryptedLabel
         default:
             state = .decryptionFailed
-            Logger.shared.log(error: "Unknown client side encryption type")
+            logger.log(error: "Unknown client side encryption type")
         }
     }
     
