@@ -58,3 +58,32 @@ struct LogEvent: Identifiable, CustomStringConvertible {
     }()
     
 }
+
+
+extension LogEvent: MockObject {
+    
+    static var mock: LogEvent {
+        .init(type: .info, message: "I'm an event", fileID: #fileID, functionName: #function, line: #line)
+    }
+    
+    static var mocks: [LogEvent] {
+        [
+            .init(type: .error, message: "I'm an error event", fileID: #fileID, functionName: #function, line: #line),
+            .init(type: .info, message: "I'm an info event", fileID: #fileID, functionName: #function, line: #line)
+        ]
+    }
+    
+}
+
+
+#if DEBUG
+
+extension LogEvent: Equatable {
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+}
+
+#endif

@@ -512,6 +512,7 @@ struct PasswordDetailPage: View {
             content()
                 .font(.footnote)
                 .multilineTextAlignment(.trailing)
+                .imageScale(.medium)
                 .fixedSize(horizontal: false, vertical: true)
         }
     }

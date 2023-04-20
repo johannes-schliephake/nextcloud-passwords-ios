@@ -4,20 +4,28 @@ import Factory
 
 extension Container {
     
-    var password: Factory<Password> {
-        self { .mock }
-            .shared
-    }
-    var passwords: Factory<[Password]> {
-        self { Password.mocks }
-            .shared
-    }
     var folder: Factory<Folder> {
         self { .mock }
             .shared
     }
     var folders: Factory<[Folder]> {
         self { Folder.mocks }
+            .shared
+    }
+    var logEvent: Factory<LogEvent> {
+        self { .mock }
+            .shared
+    }
+    var logEvents: Factory<[LogEvent]> {
+        self { LogEvent.mocks }
+            .shared
+    }
+    var password: Factory<Password> {
+        self { .mock }
+            .shared
+    }
+    var passwords: Factory<[Password]> {
+        self { Password.mocks }
             .shared
     }
     var tag: Factory<Tag> {

@@ -1,5 +1,4 @@
 @testable import Passwords
-import Foundation
 
 
 final class FolderValidationServiceMock: FolderValidationServiceProtocol, Mock, FunctionCallLogging {

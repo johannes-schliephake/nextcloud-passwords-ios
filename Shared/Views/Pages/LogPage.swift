@@ -3,7 +3,8 @@ import SwiftUI
 
 struct LogPage: View {
     
-    @StateObject private var logger = Logger.shared
+    @StateObject var viewModel: AnyViewModel<LogViewModel.State, LogViewModel.Action>
+    
     @ScaledMetric private var eventTypeIconWidth = 30.0
     
     var body: some View {
@@ -13,18 +14,15 @@ struct LogPage: View {
     
     private func listView() -> some View {
         List {
-            if let loggedEvents = logger.events,
-               !loggedEvents.isEmpty {
+            if viewModel[\.isAvailable] {
                 Section {
                     warningLabel()
-                    copyLogButton(loggedEvents: loggedEvents)
-                }
-                footer: {
+                    copyLogButton()
+                } footer: {
                     logDescriptionFooter()
                 }
-                eventsSection(loggedEvents: loggedEvents)
-            }
-            else {
+                eventsSection()
+            } else {
                 VStack(alignment: .center) {
                     Text("Logging inactive")
                         .foregroundColor(.gray)
@@ -42,11 +40,10 @@ struct LogPage: View {
             .foregroundColor(.red)
     }
     
-    private func copyLogButton(loggedEvents: [LogEvent]) -> some View {
+    private func copyLogButton() -> some View {
         Button {
-            UIPasteboard.general.string = loggedEvents.map(String.init).joined(separator: "\n")
-        }
-        label: {
+            viewModel(.copyLog)
+        } label: {
             Label("Copy Entire Log", systemImage: "doc.on.doc")
         }
     }
@@ -55,36 +52,35 @@ struct LogPage: View {
         Text("The log might contain information useful for debugging purposes. It is not shared or uploaded by the app. The log is deleted when the app is hard-closed.")
     }
     
-    private func eventsSection(loggedEvents: [LogEvent]) -> some View {
+    private func eventsSection() -> some View {
         Section(header: Text("Events")) {
-            ForEach(loggedEvents.reversed()) {
-                loggedEvent in
+            ForEach(viewModel[\.events]) {
+                event in
                 HStack {
-                    eventIcon(loggedEvent: loggedEvent)
+                    icon(for: event)
                         .frame(minWidth: eventTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     VStack(alignment: .leading, spacing: 6) {
-                        LabeledRow(type: .text, label: loggedEvent.dateDescription, value: loggedEvent.message)
+                        LabeledRow(type: .text, label: event.dateDescription, value: event.message)
                         Group {
                             if #available(iOS 16, *) {
                                 FlowView(spacing: 5, alignment: .leading) {
-                                    ForEach(loggedEvent.trace, id: \.self) {
+                                    ForEach(event.trace, id: \.self) {
                                         traceItem in
                                         HStack(spacing: 5) {
                                             Text(traceItem)
-                                            if traceItem != loggedEvent.trace.last {
+                                            if traceItem != event.trace.last {
                                                 Image(systemName: "chevron.forward")
                                                     .foregroundColor(Color(.systemGray3))
                                             }
                                         }
                                     }
                                 }
-                            }
-                            else {
-                                LegacyFlowView(loggedEvent.trace, spacing: 5, alignment: .leading) {
+                            } else {
+                                LegacyFlowView(event.trace, spacing: 5, alignment: .leading) {
                                     traceItem in
                                     HStack(spacing: 5) {
                                         Text(traceItem)
-                                        if traceItem != loggedEvent.trace.last {
+                                        if traceItem != event.trace.last {
                                             Image(systemName: "chevron.forward")
                                                 .foregroundColor(Color(.systemGray3))
                                         }
@@ -97,7 +93,7 @@ struct LogPage: View {
                         .multilineTextAlignment(.leading)
                         .imageScale(.medium)
                         Button("Copy") {
-                            UIPasteboard.general.string = String(describing: loggedEvent)
+                            viewModel(.copyEvent(event))
                         }
                         .buttonStyle(.borderless)
                     }
@@ -106,8 +102,8 @@ struct LogPage: View {
         }
     }
     
-    @ViewBuilder private func eventIcon(loggedEvent: LogEvent) -> some View {
-        switch loggedEvent.type {
+    @ViewBuilder private func icon(for event: LogEvent) -> some View {
+        switch event.type {
         case .error:
             Image(systemName: "exclamationmark.triangle")
                 .foregroundColor(.yellow)

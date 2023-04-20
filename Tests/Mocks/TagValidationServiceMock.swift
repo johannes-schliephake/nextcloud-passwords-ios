@@ -1,5 +1,4 @@
 @testable import Passwords
-import Foundation
 
 
 final class TagValidationServiceMock: TagValidationServiceProtocol, Mock, FunctionCallLogging {

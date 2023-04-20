@@ -1,9 +1,13 @@
 import Foundation
+import Combine
 
 
 protocol Logging {
     
     var events: [LogEvent]? { get }
+    var eventsPublisher: AnyPublisher<[LogEvent]?, Never> { get }
+    var isAvailable: Bool { get }
+    var isAvailablePublisher: AnyPublisher<Bool, Never> { get }
     
     func log(error: Error, fileID: String, functionName: String, line: UInt)
     func log(error: String, fileID: String, functionName: String, line: UInt)
@@ -13,11 +17,21 @@ protocol Logging {
 }
 
 
-final class Logger: ObservableObject, Logging {
-    
-    static let shared = Logger()
+final class Logger: Logging {
     
     @Published private(set) var events = Bundle.root.isTestFlight || Configuration.isDebug ? [LogEvent]() : nil
+    var eventsPublisher: AnyPublisher<[LogEvent]?, Never> {
+        $events.eraseToAnyPublisher()
+    }
+    
+    var isAvailable: Bool {
+        events?.isEmpty == false
+    }
+    var isAvailablePublisher: AnyPublisher<Bool, Never> {
+        eventsPublisher
+            .map { $0?.isEmpty == false }
+            .eraseToAnyPublisher()
+    }
     
     init() {
         log(info: "Logging enabled")

@@ -303,6 +303,12 @@
 		DDACC44F29EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
 		DDACC45029EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
 		DDACC45229EE73090094D141 /* LoggerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45129EE73090094D141 /* LoggerMock.swift */; };
+		DDACC45429EF3F440094D141 /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45329EF3F440094D141 /* LogViewModel.swift */; };
+		DDACC45529EF3F440094D141 /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45329EF3F440094D141 /* LogViewModel.swift */; };
+		DDACC45629EF3F440094D141 /* LogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45329EF3F440094D141 /* LogViewModel.swift */; };
+		DDACC45829F080D50094D141 /* PasteboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45729F080D50094D141 /* PasteboardService.swift */; };
+		DDACC45929F080D50094D141 /* PasteboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45729F080D50094D141 /* PasteboardService.swift */; };
+		DDACC45A29F080D50094D141 /* PasteboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45729F080D50094D141 /* PasteboardService.swift */; };
 		DDB1695527D1FCFF00F4D752 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */; };
 		DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */; };
 		DDB1696127D1FCFF00F4D752 /* Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DDB1695327D1FCFF00F4D752 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -434,6 +440,9 @@
 		DDBE8AB729B3FEFF0054F179 /* TagValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */; };
 		DDBE8AB829B3FEFF0054F179 /* TagValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */; };
 		DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB929B68D100054F179 /* BeAccessed.swift */; };
+		DDC6E1A029F085C700607C81 /* LogViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */; };
+		DDC6E1A229F085D100607C81 /* PasteboardServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */; };
+		DDC6E1A429F0891D00607C81 /* LogViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */; };
 		DDC7C94428C1F2E700451B81 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* Logger.swift */; };
 		DDC7C94528C1F2E700451B81 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* Logger.swift */; };
 		DDC7C94628C1F2E700451B81 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* Logger.swift */; };
@@ -740,6 +749,8 @@
 		DDA4FE7526E755C000D6F92E /* View+Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Initialize.swift"; sourceTree = "<group>"; };
 		DDACC44D29EDEF500094D141 /* LogEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
 		DDACC45129EE73090094D141 /* LoggerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerMock.swift; sourceTree = "<group>"; };
+		DDACC45329EF3F440094D141 /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
+		DDACC45729F080D50094D141 /* PasteboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardService.swift; sourceTree = "<group>"; };
 		DDAF982529910B86005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDAF982629910B8F005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDAF982729910B9A005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -765,6 +776,9 @@
 		DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderValidationService.swift; sourceTree = "<group>"; };
 		DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagValidationService.swift; sourceTree = "<group>"; };
 		DDBE8AB929B68D100054F179 /* BeAccessed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeAccessed.swift; sourceTree = "<group>"; };
+		DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModelMock.swift; sourceTree = "<group>"; };
+		DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardServiceMock.swift; sourceTree = "<group>"; };
+		DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModelTests.swift; sourceTree = "<group>"; };
 		DDC7C94328C1F2E700451B81 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		DDC7C94728C1FA3A00451B81 /* Bundle+IsTestFlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+IsTestFlight.swift"; sourceTree = "<group>"; };
 		DDC7C94B28C20D1B00451B81 /* LogPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPage.swift; sourceTree = "<group>"; };
@@ -1168,6 +1182,7 @@
 			children = (
 				DD0B7AE22971B35B00A59E3C /* FoldersService.swift */,
 				DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */,
+				DDACC45729F080D50094D141 /* PasteboardService.swift */,
 				DD214361295A014B006C08DD /* TagsService.swift */,
 				DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */,
 			);
@@ -1285,7 +1300,9 @@
 				DD5E99F529ABFF4000A7A4B9 /* ClosureMock.swift */,
 				DD7BC52729AFFE0A004AA7BC /* EditFolderViewModelMock.swift */,
 				DD7BC52329AFFD6E004AA7BC /* FoldersServiceMock.swift */,
+				DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */,
 				DD7BC51F29AFFD01004AA7BC /* FolderValidationServiceMock.swift */,
+				DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */,
 				DDACC45129EE73090094D141 /* LoggerMock.swift */,
 				DD7BC52529AFFDC3004AA7BC /* SelectTagsViewModelMock.swift */,
 				DD7BC52129AFFD33004AA7BC /* TagsServiceMock.swift */,
@@ -1311,6 +1328,7 @@
 			children = (
 				DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */,
 				DD0B7AEE2972CEBD00A59E3C /* FolderValidationServiceTests.swift */,
+				DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */,
 				8F6ED7C0265BC807008CF387 /* ScoreTests.swift */,
 				DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */,
 				DD5E3CB0295363DB0032F517 /* TagValidationServiceTests.swift */,
@@ -1323,6 +1341,7 @@
 			isa = PBXGroup;
 			children = (
 				DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */,
+				DDACC45329EF3F440094D141 /* LogViewModel.swift */,
 				DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */,
 			);
 			path = ViewModels;
@@ -1698,6 +1717,7 @@
 				8FC361FC25828AE600785371 /* EntriesNavigation.swift in Sources */,
 				DD0E59B527414EB5003D7D50 /* Color+Hex.swift in Sources */,
 				8F5E120825D3CC33007A2166 /* Configuration.swift in Sources */,
+				DDACC45829F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDE4F5D6274BEB3D00518167 /* LegacyFlowView.swift in Sources */,
 				8FB645F225D6949900A0F316 /* UIPasteboard+PrivateString.swift in Sources */,
 				DD5189EE27A16BFA00264A0D /* Data+Init.swift in Sources */,
@@ -1779,6 +1799,7 @@
 				8FBC049C268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
 				DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				8FA5B74C261109D7006CBC7D /* NetworkClient.swift in Sources */,
+				DDACC45429EF3F440094D141 /* LogViewModel.swift in Sources */,
 				8F997F8D2572C2FB00B5F784 /* UpdatePasswordRequest.swift in Sources */,
 				DD67204827BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
 				DD0B7AE32971B35B00A59E3C /* FoldersService.swift in Sources */,
@@ -1845,6 +1866,7 @@
 				8F5E120925D3CC33007A2166 /* Configuration.swift in Sources */,
 				DD0E59B627414EB5003D7D50 /* Color+Hex.swift in Sources */,
 				8FB645F325D6949900A0F316 /* UIPasteboard+PrivateString.swift in Sources */,
+				DDACC45929F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDE4F5D7274BEB3D00518167 /* LegacyFlowView.swift in Sources */,
 				8FBE43D4258D5A8C003F7F34 /* Date+FormattedString.swift in Sources */,
 				DD5189EF27A16BFA00264A0D /* Data+Init.swift in Sources */,
@@ -1926,6 +1948,7 @@
 				8FBC049D268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
 				DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				8FA5B74D261109D7006CBC7D /* NetworkClient.swift in Sources */,
+				DDACC45529EF3F440094D141 /* LogViewModel.swift in Sources */,
 				8FBE43D2258D5A8C003F7F34 /* UIApplication+IsExtension.swift in Sources */,
 				DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
 				DD0B7AE42971B35B00A59E3C /* FoldersService.swift in Sources */,
@@ -1996,6 +2019,7 @@
 				DD0B7AF32972CFE400A59E3C /* EditFolderViewModelTests.swift in Sources */,
 				DD7BC52629AFFDC3004AA7BC /* SelectTagsViewModelMock.swift in Sources */,
 				DD5E99F329AB6D3700A7A4B9 /* BeCalled.swift in Sources */,
+				DDC6E1A029F085C700607C81 /* LogViewModelMock.swift in Sources */,
 				DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */,
 				DD7BC51E29AFFCCF004AA7BC /* TagValidationServiceMock.swift in Sources */,
 				DDFF5D4A29D850ED00422603 /* MockInjected.swift in Sources */,
@@ -2016,8 +2040,10 @@
 				DD7BC51C29AFBAD8004AA7BC /* Mock.swift in Sources */,
 				DDFF5D4829D8443B00422603 /* Container+AutoRegistering.swift in Sources */,
 				DD0B7AEF2972CEBD00A59E3C /* FolderValidationServiceTests.swift in Sources */,
+				DDC6E1A229F085D100607C81 /* PasteboardServiceMock.swift in Sources */,
 				DD7BC52A29AFFE43004AA7BC /* ViewModelMock.swift in Sources */,
 				DD5E3CB82953B9690032F517 /* String+Random.swift in Sources */,
+				DDC6E1A429F0891D00607C81 /* LogViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2035,6 +2061,7 @@
 				DDB169BA27D20CC200F4D752 /* ListPasswordsRequest.swift in Sources */,
 				DDB169CE27D20CC200F4D752 /* ShowFolderRequest.swift in Sources */,
 				DDB169C027D20CC200F4D752 /* SettingsPage.swift in Sources */,
+				DDACC45A29F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDB169C927D20CC200F4D752 /* UpdateTagRequest.swift in Sources */,
 				DDB169BB27D20CC200F4D752 /* ShowTagRequest.swift in Sources */,
 				DDB169C727D20CC200F4D752 /* LegacyFlowView.swift in Sources */,
@@ -2116,6 +2143,7 @@
 				DDB169DE27D20CC200F4D752 /* EditTagController.swift in Sources */,
 				DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */,
 				DD95B08027D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
+				DDACC45629EF3F440094D141 /* LogViewModel.swift in Sources */,
 				DDB169DA27D20CC200F4D752 /* OpenSessionRequest.swift in Sources */,
 				DDB169B327D20CC200F4D752 /* String+Localized.swift in Sources */,
 				DD0B7AE52971B35B00A59E3C /* FoldersService.swift in Sources */,

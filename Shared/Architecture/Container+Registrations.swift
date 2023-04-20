@@ -15,8 +15,15 @@ extension Container {
             .cached
     }
     var logger: Factory<any Logging> {
-        self { Logger.shared }
-            .singleton
+        self { Logger() }
+            .cached
+    }
+    var logViewModelType: Factory<any LogViewModelProtocol.Type> {
+        self { LogViewModel.self }
+    }
+    var pasteboardService: Factory<any PasteboardServiceProtocol> {
+        self { PasteboardService() }
+            .cached
     }
     var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {
         self { SelectTagsViewModel.self }
