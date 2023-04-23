@@ -5,6 +5,7 @@ import Factory
 extension Container: AutoRegistering {
     
     public func autoRegister() {
+        Self.shared.configurationType.register { ConfigurationMock.self }
         Self.shared.editFolderViewModelType.register { EditFolderViewModelMock.self }
         Self.shared.folderValidationService.register { FolderValidationServiceMock() }
         Self.shared.foldersService.register { FoldersServiceMock() }

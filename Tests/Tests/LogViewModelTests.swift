@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 import Factory
 @testable import Passwords
+import Combine
 
 
 final class LogViewModelTests: XCTestCase {
@@ -30,7 +31,23 @@ final class LogViewModelTests: XCTestCase {
         
         loggerMock._isAvailablePublisher.send(isAvailableMock)
         
-        expect(logViewModel[\.isAvailable]).to(equal(isAvailableMock))
+        expect(logViewModel[\.isAvailable]).toEventually(equal(isAvailableMock))
+    }
+    
+    func testInit_whenLoggerEmittingIsAvailableFromBackgroundThread_thenSetsIsAvailableFromMainThread() {
+        let logViewModel: any LogViewModelProtocol = LogViewModel()
+        var cancellables = Set<AnyCancellable>()
+        var receivedOnMainThread = false
+        logViewModel[\.$isAvailable]
+            .dropFirst()
+            .sink { _ in receivedOnMainThread = Thread.isMainThread }
+            .store(in: &cancellables)
+        
+        DispatchQueue.global().async(flags: .enforceQoS) {
+            self.loggerMock._isAvailablePublisher.send(.random())
+        }
+        
+        expect(receivedOnMainThread).toEventually(beTrue())
     }
     
     func testInit_whenLoggerEmittingNilEvents_thenSetsEvents() {
@@ -38,7 +55,7 @@ final class LogViewModelTests: XCTestCase {
         
         loggerMock._eventsPublisher.send(nil)
         
-        expect(logViewModel[\.events]).to(beEmpty())
+        expect(logViewModel[\.events]).toAlways(beEmpty(), until: .milliseconds(100))
     }
     
     func testInit_whenLoggerEmittingEmptyEvents_thenSetsEvents() {
@@ -46,7 +63,7 @@ final class LogViewModelTests: XCTestCase {
         
         loggerMock._eventsPublisher.send([])
         
-        expect(logViewModel[\.events]).to(beEmpty())
+        expect(logViewModel[\.events]).toAlways(beEmpty(), until: .milliseconds(100))
     }
     
     func testInit_whenLoggerEmittingEvents_thenSetsEventsReversed() {
@@ -54,7 +71,23 @@ final class LogViewModelTests: XCTestCase {
         
         loggerMock._eventsPublisher.send(logEventMocks)
         
-        expect(logViewModel[\.events]).to(equal(logEventMocks.reversed()))
+        expect(logViewModel[\.events]).toEventually(equal(logEventMocks.reversed()))
+    }
+    
+    func testInit_whenLoggerEmittingEventsFromBackgroundThread_thenSetsEventsFromMainThread() {
+        let logViewModel: any LogViewModelProtocol = LogViewModel()
+        var cancellables = Set<AnyCancellable>()
+        var receivedOnMainThread = false
+        logViewModel[\.$events]
+            .dropFirst()
+            .sink { _ in receivedOnMainThread = Thread.isMainThread }
+            .store(in: &cancellables)
+        
+        DispatchQueue.global().async(flags: .enforceQoS) {
+            self.loggerMock._eventsPublisher.send([])
+        }
+        
+        expect(receivedOnMainThread).toEventually(beTrue())
     }
     
     func testCallAsFunction_givenLoggerIsAvailable_whenCallingCopyLog_thenCallsPasteboardService() {

@@ -1,5 +1,5 @@
-import Foundation
 import Combine
+import Factory
 
 
 protocol Logging {
@@ -19,11 +19,13 @@ protocol Logging {
 
 final class Logger: Logging {
     
-    @Published private(set) var events = Bundle.root.isTestFlight || Configuration.isDebug ? [LogEvent]() : nil
-    var eventsPublisher: AnyPublisher<[LogEvent]?, Never> {
-        $events.eraseToAnyPublisher()
+    var events: [LogEvent]? {
+        lock { eventsInternal }
     }
-    
+    var eventsPublisher: AnyPublisher<[LogEvent]?, Never> {
+        lock { $eventsInternal }
+            .eraseToAnyPublisher()
+    }
     var isAvailable: Bool {
         events?.isEmpty == false
     }
@@ -33,7 +35,17 @@ final class Logger: Logging {
             .eraseToAnyPublisher()
     }
     
+    @Published private var eventsInternal: [LogEvent]?
+    private var lock = Lock()
+    
+#if DEBUG
+    static let initLine: UInt = #line + 2 // Needed for testing
+#endif
     init() {
+        let configuration = Container.shared.configurationType()
+        let logEnabled = configuration.isDebug || configuration.isTestEnvironment || configuration.isTestFlight
+        eventsInternal = logEnabled ? [LogEvent]() : nil
+        
         log(info: "Logging enabled")
     }
     
@@ -49,16 +61,16 @@ final class Logger: Logging {
         log(event: .init(type: .info, message: info, fileID: fileID, functionName: functionName, line: line))
     }
     
+#if DEBUG
+    static let resetFunctionLine: UInt = #line + 2 // Needed for testing
+#endif
     func reset() {
-        events?.removeAll()
+        lock { eventsInternal?.removeAll() }
         log(info: "Log cleared")
     }
     
     private func log(event: LogEvent) {
-        DispatchQueue.main.async {
-            [self] in
-            events?.append(event)
-        }
+        lock { eventsInternal?.append(event) }
 #if DEBUG
         print(event) // swiftlint:disable:this print
 #endif

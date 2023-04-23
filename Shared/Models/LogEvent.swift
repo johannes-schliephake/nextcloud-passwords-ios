@@ -81,7 +81,12 @@ extension LogEvent: MockObject {
 extension LogEvent: Equatable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.id == rhs.id
+        lhs.type == rhs.type &&
+        lhs.message == rhs.message &&
+        lhs.date.distance(to: rhs.date).magnitude < 1 && // Not optimal, but good enough for testing
+        lhs.fileID == rhs.fileID &&
+        lhs.functionName == rhs.functionName &&
+        lhs.line == rhs.line
     }
     
 }

@@ -253,6 +253,9 @@
 		DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */; };
 		DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
 		DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
+		DD6FE0AE29F53DFD004DBE8E /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6FE0AD29F53DFD004DBE8E /* Lock.swift */; };
+		DD6FE0AF29F53DFD004DBE8E /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6FE0AD29F53DFD004DBE8E /* Lock.swift */; };
+		DD6FE0B029F53DFD004DBE8E /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6FE0AD29F53DFD004DBE8E /* Lock.swift */; };
 		DD718F2827B568E200F85780 /* String+Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD718F2727B568E200F85780 /* String+Segmented.swift */; };
 		DD718F2927B568E200F85780 /* String+Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD718F2727B568E200F85780 /* String+Segmented.swift */; };
 		DD72AE1928A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */; };
@@ -440,9 +443,11 @@
 		DDBE8AB729B3FEFF0054F179 /* TagValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */; };
 		DDBE8AB829B3FEFF0054F179 /* TagValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */; };
 		DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB929B68D100054F179 /* BeAccessed.swift */; };
+		DDC2A4F429F58345001D79DC /* ConfigurationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC2A4F329F58345001D79DC /* ConfigurationMock.swift */; };
 		DDC6E1A029F085C700607C81 /* LogViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */; };
 		DDC6E1A229F085D100607C81 /* PasteboardServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */; };
 		DDC6E1A429F0891D00607C81 /* LogViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */; };
+		DDC6E1A829F0899700607C81 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC6E1A729F0899700607C81 /* LoggerTests.swift */; };
 		DDC7C94428C1F2E700451B81 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* Logger.swift */; };
 		DDC7C94528C1F2E700451B81 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* Logger.swift */; };
 		DDC7C94628C1F2E700451B81 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94328C1F2E700451B81 /* Logger.swift */; };
@@ -725,6 +730,7 @@
 		DD6953EB27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD6953EC27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledRow.swift; sourceTree = "<group>"; };
+		DD6FE0AD29F53DFD004DBE8E /* Lock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
 		DD718F2727B568E200F85780 /* String+Segmented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Segmented.swift"; sourceTree = "<group>"; };
 		DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAppPasswordOCSRequest.swift; sourceTree = "<group>"; };
 		DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Root.swift"; sourceTree = "<group>"; };
@@ -776,9 +782,11 @@
 		DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderValidationService.swift; sourceTree = "<group>"; };
 		DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagValidationService.swift; sourceTree = "<group>"; };
 		DDBE8AB929B68D100054F179 /* BeAccessed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeAccessed.swift; sourceTree = "<group>"; };
+		DDC2A4F329F58345001D79DC /* ConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationMock.swift; sourceTree = "<group>"; };
 		DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModelMock.swift; sourceTree = "<group>"; };
 		DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardServiceMock.swift; sourceTree = "<group>"; };
 		DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModelTests.swift; sourceTree = "<group>"; };
+		DDC6E1A729F0899700607C81 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		DDC7C94328C1F2E700451B81 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		DDC7C94728C1FA3A00451B81 /* Bundle+IsTestFlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+IsTestFlight.swift"; sourceTree = "<group>"; };
 		DDC7C94B28C20D1B00451B81 /* LogPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPage.swift; sourceTree = "<group>"; };
@@ -1068,6 +1076,7 @@
 				8F74244526039BD600B73646 /* Crypto.swift */,
 				DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */,
 				8F582BFD255EAD7000F1E3DA /* Keychain.swift */,
+				DD6FE0AD29F53DFD004DBE8E /* Lock.swift */,
 				8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */,
 				8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */,
 				8FA5B74B261109D7006CBC7D /* NetworkClient.swift */,
@@ -1298,12 +1307,13 @@
 			isa = PBXGroup;
 			children = (
 				DD5E99F529ABFF4000A7A4B9 /* ClosureMock.swift */,
+				DDC2A4F329F58345001D79DC /* ConfigurationMock.swift */,
 				DD7BC52729AFFE0A004AA7BC /* EditFolderViewModelMock.swift */,
 				DD7BC52329AFFD6E004AA7BC /* FoldersServiceMock.swift */,
-				DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */,
 				DD7BC51F29AFFD01004AA7BC /* FolderValidationServiceMock.swift */,
-				DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */,
 				DDACC45129EE73090094D141 /* LoggerMock.swift */,
+				DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */,
+				DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */,
 				DD7BC52529AFFDC3004AA7BC /* SelectTagsViewModelMock.swift */,
 				DD7BC52129AFFD33004AA7BC /* TagsServiceMock.swift */,
 				DD7BC51D29AFFCCF004AA7BC /* TagValidationServiceMock.swift */,
@@ -1328,6 +1338,7 @@
 			children = (
 				DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */,
 				DD0B7AEE2972CEBD00A59E3C /* FolderValidationServiceTests.swift */,
+				DDC6E1A729F0899700607C81 /* LoggerTests.swift */,
 				DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */,
 				8F6ED7C0265BC807008CF387 /* ScoreTests.swift */,
 				DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */,
@@ -1779,6 +1790,7 @@
 				DD214362295A014B006C08DD /* TagsService.swift in Sources */,
 				DDCE125927413FF6003912D0 /* CreateTagRequest.swift in Sources */,
 				8F560E69258F54A900C896EE /* View+Occlude.swift in Sources */,
+				DD6FE0AE29F53DFD004DBE8E /* Lock.swift in Sources */,
 				8F55564A25716BD200F5D805 /* DeletePasswordRequest.swift in Sources */,
 				DDE0701E27C8F83B00FC65E2 /* Tooltip.swift in Sources */,
 				DD0B7ADF2971A2A900A59E3C /* EditFolderViewModel.swift in Sources */,
@@ -1928,6 +1940,7 @@
 				DD214363295A014B006C08DD /* TagsService.swift in Sources */,
 				DDCE125A27413FF6003912D0 /* CreateTagRequest.swift in Sources */,
 				8F560E6C258F5AD400C896EE /* View+Occlude.swift in Sources */,
+				DD6FE0AF29F53DFD004DBE8E /* Lock.swift in Sources */,
 				8FC361B525827E4C00785371 /* SettingsPage.swift in Sources */,
 				DDE0701F27C8F83B00FC65E2 /* Tooltip.swift in Sources */,
 				DD0B7AE02971A2A900A59E3C /* EditFolderViewModel.swift in Sources */,
@@ -2032,9 +2045,11 @@
 				DD5E3CB1295363DB0032F517 /* TagValidationServiceTests.swift in Sources */,
 				DD7BC51A29AFBAD8004AA7BC /* PropertyAccessLogging.swift in Sources */,
 				DD7BC52029AFFD01004AA7BC /* FolderValidationServiceMock.swift in Sources */,
+				DDC2A4F429F58345001D79DC /* ConfigurationMock.swift in Sources */,
 				DDACC45229EE73090094D141 /* LoggerMock.swift in Sources */,
 				DDF4138A2955AFD000B886EB /* ViewModelTests.swift in Sources */,
 				DD5E99F129AAA15500A7A4B9 /* Emit.swift in Sources */,
+				DDC6E1A829F0899700607C81 /* LoggerTests.swift in Sources */,
 				DD7BC51B29AFBAD8004AA7BC /* FunctionCallLogging.swift in Sources */,
 				DD5E3CBA2953BD620032F517 /* SelectTagsViewModelTests.swift in Sources */,
 				DD7BC51C29AFBAD8004AA7BC /* Mock.swift in Sources */,
@@ -2123,6 +2138,7 @@
 				DD214364295A014B006C08DD /* TagsService.swift in Sources */,
 				DDB1699027D20CC200F4D752 /* Password.swift in Sources */,
 				DDB169DB27D20CC200F4D752 /* ShowPasswordRequest.swift in Sources */,
+				DD6FE0B029F53DFD004DBE8E /* Lock.swift in Sources */,
 				DDB1699927D20CC200F4D752 /* Date+FormattedString.swift in Sources */,
 				DDB169BD27D20CC200F4D752 /* OfflineContainer.swift in Sources */,
 				DD0B7AE12971A2A900A59E3C /* EditFolderViewModel.swift in Sources */,

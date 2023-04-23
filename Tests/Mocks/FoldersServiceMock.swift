@@ -18,7 +18,7 @@ final class FoldersServiceMock: FoldersServiceProtocol, Mock, PropertyAccessLogg
         return _folderLabel.eraseToAnyPublisher()
     }
     
-    var _apply: Result <Void, FolderApplyError> = .success(()) // swiftlint:disable:this identifier_name
+    var _apply: Result<Void, FolderApplyError> = .success(()) // swiftlint:disable:this identifier_name
     func apply(to folder: Folder, folderLabel: String, folderFavorite: Bool, folderParent: String?) throws {
         logFunctionCall(parameters: folder, folderLabel, folderFavorite, folderParent)
         try _apply.get()

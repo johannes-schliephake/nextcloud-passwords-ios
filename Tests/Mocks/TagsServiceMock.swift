@@ -18,7 +18,7 @@ final class TagsServiceMock: TagsServiceProtocol, Mock, PropertyAccessLogging, F
         return _tagsForTagIds.eraseToAnyPublisher()
     }
     
-    var _addTag: Result <Tag, TagAddError> = .success(.init()) // swiftlint:disable:this identifier_name
+    var _addTag: Result<Tag, TagAddError> = .success(.init()) // swiftlint:disable:this identifier_name
     func addTag(label: String) throws -> Tag {
         logFunctionCall(parameters: label)
         return try _addTag.get()

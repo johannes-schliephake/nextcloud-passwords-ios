@@ -3,6 +3,9 @@ import Factory
 
 extension Container {
     
+    var configurationType: Factory<any Configurating.Type> {
+        self { Configuration.self }
+    }
     var editFolderViewModelType: Factory<any EditFolderViewModelProtocol.Type> {
         self { EditFolderViewModel.self }
     }
