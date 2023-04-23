@@ -60,12 +60,12 @@ extension QRCapture {
     
     final class QRCaptureView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         
-        weak var delegate: QRCaptureViewDelegate?
+        weak var delegate: (any QRCaptureViewDelegate)?
         
         private let captureSession = AVCaptureSession()
         private var subscriptions = Set<AnyCancellable>()
         
-        init(delegate: QRCaptureViewDelegate?) {
+        init(delegate: (any QRCaptureViewDelegate)?) {
             self.delegate = delegate
             super.init(frame: .zero)
             setup()
