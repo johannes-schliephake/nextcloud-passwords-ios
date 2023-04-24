@@ -60,7 +60,7 @@ final class LoggerTests: XCTestCase {
         let callLine: UInt = #line + 3
         
         let expectedEvent = LogEvent(type: .error, message: "requestError", fileID: #fileID, functionName: #function, line: callLine)
-        expect(logger.eventsPublisher).to(emit([expectedInitialEvent, expectedEvent], when: { logger.log(error: NCPasswordsRequestError.requestError) }))
+        expect(logger.eventsPublisher.dropFirst()).to(emit([expectedInitialEvent, expectedEvent], when: { logger.log(error: NCPasswordsRequestError.requestError) }))
     }
     
     func testLog_givenErrorString_thenEventIsAdded() throws {
@@ -82,7 +82,7 @@ final class LoggerTests: XCTestCase {
         let callLine: UInt = #line + 3
         
         let expectedEvent = LogEvent(type: .error, message: errorMessage, fileID: #fileID, functionName: #function, line: callLine)
-        expect(logger.eventsPublisher).to(emit([expectedInitialEvent, expectedEvent], when: { logger.log(error: errorMessage) }))
+        expect(logger.eventsPublisher.dropFirst()).to(emit([expectedInitialEvent, expectedEvent], when: { logger.log(error: errorMessage) }))
     }
     
     func testLog_givenInfo_thenEventIsAdded() throws {
@@ -104,7 +104,7 @@ final class LoggerTests: XCTestCase {
         let callLine: UInt = #line + 3
         
         let expectedEvent = LogEvent(type: .info, message: infoMessage, fileID: #fileID, functionName: #function, line: callLine)
-        expect(logger.eventsPublisher).to(emit([expectedInitialEvent, expectedEvent], when: { logger.log(info: infoMessage) }))
+        expect(logger.eventsPublisher.dropFirst()).to(emit([expectedInitialEvent, expectedEvent], when: { logger.log(info: infoMessage) }))
     }
     
     func testReset_givenExistingEvents_thenClearsEventsAndLogsResetInfo() throws {
