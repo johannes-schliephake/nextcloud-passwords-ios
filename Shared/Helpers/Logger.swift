@@ -38,9 +38,6 @@ final class Logger: Logging {
     @Published private var eventsInternal: [LogEvent]?
     private var lock = Lock()
     
-#if DEBUG
-    static let initLine: UInt = #line + 2 // Needed for testing
-#endif
     init() {
         let configuration = Container.shared.configurationType()
         let logEnabled = configuration.isDebug || configuration.isTestEnvironment || configuration.isTestFlight
@@ -61,9 +58,6 @@ final class Logger: Logging {
         log(event: .init(type: .info, message: info, fileID: fileID, functionName: functionName, line: line))
     }
     
-#if DEBUG
-    static let resetFunctionLine: UInt = #line + 2 // Needed for testing
-#endif
     func reset() {
         lock { eventsInternal?.removeAll() }
         log(info: "Log cleared")
