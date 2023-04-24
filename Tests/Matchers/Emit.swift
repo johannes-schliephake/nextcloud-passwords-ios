@@ -3,9 +3,14 @@ import XCTest
 import Combine
 
 
-func emit<P: Publisher>(within timeout: TimeInterval = 0.1, when block: (() -> Void)? = nil) -> Predicate<P> where P.Output == Void {
+func emit<P: Publisher>(
+    within timeout: TimeInterval = 0.1,
+    onMainThread expectMainThread: Bool? = nil,
+    when block: (() -> Void)? = nil,
+    from originQueue: DispatchQueue = .main
+) -> Predicate<P> where P.Output == Void {
     Predicate { expression in
-        let message = ExpectationMessage.expectedTo("emit")
+        var message = ExpectationMessage.expectedTo("emit")
         
         guard let publisher = try expression.evaluate() else {
             return .init(status: .fail, message: message.appendedBeNilHint())
@@ -22,21 +27,35 @@ func emit<P: Publisher>(within timeout: TimeInterval = 0.1, when block: (() -> V
                 result = .init(status: .fail, message: message.appended(message: " - completed with failure <\(error)>"))
                 expectation.fulfill()
             } receiveValue: {
-                result = .init(status: .matches, message: message.appended(message: " - received value"))
+                var matches = true
+                message = message.appended(message: " - received value")
+                if let expectMainThread {
+                    matches = matches && Thread.isMainThread == expectMainThread
+                    message = message.appended(message: " on \(Thread.isMainThread ? "main" : "background") thread")
+                }
+                result = .init(status: .init(bool: matches), message: message)
                 expectation.fulfill()
             }
             .store(in: &cancellables)
         
-        block?()
+        originQueue.async(flags: .enforceQoS) {
+            block?()
+        }
         XCTWaiter().wait(for: [expectation], timeout: timeout)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't receive value"))
     }
 }
 
 
-func emit<P: Publisher>(_ expectedValue: P.Output, within timeout: TimeInterval = 0.1, when block: (() -> Void)? = nil) -> Predicate<P> where P.Output: Equatable {
+func emit<P: Publisher>(
+    _ expectedValue: P.Output,
+    within timeout: TimeInterval = 0.1,
+    onMainThread expectMainThread: Bool? = nil,
+    when block: (() -> Void)? = nil,
+    from originQueue: DispatchQueue = .main
+) -> Predicate<P> where P.Output: Equatable {
     Predicate { expression in
-        let message = ExpectationMessage.expectedTo("emit <\(stringify(expectedValue))>")
+        var message = ExpectationMessage.expectedTo("emit <\(stringify(expectedValue))>")
         
         guard let publisher = try expression.evaluate() else {
             return .init(status: .fail, message: message.appendedBeNilHint())
@@ -53,21 +72,35 @@ func emit<P: Publisher>(_ expectedValue: P.Output, within timeout: TimeInterval 
                 result = .init(status: .fail, message: message.appended(message: " - completed with failure <\(error)>"))
                 expectation.fulfill()
             } receiveValue: { value in
-                result = .init(status: value == expectedValue ? .matches : .doesNotMatch, message: message.appended(message: " - received value <\(stringify(value))>"))
+                var matches = value == expectedValue
+                message = message.appended(message: " - received value <\(stringify(value))>")
+                if let expectMainThread {
+                    matches = matches && Thread.isMainThread == expectMainThread
+                    message = message.appended(message: " on \(Thread.isMainThread ? "main" : "background") thread")
+                }
+                result = .init(status: .init(bool: matches), message: message)
                 expectation.fulfill()
             }
             .store(in: &cancellables)
         
-        block?()
+        originQueue.async(flags: .enforceQoS) {
+            block?()
+        }
         XCTWaiter().wait(for: [expectation], timeout: timeout)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't receive value"))
     }
 }
 
 
-func fail<P: Publisher>(_ expectedError: P.Failure? = nil, within timeout: TimeInterval = 0.1, when block: (() -> Void)? = nil) -> Predicate<P> where P.Failure: Equatable {
+func fail<P: Publisher>(
+    _ expectedError: P.Failure? = nil,
+    within timeout: TimeInterval = 0.1,
+    onMainThread expectMainThread: Bool? = nil,
+    when block: (() -> Void)? = nil,
+    from originQueue: DispatchQueue = .main
+) -> Predicate<P> where P.Failure: Equatable {
     Predicate { expression in
-        let message: ExpectationMessage
+        var message: ExpectationMessage
         if let expectedError {
             message = .expectedTo("fail with <\(stringify(expectedError))>")
         } else {
@@ -86,13 +119,16 @@ func fail<P: Publisher>(_ expectedError: P.Failure? = nil, within timeout: TimeI
                 guard case let .failure(error) = completion else {
                     return
                 }
-                let message = message.appended(message: " - completed with failure <\(error)>")
-                if let expectedError,
-                   error != expectedError {
-                    result = .init(status: .doesNotMatch, message: message)
-                } else {
-                    result = .init(status: .matches, message: message)
+                var matches = true
+                message = message.appended(message: " - completed with failure <\(error)>")
+                if let expectedError {
+                    matches = matches && error == expectedError
                 }
+                if let expectMainThread {
+                    matches = matches && Thread.isMainThread == expectMainThread
+                    message = message.appended(message: " on \(Thread.isMainThread ? "main" : "background") thread")
+                }
+                result = .init(status: .init(bool: matches), message: message)
                 expectation.fulfill()
             } receiveValue: { value in
                 result = .init(status: .doesNotMatch, message: message.appended(message: " - received value <\(stringify(value))>"))
@@ -100,7 +136,9 @@ func fail<P: Publisher>(_ expectedError: P.Failure? = nil, within timeout: TimeI
             }
             .store(in: &cancellables)
         
-        block?()
+        originQueue.async(flags: .enforceQoS) {
+            block?()
+        }
         XCTWaiter().wait(for: [expectation], timeout: timeout)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't complete with failure"))
     }

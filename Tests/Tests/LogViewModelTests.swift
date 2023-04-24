@@ -36,18 +36,9 @@ final class LogViewModelTests: XCTestCase {
     
     func testInit_whenLoggerEmittingIsAvailableFromBackgroundThread_thenSetsIsAvailableFromMainThread() {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
-        var cancellables = Set<AnyCancellable>()
-        var receivedOnMainThread = false
-        logViewModel[\.$isAvailable]
-            .dropFirst()
-            .sink { _ in receivedOnMainThread = Thread.isMainThread }
-            .store(in: &cancellables)
+        let isAvailableMock = Bool.random()
         
-        DispatchQueue.global().async(flags: .enforceQoS) {
-            self.loggerMock._isAvailablePublisher.send(.random())
-        }
-        
-        expect(receivedOnMainThread).toEventually(beTrue())
+        expect(logViewModel[\.$isAvailable].dropFirst()).to(emit(isAvailableMock, onMainThread: true, when: { self.loggerMock._isAvailablePublisher.send(isAvailableMock) }, from: .global()))
     }
     
     func testInit_whenLoggerEmittingNilEvents_thenSetsEvents() {
@@ -76,18 +67,8 @@ final class LogViewModelTests: XCTestCase {
     
     func testInit_whenLoggerEmittingEventsFromBackgroundThread_thenSetsEventsFromMainThread() {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
-        var cancellables = Set<AnyCancellable>()
-        var receivedOnMainThread = false
-        logViewModel[\.$events]
-            .dropFirst()
-            .sink { _ in receivedOnMainThread = Thread.isMainThread }
-            .store(in: &cancellables)
         
-        DispatchQueue.global().async(flags: .enforceQoS) {
-            self.loggerMock._eventsPublisher.send([])
-        }
-        
-        expect(receivedOnMainThread).toEventually(beTrue())
+        expect(logViewModel[\.$events].dropFirst()).to(emit([], onMainThread: true, when: { self.loggerMock._eventsPublisher.send([]) }, from: .global()))
     }
     
     func testCallAsFunction_givenLoggerIsAvailable_whenCallingCopyLog_thenCallsPasteboardService() {
