@@ -18,7 +18,7 @@ final class LoggerTests: XCTestCase {
     }
     
     func testInit_givenDebugConfiguration_thenEnablesLogging() {
-        let logger = Logger()
+        let logger: any Logging = Logger()
         
         expect(logger.isAvailable).to(beTrue())
         expect(logger.events).toNot(beNil())
@@ -29,14 +29,14 @@ final class LoggerTests: XCTestCase {
         ConfigurationMock.isTestEnvironment = false
         ConfigurationMock.isTestFlight = false
         
-        let logger = Logger()
+        let logger: any Logging = Logger()
         
         expect(logger.isAvailable).to(beFalse())
         expect(logger.events).to(beNil())
     }
     
     func testInit_thenLogsInitialInfo() throws {
-        let logger = Logger()
+        let logger: any Logging = Logger()
         
         expect(logger.events).to(haveCount(1))
         let event = try XCTUnwrap(logger.events?[0])
@@ -44,7 +44,7 @@ final class LoggerTests: XCTestCase {
     }
     
     func testLog_givenError_thenEventIsAdded() throws {
-        let logger = Logger()
+        let logger: any Logging = Logger()
         let callLine: UInt = #line + 2
         
         logger.log(error: NCPasswordsRequestError.requestError)
@@ -56,7 +56,7 @@ final class LoggerTests: XCTestCase {
     }
     
     func testLog_givenError_thenEventsAreEmitted() throws {
-        let logger = Logger()
+        let logger: any Logging = Logger()
         let callLine: UInt = #line + 3
         
         let expectedEvent = LogEvent(type: .error, message: "requestError", fileID: #fileID, functionName: #function, line: callLine)
@@ -64,7 +64,7 @@ final class LoggerTests: XCTestCase {
     }
     
     func testLog_givenErrorString_thenEventIsAdded() throws {
-        let logger = Logger()
+        let logger: any Logging = Logger()
         let errorMessage = String.random()
         let callLine: UInt = #line + 2
         
@@ -77,7 +77,7 @@ final class LoggerTests: XCTestCase {
     }
     
     func testLog_givenErrorString_thenEventsAreEmitted() throws {
-        let logger = Logger()
+        let logger: any Logging = Logger()
         let errorMessage = String.random()
         let callLine: UInt = #line + 3
         
@@ -86,7 +86,7 @@ final class LoggerTests: XCTestCase {
     }
     
     func testLog_givenInfo_thenEventIsAdded() throws {
-        let logger = Logger()
+        let logger: any Logging = Logger()
         let infoMessage = String.random()
         let callLine: UInt = #line + 2
         
@@ -99,7 +99,7 @@ final class LoggerTests: XCTestCase {
     }
     
     func testLog_givenInfo_thenEventsAreEmitted() throws {
-        let logger = Logger()
+        let logger: any Logging = Logger()
         let infoMessage = String.random()
         let callLine: UInt = #line + 3
         
@@ -108,7 +108,7 @@ final class LoggerTests: XCTestCase {
     }
     
     func testReset_givenExistingEvents_thenClearsEventsAndLogsResetInfo() throws {
-        let logger = Logger()
+        let logger: any Logging = Logger()
         logger.log(error: NCPasswordsRequestError.requestError)
         logger.log(error: .random())
         logger.log(info: .random())

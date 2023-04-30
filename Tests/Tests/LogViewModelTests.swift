@@ -25,6 +25,13 @@ final class LogViewModelTests: XCTestCase {
         expect(logViewModel[\.events]).to(beEmpty())
     }
     
+    func testInit_thenCallsLogger() {
+        _ = LogViewModel()
+        
+        expect(self.loggerMock).to(beAccessed(.once, on: "isAvailablePublisher"))
+        expect(self.loggerMock).to(beAccessed(.once, on: "eventsPublisher"))
+    }
+    
     func testInit_whenLoggerEmittingIsAvailable_thenSetsIsAvailable() {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
         let isAvailableMock = Bool.random()
@@ -69,6 +76,17 @@ final class LogViewModelTests: XCTestCase {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
         
         expect(logViewModel[\.$events].dropFirst()).to(emit([], onMainThread: true, when: { self.loggerMock._eventsPublisher.send([]) }, from: .global()))
+    }
+    
+    func testCallAsFunction_whenCallingCopyLog_thenCallsLogger() {
+        let logViewModel: any LogViewModelProtocol = LogViewModel()
+        loggerMock._isAvailable = true
+        loggerMock._events = logEventMocks
+        
+        logViewModel(.copyLog)
+        
+        expect(self.loggerMock).to(beAccessed(.once, on: "isAvailable"))
+        expect(self.loggerMock).to(beAccessed(.once, on: "events"))
     }
     
     func testCallAsFunction_givenLoggerIsAvailable_whenCallingCopyLog_thenCallsPasteboardService() {

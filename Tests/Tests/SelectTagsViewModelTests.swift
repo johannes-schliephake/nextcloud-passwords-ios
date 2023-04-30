@@ -27,6 +27,13 @@ final class SelectTagsViewModelTests: XCTestCase {
         expect(selectTagsViewModel[\.focusedField]).to(beNil())
     }
     
+    func testInit_thenCallsTagsService() {
+        _ = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
+        
+        expect(self.tagsServiceMock).to(beCalled(.once, on: "tags(for:)", withParameter: temporaryEntry.tags))
+        expect(self.tagsServiceMock).to(beAccessed(.once, on: "tags"))
+    }
+    
     func testInit_whenTagsServiceEmittingTags_thenSetsSelectableTags() {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntry) { _, _ in }
         
