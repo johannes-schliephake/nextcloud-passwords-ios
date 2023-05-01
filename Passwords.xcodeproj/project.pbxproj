@@ -116,7 +116,6 @@
 		8F997F8D2572C2FB00B5F784 /* UpdatePasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997F8C2572C2FB00B5F784 /* UpdatePasswordRequest.swift */; };
 		8F997F952572C79900B5F784 /* EditFolderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997F942572C79900B5F784 /* EditFolderPage.swift */; };
 		8F997F9D2572ED7800B5F784 /* CreateFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997F9C2572ED7800B5F784 /* CreateFolderRequest.swift */; };
-		8F997FA12572F40D00B5F784 /* EditFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FA02572F40D00B5F784 /* EditFolderController.swift */; };
 		8F997FA5257300A600B5F784 /* EditPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FA4257300A600B5F784 /* EditPasswordPage.swift */; };
 		8F997FAB2573043400B5F784 /* PasswordServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FAA2573043400B5F784 /* PasswordServiceRequest.swift */; };
 		8FA5B74C261109D7006CBC7D /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5B74B261109D7006CBC7D /* NetworkClient.swift */; };
@@ -149,7 +148,6 @@
 		8FC361BE25827E5200785371 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55FBD62570276800CC6920 /* SessionController.swift */; };
 		8FC361BF25827E5200785371 /* ServerSetupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F59F524256B1EFB00D9FE40 /* ServerSetupController.swift */; };
 		8FC361C025827E5200785371 /* EntriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F77DA6225699FB300CFDA8D /* EntriesController.swift */; };
-		8FC361C125827E5200785371 /* EditFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FA02572F40D00B5F784 /* EditFolderController.swift */; };
 		8FC361C225827E5200785371 /* EditPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51428E2573F91800DD96C0 /* EditPasswordController.swift */; };
 		8FC361C325827E5200785371 /* BiometricAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C1A83257D7D5F009FF66F /* BiometricAuthenticationController.swift */; };
 		8FC361C625827E5500785371 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55B2D3256DBF530011C92D /* Entry.swift */; };
@@ -187,8 +185,6 @@
 		DD0C2873276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */; };
 		DD0C28752766028500E3DAEF /* SelectTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28742766028500E3DAEF /* SelectTagsPage.swift */; };
 		DD0C28762766028500E3DAEF /* SelectTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28742766028500E3DAEF /* SelectTagsPage.swift */; };
-		DD0C28782766036A00E3DAEF /* SelectTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28772766036A00E3DAEF /* SelectTagsController.swift */; };
-		DD0C28792766036A00E3DAEF /* SelectTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28772766036A00E3DAEF /* SelectTagsController.swift */; };
 		DD0E59A6274143D9003D7D50 /* EditTagNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */; };
 		DD0E59A7274143D9003D7D50 /* EditTagNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */; };
 		DD0E59A9274146C8003D7D50 /* EditTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A8274146C8003D7D50 /* EditTagPage.swift */; };
@@ -403,10 +399,8 @@
 		DDB169CE27D20CC200F4D752 /* ShowFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D74126495BD100FF192C /* ShowFolderRequest.swift */; };
 		DDB169CF27D20CC200F4D752 /* LoginFlowPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F582BF9255EA63D00F1E3DA /* LoginFlowPage.swift */; };
 		DDB169D027D20CC200F4D752 /* CreateFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997F9C2572ED7800B5F784 /* CreateFolderRequest.swift */; };
-		DDB169D127D20CC200F4D752 /* SelectTagsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28772766036A00E3DAEF /* SelectTagsController.swift */; };
 		DDB169D227D20CC200F4D752 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F74244526039BD600B73646 /* Crypto.swift */; };
 		DDB169D327D20CC200F4D752 /* ServerSetupPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F513A62256064E9001C6EF9 /* ServerSetupPage.swift */; };
-		DDB169D427D20CC200F4D752 /* EditFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FA02572F40D00B5F784 /* EditFolderController.swift */; };
 		DDB169D527D20CC200F4D752 /* URL+RelativeReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A73A22677493500FCA15F /* URL+RelativeReference.swift */; };
 		DDB169D627D20CC200F4D752 /* EditPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FA4257300A600B5F784 /* EditPasswordPage.swift */; };
 		DDB169D727D20CC200F4D752 /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */; };
@@ -628,7 +622,6 @@
 		8F997F8C2572C2FB00B5F784 /* UpdatePasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordRequest.swift; sourceTree = "<group>"; };
 		8F997F942572C79900B5F784 /* EditFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderPage.swift; sourceTree = "<group>"; };
 		8F997F9C2572ED7800B5F784 /* CreateFolderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFolderRequest.swift; sourceTree = "<group>"; };
-		8F997FA02572F40D00B5F784 /* EditFolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderController.swift; sourceTree = "<group>"; };
 		8F997FA4257300A600B5F784 /* EditPasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordPage.swift; sourceTree = "<group>"; };
 		8F997FAA2573043400B5F784 /* PasswordServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordServiceRequest.swift; sourceTree = "<group>"; };
 		8FA5B74B261109D7006CBC7D /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
@@ -666,7 +659,6 @@
 		DD0BE01527FD969D001687A1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DD0C2871276601A400E3DAEF /* SelectTagsNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsNavigation.swift; sourceTree = "<group>"; };
 		DD0C28742766028500E3DAEF /* SelectTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsPage.swift; sourceTree = "<group>"; };
-		DD0C28772766036A00E3DAEF /* SelectTagsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsController.swift; sourceTree = "<group>"; };
 		DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagNavigation.swift; sourceTree = "<group>"; };
 		DD0E59A8274146C8003D7D50 /* EditTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagPage.swift; sourceTree = "<group>"; };
 		DD0E59AB274147CC003D7D50 /* EditTagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagController.swift; sourceTree = "<group>"; };
@@ -903,7 +895,6 @@
 		8F118751253C9EE10019FECA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				DD5E3C6129533E3D0032F517 /* Architecture */,
 				8F55B9FE25611A7C008AAC63 /* Views */,
 				DD8282BC2937684B0085115D /* ViewModels */,
 				DD214360295A0139006C08DD /* Services */,
@@ -1072,6 +1063,7 @@
 		8F56D34A2561CC1400FBCB1B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				DDF413852955ADF500B886EB /* AnyViewModel.swift */,
 				8F854E6826239314008885C3 /* CoreData.swift */,
 				8F74244526039BD600B73646 /* Crypto.swift */,
 				DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */,
@@ -1080,6 +1072,7 @@
 				8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */,
 				8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */,
 				8FA5B74B261109D7006CBC7D /* NetworkClient.swift */,
+				DD8282C52938CBA00085115D /* ViewModel.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1109,7 +1102,6 @@
 		8F5C234025A3CE1B007CB2B8 /* Local */ = {
 			isa = PBXGroup;
 			children = (
-				8F997FA02572F40D00B5F784 /* EditFolderController.swift */,
 				DD67204427BAFDC40078CF47 /* EditOTPController.swift */,
 				8F51428E2573F91800DD96C0 /* EditPasswordController.swift */,
 				DD0E59AB274147CC003D7D50 /* EditTagController.swift */,
@@ -1117,7 +1109,6 @@
 				8F781F51267CC8B400BD3DC1 /* FolderController.swift */,
 				8FBC049B268B9DD1006D4CB7 /* LoginFlowNavigationController.swift */,
 				DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */,
-				DD0C28772766036A00E3DAEF /* SelectTagsController.swift */,
 				8F59F524256B1EFB00D9FE40 /* ServerSetupController.swift */,
 			);
 			path = Local;
@@ -1134,6 +1125,7 @@
 				DD0E59B427414EB5003D7D50 /* Color+Hex.swift */,
 				DD0E59B127414AFE003D7D50 /* Color+Init.swift */,
 				8F7237962651466000832A88 /* Comparable+Clamped.swift */,
+				DD6350E0293FED030058A787 /* Container+Registrations.swift */,
 				DD5189ED27A16BFA00264A0D /* Data+Init.swift */,
 				8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */,
 				8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */,
@@ -1260,24 +1252,14 @@
 			path = AppConfig;
 			sourceTree = "<group>";
 		};
-		DD5E3C6129533E3D0032F517 /* Architecture */ = {
-			isa = PBXGroup;
-			children = (
-				DDF413852955ADF500B886EB /* AnyViewModel.swift */,
-				DD6350E0293FED030058A787 /* Container+Registrations.swift */,
-				DD8282C52938CBA00085115D /* ViewModel.swift */,
-			);
-			path = Architecture;
-			sourceTree = "<group>";
-		};
 		DD5E3CAF295363DB0032F517 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				DD7BC51929AFBAC5004AA7BC /* Architecture */,
 				DD5E3CBB2954571B0032F517 /* Extensions */,
 				DD5E99EF29AAA14A00A7A4B9 /* Matchers */,
 				DD5E99F429ABFF3300A7A4B9 /* Mocks */,
 				DD7BC52B29B00233004AA7BC /* Tests */,
+				DD7BC51929AFBAC5004AA7BC /* Utilities */,
 				DDB409BE29E211F30002517F /* Unit.xctestplan */,
 			);
 			path = Tests;
@@ -1322,7 +1304,7 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		DD7BC51929AFBAC5004AA7BC /* Architecture */ = {
+		DD7BC51929AFBAC5004AA7BC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				DDF4138B29571D1D00B886EB /* FunctionCallLogging.swift */,
@@ -1330,7 +1312,7 @@
 				DDFF5D4929D850ED00422603 /* MockInjected.swift */,
 				DD760683295E498000109075 /* PropertyAccessLogging.swift */,
 			);
-			path = Architecture;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		DD7BC52B29B00233004AA7BC /* Tests */ = {
@@ -1760,7 +1742,6 @@
 				8F854E6926239314008885C3 /* CoreData.swift in Sources */,
 				8F997F952572C79900B5F784 /* EditFolderPage.swift in Sources */,
 				DD760688295F72BC00109075 /* View+Bind.swift in Sources */,
-				8F997FA12572F40D00B5F784 /* EditFolderController.swift in Sources */,
 				8F71A8252607634E00863C27 /* CloseSessionRequest.swift in Sources */,
 				8F854E66262390FA008885C3 /* CoreData.xcdatamodeld in Sources */,
 				8F52F3C92593746F00B4EFCE /* TipController.swift in Sources */,
@@ -1801,7 +1782,6 @@
 				DD0C28752766028500E3DAEF /* SelectTagsPage.swift in Sources */,
 				8F559A1825A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
 				DD9FAD5B26A3796500770FEA /* SelectFolderPage.swift in Sources */,
-				DD0C28782766036A00E3DAEF /* SelectTagsController.swift in Sources */,
 				DD5B586B27D00E6F00E54E71 /* ShareOTPPage.swift in Sources */,
 				8F55FBD72570276800CC6920 /* SessionController.swift in Sources */,
 				8F997FA5257300A600B5F784 /* EditPasswordPage.swift in Sources */,
@@ -1951,7 +1931,6 @@
 				DD0C28762766028500E3DAEF /* SelectTagsPage.swift in Sources */,
 				8F559A1925A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
 				DD9FAD5C26A3796500770FEA /* SelectFolderPage.swift in Sources */,
-				DD0C28792766036A00E3DAEF /* SelectTagsController.swift in Sources */,
 				DD5B586C27D00E6F00E54E71 /* ShareOTPPage.swift in Sources */,
 				8FC361B925827E4C00785371 /* ServerSetupPage.swift in Sources */,
 				8FC361C325827E5200785371 /* BiometricAuthenticationController.swift in Sources */,
@@ -1983,7 +1962,6 @@
 				8F63618225A7438700C832C9 /* PreviewDevice+Generate.swift in Sources */,
 				8FC361CC25827E5D00785371 /* FaviconServiceRequest.swift in Sources */,
 				DD0E59A7274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
-				8FC361C125827E5200785371 /* EditFolderController.swift in Sources */,
 				8F52F3DE25937A2E00B4EFCE /* SKProduct+LocalizedPrice.swift in Sources */,
 				DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */,
 				DDDF3389276F7FDE008EEB3F /* TagBadge.swift in Sources */,
@@ -2100,7 +2078,6 @@
 				DDB1699727D20CC200F4D752 /* SKProduct+LocalizedPrice.swift in Sources */,
 				DDB169AE27D20CC200F4D752 /* EditFolderPage.swift in Sources */,
 				DDB1699427D20CC200F4D752 /* Data+Init.swift in Sources */,
-				DDB169D427D20CC200F4D752 /* EditFolderController.swift in Sources */,
 				DDB1698B27D20CC200F4D752 /* CreatePasswordRequest.swift in Sources */,
 				DDB169EA27D20CC300F4D752 /* LoginFlowNavigationController.swift in Sources */,
 				DDB169B727D20CC200F4D752 /* SettingsController.swift in Sources */,
@@ -2192,7 +2169,6 @@
 				DDBE8AB829B3FEFF0054F179 /* TagValidationService.swift in Sources */,
 				DDB169D627D20CC200F4D752 /* EditPasswordPage.swift in Sources */,
 				DDB169EB27D20CC300F4D752 /* URL+Score.swift in Sources */,
-				DDB169D127D20CC200F4D752 /* SelectTagsController.swift in Sources */,
 				DDB169BF27D20CC200F4D752 /* Tag.swift in Sources */,
 				DDB169B927D20CC200F4D752 /* KeepaliveSessionRequest.swift in Sources */,
 				DDC7C94628C1F2E700451B81 /* Logger.swift in Sources */,
