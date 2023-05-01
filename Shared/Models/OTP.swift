@@ -118,7 +118,7 @@ struct OTP: Equatable, Hashable {
         let counter = try container.decodeIfPresent(Int.self, forKey: .counter)
         let period = try container.decodeIfPresent(Int.self, forKey: .period)
         
-        guard let otp = OTP(type: type, algorithm: algorithm, secret: secret, digits: digits, counter: counter, period: period) else {
+        guard let otp = Self(type: type, algorithm: algorithm, secret: secret, digits: digits, counter: counter, period: period) else {
             throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "OTP decoding failed"))
         }
         self = otp
@@ -178,7 +178,7 @@ struct OTP: Equatable, Hashable {
         guard type == .hotp else {
             return self
         }
-        return OTP(type: type, algorithm: algorithm, secret: secret, digits: digits, counter: counter + 1, period: nil) ?? self
+        return Self(type: type, algorithm: algorithm, secret: secret, digits: digits, counter: counter + 1, period: nil) ?? self
     }
     
     static var clock: AnyPublisher<Date, Never> = {

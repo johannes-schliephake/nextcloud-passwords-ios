@@ -78,7 +78,7 @@ final class Password: ObservableObject, Identifiable {
                   let value = String(data: data, encoding: .utf8) else {
                 return
             }
-            let otpField = CustomField(label: CustomField.OtpKey, type: .data, value: value)
+            let otpField = CustomField(label: CustomField.otpKey, type: .data, value: value)
             customFields.append(otpField)
         }
     }
@@ -459,7 +459,7 @@ extension Password {
     
     struct CustomField: Identifiable, Equatable, Codable {
         
-        static let OtpKey = "client.ios.otp"
+        static let otpKey = "client.ios.otp"
         
         let id = UUID()
         var label: String
@@ -511,7 +511,7 @@ extension Password {
         }
         
         var isOtpField: Bool {
-            type == .data && label == CustomField.OtpKey
+            type == .data && label == Self.otpKey
         }
         
     }
@@ -536,7 +536,7 @@ extension Password: MockObject {
     
     static var mocks: [Password] {
         [
-            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com/index.php/login", customFields: [CustomField(label: CustomField.OtpKey, type: .data, value: String(data: try! Configuration.nonUpdatingJsonEncoder.encode(OTP.mock), encoding: .utf8)!)], status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", favorite: true, edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001", "00000000-0000-0000-0003-000000000002"]), // swiftlint:disable:this force_try
+            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com/index.php/login", customFields: [CustomField(label: CustomField.otpKey, type: .data, value: String(data: try! Configuration.nonUpdatingJsonEncoder.encode(OTP.mock), encoding: .utf8)!)], status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", favorite: true, edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001", "00000000-0000-0000-0003-000000000002"]), // swiftlint:disable:this force_try
             Password(id: "00000000-0000-0000-0002-000000000002", label: "GitHub", username: "johannes-schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://github.com/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001"]),
             Password(id: "00000000-0000-0000-0002-000000000003", label: "Weblate", username: "johannes.schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://hosted.weblate.org/accounts/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date()),
             Password(id: "00000000-0000-0000-0002-000000000004", label: "Swift.org", username: "johannes", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://forums.swift.org/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001"])

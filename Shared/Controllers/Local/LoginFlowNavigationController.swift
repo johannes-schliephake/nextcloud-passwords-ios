@@ -32,11 +32,12 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
         
         let sessionPublisher = NetworkClient.default.dataTaskPublisher(for: request)
             .tryMap {
-                guard let response = $0.response as? HTTPURLResponse,
+                result in
+                guard let response = result.response as? HTTPURLResponse,
                       response.statusCode == 200 else {
                     throw URLError(.userAuthenticationRequired)
                 }
-                return $0.data
+                return result.data
             }
             .decode(type: Response?.self, decoder: Configuration.jsonDecoder)
             .handleEvents(receiveCompletion: {
@@ -47,7 +48,8 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
                 }
             })
             .catch {
-                Fail(error: $0)
+                error in
+                Fail(error: error)
                     .delay(for: 1, scheduler: DispatchQueue.global(qos: .utility))
             }
             .retry(30)

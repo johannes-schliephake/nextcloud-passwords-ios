@@ -4,7 +4,7 @@
 @propertyWrapper struct MockInjected<T, M> {
     
     private let reference: BoxedFactoryReference
-    private var mock: M!
+    private var mock: M! // swiftlint:disable:this implicitly_unwrapped_optional
     private var initialize = true
     
     init(_ keyPath: KeyPath<Container, Factory<T>>) {
@@ -22,7 +22,7 @@
             if initialize {
                 let factory: Factory<T> = reference.factory()
                 guard let mock = factory() as? M else {
-                    fatalError("Failed to cast dependency to mock type")
+                    fatalError("Failed to cast dependency to mock type") // swiftlint:disable:this fatal_error
                 }
                 self.mock = mock
                 initialize = false

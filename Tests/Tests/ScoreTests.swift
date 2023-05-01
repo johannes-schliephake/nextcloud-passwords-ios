@@ -3,6 +3,7 @@ import XCTest
 
 // TODO: refactor
 // swiftlint:disable test_naming
+// swiftlint:disable prefer_nimble
 
 final class ScoreTests: XCTestCase {
     
@@ -185,6 +186,10 @@ final class ScoreTests: XCTestCase {
     }
     
 }
+
+
+// swiftlint:enable test_naming
+// swiftlint:enable prefer_nimble
 
 
 extension ScoreTests {

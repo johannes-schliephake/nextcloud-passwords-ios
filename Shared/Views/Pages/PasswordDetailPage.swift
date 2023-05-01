@@ -144,7 +144,7 @@ struct PasswordDetailPage: View {
                         ForEach(duplicates) {
                             duplicate in
                             NavigationLink("", tag: .duplicate(password: duplicate), selection: $navigationSelection) {
-                                PasswordDetailPage(entriesController: entriesController, password: duplicate, updatePassword: {
+                                Self(entriesController: entriesController, password: duplicate, updatePassword: {
                                     entriesController.update(password: duplicate)
                                 }, deletePassword: {
                                     entriesController.delete(password: duplicate)

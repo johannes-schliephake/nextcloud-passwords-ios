@@ -119,7 +119,7 @@ extension ServerSetupController {
         }
         
         static var mock: Response {
-            Response(poll: ServerSetupController.Response.Poll(token: "", endpoint: URL(string: "https://example.com")!), login: URL(string: "https://example.com")!)
+            .init(poll: ServerSetupController.Response.Poll(token: "", endpoint: URL(string: "https://example.com")!), login: URL(string: "https://example.com")!)
         }
         
     }

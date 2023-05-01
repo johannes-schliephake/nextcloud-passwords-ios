@@ -160,7 +160,7 @@ extension SelectFolderPage {
                     DisclosureGroup(isExpanded: $isExpanded) {
                         ForEach(subfolders) {
                             folder in
-                            FolderGroup(folder: folder, folders: folders, selection: $selection, isExpanded: selection !== folder && selection.isDescendentOf(folder: folder, in: folders))
+                            Self(folder: folder, folders: folders, selection: $selection, isExpanded: selection !== folder && selection.isDescendentOf(folder: folder, in: folders))
                         }
                     }
                     label: {

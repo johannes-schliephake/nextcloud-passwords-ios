@@ -43,7 +43,7 @@ enum Configuration: Configurating {
     static let isTestEnvironment = ProcessInfo.processInfo.environment["TEST"] == "true"
     static let isTestFlight = Bundle.root.isTestFlight
     static let userDefaults: UserDefaults = {
-        let userDefaults = UserDefaults(suiteName: isTestEnvironment ? "test.\(Configuration.appGroup)" : Configuration.appGroup)!
+        let userDefaults = UserDefaults(suiteName: isTestEnvironment ? "test.\(Self.appGroup)" : Self.appGroup)!
         userDefaults.register(defaults: defaults)
         return userDefaults
     }()
