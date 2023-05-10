@@ -20,6 +20,14 @@ extension Container {
         self { LogEvent.mocks }
             .shared
     }
+    var otp: Factory<OTP> {
+        self { .mock }
+            .shared
+    }
+    var otps: Factory<[OTP]> {
+        self { OTP.mocks }
+            .shared
+    }
     var password: Factory<Password> {
         self { .mock }
             .shared

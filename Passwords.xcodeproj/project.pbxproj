@@ -195,6 +195,18 @@
 		DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B127414AFE003D7D50 /* Color+Init.swift */; };
 		DD0E59B527414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
 		DD0E59B627414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
+		DD1E1D6D2A002D26002DB08B /* EditOTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */; };
+		DD1E1D6E2A002D26002DB08B /* EditOTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */; };
+		DD1E1D6F2A002D26002DB08B /* EditOTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */; };
+		DD1E1D722A010D0C002DB08B /* Enabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D712A010D0C002DB08B /* Enabled.swift */; };
+		DD1E1D732A010D0C002DB08B /* Enabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D712A010D0C002DB08B /* Enabled.swift */; };
+		DD1E1D742A010D0C002DB08B /* Enabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D712A010D0C002DB08B /* Enabled.swift */; };
+		DD1E1D762A016785002DB08B /* OTPValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D752A016785002DB08B /* OTPValidationService.swift */; };
+		DD1E1D772A016785002DB08B /* OTPValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D752A016785002DB08B /* OTPValidationService.swift */; };
+		DD1E1D782A016785002DB08B /* OTPValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D752A016785002DB08B /* OTPValidationService.swift */; };
+		DD1E1D7A2A016ABE002DB08B /* OTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D792A016ABE002DB08B /* OTPService.swift */; };
+		DD1E1D7B2A016ABE002DB08B /* OTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D792A016ABE002DB08B /* OTPService.swift */; };
+		DD1E1D7C2A016ABE002DB08B /* OTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D792A016ABE002DB08B /* OTPService.swift */; };
 		DD214362295A014B006C08DD /* TagsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214361295A014B006C08DD /* TagsService.swift */; };
 		DD214363295A014B006C08DD /* TagsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214361295A014B006C08DD /* TagsService.swift */; };
 		DD214364295A014B006C08DD /* TagsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214361295A014B006C08DD /* TagsService.swift */; };
@@ -217,6 +229,7 @@
 		DD4A9E8A269F84B9007268E2 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
 		DD5189EE27A16BFA00264A0D /* Data+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5189ED27A16BFA00264A0D /* Data+Init.swift */; };
 		DD5189EF27A16BFA00264A0D /* Data+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5189ED27A16BFA00264A0D /* Data+Init.swift */; };
+		DD5419712A08D28B004C3EFA /* URL+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5419702A08D28B004C3EFA /* URL+Random.swift */; };
 		DD5A73A627E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */; };
 		DD5A73A727E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */; };
 		DD5A73A827E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */; };
@@ -243,8 +256,6 @@
 		DD6350E3293FED030058A787 /* Container+Registrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6350E0293FED030058A787 /* Container+Registrations.swift */; };
 		DD67204227BAFCAD0078CF47 /* EditOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */; };
 		DD67204327BAFCAD0078CF47 /* EditOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */; };
-		DD67204527BAFDC40078CF47 /* EditOTPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204427BAFDC40078CF47 /* EditOTPController.swift */; };
-		DD67204627BAFDC40078CF47 /* EditOTPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204427BAFDC40078CF47 /* EditOTPController.swift */; };
 		DD67204827BB94F00078CF47 /* EditOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */; };
 		DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */; };
 		DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
@@ -277,6 +288,7 @@
 		DD7BC52629AFFDC3004AA7BC /* SelectTagsViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7BC52529AFFDC3004AA7BC /* SelectTagsViewModelMock.swift */; };
 		DD7BC52829AFFE0A004AA7BC /* EditFolderViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7BC52729AFFE0A004AA7BC /* EditFolderViewModelMock.swift */; };
 		DD7BC52A29AFFE43004AA7BC /* ViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7BC52929AFFE43004AA7BC /* ViewModelMock.swift */; };
+		DD7CCDE72A0B95910035C84C /* OTPValidationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */; };
 		DD8282BE2937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
 		DD8282BF2937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
 		DD8282C02937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
@@ -298,6 +310,7 @@
 		DD9FAD5C26A3796500770FEA /* SelectFolderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */; };
 		DDA4FE7626E755C000D6F92E /* View+Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* View+Initialize.swift */; };
 		DDA4FE7726E755C000D6F92E /* View+Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* View+Initialize.swift */; };
+		DDA6F1802A0B9CB70050B352 /* OTPServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA6F17F2A0B9CB70050B352 /* OTPServiceTests.swift */; };
 		DDACC44E29EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
 		DDACC44F29EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
 		DDACC45029EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
@@ -410,7 +423,6 @@
 		DDB169DB27D20CC200F4D752 /* ShowPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D73E26495AE200FF192C /* ShowPasswordRequest.swift */; };
 		DDB169DD27D20CC200F4D752 /* QRCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB680D427A3DA6A00DEE540 /* QRCapture.swift */; };
 		DDB169DE27D20CC200F4D752 /* EditTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59AB274147CC003D7D50 /* EditTagController.swift */; };
-		DDB169DF27D20CC200F4D752 /* EditOTPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204427BAFDC40078CF47 /* EditOTPController.swift */; };
 		DDB169E027D20CC200F4D752 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3FAD632775DC86002202DE /* Settings.swift */; };
 		DDB169E127D20CC200F4D752 /* EditTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A8274146C8003D7D50 /* EditTagPage.swift */; };
 		DDB169E227D20CC200F4D752 /* View+Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* View+Initialize.swift */; };
@@ -437,6 +449,16 @@
 		DDBE8AB729B3FEFF0054F179 /* TagValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */; };
 		DDBE8AB829B3FEFF0054F179 /* TagValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */; };
 		DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB929B68D100054F179 /* BeAccessed.swift */; };
+		DDBEE5B72A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5B62A07C7C3008F4099 /* Publishers+CombineLatest5.swift */; };
+		DDBEE5B82A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5B62A07C7C3008F4099 /* Publishers+CombineLatest5.swift */; };
+		DDBEE5B92A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5B62A07C7C3008F4099 /* Publishers+CombineLatest5.swift */; };
+		DDBEE5BB2A07C7C8008F4099 /* Publishers+CombineLatest6.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5BA2A07C7C8008F4099 /* Publishers+CombineLatest6.swift */; };
+		DDBEE5BC2A07C7C8008F4099 /* Publishers+CombineLatest6.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5BA2A07C7C8008F4099 /* Publishers+CombineLatest6.swift */; };
+		DDBEE5BD2A07C7C8008F4099 /* Publishers+CombineLatest6.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5BA2A07C7C8008F4099 /* Publishers+CombineLatest6.swift */; };
+		DDBEE5BF2A07C802008F4099 /* EditOTPViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5BE2A07C802008F4099 /* EditOTPViewModelTests.swift */; };
+		DDBEE5C12A080ADC008F4099 /* EditOTPViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5C02A080ADB008F4099 /* EditOTPViewModelMock.swift */; };
+		DDBEE5C32A080BCA008F4099 /* OTPServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5C22A080BCA008F4099 /* OTPServiceMock.swift */; };
+		DDBEE5C52A080D3B008F4099 /* OTPValidationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5C42A080D3B008F4099 /* OTPValidationServiceMock.swift */; };
 		DDC2A4F429F58345001D79DC /* ConfigurationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC2A4F329F58345001D79DC /* ConfigurationMock.swift */; };
 		DDC6E1A029F085C700607C81 /* LogViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */; };
 		DDC6E1A229F085D100607C81 /* PasteboardServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */; };
@@ -664,6 +686,10 @@
 		DD0E59AB274147CC003D7D50 /* EditTagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagController.swift; sourceTree = "<group>"; };
 		DD0E59B127414AFE003D7D50 /* Color+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Init.swift"; sourceTree = "<group>"; };
 		DD0E59B427414EB5003D7D50 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPViewModel.swift; sourceTree = "<group>"; };
+		DD1E1D712A010D0C002DB08B /* Enabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enabled.swift; sourceTree = "<group>"; };
+		DD1E1D752A016785002DB08B /* OTPValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPValidationService.swift; sourceTree = "<group>"; };
+		DD1E1D792A016ABE002DB08B /* OTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPService.swift; sourceTree = "<group>"; };
 		DD214361295A014B006C08DD /* TagsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsService.swift; sourceTree = "<group>"; };
 		DD251A2F29301B60001F6F2A /* XCUIElement+UnhittableInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+UnhittableInteractions.swift"; sourceTree = "<group>"; };
 		DD29D1E327CF684A00B06835 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -702,6 +728,7 @@
 		DD4F0BED28C0FFD2005AA668 /* feedback_email.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = feedback_email.txt; sourceTree = "<group>"; };
 		DD4F0BEE28C0FFE3005AA668 /* feedback_email.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = feedback_email.txt; sourceTree = "<group>"; };
 		DD5189ED27A16BFA00264A0D /* Data+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Init.swift"; sourceTree = "<group>"; };
+		DD5419702A08D28B004C3EFA /* URL+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Random.swift"; sourceTree = "<group>"; };
 		DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableObject+ObjectDidChangeRecently.swift"; sourceTree = "<group>"; };
 		DD5AECA727B1150B002DAA87 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
 		DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOTPPage.swift; sourceTree = "<group>"; };
@@ -717,7 +744,6 @@
 		DD5E99F529ABFF4000A7A4B9 /* ClosureMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureMock.swift; sourceTree = "<group>"; };
 		DD6350E0293FED030058A787 /* Container+Registrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Registrations.swift"; sourceTree = "<group>"; };
 		DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPPage.swift; sourceTree = "<group>"; };
-		DD67204427BAFDC40078CF47 /* EditOTPController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPController.swift; sourceTree = "<group>"; };
 		DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPNavigation.swift; sourceTree = "<group>"; };
 		DD6953EB27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD6953EC27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
@@ -737,6 +763,7 @@
 		DD7BC52529AFFDC3004AA7BC /* SelectTagsViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsViewModelMock.swift; sourceTree = "<group>"; };
 		DD7BC52729AFFE0A004AA7BC /* EditFolderViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderViewModelMock.swift; sourceTree = "<group>"; };
 		DD7BC52929AFFE43004AA7BC /* ViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelMock.swift; sourceTree = "<group>"; };
+		DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPValidationServiceTests.swift; sourceTree = "<group>"; };
 		DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsViewModel.swift; sourceTree = "<group>"; };
 		DD8282C52938CBA00085115D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		DD84EEF4288ECC4C0094B5A6 /* CGPoint+Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Operators.swift"; sourceTree = "<group>"; };
@@ -745,6 +772,7 @@
 		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
 		DDA4FE7526E755C000D6F92E /* View+Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Initialize.swift"; sourceTree = "<group>"; };
+		DDA6F17F2A0B9CB70050B352 /* OTPServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPServiceTests.swift; sourceTree = "<group>"; };
 		DDACC44D29EDEF500094D141 /* LogEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
 		DDACC45129EE73090094D141 /* LoggerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerMock.swift; sourceTree = "<group>"; };
 		DDACC45329EF3F440094D141 /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
@@ -774,6 +802,12 @@
 		DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderValidationService.swift; sourceTree = "<group>"; };
 		DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagValidationService.swift; sourceTree = "<group>"; };
 		DDBE8AB929B68D100054F179 /* BeAccessed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeAccessed.swift; sourceTree = "<group>"; };
+		DDBEE5B62A07C7C3008F4099 /* Publishers+CombineLatest5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publishers+CombineLatest5.swift"; sourceTree = "<group>"; };
+		DDBEE5BA2A07C7C8008F4099 /* Publishers+CombineLatest6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publishers+CombineLatest6.swift"; sourceTree = "<group>"; };
+		DDBEE5BE2A07C802008F4099 /* EditOTPViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPViewModelTests.swift; sourceTree = "<group>"; };
+		DDBEE5C02A080ADB008F4099 /* EditOTPViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPViewModelMock.swift; sourceTree = "<group>"; };
+		DDBEE5C22A080BCA008F4099 /* OTPServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPServiceMock.swift; sourceTree = "<group>"; };
+		DDBEE5C42A080D3B008F4099 /* OTPValidationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPValidationServiceMock.swift; sourceTree = "<group>"; };
 		DDC2A4F329F58345001D79DC /* ConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationMock.swift; sourceTree = "<group>"; };
 		DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModelMock.swift; sourceTree = "<group>"; };
 		DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardServiceMock.swift; sourceTree = "<group>"; };
@@ -1010,6 +1044,7 @@
 				8F55295E259CAFA600419233 /* Navigations */,
 				8F55295D259CAF8100419233 /* Pages */,
 				8F55295F259CAFBE00419233 /* Components */,
+				DD1E1D702A010CD0002DB08B /* Modifiers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1102,7 +1137,6 @@
 		8F5C234025A3CE1B007CB2B8 /* Local */ = {
 			isa = PBXGroup;
 			children = (
-				DD67204427BAFDC40078CF47 /* EditOTPController.swift */,
 				8F51428E2573F91800DD96C0 /* EditPasswordController.swift */,
 				DD0E59AB274147CC003D7D50 /* EditTagController.swift */,
 				8F77DA6225699FB300CFDA8D /* EntriesController.swift */,
@@ -1132,6 +1166,8 @@
 				8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */,
 				DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */,
 				8F63617B25A741A400C832C9 /* PreviewDevice+Generate.swift */,
+				DDBEE5B62A07C7C3008F4099 /* Publishers+CombineLatest5.swift */,
+				DDBEE5BA2A07C7C8008F4099 /* Publishers+CombineLatest6.swift */,
 				8F52F3DA259379F500B4EFCE /* SKProduct+LocalizedPrice.swift */,
 				8FBE43C4258D5A09003F7F34 /* String+Localized.swift */,
 				8FBAC9CF264A7B050038A626 /* String+Score.swift */,
@@ -1178,11 +1214,21 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
+		DD1E1D702A010CD0002DB08B /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				DD1E1D712A010D0C002DB08B /* Enabled.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
 		DD214360295A0139006C08DD /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				DD0B7AE22971B35B00A59E3C /* FoldersService.swift */,
 				DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */,
+				DD1E1D792A016ABE002DB08B /* OTPService.swift */,
+				DD1E1D752A016785002DB08B /* OTPValidationService.swift */,
 				DDACC45729F080D50094D141 /* PasteboardService.swift */,
 				DD214361295A014B006C08DD /* TagsService.swift */,
 				DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */,
@@ -1271,6 +1317,7 @@
 				DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */,
 				DD7BC51729AFBA00004AA7BC /* Container+Mocks.swift */,
 				DD5E3CB72953B9690032F517 /* String+Random.swift */,
+				DD5419702A08D28B004C3EFA /* URL+Random.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1291,10 +1338,13 @@
 				DD5E99F529ABFF4000A7A4B9 /* ClosureMock.swift */,
 				DDC2A4F329F58345001D79DC /* ConfigurationMock.swift */,
 				DD7BC52729AFFE0A004AA7BC /* EditFolderViewModelMock.swift */,
+				DDBEE5C02A080ADB008F4099 /* EditOTPViewModelMock.swift */,
 				DD7BC52329AFFD6E004AA7BC /* FoldersServiceMock.swift */,
 				DD7BC51F29AFFD01004AA7BC /* FolderValidationServiceMock.swift */,
 				DDACC45129EE73090094D141 /* LoggerMock.swift */,
 				DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */,
+				DDBEE5C22A080BCA008F4099 /* OTPServiceMock.swift */,
+				DDBEE5C42A080D3B008F4099 /* OTPValidationServiceMock.swift */,
 				DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */,
 				DD7BC52529AFFDC3004AA7BC /* SelectTagsViewModelMock.swift */,
 				DD7BC52129AFFD33004AA7BC /* TagsServiceMock.swift */,
@@ -1319,9 +1369,12 @@
 			isa = PBXGroup;
 			children = (
 				DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */,
+				DDBEE5BE2A07C802008F4099 /* EditOTPViewModelTests.swift */,
 				DD0B7AEE2972CEBD00A59E3C /* FolderValidationServiceTests.swift */,
 				DDC6E1A729F0899700607C81 /* LoggerTests.swift */,
 				DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */,
+				DDA6F17F2A0B9CB70050B352 /* OTPServiceTests.swift */,
+				DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */,
 				8F6ED7C0265BC807008CF387 /* ScoreTests.swift */,
 				DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */,
 				DD5E3CB0295363DB0032F517 /* TagValidationServiceTests.swift */,
@@ -1334,6 +1387,7 @@
 			isa = PBXGroup;
 			children = (
 				DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */,
+				DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */,
 				DDACC45329EF3F440094D141 /* LogViewModel.swift */,
 				DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */,
 			);
@@ -1720,6 +1774,7 @@
 				8F57A5BA2562699A00BC1CA0 /* Password.swift in Sources */,
 				DD72AE1928A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */,
 				DD0E59A9274146C8003D7D50 /* EditTagPage.swift in Sources */,
+				DDBEE5BB2A07C7C8008F4099 /* Publishers+CombineLatest6.swift in Sources */,
 				8F5A8440259A4FA700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
 				8F68D73F26495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
 				8F854E6D26239457008885C3 /* OfflineContainer.swift in Sources */,
@@ -1727,7 +1782,9 @@
 				DD3FAD612775DC54002202DE /* ListSettingsRequest.swift in Sources */,
 				8F7A73A32677493500FCA15F /* URL+RelativeReference.swift in Sources */,
 				8F74244626039BD600B73646 /* Crypto.swift in Sources */,
+				DDBEE5B72A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */,
 				DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */,
+				DD1E1D722A010D0C002DB08B /* Enabled.swift in Sources */,
 				8F559A2225A0B23E00D7A39F /* MainView.swift in Sources */,
 				8F77DA6325699FB300CFDA8D /* EntriesController.swift in Sources */,
 				8F57B426256C0DD600329B05 /* SettingsPage.swift in Sources */,
@@ -1756,6 +1813,7 @@
 				8F997F9D2572ED7800B5F784 /* CreateFolderRequest.swift in Sources */,
 				DDCE125627411B09003912D0 /* Tag.swift in Sources */,
 				DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */,
+				DD1E1D6D2A002D26002DB08B /* EditOTPViewModel.swift in Sources */,
 				DDDB6B5927A806ED007572B1 /* CaptureOTPPage.swift in Sources */,
 				8F561EBE258D26CC008AE12B /* NCPasswordsRequest.swift in Sources */,
 				DDC7C94828C1FA3A00451B81 /* Bundle+IsTestFlight.swift in Sources */,
@@ -1798,12 +1856,14 @@
 				DD95B07E27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
 				8F52EFC925B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
 				8F552956259CAF4900419233 /* Folder.swift in Sources */,
+				DD1E1D762A016785002DB08B /* OTPValidationService.swift in Sources */,
 				8F68D74226495BD100FF192C /* ShowFolderRequest.swift in Sources */,
 				DDB680D527A3DA6A00DEE540 /* QRCapture.swift in Sources */,
 				DD3FAD642775DC86002202DE /* Settings.swift in Sources */,
 				8F72379A2651468700832A88 /* Collection+Avg.swift in Sources */,
 				8F703BFC26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				DD38ACF927DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
+				DD1E1D7A2A016ABE002DB08B /* OTPService.swift in Sources */,
 				8F5C1A84257D7D5F009FF66F /* BiometricAuthenticationController.swift in Sources */,
 				DD5B586E27D01CDC00E54E71 /* ShareSheet.swift in Sources */,
 				DD0E59AC274147CC003D7D50 /* EditTagController.swift in Sources */,
@@ -1824,7 +1884,6 @@
 				DDBE8AB629B3FEFF0054F179 /* TagValidationService.swift in Sources */,
 				8F10C6512602C4AB00FA5B1D /* OpenSessionRequest.swift in Sources */,
 				8F553384257A47D0003987E6 /* UpdateFolderRequest.swift in Sources */,
-				DD67204527BAFDC40078CF47 /* EditOTPController.swift in Sources */,
 				8FBE43C5258D5A09003F7F34 /* String+Localized.swift in Sources */,
 				DDCE125C2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
 				8F55F71625727CB600E00B28 /* DeleteFolderRequest.swift in Sources */,
@@ -1868,6 +1927,7 @@
 				8F5A8445259A501700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
 				DD72AE1A28A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */,
 				DD0E59AA274146C8003D7D50 /* EditTagPage.swift in Sources */,
+				DDBEE5BC2A07C7C8008F4099 /* Publishers+CombineLatest6.swift in Sources */,
 				8FC361D525827E5D00785371 /* PasswordServiceRequest.swift in Sources */,
 				8FC361C825827E5500785371 /* Password.swift in Sources */,
 				8F68D74026495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
@@ -1875,7 +1935,9 @@
 				8F854E6E26239457008885C3 /* OfflineContainer.swift in Sources */,
 				DD3FAD622775DC54002202DE /* ListSettingsRequest.swift in Sources */,
 				8F7A73A42677493500FCA15F /* URL+RelativeReference.swift in Sources */,
+				DDBEE5B82A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */,
 				8F74244726039BD600B73646 /* Crypto.swift in Sources */,
+				DD1E1D732A010D0C002DB08B /* Enabled.swift in Sources */,
 				8FC361D225827E5D00785371 /* ListFoldersRequest.swift in Sources */,
 				DDC98D0E26AFEE1E006058B6 /* SelectFolderController.swift in Sources */,
 				8F559A2325A0B23E00D7A39F /* MainView.swift in Sources */,
@@ -1904,6 +1966,7 @@
 				8FC361C225827E5200785371 /* EditPasswordController.swift in Sources */,
 				DD9FAD5926A3793A00770FEA /* SelectFolderNavigation.swift in Sources */,
 				8FC361B425827E4C00785371 /* EditPasswordPage.swift in Sources */,
+				DD1E1D6E2A002D26002DB08B /* EditOTPViewModel.swift in Sources */,
 				DDCE125727411B09003912D0 /* Tag.swift in Sources */,
 				DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */,
 				DDDB6B5A27A806ED007572B1 /* CaptureOTPPage.swift in Sources */,
@@ -1946,12 +2009,14 @@
 				DD0B7AE42971B35B00A59E3C /* FoldersService.swift in Sources */,
 				DD95B07F27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
 				8F52EFCA25B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
+				DD1E1D772A016785002DB08B /* OTPValidationService.swift in Sources */,
 				8F552959259CAF4E00419233 /* Folder.swift in Sources */,
 				8F68D74326495BD100FF192C /* ShowFolderRequest.swift in Sources */,
 				DDB680D627A3DA6A00DEE540 /* QRCapture.swift in Sources */,
 				DD3FAD652775DC86002202DE /* Settings.swift in Sources */,
 				8F72379B2651468700832A88 /* Collection+Avg.swift in Sources */,
 				8F703BFD26245C6100CC7018 /* Array+Zip.swift in Sources */,
+				DD1E1D7B2A016ABE002DB08B /* OTPService.swift in Sources */,
 				DD38ACFA27DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
 				8FC361F0258284F500785371 /* ProviderViewController.swift in Sources */,
 				DD5B586F27D01CDC00E54E71 /* ShareSheet.swift in Sources */,
@@ -1972,7 +2037,6 @@
 				DDBE8AB729B3FEFF0054F179 /* TagValidationService.swift in Sources */,
 				8F10C6522602C4AB00FA5B1D /* OpenSessionRequest.swift in Sources */,
 				8FC361B325827E4C00785371 /* LoginFlowPage.swift in Sources */,
-				DD67204627BAFDC40078CF47 /* EditOTPController.swift in Sources */,
 				8FC361BA25827E4C00785371 /* ActionButtonStyle.swift in Sources */,
 				DDCE125D2741404C003912D0 /* DeleteTagRequest.swift in Sources */,
 				8FC361BE25827E5200785371 /* SessionController.swift in Sources */,
@@ -2011,8 +2075,11 @@
 				DD7BC52629AFFDC3004AA7BC /* SelectTagsViewModelMock.swift in Sources */,
 				DD5E99F329AB6D3700A7A4B9 /* BeCalled.swift in Sources */,
 				DDC6E1A029F085C700607C81 /* LogViewModelMock.swift in Sources */,
+				DDBEE5C12A080ADC008F4099 /* EditOTPViewModelMock.swift in Sources */,
 				DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */,
+				DD5419712A08D28B004C3EFA /* URL+Random.swift in Sources */,
 				DD7BC51E29AFFCCF004AA7BC /* TagValidationServiceMock.swift in Sources */,
+				DDBEE5BF2A07C802008F4099 /* EditOTPViewModelTests.swift in Sources */,
 				DDFF5D4A29D850ED00422603 /* MockInjected.swift in Sources */,
 				DDF4137A2954C28100B886EB /* ScoreTests.swift in Sources */,
 				DD7BC52229AFFD33004AA7BC /* TagsServiceMock.swift in Sources */,
@@ -2020,6 +2087,7 @@
 				DD5E99F629ABFF4000A7A4B9 /* ClosureMock.swift in Sources */,
 				DD7BC52429AFFD6E004AA7BC /* FoldersServiceMock.swift in Sources */,
 				DD7BC52829AFFE0A004AA7BC /* EditFolderViewModelMock.swift in Sources */,
+				DD7CCDE72A0B95910035C84C /* OTPValidationServiceTests.swift in Sources */,
 				DD5E3CB1295363DB0032F517 /* TagValidationServiceTests.swift in Sources */,
 				DD7BC51A29AFBAD8004AA7BC /* PropertyAccessLogging.swift in Sources */,
 				DD7BC52029AFFD01004AA7BC /* FolderValidationServiceMock.swift in Sources */,
@@ -2029,14 +2097,17 @@
 				DD5E99F129AAA15500A7A4B9 /* Emit.swift in Sources */,
 				DDC6E1A829F0899700607C81 /* LoggerTests.swift in Sources */,
 				DD7BC51B29AFBAD8004AA7BC /* FunctionCallLogging.swift in Sources */,
+				DDBEE5C52A080D3B008F4099 /* OTPValidationServiceMock.swift in Sources */,
 				DD5E3CBA2953BD620032F517 /* SelectTagsViewModelTests.swift in Sources */,
 				DD7BC51C29AFBAD8004AA7BC /* Mock.swift in Sources */,
 				DDFF5D4829D8443B00422603 /* Container+AutoRegistering.swift in Sources */,
 				DD0B7AEF2972CEBD00A59E3C /* FolderValidationServiceTests.swift in Sources */,
 				DDC6E1A229F085D100607C81 /* PasteboardServiceMock.swift in Sources */,
 				DD7BC52A29AFFE43004AA7BC /* ViewModelMock.swift in Sources */,
+				DDBEE5C32A080BCA008F4099 /* OTPServiceMock.swift in Sources */,
 				DD5E3CB82953B9690032F517 /* String+Random.swift in Sources */,
 				DDC6E1A429F0891D00607C81 /* LogViewModelTests.swift in Sources */,
+				DDA6F1802A0B9CB70050B352 /* OTPServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2064,6 +2135,7 @@
 				DD72AE1B28A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */,
 				DDB1698E27D20CC200F4D752 /* ImagePicker.swift in Sources */,
 				DDB1697A27D20CC100F4D752 /* MainView.swift in Sources */,
+				DDBEE5BD2A07C7C8008F4099 /* Publishers+CombineLatest6.swift in Sources */,
 				DDB169AD27D20CC200F4D752 /* Folder.swift in Sources */,
 				DDB169E427D20CC200F4D752 /* PreviewDevice+Generate.swift in Sources */,
 				DDB1697D27D20CC100F4D752 /* CreateTagRequest.swift in Sources */,
@@ -2071,7 +2143,9 @@
 				DDB1699827D20CC200F4D752 /* String+Segmented.swift in Sources */,
 				DDB1697527D20C2200F4D752 /* CoreData.xcdatamodeld in Sources */,
 				DDB169D327D20CC200F4D752 /* ServerSetupPage.swift in Sources */,
+				DDBEE5B92A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */,
 				DDB169CF27D20CC200F4D752 /* LoginFlowPage.swift in Sources */,
+				DD1E1D742A010D0C002DB08B /* Enabled.swift in Sources */,
 				DDB169E927D20CC300F4D752 /* ShareSheet.swift in Sources */,
 				DDB169A127D20CC200F4D752 /* UIAlertController+PresentGlobalAlert.swift in Sources */,
 				DDB1699327D20CC200F4D752 /* Array+Zip.swift in Sources */,
@@ -2100,6 +2174,7 @@
 				DDB169ED27D20CC300F4D752 /* Color+Init.swift in Sources */,
 				DDB169AC27D20CC200F4D752 /* Collection+Avg.swift in Sources */,
 				DDB1699527D20CC200F4D752 /* AuthenticationChallengeController.swift in Sources */,
+				DD1E1D6F2A002D26002DB08B /* EditOTPViewModel.swift in Sources */,
 				DDB169A327D20CC200F4D752 /* SelectTagsNavigation.swift in Sources */,
 				DDB1697827D20CC100F4D752 /* Tooltip.swift in Sources */,
 				DDC7C94A28C1FA3A00451B81 /* Bundle+IsTestFlight.swift in Sources */,
@@ -2142,18 +2217,19 @@
 				DD0B7AE52971B35B00A59E3C /* FoldersService.swift in Sources */,
 				DDB1699F27D20CC200F4D752 /* OTPDisplay.swift in Sources */,
 				DDB169A227D20CC200F4D752 /* DeleteTagRequest.swift in Sources */,
+				DD1E1D782A016785002DB08B /* OTPValidationService.swift in Sources */,
 				DDB1699A27D20CC200F4D752 /* TipController.swift in Sources */,
 				DDB1699627D20CC200F4D752 /* EditTagNavigation.swift in Sources */,
 				DDB169C527D20CC200F4D752 /* String+Score.swift in Sources */,
 				DDB1697B27D20CC100F4D752 /* PasswordDetailPage.swift in Sources */,
 				DD38ACFB27DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
 				DDB169BE27D20CC200F4D752 /* NetworkClient.swift in Sources */,
+				DD1E1D7C2A016ABE002DB08B /* OTPService.swift in Sources */,
 				DDB169E127D20CC200F4D752 /* EditTagPage.swift in Sources */,
 				DDB169D827D20CC200F4D752 /* DeleteFolderRequest.swift in Sources */,
 				DDB169BC27D20CC200F4D752 /* EditFolderNavigation.swift in Sources */,
 				DDB169AA27D20CC200F4D752 /* CaptureOTPPage.swift in Sources */,
 				DDB169A027D20CC200F4D752 /* EntriesController.swift in Sources */,
-				DDB169DF27D20CC200F4D752 /* EditOTPController.swift in Sources */,
 				DDB1699D27D20CC200F4D752 /* NCPasswordsRequest.swift in Sources */,
 				DDB169E027D20CC200F4D752 /* Settings.swift in Sources */,
 				DDB169B027D20CC200F4D752 /* Comparable+Clamped.swift in Sources */,

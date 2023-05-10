@@ -18,7 +18,6 @@ final class EditFolderViewModelTests: XCTestCase {
     }
     
     func testInit_givenExistingFolder_thenSetsInitialState() {
-        folderValidationServiceMock._validate = true
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
         
         expect(editFolderViewModel[\.folder]).to(be(folderMock))
@@ -31,12 +30,11 @@ final class EditFolderViewModelTests: XCTestCase {
         expect(editFolderViewModel[\.showDeleteAlert]).to(beFalse())
         expect(editFolderViewModel[\.showCancelAlert]).to(beFalse())
         expect(editFolderViewModel[\.hasChanges]).to(beFalse())
-        expect(editFolderViewModel[\.editIsValid]).to(beTrue())
+        expect(editFolderViewModel[\.editIsValid]).to(beFalse())
         expect(editFolderViewModel[\.focusedField]).to(beNil())
     }
     
     func testInit_givenNewlyCreatedFolder_thenSetsInitialState() {
-        folderValidationServiceMock._validate = true
         let newFolder = Folder(label: .random(), parent: .random(), favorite: .random())
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: newFolder) { _ in }
         
@@ -50,7 +48,7 @@ final class EditFolderViewModelTests: XCTestCase {
         expect(editFolderViewModel[\.showDeleteAlert]).to(beFalse())
         expect(editFolderViewModel[\.showCancelAlert]).to(beFalse())
         expect(editFolderViewModel[\.hasChanges]).to(beFalse())
-        expect(editFolderViewModel[\.editIsValid]).to(beTrue())
+        expect(editFolderViewModel[\.editIsValid]).to(beFalse())
         expect(editFolderViewModel[\.focusedField]).to(equal(.folderLabel))
     }
     
@@ -115,7 +113,7 @@ final class EditFolderViewModelTests: XCTestCase {
         expect(editFolderViewModel[\.hasChanges]).to(beFalse())
     }
     
-    func testInit_whenChangingFolderLabel_thenCallsFoldersService() {
+    func testInit_whenChangingFolderLabel_thenCallsFolderValidationService() {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
         let newFolderLabel = String.random()
         
@@ -126,25 +124,25 @@ final class EditFolderViewModelTests: XCTestCase {
     
     func testInit_whenChangingFolderLabel_thenUpdatesEditIsValid() {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
-        let validateFolderLabelMock = Bool.random()
+        let validateFolderMock = Bool.random()
         let newFolderLabel = String.random()
-        folderValidationServiceMock._validate = validateFolderLabelMock
+        folderValidationServiceMock._validate = validateFolderMock
         
         editFolderViewModel[\.folderLabel] = newFolderLabel
         
-        expect(editFolderViewModel[\.editIsValid]).to(equal(validateFolderLabelMock))
+        expect(editFolderViewModel[\.editIsValid]).to(equal(validateFolderMock))
     }
     
     func testInit_whenChangingFolderParent_thenUpdatesEditIsValid() {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
-        let validateFolderLabelMock = Bool.random()
+        let validateFolderMock = Bool.random()
         let parentId = String.random()
         let newParentFolder = Folder(id: parentId, parent: nil)
-        folderValidationServiceMock._validate = validateFolderLabelMock
+        folderValidationServiceMock._validate = validateFolderMock
         
         editFolderViewModel(.selectParent(newParentFolder))
         
-        expect(editFolderViewModel[\.editIsValid]).to(equal(validateFolderLabelMock))
+        expect(editFolderViewModel[\.editIsValid]).to(equal(validateFolderMock))
     }
     
     func testCallAsFunction_whenCallingToggleFavorite_thenTogglesFolderFavorite() {
@@ -252,7 +250,14 @@ final class EditFolderViewModelTests: XCTestCase {
         expect(editFolderViewModel[\.shouldDismiss]).to(emit(when: { editFolderViewModel(.cancel) }))
     }
     
-    func testCallAsFunction_whenCallingDiscardChanges_thenShouldDismissEmits() {
+    func testCallAsFunction_givenHasChangesIsTrue_whenCallingDiscardChanges_thenShouldDismissEmits() {
+        let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
+        editFolderViewModel(.toggleFavorite)
+        
+        expect(editFolderViewModel[\.shouldDismiss]).to(emit(when: { editFolderViewModel(.discardChanges) }))
+    }
+    
+    func testCallAsFunction_givenHasChangesIsFalse_whenCallingDiscardChanges_thenShouldDismissEmits() {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
         
         expect(editFolderViewModel[\.shouldDismiss]).to(emit(when: { editFolderViewModel(.discardChanges) }))

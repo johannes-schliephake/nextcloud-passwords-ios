@@ -140,7 +140,7 @@ struct SelectTagsPage: View {
         Button("_done") {
             viewModel(.selectTags)
         }
-        .disabled(!viewModel[\.hasChanges])
+        .enabled(viewModel[\.hasChanges])
     }
     
 }

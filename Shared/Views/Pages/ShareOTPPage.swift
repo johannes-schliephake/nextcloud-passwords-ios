@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ShareOTPPage: View {
     
-    let data: Data
+    let url: URL
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.verticalSizeClass) private var verticalSizeClass
@@ -78,7 +78,8 @@ struct ShareOTPPage: View {
     
     private func generateQrCode() {
         DispatchQueue.global(qos: .userInitiated).async {
-            guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
+            guard let filter = CIFilter(name: "CIQRCodeGenerator"),
+                  let data = url.absoluteString.data(using: .utf8) else {
                 return
             }
             filter.setValue(data, forKey: "inputMessage")
@@ -102,7 +103,7 @@ struct QRCodePagePreview: PreviewProvider {
     static var previews: some View {
         PreviewDevice.generate {
             NavigationView {
-                ShareOTPPage(data: OTP.mock.url!.absoluteString.data(using: .utf8)!)
+                ShareOTPPage(url: OTP.mock.url!)
             }
             .showColumns(false)
         }

@@ -39,8 +39,7 @@ struct EditFolderPage: View {
                 Spacer()
                 Button {
                     viewModel(.dismissKeyboard)
-                }
-                label: {
+                } label: {
                     Text("_dismiss")
                         .bold()
                 }
@@ -63,8 +62,7 @@ struct EditFolderPage: View {
         Section {
             Button {
                 viewModel(.toggleFavorite)
-            }
-            label: {
+            } label: {
                 Label("_favorite", systemImage: viewModel[\.folderFavorite] ? "star.fill" : "star")
             }
         }
@@ -74,8 +72,7 @@ struct EditFolderPage: View {
         Section(header: Text("_folder")) {
             Button {
                 viewModel(.showParentSelection)
-            }
-            label: {
+            } label: {
                 Label(viewModel[\.parentLabel], systemImage: "folder")
             }
             .sheet(isPresented: $viewModel[\.showSelectFolderView]) {
@@ -90,8 +87,7 @@ struct EditFolderPage: View {
     private func deleteButton() -> some View {
         Button(role: .destructive) {
             viewModel(.deleteFolder)
-        }
-        label: {
+        } label: {
             HStack {
                 Spacer()
                 Text("_deleteFolder")
@@ -120,7 +116,7 @@ struct EditFolderPage: View {
         Button(viewModel[\.isCreating] ? "_create" : "_done") {
             viewModel(.applyToFolder)
         }
-        .disabled(!viewModel[\.editIsValid])
+        .enabled(viewModel[\.editIsValid])
     }
     
 }

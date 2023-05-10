@@ -9,6 +9,9 @@ extension Container {
     var editFolderViewModelType: Factory<any EditFolderViewModelProtocol.Type> {
         self { EditFolderViewModel.self }
     }
+    var editOTPViewModelType: Factory<any EditOTPViewModelProtocol.Type> {
+        self { EditOTPViewModel.self }
+    }
     var folderValidationService: Factory<any FolderValidationServiceProtocol> {
         self { FolderValidationService() }
             .cached
@@ -23,6 +26,14 @@ extension Container {
     }
     var logViewModelType: Factory<any LogViewModelProtocol.Type> {
         self { LogViewModel.self }
+    }
+    var otpService: Factory<any OTPServiceProtocol> {
+        self { OTPService() }
+            .cached
+    }
+    var otpValidationService: Factory<any OTPValidationServiceProtocol> {
+        self { OTPValidationService() }
+            .cached
     }
     var pasteboardService: Factory<any PasteboardServiceProtocol> {
         self { PasteboardService() }
