@@ -1,2 +1,2 @@
-• Swedish translation (Thanks Anders Johansson!)
+• Search algorithm now considers URL port numbers
 • Optimizations

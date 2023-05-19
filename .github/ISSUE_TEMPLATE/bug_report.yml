@@ -1,0 +1,76 @@
+name: 🐞 Bug Report
+description: File a bug report
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please take the time to fill out this bug report as detailed as possible. Only then it is possible to understand and fix the issue.
+  - type: input
+    attributes:
+      label: iOS App Version
+      description: You can find the version info on the app's *Settings* page.
+      placeholder: E.g. 2.6.6
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: iOS Version
+      description: You can find your iOS version under *System Settings* → *General* → *About*.
+      placeholder: E.g. iOS 16.4
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Device Model
+      placeholder: E.g. iPhone 13, iPad Air 4th generation
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Nextcloud Server Version
+      description: You can find the version of your Nextcloud server in the web interface. Open the top right menu → *About*, then switch to the second pane.
+      placeholder: E.g. 26.0.0
+  - type: input
+    attributes:
+      label: Server App Version
+      description: You can find the version of your Passwords server app on the admin's *Apps* page.
+      placeholder: E.g. 2023.4.0
+  - type: textarea
+    attributes:
+      label: Peculiarities of Your Setup
+      placeholder: E.g. SSO, LDAP, server behind a proxy, ...
+  - type: textarea
+    attributes:
+      label: Observed Behavior
+      description: Describe the bug you experienced.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: Describe what you expected to happen instead.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to Reproduce
+      description: If the bug can be triggered reliably, provide step-by-step instructions on what to do to cause this behavior.
+      placeholder: |
+        1.
+        2.
+        3.
+        ...
+  - type: checkboxes
+    attributes:
+      label: Debugging
+      options:
+        - label: I did install the [TestFlight](https://testflight.apple.com/join/iuljLJ4u) version to check the log on the app's *Settings* page → *Log*.
+        - label: I did check for iOS logs named *Passwords* under *System Settings* → *Privacy & Security* → *Analytics & Improvements* → *Analytics Data*.
+        - label: I did check for Nextcloud logs on the admin's *Logging* page.
+  - type: textarea
+    attributes:
+      label: Logs
+      description: You can copy and paste any relevant logs here.
+      placeholder: This will be automatically formatted into code.
+      render: shell
