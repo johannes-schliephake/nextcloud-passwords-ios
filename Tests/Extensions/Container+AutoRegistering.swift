@@ -15,7 +15,10 @@ extension Container: AutoRegistering {
         Self.shared.otpService.register { OTPServiceMock() }
         Self.shared.otpValidationService.register { OTPValidationServiceMock() }
         Self.shared.pasteboardService.register { PasteboardServiceMock() }
+        Self.shared.qrCodeGenerator.cached.register { QRCodeGeneratorMock() }
+        Self.shared.qrCodeService.register { QRCodeServiceMock() }
         Self.shared.selectTagsViewModelType.register { SelectTagsViewModelMock.self }
+        Self.shared.shareOTPViewModelType.register { ShareOTPViewModelMock.self }
         Self.shared.tagValidationService.register { TagValidationServiceMock() }
         Self.shared.tagsService.register { TagsServiceMock() }
         

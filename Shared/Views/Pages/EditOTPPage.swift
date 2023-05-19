@@ -134,7 +134,7 @@ struct EditOTPPage: View {
         Section {
             NavigationLink {
                 if let url = viewModel[\.sharingUrl] {
-                    ShareOTPPage(url: url)
+                    ShareOTPPage(viewModel: ShareOTPViewModel(otpUrl: url).eraseToAnyViewModel())
                 }
             } label: {
                 Label("_exportAsQrCode", systemImage: "square.and.arrow.up")

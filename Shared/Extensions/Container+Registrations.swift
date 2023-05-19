@@ -1,4 +1,5 @@
 import Factory
+import CoreImage
 
 
 extension Container {
@@ -39,8 +40,18 @@ extension Container {
         self { PasteboardService() }
             .cached
     }
+    var qrCodeGenerator: Factory<(any QRCodeGenerating)?> {
+        self { CIFilter(name: "CIQRCodeGenerator") }
+    }
+    var qrCodeService: Factory<any QRCodeServiceProtocol> {
+        self { QRCodeService() }
+            .cached
+    }
     var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {
         self { SelectTagsViewModel.self }
+    }
+    var shareOTPViewModelType: Factory<any ShareOTPViewModelProtocol.Type> {
+        self { ShareOTPViewModel.self }
     }
     var tagValidationService: Factory<any TagValidationServiceProtocol> {
         self { TagValidationService() }

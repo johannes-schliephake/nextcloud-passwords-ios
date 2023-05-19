@@ -3,15 +3,10 @@ import SwiftUI
 
 struct ShareOTPPage: View {
     
-    let url: URL
+    @StateObject var viewModel: AnyViewModel<ShareOTPViewModel.State, ShareOTPViewModel.Action>
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.verticalSizeClass) private var verticalSizeClass
-    
-    @State private var qrCodeImage: UIImage?
-    @State private var showShareSheet = false
-    
-    // MARK: Views
     
     var body: some View {
         listView()
@@ -26,23 +21,19 @@ struct ShareOTPPage: View {
             shareButton()
         }
         .listStyle(.insetGrouped)
-        .onAppear {
-            generateQrCode()
-        }
     }
     
     private func qrCode() -> some View {
         HStack {
             Spacer()
-            if let qrCodeImage {
-                Image(uiImage: qrCodeImage)
+            if let qrCode = viewModel[\.qrCode] {
+                Image(uiImage: qrCode)
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: horizontalSizeClass == .compact && verticalSizeClass == .regular ? .infinity : 240)
                     .padding(.vertical)
-            }
-            else {
+            } else {
                 ProgressView()
             }
             Spacer()
@@ -56,56 +47,19 @@ struct ShareOTPPage: View {
     
     @ViewBuilder private func shareButton() -> some View {
         if #available(iOS 16, *) {
-            let item = Image(uiImage: qrCodeImage ?? UIImage())
+            let item = Image(uiImage: viewModel[\.qrCode] ?? UIImage())
             ShareLink("_shareQrCode", item: item, preview: SharePreview("_otp", image: item))
-                .disabled(qrCodeImage == nil)
-        }
-        else {
+                .enabled(viewModel[\.qrCodeAvailable])
+        } else {
             Button {
-                showShareSheet = true
-            }
-            label: {
+                viewModel(.share)
+            } label: {
                 Label("_shareQrCode", systemImage: "square.and.arrow.up")
             }
-            .disabled(qrCodeImage == nil)
-            .sheet(isPresented: $showShareSheet) {
-                ShareSheet(activityItems: [qrCodeImage as Any, "_otp".localized])
+            .enabled(viewModel[\.qrCodeAvailable])
+            .sheet(isPresented: $viewModel[\.showShareSheet]) {
+                ShareSheet(activityItems: [viewModel[\.qrCode] as Any, "_otp".localized])
             }
-        }
-    }
-    
-    // MARK: Functions
-    
-    private func generateQrCode() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            guard let filter = CIFilter(name: "CIQRCodeGenerator"),
-                  let data = url.absoluteString.data(using: .utf8) else {
-                return
-            }
-            filter.setValue(data, forKey: "inputMessage")
-            let transform = CGAffineTransform(scaleX: 8, y: 8)
-            guard let ciImage = filter.outputImage?.transformed(by: transform),
-                  let cgImage = CIContext().createCGImage(ciImage, from: ciImage.extent) else {
-                return
-            }
-            let uiImage = UIImage(cgImage: cgImage)
-            DispatchQueue.main.async {
-                qrCodeImage = uiImage
-            }
-        }
-    }
-    
-}
-
-
-struct QRCodePagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        PreviewDevice.generate {
-            NavigationView {
-                ShareOTPPage(url: OTP.mock.url!)
-            }
-            .showColumns(false)
         }
     }
     
