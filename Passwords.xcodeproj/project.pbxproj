@@ -973,6 +973,7 @@
 				DDACC44C29EDEDFE0094D141 /* Helpers */,
 				8FBE43B7258D5942003F7F34 /* Extensions */,
 				DD03D9C628C8E827006118F2 /* Generated */,
+				DD6350E0293FED030058A787 /* Container+Registrations.swift */,
 				8F5E120725D3CC33007A2166 /* Configuration.swift */,
 				8F854E64262390FA008885C3 /* CoreData.xcdatamodeld */,
 				8F5331AA25605B9400AB6FED /* Localizable.strings */,
@@ -1194,7 +1195,6 @@
 				DD0E59B427414EB5003D7D50 /* Color+Hex.swift */,
 				DD0E59B127414AFE003D7D50 /* Color+Init.swift */,
 				8F7237962651466000832A88 /* Comparable+Clamped.swift */,
-				DD6350E0293FED030058A787 /* Container+Registrations.swift */,
 				DD5189ED27A16BFA00264A0D /* Data+Init.swift */,
 				8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */,
 				DD83C20A2A1CA90E005E9004 /* DispatchQueue+Init.swift */,
@@ -1345,6 +1345,8 @@
 				DD5E99F429ABFF3300A7A4B9 /* Mocks */,
 				DD7BC52B29B00233004AA7BC /* Tests */,
 				DD7BC51929AFBAC5004AA7BC /* Utilities */,
+				DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */,
+				DD7BC51729AFBA00004AA7BC /* Container+Mocks.swift */,
 				DDB409BE29E211F30002517F /* Unit.xctestplan */,
 			);
 			path = Tests;
@@ -1353,8 +1355,6 @@
 		DD5E3CBB2954571B0032F517 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */,
-				DD7BC51729AFBA00004AA7BC /* Container+Mocks.swift */,
 				DD5E3CB72953B9690032F517 /* String+Random.swift */,
 				DD5419702A08D28B004C3EFA /* URL+Random.swift */,
 			);
