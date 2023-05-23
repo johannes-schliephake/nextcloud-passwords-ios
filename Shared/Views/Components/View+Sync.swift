@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-struct Bind<Value: Hashable>: ViewModifier {
+struct Sync<Value: Hashable>: ViewModifier {
     
     @Binding var value: Value?
     @FocusState var focusState: Value?
@@ -26,8 +26,8 @@ struct Bind<Value: Hashable>: ViewModifier {
 
 extension View {
     
-    func bind<Value: Hashable>(_ value: Binding<Value?>, to focusState: FocusState<Value?>) -> some View {
-        modifier(Bind(value: value, focusState: focusState))
+    func sync<Value: Hashable>(_ value: Binding<Value?>, to focusState: FocusState<Value?>) -> some View {
+        modifier(Sync(value: value, focusState: focusState))
     }
     
 }

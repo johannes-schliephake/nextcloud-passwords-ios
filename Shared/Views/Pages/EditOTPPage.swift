@@ -19,7 +19,7 @@ struct EditOTPPage: View {
                     confirmButton()
                 }
             }
-            .bind($viewModel[\.focusedField], to: _focusedField)
+            .sync($viewModel[\.focusedField], to: _focusedField)
             .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
     }
     
