@@ -71,8 +71,8 @@ final class ShareOTPViewModelTests: XCTestCase {
         let shareOtpViewModel: any ShareOTPViewModelProtocol = ShareOTPViewModel(otpUrl: urlMock)
         let imageMock = UIImage(systemName: "qrcode")!
         
-        expect(shareOtpViewModel[\.$qrCode].dropFirst()).to(emit(imageMock, onMainThread: true, when: { self.qrCodeServiceMock._generateQrCode.send(imageMock) }, from: .global()))
-        expect(shareOtpViewModel[\.$qrCodeAvailable].dropFirst()).to(emit(true, onMainThread: true, when: { self.qrCodeServiceMock._generateQrCode.send(imageMock) }, from: .global()))
+        expect(shareOtpViewModel[\.$qrCode].dropFirst()).to(emit(imageMock, onMainThread: true, when: { self.qrCodeServiceMock._generateQrCode.send(imageMock) }, from: .init()))
+        expect(shareOtpViewModel[\.$qrCodeAvailable].dropFirst()).to(emit(true, onMainThread: true, when: { self.qrCodeServiceMock._generateQrCode.send(imageMock) }, from: .init()))
     }
     
     func testCallAsFunction_whenCallingShare_thenSetsShowShareSheetToTrue() {

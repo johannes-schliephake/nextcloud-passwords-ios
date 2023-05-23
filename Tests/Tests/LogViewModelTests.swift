@@ -45,7 +45,7 @@ final class LogViewModelTests: XCTestCase {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
         let isAvailableMock = Bool.random()
         
-        expect(logViewModel[\.$isAvailable].dropFirst()).to(emit(isAvailableMock, onMainThread: true, when: { self.loggerMock._isAvailablePublisher.send(isAvailableMock) }, from: .global()))
+        expect(logViewModel[\.$isAvailable].dropFirst()).to(emit(isAvailableMock, onMainThread: true, when: { self.loggerMock._isAvailablePublisher.send(isAvailableMock) }, from: .init()))
     }
     
     func testInit_whenLoggerEmittingNilEvents_thenSetsEvents() {
@@ -75,7 +75,7 @@ final class LogViewModelTests: XCTestCase {
     func testInit_whenLoggerEmittingEventsFromBackgroundThread_thenSetsEventsFromMainThread() {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
         
-        expect(logViewModel[\.$events].dropFirst()).to(emit([], onMainThread: true, when: { self.loggerMock._eventsPublisher.send([]) }, from: .global()))
+        expect(logViewModel[\.$events].dropFirst()).to(emit([], onMainThread: true, when: { self.loggerMock._eventsPublisher.send([]) }, from: .init()))
     }
     
     func testCallAsFunction_whenCallingCopyLog_thenCallsLogger() {

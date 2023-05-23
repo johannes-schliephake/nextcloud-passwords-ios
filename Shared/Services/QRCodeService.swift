@@ -21,7 +21,7 @@ struct QRCodeService: QRCodeServiceProtocol {
     
     func generateQrCode(from url: URL) -> AnyPublisher<UIImage, QRCodeError> {
         Just(url)
-            .receive(on: DispatchQueue.global(qos: .userInitiated))
+            .receive(on: DispatchQueue(qos: .userInitiated))
             .map { Data($0.absoluteString.utf8) }
             .map { data in
                 let filter = Container.shared.qrCodeGenerator()
