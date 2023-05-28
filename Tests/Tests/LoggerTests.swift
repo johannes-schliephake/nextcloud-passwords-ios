@@ -6,7 +6,7 @@ import Factory
 
 final class LoggerTests: XCTestCase {
     
-    private let expectedInitialEvent = LogEvent(type: .info, message: "Logging enabled", fileID: "Passwords/Logger.swift", functionName: "init()", line: 46)
+    private let expectedInitialEvent = LogEvent(type: .info, message: "Logging enabled", fileID: "Passwords/Logger.swift", functionName: "init()", line: 47)
     
     override func tearDown() {
         super.tearDown()
@@ -21,6 +21,7 @@ final class LoggerTests: XCTestCase {
         let logger: any Logging = Logger()
         
         expect(logger.isAvailable).to(beTrue())
+        expect(logger.isAvailablePublisher).to(emit(true))
         expect(logger.events).toNot(beNil())
     }
     
@@ -32,6 +33,7 @@ final class LoggerTests: XCTestCase {
         let logger: any Logging = Logger()
         
         expect(logger.isAvailable).to(beFalse())
+        expect(logger.isAvailablePublisher).to(emit(false))
         expect(logger.events).to(beNil())
     }
     
@@ -117,7 +119,7 @@ final class LoggerTests: XCTestCase {
         
         expect(logger.events).to(haveCount(1))
         let event = try XCTUnwrap(logger.events?[0])
-        let expectedEvent = LogEvent(type: .info, message: "Log cleared", fileID: "Passwords/Logger.swift", functionName: "reset()", line: 63)
+        let expectedEvent = LogEvent(type: .info, message: "Log cleared", fileID: "Passwords/Logger.swift", functionName: "reset()", line: 64)
         expect(event).to(equal(expectedEvent))
     }
 

@@ -32,6 +32,7 @@ final class Logger: Logging {
     var isAvailablePublisher: AnyPublisher<Bool, Never> {
         eventsPublisher
             .map { $0?.isEmpty == false }
+            .removeDuplicates()
             .eraseToAnyPublisher()
     }
     
