@@ -95,10 +95,10 @@ final class LogViewModelTests: XCTestCase {
         loggerMock._events = logEventMocks
         let expectedPasteboardString = """
         ⚠️ I'm an error event
-            [File Passwords/LogEvent.swift, Function mocks, Line 71]
+            [File Passwords/LogEvent.swift, Function mocks, Line 72]
             [\(logEventMocks[0].dateDescription)]
         ℹ️ I'm an info event
-            [File Passwords/LogEvent.swift, Function mocks, Line 72]
+            [File Passwords/LogEvent.swift, Function mocks, Line 73]
             [\(logEventMocks[1].dateDescription)]
         """
         
@@ -121,7 +121,7 @@ final class LogViewModelTests: XCTestCase {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
         let expectedPasteboardString = """
         ⚠️ I'm an error event
-            [File Passwords/LogEvent.swift, Function mocks, Line 71]
+            [File Passwords/LogEvent.swift, Function mocks, Line 72]
             [\(logEventMocks[0].dateDescription)]
         """
         

@@ -1,4 +1,5 @@
 import Foundation
+import Factory
 
 
 struct LogEvent: Identifiable, CustomStringConvertible {
@@ -22,7 +23,7 @@ struct LogEvent: Identifiable, CustomStringConvertible {
     let id = UUID()
     let type: Type
     let message: String
-    let date = Date()
+    let date = Container.shared.currentDate()
     let fileID: String
     let functionName: String
     let line: UInt
@@ -83,7 +84,7 @@ extension LogEvent: Equatable {
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.type == rhs.type &&
         lhs.message == rhs.message &&
-        lhs.date.distance(to: rhs.date).magnitude < 1 && // Not optimal, but good enough for testing
+        lhs.date == rhs.date &&
         lhs.fileID == rhs.fileID &&
         lhs.functionName == rhs.functionName &&
         lhs.line == rhs.line

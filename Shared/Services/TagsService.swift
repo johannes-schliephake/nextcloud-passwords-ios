@@ -41,7 +41,8 @@ final class TagsService: TagsServiceProtocol {
             throw TagAddError.validationFailed
         }
         
-        let tag = Tag(label: label, client: Configuration.clientName, edited: Date(), created: Date(), updated: Date())
+        let currentDate = Container.shared.currentDate()
+        let tag = Tag(label: label, client: Configuration.clientName, edited: currentDate, created: currentDate, updated: currentDate)
         entriesController.add(tag: tag)
         return tag
     }

@@ -7,6 +7,9 @@ extension Container {
     var configurationType: Factory<any Configurating.Type> {
         self { Configuration.self }
     }
+    var currentDate: Factory<Date> {
+        self { .init() }
+    }
     var editFolderViewModelType: Factory<any EditFolderViewModelProtocol.Type> {
         self { EditFolderViewModel.self }
     }

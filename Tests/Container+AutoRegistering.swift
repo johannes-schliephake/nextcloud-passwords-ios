@@ -6,6 +6,7 @@ extension Container: AutoRegistering {
     
     public func autoRegister() {
         Self.shared.configurationType.register { ConfigurationMock.self }
+        Self.shared.currentDate.singleton.register { .init() }
         Self.shared.editFolderViewModelType.register { EditFolderViewModelMock.self }
         Self.shared.editOTPViewModelType.register { EditOTPViewModelMock.self }
         Self.shared.folderValidationService.register { FolderValidationServiceMock() }

@@ -71,7 +71,7 @@ final class LogViewModel: LogViewModelProtocol {
                 .joined(separator: "\n")
             pasteboardService.set(logString)
         case let .copyEvent(event):
-            let eventString = String.init(describing: event)
+            let eventString = String(describing: event)
             pasteboardService.set(eventString)
         }
     }

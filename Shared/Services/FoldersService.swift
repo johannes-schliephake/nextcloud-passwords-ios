@@ -47,11 +47,12 @@ final class FoldersService: FoldersServiceProtocol {
             throw FolderApplyError.idNotAvailableLocally
         }
         
+        let currentDate = Container.shared.currentDate()
         if folder.id.isEmpty {
-            folder.created = Date()
+            folder.created = currentDate
         }
-        folder.edited = Date()
-        folder.updated = Date()
+        folder.edited = currentDate
+        folder.updated = currentDate
         
         folder.label = folderLabel
         folder.favorite = folderFavorite
