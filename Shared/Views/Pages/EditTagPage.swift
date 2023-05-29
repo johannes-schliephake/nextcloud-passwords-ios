@@ -3,22 +3,14 @@ import SwiftUI
 
 struct EditTagPage: View {
     
-    @Environment(\.dismiss) private var dismiss
+    @StateObject var viewModel: AnyViewModel<EditTagViewModel.State, EditTagViewModel.Action>
     
-    @StateObject private var editTagController: EditTagController
-    @FocusState private var focusedField: FocusField?
-    @State private var showDeleteAlert = false
-    @State private var showCancelAlert = false
-    
-    init(entriesController: EntriesController, tag: Tag) {
-        _editTagController = StateObject(wrappedValue: EditTagController(entriesController: entriesController, tag: tag))
-    }
-    
-    // MARK: Views
+    @FocusState private var focusedField: EditTagViewModel.FocusField?
     
     var body: some View {
         listView()
             .navigationTitle("_tag")
+            .interactiveDismissDisabled(viewModel[\.hasChanges])
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     cancelButton()
@@ -27,8 +19,8 @@ struct EditTagPage: View {
                     confirmButton()
                 }
             }
-            .initialize(focus: $focusedField, with: editTagController.tag.id.isEmpty ? .tagLabel : nil)
-            .interactiveDismissDisabled(editTagController.hasChanges)
+            .sync($viewModel[\.focusedField], to: _focusedField)
+            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
     }
     
     private func listView() -> some View {
@@ -36,7 +28,7 @@ struct EditTagPage: View {
             tagLabelField()
             colorSelector()
             favoriteButton()
-            if !editTagController.tag.id.isEmpty {
+            if !viewModel[\.isCreating] {
                 deleteButton()
             }
         }
@@ -45,9 +37,8 @@ struct EditTagPage: View {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 Button {
-                    focusedField = nil
-                }
-                label: {
+                    viewModel(.dismissKeyboard)
+                } label: {
                     Text("_dismiss")
                         .bold()
                 }
@@ -57,11 +48,12 @@ struct EditTagPage: View {
     
     private func tagLabelField() -> some View {
         Section(header: Text("_name")) {
-            TextField("-", text: $editTagController.tagLabel, onCommit: {
-                applyAndDismiss()
-            })
-            .focused($focusedField, equals: .tagLabel)
-            .submitLabel(.done)
+            TextField("-", text: $viewModel[\.tagLabel])
+                .focused($focusedField, equals: .tagLabel)
+                .submitLabel(.done)
+                .onSubmit {
+                    viewModel(.applyToTag)
+                }
         }
     }
     
@@ -75,7 +67,7 @@ struct EditTagPage: View {
                     .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
                     .background(
                         RoundedRectangle(cornerRadius: 5)
-                            .fill(editTagController.tagColor)
+                            .fill(viewModel[\.tagColor])
                     )
                     .frame(width: 20, height: 20)
             }
@@ -85,20 +77,18 @@ struct EditTagPage: View {
                     if UIDevice.current.userInterfaceIdiom == .pad {
                         /// `scaleEffect` and `ColorPicker` can't be combined on iPad to enlarge tap area because the color picker view isn't a sheet
                         LazyHStack(spacing: 0) {
-                            ForEach(0..<50) {
-                                _ in
-                                ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)
+                            ForEach(0..<50) { _ in
+                                ColorPicker("", selection: $viewModel[\.tagColor], supportsOpacity: false)
                                     .labelsHidden()
                             }
                         }
-                    }
-                    else {
-                        ColorPicker("", selection: $editTagController.tagColor, supportsOpacity: false)
+                    } else {
+                        ColorPicker("", selection: $viewModel[\.tagColor], supportsOpacity: false)
                             .labelsHidden()
                             .scaleEffect(100)
                     }
                     Rectangle()
-                        .foregroundColor(Color(UIColor.secondarySystemGroupedBackground))
+                        .foregroundColor(Color(.secondarySystemGroupedBackground))
                         .scaleEffect(10)
                         .allowsHitTesting(false)
                 }
@@ -109,100 +99,46 @@ struct EditTagPage: View {
     private func favoriteButton() -> some View {
         Section {
             Button {
-                editTagController.tagFavorite.toggle()
-            }
-            label: {
-                Label("_favorite", systemImage: editTagController.tagFavorite ? "star.fill" : "star")
+                viewModel(.toggleFavorite)
+            } label: {
+                Label("_favorite", systemImage: viewModel[\.tagFavorite] ? "star.fill" : "star")
             }
         }
     }
     
     private func deleteButton() -> some View {
         Button(role: .destructive) {
-            showDeleteAlert = true
-        }
-        label: {
+            viewModel(.deleteTag)
+        } label: {
             HStack {
                 Spacer()
                 Text("_deleteTag")
                 Spacer()
             }
         }
-        .actionSheet(isPresented: $showDeleteAlert) {
+        .actionSheet(isPresented: $viewModel[\.showDeleteAlert]) {
             ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteTag")) {
-                deleteAndDismiss()
+                viewModel(.confirmDelete)
             }])
         }
     }
     
     private func cancelButton() -> some View {
         Button("_cancel", role: .cancel) {
-            cancelAndDismiss()
+            viewModel(.cancel)
         }
-        .actionSheet(isPresented: $showCancelAlert) {
+        .actionSheet(isPresented: $viewModel[\.showCancelAlert]) {
             ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
-                dismiss()
+                viewModel(.discardChanges)
             }])
         }
     }
     
     private func confirmButton() -> some View {
-        Button(editTagController.tag.id.isEmpty ? "_create" : "_done") {
-            applyAndDismiss()
+        Button(viewModel[\.isCreating] ? "_create" : "_done") {
+            viewModel(.applyToTag)
         }
-        .disabled(!editTagController.editIsValid)
-    }
-    
-    // MARK: Functions
-    
-    private func cancelAndDismiss() {
-        if editTagController.hasChanges {
-            showCancelAlert = true
-        }
-        else {
-            dismiss()
-        }
-    }
-    
-    private func applyAndDismiss() {
-        guard editTagController.editIsValid,
-              editTagController.tag.state?.isProcessing != true else {
-            return
-        }
-        editTagController.applyToTag()
-        dismiss()
-    }
-    
-    private func deleteAndDismiss() {
-        editTagController.clearTag()
-        dismiss()
+        .enabled(viewModel[\.editIsValid])
     }
     
 }
-
-
-extension EditTagPage {
-    
-    private enum FocusField: Hashable {
-        case tagLabel
-    }
-    
-}
-
-
-#if DEBUG
-
-struct EditTagPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        PreviewDevice.generate {
-            NavigationView {
-                EditTagPage(entriesController: EntriesController.mock, tag: Tag.mock)
-            }
-            .showColumns(false)
-        }
-    }
-    
-}
-
-#endif

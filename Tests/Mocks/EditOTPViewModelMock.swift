@@ -4,7 +4,7 @@ import Factory
 
 final class EditOTPViewModelMock: ViewModelMock<EditOTPViewModel.State, EditOTPViewModel.Action>, EditOTPViewModelProtocol {
     
-    convenience init(otp: Passwords.OTP, updateOtp: @escaping (Passwords.OTP?) -> Void) {
+    convenience init(otp: OTP, updateOtp: @escaping (OTP?) -> Void) {
         self.init()
     }
     

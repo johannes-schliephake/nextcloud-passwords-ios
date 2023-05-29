@@ -1,7 +1,6 @@
-import Foundation
+import SwiftUI
 import Combine
 import Factory
-import UIKit.UIImage
 
 
 protocol ShareOTPViewModelProtocol: ViewModel where State == ShareOTPViewModel.State, Action == ShareOTPViewModel.Action {

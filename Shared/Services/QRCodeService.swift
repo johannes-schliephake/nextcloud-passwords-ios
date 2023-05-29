@@ -1,5 +1,5 @@
 import Combine
-import UIKit.UIImage
+import SwiftUI
 import Factory
 
 

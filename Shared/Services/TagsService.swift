@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 import Combine
 import Factory
 
@@ -9,6 +9,8 @@ protocol TagsServiceProtocol {
     
     func tags(for tagIds: [String]) -> AnyPublisher<(valid: [Tag], invalid: [String]), Never>
     func addTag(label: String) throws -> Tag
+    func apply(to tag: Tag, tagLabel: String, tagColor: Color, tagFavorite: Bool) throws
+    func delete(tag: Tag)
     func allIdsLocallyAvailable(of tags: [Tag]) -> Bool
     
 }
@@ -16,6 +18,12 @@ protocol TagsServiceProtocol {
 
 enum TagAddError: Error {
     case validationFailed
+}
+
+
+enum TagApplyError: Error {
+    case validationFailed
+    case idNotAvailableLocally
 }
 
 
@@ -45,6 +53,36 @@ final class TagsService: TagsServiceProtocol {
         let tag = Tag(label: label, client: Configuration.clientName, edited: currentDate, created: currentDate, updated: currentDate)
         entriesController.add(tag: tag)
         return tag
+    }
+    
+    func apply(to tag: Tag, tagLabel: String, tagColor: Color, tagFavorite: Bool) throws {
+        guard tagValidationService.validate(label: tagLabel) else {
+            throw TagAddError.validationFailed
+        }
+        guard tag.isIdLocallyAvailable else {
+            throw FolderApplyError.idNotAvailableLocally
+        }
+        
+        let currentDate = Container.shared.currentDate()
+        if tag.id.isEmpty {
+            tag.created = currentDate
+        }
+        tag.edited = currentDate
+        tag.updated = currentDate
+        
+        tag.label = tagLabel
+        tag.color = tagColor.hex
+        tag.favorite = tagFavorite
+        
+        if tag.id.isEmpty {
+            entriesController.add(tag: tag)
+        } else {
+            entriesController.update(tag: tag)
+        }
+    }
+    
+    func delete(tag: Tag) {
+        entriesController.delete(tag: tag)
     }
     
     func allIdsLocallyAvailable(of tags: [Tag]) -> Bool {

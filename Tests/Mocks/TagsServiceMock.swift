@@ -1,5 +1,6 @@
 @testable import Passwords
 import Combine
+import SwiftUI
 
 
 final class TagsServiceMock: TagsServiceProtocol, Mock, PropertyAccessLogging, FunctionCallLogging {
@@ -24,8 +25,18 @@ final class TagsServiceMock: TagsServiceProtocol, Mock, PropertyAccessLogging, F
         return try _addTag.get()
     }
     
+    var _apply: Result<Void, TagApplyError> = .success(()) // swiftlint:disable:this identifier_name
+    func apply(to tag: Tag, tagLabel: String, tagColor: Color, tagFavorite: Bool) throws {
+        logFunctionCall(parameters: tag, tagLabel, tagColor, tagFavorite)
+        try _apply.get()
+    }
+    
+    func delete(tag: Tag) {
+        logFunctionCall(parameters: tag)
+    }
+    
     var _allIdsLocallyAvailable = true  // swiftlint:disable:this identifier_name
-    func allIdsLocallyAvailable(of tags: [Passwords.Tag]) -> Bool {
+    func allIdsLocallyAvailable(of tags: [Tag]) -> Bool {
         logFunctionCall(parameters: tags)
         return _allIdsLocallyAvailable
     }

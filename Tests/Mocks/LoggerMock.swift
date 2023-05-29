@@ -4,14 +4,14 @@ import Combine
 
 final class LoggerMock: Logging, Mock, PropertyAccessLogging, FunctionCallLogging {
     
-    var _events: [Passwords.LogEvent]? // swiftlint:disable:this identifier_name
-    var events: [Passwords.LogEvent]? {
+    var _events: [LogEvent]? // swiftlint:disable:this identifier_name
+    var events: [LogEvent]? {
         logPropertyAccess()
         return _events
     }
     
-    let _eventsPublisher = PassthroughSubject<[Passwords.LogEvent]?, Never>() // swiftlint:disable:this identifier_name
-    var eventsPublisher: AnyPublisher<[Passwords.LogEvent]?, Never> {
+    let _eventsPublisher = PassthroughSubject<[LogEvent]?, Never>() // swiftlint:disable:this identifier_name
+    var eventsPublisher: AnyPublisher<[LogEvent]?, Never> {
         logPropertyAccess()
         return _eventsPublisher.eraseToAnyPublisher()
     }

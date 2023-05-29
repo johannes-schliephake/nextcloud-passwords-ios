@@ -5,7 +5,6 @@ struct EditFolderNavigation: View {
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
-    let entriesController: EntriesController
     let folder: Folder
     var didEdit: ((Folder) -> Void)?
     

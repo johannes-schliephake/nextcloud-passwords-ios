@@ -1,7 +1,6 @@
 @testable import Passwords
 import Factory
-import Foundation
-import UIKit.UIImage
+import SwiftUI
 
 
 final class ShareOTPViewModelMock: ViewModelMock<ShareOTPViewModel.State, ShareOTPViewModel.Action>, ShareOTPViewModelProtocol {

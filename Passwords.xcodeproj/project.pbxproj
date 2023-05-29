@@ -189,8 +189,6 @@
 		DD0E59A7274143D9003D7D50 /* EditTagNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */; };
 		DD0E59A9274146C8003D7D50 /* EditTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A8274146C8003D7D50 /* EditTagPage.swift */; };
 		DD0E59AA274146C8003D7D50 /* EditTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A8274146C8003D7D50 /* EditTagPage.swift */; };
-		DD0E59AC274147CC003D7D50 /* EditTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59AB274147CC003D7D50 /* EditTagController.swift */; };
-		DD0E59AD274147CC003D7D50 /* EditTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59AB274147CC003D7D50 /* EditTagController.swift */; };
 		DD0E59B227414AFE003D7D50 /* Color+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B127414AFE003D7D50 /* Color+Init.swift */; };
 		DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B127414AFE003D7D50 /* Color+Init.swift */; };
 		DD0E59B527414EB5003D7D50 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59B427414EB5003D7D50 /* Color+Hex.swift */; };
@@ -313,6 +311,11 @@
 		DD95B07E27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */; };
 		DD95B07F27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */; };
 		DD95B08027D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */; };
+		DD9A99F72A23E9120016722F /* EditTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9A99F62A23E9120016722F /* EditTagViewModel.swift */; };
+		DD9A99F82A23E9120016722F /* EditTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9A99F62A23E9120016722F /* EditTagViewModel.swift */; };
+		DD9A99F92A23E9120016722F /* EditTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9A99F62A23E9120016722F /* EditTagViewModel.swift */; };
+		DD9A99FB2A23FE4A0016722F /* EditTagViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9A99FA2A23FE4A0016722F /* EditTagViewModelTests.swift */; };
+		DD9A99FD2A248D1D0016722F /* Color+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9A99FC2A248D1D0016722F /* Color+Random.swift */; };
 		DD9FAD5826A3793A00770FEA /* SelectFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */; };
 		DD9FAD5926A3793A00770FEA /* SelectFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */; };
 		DD9FAD5B26A3796500770FEA /* SelectFolderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */; };
@@ -431,7 +434,6 @@
 		DDB169DA27D20CC200F4D752 /* OpenSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F10C6502602C4AB00FA5B1D /* OpenSessionRequest.swift */; };
 		DDB169DB27D20CC200F4D752 /* ShowPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D73E26495AE200FF192C /* ShowPasswordRequest.swift */; };
 		DDB169DD27D20CC200F4D752 /* QRCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB680D427A3DA6A00DEE540 /* QRCapture.swift */; };
-		DDB169DE27D20CC200F4D752 /* EditTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59AB274147CC003D7D50 /* EditTagController.swift */; };
 		DDB169E027D20CC200F4D752 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3FAD632775DC86002202DE /* Settings.swift */; };
 		DDB169E127D20CC200F4D752 /* EditTagPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A8274146C8003D7D50 /* EditTagPage.swift */; };
 		DDB169E227D20CC200F4D752 /* View+Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* View+Initialize.swift */; };
@@ -706,7 +708,6 @@
 		DD0C28742766028500E3DAEF /* SelectTagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsPage.swift; sourceTree = "<group>"; };
 		DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagNavigation.swift; sourceTree = "<group>"; };
 		DD0E59A8274146C8003D7D50 /* EditTagPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagPage.swift; sourceTree = "<group>"; };
-		DD0E59AB274147CC003D7D50 /* EditTagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagController.swift; sourceTree = "<group>"; };
 		DD0E59B127414AFE003D7D50 /* Color+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Init.swift"; sourceTree = "<group>"; };
 		DD0E59B427414EB5003D7D50 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPViewModel.swift; sourceTree = "<group>"; };
@@ -795,6 +796,9 @@
 		DD84EEF4288ECC4C0094B5A6 /* CGPoint+Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Operators.swift"; sourceTree = "<group>"; };
 		DD889A1A27DB4AB40021AF5F /* View+OnSizeChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+OnSizeChange.swift"; sourceTree = "<group>"; };
 		DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceSpecificPadding.swift"; sourceTree = "<group>"; };
+		DD9A99F62A23E9120016722F /* EditTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagViewModel.swift; sourceTree = "<group>"; };
+		DD9A99FA2A23FE4A0016722F /* EditTagViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagViewModelTests.swift; sourceTree = "<group>"; };
+		DD9A99FC2A248D1D0016722F /* Color+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Random.swift"; sourceTree = "<group>"; };
 		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
 		DDA4FE7526E755C000D6F92E /* View+Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Initialize.swift"; sourceTree = "<group>"; };
@@ -1174,7 +1178,6 @@
 			isa = PBXGroup;
 			children = (
 				8F51428E2573F91800DD96C0 /* EditPasswordController.swift */,
-				DD0E59AB274147CC003D7D50 /* EditTagController.swift */,
 				8F77DA6225699FB300CFDA8D /* EntriesController.swift */,
 				8F781F51267CC8B400BD3DC1 /* FolderController.swift */,
 				8FBC049B268B9DD1006D4CB7 /* LoginFlowNavigationController.swift */,
@@ -1355,6 +1358,7 @@
 		DD5E3CBB2954571B0032F517 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DD9A99FC2A248D1D0016722F /* Color+Random.swift */,
 				DD5E3CB72953B9690032F517 /* String+Random.swift */,
 				DD5419702A08D28B004C3EFA /* URL+Random.swift */,
 			);
@@ -1412,6 +1416,7 @@
 			children = (
 				DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */,
 				DDBEE5BE2A07C802008F4099 /* EditOTPViewModelTests.swift */,
+				DD9A99FA2A23FE4A0016722F /* EditTagViewModelTests.swift */,
 				DD0B7AEE2972CEBD00A59E3C /* FolderValidationServiceTests.swift */,
 				DDC6E1A729F0899700607C81 /* LoggerTests.swift */,
 				DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */,
@@ -1432,6 +1437,7 @@
 			children = (
 				DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */,
 				DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */,
+				DD9A99F62A23E9120016722F /* EditTagViewModel.swift */,
 				DDACC45329EF3F440094D141 /* LogViewModel.swift */,
 				DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */,
 				DD5739982A1028FF004B6E69 /* ShareOTPViewModel.swift */,
@@ -1916,13 +1922,13 @@
 				DD1E1D7A2A016ABE002DB08B /* OTPService.swift in Sources */,
 				8F5C1A84257D7D5F009FF66F /* BiometricAuthenticationController.swift in Sources */,
 				DD5B586E27D01CDC00E54E71 /* ShareSheet.swift in Sources */,
-				DD0E59AC274147CC003D7D50 /* EditTagController.swift in Sources */,
 				DD5DFA6427CE94F0003C2352 /* OTPDisplay.swift in Sources */,
 				DDCE1262274140A9003912D0 /* ShowTagRequest.swift in Sources */,
 				DD0C2872276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */,
 				8F63617C25A741A400C832C9 /* PreviewDevice+Generate.swift in Sources */,
 				8FBE43BF258D59E0003F7F34 /* Label+ShowIcon.swift in Sources */,
 				DD0E59A6274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
+				DD9A99F72A23E9120016722F /* EditTagViewModel.swift in Sources */,
 				8F51428F2573F91800DD96C0 /* EditPasswordController.swift in Sources */,
 				8F52F3DB259379F500B4EFCE /* SKProduct+LocalizedPrice.swift in Sources */,
 				DD0E59B227414AFE003D7D50 /* Color+Init.swift in Sources */,
@@ -2076,12 +2082,12 @@
 				DD38ACFA27DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
 				8FC361F0258284F500785371 /* ProviderViewController.swift in Sources */,
 				DD5B586F27D01CDC00E54E71 /* ShareSheet.swift in Sources */,
-				DD0E59AD274147CC003D7D50 /* EditTagController.swift in Sources */,
 				DD5DFA6527CE94F0003C2352 /* OTPDisplay.swift in Sources */,
 				DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */,
 				DD0C2873276601A400E3DAEF /* SelectTagsNavigation.swift in Sources */,
 				8F63618225A7438700C832C9 /* PreviewDevice+Generate.swift in Sources */,
 				8FC361CC25827E5D00785371 /* FaviconServiceRequest.swift in Sources */,
+				DD9A99F82A23E9120016722F /* EditTagViewModel.swift in Sources */,
 				DD0E59A7274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
 				8F52F3DE25937A2E00B4EFCE /* SKProduct+LocalizedPrice.swift in Sources */,
 				DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */,
@@ -2156,6 +2162,7 @@
 				DDACC45229EE73090094D141 /* LoggerMock.swift in Sources */,
 				DDF4138A2955AFD000B886EB /* ViewModelTests.swift in Sources */,
 				DD5E99F129AAA15500A7A4B9 /* Emit.swift in Sources */,
+				DD9A99FD2A248D1D0016722F /* Color+Random.swift in Sources */,
 				DDC6E1A829F0899700607C81 /* LoggerTests.swift in Sources */,
 				DD7BC51B29AFBAD8004AA7BC /* FunctionCallLogging.swift in Sources */,
 				DDBEE5C52A080D3B008F4099 /* OTPValidationServiceMock.swift in Sources */,
@@ -2166,6 +2173,7 @@
 				DDC6E1A229F085D100607C81 /* PasteboardServiceMock.swift in Sources */,
 				DD7BC52A29AFFE43004AA7BC /* ViewModelMock.swift in Sources */,
 				DDBEE5C32A080BCA008F4099 /* OTPServiceMock.swift in Sources */,
+				DD9A99FB2A23FE4A0016722F /* EditTagViewModelTests.swift in Sources */,
 				DDDD93FD2A1503460061BEA0 /* ShareOTPViewModelMock.swift in Sources */,
 				DD5E3CB82953B9690032F517 /* String+Random.swift in Sources */,
 				DDC6E1A429F0891D00607C81 /* LogViewModelTests.swift in Sources */,
@@ -2275,7 +2283,6 @@
 				DDB169D927D20CC200F4D752 /* DeletePasswordRequest.swift in Sources */,
 				DDEC99012926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */,
 				DDB1698527D20CC200F4D752 /* UpdatePasswordRequest.swift in Sources */,
-				DDB169DE27D20CC200F4D752 /* EditTagController.swift in Sources */,
 				DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */,
 				DD95B08027D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
 				DDACC45629EF3F440094D141 /* LogViewModel.swift in Sources */,
@@ -2301,6 +2308,7 @@
 				DDB169E027D20CC200F4D752 /* Settings.swift in Sources */,
 				DDB169B027D20CC200F4D752 /* Comparable+Clamped.swift in Sources */,
 				DDB1699127D20CC200F4D752 /* Session.swift in Sources */,
+				DD9A99F92A23E9120016722F /* EditTagViewModel.swift in Sources */,
 				DDB1698F27D20CC200F4D752 /* View+Apply.swift in Sources */,
 				DDB169E627D20CC300F4D752 /* UIApplication+SafeShared.swift in Sources */,
 				DDB169A427D20CC200F4D752 /* PasswordServiceRequest.swift in Sources */,

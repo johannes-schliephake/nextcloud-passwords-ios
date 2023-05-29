@@ -1,6 +1,6 @@
 @testable import Passwords
 import Combine
-import UIKit.UIImage
+import SwiftUI
 
 
 final class QRCodeServiceMock: QRCodeServiceProtocol, Mock, FunctionCallLogging {

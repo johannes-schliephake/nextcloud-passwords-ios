@@ -282,11 +282,11 @@ struct EntriesPage: View {
             item in
             switch item {
             case .edit(.folder(let folder)):
-                EditFolderNavigation(entriesController: entriesController, folder: folder)
+                EditFolderNavigation(folder: folder)
             case .edit(.password(let password)):
                 EditPasswordNavigation(entriesController: entriesController, password: password)
             case .edit(.tag(let tag)):
-                EditTagNavigation(entriesController: entriesController, tag: tag)
+                EditTagNavigation(tag: tag)
             case .move(.folder(let folder)):
                 SelectFolderNavigation(entriesController: entriesController, entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), selectFolder: {
                     parent in
