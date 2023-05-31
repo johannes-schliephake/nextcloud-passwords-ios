@@ -3,7 +3,7 @@ default_platform(:ios)
 opt_out_usage
 
 before_all do
-    ensure_xcode_version(version: "14.2")
+    ensure_xcode_version(version: "14.3")
     ensure_git_status_clean
     ensure_git_branch(branch: "develop")
     unless sh("git fetch --dry-run").empty?
@@ -62,7 +62,8 @@ end
 
 desc("Downloads certificates and provisioning profiles, bumps build numbers, archives the app, uploads the binary to TestFlight, distributes to public beta and commits the build bump.")
 lane :build_and_upload do
-    unless last_git_tag != "v#{get_version_number(target: "Passwords")}"
+    version = "v#{get_version_number(target: "Passwords")}"
+    unless last_git_tag != version
         UI.user_error!("The version number didn't change")
     end
     get_certificates(output_path: "fastlane/tmp")
@@ -72,7 +73,7 @@ lane :build_and_upload do
     increment_build_number_in_xcodeproj(target: "Passwords")
     increment_build_number_in_xcodeproj(target: "Provider")
     increment_build_number_in_xcodeproj(target: "Extension")
-    build_app(scheme: "Passwords", clean: true, output_directory: "fastlane/tmp", export_method: "app-store")
+    build_app(scheme: "Passwords", clean: true, output_directory: "fastlane/tmp", output_name: "Passwords (#{version}, Build #{get_build_number}).ipa", export_method: "app-store")
     localized_app_info = {
         "en-US": {
             feedback_email: File.read("metadata/en-US/feedback_email.txt").strip,
@@ -123,6 +124,6 @@ lane :git_release do
     sh("git push")
     sh("git checkout develop")
     api_token = prompt(text: "Your GitHub API token: ", secure_text: true)
-    set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: release_notes)
+    set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: release_notes, upload_assets: ["fastlane/tmp/Passwords (#{version}, Build #{get_build_number}).ipa"])
     sh("git fetch --tags")
 end

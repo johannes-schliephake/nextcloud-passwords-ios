@@ -319,3 +319,4 @@
 /* This refers to the verb ("to select"), i.e. select a password */
 "_select" = "Välj";
 "_passwords" = "Lösenord";
+"_supportThisProjectMessage" = "TestFlight-versionen av denna app är installerad. Alla köp som görs är endast för teständamål och kommer inte att faktureras.";

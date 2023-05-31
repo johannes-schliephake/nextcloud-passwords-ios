@@ -1,2 +1,2 @@
-• Schwedische Übersetzung (Danke Anders Johansson!)
+• Suchalgorithmus berücksichtigt jetzt URL-Portnummern
 • Optimierungen
