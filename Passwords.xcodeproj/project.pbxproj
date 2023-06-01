@@ -935,9 +935,9 @@
 				8F552964259CB35100419233 /* App */,
 				8FC3619A2582762600785371 /* Provider */,
 				DDB1695627D1FCFF00F4D752 /* Extension */,
+				8F118751253C9EE10019FECA /* Shared */,
 				8FCBF8BB25AE152500F75B33 /* Snapshot */,
 				DD5E3CAF295363DB0032F517 /* Tests */,
-				8F118751253C9EE10019FECA /* Shared */,
 				8FD1039625A7BFFC0055A8F3 /* .gitignore */,
 				8F0136FF25DE903E009455D7 /* .swiftlint.yml */,
 				DD03D9C028C8DFCB006118F2 /* swiftgen.yml */,
@@ -971,10 +971,11 @@
 				DD8282BC2937684B0085115D /* ViewModels */,
 				DD214360295A0139006C08DD /* Services */,
 				8F5A8B1225699EEE00D97E06 /* Controllers */,
-				8F55B9FF25611A99008AAC63 /* Models */,
+				DDAC9C612A293625005E6011 /* Repositories */,
 				8F55F71125727BDC00E00B28 /* Requests */,
-				8F56D34A2561CC1400FBCB1B /* Utilities */,
+				8F55B9FF25611A99008AAC63 /* Models */,
 				DDACC44C29EDEDFE0094D141 /* Helpers */,
+				8F56D34A2561CC1400FBCB1B /* Utilities */,
 				8FBE43B7258D5942003F7F34 /* Extensions */,
 				DD03D9C628C8E827006118F2 /* Generated */,
 				DD6350E0293FED030058A787 /* Container+Registrations.swift */,
@@ -1056,8 +1057,8 @@
 			children = (
 				8F118762253CA2980019FECA /* Passwords.entitlements */,
 				8F52F3E125937B2700B4EFCE /* IAP.plist */,
-				8F01371225DE9EAD009455D7 /* IAP.storekit */,
 				8F11875B253C9EE30019FECA /* Info.plist */,
+				8F01371225DE9EAD009455D7 /* IAP.storekit */,
 				DD6953EB27FADEA10007DAEE /* Icon.svg */,
 				8F118752253C9EE10019FECA /* PasswordsApp.swift */,
 				8F118756253C9EE30019FECA /* Assets.xcassets */,
@@ -1344,7 +1345,7 @@
 				DD5E3CBB2954571B0032F517 /* Extensions */,
 				DD5E99EF29AAA14A00A7A4B9 /* Matchers */,
 				DD5E99F429ABFF3300A7A4B9 /* Mocks */,
-				DD7BC52B29B00233004AA7BC /* Tests */,
+				DD7BC52B29B00233004AA7BC /* TestCases */,
 				DD7BC51929AFBAC5004AA7BC /* Utilities */,
 				DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */,
 				DD7BC51729AFBA00004AA7BC /* Container+Mocks.swift */,
@@ -1409,7 +1410,7 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		DD7BC52B29B00233004AA7BC /* Tests */ = {
+		DD7BC52B29B00233004AA7BC /* TestCases */ = {
 			isa = PBXGroup;
 			children = (
 				DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */,
@@ -1427,7 +1428,7 @@
 				DD5E3CB0295363DB0032F517 /* TagValidationServiceTests.swift */,
 				DDF413892955AFD000B886EB /* ViewModelTests.swift */,
 			);
-			path = Tests;
+			path = TestCases;
 			sourceTree = "<group>";
 		};
 		DD8282BC2937684B0085115D /* ViewModels */ = {
@@ -1459,6 +1460,13 @@
 				DDE4F5D5274BEB3D00518167 /* LegacyFlowView.swift */,
 			);
 			path = Layouts;
+			sourceTree = "<group>";
+		};
+		DDAC9C612A293625005E6011 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		DDACC44C29EDEDFE0094D141 /* Helpers */ = {
