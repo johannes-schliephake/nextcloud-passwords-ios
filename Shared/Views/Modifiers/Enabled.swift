@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-struct Enabled: ViewModifier {
+private struct Enabled: ViewModifier {
     
     let enabled: Bool
     

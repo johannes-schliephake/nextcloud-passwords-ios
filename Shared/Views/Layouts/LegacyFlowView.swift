@@ -22,8 +22,7 @@ struct LegacyFlowView<Data: Collection, Content: View>: View where Data.Element:
     var body: some View {
         ZStack {
             /// Detect size changes in duplicated content views to handle views which are wider than the superview
-            ForEach(Array(data), id: \.self) {
-                element in
+            ForEach(Array(data), id: \.self) { element in
                 content(element)
                     .fixedSize()
                     .onSizeChange { elementWidths[element] = $0.width }
@@ -31,17 +30,15 @@ struct LegacyFlowView<Data: Collection, Content: View>: View where Data.Element:
             .frame(width: 1)
             .hidden()
             VStack(alignment: alignment, spacing: spacing) {
-                ForEach(rows, id: \.self) {
-                    row in
+                ForEach(rows, id: \.self) { row in
                     HStack(spacing: spacing) {
-                        ForEach(row, id: \.self) {
-                            element in
+                        ForEach(row, id: \.self) { element in
                             content(element)
                         }
                     }
                 }
             }
-            .frame(maxWidth: .infinity, alignment: Alignment(horizontal: alignment, vertical: .center))
+            .frame(maxWidth: .infinity, alignment: .init(horizontal: alignment, vertical: .center))
             .onSizeChange { width = $0.width }
         }
     }
@@ -55,8 +52,7 @@ struct LegacyFlowView<Data: Collection, Content: View>: View where Data.Element:
             if lastRowWidth + spacing + elementWidth > width {
                 rows.append([element])
                 lastRowWidth = elementWidth
-            }
-            else {
+            } else {
                 rows[rows.count - 1].append(element)
                 lastRowWidth += spacing + elementWidth
             }

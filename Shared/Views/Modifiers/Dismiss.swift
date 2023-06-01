@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 
 
-struct Dismiss: ViewModifier {
+private struct Dismiss: ViewModifier {
     
     let shouldDismiss: AnyPublisher<Void, Never>
     

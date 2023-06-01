@@ -34,8 +34,7 @@ import SwiftUI
                 rows[rows.count - 1].subviewSizes.append(subviewSize)
                 rows[rows.count - 1].size.width += spacing + subviewSize.width
                 rows[rows.count - 1].size.height = max(rows[rows.count - 1].size.height, subviewSize.height)
-            }
-            else {
+            } else {
                 rows.append((subviewSizes: [subviewSize], size: subviewSize))
             }
         }
@@ -55,7 +54,7 @@ import SwiftUI
                 offsetX = (availableWidth - row.size.width) / 2
             }
             for subviewSize in row.subviewSizes {
-                cache.append(CGPoint(x: offsetX + subviewSize.width / 2, y: offsetY + row.size.height / 2))
+                cache.append(.init(x: offsetX + subviewSize.width / 2, y: offsetY + row.size.height / 2))
                 offsetX += subviewSize.width + spacing
             }
             offsetY += row.size.height
@@ -63,7 +62,7 @@ import SwiftUI
         
         let width = rows.map(\.size.width).max() ?? 0
         let height = offsetY
-        return CGSize(width: proposal.replacingUnspecifiedDimensions(by: CGSize(width: width, height: height)).width, height: height)
+        return .init(width: proposal.replacingUnspecifiedDimensions(by: .init(width: width, height: height)).width, height: height)
     }
     
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout [CGPoint]) {

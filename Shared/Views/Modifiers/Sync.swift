@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-struct Sync<Value: Hashable>: ViewModifier {
+private struct Sync<Value: Hashable>: ViewModifier {
     
     @Binding var value: Value?
     @FocusState var focusState: Value?

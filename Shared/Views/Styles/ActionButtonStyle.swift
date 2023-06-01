@@ -18,8 +18,6 @@ extension ActionButtonStyle {
         
         @Environment(\.isEnabled) private var isEnabled: Bool
         
-        // MARK: Views
-        
         var body: some View {
             configuration.label
                 .font(.headline)

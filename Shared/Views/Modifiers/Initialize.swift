@@ -2,7 +2,7 @@ import SwiftUI
 
 
 /// Initially sets a FocusState, which isn't possible from e.g. onAppear
-struct Initialize<Value: Hashable>: ViewModifier {
+private struct Initialize<Value: Hashable>: ViewModifier {
     
     let binding: FocusState<Value?>.Binding
     let initial: Value?
@@ -14,8 +14,7 @@ struct Initialize<Value: Hashable>: ViewModifier {
             .onAppear {
                 initialize()
             }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) {
-                _ in
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                 /// Retry initialization when app returns from background
                 initialize()
             }
@@ -38,8 +37,7 @@ struct Initialize<Value: Hashable>: ViewModifier {
                 }
                 if #available(iOS 16, *) {
                     try await Task.sleep(until: .now + .milliseconds(100), tolerance: .milliseconds(50), clock: .suspending)
-                }
-                else {
+                } else {
                     try await Task.sleep(nanoseconds: 100_000_000)
                 }
             }
