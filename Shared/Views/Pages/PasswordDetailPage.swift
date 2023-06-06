@@ -164,15 +164,18 @@ struct PasswordDetailPage: View {
                     .font(.title)
                     .foregroundColor(.red)
             case .unknown:
-                ZStack {
-                    Image(systemName: "shield.fill")
-                        .font(.title)
-                        .foregroundColor(.gray)
-                    Image(systemName: "questionmark")
-                        .font(.title.bold())
-                        .foregroundColor(Color(.systemGroupedBackground))
-                        .scaleEffect(0.5)
-                }
+                Image(systemName: "shield.fill")
+                    .font(.title)
+                    .foregroundColor(.gray)
+                    .mask {
+                        Image(systemName: "questionmark")
+                            .font(.title.bold())
+                            .scaleEffect(0.5)
+                            .foregroundColor(.black)
+                            .background(.white)
+                            .compositingGroup()
+                            .luminanceToAlpha()
+                    }
             }
         }
         .buttonStyle(.borderless)

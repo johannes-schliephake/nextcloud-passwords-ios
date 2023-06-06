@@ -1156,14 +1156,17 @@ extension EntriesPage {
                 Image(systemName: "xmark.shield.fill")
                     .foregroundColor(.red)
             case .unknown:
-                ZStack {
-                    Image(systemName: "shield.fill")
-                        .foregroundColor(.gray)
-                    Image(systemName: "questionmark")
-                        .font(.body.bold())
-                        .foregroundColor(Color(.systemBackground))
-                        .scaleEffect(0.5)
-                }
+                Image(systemName: "shield.fill")
+                    .foregroundColor(.gray)
+                    .mask {
+                        Image(systemName: "questionmark")
+                            .font(.body.bold())
+                            .scaleEffect(0.5)
+                            .foregroundColor(.black)
+                            .background(.white)
+                            .compositingGroup()
+                            .luminanceToAlpha()
+                    }
             }
         }
         
