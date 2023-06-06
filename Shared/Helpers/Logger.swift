@@ -9,7 +9,7 @@ protocol Logging {
     var isAvailable: Bool { get }
     var isAvailablePublisher: AnyPublisher<Bool, Never> { get }
     
-    func log(error: Error, fileID: String, functionName: String, line: UInt)
+    func log(error: any Error, fileID: String, functionName: String, line: UInt)
     func log(error: String, fileID: String, functionName: String, line: UInt)
     func log(info: String, fileID: String, functionName: String, line: UInt)
     func reset()
@@ -47,7 +47,7 @@ final class Logger: Logging {
         log(info: "Logging enabled")
     }
     
-    func log(error: Error, fileID: String, functionName: String, line: UInt) {
+    func log(error: any Error, fileID: String, functionName: String, line: UInt) {
         log(event: .init(type: .error, message: .init(describing: error), fileID: fileID, functionName: functionName, line: line))
     }
     
@@ -76,7 +76,7 @@ final class Logger: Logging {
 
 extension Logging {
     
-    func log(error: Error, fileID: String = #fileID, functionName: String = #function, line: UInt = #line) {
+    func log(error: any Error, fileID: String = #fileID, functionName: String = #function, line: UInt = #line) {
         log(error: error, fileID: fileID, functionName: functionName, line: line)
     }
     

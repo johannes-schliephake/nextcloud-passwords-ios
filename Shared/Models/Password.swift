@@ -116,7 +116,7 @@ final class Password: ObservableObject, Identifiable {
         self.tags = tags
     }
     
-    required init(from decoder: Decoder) throws {
+    required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(String.self, forKey: .id)
@@ -354,7 +354,7 @@ extension Password: Codable {
         case tags
     }
     
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         let customFieldsData = try Configuration.nonUpdatingJsonEncoder.encode(customFields)
