@@ -131,7 +131,7 @@ struct EditPasswordPage: View {
                     editPasswordController.passwordValidTags = validTags
                 })
             case .selectFolder:
-                SelectFolderNavigation(entriesController: editPasswordController.entriesController, entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), selectFolder: {
+                SelectFolderNavigation(entry: .password(editPasswordController.password), temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, folder: editPasswordController.passwordFolder), selectFolder: {
                     parent in
                     editPasswordController.passwordFolder = parent.id
                 })

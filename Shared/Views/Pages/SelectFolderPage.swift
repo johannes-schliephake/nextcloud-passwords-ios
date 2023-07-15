@@ -3,16 +3,7 @@ import SwiftUI
 
 struct SelectFolderPage: View {
     
-    @Environment(\.dismiss) private var dismiss
-    
-    @StateObject private var selectFolderController: SelectFolderController
-    @State private var sheetItem: SheetItem?
-    
-    init(entriesController: EntriesController, entry: Entry, temporaryEntry: SelectFolderController.TemporaryEntry, selectFolder: @escaping (Folder) -> Void) {
-        _selectFolderController = StateObject(wrappedValue: SelectFolderController(entriesController: entriesController, entry: entry, temporaryEntry: temporaryEntry, selectFolder: selectFolder))
-    }
-    
-    // MARK: Views
+    @StateObject var viewModel: AnyViewModel<SelectFolderViewModel.State, SelectFolderViewModel.Action>
     
     var body: some View {
         mainStack()
@@ -28,16 +19,17 @@ struct SelectFolderPage: View {
                     confirmButton()
                 }
             }
+            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
     }
     
     private func mainStack() -> some View {
         VStack(spacing: 0) {
             VStack {
                 Group {
-                    switch selectFolderController.temporaryEntry {
-                    case .folder(let label, _):
+                    switch viewModel[\.temporaryEntry] {
+                    case let .folder(label, _):
                         FolderRow(label: label)
-                    case .password(let label, let username, let url, _):
+                    case let .password(label, username, url, _):
                         PasswordRow(label: label, username: username, url: url)
                     }
                 }
@@ -55,23 +47,28 @@ struct SelectFolderPage: View {
     }
     
     private func listView() -> some View {
-        ScrollViewReader {
-            scrollViewProxy in
+        ScrollViewReader { scrollViewProxy in
             List {
-                FolderGroup(folder: selectFolderController.baseFolder, folders: selectFolderController.folders, selection: $selectFolderController.selection, isExpanded: true)
-                    .listSectionSeparator(.hidden, edges: .top)
-                    .apply {
-                        view in
-                        if #available(iOS 16, *) {
-                            view
-                                .listRowInsets(.listRow)
-                        }
+                TreePicker(viewModel[\.tree], selection: $viewModel[\.selection]) { folder in
+                    FolderRow(label: folder.label)
+                        .id(folder.id)
+                }
+                .listSectionSeparator(.hidden, edges: .top)
+                .apply {
+                    view in
+                    if #available(iOS 16, *) {
+                        view
+                            .listRowInsets(.listRow)
                     }
+                }
             }
             .listStyle(.plain)
             .onAppear {
                 withAnimation {
-                    scrollViewProxy.scrollTo(selectFolderController.selection.id, anchor: .center)
+                    guard let selection = viewModel[\.selection] else {
+                        return
+                    }
+                    scrollViewProxy.scrollTo(selection.id, anchor: .center)
                 }
             }
         }
@@ -79,24 +76,21 @@ struct SelectFolderPage: View {
     
     private func cancelButton() -> some View {
         Button("_cancel", role: .cancel) {
-            dismiss()
+            viewModel(.cancel)
         }
     }
     
     private func addFolderButton() -> some View {
         Button {
-            sheetItem = .edit(folder: Folder(parent: selectFolderController.selection.id, client: Configuration.clientName))
-        }
-        label: {
+            viewModel(.showFolderCreation)
+        } label: {
             Image(systemName: "folder.badge.plus")
         }
-        .sheet(item: $sheetItem) {
-            item in
+        .sheet(item: $viewModel[\.sheetItem]) { item in
             switch item {
-            case .edit(let folder):
-                EditFolderNavigation(folder: folder, didEdit: {
-                    folder in
-                    selectFolderController.selection = folder
+            case let .edit(folder):
+                EditFolderNavigation(folder: folder, didEdit: { folder in
+                    viewModel(.setSelection(folder))
                 })
             }
         }
@@ -104,78 +98,10 @@ struct SelectFolderPage: View {
     
     private func confirmButton() -> some View {
         Button("_done") {
-            applyAndDismiss()
+            viewModel(.selectFolder)
         }
-        .disabled(!selectFolderController.hasChanges)
-    }
-    
-    // MARK: Functions
-    
-    private func applyAndDismiss() {
-        guard selectFolderController.hasChanges,
-              selectFolderController.selection.state?.isProcessing != true else {
-            return
-        }
-        selectFolderController.selectFolder(selectFolderController.selection)
-        dismiss()
-    }
-    
-}
-
-
-extension SelectFolderPage {
-    
-    private enum SheetItem: Identifiable {
-        
-        case edit(folder: Folder)
-        
-        var id: String {
-            switch self {
-            case .edit(let folder):
-                return folder.id
-            }
-        }
-        
-    }
-    
-}
-
-
-extension SelectFolderPage {
-    
-    private struct FolderGroup: View {
-        
-        let folder: Folder
-        let folders: [Folder]
-        @Binding var selection: Folder
-        @State var isExpanded: Bool
-        
-        var body: some View {
-            Group {
-                let subfolders = folders.filter { !$0.id.isEmpty && $0.parent == folder.id }
-                if subfolders.isEmpty {
-                    FolderRow(label: folder.label)
-                }
-                else {
-                    DisclosureGroup(isExpanded: $isExpanded) {
-                        ForEach(subfolders) {
-                            folder in
-                            Self(folder: folder, folders: folders, selection: $selection, isExpanded: selection !== folder && selection.isDescendentOf(folder: folder, in: folders))
-                        }
-                    }
-                    label: {
-                        FolderRow(label: folder.label)
-                    }
-                }
-            }
-            .id(folder.id)
-            .contentShape(Rectangle())
-            .listRowBackground(selection === folder ? Color(white: 0.5, opacity: 0.35) : Color.clear)
-            .onTapGesture {
-                selection = folder
-            }
-        }
-        
+        .enabled(viewModel[\.hasChanges])
+        .enabled(viewModel[\.selectionIsValid])
     }
     
 }
@@ -256,21 +182,3 @@ extension SelectFolderPage {
     }
     
 }
-
-
-#if DEBUG
-
-struct SelectFolderPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        PreviewDevice.generate {
-            NavigationView {
-                SelectFolderPage(entriesController: EntriesController.mock, entry: .folder(Folder.mocks.first!), temporaryEntry: .folder(label: Folder.mocks.first!.label, parent: Folder.mocks.first!.parent), selectFolder: { _ in })
-            }
-            .showColumns(false)
-        }
-    }
-    
-}
-
-#endif

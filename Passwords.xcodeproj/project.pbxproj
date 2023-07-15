@@ -418,7 +418,6 @@
 		DDB169C727D20CC200F4D752 /* LegacyFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE4F5D5274BEB3D00518167 /* LegacyFlowView.swift */; };
 		DDB169C827D20CC200F4D752 /* EntriesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F118754253C9EE10019FECA /* EntriesPage.swift */; };
 		DDB169C927D20CC200F4D752 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
-		DDB169CA27D20CC200F4D752 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
 		DDB169CB27D20CC200F4D752 /* AutoFillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55D9992582D04200CE4FC2 /* AutoFillController.swift */; };
 		DDB169CC27D20CC200F4D752 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F65736925E3C4F200139163 /* TextView.swift */; };
 		DDB169CE27D20CC200F4D752 /* ShowFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D74126495BD100FF192C /* ShowFolderRequest.swift */; };
@@ -484,8 +483,12 @@
 		DDC7C94C28C20D1B00451B81 /* LogPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94B28C20D1B00451B81 /* LogPage.swift */; };
 		DDC7C94D28C20D1B00451B81 /* LogPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94B28C20D1B00451B81 /* LogPage.swift */; };
 		DDC7C94E28C20D1B00451B81 /* LogPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7C94B28C20D1B00451B81 /* LogPage.swift */; };
-		DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
-		DDC98D0E26AFEE1E006058B6 /* SelectFolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */; };
+		DDC87BC92A54037700D56A49 /* TreePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC87BC82A54037700D56A49 /* TreePicker.swift */; };
+		DDC87BCA2A54037700D56A49 /* TreePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC87BC82A54037700D56A49 /* TreePicker.swift */; };
+		DDC87BCB2A54037700D56A49 /* TreePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC87BC82A54037700D56A49 /* TreePicker.swift */; };
+		DDC87BCD2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC87BCC2A54100900D56A49 /* SelectFolderViewModel.swift */; };
+		DDC87BCE2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC87BCC2A54100900D56A49 /* SelectFolderViewModel.swift */; };
+		DDC87BCF2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC87BCC2A54100900D56A49 /* SelectFolderViewModel.swift */; };
 		DDCD27802A16C55F009EC50F /* QRCodeGeneratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCD277F2A16C55F009EC50F /* QRCodeGeneratorMock.swift */; };
 		DDCD27832A16C6FF009EC50F /* QRCodeGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCD27812A16C579009EC50F /* QRCodeGenerating.swift */; };
 		DDCD27852A16C700009EC50F /* QRCodeGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCD27812A16C579009EC50F /* QRCodeGenerating.swift */; };
@@ -535,6 +538,10 @@
 		DDF413872955ADF500B886EB /* AnyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF413852955ADF500B886EB /* AnyViewModel.swift */; };
 		DDF413882955ADF500B886EB /* AnyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF413852955ADF500B886EB /* AnyViewModel.swift */; };
 		DDF4138A2955AFD000B886EB /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF413892955AFD000B886EB /* ViewModelTests.swift */; };
+		DDF924D32A5D4173005C9977 /* SelectFolderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */; };
+		DDF924D52A5D7348005C9977 /* ArrayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */; };
+		DDF924D62A5D7348005C9977 /* ArrayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */; };
+		DDF924D72A5D7348005C9977 /* ArrayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */; };
 		DDFF5D4829D8443B00422603 /* Container+AutoRegistering.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */; };
 		DDFF5D4A29D850ED00422603 /* MockInjected.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFF5D4929D850ED00422603 /* MockInjected.swift */; };
 /* End PBXBuildFile section */
@@ -846,7 +853,8 @@
 		DDC7C94328C1F2E700451B81 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		DDC7C94728C1FA3A00451B81 /* Bundle+IsTestFlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+IsTestFlight.swift"; sourceTree = "<group>"; };
 		DDC7C94B28C20D1B00451B81 /* LogPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPage.swift; sourceTree = "<group>"; };
-		DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderController.swift; sourceTree = "<group>"; };
+		DDC87BC82A54037700D56A49 /* TreePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreePicker.swift; sourceTree = "<group>"; };
+		DDC87BCC2A54100900D56A49 /* SelectFolderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderViewModel.swift; sourceTree = "<group>"; };
 		DDCD277F2A16C55F009EC50F /* QRCodeGeneratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGeneratorMock.swift; sourceTree = "<group>"; };
 		DDCD27812A16C579009EC50F /* QRCodeGenerating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerating.swift; sourceTree = "<group>"; };
 		DDCE125527411B09003912D0 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
@@ -872,6 +880,8 @@
 		DDF413852955ADF500B886EB /* AnyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyViewModel.swift; sourceTree = "<group>"; };
 		DDF413892955AFD000B886EB /* ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
 		DDF4138B29571D1D00B886EB /* FunctionCallLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionCallLogging.swift; sourceTree = "<group>"; };
+		DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderViewModelTests.swift; sourceTree = "<group>"; };
+		DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayBuilder.swift; sourceTree = "<group>"; };
 		DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+AutoRegistering.swift"; sourceTree = "<group>"; };
 		DDFF5D4929D850ED00422603 /* MockInjected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInjected.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1048,6 +1058,7 @@
 				DDDF3387276F7FDE008EEB3F /* TagBadge.swift */,
 				8F65736925E3C4F200139163 /* TextView.swift */,
 				DDE0701D27C8F83B00FC65E2 /* Tooltip.swift */,
+				DDC87BC82A54037700D56A49 /* TreePicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1131,6 +1142,7 @@
 			isa = PBXGroup;
 			children = (
 				DDF413852955ADF500B886EB /* AnyViewModel.swift */,
+				DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */,
 				8F854E6826239314008885C3 /* CoreData.swift */,
 				8F74244526039BD600B73646 /* Crypto.swift */,
 				DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */,
@@ -1174,7 +1186,6 @@
 				8F77DA6225699FB300CFDA8D /* EntriesController.swift */,
 				8F781F51267CC8B400BD3DC1 /* FolderController.swift */,
 				8FBC049B268B9DD1006D4CB7 /* LoginFlowNavigationController.swift */,
-				DDC98D0C26AFEE1E006058B6 /* SelectFolderController.swift */,
 				8F59F524256B1EFB00D9FE40 /* ServerSetupController.swift */,
 			);
 			path = Local;
@@ -1423,6 +1434,7 @@
 				DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */,
 				DDDD93F62A14BD650061BEA0 /* QRCodeServiceTests.swift */,
 				8F6ED7C0265BC807008CF387 /* ScoreTests.swift */,
+				DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */,
 				DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */,
 				DDDD93F82A14BD720061BEA0 /* ShareOTPViewModelTests.swift */,
 				DD5E3CB0295363DB0032F517 /* TagValidationServiceTests.swift */,
@@ -1438,6 +1450,7 @@
 				DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */,
 				DD9A99F62A23E9120016722F /* EditTagViewModel.swift */,
 				DDACC45329EF3F440094D141 /* LogViewModel.swift */,
+				DDC87BCC2A54100900D56A49 /* SelectFolderViewModel.swift */,
 				DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */,
 				DD5739982A1028FF004B6E69 /* ShareOTPViewModel.swift */,
 			);
@@ -1857,12 +1870,12 @@
 				8F5A8440259A4FA700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
 				8F68D73F26495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
 				8F854E6D26239457008885C3 /* OfflineContainer.swift in Sources */,
+				DDC87BCD2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */,
 				DD8282BE2937686A0085115D /* SelectTagsViewModel.swift in Sources */,
 				DD3FAD612775DC54002202DE /* ListSettingsRequest.swift in Sources */,
 				8F7A73A32677493500FCA15F /* URL+RelativeReference.swift in Sources */,
 				8F74244626039BD600B73646 /* Crypto.swift in Sources */,
 				DDBEE5B72A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */,
-				DDC98D0D26AFEE1E006058B6 /* SelectFolderController.swift in Sources */,
 				DD1E1D722A010D0C002DB08B /* Enabled.swift in Sources */,
 				8F559A2225A0B23E00D7A39F /* MainView.swift in Sources */,
 				8F77DA6325699FB300CFDA8D /* EntriesController.swift in Sources */,
@@ -1888,6 +1901,7 @@
 				8F09585125D159F10082D438 /* AuthenticationChallengeController.swift in Sources */,
 				8F781F52267CC8B400BD3DC1 /* FolderController.swift in Sources */,
 				8F59F525256B1EFB00D9FE40 /* ServerSetupController.swift in Sources */,
+				DDF924D52A5D7348005C9977 /* ArrayBuilder.swift in Sources */,
 				DD9FAD5826A3793A00770FEA /* SelectFolderNavigation.swift in Sources */,
 				8F997F9D2572ED7800B5F784 /* CreateFolderRequest.swift in Sources */,
 				DDCE125627411B09003912D0 /* Tag.swift in Sources */,
@@ -1943,6 +1957,7 @@
 				8F72379A2651468700832A88 /* Collection+Avg.swift in Sources */,
 				8F703BFC26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				DD38ACF927DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
+				DDC87BC92A54037700D56A49 /* TreePicker.swift in Sources */,
 				DD1E1D7A2A016ABE002DB08B /* OTPService.swift in Sources */,
 				8F5C1A84257D7D5F009FF66F /* BiometricAuthenticationController.swift in Sources */,
 				DD5B586E27D01CDC00E54E71 /* ShareSheet.swift in Sources */,
@@ -2016,6 +2031,7 @@
 				8FC361D525827E5D00785371 /* PasswordServiceRequest.swift in Sources */,
 				8FC361C825827E5500785371 /* Password.swift in Sources */,
 				8F68D74026495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
+				DDC87BCE2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */,
 				DD8282BF2937686A0085115D /* SelectTagsViewModel.swift in Sources */,
 				8F854E6E26239457008885C3 /* OfflineContainer.swift in Sources */,
 				DD3FAD622775DC54002202DE /* ListSettingsRequest.swift in Sources */,
@@ -2024,7 +2040,6 @@
 				8F74244726039BD600B73646 /* Crypto.swift in Sources */,
 				DD1E1D732A010D0C002DB08B /* Enabled.swift in Sources */,
 				8FC361D225827E5D00785371 /* ListFoldersRequest.swift in Sources */,
-				DDC98D0E26AFEE1E006058B6 /* SelectFolderController.swift in Sources */,
 				8F559A2325A0B23E00D7A39F /* MainView.swift in Sources */,
 				8FC361C625827E5500785371 /* Entry.swift in Sources */,
 				8FC361CD25827E5D00785371 /* CreateFolderRequest.swift in Sources */,
@@ -2047,6 +2062,7 @@
 				8F52F3D22593784B00B4EFCE /* TipController.swift in Sources */,
 				8F71A823260762DC00863C27 /* KeepaliveSessionRequest.swift in Sources */,
 				8F09585225D159F10082D438 /* AuthenticationChallengeController.swift in Sources */,
+				DDF924D62A5D7348005C9977 /* ArrayBuilder.swift in Sources */,
 				8F781F53267CC8B400BD3DC1 /* FolderController.swift in Sources */,
 				8FC361C225827E5200785371 /* EditPasswordController.swift in Sources */,
 				DD9FAD5926A3793A00770FEA /* SelectFolderNavigation.swift in Sources */,
@@ -2102,6 +2118,7 @@
 				DD3FAD652775DC86002202DE /* Settings.swift in Sources */,
 				8F72379B2651468700832A88 /* Collection+Avg.swift in Sources */,
 				8F703BFD26245C6100CC7018 /* Array+Zip.swift in Sources */,
+				DDC87BCA2A54037700D56A49 /* TreePicker.swift in Sources */,
 				DD1E1D7B2A016ABE002DB08B /* OTPService.swift in Sources */,
 				DD38ACFA27DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
 				8FC361F0258284F500785371 /* ProviderViewController.swift in Sources */,
@@ -2172,6 +2189,7 @@
 				DDBEE5BF2A07C802008F4099 /* EditOTPViewModelTests.swift in Sources */,
 				DDFF5D4A29D850ED00422603 /* MockInjected.swift in Sources */,
 				DDF4137A2954C28100B886EB /* ScoreTests.swift in Sources */,
+				DDF924D32A5D4173005C9977 /* SelectFolderViewModelTests.swift in Sources */,
 				DDCD27802A16C55F009EC50F /* QRCodeGeneratorMock.swift in Sources */,
 				DD7BC52229AFFD33004AA7BC /* TagsServiceMock.swift in Sources */,
 				DD7BC51829AFBA00004AA7BC /* Container+Mocks.swift in Sources */,
@@ -2237,6 +2255,7 @@
 				DDB169AD27D20CC200F4D752 /* Folder.swift in Sources */,
 				DDB169E427D20CC200F4D752 /* PreviewDevice+Generate.swift in Sources */,
 				DDB1697D27D20CC100F4D752 /* CreateTagRequest.swift in Sources */,
+				DDC87BCF2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */,
 				DD8282C02937686A0085115D /* SelectTagsViewModel.swift in Sources */,
 				DDB1699827D20CC200F4D752 /* String+Segmented.swift in Sources */,
 				DDB1697527D20C2200F4D752 /* CoreData.xcdatamodeld in Sources */,
@@ -2258,7 +2277,6 @@
 				DDB169E527D20CC300F4D752 /* CaptureOTPNavigation.swift in Sources */,
 				DD76068A295F72BC00109075 /* Sync.swift in Sources */,
 				DDB169A527D20CC200F4D752 /* ListTagsRequest.swift in Sources */,
-				DDB169CA27D20CC200F4D752 /* SelectFolderController.swift in Sources */,
 				DDB169B227D20CC200F4D752 /* NavigationView+ShowColumns.swift in Sources */,
 				DDB169B427D20CC200F4D752 /* ListSettingsRequest.swift in Sources */,
 				DDB169D727D20CC200F4D752 /* MockObject.swift in Sources */,
@@ -2268,6 +2286,7 @@
 				DDB1698427D20CC200F4D752 /* SessionController.swift in Sources */,
 				DDB1698627D20CC200F4D752 /* CoreData.swift in Sources */,
 				DDB169E827D20CC300F4D752 /* SelectTagsPage.swift in Sources */,
+				DDF924D72A5D7348005C9977 /* ArrayBuilder.swift in Sources */,
 				DDB169B627D20CC200F4D752 /* FaviconServiceRequest.swift in Sources */,
 				DDB169ED27D20CC300F4D752 /* Color+Init.swift in Sources */,
 				DDB169AC27D20CC200F4D752 /* Collection+Avg.swift in Sources */,
@@ -2323,6 +2342,7 @@
 				DD38ACFB27DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
 				DDB169BE27D20CC200F4D752 /* NetworkClient.swift in Sources */,
 				DD1E1D7C2A016ABE002DB08B /* OTPService.swift in Sources */,
+				DDC87BCB2A54037700D56A49 /* TreePicker.swift in Sources */,
 				DDB169E127D20CC200F4D752 /* EditTagPage.swift in Sources */,
 				DDB169D827D20CC200F4D752 /* DeleteFolderRequest.swift in Sources */,
 				DDB169BC27D20CC200F4D752 /* EditFolderNavigation.swift in Sources */,

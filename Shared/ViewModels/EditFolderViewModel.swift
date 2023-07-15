@@ -18,7 +18,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         let isCreating: Bool
         @Published var folderLabel: String
         @Published fileprivate(set) var folderFavorite: Bool
-        @Published fileprivate(set) var folderParent: String?
+        @Published fileprivate(set) var folderParent: String
         @Published fileprivate(set) var parentLabel: String
         @Published var showSelectFolderView: Bool
         @Published var showDeleteAlert: Bool
@@ -29,7 +29,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         
         let shouldDismiss = PassthroughSubject<Void, Never>()
         
-        init(folder: Folder, isCreating: Bool, folderLabel: String, folderFavorite: Bool, folderParent: String?, parentLabel: String, showSelectFolderView: Bool, showDeleteAlert: Bool, showCancelAlert: Bool, hasChanges: Bool, editIsValid: Bool, focusedField: FocusField?) {
+        init(folder: Folder, isCreating: Bool, folderLabel: String, folderFavorite: Bool, folderParent: String, parentLabel: String, showSelectFolderView: Bool, showDeleteAlert: Bool, showCancelAlert: Bool, hasChanges: Bool, editIsValid: Bool, focusedField: FocusField?) {
             self.folder = folder
             self.isCreating = isCreating
             self.folderLabel = folderLabel
@@ -72,8 +72,14 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init(folder: Folder, didEdit: ((Folder) -> Void)?) {
-        state = .init(folder: folder, isCreating: folder.id.isEmpty, folderLabel: folder.label, folderFavorite: folder.favorite, folderParent: folder.parent, parentLabel: "", showSelectFolderView: false, showDeleteAlert: false, showCancelAlert: false, hasChanges: false, editIsValid: true, focusedField: folder.id.isEmpty ? .folderLabel : nil)
+        state = .init(folder: folder, isCreating: folder.id.isEmpty, folderLabel: folder.label, folderFavorite: folder.favorite, folderParent: folder.parent ?? "", parentLabel: "", showSelectFolderView: false, showDeleteAlert: false, showCancelAlert: false, hasChanges: false, editIsValid: true, focusedField: folder.id.isEmpty ? .folderLabel : nil)
         self.didEdit = didEdit
+        
+        if folder.isBaseFolder {
+            logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
+        } else if folder.parent == nil {
+            logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
+        }
         
         setupPipelines()
     }

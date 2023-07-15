@@ -1,5 +1,4 @@
 import SwiftUI
-import Factory
 
 
 struct EditFolderPage: View {
@@ -76,8 +75,7 @@ struct EditFolderPage: View {
                 Label(viewModel[\.parentLabel], systemImage: "folder")
             }
             .sheet(isPresented: $viewModel[\.showSelectFolderView]) {
-                SelectFolderNavigation(entriesController: Container.shared.entriesController(), entry: .folder(viewModel[\.folder]), temporaryEntry: .folder(label: viewModel[\.folderLabel], parent: viewModel[\.folderParent]), selectFolder: {
-                    parent in
+                SelectFolderNavigation(entry: .folder(viewModel[\.folder]), temporaryEntry: .folder(label: viewModel[\.folderLabel], parent: viewModel[\.folderParent]), selectFolder: { parent in
                     viewModel(.selectParent(parent))
                 })
             }

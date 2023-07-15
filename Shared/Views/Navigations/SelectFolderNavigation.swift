@@ -5,16 +5,15 @@ struct SelectFolderNavigation: View {
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
-    let entriesController: EntriesController
     let entry: Entry
-    let temporaryEntry: SelectFolderController.TemporaryEntry
+    let temporaryEntry: SelectFolderViewModel.TemporaryEntry
     let selectFolder: (Folder) -> Void
     
     // MARK: Views
     
     var body: some View {
         NavigationView {
-            SelectFolderPage(entriesController: entriesController, entry: entry, temporaryEntry: temporaryEntry, selectFolder: selectFolder)
+            SelectFolderPage(viewModel: SelectFolderViewModel(entry: entry, temporaryEntry: temporaryEntry, selectFolder: selectFolder).eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {

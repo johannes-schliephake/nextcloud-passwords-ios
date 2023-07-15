@@ -13,13 +13,19 @@ final class FoldersServiceMock: FoldersServiceProtocol, Mock, PropertyAccessLogg
     init() {}
     
     let _folderLabel = PassthroughSubject<String, Never>() // swiftlint:disable:this identifier_name
-    func folderLabel(forId folderId: String?) -> AnyPublisher<String, Never> {
+    func folderLabel(forId folderId: String) -> AnyPublisher<String, Never> {
         logFunctionCall(parameters: folderId)
         return _folderLabel.eraseToAnyPublisher()
     }
     
+    let _makeFolder = Folder(id: .random(), parent: .random()) // swiftlint:disable:this identifier_name
+    func makeFolder(parentId: String) -> Folder {
+        logFunctionCall(parameters: parentId)
+        return _makeFolder
+    }
+    
     var _apply: Result<Void, FolderApplyError> = .success(()) // swiftlint:disable:this identifier_name
-    func apply(to folder: Folder, folderLabel: String, folderFavorite: Bool, folderParent: String?) throws {
+    func apply(to folder: Folder, folderLabel: String, folderFavorite: Bool, folderParent: String) throws {
         logFunctionCall(parameters: folder, folderLabel, folderFavorite, folderParent)
         try _apply.get()
     }

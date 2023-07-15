@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct EntriesPage: View {
@@ -6,6 +7,7 @@ struct EntriesPage: View {
     @ObservedObject var entriesController: EntriesController
     private let showFilterSortMenu: Bool
     
+    @Injected(\.logger) private var logger
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var sessionController: SessionController
     
@@ -288,13 +290,20 @@ struct EntriesPage: View {
             case .edit(.tag(let tag)):
                 EditTagNavigation(tag: tag)
             case .move(.folder(let folder)):
-                SelectFolderNavigation(entriesController: entriesController, entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), selectFolder: {
+                SelectFolderNavigation(entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent ?? ""), selectFolder: {
                     parent in
                     folder.parent = parent.id
                     entriesController.update(folder: folder)
                 })
+                .onAppear {
+                    if folder.isBaseFolder {
+                        logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
+                    } else if folder.parent == nil {
+                        logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
+                    }
+                }
             case .move(.password(let password)):
-                SelectFolderNavigation(entriesController: entriesController, entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), selectFolder: {
+                SelectFolderNavigation(entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), selectFolder: {
                     parent in
                     password.folder = parent.id
                     entriesController.update(password: password)
