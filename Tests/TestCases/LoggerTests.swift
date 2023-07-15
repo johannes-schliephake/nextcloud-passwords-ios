@@ -11,7 +11,7 @@ final class LoggerTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         
-        Container.shared.manager.reset()
+        Container.shared.reset()
         ConfigurationMock.isDebug = true
         ConfigurationMock.isTestEnvironment = true
         ConfigurationMock.isTestFlight = false

@@ -11,7 +11,7 @@ final class QRCodeServiceTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         
-        Container.shared.manager.reset()
+        Container.shared.reset()
     }
     
     func testGenerateQrCode_thenEmitsScaledGeneratorImageOnBackgroundThread() {

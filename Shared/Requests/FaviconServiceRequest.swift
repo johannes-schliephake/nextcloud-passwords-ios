@@ -40,7 +40,7 @@ extension FaviconServiceRequest: NCPasswordsRequest {
     
     func decode(data: Data) -> UIImage? {
         guard let image = UIImage(data: data) else {
-            Container.shared.logger().log(error: "Failed to decode favicon")
+            resolve(\.logger).log(error: "Failed to decode favicon")
             return nil
         }
         return image

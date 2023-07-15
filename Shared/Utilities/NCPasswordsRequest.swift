@@ -89,7 +89,7 @@ extension NCPasswordsRequest {
                 return
             }
             
-            lazy var logger = Container.shared.logger()
+            lazy var logger = resolve(\.logger)
             
             let body: Data?
             do {

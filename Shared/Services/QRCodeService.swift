@@ -24,7 +24,7 @@ struct QRCodeService: QRCodeServiceProtocol {
             .receive(on: DispatchQueue(qos: .userInitiated))
             .map { Data($0.absoluteString.utf8) }
             .map { data in
-                let filter = Container.shared.qrCodeGenerator()
+                let filter = resolve(\.qrCodeGenerator)
                 filter?.setValue(data, forKey: "inputMessage")
                 return filter
             }

@@ -11,7 +11,7 @@ final class OTPServiceTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         
-        Container.shared.manager.reset()
+        Container.shared.reset()
     }
     
     func testMakeOtp_givenInvalidParameters_thenReturnsNil() {

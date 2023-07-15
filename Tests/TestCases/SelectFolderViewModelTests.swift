@@ -16,7 +16,7 @@ final class SelectFolderViewModelTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         
-        Container.shared.manager.reset()
+        Container.shared.reset()
     }
     
     func testSheetItem_givenEditCase_thenIdReturnsFoldersId() {

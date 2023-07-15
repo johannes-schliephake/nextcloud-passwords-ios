@@ -15,7 +15,7 @@ final class LogViewModelTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         
-        Container.shared.manager.reset()
+        Container.shared.reset()
     }
     
     func testInit_thenSetsInitialState() {

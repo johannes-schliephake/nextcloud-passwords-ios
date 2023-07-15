@@ -23,7 +23,7 @@ struct LogEvent: Identifiable, CustomStringConvertible {
     let id = UUID()
     let type: Type
     let message: String
-    let date = Container.shared.currentDate()
+    let date = resolve(\.currentDate)
     let fileID: String
     let functionName: String
     let line: UInt

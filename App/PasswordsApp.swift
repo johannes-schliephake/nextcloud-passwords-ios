@@ -7,7 +7,7 @@ import Factory
     @StateObject private var autoFillController = Configuration.isTestEnvironment ? AutoFillController.mock : AutoFillController.default
     
     init() {
-        _ = Container.shared.logger()
+        _ = resolve(\.logger)
     }
     
     // MARK: Views

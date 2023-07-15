@@ -49,7 +49,7 @@ final class TagsService: TagsServiceProtocol {
             throw TagAddError.validationFailed
         }
         
-        let currentDate = Container.shared.currentDate()
+        let currentDate = resolve(\.currentDate)
         let tag = Tag(label: label, client: Configuration.clientName, edited: currentDate, created: currentDate, updated: currentDate)
         entriesController.add(tag: tag)
         return tag
@@ -63,7 +63,7 @@ final class TagsService: TagsServiceProtocol {
             throw FolderApplyError.idNotAvailableLocally
         }
         
-        let currentDate = Container.shared.currentDate()
+        let currentDate = resolve(\.currentDate)
         if tag.id.isEmpty {
             tag.created = currentDate
         }

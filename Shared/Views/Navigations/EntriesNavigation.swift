@@ -8,9 +8,9 @@ struct EntriesNavigation: View {
     @EnvironmentObject private var sessionController: SessionController
     
 #if DEBUG
-    @StateObject private var entriesController = Configuration.isTestEnvironment ? EntriesController.mock : Container.shared.entriesController()
+    @StateObject private var entriesController = Configuration.isTestEnvironment ? EntriesController.mock : resolve(\.entriesController)
 #else
-    @StateObject private var entriesController = Container.shared.entriesController()
+    @StateObject private var entriesController = resolve(\.entriesController)
 #endif
     
     // MARK: Views

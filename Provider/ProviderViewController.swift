@@ -6,7 +6,7 @@ import Factory
 final class ProviderViewController: ASCredentialProviderViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        _ = Container.shared.logger()
+        _ = resolve(\.logger)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }

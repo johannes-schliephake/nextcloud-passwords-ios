@@ -9,7 +9,7 @@ final class FolderValidationServiceTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         
-        Container.shared.manager.reset()
+        Container.shared.reset()
     }
     
     func testValidate_givenStringsOfDifferentLengths_thenAllowedLengthsReturnTrue() {

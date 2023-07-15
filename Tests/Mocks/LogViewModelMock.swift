@@ -8,7 +8,7 @@ final class LogViewModelMock: ViewModelMock<LogViewModel.State, LogViewModel.Act
 extension LogViewModel.State: Mock {
     
     convenience init() {
-        let logEventMocks = Container.shared.logEvents()
+        let logEventMocks = resolve(\.logEvents)
         self.init(isAvailable: true, events: logEventMocks)
     }
     

@@ -40,7 +40,7 @@ final class Logger: Logging {
     private var lock = Lock()
     
     init() {
-        let configuration = Container.shared.configurationType()
+        let configuration = resolve(\.configurationType)
         let logEnabled = configuration.isDebug || configuration.isTestEnvironment || configuration.isTestFlight
         eventsInternal = logEnabled ? [LogEvent]() : nil
         

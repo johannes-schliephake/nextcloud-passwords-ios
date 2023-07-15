@@ -11,7 +11,7 @@ final class OTPValidationServiceTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         
-        Container.shared.manager.reset()
+        Container.shared.reset()
     }
     
     func testValidate_givenEmptySecret_thenReturnsFalse() {

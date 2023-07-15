@@ -9,7 +9,7 @@ final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_or
     override func tearDown() {
         super.tearDown()
         
-        Container.shared.manager.reset()
+        Container.shared.reset()
     }
     
     func testObjectWillChange_whenChangingPublishedState_thenPublisherEmits() {
