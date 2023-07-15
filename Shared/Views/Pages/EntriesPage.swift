@@ -545,6 +545,13 @@ struct EntriesPage: View {
                 Image(systemName: "arrow.up.arrow.down")
             }
         }
+        .apply {
+            view in
+            if #available(iOS 16.4, *) {
+                view
+                    .menuActionDismissBehavior(.disabled)
+            }
+        }
         .accessibility(identifier: "filterSortMenu")
     }
     
@@ -890,6 +897,13 @@ extension EntriesPage {
                             label: {
                                 Label("_copyUsername", systemImage: "doc.on.doc")
                             }
+                            .apply {
+                                view in
+                                if #available(iOS 16.4, *) {
+                                    view
+                                        .menuActionDismissBehavior(.disabled)
+                                }
+                            }
                         }
                         Button {
                             UIPasteboard.general.privateString = password.password
@@ -897,12 +911,26 @@ extension EntriesPage {
                         label: {
                             Label("_copyPassword", systemImage: "doc.on.doc")
                         }
+                        .apply {
+                            view in
+                            if #available(iOS 16.4, *) {
+                                view
+                                    .menuActionDismissBehavior(.disabled)
+                            }
+                        }
                         if let otp = password.otp {
                             Button {
                                 UIPasteboard.general.privateString = otp.current
                             }
                             label: {
                                 Label("_copyOtp", systemImage: "doc.on.doc")
+                            }
+                            .apply {
+                                view in
+                                if #available(iOS 16.4, *) {
+                                    view
+                                        .menuActionDismissBehavior(.disabled)
+                                }
                             }
                         }
                     }
