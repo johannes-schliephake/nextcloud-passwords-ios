@@ -1421,29 +1421,12 @@
 		DD5E99F429ABFF3300A7A4B9 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				DD14666B2A6BDE68003BBA8F /* CaptureOTPViewModelMock.swift */,
+				DDC061732A6DA6FD00C5082F /* ViewModels */,
+				DDC061742A6DA70400C5082F /* Services */,
+				DDC061762A6DA75600C5082F /* Helpers */,
+				DDC061752A6DA73800C5082F /* Utilities */,
 				DD5E99F529ABFF4000A7A4B9 /* ClosureMock.swift */,
 				DDC2A4F329F58345001D79DC /* ConfigurationMock.swift */,
-				DD7BC52729AFFE0A004AA7BC /* EditFolderViewModelMock.swift */,
-				DDBEE5C02A080ADB008F4099 /* EditOTPViewModelMock.swift */,
-				DD14666D2A6BDE82003BBA8F /* EditTagViewModelMock.swift */,
-				DD7BC52329AFFD6E004AA7BC /* FoldersServiceMock.swift */,
-				DD7BC51F29AFFD01004AA7BC /* FolderValidationServiceMock.swift */,
-				DDACC45129EE73090094D141 /* LoggerMock.swift */,
-				DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */,
-				DDBEE5C22A080BCA008F4099 /* OTPServiceMock.swift */,
-				DDBEE5C42A080D3B008F4099 /* OTPValidationServiceMock.swift */,
-				DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */,
-				DDCD277F2A16C55F009EC50F /* QRCodeGeneratorMock.swift */,
-				DDDD93FA2A1501810061BEA0 /* QRCodeServiceMock.swift */,
-				DD14666F2A6BDE98003BBA8F /* SelectFolderViewModelMock.swift */,
-				DD7BC52529AFFDC3004AA7BC /* SelectTagsViewModelMock.swift */,
-				DDDD93FC2A1503460061BEA0 /* ShareOTPViewModelMock.swift */,
-				DD7BC52129AFFD33004AA7BC /* TagsServiceMock.swift */,
-				DD7BC51D29AFFCCF004AA7BC /* TagValidationServiceMock.swift */,
-				DD1466732A6BE625003BBA8F /* TorchServiceMock.swift */,
-				DD1466712A6BE2AE003BBA8F /* VideoCapturerMock.swift */,
-				DD7BC52929AFFE43004AA7BC /* ViewModelMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1462,23 +1445,11 @@
 		DD7BC52B29B00233004AA7BC /* TestCases */ = {
 			isa = PBXGroup;
 			children = (
-				DD1466772A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift */,
-				DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */,
-				DDBEE5BE2A07C802008F4099 /* EditOTPViewModelTests.swift */,
-				DD9A99FA2A23FE4A0016722F /* EditTagViewModelTests.swift */,
-				DD0B7AEE2972CEBD00A59E3C /* FolderValidationServiceTests.swift */,
-				DDC6E1A729F0899700607C81 /* LoggerTests.swift */,
-				DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */,
-				DDA6F17F2A0B9CB70050B352 /* OTPServiceTests.swift */,
-				DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */,
-				DDDD93F62A14BD650061BEA0 /* QRCodeServiceTests.swift */,
-				8F6ED7C0265BC807008CF387 /* ScoreTests.swift */,
-				DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */,
-				DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */,
-				DDDD93F82A14BD720061BEA0 /* ShareOTPViewModelTests.swift */,
-				DD5E3CB0295363DB0032F517 /* TagValidationServiceTests.swift */,
-				DD1466752A6BE720003BBA8F /* TorchServiceTests.swift */,
-				DDF413892955AFD000B886EB /* ViewModelTests.swift */,
+				DDC0616E2A6DA64700C5082F /* ViewModels */,
+				DDC0616F2A6DA66900C5082F /* Services */,
+				DDC061702A6DA68400C5082F /* Helpers */,
+				DDC061722A6DA6B900C5082F /* Utilities */,
+				DDC061712A6DA6AC00C5082F /* Extensions */,
 			);
 			path = TestCases;
 			sourceTree = "<group>";
@@ -1543,6 +1514,107 @@
 				DDB1696F27D2040300F4D752 /* InfoPlist.strings */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		DDC0616E2A6DA64700C5082F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				DD1466772A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift */,
+				DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */,
+				DDBEE5BE2A07C802008F4099 /* EditOTPViewModelTests.swift */,
+				DD9A99FA2A23FE4A0016722F /* EditTagViewModelTests.swift */,
+				DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */,
+				DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */,
+				DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */,
+				DDDD93F82A14BD720061BEA0 /* ShareOTPViewModelTests.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		DDC0616F2A6DA66900C5082F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DD0B7AEE2972CEBD00A59E3C /* FolderValidationServiceTests.swift */,
+				DDA6F17F2A0B9CB70050B352 /* OTPServiceTests.swift */,
+				DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */,
+				DDDD93F62A14BD650061BEA0 /* QRCodeServiceTests.swift */,
+				DD5E3CB0295363DB0032F517 /* TagValidationServiceTests.swift */,
+				DD1466752A6BE720003BBA8F /* TorchServiceTests.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DDC061702A6DA68400C5082F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DDC6E1A729F0899700607C81 /* LoggerTests.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		DDC061712A6DA6AC00C5082F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8F6ED7C0265BC807008CF387 /* ScoreTests.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DDC061722A6DA6B900C5082F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DDF413892955AFD000B886EB /* ViewModelTests.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		DDC061732A6DA6FD00C5082F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				DD14666B2A6BDE68003BBA8F /* CaptureOTPViewModelMock.swift */,
+				DD7BC52729AFFE0A004AA7BC /* EditFolderViewModelMock.swift */,
+				DDBEE5C02A080ADB008F4099 /* EditOTPViewModelMock.swift */,
+				DD14666D2A6BDE82003BBA8F /* EditTagViewModelMock.swift */,
+				DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */,
+				DD14666F2A6BDE98003BBA8F /* SelectFolderViewModelMock.swift */,
+				DD7BC52529AFFDC3004AA7BC /* SelectTagsViewModelMock.swift */,
+				DDDD93FC2A1503460061BEA0 /* ShareOTPViewModelMock.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		DDC061742A6DA70400C5082F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DD7BC52329AFFD6E004AA7BC /* FoldersServiceMock.swift */,
+				DD7BC51F29AFFD01004AA7BC /* FolderValidationServiceMock.swift */,
+				DDBEE5C22A080BCA008F4099 /* OTPServiceMock.swift */,
+				DDBEE5C42A080D3B008F4099 /* OTPValidationServiceMock.swift */,
+				DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */,
+				DDDD93FA2A1501810061BEA0 /* QRCodeServiceMock.swift */,
+				DD7BC52129AFFD33004AA7BC /* TagsServiceMock.swift */,
+				DD7BC51D29AFFCCF004AA7BC /* TagValidationServiceMock.swift */,
+				DD1466732A6BE625003BBA8F /* TorchServiceMock.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DDC061752A6DA73800C5082F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DDCD277F2A16C55F009EC50F /* QRCodeGeneratorMock.swift */,
+				DD1466712A6BE2AE003BBA8F /* VideoCapturerMock.swift */,
+				DD7BC52929AFFE43004AA7BC /* ViewModelMock.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		DDC061762A6DA75600C5082F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DDACC45129EE73090094D141 /* LoggerMock.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
