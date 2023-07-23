@@ -1,17 +1,9 @@
 import SwiftUI
-import AVFoundation
 
 
 struct CaptureOTPPage: View {
     
-    let capture: (OTP) -> Void
-    
-    @Environment(\.dismiss) private var dismiss
-    
-    @State private var showErrorAlert = false
-    @State private var isTorchActive = false
-    
-    // MARK: Views
+    @StateObject var viewModel: AnyViewModel<CaptureOTPViewModel.State, CaptureOTPViewModel.Action>
     
     var body: some View {
         mainStack()
@@ -22,29 +14,28 @@ struct CaptureOTPPage: View {
                     cancelButton()
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    if let videoCaptureDevice = AVCaptureDevice.default(for: .video),
-                       videoCaptureDevice.hasTorch,
-                       videoCaptureDevice.isTorchAvailable {
-                        torchToggle(videoCaptureDevice: videoCaptureDevice)
+                    if viewModel[\.isTorchAvailable] {
+                        torchToggle()
                     }
                 }
             }
+            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
     }
     
     private func mainStack() -> some View {
         GeometryReader {
             geometryProxy in
             ZStack {
-                QRCapture(extract: extractCapture, finish: finishCapture)
+                QRCapture { viewModel(.captureQrResult($0)) }
                     .background(Color.black)
-                    .alert(isPresented: $showErrorAlert) {
+                    .alert(isPresented: $viewModel[\.showErrorAlert]) {
                         Alert(title: Text("_error"), message: Text("_qrCaptureErrorMessage"), dismissButton: .cancel {
-                            dismiss()
+                            viewModel(.cancel)
                         })
                     }
                 let sideLength = min(geometryProxy.size.width, geometryProxy.size.height) * 0.8
                 Rectangle()
-                    .strokeBorder(.yellow, lineWidth: 1.5)
+                    .strokeBorder(viewModel[\.didCaptureOtp] ? .green : .yellow, lineWidth: 1.5)
                     .frame(width: sideLength, height: sideLength)
                     .padding(.bottom, geometryProxy.safeAreaInsets.bottom)
             }
@@ -54,57 +45,15 @@ struct CaptureOTPPage: View {
     
     private func cancelButton() -> some View {
         Button("_cancel", role: .cancel) {
-            dismiss()
+            viewModel(.cancel)
         }
     }
     
-    private func torchToggle(videoCaptureDevice: AVCaptureDevice) -> some View {
+    private func torchToggle() -> some View {
         Button {
-            toggleTorch(videoCaptureDevice: videoCaptureDevice)
-        }
-        label: {
-            Image(systemName: isTorchActive ? "lightbulb.fill" : "lightbulb")
-        }
-        .onReceive(videoCaptureDevice.publisher(for: \.isTorchActive)) { isTorchActive = $0 }
-    }
-    
-    // MARK: Functions
-    
-    private func extractCapture(_ captured: String) -> OTP? {
-        guard let url = URL(string: captured) else {
-            return nil
-        }
-        return OTP(from: url)
-    }
-    
-    private func finishCapture(_ otp: OTP?) {
-        guard let otp else {
-            showErrorAlert = true
-            return
-        }
-        capture(otp)
-        dismiss()
-    }
-    
-    private func toggleTorch(videoCaptureDevice: AVCaptureDevice) {
-        guard (try? videoCaptureDevice.lockForConfiguration()) != nil else {
-            return
-        }
-        videoCaptureDevice.torchMode = videoCaptureDevice.isTorchActive ? .off : .on
-        videoCaptureDevice.unlockForConfiguration()
-    }
-    
-}
-
-
-struct CaptureOTPPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        PreviewDevice.generate {
-            NavigationView {
-                CaptureOTPPage(capture: { _ in })
-            }
-            .showColumns(false)
+            viewModel(.toggleTorch)
+        } label: {
+            Image(systemName: viewModel[\.isTorchActive] ? "lightbulb.fill" : "lightbulb")
         }
     }
     

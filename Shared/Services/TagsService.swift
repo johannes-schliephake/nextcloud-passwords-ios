@@ -60,7 +60,7 @@ final class TagsService: TagsServiceProtocol {
             throw TagAddError.validationFailed
         }
         guard tag.isIdLocallyAvailable else {
-            throw FolderApplyError.idNotAvailableLocally
+            throw TagApplyError.idNotAvailableLocally
         }
         
         let currentDate = resolve(\.currentDate)

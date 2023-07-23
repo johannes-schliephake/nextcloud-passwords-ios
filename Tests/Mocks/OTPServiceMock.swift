@@ -10,6 +10,11 @@ final class OTPServiceMock: OTPServiceProtocol, Mock, FunctionCallLogging {
         return _makeOtp
     }
     
+    func makeOtp(urlString: String) -> OTP? {
+        logFunctionCall(parameters: urlString)
+        return _makeOtp
+    }
+    
     var _hasDefaults = false // swiftlint:disable:this identifier_name
     func hasDefaults(otp: OTP) -> Bool {
         logFunctionCall(parameters: otp)

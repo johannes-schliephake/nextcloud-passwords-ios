@@ -14,7 +14,7 @@ final class OTPServiceTests: XCTestCase {
         Container.shared.reset()
     }
     
-    func testMakeOtp_givenInvalidParameters_thenReturnsNil() {
+    func testMakeOtpWithDetailedSignature_givenInvalidParameters_thenReturnsNil() {
         let otpService: any OTPServiceProtocol = OTPService()
         
         let result = otpService.makeOtp(type: .allCases.randomElement()!, algorithm: .allCases.randomElement()!, secret: "", digits: .random(in: -5...5), counter: .random(in: -10...(-1)), period: .random(in: -10...0))
@@ -22,11 +22,28 @@ final class OTPServiceTests: XCTestCase {
         expect(result).to(beNil())
     }
     
-    func testMakeOtp_givenValidParameters_thenReturnsOtpWithMatchingProperties() {
+    func testMakeOtpWithDetailedSignature_givenValidParameters_thenReturnsOtpWithMatchingProperties() {
         let otpService: any OTPServiceProtocol = OTPService()
         let expectedResult = OTP(type: .allCases.randomElement()!, algorithm: .allCases.randomElement()!, secret: otpMock.secret, digits: .random(in: 6...8), counter: .random(in: 0...1000), period: .random(in: 1...1000))!
         
         let result = otpService.makeOtp(type: expectedResult.type, algorithm: expectedResult.algorithm, secret: expectedResult.secret, digits: expectedResult.digits, counter: expectedResult.counter, period: expectedResult.period)
+        
+        expect(result).to(equal(expectedResult))
+    }
+    
+    func testMakeOtpWithUrlStringSignature_givenInvalidUrlString_thenReturnsNil() {
+        let otpService: any OTPServiceProtocol = OTPService()
+        
+        let result = otpService.makeOtp(urlString: "otpauth://")
+        
+        expect(result).to(beNil())
+    }
+    
+    func testMakeOtpWithUrlStringSignature_givenValidUrlString_thenReturnsOtpWithMatchingProperties() {
+        let otpService: any OTPServiceProtocol = OTPService()
+        let expectedResult = OTP(type: .hotp, algorithm: .sha256, secret: "VTZCZF77FYE6YI4I", digits: 7, counter: 1, period: nil)!
+        
+        let result = otpService.makeOtp(urlString: "otpauth://hotp?algorithm=SHA256&secret=VTZCZF77FYE6YI4I&digits=7&counter=1")
         
         expect(result).to(equal(expectedResult))
     }
@@ -92,5 +109,5 @@ final class OTPServiceTests: XCTestCase {
         
         expect(result).to(equal(otpMock.url))
     }
-
+    
 }

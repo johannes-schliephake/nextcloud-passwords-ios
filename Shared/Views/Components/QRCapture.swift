@@ -3,54 +3,18 @@ import AVFoundation
 import Combine
 
 
-protocol QRCaptureViewDelegate: AnyObject {
+struct QRCapture: UIViewRepresentable {
     
-    func didCapture(string: String, stopRunning: () -> Void)
-    func didFail()
-    
-}
-
-
-struct QRCapture<D>: UIViewRepresentable {
-    
-    let extract: (_ captured: String) -> D?
-    let finish: (_ result: D?) -> Void
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(qrCapture: self)
-    }
+    let action: (_ result: Result<String, Error>) -> Void
     
     func makeUIView(context: Context) -> QRCaptureView {
-        QRCaptureView(delegate: context.coordinator)
+        QRCaptureView(action: action)
     }
     
     func updateUIView(_: QRCaptureView, context: Context) {}
     
-}
-
-
-extension QRCapture {
-    
-    final class Coordinator: QRCaptureViewDelegate {
-        
-        private let qrCapture: QRCapture
-        
-        init(qrCapture: QRCapture) {
-            self.qrCapture = qrCapture
-        }
-        
-        func didCapture(string: String, stopRunning: () -> Void) {
-            guard let data = qrCapture.extract(string) else {
-                return
-            }
-            stopRunning()
-            qrCapture.finish(data)
-        }
-        
-        func didFail() {
-            qrCapture.finish(nil)
-        }
-        
+    static func dismantleUIView(_ qrCaptureView: QRCaptureView, coordinator: Coordinator) {
+        qrCaptureView.finish()
     }
     
 }
@@ -60,14 +24,15 @@ extension QRCapture {
     
     final class QRCaptureView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         
-        weak var delegate: (any QRCaptureViewDelegate)?
+        private let action: (_ result: Result<String, Error>) -> Void
         
         private let captureSession = AVCaptureSession()
-        private var subscriptions = Set<AnyCancellable>()
+        private var cancellables = Set<AnyCancellable>()
         
-        init(delegate: (any QRCaptureViewDelegate)?) {
-            self.delegate = delegate
+        init(action: @escaping (_ result: Result<String, Error>) -> Void) {
+            self.action = action
             super.init(frame: .zero)
+
             setup()
         }
         
@@ -87,32 +52,42 @@ extension QRCapture {
             guard let videoCaptureDevice = AVCaptureDevice.default(for: .video),
                   let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice),
                   captureSession.canAddInput(videoInput) else {
-                delegate?.didFail()
+                action(.failure(AVError(.deviceNotConnected)))
                 return
             }
             captureSession.addInput(videoInput)
             
             let metadataOutput = AVCaptureMetadataOutput()
             guard captureSession.canAddOutput(metadataOutput) else {
-                delegate?.didFail()
+                action(.failure(AVError(.deviceNotConnected)))
                 return
             }
             captureSession.addOutput(metadataOutput)
             metadataOutput.metadataObjectTypes = [.qr]
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             
+            NotificationCenter.default.publisher(for: .AVCaptureSessionRuntimeError)
+                .compactMap { $0.userInfo?[AVCaptureSessionErrorKey] as? AVError }
+                .sink { [weak self] in self?.action(.failure($0)) }
+                .store(in: &cancellables)
+            
             clipsToBounds = true
             layer.session = captureSession
             layer.videoGravity = .resizeAspectFill
             NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-                .sink {
-                    [weak self] _ in
-                    self?.updateVideoOrientation()
-                }
-                .store(in: &subscriptions)
+                .sink { [weak self] _ in self?.updateVideoOrientation() }
+                .store(in: &cancellables)
             updateVideoOrientation()
             
-            captureSession.startRunning()
+            DispatchQueue().async { [weak self] in
+                self?.captureSession.startRunning()
+            }
+        }
+        
+        func finish() {
+            DispatchQueue().async { [weak self] in
+                self?.captureSession.stopRunning()
+            }
         }
         
         func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
@@ -120,10 +95,7 @@ extension QRCapture {
                   let value = readableCode.stringValue else {
                 return
             }
-            delegate?.didCapture(string: value, stopRunning: {
-                [weak self] in
-                self?.captureSession.stopRunning()
-            })
+            action(.success(value))
         }
         
         private func updateVideoOrientation() {

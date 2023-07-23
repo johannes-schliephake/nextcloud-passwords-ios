@@ -5,10 +5,12 @@ import Factory
 extension Container: AutoRegistering {
     
     public func autoRegister() {
+        Self.shared.captureOTPViewModelType.register { CaptureOTPViewModelMock.self }
         Self.shared.configurationType.register { ConfigurationMock.self }
         Self.shared.currentDate.singleton.register { .init() }
         Self.shared.editFolderViewModelType.register { EditFolderViewModelMock.self }
         Self.shared.editOTPViewModelType.register { EditOTPViewModelMock.self }
+        Self.shared.editTagViewModelType.register { EditTagViewModelMock.self }
         Self.shared.folderValidationService.register { FolderValidationServiceMock() }
         Self.shared.foldersService.register { FoldersServiceMock() }
         Self.shared.logger.register { LoggerMock() }
@@ -18,10 +20,13 @@ extension Container: AutoRegistering {
         Self.shared.pasteboardService.register { PasteboardServiceMock() }
         Self.shared.qrCodeGenerator.cached.register { QRCodeGeneratorMock() }
         Self.shared.qrCodeService.register { QRCodeServiceMock() }
+        Self.shared.selectFolderViewModelType.register { SelectFolderViewModelMock.self }
         Self.shared.selectTagsViewModelType.register { SelectTagsViewModelMock.self }
         Self.shared.shareOTPViewModelType.register { ShareOTPViewModelMock.self }
         Self.shared.tagValidationService.register { TagValidationServiceMock() }
         Self.shared.tagsService.register { TagsServiceMock() }
+        Self.shared.torchService.cached.register { TorchServiceMock() }
+        Self.shared.videoCapturer.cached.register { VideoCapturerMock() }
         
         // TODO: remove
         Self.shared.entriesController.register { .mock }

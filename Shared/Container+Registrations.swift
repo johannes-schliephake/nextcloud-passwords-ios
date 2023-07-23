@@ -1,9 +1,13 @@
 import Factory
 import CoreImage
+import AVFoundation
 
 
 extension Container {
     
+    var captureOTPViewModelType: Factory<any CaptureOTPViewModelProtocol.Type> {
+        self { CaptureOTPViewModel.self }
+    }
     var configurationType: Factory<any Configurating.Type> {
         self { Configuration.self }
     }
@@ -15,6 +19,9 @@ extension Container {
     }
     var editOTPViewModelType: Factory<any EditOTPViewModelProtocol.Type> {
         self { EditOTPViewModel.self }
+    }
+    var editTagViewModelType: Factory<any EditTagViewModelProtocol.Type> {
+        self { EditTagViewModel.self }
     }
     var folderValidationService: Factory<any FolderValidationServiceProtocol> {
         self { FolderValidationService() }
@@ -50,6 +57,9 @@ extension Container {
         self { QRCodeService() }
             .cached
     }
+    var selectFolderViewModelType: Factory<any SelectFolderViewModelProtocol.Type> {
+        self { SelectFolderViewModel.self }
+    }
     var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {
         self { SelectTagsViewModel.self }
     }
@@ -63,6 +73,12 @@ extension Container {
     var tagsService: Factory<any TagsServiceProtocol> {
         self { TagsService() }
             .cached
+    }
+    var torchService: Factory<any TorchServiceProtocol> {
+        self { TorchService() }
+    }
+    var videoCapturer: Factory<(any VideoCapturing)?> {
+        self { AVCaptureDevice.default(for: .video) }
     }
     
     // TODO: remove
