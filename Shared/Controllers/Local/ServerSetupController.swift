@@ -68,9 +68,6 @@ final class ServerSetupController: ObservableObject {
                         DispatchQueue.main.async {
                             self?.showManagedServerUrlErrorAlert = self?.serverUrlIsManaged == true
                         }
-                        guard error is DecodingError else {
-                            return
-                        }
                         LoggingController.shared.log(error: error)
                     })
                     .replaceError(with: nil)
