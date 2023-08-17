@@ -16,6 +16,7 @@ protocol Configurating {
     static var jsonDecoder: JSONDecoder { get }
     static var nonUpdatingJsonEncoder: JSONEncoder { get }
     static var updatingJsonEncoder: JSONEncoder { get }
+    static var propertyListDecoder: PropertyListDecoder { get }
     
 }
 
@@ -63,5 +64,6 @@ enum Configuration: Configurating {
         encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] = true
         return encoder
     }()
+    static let propertyListDecoder = PropertyListDecoder()
     
 }

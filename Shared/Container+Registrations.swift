@@ -1,10 +1,14 @@
 import Factory
 import CoreImage
 import AVFoundation
+import StoreKit
 
 
 extension Container {
     
+    var appStoreType: Factory<any AppStore.Type> {
+        self { StoreKit.AppStore.self }
+    }
     var captureOTPViewModelType: Factory<any CaptureOTPViewModelProtocol.Type> {
         self { CaptureOTPViewModel.self }
     }
@@ -31,6 +35,9 @@ extension Container {
         self { FoldersService() }
             .cached
     }
+    var globalAlertsViewModelType: Factory<any GlobalAlertsViewModelProtocol.Type> {
+        self { GlobalAlertsViewModel.self }
+    }
     var logger: Factory<any Logging> {
         self { Logger() }
             .cached
@@ -50,6 +57,29 @@ extension Container {
         self { PasteboardService() }
             .cached
     }
+    var productIdentifiersPropertyListDataSource: Factory<any ProductIdentifiersPropertyListDataSourceProtocol> {
+        self { ProductIdentifiersPropertyListDataSource() }
+            .cached
+    }
+    var productIdentifiersRepository: Factory<any ProductIdentifiersRepositoryProtocol> {
+        self { ProductIdentifiersRepository() }
+            .cached
+    }
+    var productsAppStoreDataSource: Factory<any ProductsAppStoreDataSourceProtocol> {
+        self { ProductsAppStoreDataSource() }
+            .cached
+    }
+    var productsRepository: Factory<any ProductsRepositoryProtocol> {
+        self { ProductsRepository() }
+            .cached
+    }
+    var productType: Factory<any Product.Type> {
+        self { StoreKit.Product.self }
+    }
+    var purchaseService: Factory<any PurchaseServiceProtocol> {
+        self { PurchaseService() }
+            .cached
+    }
     var qrCodeGenerator: Factory<(any QRCodeGenerating)?> {
         self { CIFilter(name: "CIQRCodeGenerator") }
     }
@@ -62,6 +92,17 @@ extension Container {
     }
     var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {
         self { SelectTagsViewModel.self }
+    }
+    var sessionService: Factory<any SessionServiceProtocol> {
+        self { SessionService() }
+            .cached
+    }
+    var settingsService: Factory<any SettingsServiceProtocol> {
+        self { SettingsService() }
+            .cached
+    }
+    var settingsViewModelType: Factory<any SettingsViewModelProtocol.Type> {
+        self { SettingsViewModel.self }
     }
     var shareOTPViewModelType: Factory<any ShareOTPViewModelProtocol.Type> {
         self { ShareOTPViewModel.self }
@@ -76,6 +117,9 @@ extension Container {
     }
     var torchService: Factory<any TorchServiceProtocol> {
         self { TorchService() }
+    }
+    var transactionType: Factory<any Transaction.Type> {
+        self { StoreKit.Transaction.self }
     }
     var videoCapturer: Factory<(any VideoCapturing)?> {
         self { AVCaptureDevice.default(for: .video) }

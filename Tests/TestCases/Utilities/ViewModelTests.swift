@@ -44,7 +44,7 @@ final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_or
         let newValue = String.random()
         
         let result = basicViewModel.eraseToAnyViewModel()
-        result(.setValue(newValue: newValue))
+        result(.setValue(newValue))
         
         expect(result.state).to(be(basicViewModel.state))
         expect(result.state.value).to(equal(basicViewModel.state.value))
@@ -74,7 +74,7 @@ final class BasicViewModel: BasicViewModelProtocol {
     }
     
     enum Action {
-        case setValue(newValue: String)
+        case setValue(String)
     }
     
     let state: State
@@ -85,7 +85,7 @@ final class BasicViewModel: BasicViewModelProtocol {
     
     func callAsFunction(_ action: Action) {
         switch action {
-        case let .setValue(newValue: newValue):
+        case let .setValue(newValue):
             state.value = newValue
         }
     }

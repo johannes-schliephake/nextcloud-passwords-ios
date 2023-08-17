@@ -4,18 +4,7 @@ import Factory
 
 struct SettingsPage: View {
     
-    let updateOfflineData: () -> Void
-    
-    @Injected(\.logger) private var logger
-    @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var sessionController: SessionController
-    @EnvironmentObject private var tipController: TipController
-    
-    @AppStorage("storeOffline", store: Configuration.userDefaults) private var storeOffline = Configuration.defaults["storeOffline"] as! Bool // swiftlint:disable:this force_cast
-    @AppStorage("automaticallyGeneratePasswords", store: Configuration.userDefaults) private var automaticallyGeneratePasswords = Configuration.defaults["automaticallyGeneratePasswords"] as! Bool // swiftlint:disable:this force_cast
-    @State private var showLogoutAlert = false
-    
-    // MARK: Views
+    @StateObject var viewModel: AnyViewModel<SettingsViewModel.State, SettingsViewModel.Action>
     
     var body: some View {
         listView()
@@ -25,19 +14,14 @@ struct SettingsPage: View {
                     doneButton()
                 }
             }
-            .onChange(of: storeOffline) {
-                storeOffline in
-                if !storeOffline {
-                    Crypto.AES256.removeKey(named: "offlineKey")
-                }
-                updateOfflineData()
-            }
+            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
     }
     
     private func listView() -> some View {
         List {
-            if let session = sessionController.session {
-                credentialsSection(session: session)
+            if let username = viewModel[\.username],
+               let server = viewModel[\.server] {
+                credentialsSection(username: username, server: server)
             }
             optionsSection()
             enableProviderSection()
@@ -48,23 +32,22 @@ struct SettingsPage: View {
         .listStyle(.insetGrouped)
     }
     
-    private func credentialsSection(session: Session) -> some View {
+    private func credentialsSection(username: String, server: String) -> some View {
         Section(header: Text("_credentials")) {
-            LabeledRow(type: .text, label: "_nextcloudServerAddress", value: session.server)
-            LabeledRow(type: .text, label: "_username", value: session.user)
+            LabeledRow(type: .text, label: "_nextcloudServerAddress", value: server)
+            LabeledRow(type: .text, label: "_username", value: username)
             Button(role: .destructive) {
-                showLogoutAlert = true
-            }
-            label: {
+                viewModel(.logout)
+            } label: {
                 HStack {
                     Spacer()
                     Text("_logOut")
                     Spacer()
                 }
             }
-            .actionSheet(isPresented: $showLogoutAlert) {
+            .actionSheet(isPresented: $viewModel[\.showLogoutAlert]) {
                 ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
-                    logoutAndDismiss()
+                    viewModel(.confirmLogout)
                 }])
             }
         }
@@ -72,8 +55,16 @@ struct SettingsPage: View {
     
     private func optionsSection() -> some View {
         Section(header: Text("_options")) {
-            Toggle("_encryptedOfflineStorage", isOn: $storeOffline)
-            Toggle("_automaticallyGeneratePasswords", isOn: $automaticallyGeneratePasswords)
+            Toggle("_encryptedOfflineStorage", isOn: .init {
+                viewModel[\.isOfflineStorageEnabled]
+            } set: { isOn in
+                viewModel(.setIsOfflineStorageEnabled(isOn))
+            })
+            Toggle("_automaticallyGeneratePasswords", isOn: .init {
+                viewModel[\.isAutomaticPasswordGenerationEnabled]
+            } set: { isOn in
+                viewModel(.setIsAutomaticPasswordGenerationEnabled(isOn))
+            })
         }
     }
     
@@ -92,34 +83,29 @@ struct SettingsPage: View {
     private func supportThisProjectSection() -> some View {
         Section(header: Text("_supportThisProject"), footer: supportThisProjectFooter()) {
             Menu {
-                if let products = tipController.products {
-                    ForEach(products, id: \.productIdentifier) {
-                        product in
-                        if let localizedPrice = product.localizedPrice {
-                            Button {
-                                tipController.purchase(product: product)
-                            }
-                            label: {
-                                Text("\(product.localizedTitle) (\(localizedPrice))")
-                            }
+                if let products = viewModel[\.tipProducts] {
+                    ForEach(products, id: \.id) { product in
+                        Button {
+                            viewModel(.tip(product))
+                        } label: {
+                            Text("\(product.displayName) (\(product.displayPrice))")
                         }
                     }
                 }
-            }
-            label: {
+            } label: {
                 HStack {
                     Label("_giveATip", systemImage: "heart")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    if tipController.transactionState != nil {
+                    if viewModel[\.isTipTransactionRunning] {
                         Spacer()
                         ProgressView()
                     }
                 }
             }
-            .disabled(tipController.products?.isEmpty ?? true || tipController.transactionState != nil)
-            if !Bundle.root.isTestFlight,
-               let url = URL(string: "https://testflight.apple.com/join/iuljLJ4u") {
-                Link(destination: url) {
+            .enabled(viewModel[\.canPurchaseTip])
+            if !viewModel[\.isTestFlight],
+               let betaUrl = viewModel[\.betaUrl] {
+                Link(destination: betaUrl) {
                     Label(Strings.joinTestFlightBeta, systemImage: "testtube.2")
                 }
             }
@@ -127,33 +113,31 @@ struct SettingsPage: View {
     }
     
     @ViewBuilder private func supportThisProjectFooter() -> some View {
-        if Bundle.root.isTestFlight {
+        if viewModel[\.isTestFlight] {
             Text(Strings.supportThisProjectMessage)
         }
     }
     
     private func aboutSection() -> some View {
         Section(header: Text("_about")) {
-            if logger.isAvailable {
+            if viewModel[\.isLogAvailable] {
                 NavigationLink {
                     LogPage(viewModel: LogViewModel().eraseToAnyViewModel())
-                }
-                label: {
+                } label: {
                     Label("Log", systemImage: "doc.text.magnifyingglass")
                         .foregroundColor(.accentColor)
                 }
                 .isDetailLink(false)
-                .apply {
-                    view in
+                .apply { view in
                     if #available(iOS 16, *) {
                         view
                             .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
                     }
                 }
             }
-            LabeledRow(type: .text, label: "_version", value: "\(Configuration.shortVersionString)\(Configuration.isDebug || Bundle.root.isTestFlight ? " (\(Configuration.isDebug ? "Debug" : Bundle.root.isTestFlight ? "TestFlight" : "Unknown"), Build \(Configuration.buildNumberString))" : "")")
-            if let url = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios") {
-                Link(destination: url) {
+            LabeledRow(type: .text, label: "_version", value: viewModel[\.versionName])
+            if let sourceCodeUrl = viewModel[\.sourceCodeUrl] {
+                Link(destination: sourceCodeUrl) {
                     Label("_sourceCode", systemImage: "curlybraces")
                 }
             }
@@ -181,30 +165,7 @@ struct SettingsPage: View {
     
     private func doneButton() -> some View {
         Button("_done") {
-            dismiss()
-        }
-    }
-    
-    // MARK: Functions
-    
-    private func logoutAndDismiss() {
-        sessionController.logout()
-        dismiss()
-    }
-    
-}
-
-
-struct SettingsPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        PreviewDevice.generate {
-            NavigationView {
-                SettingsPage(updateOfflineData: {})
-            }
-            .showColumns(false)
-            .environmentObject(SessionController.mock)
-            .environmentObject(TipController.mock)
+            viewModel(.done)
         }
     }
     

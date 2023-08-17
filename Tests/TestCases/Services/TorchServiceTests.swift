@@ -97,7 +97,8 @@ final class TorchServiceTests: XCTestCase {
         
         try? torchService.toggleTorch()
         
-        expect(self.videoCapturerMock.torchMode).to(equal(expectedTorchMode))
+        expect(self.videoCapturerMock).to(beAccessed(.twice, on: "torchMode"))
+        expect(self.videoCapturerMock._torchMode).to(equal(expectedTorchMode))
     }
     
 }

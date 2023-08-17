@@ -401,10 +401,7 @@ struct EntriesPage: View {
                         showSettingsView = true
                     }
                     .sheet(isPresented: $showSettingsView) {
-                        SettingsNavigation(updateOfflineData: {
-                            entriesController.updateOfflineContainers()
-                            entriesController.updateAutoFillCredentials()
-                        })
+                        SettingsNavigation()
                     }
                 }
             }
@@ -1422,7 +1419,6 @@ struct EntriesPagePreview: PreviewProvider {
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
             .environmentObject(SessionController.mock)
-            .environmentObject(TipController.mock)
         }
     }
     

@@ -66,20 +66,22 @@ extension QRCapture {
             metadataOutput.metadataObjectTypes = [.qr]
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             
+            weak var `self` = self
+            
             NotificationCenter.default.publisher(for: .AVCaptureSessionRuntimeError)
                 .compactMap { $0.userInfo?[AVCaptureSessionErrorKey] as? AVError }
-                .sink { [weak self] in self?.action(.failure($0)) }
+                .sink { self?.action(.failure($0)) }
                 .store(in: &cancellables)
             
             clipsToBounds = true
             layer.session = captureSession
             layer.videoGravity = .resizeAspectFill
             NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-                .sink { [weak self] _ in self?.updateVideoOrientation() }
+                .sink { _ in self?.updateVideoOrientation() }
                 .store(in: &cancellables)
             updateVideoOrientation()
             
-            DispatchQueue().async { [weak self] in
+            DispatchQueue().async {
                 self?.captureSession.startRunning()
             }
         }

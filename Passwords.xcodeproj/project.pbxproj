@@ -26,10 +26,6 @@
 		8F52EFC925B1D0FC00DCFAC1 /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */; };
 		8F52EFCA25B1D0FC00DCFAC1 /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */; };
 		8F52F3C725936FDE00B4EFCE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F52F3C625936FDE00B4EFCE /* StoreKit.framework */; };
-		8F52F3C92593746F00B4EFCE /* TipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F3C82593746F00B4EFCE /* TipController.swift */; };
-		8F52F3D22593784B00B4EFCE /* TipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F3C82593746F00B4EFCE /* TipController.swift */; };
-		8F52F3DB259379F500B4EFCE /* SKProduct+LocalizedPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F3DA259379F500B4EFCE /* SKProduct+LocalizedPrice.swift */; };
-		8F52F3DE25937A2E00B4EFCE /* SKProduct+LocalizedPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F3DA259379F500B4EFCE /* SKProduct+LocalizedPrice.swift */; };
 		8F52F3E225937B2700B4EFCE /* IAP.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F52F3E125937B2700B4EFCE /* IAP.plist */; };
 		8F5331A825605B9400AB6FED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8F5331AA25605B9400AB6FED /* Localizable.strings */; };
 		8F552956259CAF4900419233 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F552955259CAF4900419233 /* Folder.swift */; };
@@ -221,6 +217,12 @@
 		DD214362295A014B006C08DD /* TagsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214361295A014B006C08DD /* TagsService.swift */; };
 		DD214363295A014B006C08DD /* TagsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214361295A014B006C08DD /* TagsService.swift */; };
 		DD214364295A014B006C08DD /* TagsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD214361295A014B006C08DD /* TagsService.swift */; };
+		DD24F0312A8D67F5009823C8 /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD24F0302A8D67F5009823C8 /* SettingsViewModelTests.swift */; };
+		DD24F0332A8E172A009823C8 /* SettingsViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD24F0322A8E172A009823C8 /* SettingsViewModelMock.swift */; };
+		DD24F0352A8E2171009823C8 /* SessionServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD24F0342A8E2171009823C8 /* SessionServiceMock.swift */; };
+		DD24F0372A8E2246009823C8 /* SettingsServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD24F0362A8E2246009823C8 /* SettingsServiceMock.swift */; };
+		DD24F0392A8E23E2009823C8 /* PurchaseServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD24F0382A8E23E2009823C8 /* PurchaseServiceMock.swift */; };
+		DD24F03B2A8EA9F0009823C8 /* ProductMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD24F03A2A8EA9F0009823C8 /* ProductMock.swift */; };
 		DD251A3029301B60001F6F2A /* XCUIElement+UnhittableInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD251A2F29301B60001F6F2A /* XCUIElement+UnhittableInteractions.swift */; };
 		DD27237B2A6976500017BAA2 /* TorchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD27237A2A6976500017BAA2 /* TorchService.swift */; };
 		DD27237C2A6976500017BAA2 /* TorchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD27237A2A6976500017BAA2 /* TorchService.swift */; };
@@ -338,10 +340,55 @@
 		DD9A99F92A23E9120016722F /* EditTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9A99F62A23E9120016722F /* EditTagViewModel.swift */; };
 		DD9A99FB2A23FE4A0016722F /* EditTagViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9A99FA2A23FE4A0016722F /* EditTagViewModelTests.swift */; };
 		DD9A99FD2A248D1D0016722F /* Color+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9A99FC2A248D1D0016722F /* Color+Random.swift */; };
+		DD9C4FF02A7E735C002588DD /* ProductsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FEF2A7E735C002588DD /* ProductsRepository.swift */; };
+		DD9C4FF12A7E735C002588DD /* ProductsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FEF2A7E735C002588DD /* ProductsRepository.swift */; };
+		DD9C4FF22A7E735C002588DD /* ProductsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FEF2A7E735C002588DD /* ProductsRepository.swift */; };
+		DD9C4FF42A7E7384002588DD /* Future+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FF32A7E7384002588DD /* Future+Init.swift */; };
+		DD9C4FF52A7E7384002588DD /* Future+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FF32A7E7384002588DD /* Future+Init.swift */; };
+		DD9C4FF62A7E7384002588DD /* Future+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FF32A7E7384002588DD /* Future+Init.swift */; };
+		DD9C4FF82A7E74FC002588DD /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FF72A7E74FC002588DD /* PurchaseService.swift */; };
+		DD9C4FF92A7E74FC002588DD /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FF72A7E74FC002588DD /* PurchaseService.swift */; };
+		DD9C4FFA2A7E74FC002588DD /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FF72A7E74FC002588DD /* PurchaseService.swift */; };
+		DD9C4FFC2A7EB691002588DD /* GlobalAlertsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FFB2A7EB691002588DD /* GlobalAlertsViewModel.swift */; };
+		DD9C4FFD2A7EB691002588DD /* GlobalAlertsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FFB2A7EB691002588DD /* GlobalAlertsViewModel.swift */; };
+		DD9C4FFE2A7EB691002588DD /* GlobalAlertsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FFB2A7EB691002588DD /* GlobalAlertsViewModel.swift */; };
+		DD9C50002A7FB9A3002588DD /* ProductIdentifiersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FFF2A7FB9A3002588DD /* ProductIdentifiersRepository.swift */; };
+		DD9C50012A7FB9A3002588DD /* ProductIdentifiersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FFF2A7FB9A3002588DD /* ProductIdentifiersRepository.swift */; };
+		DD9C50022A7FB9A3002588DD /* ProductIdentifiersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C4FFF2A7FB9A3002588DD /* ProductIdentifiersRepository.swift */; };
+		DD9C50042A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50032A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift */; };
+		DD9C50052A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50032A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift */; };
+		DD9C50062A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50032A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift */; };
+		DD9C50082A7FC279002588DD /* PropertyListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50072A7FC279002588DD /* PropertyListDataSource.swift */; };
+		DD9C50092A7FC279002588DD /* PropertyListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50072A7FC279002588DD /* PropertyListDataSource.swift */; };
+		DD9C500A2A7FC279002588DD /* PropertyListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50072A7FC279002588DD /* PropertyListDataSource.swift */; };
+		DD9C50102A814E06002588DD /* PassthroughSubject+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C500F2A814E06002588DD /* PassthroughSubject+Init.swift */; };
+		DD9C50112A814E06002588DD /* PassthroughSubject+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C500F2A814E06002588DD /* PassthroughSubject+Init.swift */; };
+		DD9C50122A814E06002588DD /* PassthroughSubject+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C500F2A814E06002588DD /* PassthroughSubject+Init.swift */; };
+		DD9C50142A81862E002588DD /* ProductsAppStoreDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50132A81862E002588DD /* ProductsAppStoreDataSource.swift */; };
+		DD9C50152A81862E002588DD /* ProductsAppStoreDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50132A81862E002588DD /* ProductsAppStoreDataSource.swift */; };
+		DD9C50162A81862E002588DD /* ProductsAppStoreDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50132A81862E002588DD /* ProductsAppStoreDataSource.swift */; };
+		DD9C50182A819692002588DD /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50172A819692002588DD /* Product.swift */; };
+		DD9C50192A819692002588DD /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50172A819692002588DD /* Product.swift */; };
+		DD9C501A2A819692002588DD /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9C50172A819692002588DD /* Product.swift */; };
 		DD9FAD5826A3793A00770FEA /* SelectFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */; };
 		DD9FAD5926A3793A00770FEA /* SelectFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */; };
 		DD9FAD5B26A3796500770FEA /* SelectFolderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */; };
 		DD9FAD5C26A3796500770FEA /* SelectFolderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */; };
+		DDA25D902A8C1C48005D9320 /* AnyAsyncSequence in Frameworks */ = {isa = PBXBuildFile; productRef = DDA25D8F2A8C1C48005D9320 /* AnyAsyncSequence */; };
+		DDA25D922A8C1C70005D9320 /* AnyAsyncSequence in Frameworks */ = {isa = PBXBuildFile; productRef = DDA25D912A8C1C70005D9320 /* AnyAsyncSequence */; };
+		DDA25D942A8C1C77005D9320 /* AnyAsyncSequence in Frameworks */ = {isa = PBXBuildFile; productRef = DDA25D932A8C1C77005D9320 /* AnyAsyncSequence */; };
+		DDA25D962A8C1F05005D9320 /* PurchaseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25D952A8C1F05005D9320 /* PurchaseResult.swift */; };
+		DDA25D972A8C1F05005D9320 /* PurchaseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25D952A8C1F05005D9320 /* PurchaseResult.swift */; };
+		DDA25D982A8C1F05005D9320 /* PurchaseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25D952A8C1F05005D9320 /* PurchaseResult.swift */; };
+		DDA25D9A2A8C1F2A005D9320 /* VerificationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25D992A8C1F2A005D9320 /* VerificationResult.swift */; };
+		DDA25D9B2A8C1F2A005D9320 /* VerificationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25D992A8C1F2A005D9320 /* VerificationResult.swift */; };
+		DDA25D9C2A8C1F2A005D9320 /* VerificationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25D992A8C1F2A005D9320 /* VerificationResult.swift */; };
+		DDA25D9E2A8C1F51005D9320 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25D9D2A8C1F51005D9320 /* Transaction.swift */; };
+		DDA25D9F2A8C1F51005D9320 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25D9D2A8C1F51005D9320 /* Transaction.swift */; };
+		DDA25DA02A8C1F51005D9320 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25D9D2A8C1F51005D9320 /* Transaction.swift */; };
+		DDA25DA22A8C1F7C005D9320 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25DA12A8C1F7C005D9320 /* AppStore.swift */; };
+		DDA25DA32A8C1F7C005D9320 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25DA12A8C1F7C005D9320 /* AppStore.swift */; };
+		DDA25DA42A8C1F7C005D9320 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25DA12A8C1F7C005D9320 /* AppStore.swift */; };
 		DDA4FE7626E755C000D6F92E /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* Initialize.swift */; };
 		DDA4FE7726E755C000D6F92E /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* Initialize.swift */; };
 		DDA6F1802A0B9CB70050B352 /* OTPServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA6F17F2A0B9CB70050B352 /* OTPServiceTests.swift */; };
@@ -355,6 +402,15 @@
 		DDACC45829F080D50094D141 /* PasteboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45729F080D50094D141 /* PasteboardService.swift */; };
 		DDACC45929F080D50094D141 /* PasteboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45729F080D50094D141 /* PasteboardService.swift */; };
 		DDACC45A29F080D50094D141 /* PasteboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45729F080D50094D141 /* PasteboardService.swift */; };
+		DDB00D292A6EA24E0060909F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D282A6EA24E0060909F /* SettingsViewModel.swift */; };
+		DDB00D2A2A6EA24E0060909F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D282A6EA24E0060909F /* SettingsViewModel.swift */; };
+		DDB00D2B2A6EA24E0060909F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D282A6EA24E0060909F /* SettingsViewModel.swift */; };
+		DDB00D2D2A6F16A20060909F /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D2C2A6F16A20060909F /* SessionService.swift */; };
+		DDB00D2E2A6F16A20060909F /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D2C2A6F16A20060909F /* SessionService.swift */; };
+		DDB00D2F2A6F16A20060909F /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D2C2A6F16A20060909F /* SessionService.swift */; };
+		DDB00D312A6FBA180060909F /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D302A6FBA180060909F /* SettingsService.swift */; };
+		DDB00D322A6FBA180060909F /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D302A6FBA180060909F /* SettingsService.swift */; };
+		DDB00D332A6FBA180060909F /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D302A6FBA180060909F /* SettingsService.swift */; };
 		DDB1695527D1FCFF00F4D752 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */; };
 		DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */; };
 		DDB1696127D1FCFF00F4D752 /* Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DDB1695327D1FCFF00F4D752 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -394,10 +450,8 @@
 		DDB1699427D20CC200F4D752 /* Data+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5189ED27A16BFA00264A0D /* Data+Init.swift */; };
 		DDB1699527D20CC200F4D752 /* AuthenticationChallengeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09585025D159F10082D438 /* AuthenticationChallengeController.swift */; };
 		DDB1699627D20CC200F4D752 /* EditTagNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0E59A5274143D9003D7D50 /* EditTagNavigation.swift */; };
-		DDB1699727D20CC200F4D752 /* SKProduct+LocalizedPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F3DA259379F500B4EFCE /* SKProduct+LocalizedPrice.swift */; };
 		DDB1699827D20CC200F4D752 /* String+Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD718F2727B568E200F85780 /* String+Segmented.swift */; };
 		DDB1699927D20CC200F4D752 /* Date+FormattedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */; };
-		DDB1699A27D20CC200F4D752 /* TipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F52F3C82593746F00B4EFCE /* TipController.swift */; };
 		DDB1699B27D20CC200F4D752 /* EditPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F51428E2573F91800DD96C0 /* EditPasswordController.swift */; };
 		DDB1699D27D20CC200F4D752 /* NCPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */; };
 		DDB1699E27D20CC200F4D752 /* EditOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */; };
@@ -629,8 +683,6 @@
 		8F51428E2573F91800DD96C0 /* EditPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordController.swift; sourceTree = "<group>"; };
 		8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObject.swift; sourceTree = "<group>"; };
 		8F52F3C625936FDE00B4EFCE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		8F52F3C82593746F00B4EFCE /* TipController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipController.swift; sourceTree = "<group>"; };
-		8F52F3DA259379F500B4EFCE /* SKProduct+LocalizedPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKProduct+LocalizedPrice.swift"; sourceTree = "<group>"; };
 		8F52F3E125937B2700B4EFCE /* IAP.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = IAP.plist; sourceTree = "<group>"; };
 		8F5331A925605B9400AB6FED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8F5331AD25605BAC00AB6FED /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -750,6 +802,12 @@
 		DD1E1D752A016785002DB08B /* OTPValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPValidationService.swift; sourceTree = "<group>"; };
 		DD1E1D792A016ABE002DB08B /* OTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPService.swift; sourceTree = "<group>"; };
 		DD214361295A014B006C08DD /* TagsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsService.swift; sourceTree = "<group>"; };
+		DD24F0302A8D67F5009823C8 /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
+		DD24F0322A8E172A009823C8 /* SettingsViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelMock.swift; sourceTree = "<group>"; };
+		DD24F0342A8E2171009823C8 /* SessionServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceMock.swift; sourceTree = "<group>"; };
+		DD24F0362A8E2246009823C8 /* SettingsServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsServiceMock.swift; sourceTree = "<group>"; };
+		DD24F0382A8E23E2009823C8 /* PurchaseServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseServiceMock.swift; sourceTree = "<group>"; };
+		DD24F03A2A8EA9F0009823C8 /* ProductMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductMock.swift; sourceTree = "<group>"; };
 		DD251A2F29301B60001F6F2A /* XCUIElement+UnhittableInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+UnhittableInteractions.swift"; sourceTree = "<group>"; };
 		DD27237A2A6976500017BAA2 /* TorchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchService.swift; sourceTree = "<group>"; };
 		DD27237E2A69847E0017BAA2 /* VideoCapturing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCapturing.swift; sourceTree = "<group>"; };
@@ -837,8 +895,22 @@
 		DD9A99F62A23E9120016722F /* EditTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagViewModel.swift; sourceTree = "<group>"; };
 		DD9A99FA2A23FE4A0016722F /* EditTagViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagViewModelTests.swift; sourceTree = "<group>"; };
 		DD9A99FC2A248D1D0016722F /* Color+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Random.swift"; sourceTree = "<group>"; };
+		DD9C4FEF2A7E735C002588DD /* ProductsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsRepository.swift; sourceTree = "<group>"; };
+		DD9C4FF32A7E7384002588DD /* Future+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Future+Init.swift"; sourceTree = "<group>"; };
+		DD9C4FF72A7E74FC002588DD /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
+		DD9C4FFB2A7EB691002588DD /* GlobalAlertsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalAlertsViewModel.swift; sourceTree = "<group>"; };
+		DD9C4FFF2A7FB9A3002588DD /* ProductIdentifiersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductIdentifiersRepository.swift; sourceTree = "<group>"; };
+		DD9C50032A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductIdentifiersPropertyListDataSource.swift; sourceTree = "<group>"; };
+		DD9C50072A7FC279002588DD /* PropertyListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyListDataSource.swift; sourceTree = "<group>"; };
+		DD9C500F2A814E06002588DD /* PassthroughSubject+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PassthroughSubject+Init.swift"; sourceTree = "<group>"; };
+		DD9C50132A81862E002588DD /* ProductsAppStoreDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsAppStoreDataSource.swift; sourceTree = "<group>"; };
+		DD9C50172A819692002588DD /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderNavigation.swift; sourceTree = "<group>"; };
 		DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderPage.swift; sourceTree = "<group>"; };
+		DDA25D952A8C1F05005D9320 /* PurchaseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseResult.swift; sourceTree = "<group>"; };
+		DDA25D992A8C1F2A005D9320 /* VerificationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationResult.swift; sourceTree = "<group>"; };
+		DDA25D9D2A8C1F51005D9320 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		DDA25DA12A8C1F7C005D9320 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		DDA4FE7526E755C000D6F92E /* Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initialize.swift; sourceTree = "<group>"; };
 		DDA6F17F2A0B9CB70050B352 /* OTPServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPServiceTests.swift; sourceTree = "<group>"; };
 		DDACC44D29EDEF500094D141 /* LogEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
@@ -849,6 +921,9 @@
 		DDAF982629910B8F005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDAF982729910B9A005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDAF982829910BA7005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DDB00D282A6EA24E0060909F /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		DDB00D2C2A6F16A20060909F /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		DDB00D302A6FBA180060909F /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		DDB1695327D1FCFF00F4D752 /* Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDB1695427D1FCFF00F4D752 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		DDB1695927D1FCFF00F4D752 /* ExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionViewController.swift; sourceTree = "<group>"; };
@@ -924,6 +999,7 @@
 				8F118765253CA2980019FECA /* AuthenticationServices.framework in Frameworks */,
 				DD6350DB293FEC7E0058A787 /* Factory in Frameworks */,
 				8F52F3C725936FDE00B4EFCE /* StoreKit.framework in Frameworks */,
+				DDA25D902A8C1C48005D9320 /* AnyAsyncSequence in Frameworks */,
 				8F10C6492602BD9200FA5B1D /* Clibsodium in Frameworks */,
 				8F10C64B2602BD9200FA5B1D /* Sodium in Frameworks */,
 			);
@@ -936,6 +1012,7 @@
 				8FC361992582762600785371 /* AuthenticationServices.framework in Frameworks */,
 				8F10C64D2602C05F00FA5B1D /* Clibsodium in Frameworks */,
 				8F10C64F2602C05F00FA5B1D /* Sodium in Frameworks */,
+				DDA25D922A8C1C70005D9320 /* AnyAsyncSequence in Frameworks */,
 				DD6350DD293FEC9B0058A787 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -962,6 +1039,7 @@
 				DDB1695527D1FCFF00F4D752 /* UniformTypeIdentifiers.framework in Frameworks */,
 				DDB1696627D1FD2900F4D752 /* Clibsodium in Frameworks */,
 				DDB1696827D1FD2900F4D752 /* Sodium in Frameworks */,
+				DDA25D942A8C1C77005D9320 /* AnyAsyncSequence in Frameworks */,
 				DD6350DF293FECA00058A787 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1172,6 +1250,7 @@
 			isa = PBXGroup;
 			children = (
 				DDF413852955ADF500B886EB /* AnyViewModel.swift */,
+				DDA25DA12A8C1F7C005D9320 /* AppStore.swift */,
 				DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */,
 				8F854E6826239314008885C3 /* CoreData.swift */,
 				8F74244526039BD600B73646 /* Crypto.swift */,
@@ -1181,7 +1260,12 @@
 				8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */,
 				8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */,
 				8FA5B74B261109D7006CBC7D /* NetworkClient.swift */,
+				DD9C50172A819692002588DD /* Product.swift */,
+				DDA25D952A8C1F05005D9320 /* PurchaseResult.swift */,
+				DD9C50072A7FC279002588DD /* PropertyListDataSource.swift */,
 				DDCD27812A16C579009EC50F /* QRCodeGenerating.swift */,
+				DDA25D9D2A8C1F51005D9320 /* Transaction.swift */,
+				DDA25D992A8C1F2A005D9320 /* VerificationResult.swift */,
 				DD27237E2A69847E0017BAA2 /* VideoCapturing.swift */,
 				DD8282C52938CBA00085115D /* ViewModel.swift */,
 			);
@@ -1205,7 +1289,6 @@
 				8F5C1A83257D7D5F009FF66F /* BiometricAuthenticationController.swift */,
 				8F55FBD62570276800CC6920 /* SessionController.swift */,
 				DD3FAD6627772C15002202DE /* SettingsController.swift */,
-				8F52F3C82593746F00B4EFCE /* TipController.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1237,15 +1320,16 @@
 				DD5189ED27A16BFA00264A0D /* Data+Init.swift */,
 				8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */,
 				DD83C20A2A1CA90E005E9004 /* DispatchQueue+Init.swift */,
+				DD9C4FF32A7E7384002588DD /* Future+Init.swift */,
 				8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */,
 				8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */,
 				DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */,
+				DD9C500F2A814E06002588DD /* PassthroughSubject+Init.swift */,
 				8F63617B25A741A400C832C9 /* PreviewDevice+Generate.swift */,
 				DDDD93EE2A1426B80061BEA0 /* Publisher+CompactFlatMap.swift */,
 				DDDD93F22A1427680061BEA0 /* Publisher+ReplaceNil.swift */,
 				DDBEE5B62A07C7C3008F4099 /* Publishers+CombineLatest5.swift */,
 				DDBEE5BA2A07C7C8008F4099 /* Publishers+CombineLatest6.swift */,
-				8F52F3DA259379F500B4EFCE /* SKProduct+LocalizedPrice.swift */,
 				8FBE43C4258D5A09003F7F34 /* String+Localized.swift */,
 				8FBAC9CF264A7B050038A626 /* String+Score.swift */,
 				DD718F2727B568E200F85780 /* String+Segmented.swift */,
@@ -1313,7 +1397,10 @@
 				DD1E1D792A016ABE002DB08B /* OTPService.swift */,
 				DD1E1D752A016785002DB08B /* OTPValidationService.swift */,
 				DDACC45729F080D50094D141 /* PasteboardService.swift */,
+				DD9C4FF72A7E74FC002588DD /* PurchaseService.swift */,
 				DD57399C2A1031C9004B6E69 /* QRCodeService.swift */,
+				DDB00D2C2A6F16A20060909F /* SessionService.swift */,
+				DDB00D302A6FBA180060909F /* SettingsService.swift */,
 				DD214361295A014B006C08DD /* TagsService.swift */,
 				DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */,
 				DD27237A2A6976500017BAA2 /* TorchService.swift */,
@@ -1461,9 +1548,11 @@
 				DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */,
 				DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */,
 				DD9A99F62A23E9120016722F /* EditTagViewModel.swift */,
+				DD9C4FFB2A7EB691002588DD /* GlobalAlertsViewModel.swift */,
 				DDACC45329EF3F440094D141 /* LogViewModel.swift */,
 				DDC87BCC2A54100900D56A49 /* SelectFolderViewModel.swift */,
 				DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */,
+				DDB00D282A6EA24E0060909F /* SettingsViewModel.swift */,
 				DD5739982A1028FF004B6E69 /* ShareOTPViewModel.swift */,
 			);
 			path = ViewModels;
@@ -1490,6 +1579,10 @@
 		DDAC9C612A293625005E6011 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				DD9C50032A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift */,
+				DD9C4FFF2A7FB9A3002588DD /* ProductIdentifiersRepository.swift */,
+				DD9C50132A81862E002588DD /* ProductsAppStoreDataSource.swift */,
+				DD9C4FEF2A7E735C002588DD /* ProductsRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1526,6 +1619,7 @@
 				DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */,
 				DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */,
 				DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */,
+				DD24F0302A8D67F5009823C8 /* SettingsViewModelTests.swift */,
 				DDDD93F82A14BD720061BEA0 /* ShareOTPViewModelTests.swift */,
 			);
 			path = ViewModels;
@@ -1578,6 +1672,7 @@
 				DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */,
 				DD14666F2A6BDE98003BBA8F /* SelectFolderViewModelMock.swift */,
 				DD7BC52529AFFDC3004AA7BC /* SelectTagsViewModelMock.swift */,
+				DD24F0322A8E172A009823C8 /* SettingsViewModelMock.swift */,
 				DDDD93FC2A1503460061BEA0 /* ShareOTPViewModelMock.swift */,
 			);
 			path = ViewModels;
@@ -1591,7 +1686,10 @@
 				DDBEE5C22A080BCA008F4099 /* OTPServiceMock.swift */,
 				DDBEE5C42A080D3B008F4099 /* OTPValidationServiceMock.swift */,
 				DDC6E1A129F085D100607C81 /* PasteboardServiceMock.swift */,
+				DD24F0382A8E23E2009823C8 /* PurchaseServiceMock.swift */,
 				DDDD93FA2A1501810061BEA0 /* QRCodeServiceMock.swift */,
+				DD24F0342A8E2171009823C8 /* SessionServiceMock.swift */,
+				DD24F0362A8E2246009823C8 /* SettingsServiceMock.swift */,
 				DD7BC52129AFFD33004AA7BC /* TagsServiceMock.swift */,
 				DD7BC51D29AFFCCF004AA7BC /* TagValidationServiceMock.swift */,
 				DD1466732A6BE625003BBA8F /* TorchServiceMock.swift */,
@@ -1602,6 +1700,7 @@
 		DDC061752A6DA73800C5082F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				DD24F03A2A8EA9F0009823C8 /* ProductMock.swift */,
 				DDCD277F2A16C55F009EC50F /* QRCodeGeneratorMock.swift */,
 				DD1466712A6BE2AE003BBA8F /* VideoCapturerMock.swift */,
 				DD7BC52929AFFE43004AA7BC /* ViewModelMock.swift */,
@@ -1642,6 +1741,7 @@
 				8F10C6482602BD9200FA5B1D /* Clibsodium */,
 				8F10C64A2602BD9200FA5B1D /* Sodium */,
 				DD6350DA293FEC7E0058A787 /* Factory */,
+				DDA25D8F2A8C1C48005D9320 /* AnyAsyncSequence */,
 			);
 			productName = Passwords;
 			productReference = 8F11874F253C9EE10019FECA /* Passwords.app */;
@@ -1665,6 +1765,7 @@
 				8F10C64C2602C05F00FA5B1D /* Clibsodium */,
 				8F10C64E2602C05F00FA5B1D /* Sodium */,
 				DD6350DC293FEC9B0058A787 /* Factory */,
+				DDA25D912A8C1C70005D9320 /* AnyAsyncSequence */,
 			);
 			productName = Provider;
 			productReference = 8FC361982582762600785371 /* Provider.appex */;
@@ -1729,6 +1830,7 @@
 				DDB1696527D1FD2900F4D752 /* Clibsodium */,
 				DDB1696727D1FD2900F4D752 /* Sodium */,
 				DD6350DE293FECA00058A787 /* Factory */,
+				DDA25D932A8C1C77005D9320 /* AnyAsyncSequence */,
 			);
 			productName = Extension;
 			productReference = DDB1695327D1FCFF00F4D752 /* Extension.appex */;
@@ -1782,6 +1884,7 @@
 				8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */,
 				DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */,
 				DD5E99EA29AA88C500A7A4B9 /* XCRemoteSwiftPackageReference "Nimble" */,
+				DDA25D8E2A8C1C48005D9320 /* XCRemoteSwiftPackageReference "AnyAsyncSequence" */,
 			);
 			productRefGroup = 8F118750253C9EE10019FECA /* Products */;
 			projectDirPath = "";
@@ -1968,6 +2071,7 @@
 				DD5739992A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				8F5E120825D3CC33007A2166 /* Configuration.swift in Sources */,
 				DDDD93EF2A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
+				DD9C4FF42A7E7384002588DD /* Future+Init.swift in Sources */,
 				DDACC45829F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDE4F5D6274BEB3D00518167 /* LegacyFlowView.swift in Sources */,
 				DD83C20B2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */,
@@ -1977,6 +2081,7 @@
 				8F570BFB25693F5C00BA4B74 /* ListFoldersRequest.swift in Sources */,
 				8F51428B2573BEFA00DD96C0 /* CreatePasswordRequest.swift in Sources */,
 				8FBAC9D0264A7B050038A626 /* String+Score.swift in Sources */,
+				DD9C50142A81862E002588DD /* ProductsAppStoreDataSource.swift in Sources */,
 				8F57A5BA2562699A00BC1CA0 /* Password.swift in Sources */,
 				DD72AE1928A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */,
 				DD0E59A9274146C8003D7D50 /* EditTagPage.swift in Sources */,
@@ -1991,8 +2096,10 @@
 				8F74244626039BD600B73646 /* Crypto.swift in Sources */,
 				DDBEE5B72A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */,
 				DD1E1D722A010D0C002DB08B /* Enabled.swift in Sources */,
+				DDB00D2D2A6F16A20060909F /* SessionService.swift in Sources */,
 				8F559A2225A0B23E00D7A39F /* MainView.swift in Sources */,
 				8F77DA6325699FB300CFDA8D /* EntriesController.swift in Sources */,
+				DDB00D292A6EA24E0060909F /* SettingsViewModel.swift in Sources */,
 				8F57B426256C0DD600329B05 /* SettingsPage.swift in Sources */,
 				8F559A1325A0AE2700D7A39F /* SettingsNavigation.swift in Sources */,
 				DDDB6B5627A80639007572B1 /* CaptureOTPNavigation.swift in Sources */,
@@ -2006,8 +2113,9 @@
 				8F997F952572C79900B5F784 /* EditFolderPage.swift in Sources */,
 				DD760688295F72BC00109075 /* Sync.swift in Sources */,
 				8F71A8252607634E00863C27 /* CloseSessionRequest.swift in Sources */,
+				DD9C50082A7FC279002588DD /* PropertyListDataSource.swift in Sources */,
+				DD9C50102A814E06002588DD /* PassthroughSubject+Init.swift in Sources */,
 				8F854E66262390FA008885C3 /* CoreData.xcdatamodeld in Sources */,
-				8F52F3C92593746F00B4EFCE /* TipController.swift in Sources */,
 				DD718F2827B568E200F85780 /* String+Segmented.swift in Sources */,
 				DD29D1E427CF684A00B06835 /* ImagePicker.swift in Sources */,
 				8F582BFA255EA63D00F1E3DA /* LoginFlowPage.swift in Sources */,
@@ -2022,6 +2130,7 @@
 				DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */,
 				DD1E1D6D2A002D26002DB08B /* EditOTPViewModel.swift in Sources */,
 				DDDB6B5927A806ED007572B1 /* CaptureOTPPage.swift in Sources */,
+				DD9C4FFC2A7EB691002588DD /* GlobalAlertsViewModel.swift in Sources */,
 				8F561EBE258D26CC008AE12B /* NCPasswordsRequest.swift in Sources */,
 				DDC7C94828C1FA3A00451B81 /* Bundle+IsTestFlight.swift in Sources */,
 				DDBE8AB229B3F9A10054F179 /* FolderValidationService.swift in Sources */,
@@ -2032,6 +2141,7 @@
 				DD57399D2A1031C9004B6E69 /* QRCodeService.swift in Sources */,
 				8F118755253C9EE10019FECA /* EntriesPage.swift in Sources */,
 				DD76068C295F731200109075 /* Dismiss.swift in Sources */,
+				DD9C50042A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */,
 				8F77DA5D25699F8900CFDA8D /* CopyToast.swift in Sources */,
 				8F513A63256064E9001C6EF9 /* ServerSetupPage.swift in Sources */,
 				DD27237F2A69847E0017BAA2 /* VideoCapturing.swift in Sources */,
@@ -2042,20 +2152,25 @@
 				8F55564A25716BD200F5D805 /* DeletePasswordRequest.swift in Sources */,
 				DD1078782A69472B00E87B3F /* CaptureOTPViewModel.swift in Sources */,
 				DDE0701E27C8F83B00FC65E2 /* Tooltip.swift in Sources */,
+				DDB00D312A6FBA180060909F /* SettingsService.swift in Sources */,
 				DD0B7ADF2971A2A900A59E3C /* EditFolderViewModel.swift in Sources */,
+				DD9C4FF02A7E735C002588DD /* ProductsRepository.swift in Sources */,
 				DDE6E31C28604F090089BB0B /* FlowView.swift in Sources */,
 				8FBE43B9258D599E003F7F34 /* Date+FormattedString.swift in Sources */,
 				8F696B4125E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
+				DD9C4FF82A7E74FC002588DD /* PurchaseService.swift in Sources */,
 				8F513A5F2560624F001C6EF9 /* Session.swift in Sources */,
 				DD0C28752766028500E3DAEF /* SelectTagsPage.swift in Sources */,
 				8F559A1825A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
 				DD9FAD5B26A3796500770FEA /* SelectFolderPage.swift in Sources */,
 				DD5B586B27D00E6F00E54E71 /* ShareOTPPage.swift in Sources */,
 				8F55FBD72570276800CC6920 /* SessionController.swift in Sources */,
+				DD9C50182A819692002588DD /* Product.swift in Sources */,
 				8F997FA5257300A600B5F784 /* EditPasswordPage.swift in Sources */,
 				8F997FAB2573043400B5F784 /* PasswordServiceRequest.swift in Sources */,
 				DDEC98FF2926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */,
 				8F118753253C9EE10019FECA /* PasswordsApp.swift in Sources */,
+				DDA25DA22A8C1F7C005D9320 /* AppStore.swift in Sources */,
 				8FBC049C268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
 				DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				8FA5B74C261109D7006CBC7D /* NetworkClient.swift in Sources */,
@@ -2069,9 +2184,11 @@
 				DD1078742A691F5200E87B3F /* QRCapture.swift in Sources */,
 				8F552956259CAF4900419233 /* Folder.swift in Sources */,
 				DD1E1D762A016785002DB08B /* OTPValidationService.swift in Sources */,
+				DDA25D9E2A8C1F51005D9320 /* Transaction.swift in Sources */,
 				8F68D74226495BD100FF192C /* ShowFolderRequest.swift in Sources */,
 				DD3FAD642775DC86002202DE /* Settings.swift in Sources */,
 				8F72379A2651468700832A88 /* Collection+Avg.swift in Sources */,
+				DDA25D9A2A8C1F2A005D9320 /* VerificationResult.swift in Sources */,
 				8F703BFC26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				DD38ACF927DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
 				DDC87BC92A54037700D56A49 /* TreePicker.swift in Sources */,
@@ -2086,7 +2203,6 @@
 				DD0E59A6274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
 				DD9A99F72A23E9120016722F /* EditTagViewModel.swift in Sources */,
 				8F51428F2573F91800DD96C0 /* EditPasswordController.swift in Sources */,
-				8F52F3DB259379F500B4EFCE /* SKProduct+LocalizedPrice.swift in Sources */,
 				DD0E59B227414AFE003D7D50 /* Color+Init.swift in Sources */,
 				DDDF3388276F7FDE008EEB3F /* TagBadge.swift in Sources */,
 				8F55D99A2582D04200CE4FC2 /* AutoFillController.swift in Sources */,
@@ -2109,9 +2225,11 @@
 				DDACC44E29EDEF500094D141 /* LogEvent.swift in Sources */,
 				DDCE125F2741408D003912D0 /* ListTagsRequest.swift in Sources */,
 				8F57A5B6256267BF00BC1CA0 /* ListPasswordsRequest.swift in Sources */,
+				DD9C50002A7FB9A3002588DD /* ProductIdentifiersRepository.swift in Sources */,
 				8F59F521256AE65800D9FE40 /* ActionButtonStyle.swift in Sources */,
 				DD67204227BAFCAD0078CF47 /* EditOTPPage.swift in Sources */,
 				DD889A1B27DB4AB40021AF5F /* OnSizeChange.swift in Sources */,
+				DDA25D962A8C1F05005D9320 /* PurchaseResult.swift in Sources */,
 				DD2D701028C7ED1F000F1607 /* FailableDecodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2133,6 +2251,7 @@
 				DD57399A2A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				8FB645F325D6949900A0F316 /* UIPasteboard+PrivateString.swift in Sources */,
 				DDDD93F02A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
+				DD9C4FF52A7E7384002588DD /* Future+Init.swift in Sources */,
 				DDACC45929F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDE4F5D7274BEB3D00518167 /* LegacyFlowView.swift in Sources */,
 				DD83C20C2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */,
@@ -2142,6 +2261,7 @@
 				8FC361B625827E4C00785371 /* CopyToast.swift in Sources */,
 				8FC361C025827E5200785371 /* EntriesController.swift in Sources */,
 				8FBAC9D1264A7B050038A626 /* String+Score.swift in Sources */,
+				DD9C50152A81862E002588DD /* ProductsAppStoreDataSource.swift in Sources */,
 				8F5A8445259A501700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
 				DD72AE1A28A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */,
 				DD0E59AA274146C8003D7D50 /* EditTagPage.swift in Sources */,
@@ -2156,8 +2276,10 @@
 				8F7A73A42677493500FCA15F /* URL+RelativeReference.swift in Sources */,
 				DDBEE5B82A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */,
 				8F74244726039BD600B73646 /* Crypto.swift in Sources */,
+				DDB00D2E2A6F16A20060909F /* SessionService.swift in Sources */,
 				DD1E1D732A010D0C002DB08B /* Enabled.swift in Sources */,
 				8FC361D225827E5D00785371 /* ListFoldersRequest.swift in Sources */,
+				DDB00D2A2A6EA24E0060909F /* SettingsViewModel.swift in Sources */,
 				8F559A2325A0B23E00D7A39F /* MainView.swift in Sources */,
 				8FC361C625827E5500785371 /* Entry.swift in Sources */,
 				8FC361CD25827E5D00785371 /* CreateFolderRequest.swift in Sources */,
@@ -2171,13 +2293,14 @@
 				8F65736B25E3C4F200139163 /* TextView.swift in Sources */,
 				DD760689295F72BC00109075 /* Sync.swift in Sources */,
 				8F854E6A26239314008885C3 /* CoreData.swift in Sources */,
+				DD9C50092A7FC279002588DD /* PropertyListDataSource.swift in Sources */,
+				DD9C50112A814E06002588DD /* PassthroughSubject+Init.swift in Sources */,
 				8FC361D125827E5D00785371 /* DeleteFolderRequest.swift in Sources */,
 				8F71A8262607634E00863C27 /* CloseSessionRequest.swift in Sources */,
 				8F854E67262390FA008885C3 /* CoreData.xcdatamodeld in Sources */,
 				8FC361CE25827E5D00785371 /* ListPasswordsRequest.swift in Sources */,
 				DD718F2927B568E200F85780 /* String+Segmented.swift in Sources */,
 				DD29D1E527CF684A00B06835 /* ImagePicker.swift in Sources */,
-				8F52F3D22593784B00B4EFCE /* TipController.swift in Sources */,
 				8F71A823260762DC00863C27 /* KeepaliveSessionRequest.swift in Sources */,
 				8F09585225D159F10082D438 /* AuthenticationChallengeController.swift in Sources */,
 				DDF924D62A5D7348005C9977 /* ArrayBuilder.swift in Sources */,
@@ -2187,6 +2310,7 @@
 				8FC361B425827E4C00785371 /* EditPasswordPage.swift in Sources */,
 				DD1E1D6E2A002D26002DB08B /* EditOTPViewModel.swift in Sources */,
 				DDCE125727411B09003912D0 /* Tag.swift in Sources */,
+				DD9C4FFD2A7EB691002588DD /* GlobalAlertsViewModel.swift in Sources */,
 				DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */,
 				DDDB6B5A27A806ED007572B1 /* CaptureOTPPage.swift in Sources */,
 				8F561EC3258D2759008AE12B /* NCPasswordsRequest.swift in Sources */,
@@ -2197,6 +2321,7 @@
 				DD57399E2A1031C9004B6E69 /* QRCodeService.swift in Sources */,
 				DD6350E2293FED030058A787 /* Container+Registrations.swift in Sources */,
 				DDA4FE7726E755C000D6F92E /* Initialize.swift in Sources */,
+				DD9C50052A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */,
 				DD76068D295F731200109075 /* Dismiss.swift in Sources */,
 				8FBE43D3258D5A8C003F7F34 /* String+Localized.swift in Sources */,
 				DD2723802A69847E0017BAA2 /* VideoCapturing.swift in Sources */,
@@ -2207,20 +2332,25 @@
 				DD6FE0AF29F53DFD004DBE8E /* Lock.swift in Sources */,
 				DD1078792A69472B00E87B3F /* CaptureOTPViewModel.swift in Sources */,
 				8FC361B525827E4C00785371 /* SettingsPage.swift in Sources */,
+				DDB00D322A6FBA180060909F /* SettingsService.swift in Sources */,
 				DDE0701F27C8F83B00FC65E2 /* Tooltip.swift in Sources */,
+				DD9C4FF12A7E735C002588DD /* ProductsRepository.swift in Sources */,
 				DD0B7AE02971A2A900A59E3C /* EditFolderViewModel.swift in Sources */,
 				DDE6E31D28604F090089BB0B /* FlowView.swift in Sources */,
 				8FC361D325827E5D00785371 /* DeletePasswordRequest.swift in Sources */,
+				DD9C4FF92A7E74FC002588DD /* PurchaseService.swift in Sources */,
 				8F696B4225E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
 				8FC361C925827E5500785371 /* Session.swift in Sources */,
 				DD0C28762766028500E3DAEF /* SelectTagsPage.swift in Sources */,
 				8F559A1925A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
 				DD9FAD5C26A3796500770FEA /* SelectFolderPage.swift in Sources */,
 				DD5B586C27D00E6F00E54E71 /* ShareOTPPage.swift in Sources */,
+				DD9C50192A819692002588DD /* Product.swift in Sources */,
 				8FC361B925827E4C00785371 /* ServerSetupPage.swift in Sources */,
 				8FC361C325827E5200785371 /* BiometricAuthenticationController.swift in Sources */,
 				8FC361D425827E5D00785371 /* CreatePasswordRequest.swift in Sources */,
 				DDEC99002926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */,
+				DDA25DA32A8C1F7C005D9320 /* AppStore.swift in Sources */,
 				8FC361D025827E5D00785371 /* UpdatePasswordRequest.swift in Sources */,
 				8FBC049D268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
 				DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */,
@@ -2234,9 +2364,11 @@
 				DD1078752A691F5200E87B3F /* QRCapture.swift in Sources */,
 				8F52EFCA25B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
 				DD1E1D772A016785002DB08B /* OTPValidationService.swift in Sources */,
+				DDA25D9F2A8C1F51005D9320 /* Transaction.swift in Sources */,
 				8F552959259CAF4E00419233 /* Folder.swift in Sources */,
 				8F68D74326495BD100FF192C /* ShowFolderRequest.swift in Sources */,
 				DD3FAD652775DC86002202DE /* Settings.swift in Sources */,
+				DDA25D9B2A8C1F2A005D9320 /* VerificationResult.swift in Sources */,
 				8F72379B2651468700832A88 /* Collection+Avg.swift in Sources */,
 				8F703BFD26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				DDC87BCA2A54037700D56A49 /* TreePicker.swift in Sources */,
@@ -2251,7 +2383,6 @@
 				8FC361CC25827E5D00785371 /* FaviconServiceRequest.swift in Sources */,
 				DD9A99F82A23E9120016722F /* EditTagViewModel.swift in Sources */,
 				DD0E59A7274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
-				8F52F3DE25937A2E00B4EFCE /* SKProduct+LocalizedPrice.swift in Sources */,
 				DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */,
 				DDDF3389276F7FDE008EEB3F /* TagBadge.swift in Sources */,
 				8FC361FF25828B0500785371 /* EntriesNavigation.swift in Sources */,
@@ -2274,9 +2405,11 @@
 				DDACC44F29EDEF500094D141 /* LogEvent.swift in Sources */,
 				DDCE12602741408D003912D0 /* ListTagsRequest.swift in Sources */,
 				8F55D99F2582D0DE00CE4FC2 /* AutoFillController.swift in Sources */,
+				DD9C50012A7FB9A3002588DD /* ProductIdentifiersRepository.swift in Sources */,
 				8FC361DA25827E6100785371 /* Keychain.swift in Sources */,
 				DD67204327BAFCAD0078CF47 /* EditOTPPage.swift in Sources */,
 				DD889A1C27DB4AB40021AF5F /* OnSizeChange.swift in Sources */,
+				DDA25D972A8C1F05005D9320 /* PurchaseResult.swift in Sources */,
 				DD2D701128C7ED1F000F1607 /* FailableDecodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2296,14 +2429,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD24F0372A8E2246009823C8 /* SettingsServiceMock.swift in Sources */,
 				DD0B7AF32972CFE400A59E3C /* EditFolderViewModelTests.swift in Sources */,
 				DDDD93F92A14BD720061BEA0 /* ShareOTPViewModelTests.swift in Sources */,
 				DD7BC52629AFFDC3004AA7BC /* SelectTagsViewModelMock.swift in Sources */,
 				DDDD93FB2A1501810061BEA0 /* QRCodeServiceMock.swift in Sources */,
 				DD5E99F329AB6D3700A7A4B9 /* BeCalled.swift in Sources */,
 				DDC6E1A029F085C700607C81 /* LogViewModelMock.swift in Sources */,
+				DD24F03B2A8EA9F0009823C8 /* ProductMock.swift in Sources */,
 				DDBEE5C12A080ADC008F4099 /* EditOTPViewModelMock.swift in Sources */,
 				DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */,
+				DD24F0352A8E2171009823C8 /* SessionServiceMock.swift in Sources */,
 				DD5419712A08D28B004C3EFA /* URL+Random.swift in Sources */,
 				DDDD93F72A14BD650061BEA0 /* QRCodeServiceTests.swift in Sources */,
 				DD7BC51E29AFFCCF004AA7BC /* TagValidationServiceMock.swift in Sources */,
@@ -2313,6 +2449,7 @@
 				DDF924D32A5D4173005C9977 /* SelectFolderViewModelTests.swift in Sources */,
 				DDCD27802A16C55F009EC50F /* QRCodeGeneratorMock.swift in Sources */,
 				DD7BC52229AFFD33004AA7BC /* TagsServiceMock.swift in Sources */,
+				DD24F0332A8E172A009823C8 /* SettingsViewModelMock.swift in Sources */,
 				DD7BC51829AFBA00004AA7BC /* Container+Mocks.swift in Sources */,
 				DD5E99F629ABFF4000A7A4B9 /* ClosureMock.swift in Sources */,
 				DD7BC52429AFFD6E004AA7BC /* FoldersServiceMock.swift in Sources */,
@@ -2326,6 +2463,7 @@
 				DD7BC52029AFFD01004AA7BC /* FolderValidationServiceMock.swift in Sources */,
 				DDC2A4F429F58345001D79DC /* ConfigurationMock.swift in Sources */,
 				DDACC45229EE73090094D141 /* LoggerMock.swift in Sources */,
+				DD24F0312A8D67F5009823C8 /* SettingsViewModelTests.swift in Sources */,
 				DDF4138A2955AFD000B886EB /* ViewModelTests.swift in Sources */,
 				DD1466782A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift in Sources */,
 				DD5E99F129AAA15500A7A4B9 /* Emit.swift in Sources */,
@@ -2334,6 +2472,7 @@
 				DD7BC51B29AFBAD8004AA7BC /* FunctionCallLogging.swift in Sources */,
 				DDBEE5C52A080D3B008F4099 /* OTPValidationServiceMock.swift in Sources */,
 				DD5E3CBA2953BD620032F517 /* SelectTagsViewModelTests.swift in Sources */,
+				DD24F0392A8E23E2009823C8 /* PurchaseServiceMock.swift in Sources */,
 				DD7BC51C29AFBAD8004AA7BC /* Mock.swift in Sources */,
 				DDFF5D4829D8443B00422603 /* Container+AutoRegistering.swift in Sources */,
 				DD0B7AEF2972CEBD00A59E3C /* FolderValidationServiceTests.swift in Sources */,
@@ -2368,6 +2507,7 @@
 				DD57399B2A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				DDB169C027D20CC200F4D752 /* SettingsPage.swift in Sources */,
 				DDDD93F12A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
+				DD9C4FF62A7E7384002588DD /* Future+Init.swift in Sources */,
 				DDACC45A29F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDB169C927D20CC200F4D752 /* UpdateTagRequest.swift in Sources */,
 				DD83C20D2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */,
@@ -2377,6 +2517,7 @@
 				DDB169AF27D20CC200F4D752 /* ServerSetupNavigation.swift in Sources */,
 				DDB169B527D20CC200F4D752 /* UIPasteboard+PrivateString.swift in Sources */,
 				DDB1697627D20C2500F4D752 /* Configuration.swift in Sources */,
+				DD9C50162A81862E002588DD /* ProductsAppStoreDataSource.swift in Sources */,
 				DD72AE1B28A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */,
 				DDB1698E27D20CC200F4D752 /* ImagePicker.swift in Sources */,
 				DDB1697A27D20CC100F4D752 /* MainView.swift in Sources */,
@@ -2391,11 +2532,12 @@
 				DDB169D327D20CC200F4D752 /* ServerSetupPage.swift in Sources */,
 				DDBEE5B92A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */,
 				DDB169CF27D20CC200F4D752 /* LoginFlowPage.swift in Sources */,
+				DDB00D2F2A6F16A20060909F /* SessionService.swift in Sources */,
 				DD1E1D742A010D0C002DB08B /* Enabled.swift in Sources */,
 				DDB169E927D20CC300F4D752 /* ShareSheet.swift in Sources */,
+				DDB00D2B2A6EA24E0060909F /* SettingsViewModel.swift in Sources */,
 				DDB169A127D20CC200F4D752 /* UIAlertController+PresentGlobalAlert.swift in Sources */,
 				DDB1699327D20CC200F4D752 /* Array+Zip.swift in Sources */,
-				DDB1699727D20CC200F4D752 /* SKProduct+LocalizedPrice.swift in Sources */,
 				DDB169AE27D20CC200F4D752 /* EditFolderPage.swift in Sources */,
 				DDB1699427D20CC200F4D752 /* Data+Init.swift in Sources */,
 				DDB1698B27D20CC200F4D752 /* CreatePasswordRequest.swift in Sources */,
@@ -2406,7 +2548,9 @@
 				DDB169E527D20CC300F4D752 /* CaptureOTPNavigation.swift in Sources */,
 				DD76068A295F72BC00109075 /* Sync.swift in Sources */,
 				DDB169A527D20CC200F4D752 /* ListTagsRequest.swift in Sources */,
+				DD9C500A2A7FC279002588DD /* PropertyListDataSource.swift in Sources */,
 				DDB169B227D20CC200F4D752 /* NavigationView+ShowColumns.swift in Sources */,
+				DD9C50122A814E06002588DD /* PassthroughSubject+Init.swift in Sources */,
 				DDB169B427D20CC200F4D752 /* ListSettingsRequest.swift in Sources */,
 				DDB169D727D20CC200F4D752 /* MockObject.swift in Sources */,
 				DDB169C127D20CC200F4D752 /* ActionButtonStyle.swift in Sources */,
@@ -2422,6 +2566,7 @@
 				DDB1699527D20CC200F4D752 /* AuthenticationChallengeController.swift in Sources */,
 				DD1E1D6F2A002D26002DB08B /* EditOTPViewModel.swift in Sources */,
 				DDB169A327D20CC200F4D752 /* SelectTagsNavigation.swift in Sources */,
+				DD9C4FFE2A7EB691002588DD /* GlobalAlertsViewModel.swift in Sources */,
 				DDB1697827D20CC100F4D752 /* Tooltip.swift in Sources */,
 				DDC7C94A28C1FA3A00451B81 /* Bundle+IsTestFlight.swift in Sources */,
 				DDBE8AB429B3F9A10054F179 /* FolderValidationService.swift in Sources */,
@@ -2431,6 +2576,7 @@
 				DD6350E3293FED030058A787 /* Container+Registrations.swift in Sources */,
 				DD57399F2A1031C9004B6E69 /* QRCodeService.swift in Sources */,
 				DDB169D527D20CC200F4D752 /* URL+RelativeReference.swift in Sources */,
+				DD9C50062A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */,
 				DD76068E295F731200109075 /* Dismiss.swift in Sources */,
 				DDB1699B27D20CC200F4D752 /* EditPasswordController.swift in Sources */,
 				DDB169CB27D20CC200F4D752 /* AutoFillController.swift in Sources */,
@@ -2442,20 +2588,25 @@
 				DDB1699927D20CC200F4D752 /* Date+FormattedString.swift in Sources */,
 				DD10787A2A69472B00E87B3F /* CaptureOTPViewModel.swift in Sources */,
 				DDB169BD27D20CC200F4D752 /* OfflineContainer.swift in Sources */,
+				DDB00D332A6FBA180060909F /* SettingsService.swift in Sources */,
 				DD0B7AE12971A2A900A59E3C /* EditFolderViewModel.swift in Sources */,
+				DD9C4FF22A7E735C002588DD /* ProductsRepository.swift in Sources */,
 				DDE6E31E28604F090089BB0B /* FlowView.swift in Sources */,
 				DDB1697727D20CC100F4D752 /* ServerSetupController.swift in Sources */,
 				DDB169A927D20CC200F4D752 /* CloseSessionRequest.swift in Sources */,
+				DD9C4FFA2A7E74FC002588DD /* PurchaseService.swift in Sources */,
 				DDB169A627D20CC200F4D752 /* LabeledRow.swift in Sources */,
 				DDB169EF27D20CC300F4D752 /* Keychain.swift in Sources */,
 				DDB169E327D20CC200F4D752 /* UIApplication+IsExtension.swift in Sources */,
 				DDB1698727D20CC200F4D752 /* EntriesNavigation.swift in Sources */,
 				DDB169E227D20CC200F4D752 /* Initialize.swift in Sources */,
 				DDB169C627D20CC200F4D752 /* Entry.swift in Sources */,
+				DD9C501A2A819692002588DD /* Product.swift in Sources */,
 				DDB169AB27D20CC200F4D752 /* TagBadge.swift in Sources */,
 				DDB169D227D20CC200F4D752 /* Crypto.swift in Sources */,
 				DDB169D927D20CC200F4D752 /* DeletePasswordRequest.swift in Sources */,
 				DDEC99012926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */,
+				DDA25DA42A8C1F7C005D9320 /* AppStore.swift in Sources */,
 				DDB1698527D20CC200F4D752 /* UpdatePasswordRequest.swift in Sources */,
 				DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */,
 				DD95B08027D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
@@ -2468,11 +2619,12 @@
 				DD2723852A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */,
 				DD1078762A691F5200E87B3F /* QRCapture.swift in Sources */,
 				DD1E1D782A016785002DB08B /* OTPValidationService.swift in Sources */,
-				DDB1699A27D20CC200F4D752 /* TipController.swift in Sources */,
 				DDB1699627D20CC200F4D752 /* EditTagNavigation.swift in Sources */,
+				DDA25DA02A8C1F51005D9320 /* Transaction.swift in Sources */,
 				DDB169C527D20CC200F4D752 /* String+Score.swift in Sources */,
 				DDB1697B27D20CC100F4D752 /* PasswordDetailPage.swift in Sources */,
 				DD38ACFB27DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
+				DDA25D9C2A8C1F2A005D9320 /* VerificationResult.swift in Sources */,
 				DDB169BE27D20CC200F4D752 /* NetworkClient.swift in Sources */,
 				DD1E1D7C2A016ABE002DB08B /* OTPService.swift in Sources */,
 				DDC87BCB2A54037700D56A49 /* TreePicker.swift in Sources */,
@@ -2509,9 +2661,11 @@
 				DDF413882955ADF500B886EB /* AnyViewModel.swift in Sources */,
 				DDACC45029EDEF500094D141 /* LogEvent.swift in Sources */,
 				DDB1698827D20CC200F4D752 /* EditPasswordNavigation.swift in Sources */,
+				DD9C50022A7FB9A3002588DD /* ProductIdentifiersRepository.swift in Sources */,
 				DDB1698C27D20CC200F4D752 /* EditOTPPage.swift in Sources */,
 				DD889A1D27DB4AB40021AF5F /* OnSizeChange.swift in Sources */,
 				DDB1697F27D20CC100F4D752 /* SelectFolderNavigation.swift in Sources */,
+				DDA25D982A8C1F05005D9320 /* PurchaseResult.swift in Sources */,
 				DD2D701228C7ED1F000F1607 /* FailableDecodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3051,6 +3205,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		DDA25D8E2A8C1C48005D9320 /* XCRemoteSwiftPackageReference "AnyAsyncSequence" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vsanthanam/AnyAsyncSequence";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -3093,6 +3255,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */;
 			productName = Factory;
+		};
+		DDA25D8F2A8C1C48005D9320 /* AnyAsyncSequence */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDA25D8E2A8C1C48005D9320 /* XCRemoteSwiftPackageReference "AnyAsyncSequence" */;
+			productName = AnyAsyncSequence;
+		};
+		DDA25D912A8C1C70005D9320 /* AnyAsyncSequence */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDA25D8E2A8C1C48005D9320 /* XCRemoteSwiftPackageReference "AnyAsyncSequence" */;
+			productName = AnyAsyncSequence;
+		};
+		DDA25D932A8C1C77005D9320 /* AnyAsyncSequence */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDA25D8E2A8C1C48005D9320 /* XCRemoteSwiftPackageReference "AnyAsyncSequence" */;
+			productName = AnyAsyncSequence;
 		};
 		DDB1696527D1FD2900F4D752 /* Clibsodium */ = {
 			isa = XCSwiftPackageProductDependency;

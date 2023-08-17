@@ -17,5 +17,6 @@ enum ConfigurationMock: Configurating {
     static var jsonDecoder = JSONDecoder()
     static var nonUpdatingJsonEncoder = JSONEncoder()
     static var updatingJsonEncoder = JSONEncoder()
+    static var propertyListDecoder = PropertyListDecoder()
     
 }

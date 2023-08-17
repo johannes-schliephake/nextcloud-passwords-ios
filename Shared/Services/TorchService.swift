@@ -25,7 +25,6 @@ struct TorchService: TorchServiceProtocol {
     var isTorchAvailable: AnyPublisher<Bool, Never> {
         videoCapturer.map(\.isTorchAvailablePublisher) ?? Just(false).eraseToAnyPublisher()
     }
-    
     var isTorchActive: AnyPublisher<Bool, Never> {
         videoCapturer.map(\.isTorchActivePublisher) ?? Just(false).eraseToAnyPublisher()
     }

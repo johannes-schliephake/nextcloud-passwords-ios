@@ -34,7 +34,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
     
     enum Action {
         case addTag
-        case toggleTag(_ tag: Tag)
+        case toggleTag(Tag)
         case selectTags
         case cancel
         case dismissKeyboard

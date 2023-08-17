@@ -13,7 +13,6 @@ struct PasswordDetailPage: View {
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var settingsController: SettingsController
-    @EnvironmentObject private var tipController: TipController
     
     @AppStorage("showMetadata", store: Configuration.userDefaults) private var showMetadata = Configuration.defaults["showMetadata"] as! Bool // swiftlint:disable:this force_cast
     @State private var favicon: UIImage?
@@ -262,7 +261,6 @@ struct PasswordDetailPage: View {
             .environmentObject(biometricAuthenticationController)
             .environmentObject(sessionController)
             .environmentObject(settingsController)
-            .environmentObject(tipController)
         }
     }
     
@@ -684,7 +682,6 @@ struct PasswordDetailPagePreview: PreviewProvider {
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
             .environmentObject(SessionController.mock)
-            .environmentObject(TipController.mock)
         }
     }
     

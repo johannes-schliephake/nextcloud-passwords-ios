@@ -12,6 +12,12 @@ final class LogViewModelTests: XCTestCase {
     @MockInjected(\.logger) private var loggerMock: LoggerMock
     @MockInjected(\.pasteboardService) private var pasteboardServiceMock: PasteboardServiceMock
     
+    override func setUp() {
+        super.setUp()
+        
+        PollingDefaults.timeout = .milliseconds(100)
+    }
+    
     override func tearDown() {
         super.tearDown()
         
@@ -53,7 +59,7 @@ final class LogViewModelTests: XCTestCase {
         
         loggerMock._eventsPublisher.send(nil)
         
-        expect(logViewModel[\.events]).toAlways(beEmpty(), until: .milliseconds(100))
+        expect(logViewModel[\.events]).toAlways(beEmpty())
     }
     
     func testInit_whenLoggerEmittingEmptyEvents_thenSetsEvents() {
@@ -61,7 +67,7 @@ final class LogViewModelTests: XCTestCase {
         
         loggerMock._eventsPublisher.send([])
         
-        expect(logViewModel[\.events]).toAlways(beEmpty(), until: .milliseconds(100))
+        expect(logViewModel[\.events]).toAlways(beEmpty())
     }
     
     func testInit_whenLoggerEmittingEvents_thenSetsEventsReversed() {

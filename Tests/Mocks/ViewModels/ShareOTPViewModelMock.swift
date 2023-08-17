@@ -1,5 +1,4 @@
 @testable import Passwords
-import Factory
 import Foundation
 
 

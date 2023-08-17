@@ -56,11 +56,11 @@ final class CaptureOTPViewModel: CaptureOTPViewModelProtocol {
         weak var `self` = self
         
         torchService.isTorchAvailable
-            .sink { [weak self] in self?.state.isTorchAvailable = $0 }
+            .sink { self?.state.isTorchAvailable = $0 }
             .store(in: &cancellables)
         
         torchService.isTorchActive
-            .sink { [weak self] in self?.state.isTorchActive = $0 }
+            .sink { self?.state.isTorchActive = $0 }
             .store(in: &cancellables)
     }
     

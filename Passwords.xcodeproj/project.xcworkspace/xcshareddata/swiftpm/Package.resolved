@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "anyasyncsequence",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vsanthanam/AnyAsyncSequence",
+      "state" : {
+        "revision" : "9fee8443252bb25e191b0b3b03a006aabac44088",
+        "version" : "1.0.2"
+      }
+    },
+    {
       "identity" : "cwlcatchexception",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mattgallagher/CwlCatchException.git",
@@ -39,7 +48,7 @@
     {
       "identity" : "swift-sodium",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/jedisct1/swift-sodium.git",
+      "location" : "https://github.com/jedisct1/swift-sodium",
       "state" : {
         "branch" : "master",
         "revision" : "f67e6e0814ca9ab67f9ab20a1c0e63870bd52322"

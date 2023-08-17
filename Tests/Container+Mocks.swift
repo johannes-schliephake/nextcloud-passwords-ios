@@ -36,6 +36,10 @@ extension Container {
         self { Password.mocks }
             .shared
     }
+    var session: Factory<Session> {
+        self { .mock }
+            .shared
+    }
     var tag: Factory<Tag> {
         self { .mock }
             .shared

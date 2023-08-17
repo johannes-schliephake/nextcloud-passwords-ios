@@ -1,5 +1,4 @@
 import SwiftUI
-import StoreKit
 
 
 struct MainView: View {
@@ -10,19 +9,17 @@ struct MainView: View {
     @StateObject private var biometricAuthenticationController = Configuration.isTestEnvironment ? BiometricAuthenticationController.mock : BiometricAuthenticationController()
     @StateObject private var sessionController = Configuration.isTestEnvironment ? SessionController.mock : SessionController.default
     @StateObject private var settingsController = Configuration.isTestEnvironment ? SettingsController.mock : SettingsController.default
-    @StateObject private var tipController = Configuration.isTestEnvironment ? TipController.mock : TipController()
+    @StateObject private var globalAlertsViewModel = GlobalAlertsViewModel().eraseToAnyViewModel()
     
     // MARK: Views
     
     var body: some View {
         EntriesNavigation()
-            .onChange(of: tipController.transactionState, perform: didChange)
             .onChange(of: authenticationChallengeController.certificateConfirmationRequests, perform: didChange)
             .copyToast()
             .environmentObject(biometricAuthenticationController)
             .environmentObject(sessionController)
             .environmentObject(settingsController)
-            .environmentObject(tipController)
             .onAppear {
                 biometricAuthenticationController.autoFillController = autoFillController
             }
@@ -33,30 +30,6 @@ struct MainView: View {
     }
     
     // MARK: Functions
-    
-    private func didChange(transactionState: SKPaymentTransactionState?) {
-        guard let transactionState else {
-            return
-        }
-        switch transactionState {
-        case .deferred:
-            UIAlertController.presentGlobalAlert(title: "_tipDeferred".localized, message: "_tipDeferredMessage".localized) {
-                tipController.transactionState = nil
-            }
-        case .purchased, .restored:
-            UIAlertController.presentGlobalAlert(title: "_tipReceived".localized, message: "_tipReceivedMessage".localized, dismissText: "_highFive".localized) {
-                tipController.transactionState = nil
-            }
-        case .failed:
-            UIAlertController.presentGlobalAlert(title: "_tipFailed".localized, message: "_tipFailedMessage".localized) {
-                tipController.transactionState = nil
-            }
-        case .purchasing:
-            return
-        @unknown default:
-            return
-        }
-    }
     
     private func didChange(certificateConfirmationRequests: [AuthenticationChallengeController.CertificateConfirmationRequest]) {
         guard let certificateConfirmationRequest = certificateConfirmationRequests.first else {
