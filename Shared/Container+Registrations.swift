@@ -6,17 +6,9 @@ import StoreKit
 
 extension Container {
     
-    var appStoreType: Factory<any AppStore.Type> {
-        self { StoreKit.AppStore.self }
-    }
+    // MARK: ViewModels
     var captureOTPViewModelType: Factory<any CaptureOTPViewModelProtocol.Type> {
         self { CaptureOTPViewModel.self }
-    }
-    var configurationType: Factory<any Configurating.Type> {
-        self { Configuration.self }
-    }
-    var currentDate: Factory<Date> {
-        self { .init() }
     }
     var editFolderViewModelType: Factory<any EditFolderViewModelProtocol.Type> {
         self { EditFolderViewModel.self }
@@ -27,6 +19,26 @@ extension Container {
     var editTagViewModelType: Factory<any EditTagViewModelProtocol.Type> {
         self { EditTagViewModel.self }
     }
+    var globalAlertsViewModelType: Factory<any GlobalAlertsViewModelProtocol.Type> {
+        self { GlobalAlertsViewModel.self }
+    }
+    var logViewModelType: Factory<any LogViewModelProtocol.Type> {
+        self { LogViewModel.self }
+    }
+    var selectFolderViewModelType: Factory<any SelectFolderViewModelProtocol.Type> {
+        self { SelectFolderViewModel.self }
+    }
+    var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {
+        self { SelectTagsViewModel.self }
+    }
+    var settingsViewModelType: Factory<any SettingsViewModelProtocol.Type> {
+        self { SettingsViewModel.self }
+    }
+    var shareOTPViewModelType: Factory<any ShareOTPViewModelProtocol.Type> {
+        self { ShareOTPViewModel.self }
+    }
+    
+    // MARK: Services
     var folderValidationService: Factory<any FolderValidationServiceProtocol> {
         self { FolderValidationService() }
             .cached
@@ -34,16 +46,6 @@ extension Container {
     var foldersService: Factory<any FoldersServiceProtocol> {
         self { FoldersService() }
             .cached
-    }
-    var globalAlertsViewModelType: Factory<any GlobalAlertsViewModelProtocol.Type> {
-        self { GlobalAlertsViewModel.self }
-    }
-    var logger: Factory<any Logging> {
-        self { Logger() }
-            .cached
-    }
-    var logViewModelType: Factory<any LogViewModelProtocol.Type> {
-        self { LogViewModel.self }
     }
     var otpService: Factory<any OTPServiceProtocol> {
         self { OTPService() }
@@ -57,6 +59,35 @@ extension Container {
         self { PasteboardService() }
             .cached
     }
+    var purchaseService: Factory<any PurchaseServiceProtocol> {
+        self { PurchaseService() }
+            .cached
+    }
+    var qrCodeService: Factory<any QRCodeServiceProtocol> {
+        self { QRCodeService() }
+            .cached
+    }
+    var sessionService: Factory<any SessionServiceProtocol> {
+        self { SessionService() }
+            .cached
+    }
+    var settingsService: Factory<any SettingsServiceProtocol> {
+        self { SettingsService() }
+            .cached
+    }
+    var tagValidationService: Factory<any TagValidationServiceProtocol> {
+        self { TagValidationService() }
+            .cached
+    }
+    var tagsService: Factory<any TagsServiceProtocol> {
+        self { TagsService() }
+            .cached
+    }
+    var torchService: Factory<any TorchServiceProtocol> {
+        self { TorchService() }
+    }
+    
+    // MARK: Repositories
     var productIdentifiersPropertyListDataSource: Factory<any ProductIdentifiersPropertyListDataSourceProtocol> {
         self { ProductIdentifiersPropertyListDataSource() }
             .cached
@@ -73,56 +104,36 @@ extension Container {
         self { ProductsRepository() }
             .cached
     }
+    
+    // MARK: Helpers
+    var logger: Factory<any Logging> {
+        self { Logger() }
+            .cached
+    }
+    
+    // MARK: Seams
+    var appStoreType: Factory<any AppStore.Type> {
+        self { StoreKit.AppStore.self }
+    }
     var productType: Factory<any Product.Type> {
         self { StoreKit.Product.self }
     }
-    var purchaseService: Factory<any PurchaseServiceProtocol> {
-        self { PurchaseService() }
-            .cached
-    }
     var qrCodeGenerator: Factory<(any QRCodeGenerating)?> {
         self { CIFilter(name: "CIQRCodeGenerator") }
-    }
-    var qrCodeService: Factory<any QRCodeServiceProtocol> {
-        self { QRCodeService() }
-            .cached
-    }
-    var selectFolderViewModelType: Factory<any SelectFolderViewModelProtocol.Type> {
-        self { SelectFolderViewModel.self }
-    }
-    var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {
-        self { SelectTagsViewModel.self }
-    }
-    var sessionService: Factory<any SessionServiceProtocol> {
-        self { SessionService() }
-            .cached
-    }
-    var settingsService: Factory<any SettingsServiceProtocol> {
-        self { SettingsService() }
-            .cached
-    }
-    var settingsViewModelType: Factory<any SettingsViewModelProtocol.Type> {
-        self { SettingsViewModel.self }
-    }
-    var shareOTPViewModelType: Factory<any ShareOTPViewModelProtocol.Type> {
-        self { ShareOTPViewModel.self }
-    }
-    var tagValidationService: Factory<any TagValidationServiceProtocol> {
-        self { TagValidationService() }
-            .cached
-    }
-    var tagsService: Factory<any TagsServiceProtocol> {
-        self { TagsService() }
-            .cached
-    }
-    var torchService: Factory<any TorchServiceProtocol> {
-        self { TorchService() }
     }
     var transactionType: Factory<any Transaction.Type> {
         self { StoreKit.Transaction.self }
     }
     var videoCapturer: Factory<(any VideoCapturing)?> {
         self { AVCaptureDevice.default(for: .video) }
+    }
+    
+    // MARK: Miscellaneous
+    var configurationType: Factory<any Configurating.Type> {
+        self { Configuration.self }
+    }
+    var currentDate: Factory<Date> {
+        self { .init() }
     }
     
     // TODO: remove

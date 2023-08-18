@@ -1086,13 +1086,13 @@
 			isa = PBXGroup;
 			children = (
 				8F55B9FE25611A7C008AAC63 /* Views */,
-				DD8282BC2937684B0085115D /* ViewModels */,
 				DD214360295A0139006C08DD /* Services */,
 				8F5A8B1225699EEE00D97E06 /* Controllers */,
 				DDAC9C612A293625005E6011 /* Repositories */,
 				8F55F71125727BDC00E00B28 /* Requests */,
-				8F55B9FF25611A99008AAC63 /* Models */,
 				DDACC44C29EDEDFE0094D141 /* Helpers */,
+				DD5D87F62A8FC7E9008CD9F1 /* Seams */,
+				8F55B9FF25611A99008AAC63 /* Models */,
 				8F56D34A2561CC1400FBCB1B /* Utilities */,
 				8FBE43B7258D5942003F7F34 /* Extensions */,
 				DD03D9C628C8E827006118F2 /* Generated */,
@@ -1117,20 +1117,21 @@
 		8F55295D259CAF8100419233 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */,
-				8F997F942572C79900B5F784 /* EditFolderPage.swift */,
-				DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */,
+				DD5D87F82A8FCA91008CD9F1 /* CaptureOTP */,
+				DD5D87F92A8FCAA5008CD9F1 /* EditFolder */,
+				DD5D87FA2A8FCAB5008CD9F1 /* EditOTP */,
+				DD5D87FB2A8FCAC6008CD9F1 /* EditTag */,
+				DD5D87FC2A8FCADE008CD9F1 /* Log */,
+				DD5D87FD2A8FCAEE008CD9F1 /* SelectFolder */,
+				DD5D87FE2A8FCB02008CD9F1 /* SelectTags */,
+				DD5D87FF2A8FCB10008CD9F1 /* Settings */,
+				DD5D88002A8FCB1F008CD9F1 /* ShareOTP */,
 				8F997FA4257300A600B5F784 /* EditPasswordPage.swift */,
-				DD0E59A8274146C8003D7D50 /* EditTagPage.swift */,
 				8F118754253C9EE10019FECA /* EntriesPage.swift */,
+				DD9C4FFB2A7EB691002588DD /* GlobalAlertsViewModel.swift */,
 				8F582BF9255EA63D00F1E3DA /* LoginFlowPage.swift */,
-				DDC7C94B28C20D1B00451B81 /* LogPage.swift */,
 				8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */,
-				DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */,
-				DD0C28742766028500E3DAEF /* SelectTagsPage.swift */,
 				8F513A62256064E9001C6EF9 /* ServerSetupPage.swift */,
-				8F57B425256C0DD600329B05 /* SettingsPage.swift */,
-				DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -1250,7 +1251,6 @@
 			isa = PBXGroup;
 			children = (
 				DDF413852955ADF500B886EB /* AnyViewModel.swift */,
-				DDA25DA12A8C1F7C005D9320 /* AppStore.swift */,
 				DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */,
 				8F854E6826239314008885C3 /* CoreData.swift */,
 				8F74244526039BD600B73646 /* Crypto.swift */,
@@ -1260,13 +1260,7 @@
 				8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */,
 				8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */,
 				8FA5B74B261109D7006CBC7D /* NetworkClient.swift */,
-				DD9C50172A819692002588DD /* Product.swift */,
-				DDA25D952A8C1F05005D9320 /* PurchaseResult.swift */,
 				DD9C50072A7FC279002588DD /* PropertyListDataSource.swift */,
-				DDCD27812A16C579009EC50F /* QRCodeGenerating.swift */,
-				DDA25D9D2A8C1F51005D9320 /* Transaction.swift */,
-				DDA25D992A8C1F2A005D9320 /* VerificationResult.swift */,
-				DD27237E2A69847E0017BAA2 /* VideoCapturing.swift */,
 				DD8282C52938CBA00085115D /* ViewModel.swift */,
 			);
 			path = Utilities;
@@ -1470,6 +1464,112 @@
 			path = AppConfig;
 			sourceTree = "<group>";
 		};
+		DD5D87F62A8FC7E9008CD9F1 /* Seams */ = {
+			isa = PBXGroup;
+			children = (
+				DDA25DA12A8C1F7C005D9320 /* AppStore.swift */,
+				DD9C50172A819692002588DD /* Product.swift */,
+				DDA25D952A8C1F05005D9320 /* PurchaseResult.swift */,
+				DDCD27812A16C579009EC50F /* QRCodeGenerating.swift */,
+				DDA25D9D2A8C1F51005D9320 /* Transaction.swift */,
+				DDA25D992A8C1F2A005D9320 /* VerificationResult.swift */,
+				DD27237E2A69847E0017BAA2 /* VideoCapturing.swift */,
+			);
+			path = Seams;
+			sourceTree = "<group>";
+		};
+		DD5D87F72A8FCA3C008CD9F1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DD9C50032A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift */,
+				DD9C4FFF2A7FB9A3002588DD /* ProductIdentifiersRepository.swift */,
+				DD9C50132A81862E002588DD /* ProductsAppStoreDataSource.swift */,
+				DD9C4FEF2A7E735C002588DD /* ProductsRepository.swift */,
+			);
+			path = Products;
+			sourceTree = "<group>";
+		};
+		DD5D87F82A8FCA91008CD9F1 /* CaptureOTP */ = {
+			isa = PBXGroup;
+			children = (
+				DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */,
+				DD1078772A69472B00E87B3F /* CaptureOTPViewModel.swift */,
+			);
+			path = CaptureOTP;
+			sourceTree = "<group>";
+		};
+		DD5D87F92A8FCAA5008CD9F1 /* EditFolder */ = {
+			isa = PBXGroup;
+			children = (
+				8F997F942572C79900B5F784 /* EditFolderPage.swift */,
+				DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */,
+			);
+			path = EditFolder;
+			sourceTree = "<group>";
+		};
+		DD5D87FA2A8FCAB5008CD9F1 /* EditOTP */ = {
+			isa = PBXGroup;
+			children = (
+				DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */,
+				DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */,
+			);
+			path = EditOTP;
+			sourceTree = "<group>";
+		};
+		DD5D87FB2A8FCAC6008CD9F1 /* EditTag */ = {
+			isa = PBXGroup;
+			children = (
+				DD0E59A8274146C8003D7D50 /* EditTagPage.swift */,
+				DD9A99F62A23E9120016722F /* EditTagViewModel.swift */,
+			);
+			path = EditTag;
+			sourceTree = "<group>";
+		};
+		DD5D87FC2A8FCADE008CD9F1 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				DDC7C94B28C20D1B00451B81 /* LogPage.swift */,
+				DDACC45329EF3F440094D141 /* LogViewModel.swift */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
+		DD5D87FD2A8FCAEE008CD9F1 /* SelectFolder */ = {
+			isa = PBXGroup;
+			children = (
+				DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */,
+				DDC87BCC2A54100900D56A49 /* SelectFolderViewModel.swift */,
+			);
+			path = SelectFolder;
+			sourceTree = "<group>";
+		};
+		DD5D87FE2A8FCB02008CD9F1 /* SelectTags */ = {
+			isa = PBXGroup;
+			children = (
+				DD0C28742766028500E3DAEF /* SelectTagsPage.swift */,
+				DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */,
+			);
+			path = SelectTags;
+			sourceTree = "<group>";
+		};
+		DD5D87FF2A8FCB10008CD9F1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8F57B425256C0DD600329B05 /* SettingsPage.swift */,
+				DDB00D282A6EA24E0060909F /* SettingsViewModel.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		DD5D88002A8FCB1F008CD9F1 /* ShareOTP */ = {
+			isa = PBXGroup;
+			children = (
+				DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */,
+				DD5739982A1028FF004B6E69 /* ShareOTPViewModel.swift */,
+			);
+			path = ShareOTP;
+			sourceTree = "<group>";
+		};
 		DD5E3CAF295363DB0032F517 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1541,23 +1641,6 @@
 			path = TestCases;
 			sourceTree = "<group>";
 		};
-		DD8282BC2937684B0085115D /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				DD1078772A69472B00E87B3F /* CaptureOTPViewModel.swift */,
-				DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */,
-				DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */,
-				DD9A99F62A23E9120016722F /* EditTagViewModel.swift */,
-				DD9C4FFB2A7EB691002588DD /* GlobalAlertsViewModel.swift */,
-				DDACC45329EF3F440094D141 /* LogViewModel.swift */,
-				DDC87BCC2A54100900D56A49 /* SelectFolderViewModel.swift */,
-				DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */,
-				DDB00D282A6EA24E0060909F /* SettingsViewModel.swift */,
-				DD5739982A1028FF004B6E69 /* ShareOTPViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		DDAC9C5F2A2930C0005E6011 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
@@ -1579,10 +1662,7 @@
 		DDAC9C612A293625005E6011 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				DD9C50032A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift */,
-				DD9C4FFF2A7FB9A3002588DD /* ProductIdentifiersRepository.swift */,
-				DD9C50132A81862E002588DD /* ProductsAppStoreDataSource.swift */,
-				DD9C4FEF2A7E735C002588DD /* ProductsRepository.swift */,
+				DD5D87F72A8FCA3C008CD9F1 /* Products */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
