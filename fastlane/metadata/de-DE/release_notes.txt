@@ -1,2 +1,1 @@
-• Suchalgorithmus berücksichtigt jetzt URL-Portnummern
 • Optimierungen

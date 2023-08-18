@@ -42,10 +42,10 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
             .decode(type: Response?.self, decoder: Configuration.jsonDecoder)
             .handleEvents(receiveCompletion: {
                 [weak self] completion in
-                if case .failure(let error) = completion,
-                   error is DecodingError {
-                    self?.logger.log(error: error)
+                guard case .failure(let error) = completion else {
+                    return
                 }
+                self?.logger.log(error: error)
             })
             .catch {
                 error in
