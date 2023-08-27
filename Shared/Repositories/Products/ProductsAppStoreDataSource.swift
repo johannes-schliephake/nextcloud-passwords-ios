@@ -15,7 +15,7 @@ struct ProductsAppStoreDataSource: ProductsAppStoreDataSourceProtocol {
     @Injected(\.productType) private var productType
     
     func products(for identifiers: [String]) -> AnyPublisher<[any Product], Error> {
-        Future { try await productType.products(for: identifiers) }
+        Bridge { try await productType.products(for: identifiers) }
             .eraseToAnyPublisher()
     }
     

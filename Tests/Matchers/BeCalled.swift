@@ -40,7 +40,7 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
 
 
 func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameters expectedParameters: any Equatable..., atCallIndex parameterCallIndex: Int? = nil) -> Predicate<L> {
-    Predicate { expression in
+    .init { expression in
         var message: ExpectationMessage
         if let expectedCall {
             message = .expectedTo("call <\(expectedCall)>")

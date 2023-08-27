@@ -1,5 +1,6 @@
 import Combine
 import Factory
+import Foundation
 
 
 enum TransactionState {
@@ -71,7 +72,8 @@ final class PurchaseService: PurchaseServiceProtocol {
             .sink { self?.productsInternal = $0 }
             .store(in: &cancellables)
         
-        PassthroughSubject(transactionType.updates)
+        Bridge(nonthrowing: transactionType.updates)
+            .receive(on: DispatchQueue.main)
             .sink { self?.handlePurchaseResult(.success($0)) }
             .store(in: &cancellables)
     }
@@ -81,7 +83,8 @@ final class PurchaseService: PurchaseServiceProtocol {
         
         transactionStateInternal = .purchasing
         
-        Future { try await product.purchase() }
+        Bridge { try await product.purchase() }
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 if case .failure = completion {
                     self?.transactionStateInternal = .failed
@@ -110,7 +113,7 @@ final class PurchaseService: PurchaseServiceProtocol {
                 break
             }
             transactionState = .purchased
-            Future { await transaction.finish() }
+            Bridge { await transaction.finish() }
                 .sink {}
                 .store(in: &cancellables)
         case .pending:
