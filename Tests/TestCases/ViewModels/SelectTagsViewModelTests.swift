@@ -10,6 +10,7 @@ final class SelectTagsViewModelTests: XCTestCase {
     @Injected(\.tags) private var tagMocks
     
     @MockInjected(\.tagsService) private var tagsServiceMock: TagsServiceMock
+    @MockInjected(\.tagValidationService) private var tagValidationServiceMock: TagValidationServiceMock
     
     override func tearDown() {
         super.tearDown()
@@ -22,9 +23,30 @@ final class SelectTagsViewModelTests: XCTestCase {
         
         expect(selectTagsViewModel[\.temporaryEntry]).to(equal(temporaryEntryMock))
         expect(selectTagsViewModel[\.tagLabel]).to(beEmpty())
+        expect(selectTagsViewModel[\.tagLabelIsValid]).to(beFalse())
         expect(selectTagsViewModel[\.selectableTags].map(\.tag)).to(beEmpty())
         expect(selectTagsViewModel[\.hasChanges]).to(beFalse())
         expect(selectTagsViewModel[\.focusedField]).to(beNil())
+    }
+    
+    func testInit_whenChangingTagLabel_thenCallsTagValidationService() {
+        let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntryMock) { _, _ in }
+        let newTagLabel = String.random()
+        
+        selectTagsViewModel[\.tagLabel] = newTagLabel
+        
+        expect(self.tagValidationServiceMock).to(beCalled(.twice, on: "validate(label:)", withParameters: newTagLabel, atCallIndex: 1))
+    }
+    
+    func testInit_whenChangingTagLabel_thenUpdatesTagLabelIsValid() {
+        let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntryMock) { _, _ in }
+        let validateTagMock = Bool.random()
+        let newTagLabel = String.random()
+        tagValidationServiceMock._validate = validateTagMock
+        
+        selectTagsViewModel[\.tagLabel] = newTagLabel
+        
+        expect(selectTagsViewModel[\.tagLabelIsValid]).to(equal(validateTagMock))
     }
     
     func testInit_thenCallsTagsService() {

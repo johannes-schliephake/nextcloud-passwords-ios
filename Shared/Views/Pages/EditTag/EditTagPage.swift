@@ -52,7 +52,9 @@ struct EditTagPage: View {
                 .focused($focusedField, equals: .tagLabel)
                 .submitLabel(.done)
                 .onSubmit {
-                    viewModel(.applyToTag)
+                    if viewModel[\.editIsValid] {
+                        viewModel(.applyToTag)
+                    }
                 }
         }
     }

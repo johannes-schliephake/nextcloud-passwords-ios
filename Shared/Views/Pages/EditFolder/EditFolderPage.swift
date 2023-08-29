@@ -52,7 +52,9 @@ struct EditFolderPage: View {
                 .focused($focusedField, equals: .folderLabel)
                 .submitLabel(.done)
                 .onSubmit {
-                    viewModel(.applyToFolder)
+                    if viewModel[\.editIsValid] {
+                        viewModel(.applyToFolder)
+                    }
                 }
         }
     }

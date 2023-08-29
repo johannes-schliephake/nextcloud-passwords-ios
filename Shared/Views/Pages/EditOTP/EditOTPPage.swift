@@ -57,7 +57,9 @@ struct EditOTPPage: View {
             }
         }
         .onSubmit {
-            viewModel(.submit)
+            if viewModel[\.nextFieldFocusable] || viewModel[\.editIsValid] {
+                viewModel(.submit)
+            }
         }
     }
     

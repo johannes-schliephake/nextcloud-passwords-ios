@@ -17,7 +17,7 @@ protocol FoldersServiceProtocol {
 
 enum FolderApplyError: Error {
     case validationFailed
-    case idNotAvailableLocally
+    case isProcessing
 }
 
 
@@ -49,8 +49,8 @@ final class FoldersService: FoldersServiceProtocol {
         guard folderValidationService.validate(label: folderLabel, parent: folderParent) else {
             throw FolderApplyError.validationFailed
         }
-        guard folder.isIdLocallyAvailable else {
-            throw FolderApplyError.idNotAvailableLocally
+        guard folder.state?.isProcessing != true else {
+            throw FolderApplyError.isProcessing
         }
         
         let currentDate = resolve(\.currentDate)

@@ -16,15 +16,17 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
         
         let temporaryEntry: TemporaryEntry
         @Published var tagLabel: String
+        fileprivate(set) var tagLabelIsValid: Bool
         @Published fileprivate(set) var selectableTags: [(tag: Tag, isSelected: Bool)]
         @Published fileprivate(set) var hasChanges: Bool
         @Published var focusedField: FocusField?
         
         let shouldDismiss = PassthroughSubject<Void, Never>()
         
-        init(temporaryEntry: TemporaryEntry, tagLabel: String, selectableTags: [(tag: Tag, isSelected: Bool)], hasChanges: Bool, focusedField: FocusField?) {
+        init(temporaryEntry: TemporaryEntry, tagLabel: String, tagLabelIsValid: Bool, selectableTags: [(tag: Tag, isSelected: Bool)], hasChanges: Bool, focusedField: FocusField?) {
             self.temporaryEntry = temporaryEntry
             self.tagLabel = tagLabel
+            self.tagLabelIsValid = tagLabelIsValid
             self.selectableTags = selectableTags
             self.hasChanges = hasChanges
             self.focusedField = focusedField
@@ -58,6 +60,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
     }
     
     @Injected(\.tagsService) private var tagsService
+    @Injected(\.tagValidationService) private var tagValidationService
     @LazyInjected(\.logger) private var logger
     
     let state: State
@@ -67,7 +70,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init(temporaryEntry: TemporaryEntry, selectTags: @escaping ([Tag], [String]) -> Void) {
-        state = .init(temporaryEntry: temporaryEntry, tagLabel: "", selectableTags: [], hasChanges: false, focusedField: nil)
+        state = .init(temporaryEntry: temporaryEntry, tagLabel: "", tagLabelIsValid: false, selectableTags: [], hasChanges: false, focusedField: nil)
         self.selectTags = selectTags
         invalidTags = []
         
@@ -81,6 +84,11 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
             .map { ($0, self?.state.hasChanges ?? false) }
             .share()
             .makeConnectable()
+        
+        state.$tagLabel
+            .compactMap { self?.tagValidationService.validate(label: $0) }
+            .sink { self?.state.tagLabelIsValid = $0 }
+            .store(in: &cancellables)
         
         Publishers.Zip(
             tagsService.tags,

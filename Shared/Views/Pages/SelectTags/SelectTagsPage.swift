@@ -88,7 +88,9 @@ struct SelectTagsPage: View {
                 .focused($focusedField, equals: .addTagLabel)
                 .submitLabel(.done)
                 .onSubmit {
-                    viewModel(.addTag)
+                    if viewModel [\.tagLabelIsValid] {
+                        viewModel(.addTag)
+                    }
                 }
         }
         .padding(.horizontal, 10)

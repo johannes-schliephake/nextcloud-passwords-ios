@@ -23,7 +23,7 @@ enum TagAddError: Error {
 
 enum TagApplyError: Error {
     case validationFailed
-    case idNotAvailableLocally
+    case isProcessing
 }
 
 
@@ -59,8 +59,8 @@ final class TagsService: TagsServiceProtocol {
         guard tagValidationService.validate(label: tagLabel) else {
             throw TagAddError.validationFailed
         }
-        guard tag.isIdLocallyAvailable else {
-            throw TagApplyError.idNotAvailableLocally
+        guard tag.state?.isProcessing != true else {
+            throw TagApplyError.isProcessing
         }
         
         let currentDate = resolve(\.currentDate)
