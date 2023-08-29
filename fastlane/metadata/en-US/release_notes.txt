@@ -1,1 +1,2 @@
-• Optimizations
+• Upgraded parts of the app to a new architecture
+• Bugfixes and optimizations
