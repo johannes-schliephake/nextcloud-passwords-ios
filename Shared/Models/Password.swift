@@ -1,7 +1,10 @@
 import Foundation
+import Factory
 
 
 final class Password: ObservableObject, Identifiable {
+    
+    @LazyInjected(\.logger) private var logger
     
     @Published var id: String
     @Published var label: String
@@ -63,7 +66,7 @@ final class Password: ObservableObject, Identifiable {
                 return try Configuration.jsonDecoder.decode(OTP.self, from: otpData)
             }
             catch {
-                LoggingController.shared.log(error: error)
+                logger.log(error: error)
                 return nil
             }
         }
@@ -75,9 +78,13 @@ final class Password: ObservableObject, Identifiable {
                   let value = String(data: data, encoding: .utf8) else {
                 return
             }
-            let otpField = CustomField(label: CustomField.OtpKey, type: .data, value: value)
+            let otpField = CustomField(label: CustomField.otpKey, type: .data, value: value)
             customFields.append(otpField)
         }
+    }
+    
+    var isIdLocallyAvailable: Bool {
+        !id.isEmpty
     }
     
     init(id: String = "", label: String = "", username: String = "", password: String = "", url: String = "", notes: String = "", customFields: [CustomField] = [], status: Int = 0, statusCode: StatusCode = .unknown, hash: String = "unknown", folder: String, revision: String = "", share: String? = nil, shared: Bool = false, cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, editable: Bool = true, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0), tags: [String] = []) {
@@ -109,7 +116,7 @@ final class Password: ObservableObject, Identifiable {
         self.tags = tags
     }
     
-    required init(from decoder: Decoder) throws {
+    required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(String.self, forKey: .id)
@@ -153,7 +160,7 @@ final class Password: ObservableObject, Identifiable {
                   let decryptedNotes = Crypto.CSEv1r1.decrypt(payload: notes, key: key),
                   let decryptedCustomFieldsString = Crypto.CSEv1r1.decrypt(payload: customFieldsString, key: key) else {
                 state = .decryptionFailed
-                LoggingController.shared.log(error: "Failed to decrypt password")
+                logger.log(error: "Failed to decrypt password")
                 return
             }
             label = decryptedLabel
@@ -164,7 +171,7 @@ final class Password: ObservableObject, Identifiable {
             customFieldsString = decryptedCustomFieldsString
         default:
             state = .decryptionFailed
-            LoggingController.shared.log(error: "Unknown client side encryption type")
+            logger.log(error: "Unknown client side encryption type")
         }
         
         if customFieldsString.isEmpty {
@@ -179,7 +186,7 @@ final class Password: ObservableObject, Identifiable {
         }
         catch {
             guard let legacyCustomFields = try? Configuration.jsonDecoder.decode([String: [String: String]].self, from: customFieldsData) else {
-                LoggingController.shared.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed -- JSON object is \(customFieldsString)", underlyingError: error)))
+                logger.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed -- JSON object is \(customFieldsString)", underlyingError: error)))
                 return
             }
             customFields = legacyCustomFields
@@ -187,7 +194,7 @@ final class Password: ObservableObject, Identifiable {
                     name, object in
                     guard let type = object["type"].flatMap(CustomField.CustomFieldType.init),
                           let value = object["value"] else {
-                        LoggingController.shared.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Legacy custom fields decoding failed -- JSON object is \(customFieldsString)")))
+                        logger.log(error: DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Legacy custom fields decoding failed -- JSON object is \(customFieldsString)")))
                         return nil
                     }
                     if name.hasPrefix("_") {
@@ -347,7 +354,7 @@ extension Password: Codable {
         case tags
     }
     
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         let customFieldsData = try Configuration.nonUpdatingJsonEncoder.encode(customFields)
@@ -452,7 +459,7 @@ extension Password {
     
     struct CustomField: Identifiable, Equatable, Codable {
         
-        static let OtpKey = "client.ios.otp"
+        static let otpKey = "client.ios.otp"
         
         let id = UUID()
         var label: String
@@ -504,7 +511,7 @@ extension Password {
         }
         
         var isOtpField: Bool {
-            type == .data && label == CustomField.OtpKey
+            type == .data && label == Self.otpKey
         }
         
     }
@@ -529,7 +536,7 @@ extension Password: MockObject {
     
     static var mocks: [Password] {
         [
-            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com/index.php/login", customFields: [CustomField(label: CustomField.OtpKey, type: .data, value: String(data: try! Configuration.nonUpdatingJsonEncoder.encode(OTP.mock), encoding: .utf8)!)], status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", favorite: true, edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001", "00000000-0000-0000-0003-000000000002"]), // swiftlint:disable:this force_try
+            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com/index.php/login", customFields: [CustomField(label: CustomField.otpKey, type: .data, value: String(data: try! Configuration.nonUpdatingJsonEncoder.encode(OTP.mock), encoding: .utf8)!)], status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", favorite: true, edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001", "00000000-0000-0000-0003-000000000002"]), // swiftlint:disable:this force_try
             Password(id: "00000000-0000-0000-0002-000000000002", label: "GitHub", username: "johannes-schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://github.com/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001"]),
             Password(id: "00000000-0000-0000-0002-000000000003", label: "Weblate", username: "johannes.schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://hosted.weblate.org/accounts/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date()),
             Password(id: "00000000-0000-0000-0002-000000000004", label: "Swift.org", username: "johannes", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://forums.swift.org/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001"])

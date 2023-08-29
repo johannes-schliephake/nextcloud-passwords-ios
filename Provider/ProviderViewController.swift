@@ -1,8 +1,19 @@
 import AuthenticationServices
 import SwiftUI
+import Factory
 
 
 final class ProviderViewController: ASCredentialProviderViewController {
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        _ = resolve(\.logger)
+        
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented") // swiftlint:disable:this fatal_error
+    }
     
     override func provideCredentialWithoutUserInteraction(for credentialIdentity: ASPasswordCredentialIdentity) {
         AutoFillController.default.mode = .provider

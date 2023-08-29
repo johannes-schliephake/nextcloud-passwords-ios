@@ -20,7 +20,7 @@ private struct Tooltip<Content: View>: View {
     @State private var contentHeight = 0.0
     
     var body: some View {
-        Popover(isPresented: $isPresented, maxSize: CGSize(width: Tooltip.maxSize.width, height: contentHeight.clamped(to: 1...Tooltip.maxSize.height)), arrowDirections: arrowDirections) {
+        Popover(isPresented: $isPresented, maxSize: CGSize(width: Self.maxSize.width, height: contentHeight.clamped(to: 1...Self.maxSize.height)), arrowDirections: arrowDirections) {
             content()
                 .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20) - Self.safeArea)
                 .fixedSize(horizontal: false, vertical: true)

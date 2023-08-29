@@ -1,1 +1,2 @@
-• Optimierungen
+• Teile der App auf eine neue Architektur aktualisiert
+• Fehlerbehebungen und Optimierungen

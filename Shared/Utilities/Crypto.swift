@@ -51,7 +51,7 @@ extension Crypto {
             let current: String
             let keys: [String: Bytes]
             
-            required init(from decoder: Decoder) throws {
+            required init(from decoder: any Decoder) throws {
                 let container = try decoder.container(keyedBy: CodingKeys.self)
                 
                 current = try container.decode(String.self, forKey: .current)

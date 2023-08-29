@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "FF7DF7DE-99CE-4ACE-9350-12CCE90619EC",
+      "name" : "Default",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Passwords.xcodeproj",
+      "identifier" : "8F11874E253C9EE10019FECA",
+      "name" : "Passwords"
+    },
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Passwords.xcodeproj",
+        "identifier" : "DD5E3CAD295363DB0032F517",
+        "name" : "Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

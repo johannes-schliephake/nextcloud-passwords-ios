@@ -1,5 +1,5 @@
 import WebKit
-import Combine
+import Foundation
 
 
 final class AuthenticationChallengeController: NSObject, ObservableObject {

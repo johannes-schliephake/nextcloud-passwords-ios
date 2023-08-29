@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "58F438B3-9A61-44DC-87C0-5BC4260A425C",
+      "name" : "Default",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Passwords.xcodeproj",
+      "identifier" : "8F11874E253C9EE10019FECA",
+      "name" : "Passwords"
+    },
+    "uiTestingScreenshotsLifetime" : "keepNever"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Passwords.xcodeproj",
+        "identifier" : "8FCBF8B925AE152500F75B33",
+        "name" : "Snapshot"
+      }
+    }
+  ],
+  "version" : 1
+}

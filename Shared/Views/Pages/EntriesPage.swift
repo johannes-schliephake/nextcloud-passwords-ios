@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct EntriesPage: View {
@@ -6,6 +7,7 @@ struct EntriesPage: View {
     @ObservedObject var entriesController: EntriesController
     private let showFilterSortMenu: Bool
     
+    @Injected(\.logger) private var logger
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var sessionController: SessionController
     
@@ -282,19 +284,26 @@ struct EntriesPage: View {
             item in
             switch item {
             case .edit(.folder(let folder)):
-                EditFolderNavigation(entriesController: entriesController, folder: folder)
+                EditFolderNavigation(folder: folder)
             case .edit(.password(let password)):
                 EditPasswordNavigation(entriesController: entriesController, password: password)
             case .edit(.tag(let tag)):
-                EditTagNavigation(entriesController: entriesController, tag: tag)
+                EditTagNavigation(tag: tag)
             case .move(.folder(let folder)):
-                SelectFolderNavigation(entriesController: entriesController, entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), selectFolder: {
+                SelectFolderNavigation(entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent ?? ""), selectFolder: {
                     parent in
                     folder.parent = parent.id
                     entriesController.update(folder: folder)
                 })
+                .onAppear {
+                    if folder.isBaseFolder {
+                        logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
+                    } else if folder.parent == nil {
+                        logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
+                    }
+                }
             case .move(.password(let password)):
-                SelectFolderNavigation(entriesController: entriesController, entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), selectFolder: {
+                SelectFolderNavigation(entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), selectFolder: {
                     parent in
                     password.folder = parent.id
                     entriesController.update(password: password)
@@ -304,7 +313,7 @@ struct EntriesPage: View {
             case .tag(.folder):
                 EmptyView()
             case .tag(.password(let password)):
-                SelectTagsNavigation(entriesController: entriesController, temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
+                SelectTagsNavigation(temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
                     validTags, invalidTags in
                     password.tags = validTags.map { $0.id } + invalidTags
                     entriesController.update(password: password)
@@ -392,10 +401,7 @@ struct EntriesPage: View {
                         showSettingsView = true
                     }
                     .sheet(isPresented: $showSettingsView) {
-                        SettingsNavigation(updateOfflineData: {
-                            entriesController.updateOfflineContainers()
-                            entriesController.updateAutoFillCredentials()
-                        })
+                        SettingsNavigation()
                     }
                 }
             }
@@ -1085,7 +1091,7 @@ extension EntriesPage {
                             let validTags = EntriesController.tags(for: password.tags, in: tags).valid
                             if !validTags.isEmpty {
                                 HStack(spacing: -6) {
-                                    ForEach(Array(validTags.sortedByLabel().prefix(10).enumerated()), id: \.element.id) {
+                                    ForEach(Array(validTags.sorted().prefix(10).enumerated()), id: \.element.id) {
                                         index, tag in
                                         Circle()
                                             .stroke(Color(UIColor.systemBackground), lineWidth: 2)
@@ -1184,14 +1190,17 @@ extension EntriesPage {
                 Image(systemName: "xmark.shield.fill")
                     .foregroundColor(.red)
             case .unknown:
-                ZStack {
-                    Image(systemName: "shield.fill")
-                        .foregroundColor(.gray)
-                    Image(systemName: "questionmark")
-                        .font(.body.bold())
-                        .foregroundColor(Color(.systemBackground))
-                        .scaleEffect(0.5)
-                }
+                Image(systemName: "shield.fill")
+                    .foregroundColor(.gray)
+                    .mask {
+                        Image(systemName: "questionmark")
+                            .font(.body.bold())
+                            .scaleEffect(0.5)
+                            .foregroundColor(.black)
+                            .background(.white)
+                            .compositingGroup()
+                            .luminanceToAlpha()
+                    }
             }
         }
         
@@ -1397,6 +1406,8 @@ extension EntriesPage {
 }
 
 
+#if DEBUG
+
 struct EntriesPagePreview: PreviewProvider {
     
     static var previews: some View {
@@ -1408,8 +1419,9 @@ struct EntriesPagePreview: PreviewProvider {
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
             .environmentObject(SessionController.mock)
-            .environmentObject(TipController.mock)
         }
     }
     
 }
+
+#endif

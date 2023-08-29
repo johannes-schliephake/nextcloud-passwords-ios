@@ -13,7 +13,6 @@ struct PasswordDetailPage: View {
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var settingsController: SettingsController
-    @EnvironmentObject private var tipController: TipController
     
     @AppStorage("showMetadata", store: Configuration.userDefaults) private var showMetadata = Configuration.defaults["showMetadata"] as! Bool // swiftlint:disable:this force_cast
     @State private var favicon: UIImage?
@@ -144,7 +143,7 @@ struct PasswordDetailPage: View {
                         ForEach(duplicates) {
                             duplicate in
                             NavigationLink("", tag: .duplicate(password: duplicate), selection: $navigationSelection) {
-                                PasswordDetailPage(entriesController: entriesController, password: duplicate, updatePassword: {
+                                Self(entriesController: entriesController, password: duplicate, updatePassword: {
                                     entriesController.update(password: duplicate)
                                 }, deletePassword: {
                                     entriesController.delete(password: duplicate)
@@ -164,15 +163,18 @@ struct PasswordDetailPage: View {
                     .font(.title)
                     .foregroundColor(.red)
             case .unknown:
-                ZStack {
-                    Image(systemName: "shield.fill")
-                        .font(.title)
-                        .foregroundColor(.gray)
-                    Image(systemName: "questionmark")
-                        .font(.title.bold())
-                        .foregroundColor(Color(.systemGroupedBackground))
-                        .scaleEffect(0.5)
-                }
+                Image(systemName: "shield.fill")
+                    .font(.title)
+                    .foregroundColor(.gray)
+                    .mask {
+                        Image(systemName: "questionmark")
+                            .font(.title.bold())
+                            .scaleEffect(0.5)
+                            .foregroundColor(.black)
+                            .background(.white)
+                            .compositingGroup()
+                            .luminanceToAlpha()
+                    }
             }
         }
         .buttonStyle(.borderless)
@@ -259,7 +261,6 @@ struct PasswordDetailPage: View {
             .environmentObject(biometricAuthenticationController)
             .environmentObject(sessionController)
             .environmentObject(settingsController)
-            .environmentObject(tipController)
         }
     }
     
@@ -306,14 +307,14 @@ struct PasswordDetailPage: View {
                 if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
                     if #available(iOS 16, *) {
                         FlowView {
-                            ForEach(validTags.sortedByLabel()) {
+                            ForEach(validTags.sorted()) {
                                 tag in
                                 TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
                             }
                         }
                     }
                     else {
-                        LegacyFlowView(validTags.sortedByLabel()) {
+                        LegacyFlowView(validTags.sorted()) {
                             tag in
                             TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
                         }
@@ -332,7 +333,7 @@ struct PasswordDetailPage: View {
                         .hidden()
                         if #available(iOS 16, *) {
                             FlowView {
-                                ForEach(validTags.sortedByLabel()) {
+                                ForEach(validTags.sorted()) {
                                     tag in
                                     Button {
                                         navigationSelection = .entries(tag: tag)
@@ -345,7 +346,7 @@ struct PasswordDetailPage: View {
                             }
                         }
                         else {
-                            LegacyFlowView(validTags.sortedByLabel()) {
+                            LegacyFlowView(validTags.sorted()) {
                                 tag in
                                 Button {
                                     navigationSelection = .entries(tag: tag)
@@ -361,7 +362,7 @@ struct PasswordDetailPage: View {
             }
         }
         .sheet(isPresented: $showSelectTagsView) {
-            SelectTagsNavigation(entriesController: entriesController, temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
+            SelectTagsNavigation(temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
                 validTags, invalidTags in
                 password.tags = validTags.map { $0.id } + invalidTags
                 entriesController.update(password: password)
@@ -456,7 +457,7 @@ struct PasswordDetailPage: View {
                                             Text(ancestor.label)
                                             if password.folder != ancestor.id {
                                                 Image(systemName: "chevron.forward")
-                                                    .foregroundColor(.gray)
+                                                    .foregroundColor(Color(.systemGray))
                                             }
                                         }
                                     }
@@ -469,7 +470,7 @@ struct PasswordDetailPage: View {
                                         Text(ancestor.label)
                                         if password.folder != ancestor.id {
                                             Image(systemName: "chevron.forward")
-                                                .foregroundColor(.gray)
+                                                .foregroundColor(Color(.systemGray))
                                         }
                                     }
                                 }
@@ -512,6 +513,7 @@ struct PasswordDetailPage: View {
             content()
                 .font(.footnote)
                 .multilineTextAlignment(.trailing)
+                .imageScale(.medium)
                 .fixedSize(horizontal: false, vertical: true)
         }
     }
@@ -667,6 +669,8 @@ extension PasswordDetailPage {
 }
 
 
+#if DEBUG
+
 struct PasswordDetailPagePreview: PreviewProvider {
     
     static var previews: some View {
@@ -678,8 +682,9 @@ struct PasswordDetailPagePreview: PreviewProvider {
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
             .environmentObject(SessionController.mock)
-            .environmentObject(TipController.mock)
         }
     }
     
 }
+
+#endif

@@ -11,7 +11,7 @@ struct CaptureOTPNavigation: View {
     
     var body: some View {
         NavigationView {
-            CaptureOTPPage(capture: capture)
+            CaptureOTPPage(viewModel: CaptureOTPViewModel(captureOtp: capture).eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {
