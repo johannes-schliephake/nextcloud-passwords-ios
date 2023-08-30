@@ -32,7 +32,7 @@ final class CaptureOTPViewModel: CaptureOTPViewModelProtocol {
     
     enum Action {
         case toggleTorch
-        case captureQrResult(Result<String, Error>)
+        case captureQrResult(Result<String, any Error>)
         case cancel
     }
     

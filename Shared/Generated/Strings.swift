@@ -178,7 +178,7 @@ internal enum Strings {
 // MARK: - Implementation Details
 
 extension Strings {
-  private static func tr(_ table: String, _ key: String, _ args: CVarArg..., fallback value: String) -> String {
+  private static func tr(_ table: String, _ key: String, _ args: any CVarArg..., fallback value: String) -> String {
     let format = BundleToken.bundle.localizedString(forKey: key, value: value, table: table)
     return String(format: format, locale: Locale.current, arguments: args)
   }
