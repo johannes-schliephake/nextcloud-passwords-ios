@@ -36,7 +36,7 @@ private struct Initialize<Value: Hashable>: ViewModifier {
                     binding.wrappedValue = initial
                 }
                 if #available(iOS 16, *) {
-                    try await Task.sleep(until: .now + .milliseconds(100), tolerance: .milliseconds(50), clock: .suspending)
+                    try await Task.sleep(for: .milliseconds(100), clock: .suspending)
                 } else {
                     try await Task.sleep(nanoseconds: 100_000_000)
                 }
