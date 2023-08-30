@@ -8,6 +8,7 @@ struct EntriesPage: View {
     private let showFilterSortMenu: Bool
     
     @Injected(\.logger) private var logger
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var sessionController: SessionController
     
@@ -119,8 +120,20 @@ struct EntriesPage: View {
             Button("_connectToServer") {
                 showServerSetupView = true
             }
-            .frame(maxWidth: 600)
             .buttonStyle(.action)
+            .apply { view in
+                if horizontalSizeClass != .compact {
+                    if #available(iOS 17, *) {
+                        GeometryReader { geometryProxy in
+                            view
+                                .contentMargins(.horizontal, (geometryProxy.size.width - 600) / 2, for: .scrollContent)
+                        }
+                    } else {
+                        view
+                            .frame(maxWidth: 600)
+                    }
+                }
+            }
             .sheet(isPresented: $showServerSetupView) {
                 ServerSetupNavigation()
             }
@@ -157,7 +170,6 @@ struct EntriesPage: View {
                 SecureField("-", text: $challengePassword, onCommit: {
                     solveChallenge()
                 })
-                .frame(maxWidth: 600)
                 .focused($focusedField, equals: .challengePassword)
                 .submitLabel(.done)
                 .onAppear {
@@ -182,20 +194,30 @@ struct EntriesPage: View {
                         }
                     }
                 }
-                .frame(maxWidth: 600)
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
                 .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
             Button("_logIn") {
                 solveChallenge()
             }
-            .frame(maxWidth: 600)
             .buttonStyle(.action)
             .listRowInsets(EdgeInsets())
             .disabled(challengePassword.count < 12)
         }
         .listStyle(.insetGrouped)
-        .frame(maxWidth: 600)
+        .apply { view in
+            if horizontalSizeClass != .compact {
+                if #available(iOS 17, *) {
+                    GeometryReader { geometryProxy in
+                        view
+                            .contentMargins(.horizontal, (geometryProxy.size.width - 600) / 2, for: .scrollContent)
+                    }
+                } else {
+                    view
+                        .frame(maxWidth: 600)
+                }
+            }
+        }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()

@@ -9,6 +9,7 @@ struct PasswordDetailPage: View {
     let deletePassword: () -> Void
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
@@ -114,6 +115,16 @@ struct PasswordDetailPage: View {
                     .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
             .listStyle(.insetGrouped)
+            .apply { view in
+                if horizontalSizeClass != .compact {
+                    if #available(iOS 17, *) {
+                        GeometryReader { geometryProxy in
+                            view
+                                .contentMargins(.horizontal, max(0, (geometryProxy.size.width - 600) / 2), for: .scrollContent)
+                        }
+                    }
+                }
+            }
             .onAppear {
                 /// Fix offset scroll view on iOS 16
                 DispatchQueue.main.async {
