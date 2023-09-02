@@ -116,12 +116,11 @@ struct PasswordDetailPage: View {
             }
             .listStyle(.insetGrouped)
             .apply { view in
-                if horizontalSizeClass != .compact {
-                    if #available(iOS 17, *) {
-                        GeometryReader { geometryProxy in
-                            view
-                                .contentMargins(.horizontal, max(0, (geometryProxy.size.width - 600) / 2), for: .scrollContent)
-                        }
+                if horizontalSizeClass != .compact,
+                   #available(iOS 17, *) {
+                    GeometryReader { geometryProxy in
+                        view
+                            .contentMargins(.horizontal, max(0, (geometryProxy.size.width - 600) / 2), for: .scrollContent)
                     }
                 }
             }
