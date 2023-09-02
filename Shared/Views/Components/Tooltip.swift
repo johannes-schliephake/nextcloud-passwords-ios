@@ -57,7 +57,7 @@ private struct Tooltip<Content: View>: View {
                     Color.clear
                         .frame(width: Self.safeArea.trailing)
                 }
-                .occlude(!biometricAuthenticationController.isUnlocked)
+                .occlude(biometricAuthenticationController.hideContents)
                 .onSizeChange { containerHeight = $0.height }
         }
     }
