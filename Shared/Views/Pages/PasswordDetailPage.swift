@@ -9,7 +9,6 @@ struct PasswordDetailPage: View {
     let deletePassword: () -> Void
     
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
@@ -116,7 +115,7 @@ struct PasswordDetailPage: View {
             }
             .listStyle(.insetGrouped)
             .apply { view in
-                if horizontalSizeClass != .compact,
+                if UIDevice.current.userInterfaceIdiom == .pad,
                    #available(iOS 17, *) {
                     GeometryReader { geometryProxy in
                         view

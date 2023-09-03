@@ -8,7 +8,6 @@ struct EntriesPage: View {
     private let showFilterSortMenu: Bool
     
     @Injected(\.logger) private var logger
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var sessionController: SessionController
     
@@ -122,8 +121,7 @@ struct EntriesPage: View {
             }
             .buttonStyle(.action)
             .apply { view in
-                if horizontalSizeClass != .compact,
-                   #available(iOS 17, *) {
+                if #available(iOS 17, *) {
                     GeometryReader { geometryProxy in
                         view
                             .contentMargins(.horizontal, (geometryProxy.size.width - 600) / 2, for: .scrollContent)
@@ -205,8 +203,7 @@ struct EntriesPage: View {
         }
         .listStyle(.insetGrouped)
         .apply { view in
-            if horizontalSizeClass != .compact,
-               #available(iOS 17, *) {
+            if #available(iOS 17, *) {
                 GeometryReader { geometryProxy in
                     view
                         .contentMargins(.horizontal, (geometryProxy.size.width - 600) / 2, for: .scrollContent)
