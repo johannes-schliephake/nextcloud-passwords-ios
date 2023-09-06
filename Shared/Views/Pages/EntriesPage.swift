@@ -122,10 +122,8 @@ struct EntriesPage: View {
             .buttonStyle(.action)
             .apply { view in
                 if #available(iOS 17, *) {
-                    GeometryReader { geometryProxy in
-                        view
-                            .contentMargins(.horizontal, (geometryProxy.size.width - 600) / 2, for: .scrollContent)
-                    }
+                    view
+                        .listWidthLimit(600)
                 } else {
                     view
                         .frame(maxWidth: 600)
@@ -204,10 +202,8 @@ struct EntriesPage: View {
         .listStyle(.insetGrouped)
         .apply { view in
             if #available(iOS 17, *) {
-                GeometryReader { geometryProxy in
-                    view
-                        .contentMargins(.horizontal, (geometryProxy.size.width - 600) / 2, for: .scrollContent)
-                }
+                view
+                    .listWidthLimit(600)
             } else {
                 view
                     .frame(maxWidth: 600)

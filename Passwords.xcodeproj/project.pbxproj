@@ -202,6 +202,9 @@
 		DD1466742A6BE625003BBA8F /* TorchServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1466732A6BE625003BBA8F /* TorchServiceMock.swift */; };
 		DD1466762A6BE720003BBA8F /* TorchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1466752A6BE720003BBA8F /* TorchServiceTests.swift */; };
 		DD1466782A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1466772A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift */; };
+		DD1CA71E2AA9110E00AADD94 /* ListWidthLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */; };
+		DD1CA71F2AA9110E00AADD94 /* ListWidthLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */; };
+		DD1CA7202AA9110E00AADD94 /* ListWidthLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */; };
 		DD1E1D6D2A002D26002DB08B /* EditOTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */; };
 		DD1E1D6E2A002D26002DB08B /* EditOTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */; };
 		DD1E1D6F2A002D26002DB08B /* EditOTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */; };
@@ -800,6 +803,7 @@
 		DD1466732A6BE625003BBA8F /* TorchServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchServiceMock.swift; sourceTree = "<group>"; };
 		DD1466752A6BE720003BBA8F /* TorchServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchServiceTests.swift; sourceTree = "<group>"; };
 		DD1466772A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPViewModelTests.swift; sourceTree = "<group>"; };
+		DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidthLimit.swift; sourceTree = "<group>"; };
 		DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPViewModel.swift; sourceTree = "<group>"; };
 		DD1E1D712A010D0C002DB08B /* Enabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enabled.swift; sourceTree = "<group>"; };
 		DD1E1D752A016785002DB08B /* OTPValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPValidationService.swift; sourceTree = "<group>"; };
@@ -1383,6 +1387,7 @@
 				DD76068B295F731200109075 /* Dismiss.swift */,
 				DD1E1D712A010D0C002DB08B /* Enabled.swift */,
 				DDA4FE7526E755C000D6F92E /* Initialize.swift */,
+				DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */,
 				8F560E68258F54A900C896EE /* Occlude.swift */,
 				DD889A1A27DB4AB40021AF5F /* OnSizeChange.swift */,
 				DD760687295F72BC00109075 /* Sync.swift */,
@@ -2294,6 +2299,7 @@
 				DD0E59A6274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
 				DD9A99F72A23E9120016722F /* EditTagViewModel.swift in Sources */,
 				8F51428F2573F91800DD96C0 /* EditPasswordController.swift in Sources */,
+				DD1CA71E2AA9110E00AADD94 /* ListWidthLimit.swift in Sources */,
 				DD0E59B227414AFE003D7D50 /* Color+Init.swift in Sources */,
 				DDDF3388276F7FDE008EEB3F /* TagBadge.swift in Sources */,
 				8F55D99A2582D04200CE4FC2 /* AutoFillController.swift in Sources */,
@@ -2473,6 +2479,7 @@
 				8FC361CC25827E5D00785371 /* FaviconServiceRequest.swift in Sources */,
 				DD9A99F82A23E9120016722F /* EditTagViewModel.swift in Sources */,
 				DD0E59A7274143D9003D7D50 /* EditTagNavigation.swift in Sources */,
+				DD1CA71F2AA9110E00AADD94 /* ListWidthLimit.swift in Sources */,
 				DD0E59B327414AFE003D7D50 /* Color+Init.swift in Sources */,
 				DDDF3389276F7FDE008EEB3F /* TagBadge.swift in Sources */,
 				8FC361FF25828B0500785371 /* EntriesNavigation.swift in Sources */,
@@ -2734,6 +2741,7 @@
 				DDB1699127D20CC200F4D752 /* Session.swift in Sources */,
 				DD9A99F92A23E9120016722F /* EditTagViewModel.swift in Sources */,
 				DDB1698F27D20CC200F4D752 /* Apply.swift in Sources */,
+				DD1CA7202AA9110E00AADD94 /* ListWidthLimit.swift in Sources */,
 				DDB169E627D20CC300F4D752 /* UIApplication+SafeShared.swift in Sources */,
 				DDB169A427D20CC200F4D752 /* PasswordServiceRequest.swift in Sources */,
 				DD03D9BF28C8DE92006118F2 /* Strings.swift in Sources */,

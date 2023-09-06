@@ -117,10 +117,8 @@ struct PasswordDetailPage: View {
             .apply { view in
                 if UIDevice.current.userInterfaceIdiom == .pad,
                    #available(iOS 17, *) {
-                    GeometryReader { geometryProxy in
-                        view
-                            .contentMargins(.horizontal, max(0, (geometryProxy.size.width - 600) / 2), for: .scrollContent)
-                    }
+                    view
+                        .listWidthLimit(600)
                 }
             }
             .onAppear {
