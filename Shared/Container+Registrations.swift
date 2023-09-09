@@ -86,6 +86,10 @@ extension Container {
     var torchService: Factory<any TorchServiceProtocol> {
         self { TorchService() }
     }
+    var windowSizeService: Factory<any WindowSizeServiceProtocol> {
+        self { WindowSizeService() }
+            .cached
+    }
     
     // MARK: Repositories
     var productIdentifiersPropertyListDataSource: Factory<any ProductIdentifiersPropertyListDataSourceProtocol> {
