@@ -1,2 +1,3 @@
+• iOS 17 compatibility
 • Upgraded parts of the app to a new architecture
 • Bugfixes and optimizations
