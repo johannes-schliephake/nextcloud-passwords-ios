@@ -115,25 +115,15 @@ struct EntriesPage: View {
     }
     
     private func connectView() -> some View {
-        VStack {
-            Button("_connectToServer") {
-                showServerSetupView = true
-            }
-            .buttonStyle(.action)
-            .apply { view in
-                if #available(iOS 17, *) {
-                    view
-                        .listWidthLimit(600)
-                } else {
-                    view
-                        .frame(maxWidth: 600)
-                }
-            }
-            .sheet(isPresented: $showServerSetupView) {
-                ServerSetupNavigation()
-            }
+        Button("_connectToServer") {
+            showServerSetupView = true
         }
+        .buttonStyle(.action)
+        .frame(maxWidth: 600)
         .padding()
+        .sheet(isPresented: $showServerSetupView) {
+            ServerSetupNavigation()
+        }
     }
     
     private func errorView() -> some View {
@@ -198,6 +188,12 @@ struct EntriesPage: View {
             .disabled(challengePassword.count < 12)
         }
         .listStyle(.insetGrouped)
+        .apply { view in
+            if #available(iOS 16.4, *) {
+                view
+                    .scrollBounceBehavior(.basedOnSize)
+            }
+        }
         .apply { view in
             if #available(iOS 17, *) {
                 view
