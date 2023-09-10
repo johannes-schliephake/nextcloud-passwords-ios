@@ -8,7 +8,7 @@ func emit<P: Publisher>(
     onMainThread expectMainThread: Bool? = nil,
     when block: (() -> Void)? = nil,
     from originQueue: DispatchQueue = .main
-) -> Predicate<P> where P.Output == Void {
+) -> Nimble.Predicate<P> where P.Output == Void {
     .init { expression in
         var message = ExpectationMessage.expectedTo("emit")
         
@@ -53,7 +53,7 @@ func emit<P: Publisher>(
     onMainThread expectMainThread: Bool? = nil,
     when block: (() -> Void)? = nil,
     from originQueue: DispatchQueue = .main
-) -> Predicate<P> where P.Output: Equatable {
+) -> Nimble.Predicate<P> where P.Output: Equatable {
     .init { expression in
         var message = ExpectationMessage.expectedTo("emit <\(stringify(expectedValue))>")
         

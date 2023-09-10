@@ -4,7 +4,7 @@ import Factory
 
 protocol ProductIdentifiersRepositoryProtocol {
     
-    var productIdentifiers: AnyPublisher<[String], Error> { get }
+    var productIdentifiers: AnyPublisher<[String], any Error> { get }
     
 }
 
@@ -15,7 +15,7 @@ final class ProductIdentifiersRepository: ProductIdentifiersRepositoryProtocol {
     @Injected(\.productIdentifiersPropertyListDataSource) private var productIdentifiersPropertyListDataSource
     @LazyInjected(\.logger) private var logger
     
-    var productIdentifiers: AnyPublisher<[String], Error> {
+    var productIdentifiers: AnyPublisher<[String], any Error> {
         productIdentifiersPropertyListDataSource.propertyList
             .handleEvents(receiveOutput: { [weak self] productIdentifiers in
                 if productIdentifiers.isEmpty {

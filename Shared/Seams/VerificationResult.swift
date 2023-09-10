@@ -3,7 +3,7 @@ import StoreKit
 
 enum VerificationResult<SignedType> {
     
-    case unverified(SignedType, Error)
+    case unverified(SignedType, any Error)
     case verified(SignedType)
     
     init(_ verificationResult: StoreKit.VerificationResult<StoreKit.Transaction>) where SignedType == any Transaction {

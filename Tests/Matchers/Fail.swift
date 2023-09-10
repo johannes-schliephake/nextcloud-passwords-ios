@@ -9,7 +9,7 @@ func fail<P: Publisher>(
     onMainThread expectMainThread: Bool? = nil,
     when block: (() -> Void)? = nil,
     from originQueue: DispatchQueue = .main
-) -> Predicate<P> where P.Failure: Equatable {
+) -> Nimble.Predicate<P> where P.Failure: Equatable {
     .init { expression in
         var message: ExpectationMessage
         if let expectedError {

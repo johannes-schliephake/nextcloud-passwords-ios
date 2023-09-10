@@ -28,7 +28,7 @@ final class LoggerMock: Logging, Mock, PropertyAccessLogging, FunctionCallLoggin
         return _isAvailablePublisher.eraseToAnyPublisher()
     }
     
-    func log(error: Error, fileID: String, functionName: String, line: UInt) {
+    func log(error: any Error, fileID: String, functionName: String, line: UInt) {
         logFunctionCall(parameters: String(describing: error), fileID, functionName, line)
     }
     

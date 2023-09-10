@@ -3,7 +3,7 @@
 
 @propertyWrapper struct MockInjected<T, M> {
     
-    private let reference: BoxedFactoryReference
+    private let reference: any BoxedFactoryReference
     private var mock: M! // swiftlint:disable:this implicitly_unwrapped_optional
     private var initialize = true
     

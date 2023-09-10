@@ -1,14 +1,59 @@
 import SwiftUI
+import Factory
 
 
-private struct Tooltip<Content: View>: View {
+private enum TooltipConstants {
+    static let maxSize = CGSize(width: 400, height: 400)
+    static let padding = EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20)
+    static let safeArea = EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
+}
+
+
+@available(iOS 16.4, *) private struct Tooltip<PopoverContent: View>: ViewModifier { // swiftlint:disable:this file_types_order
     
-    private static var maxSize: CGSize {
-        CGSize(width: 400, height: 400)
+    @Injected(\.windowSizeService) private var windowSizeService
+    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
+    
+    @Binding var isPresented: Bool
+    let content: () -> PopoverContent
+    
+    func body(content anchor: Content) -> some View {
+        anchor
+            .popover(isPresented: $isPresented) {
+                ScrollView {
+                    content()
+                        .padding(TooltipConstants.padding - TooltipConstants.safeArea)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .scrollBounceBehavior(.basedOnSize)
+                .apply { view in
+                    if #available(iOS 17, *) {
+                        view
+                            .safeAreaPadding(TooltipConstants.safeArea)
+                    } else {
+                        view
+                            .legacySafeAreaPadding(TooltipConstants.safeArea)
+                    }
+                }
+                .frame(maxHeight: TooltipConstants.maxSize.height)
+                .apply { view in
+                    if let windowWidth = windowSizeService.windowSize?.width {
+                        let maxWidthAvailableToTooltip = windowWidth - 19 * 2
+                        view
+                            .frame(width: min(TooltipConstants.maxSize.width, maxWidthAvailableToTooltip)) // Force popover content to the maximum possible width
+                            .frame(width: TooltipConstants.maxSize.width < maxWidthAvailableToTooltip ? TooltipConstants.maxSize.width : 10000) // Force arrow to the top or bottom when popover uses the window's full width
+                    }
+                }
+                .background(Color(.tertiarySystemBackground))
+                .presentationCompactAdaptation(.popover)
+                .occlude(biometricAuthenticationController.hideContents)
+            }
     }
-    private static var safeArea: EdgeInsets {
-        EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
-    }
+    
+}
+
+
+private struct LegacyTooltip<Content: View>: View {
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
@@ -20,12 +65,12 @@ private struct Tooltip<Content: View>: View {
     @State private var contentHeight = 0.0
     
     var body: some View {
-        Popover(isPresented: $isPresented, maxSize: CGSize(width: Self.maxSize.width, height: contentHeight.clamped(to: 1...Self.maxSize.height)), arrowDirections: arrowDirections) {
+        Popover(isPresented: $isPresented, maxSize: CGSize(width: TooltipConstants.maxSize.width, height: contentHeight.clamped(to: 1...TooltipConstants.maxSize.height)), arrowDirections: arrowDirections) {
             content()
-                .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20) - Self.safeArea)
+                .padding(TooltipConstants.padding - TooltipConstants.safeArea)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .onSizeChange { contentHeight = $0.height + Self.safeArea.top + Self.safeArea.bottom }
+                .onSizeChange { contentHeight = $0.height + TooltipConstants.safeArea.top + TooltipConstants.safeArea.bottom }
                 .apply {
                     view in
                     if #available(iOS 16, *) {
@@ -41,22 +86,7 @@ private struct Tooltip<Content: View>: View {
                         }
                     }
                 }
-                .safeAreaInset(edge: .top, spacing: 0) {
-                    Color.clear
-                        .frame(height: Self.safeArea.top)
-                }
-                .safeAreaInset(edge: .leading, spacing: 0) {
-                    Color.clear
-                        .frame(width: Self.safeArea.leading)
-                }
-                .safeAreaInset(edge: .bottom, spacing: 0) {
-                    Color.clear
-                        .frame(height: Self.safeArea.bottom)
-                }
-                .safeAreaInset(edge: .trailing, spacing: 0) {
-                    Color.clear
-                        .frame(width: Self.safeArea.trailing)
-                }
+                .legacySafeAreaPadding(TooltipConstants.safeArea)
                 .occlude(biometricAuthenticationController.hideContents)
                 .onSizeChange { containerHeight = $0.height }
         }
@@ -65,7 +95,7 @@ private struct Tooltip<Content: View>: View {
 }
 
 
-extension Tooltip {
+extension LegacyTooltip {
     
     /// Inspired by https://github.com/SwiftUIX/SwiftUIX/blob/master/Sources/Intramodular/Presentation/Popover/CocoaPopover.swift
     private struct Popover<Content: View>: UIViewControllerRepresentable {
@@ -152,10 +182,17 @@ extension Tooltip {
 
 extension View {
     
-    func tooltip<Content: View>(isPresented: Binding<Bool>, arrowDirections: UIPopoverArrowDirection = .any, content: @escaping () -> Content) -> some View {
-        background(
-            Tooltip(isPresented: isPresented, arrowDirections: arrowDirections, content: content)
-        )
+    /// Presents an iPad-style popover when a given condition is true.
+    /// - Parameters:
+    ///   - isPresented: A binding to a `Bool` that determines whether to show the popover.
+    ///   - arrowDirections: A set of allowed arrow directions. iOS 16.4+ manages the popover's arrow direction automatically and will ignore this parameter.
+    ///   - content: A closure returning the content of the popover.
+    @ViewBuilder func tooltip<Content: View>(isPresented: Binding<Bool>, arrowDirections: UIPopoverArrowDirection = .any, content: @escaping () -> Content) -> some View {
+        if #available(iOS 16.4, *) {
+            modifier(Tooltip(isPresented: isPresented, content: content))
+        } else {
+            background(LegacyTooltip(isPresented: isPresented, arrowDirections: arrowDirections, content: content))
+        }
     }
     
 }

@@ -115,17 +115,15 @@ struct EntriesPage: View {
     }
     
     private func connectView() -> some View {
-        VStack {
-            Button("_connectToServer") {
-                showServerSetupView = true
-            }
-            .frame(maxWidth: 600)
-            .buttonStyle(.action)
-            .sheet(isPresented: $showServerSetupView) {
-                ServerSetupNavigation()
-            }
+        Button("_connectToServer") {
+            showServerSetupView = true
         }
+        .buttonStyle(.action)
+        .frame(maxWidth: 600)
         .padding()
+        .sheet(isPresented: $showServerSetupView) {
+            ServerSetupNavigation()
+        }
     }
     
     private func errorView() -> some View {
@@ -157,7 +155,6 @@ struct EntriesPage: View {
                 SecureField("-", text: $challengePassword, onCommit: {
                     solveChallenge()
                 })
-                .frame(maxWidth: 600)
                 .focused($focusedField, equals: .challengePassword)
                 .submitLabel(.done)
                 .onAppear {
@@ -176,26 +173,36 @@ struct EntriesPage: View {
                         }
                         .buttonStyle(.borderless)
                         .tooltip(isPresented: $showStorePasswordTooltip) {
-                            VStack(alignment: .leading, spacing: 15) {
-                                Text("_storePasswordMessage")
-                            }
+                            Text("_storePasswordMessage")
                         }
                     }
                 }
-                .frame(maxWidth: 600)
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
                 .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
             Button("_logIn") {
                 solveChallenge()
             }
-            .frame(maxWidth: 600)
             .buttonStyle(.action)
             .listRowInsets(EdgeInsets())
             .disabled(challengePassword.count < 12)
         }
         .listStyle(.insetGrouped)
-        .frame(maxWidth: 600)
+        .apply { view in
+            if #available(iOS 16.4, *) {
+                view
+                    .scrollBounceBehavior(.basedOnSize)
+            }
+        }
+        .apply { view in
+            if #available(iOS 17, *) {
+                view
+                    .listWidthLimit(600)
+            } else {
+                view
+                    .frame(maxWidth: 600)
+            }
+        }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()

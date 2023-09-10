@@ -198,7 +198,7 @@ struct EditPasswordPage: View {
                 Label("_addOtp", systemImage: "123.rectangle")
             }
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
-            .tooltip(isPresented: $showAboutOtpsTooltip, content: {
+            .tooltip(isPresented: $showAboutOtpsTooltip) {
                 VStack(alignment: .leading, spacing: 15) {
                     Text("_aboutOtps")
                         .font(.title2.bold())
@@ -212,7 +212,7 @@ struct EditPasswordPage: View {
                     }
                     .buttonStyle(.action)
                 }
-            })
+            }
         }
         else {
             Menu {

@@ -7,6 +7,7 @@ final class ProviderViewController: ASCredentialProviderViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         _ = resolve(\.logger)
+        _ = resolve(\.windowSizeService)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -72,6 +73,7 @@ final class ProviderViewController: ASCredentialProviderViewController {
         super.viewDidAppear(animated)
         
         NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.post(name: UIScene.didActivateNotification, object: view.window?.windowScene)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

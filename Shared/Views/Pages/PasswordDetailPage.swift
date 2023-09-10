@@ -114,6 +114,13 @@ struct PasswordDetailPage: View {
                     .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
             .listStyle(.insetGrouped)
+            .apply { view in
+                if UIDevice.current.userInterfaceIdiom == .pad,
+                   #available(iOS 17, *) {
+                    view
+                        .listWidthLimit(600)
+                }
+            }
             .onAppear {
                 /// Fix offset scroll view on iOS 16
                 DispatchQueue.main.async {

@@ -8,6 +8,7 @@ import Factory
     
     init() {
         _ = resolve(\.logger)
+        _ = resolve(\.windowSizeService)
     }
     
     // MARK: Views

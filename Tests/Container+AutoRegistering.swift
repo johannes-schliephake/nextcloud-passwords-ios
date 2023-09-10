@@ -31,6 +31,7 @@ extension Container: AutoRegistering {
         Self.shared.tagValidationService.register { TagValidationServiceMock() }
         Self.shared.tagsService.register { TagsServiceMock() }
         Self.shared.torchService.cached.register { TorchServiceMock() }
+        //Self.shared.windowSizeService.register { WindowSizeServiceMock() }
         
         // MARK: Repositories
         //Self.shared.productIdentifiersPropertyListDataSource.register { ProductIdentifiersPropertyListDataSourceMock() }

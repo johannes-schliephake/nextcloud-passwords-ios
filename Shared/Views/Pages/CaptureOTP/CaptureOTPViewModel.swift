@@ -32,7 +32,7 @@ final class CaptureOTPViewModel: CaptureOTPViewModelProtocol {
     
     enum Action {
         case toggleTorch
-        case captureQrResult(Result<String, Error>)
+        case captureQrResult(Result<String, any Error>)
         case cancel
     }
     
@@ -56,10 +56,12 @@ final class CaptureOTPViewModel: CaptureOTPViewModelProtocol {
         weak var `self` = self
         
         torchService.isTorchAvailable
+            .receive(on: DispatchQueue.main)
             .sink { self?.state.isTorchAvailable = $0 }
             .store(in: &cancellables)
         
         torchService.isTorchActive
+            .receive(on: DispatchQueue.main)
             .sink { self?.state.isTorchActive = $0 }
             .store(in: &cancellables)
     }

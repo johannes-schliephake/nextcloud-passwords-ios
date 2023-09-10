@@ -8,7 +8,7 @@ func finish<P: Publisher>(
     onMainThread expectMainThread: Bool? = nil,
     when block: (() -> Void)? = nil,
     from originQueue: DispatchQueue = .main
-) -> Predicate<P> {
+) -> Nimble.Predicate<P> {
     .init { expression in
         var message = ExpectationMessage.expectedTo("finish")
         

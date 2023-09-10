@@ -5,7 +5,7 @@ import Combine
 
 struct QRCapture: UIViewRepresentable {
     
-    let action: (_ result: Result<String, Error>) -> Void
+    let action: (_ result: Result<String, any Error>) -> Void
     
     func makeUIView(context: Context) -> QRCaptureView {
         QRCaptureView(action: action)
@@ -24,12 +24,12 @@ extension QRCapture {
     
     final class QRCaptureView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         
-        private let action: (_ result: Result<String, Error>) -> Void
+        private let action: (_ result: Result<String, any Error>) -> Void
         
         private let captureSession = AVCaptureSession()
         private var cancellables = Set<AnyCancellable>()
         
-        init(action: @escaping (_ result: Result<String, Error>) -> Void) {
+        init(action: @escaping (_ result: Result<String, any Error>) -> Void) {
             self.action = action
             super.init(frame: .zero)
 
