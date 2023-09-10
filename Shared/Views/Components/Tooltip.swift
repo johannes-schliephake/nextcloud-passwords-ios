@@ -46,7 +46,7 @@ private enum TooltipConstants {
                 }
                 .background(Color(.tertiarySystemBackground))
                 .presentationCompactAdaptation(.popover)
-                .occlude(!biometricAuthenticationController.isUnlocked)
+                .occlude(biometricAuthenticationController.hideContents)
             }
     }
     
@@ -87,7 +87,7 @@ private struct LegacyTooltip<Content: View>: View {
                     }
                 }
                 .legacySafeAreaPadding(TooltipConstants.safeArea)
-                .occlude(!biometricAuthenticationController.isUnlocked)
+                .occlude(biometricAuthenticationController.hideContents)
                 .onSizeChange { containerHeight = $0.height }
         }
     }

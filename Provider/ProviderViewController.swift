@@ -82,6 +82,12 @@ final class ProviderViewController: ASCredentialProviderViewController {
         NotificationCenter.default.post(name: UIApplication.willResignActiveNotification, object: nil)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+    }
+    
     private func addMainView() {
         AutoFillController.default.complete = {
             [weak self] username, password in
