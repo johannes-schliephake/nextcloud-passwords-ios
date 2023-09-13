@@ -38,7 +38,7 @@ class ScreenshotGenerator: XCTestCase {
         app.collectionViews.firstMatch.buttons.element(boundBy: 1).tap()
         if #available(iOS 17, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else {
+        } else if #available(iOS 16.4, *) {
             app.navigationBars.buttons["filterSortMenu"].tap()
         }
         
@@ -58,6 +58,9 @@ class ScreenshotGenerator: XCTestCase {
             app.navigationBars.buttons["filterSortMenu"].tap()
         }
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
+        if #unavailable(iOS 16.4) {
+            app.navigationBars.buttons["filterSortMenu"].tap()
+        }
         
         snapshot("2")
     }
@@ -72,7 +75,7 @@ class ScreenshotGenerator: XCTestCase {
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
         if #available(iOS 17, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else {
+        } else if #available(iOS 16.4, *) {
             app.navigationBars.buttons["filterSortMenu"].tap()
         }
         if #available(iOS 16, *) {
@@ -94,7 +97,7 @@ class ScreenshotGenerator: XCTestCase {
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
         if #available(iOS 17, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else {
+        } else if #available(iOS 16.4, *) {
             app.navigationBars.buttons["filterSortMenu"].tap()
         }
         if #available(iOS 16, *) {
@@ -116,7 +119,7 @@ class ScreenshotGenerator: XCTestCase {
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
         if #available(iOS 17, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else {
+        } else if #available(iOS 16.4, *) {
             app.navigationBars.buttons["filterSortMenu"].tap()
         }
         if #available(iOS 16, *) {
