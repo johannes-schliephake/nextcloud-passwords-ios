@@ -30,16 +30,14 @@ class ScreenshotGenerator: XCTestCase {
         } else {
             app.tables.firstMatch.cells.firstMatch.swipeDown()
         }
-        if #available(iOS 17, *) {
+        if #available(iOS 16, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
         } else {
             app.navigationBars.buttons["filterSortMenu"].tap()
         }
         app.collectionViews.firstMatch.buttons.element(boundBy: 1).tap()
-        if #available(iOS 17, *) {
+        if #available(iOS 16.4, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else if #available(iOS 16.4, *) {
-            app.navigationBars.buttons["filterSortMenu"].tap()
         }
         
         snapshot("1")
@@ -52,7 +50,7 @@ class ScreenshotGenerator: XCTestCase {
         } else {
             app.tables.firstMatch.cells.firstMatch.swipeDown()
         }
-        if #available(iOS 17, *) {
+        if #available(iOS 16, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
         } else {
             app.navigationBars.buttons["filterSortMenu"].tap()
@@ -67,16 +65,14 @@ class ScreenshotGenerator: XCTestCase {
     
     func test_entriesPage_filterByFavorites_passwordContextMenuVisible() throws {
         /// Filter by favorites, long tap last entry (has to be a password)
-        if #available(iOS 17, *) {
+        if #available(iOS 16, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
         } else {
             app.navigationBars.buttons["filterSortMenu"].tap()
         }
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        if #available(iOS 17, *) {
+        if #available(iOS 16.4, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else if #available(iOS 16.4, *) {
-            app.navigationBars.buttons["filterSortMenu"].tap()
         }
         if #available(iOS 16, *) {
             app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.pressUnhittable(forDuration: 1)
@@ -89,20 +85,19 @@ class ScreenshotGenerator: XCTestCase {
     
     func test_passwordDetailPage() throws {
         /// Filter by favorites, open last entry (has to be a password)
-        if #available(iOS 17, *) {
+        if #available(iOS 16, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
         } else {
             app.navigationBars.buttons["filterSortMenu"].tap()
         }
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        if #available(iOS 17, *) {
+        if #available(iOS 16.4, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else if #available(iOS 16.4, *) {
-            app.navigationBars.buttons["filterSortMenu"].tap()
         }
         if #available(iOS 16, *) {
             app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.tapUnhittable()
         } else {
+            sleep(1)
             app.tables.firstMatch.cells.lastMatch.buttons.firstMatch.tap()
         }
         
@@ -111,23 +106,22 @@ class ScreenshotGenerator: XCTestCase {
     
     func test_editPasswordPage() throws {
         /// Filter by favorites, open last entry (has to be a password), open edit page, show password and password generator, scroll down
-        if #available(iOS 17, *) {
+        if #available(iOS 16, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
         } else {
             app.navigationBars.buttons["filterSortMenu"].tap()
         }
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        if #available(iOS 17, *) {
+        if #available(iOS 16.4, *) {
             app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else if #available(iOS 16.4, *) {
-            app.navigationBars.buttons["filterSortMenu"].tap()
         }
         if #available(iOS 16, *) {
             app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.tapUnhittable()
+            app.navigationBars.lastMatch.buttons.lastMatch.tap()
         } else {
             app.tables.firstMatch.cells.lastMatch.buttons.firstMatch.tap()
+            app.navigationBars.lastMatch.buttons.lastMatch.tapUnhittable()
         }
-        app.navigationBars.lastMatch.buttons.lastMatch.tap()
         if #available(iOS 16, *) {
             app.collectionViews.buttons["showPasswordButton"].tap()
             app.collectionViews.buttons["passwordGenerator"].tap()
