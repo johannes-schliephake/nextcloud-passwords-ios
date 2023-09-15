@@ -1,7 +1,10 @@
 import Foundation
+import Factory
 
 
 final class Tag: ObservableObject, Identifiable {
+    
+    @LazyInjected(\.logger) private var logger
     
     @Published var id: String
     @Published var label: String
@@ -25,6 +28,10 @@ final class Tag: ObservableObject, Identifiable {
     @Published var state: Entry.State?
     var offlineContainer: OfflineContainer?
     
+    var isIdLocallyAvailable: Bool {
+        !id.isEmpty
+    }
+    
     init(id: String = "", label: String = "", color: String = randomTagColor(), revision: String = "", cseType: String = "none", cseKey: String = "", sseType: String = "unknown", client: String = "unknown", hidden: Bool = false, trashed: Bool = false, favorite: Bool = false, edited: Date = Date(timeIntervalSince1970: 0), created: Date = Date(timeIntervalSince1970: 0), updated: Date = Date(timeIntervalSince1970: 0)) {
         self.id = id
         self.label = label
@@ -42,7 +49,7 @@ final class Tag: ObservableObject, Identifiable {
         self.updated = updated
     }
     
-    required init(from decoder: Decoder) throws {
+    required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(String.self, forKey: .id)
@@ -69,14 +76,14 @@ final class Tag: ObservableObject, Identifiable {
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key),
                   let decryptedColor = Crypto.CSEv1r1.decrypt(payload: color, key: key) else {
                 state = .decryptionFailed
-                LoggingController.shared.log(error: "Failed to decrypt tag")
+                logger.log(error: "Failed to decrypt tag")
                 return
             }
             label = decryptedLabel
             color = decryptedColor
         default:
             state = .decryptionFailed
-            LoggingController.shared.log(error: "Unknown client side encryption type")
+            logger.log(error: "Unknown client side encryption type")
         }
     }
     
@@ -148,7 +155,7 @@ extension Tag: Codable {
         case updated
     }
     
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         if let keychain = SessionController.default.session?.keychain,
@@ -186,11 +193,16 @@ extension Tag: Codable {
 }
 
 
-extension Tag: Hashable {
+extension Tag: Equatable {
     
     static func == (lhs: Tag, rhs: Tag) -> Bool {
         lhs.id == rhs.id
     }
+    
+}
+
+
+extension Tag: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -199,14 +211,16 @@ extension Tag: Hashable {
 }
 
 
-extension Array where Element == Tag {
+extension Tag: Comparable {
     
-    func sortedByLabel() -> [Tag] {
-        sorted { $0.label.compare($1.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
+    static func < (lhs: Tag, rhs: Tag) -> Bool {
+        lhs.label.compare(rhs.label, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending
     }
     
 }
 
+
+#if DEBUG
 
 extension Tag: MockObject {
     
@@ -222,3 +236,5 @@ extension Tag: MockObject {
     }
     
 }
+
+#endif

@@ -1,8 +1,20 @@
 import SwiftUI
+import Factory
 import UniformTypeIdentifiers
 
 
 class ExtensionViewController: UIViewController {
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        _ = resolve(\.logger)
+        _ = resolve(\.windowSizeService)
+        
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented") // swiftlint:disable:this fatal_error
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,12 +90,19 @@ class ExtensionViewController: UIViewController {
         super.viewDidAppear(animated)
         
         NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.post(name: UIScene.didActivateNotification, object: view.window?.windowScene)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.post(name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
 
 }

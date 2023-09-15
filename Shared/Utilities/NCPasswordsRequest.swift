@@ -1,4 +1,5 @@
 import Foundation
+import Factory
 
 
 enum NCPasswordsRequestError: Error {
@@ -87,6 +88,9 @@ extension NCPasswordsRequest {
                 }
                 return
             }
+            
+            lazy var logger = resolve(\.logger)
+            
             let body: Data?
             do {
                 body = try encode()
@@ -95,7 +99,7 @@ extension NCPasswordsRequest {
                 DispatchQueue.main.async {
                     completion(nil)
                 }
-                LoggingController.shared.log(error: error)
+                logger.log(error: error)
                 return
             }
             
@@ -115,7 +119,7 @@ extension NCPasswordsRequest {
                     DispatchQueue.main.async {
                         completion(nil)
                     }
-                    LoggingController.shared.log(error: "Failed to retrieve response")
+                    logger.log(error: "Failed to retrieve response")
                     return
                 }
                 
@@ -134,7 +138,7 @@ extension NCPasswordsRequest {
                         session.invalidate(reason: .deauthorization)
                         return
                     default:
-                        LoggingController.shared.log(info: "Unknown error response")
+                        logger.log(info: "Unknown error response")
                     }
                 }
                 else if let messageResponse = try? Configuration.jsonDecoder.decode(NCPasswordsRequestMessageResponse.self, from: data) {
@@ -146,7 +150,7 @@ extension NCPasswordsRequest {
                         session.invalidate(reason: .noConnection)
                         return
                     default:
-                        LoggingController.shared.log(info: "Unknown message response")
+                        logger.log(info: "Unknown message response")
                     }
                 }
                 if let sessionID = response.value(forHTTPHeaderField: "X-Api-Session") {
@@ -163,7 +167,7 @@ extension NCPasswordsRequest {
                     DispatchQueue.main.async {
                         completion(nil)
                     }
-                    LoggingController.shared.log(error: error)
+                    logger.log(error: error)
                 }
             }
             .resume()

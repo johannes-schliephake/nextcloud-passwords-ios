@@ -67,7 +67,7 @@ extension OpenSessionRequest {
         }
         
         /// Manually decode to account for empty keys dictionary being sent as empty array
-        init(from decoder: Decoder) throws {
+        init(from decoder: any Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
             success = try container.decode(Bool.self, forKey: .success)

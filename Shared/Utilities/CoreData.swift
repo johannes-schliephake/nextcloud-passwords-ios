@@ -13,7 +13,7 @@ final class CoreData {
 
     init() {
         guard let containerPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: Configuration.appGroup) else {
-            fatalError()
+            fatalError("Can't locate the app's group directory") // swiftlint:disable:this fatal_error
         }
         let containerURL = containerPath.appendingPathComponent("CoreData.sqlite")
         let persistentStoreDescription = NSPersistentStoreDescription(url: containerURL)
@@ -24,7 +24,7 @@ final class CoreData {
     }
     
     func fetch<T>(request: NSFetchRequest<T>) -> [T]? where T: NSManagedObject {
-        try? CoreData.default.container.viewContext.fetch(request)
+        try? Self.default.container.viewContext.fetch(request)
     }
     
     func save() {
@@ -43,7 +43,7 @@ final class CoreData {
     
     func clear<T>(type: T.Type) where T: NSManagedObject {
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: type.fetchRequest())
-        _ = try? CoreData.default.container.viewContext.execute(deleteRequest)
+        _ = try? Self.default.container.viewContext.execute(deleteRequest)
     }
     
 }

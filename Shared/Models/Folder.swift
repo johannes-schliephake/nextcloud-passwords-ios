@@ -1,7 +1,10 @@
 import Foundation
+import Factory
 
 
 final class Folder: ObservableObject, Identifiable {
+    
+    @LazyInjected(\.logger) private var logger
     
     @Published var id: String
     @Published var label: String
@@ -25,6 +28,14 @@ final class Folder: ObservableObject, Identifiable {
     @Published var state: Entry.State?
     var offlineContainer: OfflineContainer?
     
+    var isIdLocallyAvailable: Bool {
+        !id.isEmpty
+    }
+    
+    var isBaseFolder: Bool {
+        id == Entry.baseId
+    }
+    
     convenience init() {
         self.init(id: Entry.baseId, label: "_rootFolder".localized, parent: nil)
     }
@@ -46,7 +57,7 @@ final class Folder: ObservableObject, Identifiable {
         self.favorite = favorite
     }
     
-    required init(from decoder: Decoder) throws {
+    required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(String.self, forKey: .id)
@@ -72,18 +83,14 @@ final class Folder: ObservableObject, Identifiable {
                   let key = keychain.keys[cseKey],
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key) else {
                 state = .decryptionFailed
-                LoggingController.shared.log(error: "Failed to decrypt folder")
+                logger.log(error: "Failed to decrypt folder")
                 return
             }
             label = decryptedLabel
         default:
             state = .decryptionFailed
-            LoggingController.shared.log(error: "Unknown client side encryption type")
+            logger.log(error: "Unknown client side encryption type")
         }
-    }
-    
-    var isBaseFolder: Bool {
-        id == Entry.baseId
     }
     
     func score(searchTerm: String) -> Double {
@@ -158,7 +165,7 @@ extension Folder: Codable {
         case favorite
     }
     
-    func encode(to encoder: Encoder) throws {
+    func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         if let keychain = SessionController.default.session?.keychain,

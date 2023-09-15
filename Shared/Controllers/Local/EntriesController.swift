@@ -1,9 +1,12 @@
 import Combine
+import Factory
 import SwiftUI
 import AuthenticationServices
 
 
 final class EntriesController: ObservableObject {
+    
+    @LazyInjected(\.logger) private var logger
     
     @Published private(set) var state: State = .loading
     @Published private(set) var folders: [Folder]? {
@@ -242,7 +245,7 @@ final class EntriesController: ObservableObject {
                     CoreData.default.clear(type: OfflineContainer.self)
                     self?.merge(folders: [], passwords: [], tags: [], offline: true)
                 }
-                LoggingController.shared.log(error: error)
+                self?.logger.log(error: error)
             }
         }
     }
@@ -989,6 +992,8 @@ extension EntriesController {
 }
 
 
+#if DEBUG
+
 extension EntriesController: MockObject {
     
     static var mock: EntriesController {
@@ -996,3 +1001,5 @@ extension EntriesController: MockObject {
     }
     
 }
+
+#endif

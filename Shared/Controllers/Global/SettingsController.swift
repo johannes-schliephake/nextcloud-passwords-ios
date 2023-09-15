@@ -1,10 +1,13 @@
 import Combine
+import Factory
 import SwiftUI
 
 
 final class SettingsController: ObservableObject {
     
     static let `default` = SettingsController()
+    
+    @LazyInjected(\.logger) private var logger
     
     @Published private var settings: Settings? /// Published private value will still refresh views
     
@@ -90,7 +93,7 @@ final class SettingsController: ObservableObject {
             }
             catch {
                 Configuration.userDefaults.removeObject(forKey: "settings")
-                LoggingController.shared.log(error: error)
+                self?.logger.log(error: error)
                 return
             }
         }

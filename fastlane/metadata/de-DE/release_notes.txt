@@ -1,2 +1,3 @@
-• Suchalgorithmus berücksichtigt jetzt URL-Portnummern
-• Optimierungen
+• iOS 17 Kompatibilität
+• Teile der App auf eine neue Architektur aktualisiert
+• Fehlerbehebungen und Optimierungen

@@ -112,7 +112,7 @@ extension TextView {
             if isEditable {
                 return super.canPerformAction(action, withSender: sender)
             }
-            return action == #selector(UIResponderStandardEditActions.copy)
+            return action == #selector((any UIResponderStandardEditActions).copy)
         }
         
     }

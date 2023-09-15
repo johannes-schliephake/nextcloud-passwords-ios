@@ -62,11 +62,10 @@ struct PasswordGenerator: View {
                             .foregroundColor(Color(white: 0.5, opacity: 0.23))
                             .padding(.horizontal, 11.5)
                             .offset(y: 6)
-                            Slider(value: Binding(get: {
-                                Double(generatorStrength.rawValue)
-                            }, set: {
-                                generatorStrength = PasswordServiceRequest.Strength(rawValue: Int($0)) ?? generatorStrength
-                            }), in: 0...Double(PasswordServiceRequest.Strength.allCases.count - 1), step: 1)
+                            Slider(value: Binding(
+                                get: { Double(generatorStrength.rawValue) },
+                                set: { generatorStrength = PasswordServiceRequest.Strength(rawValue: Int($0)) ?? generatorStrength }
+                            ), in: 0...Double(PasswordServiceRequest.Strength.allCases.count - 1), step: 1)
                         }
                         ZStack {
                             Text("_low")

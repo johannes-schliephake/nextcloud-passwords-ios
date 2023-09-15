@@ -181,7 +181,7 @@ open class Snapshot: NSObject {
 
                 let path = screenshotsDir.appendingPathComponent("\(simulator)-\(name).png")
                 #if swift(<5.0)
-                    UIImagePNGRepresentation(image)?.write(to: path, options: .atomic)
+                    try UIImagePNGRepresentation(image)?.write(to: path, options: .atomic)
                 #else
                     try image.pngData()?.write(to: path, options: .atomic)
                 #endif
@@ -273,7 +273,7 @@ private extension XCUIElementAttributes {
 private extension XCUIElementQuery {
     var networkLoadingIndicators: XCUIElementQuery {
         let isNetworkLoadingIndicator = NSPredicate { (evaluatedObject, _) in
-            guard let element = evaluatedObject as? XCUIElementAttributes else { return false }
+            guard let element = evaluatedObject as? any XCUIElementAttributes else { return false }
 
             return element.isNetworkLoadingIndicator
         }
@@ -289,7 +289,7 @@ private extension XCUIElementQuery {
         let deviceWidth = app.windows.firstMatch.frame.width
 
         let isStatusBar = NSPredicate { (evaluatedObject, _) in
-            guard let element = evaluatedObject as? XCUIElementAttributes else { return false }
+            guard let element = evaluatedObject as? any XCUIElementAttributes else { return false }
 
             return element.isStatusBar(deviceWidth)
         }
@@ -306,4 +306,4 @@ private extension CGFloat {
 
 // Please don't remove the lines below
 // They are used to detect outdated configuration files
-// SnapshotHelperVersion [1.28]
+// SnapshotHelperVersion [1.29]

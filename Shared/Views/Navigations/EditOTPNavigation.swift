@@ -12,7 +12,7 @@ struct EditOTPNavigation: View {
     
     var body: some View {
         NavigationView {
-            EditOTPPage(otp: otp, updateOtp: updateOtp)
+            EditOTPPage(viewModel: EditOTPViewModel(otp: otp, updateOtp: updateOtp).eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {
@@ -22,7 +22,7 @@ struct EditOTPNavigation: View {
                     .scrollDismissesKeyboard(.interactively)
             }
         }
-        .occlude(!biometricAuthenticationController.isUnlocked)
+        .occlude(biometricAuthenticationController.hideContents)
     }
     
 }

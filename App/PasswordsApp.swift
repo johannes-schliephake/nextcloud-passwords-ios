@@ -1,9 +1,15 @@
 import SwiftUI
+import Factory
 
 
 @main struct PasswordsApp: App {
     
     @StateObject private var autoFillController = Configuration.isTestEnvironment ? AutoFillController.mock : AutoFillController.default
+    
+    init() {
+        _ = resolve(\.logger)
+        _ = resolve(\.windowSizeService)
+    }
     
     // MARK: Views
     

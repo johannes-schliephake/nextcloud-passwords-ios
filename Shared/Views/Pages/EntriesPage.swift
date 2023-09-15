@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct EntriesPage: View {
@@ -6,6 +7,7 @@ struct EntriesPage: View {
     @ObservedObject var entriesController: EntriesController
     private let showFilterSortMenu: Bool
     
+    @Injected(\.logger) private var logger
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var sessionController: SessionController
     
@@ -113,17 +115,15 @@ struct EntriesPage: View {
     }
     
     private func connectView() -> some View {
-        VStack {
-            Button("_connectToServer") {
-                showServerSetupView = true
-            }
-            .frame(maxWidth: 600)
-            .buttonStyle(.action)
-            .sheet(isPresented: $showServerSetupView) {
-                ServerSetupNavigation()
-            }
+        Button("_connectToServer") {
+            showServerSetupView = true
         }
+        .buttonStyle(.action)
+        .frame(maxWidth: 600)
         .padding()
+        .sheet(isPresented: $showServerSetupView) {
+            ServerSetupNavigation()
+        }
     }
     
     private func errorView() -> some View {
@@ -155,7 +155,6 @@ struct EntriesPage: View {
                 SecureField("-", text: $challengePassword, onCommit: {
                     solveChallenge()
                 })
-                .frame(maxWidth: 600)
                 .focused($focusedField, equals: .challengePassword)
                 .submitLabel(.done)
                 .onAppear {
@@ -174,26 +173,36 @@ struct EntriesPage: View {
                         }
                         .buttonStyle(.borderless)
                         .tooltip(isPresented: $showStorePasswordTooltip) {
-                            VStack(alignment: .leading, spacing: 15) {
-                                Text("_storePasswordMessage")
-                            }
+                            Text("_storePasswordMessage")
                         }
                     }
                 }
-                .frame(maxWidth: 600)
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
                 .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
             Button("_logIn") {
                 solveChallenge()
             }
-            .frame(maxWidth: 600)
             .buttonStyle(.action)
             .listRowInsets(EdgeInsets())
             .disabled(challengePassword.count < 12)
         }
         .listStyle(.insetGrouped)
-        .frame(maxWidth: 600)
+        .apply { view in
+            if #available(iOS 16.4, *) {
+                view
+                    .scrollBounceBehavior(.basedOnSize)
+            }
+        }
+        .apply { view in
+            if #available(iOS 17, *) {
+                view
+                    .listWidthLimit(600)
+            } else {
+                view
+                    .frame(maxWidth: 600)
+            }
+        }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
@@ -282,19 +291,26 @@ struct EntriesPage: View {
             item in
             switch item {
             case .edit(.folder(let folder)):
-                EditFolderNavigation(entriesController: entriesController, folder: folder)
+                EditFolderNavigation(folder: folder)
             case .edit(.password(let password)):
                 EditPasswordNavigation(entriesController: entriesController, password: password)
             case .edit(.tag(let tag)):
-                EditTagNavigation(entriesController: entriesController, tag: tag)
+                EditTagNavigation(tag: tag)
             case .move(.folder(let folder)):
-                SelectFolderNavigation(entriesController: entriesController, entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent), selectFolder: {
+                SelectFolderNavigation(entry: .folder(folder), temporaryEntry: .folder(label: folder.label, parent: folder.parent ?? ""), selectFolder: {
                     parent in
                     folder.parent = parent.id
                     entriesController.update(folder: folder)
                 })
+                .onAppear {
+                    if folder.isBaseFolder {
+                        logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
+                    } else if folder.parent == nil {
+                        logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
+                    }
+                }
             case .move(.password(let password)):
-                SelectFolderNavigation(entriesController: entriesController, entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), selectFolder: {
+                SelectFolderNavigation(entry: .password(password), temporaryEntry: .password(label: password.label, username: password.username, url: password.url, folder: password.folder), selectFolder: {
                     parent in
                     password.folder = parent.id
                     entriesController.update(password: password)
@@ -304,7 +320,7 @@ struct EntriesPage: View {
             case .tag(.folder):
                 EmptyView()
             case .tag(.password(let password)):
-                SelectTagsNavigation(entriesController: entriesController, temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
+                SelectTagsNavigation(temporaryEntry: .password(label: password.label, username: password.username, url: password.url, tags: password.tags), selectTags: {
                     validTags, invalidTags in
                     password.tags = validTags.map { $0.id } + invalidTags
                     entriesController.update(password: password)
@@ -392,10 +408,7 @@ struct EntriesPage: View {
                         showSettingsView = true
                     }
                     .sheet(isPresented: $showSettingsView) {
-                        SettingsNavigation(updateOfflineData: {
-                            entriesController.updateOfflineContainers()
-                            entriesController.updateAutoFillCredentials()
-                        })
+                        SettingsNavigation()
                     }
                 }
             }
@@ -543,6 +556,13 @@ struct EntriesPage: View {
             HStack {
                 Spacer()
                 Image(systemName: "arrow.up.arrow.down")
+            }
+        }
+        .apply {
+            view in
+            if #available(iOS 16.4, *) {
+                view
+                    .menuActionDismissBehavior(.disabled)
             }
         }
         .accessibility(identifier: "filterSortMenu")
@@ -890,6 +910,13 @@ extension EntriesPage {
                             label: {
                                 Label("_copyUsername", systemImage: "doc.on.doc")
                             }
+                            .apply {
+                                view in
+                                if #available(iOS 16.4, *) {
+                                    view
+                                        .menuActionDismissBehavior(.disabled)
+                                }
+                            }
                         }
                         Button {
                             UIPasteboard.general.privateString = password.password
@@ -897,12 +924,26 @@ extension EntriesPage {
                         label: {
                             Label("_copyPassword", systemImage: "doc.on.doc")
                         }
+                        .apply {
+                            view in
+                            if #available(iOS 16.4, *) {
+                                view
+                                    .menuActionDismissBehavior(.disabled)
+                            }
+                        }
                         if let otp = password.otp {
                             Button {
                                 UIPasteboard.general.privateString = otp.current
                             }
                             label: {
                                 Label("_copyOtp", systemImage: "doc.on.doc")
+                            }
+                            .apply {
+                                view in
+                                if #available(iOS 16.4, *) {
+                                    view
+                                        .menuActionDismissBehavior(.disabled)
+                                }
                             }
                         }
                     }
@@ -1057,7 +1098,7 @@ extension EntriesPage {
                             let validTags = EntriesController.tags(for: password.tags, in: tags).valid
                             if !validTags.isEmpty {
                                 HStack(spacing: -6) {
-                                    ForEach(Array(validTags.sortedByLabel().prefix(10).enumerated()), id: \.element.id) {
+                                    ForEach(Array(validTags.sorted().prefix(10).enumerated()), id: \.element.id) {
                                         index, tag in
                                         Circle()
                                             .stroke(Color(UIColor.systemBackground), lineWidth: 2)
@@ -1156,14 +1197,17 @@ extension EntriesPage {
                 Image(systemName: "xmark.shield.fill")
                     .foregroundColor(.red)
             case .unknown:
-                ZStack {
-                    Image(systemName: "shield.fill")
-                        .foregroundColor(.gray)
-                    Image(systemName: "questionmark")
-                        .font(.body.bold())
-                        .foregroundColor(Color(.systemBackground))
-                        .scaleEffect(0.5)
-                }
+                Image(systemName: "shield.fill")
+                    .foregroundColor(.gray)
+                    .mask {
+                        Image(systemName: "questionmark")
+                            .font(.body.bold())
+                            .scaleEffect(0.5)
+                            .foregroundColor(.black)
+                            .background(.white)
+                            .compositingGroup()
+                            .luminanceToAlpha()
+                    }
             }
         }
         
@@ -1369,6 +1413,8 @@ extension EntriesPage {
 }
 
 
+#if DEBUG
+
 struct EntriesPagePreview: PreviewProvider {
     
     static var previews: some View {
@@ -1380,8 +1426,9 @@ struct EntriesPagePreview: PreviewProvider {
             .environmentObject(AutoFillController.mock)
             .environmentObject(BiometricAuthenticationController.mock)
             .environmentObject(SessionController.mock)
-            .environmentObject(TipController.mock)
         }
     }
     
 }
+
+#endif
