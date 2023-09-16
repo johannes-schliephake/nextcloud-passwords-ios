@@ -48,7 +48,7 @@
 "_deletePasswordErrorMessage" = "Произошла ошибка при удалении пароля. Пожалуйста, попробуйте еще раз.";
 "_deleteTag" = "Удалить тег";
 "_deleteTagErrorMessage" = "Произошла ошибка при удалении тега. Пожалуйста, попробуйте еще раз.";
-"_detectQrCodeInPicture" = "Сканировать QR-код";
+"_detectQrCodeInPicture" = "Сканировать QR-код на изображении";
 "_digits" = "Цифры";
 "_discardChanges" = "Отменить изменения";
 "_dismiss" = "Закрыть";
@@ -67,7 +67,7 @@
 "_exportAsQrCode" = "Экспортировать как QR-код";
 "_extractOtpErrorMessage" = "Произошла ошибка при чтении QR-кода на выбранном изображении.";
 "_favorite" = "Избранное";
-"_favorites" = "Избранное";
+"_favorites" = "Избранные";
 "_file" = "Файл";
 "_folder" = "Папка";
 "_folders" = "Папки";
@@ -151,3 +151,13 @@
 "_username" = "Имя пользователя";
 "_valueCopied" = "Значение скопировано в буфер обмена";
 "_version" = "Версия";
+
+/* I.e. duplicates of a password */
+"_duplicates" = "Дубликаты";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_connectingToNextcloudInstanceAt(url)" = "Подключение к Nextcloud по адресу\n%@";
+"_joinTestFlightBeta" = "Присоединиться к TestFlight бета-тестированию";
+"_duplicatesTrashMessage" = "Все дубликаты этого пароля находятся в корзине.";
+"_managedServerUrlErrorMessage" = "Адрес сервера Nextcloud был предварительно настроен, но приложению не удалось подключиться к экземпляру Nextcloud. Обратитесь к администратору.";
+"_supportThisProjectMessage" = "Установлена TestFligh версия приложения. Любые сделанные покупки предназначены только для целей тестирования и не будут оплачены.";
