@@ -29,7 +29,7 @@ enum AccessCount {
 }
 
 
-func beAccessed<L: PropertyAccessLogging>(_ accessCount: AccessCount = .anyNumberOfTimes, on expectedAccess: String? = nil) -> Predicate<L> {
+func beAccessed<L: PropertyAccessLogging>(_ accessCount: AccessCount = .anyNumberOfTimes, on expectedAccess: String? = nil) -> Matcher<L> {
     .init { expression in
         var message: ExpectationMessage
         if let expectedAccess {

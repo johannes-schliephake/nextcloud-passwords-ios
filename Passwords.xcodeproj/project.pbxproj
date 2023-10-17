@@ -3402,7 +3402,7 @@
 			repositoryURL = "https://github.com/Quick/Nimble";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 12.0.0;
+				minimumVersion = 13.0.0;
 			};
 		};
 		DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */ = {
