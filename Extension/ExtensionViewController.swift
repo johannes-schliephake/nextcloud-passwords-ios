@@ -58,7 +58,7 @@ class ExtensionViewController: UIViewController {
                 self?.extensionContext?.completeRequest(returningItems: [otpItem])
             }
             else {
-                UIPasteboard.general.privateString = currentOtp
+                resolve(\.pasteboardService).set(string: currentOtp, sensitive: true)
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                     self?.extensionContext?.completeRequest(returningItems: nil)
                 }

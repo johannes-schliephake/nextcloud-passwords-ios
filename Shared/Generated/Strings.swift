@@ -166,6 +166,7 @@ internal enum Strings {
   internal static let tryAgain = Strings.tr("Localizable", "_tryAgain", fallback: "Try Again")
   internal static let type = Strings.tr("Localizable", "_type", fallback: "Type")
   internal static let ultra = Strings.tr("Localizable", "_ultra", fallback: "Ultra")
+  internal static let universalClipboard = Strings.tr("Localizable", "_universalClipboard", fallback: "Universal Clipboard")
   internal static let unlockApp = Strings.tr("Localizable", "_unlockApp", fallback: "Unlock App")
   internal static let updated = Strings.tr("Localizable", "_updated", fallback: "Updated")
   internal static let url = Strings.tr("Localizable", "_url", fallback: "URL")

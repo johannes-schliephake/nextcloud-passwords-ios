@@ -110,7 +110,7 @@ final class LogViewModelTests: XCTestCase {
         
         logViewModel(.copyLog)
         
-        expect(self.pasteboardServiceMock).to(beCalled(.once, on: "set(_:)", withParameter: expectedPasteboardString))
+        expect(self.pasteboardServiceMock).to(beCalled(.once, on: "set(string:sensitive:)", withParameters: expectedPasteboardString, false))
     }
     
     func testCallAsFunction_givenLoggerIsUnavailable_whenCallingCopyLog_thenDoesntCallPasteboardService() {
@@ -133,7 +133,7 @@ final class LogViewModelTests: XCTestCase {
         
         logViewModel(.copyEvent(logEventMocks[0]))
         
-        expect(self.pasteboardServiceMock).to(beCalled(.once, on: "set(_:)", withParameter: expectedPasteboardString))
+        expect(self.pasteboardServiceMock).to(beCalled(.once, on: "set(string:sensitive:)", withParameters: expectedPasteboardString, false))
     }
     
 }

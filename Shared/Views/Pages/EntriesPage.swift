@@ -919,7 +919,7 @@ extension EntriesPage {
                             }
                         }
                         Button {
-                            UIPasteboard.general.privateString = password.password
+                            resolve(\.pasteboardService).set(string: password.password, sensitive: true)
                         }
                         label: {
                             Label("_copyPassword", systemImage: "doc.on.doc")
@@ -933,7 +933,7 @@ extension EntriesPage {
                         }
                         if let otp = password.otp {
                             Button {
-                                UIPasteboard.general.privateString = otp.current
+                                otp.current.map { resolve(\.pasteboardService).set(string: $0, sensitive: true) }
                             }
                             label: {
                                 Label("_copyOtp", systemImage: "doc.on.doc")

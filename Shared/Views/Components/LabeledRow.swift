@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct LabeledRow: View {
@@ -116,7 +117,7 @@ struct LabeledRow: View {
     private func copiableStack() -> some View {
         Button {
             if type == .secret {
-                UIPasteboard.general.privateString = value
+                resolve(\.pasteboardService).set(string: value, sensitive: true)
             }
             else {
                 UIPasteboard.general.string = value

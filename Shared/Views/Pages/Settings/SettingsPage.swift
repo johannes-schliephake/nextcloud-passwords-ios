@@ -65,6 +65,11 @@ struct SettingsPage: View {
             } set: { isOn in
                 viewModel(.setIsAutomaticPasswordGenerationEnabled(isOn))
             })
+            Toggle(Strings.universalClipboard, isOn: .init {
+                viewModel[\.isUniversalClipboardEnabled]
+            } set: { isOn in
+                viewModel(.setIsUniversalClipboardEnabled(isOn))
+            })
         }
     }
     
