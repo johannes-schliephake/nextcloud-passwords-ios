@@ -26,6 +26,7 @@ enum Configuration: Configurating {
     static let defaults: [String: Any] = [
         "automaticallyGeneratePasswords": true,
         "storeOffline": true,
+        "universalClipboard": false,
         "didAcceptAboutOtps": false,
         "showMetadata": true,
         "generatorNumbers": true,

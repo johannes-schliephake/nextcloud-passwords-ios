@@ -8,6 +8,8 @@ protocol SettingsServiceProtocol {
     var isOfflineStorageEnabledPublisher: AnyPublisher<Bool, Never> { get }
     var isAutomaticPasswordGenerationEnabled: Bool { get set }
     var isAutomaticPasswordGenerationEnabledPublisher: AnyPublisher<Bool, Never> { get } // swiftlint:disable:this identifier_name
+    var isUniversalClipboardEnabled: Bool { get set }
+    var isUniversalClipboardEnabledPublisher: AnyPublisher<Bool, Never> { get }
     
 }
 
@@ -49,8 +51,22 @@ final class SettingsService: SettingsServiceProtocol {
         $isAutomaticPasswordGenerationEnabledInternal
             .eraseToAnyPublisher()
     }
+    var isUniversalClipboardEnabled: Bool {
+        get {
+            isUniversalClipboardEnabledInternal
+        }
+        set {
+            isUniversalClipboardEnabledInternal = newValue
+            resolve(\.configurationType).userDefaults.set(newValue, forKey: "universalClipboard")
+        }
+    }
+    var isUniversalClipboardEnabledPublisher: AnyPublisher<Bool, Never> {
+        $isUniversalClipboardEnabledInternal
+            .eraseToAnyPublisher()
+    }
     
     @Published private var isOfflineStorageEnabledInternal = resolve(\.configurationType).userDefaults.bool(forKey: "storeOffline")
     @Published private var isAutomaticPasswordGenerationEnabledInternal = resolve(\.configurationType).userDefaults.bool(forKey: "automaticallyGeneratePasswords") // swiftlint:disable:this identifier_name
+    @Published private var isUniversalClipboardEnabledInternal = resolve(\.configurationType).userDefaults.bool(forKey: "universalClipboard")
 
 }
