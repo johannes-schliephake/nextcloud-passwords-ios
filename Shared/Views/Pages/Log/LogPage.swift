@@ -10,6 +10,22 @@ struct LogPage: View {
     var body: some View {
         listView()
             .navigationTitle("Log")
+            .apply { view in
+                if #available(iOS 17, *) {
+                    view
+                        .typesettingLanguage(.init(languageCode: .english))
+                }
+            }
+            .apply { view in
+                if #available(iOS 16, *) {
+                    view
+                        .environment(\.locale, .init(languageCode: .english))
+                } else {
+                    view
+                        .environment(\.locale, .init(identifier: "en"))
+                }
+            }
+            .environment(\.layoutDirection, .leftToRight)
     }
     
     private func listView() -> some View {
