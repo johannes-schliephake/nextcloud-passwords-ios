@@ -32,6 +32,8 @@ struct LabeledRow: View {
         switch type {
         case .text:
             textStack()
+        case .nonLinguisticText:
+            textStack()
         case .secret:
             secretStack()
         case .email:
@@ -142,6 +144,15 @@ struct LabeledRow: View {
                     .foregroundColor(.gray)
             }
             switch type {
+            case .nonLinguisticText:
+                Text(!value.isEmpty ? value : "-")
+                    .foregroundColor(.primary)
+                    .apply { view in
+                        if #available(iOS 17, *) {
+                            view
+                                .typesettingLanguage(.init(languageCode: .unavailable))
+                        }
+                    }
             case .secret:
                 Text(hideSecret ? "••••••••••••" : value)
                     .foregroundColor(.primary)
@@ -154,6 +165,12 @@ struct LabeledRow: View {
                         else {
                             view
                                 .font(.system(.body, design: .monospaced))
+                        }
+                    }
+                    .apply { view in
+                        if #available(iOS 17, *) {
+                            view
+                                .typesettingLanguage(.init(languageCode: .unavailable))
                         }
                     }
             case .pin:
@@ -170,6 +187,12 @@ struct LabeledRow: View {
                                 .font(.system(.body, design: .monospaced))
                         }
                     }
+                    .apply { view in
+                        if #available(iOS 17, *) {
+                            view
+                                .typesettingLanguage(.init(languageCode: .unavailable))
+                        }
+                    }
             default:
                 Text(!value.isEmpty ? value : "-")
                     .foregroundColor(.primary)
@@ -184,6 +207,7 @@ extension LabeledRow {
     
     enum RowType: String {
         case text
+        case nonLinguisticText
         case secret
         case email
         case url

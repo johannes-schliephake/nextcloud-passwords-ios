@@ -34,8 +34,8 @@ struct SettingsPage: View {
     
     private func credentialsSection(username: String, server: String) -> some View {
         Section(header: Text("_credentials")) {
-            LabeledRow(type: .text, label: "_nextcloudServerAddress", value: server)
-            LabeledRow(type: .text, label: "_username", value: username)
+            LabeledRow(type: .nonLinguisticText, label: "_nextcloudServerAddress", value: server)
+            LabeledRow(type: .nonLinguisticText, label: "_username", value: username)
             Button(role: .destructive) {
                 viewModel(.logout)
             } label: {
