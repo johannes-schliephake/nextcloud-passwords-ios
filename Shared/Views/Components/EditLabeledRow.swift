@@ -37,7 +37,7 @@ struct EditLabeledRow: View {
     }
     
     @_disfavoredOverload init(label: String? = nil, value: Binding<Int>, bounds: ClosedRange<Int>? = nil) {
-        self.type = .text
+        self.type = .nonLinguisticText
         labelKey = nil
         self.labelString = label
         _stringValue = .constant("")
@@ -48,7 +48,7 @@ struct EditLabeledRow: View {
     }
     
     init(label: LocalizedStringKey, value: Binding<Int>, bounds: ClosedRange<Int>? = nil) {
-        self.type = .text
+        self.type = .nonLinguisticText
         self.labelKey = label
         labelString = nil
         _stringValue = .constant("")
@@ -61,6 +61,8 @@ struct EditLabeledRow: View {
     var body: some View {
         switch type {
         case .text:
+            textStack()
+        case .nonLinguisticText:
             if isInt {
                 intStack()
             }
@@ -141,6 +143,8 @@ struct EditLabeledRow: View {
             }
             switch type {
             case .text:
+                TextField("-", text: $stringValue)
+            case .nonLinguisticText:
                 if isInt {
                     TextField("-", text: $numberStringValue)
                         .keyboardType(.numberPad)
@@ -179,6 +183,7 @@ struct EditLabeledRow: View {
                 }
                 else {
                     TextField("-", text: $stringValue)
+                        .disableAutocorrection(true)
                 }
             case .secret:
                 if hideSecret {

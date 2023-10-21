@@ -1083,6 +1083,12 @@ extension EntriesPage {
                                             .font(.system(.body, design: .monospaced))
                                     }
                                 }
+                                .apply { view in
+                                    if #available(iOS 17, *) {
+                                        view
+                                            .typesettingLanguage(.init(languageCode: .unavailable))
+                                    }
+                                }
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 4)
                                 .background(
@@ -1152,6 +1158,12 @@ extension EntriesPage {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .lineLimit(1)
+                    .apply { view in
+                        if #available(iOS 17, *) {
+                            view
+                                .typesettingLanguage(.init(languageCode: .unavailable))
+                        }
+                    }
             }
         }
         

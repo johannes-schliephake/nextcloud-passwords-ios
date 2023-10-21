@@ -310,7 +310,7 @@ struct EditPasswordPage: View {
                             .submitLabel(.next)
                         Divider()
                         HStack(spacing: 16) {
-                            EditLabeledRow(type: LabeledRow.RowType(rawValue: customUserField.type.rawValue) ?? .text, label: "_\(customUserField.type)".localized, value: $customUserField.value)
+                            EditLabeledRow(type: LabeledRow.RowType(rawValue: customUserField.type.rawValue) ?? .nonLinguisticText, label: "_\(customUserField.type)".localized, value: $customUserField.value)
                                 .focused($focusedField, equals: .passwordCustomFields(id: customUserField.id, row: .value))
                                 .submitLabel(FocusField.passwordCustomFields(id: customUserField.id, row: .value).next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) != nil ? .next : .done)
                             if customUserField.type == .secret {
