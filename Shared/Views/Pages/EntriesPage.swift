@@ -128,8 +128,9 @@ struct EntriesPage: View {
     
     private func errorView() -> some View {
         List {
-            VStack(alignment: .center, spacing: 8) {
+            VStack(spacing: 8) {
                 Text("_anErrorOccurred")
+                    .multilineTextAlignment(.center)
                     .foregroundColor(.gray)
                     .padding()
                 Button {
@@ -270,13 +271,12 @@ struct EntriesPage: View {
             }
             else {
                 List {
-                    VStack(alignment: .center) {
-                        Text("_nothingToSeeHere")
-                            .foregroundColor(.gray)
-                            .padding()
-                    }
-                    .frame(maxWidth: .infinity)
-                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+                    Text("_nothingToSeeHere")
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.gray)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .listRowBackground(Color(UIColor.systemGroupedBackground))
                 }
                 .listStyle(.insetGrouped)
             }
