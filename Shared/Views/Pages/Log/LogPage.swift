@@ -39,13 +39,12 @@ struct LogPage: View {
                 }
                 eventsSection()
             } else {
-                VStack(alignment: .center) {
-                    Text("Logging inactive")
-                        .foregroundColor(.gray)
-                        .padding()
-                }
-                .frame(maxWidth: .infinity)
-                .listRowBackground(Color(UIColor.systemGroupedBackground))
+                Text("Logging inactive")
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.gray)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
         }
         .listStyle(.insetGrouped)
