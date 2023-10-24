@@ -132,6 +132,11 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
     func callAsFunction(_ action: Action) {
         switch action {
         case .addTag:
+            state.$focusedField
+                .first { $0 == nil }
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] _ in self?.state.focusedField = .addTagLabel }
+                .store(in: &cancellables)
             let tag: Tag
             do {
                 tag = try tagsService.addTag(label: state.tagLabel)
