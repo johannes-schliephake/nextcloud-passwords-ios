@@ -8,6 +8,7 @@ struct EntriesPage: View {
     private let showFilterSortMenu: Bool
     
     @Injected(\.logger) private var logger
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var sessionController: SessionController
     
@@ -566,6 +567,7 @@ struct EntriesPage: View {
             }
         }
         .accessibility(identifier: "filterSortMenu")
+        .onChange(of: entriesController.filterBy, perform: didChange)
     }
     
     private func createMenu() -> some View {
@@ -600,6 +602,12 @@ struct EntriesPage: View {
     private func solveChallenge() {
         if !challengePassword.isEmpty {
             sessionController.solveChallenge(password: challengePassword, store: storeChallengePassword)
+        }
+    }
+    
+    private func didChange(filterBy: EntriesController.Filter) {
+        if !folderController.folder.isBaseFolder || folderController.tag != nil {
+            dismiss()
         }
     }
     
