@@ -238,6 +238,7 @@ struct EntriesPage: View {
                                     Text("_createPassword")
                                 })
                                 .buttonStyle(.action)
+                                .listRowSeparator(.hidden, edges: .bottom)
                                 .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
                             }
                         }
