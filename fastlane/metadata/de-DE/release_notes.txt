@@ -1,2 +1,2 @@
 • Unterstützung für allgemeine Zwischenablage
-• Optimierungen
+• Fehlerbehebungen und Optimierungen
