@@ -1,2 +1,2 @@
 • Support for Universal Clipboard
-• Optimizations
+• Bugfixes and optimizations
