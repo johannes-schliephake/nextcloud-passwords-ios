@@ -154,14 +154,15 @@ struct EntriesPage: View {
     private func challengeView() -> some View {
         List {
             Section(header: Text("_e2ePassword")) {
-                SecureField("-", text: $challengePassword, onCommit: {
-                    solveChallenge()
-                })
-                .focused($focusedField, equals: .challengePassword)
-                .submitLabel(.done)
-                .onAppear {
-                    challengePassword = ""
-                }
+                EditLabeledRow(type: .secret, value: $challengePassword)
+                    .focused($focusedField, equals: .challengePassword)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        solveChallenge()
+                    }
+                    .onAppear {
+                        challengePassword = ""
+                    }
             }
             Section {
                 Toggle(isOn: $storeChallengePassword) {
@@ -914,7 +915,7 @@ extension EntriesPage {
                         }
                         if !password.username.isEmpty {
                             Button {
-                                UIPasteboard.general.string = password.username
+                                resolve(\.pasteboardService).set(string: password.username, sensitive: false)
                             }
                             label: {
                                 Label("_copyUsername", systemImage: "doc.on.doc")

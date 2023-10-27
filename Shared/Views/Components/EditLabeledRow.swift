@@ -17,7 +17,7 @@ struct EditLabeledRow: View {
     @_disfavoredOverload init(type: LabeledRow.RowType, label: String? = nil, value: Binding<String>) {
         self.type = type
         labelKey = nil
-        self.labelString = label
+        labelString = label
         _stringValue = value
         _intValue = .constant(0)
         bounds = nil
@@ -27,7 +27,7 @@ struct EditLabeledRow: View {
     
     init(type: LabeledRow.RowType, label: LocalizedStringKey, value: Binding<String>) {
         self.type = type
-        self.labelKey = label
+        labelKey = label
         labelString = nil
         _stringValue = value
         _intValue = .constant(0)
@@ -37,9 +37,9 @@ struct EditLabeledRow: View {
     }
     
     @_disfavoredOverload init(label: String? = nil, value: Binding<Int>, bounds: ClosedRange<Int>? = nil) {
-        self.type = .nonLinguisticText
+        type = .nonLinguisticText
         labelKey = nil
-        self.labelString = label
+        labelString = label
         _stringValue = .constant("")
         _intValue = value
         self.bounds = bounds
@@ -48,8 +48,8 @@ struct EditLabeledRow: View {
     }
     
     init(label: LocalizedStringKey, value: Binding<Int>, bounds: ClosedRange<Int>? = nil) {
-        self.type = .nonLinguisticText
-        self.labelKey = label
+        type = .nonLinguisticText
+        labelKey = label
         labelString = nil
         _stringValue = .constant("")
         _intValue = value
@@ -105,11 +105,13 @@ struct EditLabeledRow: View {
             Spacer()
             Button {
                 hideSecret.toggle()
-            }
-            label: {
+            } label: {
                 Image(systemName: hideSecret ? "eye" : "eye.slash")
             }
             .buttonStyle(.borderless)
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+                hideSecret = true
+            }
         }
     }
     
