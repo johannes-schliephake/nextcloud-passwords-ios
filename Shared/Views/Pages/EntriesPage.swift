@@ -915,7 +915,7 @@ extension EntriesPage {
                         }
                         if !password.username.isEmpty {
                             Button {
-                                UIPasteboard.general.string = password.username
+                                resolve(\.pasteboardService).set(string: password.username, sensitive: false)
                             }
                             label: {
                                 Label("_copyUsername", systemImage: "doc.on.doc")

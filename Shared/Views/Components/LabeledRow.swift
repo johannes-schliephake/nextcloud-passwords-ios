@@ -15,14 +15,14 @@ struct LabeledRow: View {
     @_disfavoredOverload init(type: RowType, label: String? = nil, value: String, copiable: Bool = false) {
         self.type = type
         labelKey = nil
-        self.labelString = label
+        labelString = label
         self.value = value
         self.copiable = copiable
     }
     
     init(type: RowType, label: LocalizedStringKey, value: String, copiable: Bool = false) {
         self.type = type
-        self.labelKey = label
+        labelKey = label
         labelString = nil
         self.value = value
         self.copiable = copiable
@@ -57,11 +57,13 @@ struct LabeledRow: View {
             Spacer()
             Button {
                 hideSecret.toggle()
-            }
-            label: {
+            } label: {
                 Image(systemName: hideSecret ? "eye" : "eye.slash")
             }
             .buttonStyle(.borderless)
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+                hideSecret = true
+            }
         }
     }
     
@@ -118,12 +120,7 @@ struct LabeledRow: View {
     
     private func copiableStack() -> some View {
         Button {
-            if type == .secret {
-                resolve(\.pasteboardService).set(string: value, sensitive: true)
-            }
-            else {
-                UIPasteboard.general.string = value
-            }
+            resolve(\.pasteboardService).set(string: value, sensitive: type == .secret)
         }
         label: {
             labeledStack()
