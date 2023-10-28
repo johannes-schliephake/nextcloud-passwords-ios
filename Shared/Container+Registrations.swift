@@ -140,7 +140,13 @@ extension Container {
         self { StoreKit.Transaction.self }
     }
     var videoCapturer: Factory<(any VideoCapturing)?> {
-        self { AVCaptureDevice.default(for: .video) }
+        self {
+            if #available(iOS 17.0, *) {
+                AVCaptureDevice.userPreferredCamera
+            } else {
+                AVCaptureDevice.default(for: .video)
+            }
+        }
     }
     
     // MARK: Miscellaneous
