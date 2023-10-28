@@ -26,20 +26,25 @@ struct CaptureOTPPage: View {
         GeometryReader {
             geometryProxy in
             ZStack {
-                QRCapture { viewModel(.captureQrResult($0)) }
-                    .background(Color.black)
-                    .alert(isPresented: $viewModel[\.showErrorAlert]) {
-                        Alert(title: Text("_error"), message: Text("_qrCaptureErrorMessage"), dismissButton: .cancel {
-                            viewModel(.cancel)
-                        })
-                    }
+                if #available(iOS 16, *),
+                   DataScannerView.isSupported {
+                    DataScannerView(.qr) { viewModel(.captureQrResult($0)) }
+                } else {
+                    QRCapture { viewModel(.captureQrResult($0)) }
+                }
                 let sideLength = min(geometryProxy.size.width, geometryProxy.size.height) * 0.8
                 Rectangle()
                     .strokeBorder(viewModel[\.didCaptureOtp] ? .green : .yellow, lineWidth: 1.5)
                     .frame(width: sideLength, height: sideLength)
                     .padding(.bottom, geometryProxy.safeAreaInsets.bottom)
             }
+            .background(Color.black)
             .edgesIgnoringSafeArea([.horizontal, .bottom])
+            .alert(isPresented: $viewModel[\.showErrorAlert]) {
+                Alert(title: Text("_error"), message: Text("_qrCaptureErrorMessage"), dismissButton: .cancel {
+                    viewModel(.cancel)
+                })
+            }
         }
     }
     
