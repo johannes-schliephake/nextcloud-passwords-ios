@@ -114,6 +114,13 @@ struct PasswordDetailPage: View {
                     .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
             .listStyle(.insetGrouped)
+            .apply { view in
+                if UIDevice.current.userInterfaceIdiom == .pad,
+                   #available(iOS 17, *) {
+                    view
+                        .listWidthLimit(600)
+                }
+            }
             .onAppear {
                 /// Fix offset scroll view on iOS 16
                 DispatchQueue.main.async {
@@ -379,7 +386,7 @@ struct PasswordDetailPage: View {
     
     private func accountSection() -> some View {
         Section(header: Text("_account")) {
-            LabeledRow(type: .text, label: "_username", value: password.username, copiable: true)
+            LabeledRow(type: .nonLinguisticText, label: "_username", value: password.username, copiable: true)
             LabeledRow(type: .secret, label: "_password", value: password.password, copiable: true)
             if let otp = password.otp {
                 HStack {
@@ -411,7 +418,7 @@ struct PasswordDetailPage: View {
         Section(header: Text("_customFields")) {
             ForEach(password.customUserFields) {
                 customField in
-                LabeledRow(type: LabeledRow.RowType(rawValue: customField.type.rawValue) ?? .text, label: customField.label, value: customField.value, copiable: true)
+                LabeledRow(type: LabeledRow.RowType(rawValue: customField.type.rawValue) ?? .nonLinguisticText, label: customField.label, value: customField.value, copiable: true)
             }
         }
     }
@@ -481,11 +488,23 @@ struct PasswordDetailPage: View {
                     if !password.id.isEmpty {
                         labeledFootnote("_id") {
                             Text(password.id.uppercased())
+                                .apply { view in
+                                    if #available(iOS 17, *) {
+                                        view
+                                            .typesettingLanguage(.init(languageCode: .unavailable))
+                                    }
+                                }
                         }
                     }
                     if let hashData = password.password.data(using: .utf8) {
                         labeledFootnote("_hash") {
                             Text(Crypto.SHA1.hash(hashData, humanReadable: true))
+                                .apply { view in
+                                    if #available(iOS 17, *) {
+                                        view
+                                            .typesettingLanguage(.init(languageCode: .unavailable))
+                                    }
+                                }
                         }
                     }
                 }
@@ -649,6 +668,12 @@ extension PasswordDetailPage {
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .lineLimit(1)
+                        .apply { view in
+                            if #available(iOS 17, *) {
+                                view
+                                    .typesettingLanguage(.init(languageCode: .unavailable))
+                            }
+                        }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }

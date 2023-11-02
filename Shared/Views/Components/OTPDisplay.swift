@@ -54,7 +54,7 @@ struct OTPDisplay<Content: View>: View {
             .onDisappear {
                 updateTotp(otp, date: nil)
             }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) {
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) {
                 _ in
                 updateTotp(otp, date: nil)
             }

@@ -3,7 +3,7 @@ default_platform(:ios)
 opt_out_usage
 
 before_all do
-    ensure_xcode_version(version: "14.3")
+    xcodes(update_list: false, select_for_current_build_only: true)
     ensure_git_status_clean
     ensure_git_branch(branch: "develop")
     unless sh("git fetch --dry-run").empty?
@@ -29,8 +29,8 @@ lane :take_screenshots do
     # Screenshot specifications at https://help.apple.com/app-store-connect/#/devd274dd925
     devices = [
         "iPhone 14 Plus",
-        "iPhone 14 Pro Max",
-        "iPhone 14 Pro",
+        "iPhone 15 Pro Max",
+        "iPhone 15 Pro",
         "iPhone 14",
         "iPhone 8 Plus",
         "iPhone SE (3rd generation)",
@@ -42,7 +42,8 @@ lane :take_screenshots do
         "iPad (6th generation)"
     ]
     languages = ["en-US", "de-DE"]
-    capture_screenshots(devices: devices, languages: languages, clear_previous_screenshots: true, override_status_bar: true, scheme: "Passwords", number_of_retries: 0, stop_after_first_error: true, testplan: "Snapshot")
+    run_tests(build_for_testing: true, scheme: "Passwords", derived_data_path: "fastlane/tmp", disable_package_automatic_updates: true)
+    capture_screenshots(devices: devices, languages: languages, clear_previous_screenshots: true, override_status_bar: true, dark_mode: false, test_without_building: true, scheme: "Passwords", stop_after_first_error: true, derived_data_path: "fastlane/tmp", testplan: "Snapshot")
     unless prompt(text: "Does the preview on path './fastlane/screenshots/screenshots.html' look okay for you?", boolean: true)
         reset_git_repo(force: true)
         UI.user_error!("Did not keep screenshots, because the HTML file was rejected by the user")
@@ -66,7 +67,7 @@ lane :build_and_upload do
     unless last_git_tag != version
         UI.user_error!("The version number didn't change")
     end
-    run_tests(scheme: "Passwords")
+    run_tests(scheme: "Passwords", disable_package_automatic_updates: true)
     get_certificates(output_path: "fastlane/tmp")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")
@@ -74,7 +75,7 @@ lane :build_and_upload do
     increment_build_number_in_xcodeproj(target: "Passwords")
     increment_build_number_in_xcodeproj(target: "Provider")
     increment_build_number_in_xcodeproj(target: "Extension")
-    build_app(scheme: "Passwords", clean: true, output_directory: "fastlane/tmp", output_name: "Passwords (#{version}, Build #{get_build_number}).ipa", export_method: "app-store")
+    build_app(scheme: "Passwords", clean: true, output_directory: "fastlane/tmp", output_name: "Passwords (#{version}, Build #{get_build_number}).ipa", export_method: "app-store", disable_package_automatic_updates: true)
     localized_app_info = {
         "en-US": {
             feedback_email: File.read("metadata/en-US/feedback_email.txt").strip,

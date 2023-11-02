@@ -34,8 +34,8 @@ struct SettingsPage: View {
     
     private func credentialsSection(username: String, server: String) -> some View {
         Section(header: Text("_credentials")) {
-            LabeledRow(type: .text, label: "_nextcloudServerAddress", value: server)
-            LabeledRow(type: .text, label: "_username", value: username)
+            LabeledRow(type: .nonLinguisticText, label: "_nextcloudServerAddress", value: server)
+            LabeledRow(type: .nonLinguisticText, label: "_username", value: username)
             Button(role: .destructive) {
                 viewModel(.logout)
             } label: {
@@ -64,6 +64,11 @@ struct SettingsPage: View {
                 viewModel[\.isAutomaticPasswordGenerationEnabled]
             } set: { isOn in
                 viewModel(.setIsAutomaticPasswordGenerationEnabled(isOn))
+            })
+            Toggle(Strings.universalClipboard, isOn: .init {
+                viewModel[\.isUniversalClipboardEnabled]
+            } set: { isOn in
+                viewModel(.setIsUniversalClipboardEnabled(isOn))
             })
         }
     }
@@ -126,6 +131,21 @@ struct SettingsPage: View {
                 } label: {
                     Label("Log", systemImage: "doc.text.magnifyingglass")
                         .foregroundColor(.accentColor)
+                        .apply { view in
+                            if #available(iOS 17, *) {
+                                view
+                                    .typesettingLanguage(.init(languageCode: .english))
+                            }
+                        }
+                        .apply { view in
+                            if #available(iOS 16, *) {
+                                view
+                                    .environment(\.locale, .init(languageCode: .english))
+                            } else {
+                                view
+                                    .environment(\.locale, .init(identifier: "en"))
+                            }
+                        }
                 }
                 .isDetailLink(false)
                 .apply { view in
@@ -156,6 +176,21 @@ struct SettingsPage: View {
                         .font(.footnote)
                         .bold()
                         .foregroundColor(.gray)
+                        .apply { view in
+                            if #available(iOS 17, *) {
+                                view
+                                    .typesettingLanguage(.init(languageCode: .german))
+                            }
+                        }
+                        .apply { view in
+                            if #available(iOS 16, *) {
+                                view
+                                    .environment(\.locale, .init(languageCode: .german))
+                            } else {
+                                view
+                                    .environment(\.locale, .init(identifier: "de"))
+                            }
+                        }
                     Spacer()
                 }
             }

@@ -8,7 +8,7 @@ func emit<P: Publisher>(
     onMainThread expectMainThread: Bool? = nil,
     when block: (() -> Void)? = nil,
     from originQueue: DispatchQueue = .main
-) -> Predicate<P> where P.Output == Void {
+) -> Matcher<P> where P.Output == Void {
     .init { expression in
         var message = ExpectationMessage.expectedTo("emit")
         
@@ -17,7 +17,7 @@ func emit<P: Publisher>(
         }
         
         let expectation = XCTestExpectation()
-        var result: PredicateResult?
+        var result: MatcherResult?
         var cancellables = Set<AnyCancellable>()
         publisher
             .sink { completion in
@@ -53,7 +53,7 @@ func emit<P: Publisher>(
     onMainThread expectMainThread: Bool? = nil,
     when block: (() -> Void)? = nil,
     from originQueue: DispatchQueue = .main
-) -> Predicate<P> where P.Output: Equatable {
+) -> Matcher<P> where P.Output: Equatable {
     .init { expression in
         var message = ExpectationMessage.expectedTo("emit <\(stringify(expectedValue))>")
         
@@ -62,7 +62,7 @@ func emit<P: Publisher>(
         }
         
         let expectation = XCTestExpectation()
-        var result: PredicateResult?
+        var result: MatcherResult?
         var cancellables = Set<AnyCancellable>()
         publisher
             .sink { completion in

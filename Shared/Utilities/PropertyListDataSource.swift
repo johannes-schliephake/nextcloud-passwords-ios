@@ -15,7 +15,7 @@ protocol PropertyListDataSource<Content> {
 // TODO: tests
 extension PropertyListDataSource {
     
-    var propertyList: AnyPublisher<Content, Error> {
+    var propertyList: AnyPublisher<Content, any Error> {
         Future { promise in
             guard let url else {
                 promise(.failure(URLError(.badURL)))

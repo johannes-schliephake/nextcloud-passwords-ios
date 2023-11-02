@@ -166,6 +166,7 @@ internal enum Strings {
   internal static let tryAgain = Strings.tr("Localizable", "_tryAgain", fallback: "Try Again")
   internal static let type = Strings.tr("Localizable", "_type", fallback: "Type")
   internal static let ultra = Strings.tr("Localizable", "_ultra", fallback: "Ultra")
+  internal static let universalClipboard = Strings.tr("Localizable", "_universalClipboard", fallback: "Universal Clipboard")
   internal static let unlockApp = Strings.tr("Localizable", "_unlockApp", fallback: "Unlock App")
   internal static let updated = Strings.tr("Localizable", "_updated", fallback: "Updated")
   internal static let url = Strings.tr("Localizable", "_url", fallback: "URL")
@@ -178,7 +179,7 @@ internal enum Strings {
 // MARK: - Implementation Details
 
 extension Strings {
-  private static func tr(_ table: String, _ key: String, _ args: CVarArg..., fallback value: String) -> String {
+  private static func tr(_ table: String, _ key: String, _ args: any CVarArg..., fallback value: String) -> String {
     let format = BundleToken.bundle.localizedString(forKey: key, value: value, table: table)
     return String(format: format, locale: Locale.current, arguments: args)
   }

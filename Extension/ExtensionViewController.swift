@@ -7,6 +7,7 @@ class ExtensionViewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         _ = resolve(\.logger)
+        _ = resolve(\.windowSizeService)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -57,7 +58,7 @@ class ExtensionViewController: UIViewController {
                 self?.extensionContext?.completeRequest(returningItems: [otpItem])
             }
             else {
-                UIPasteboard.general.privateString = currentOtp
+                resolve(\.pasteboardService).set(string: currentOtp, sensitive: true)
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                     self?.extensionContext?.completeRequest(returningItems: nil)
                 }
@@ -89,12 +90,19 @@ class ExtensionViewController: UIViewController {
         super.viewDidAppear(animated)
         
         NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.post(name: UIScene.didActivateNotification, object: view.window?.windowScene)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.post(name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
 
 }

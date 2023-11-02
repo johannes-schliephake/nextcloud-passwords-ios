@@ -69,10 +69,10 @@ final class LogViewModel: LogViewModelProtocol {
             let logString = events
                 .map(String.init)
                 .joined(separator: "\n")
-            pasteboardService.set(logString)
+            pasteboardService.set(string: logString, sensitive: false)
         case let .copyEvent(event):
             let eventString = String(describing: event)
-            pasteboardService.set(eventString)
+            pasteboardService.set(string: eventString, sensitive: false)
         }
     }
     

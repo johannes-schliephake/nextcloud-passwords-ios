@@ -3,8 +3,8 @@
 
 final class PasteboardServiceMock: PasteboardServiceProtocol, Mock, FunctionCallLogging {
     
-    func set(_ string: String) {
-        logFunctionCall(parameters: string)
+    func set(string: String, sensitive: Bool) {
+        logFunctionCall(parameters: string, sensitive)
     }
     
 }

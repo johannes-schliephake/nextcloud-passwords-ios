@@ -84,15 +84,16 @@ struct ServerSetupPage: View {
                         .hidden()
                 }
                 HStack {
-                    TextField("-", text: $serverSetupController.serverAddress, onCommit: {
-                        openLoginFlowPage()
-                    })
-                    .textContentType(.URL)
-                    .keyboardType(.URL)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .focused($focusedField, equals: .serverAddress)
-                    .submitLabel(.done)
+                    TextField("-", text: $serverSetupController.serverAddress)
+                        .textContentType(.URL)
+                        .keyboardType(.URL)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .focused($focusedField, equals: .serverAddress)
+                        .submitLabel(.done)
+                        .onSubmit {
+                            openLoginFlowPage()
+                        }
                     if serverSetupController.isValidating {
                         Spacer()
                         ProgressView()

@@ -74,7 +74,15 @@ struct EditFolderPage: View {
             Button {
                 viewModel(.showParentSelection)
             } label: {
-                Label(viewModel[\.parentLabel], systemImage: "folder")
+                HStack {
+                    Label(viewModel[\.parentLabel], systemImage: "folder")
+                    Spacer()
+                    NavigationLink(destination: EmptyView()) {
+                        EmptyView()
+                    }
+                    .fixedSize()
+                    .tint(.primary)
+                }
             }
             .sheet(isPresented: $viewModel[\.showSelectFolderView]) {
                 SelectFolderNavigation(entry: .folder(viewModel[\.folder]), temporaryEntry: .folder(label: viewModel[\.folderLabel], parent: viewModel[\.folderParent]), selectFolder: { parent in

@@ -19,7 +19,7 @@ struct SettingsNavigation: View {
                     .scrollDismissesKeyboard(.interactively)
             }
         }
-        .occlude(!biometricAuthenticationController.isUnlocked)
+        .occlude(biometricAuthenticationController.hideContents)
     }
     
 }

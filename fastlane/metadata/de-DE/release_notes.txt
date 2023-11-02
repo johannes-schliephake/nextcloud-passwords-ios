@@ -1,2 +1,2 @@
-• Teile der App auf eine neue Architektur aktualisiert
+• Unterstützung für allgemeine Zwischenablage
 • Fehlerbehebungen und Optimierungen

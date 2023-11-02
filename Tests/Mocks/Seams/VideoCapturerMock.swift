@@ -41,7 +41,7 @@ final class VideoCapturerMock: VideoCapturing, Mock, PropertyAccessLogging, Func
         return _isTorchModeSupported
     }
     
-    var _lockForConfiguration: Result<Void, Error> = .success(()) // swiftlint:disable:this identifier_name
+    var _lockForConfiguration: Result<Void, any Error> = .success(()) // swiftlint:disable:this identifier_name
     func lockForConfiguration() throws {
         logFunctionCall()
         try _lockForConfiguration.get()

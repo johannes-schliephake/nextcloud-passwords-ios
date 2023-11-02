@@ -161,3 +161,6 @@
 "_connectingToNextcloudInstanceAt(url)" = "Verbinde mit der Nextcloud-Instanz auf\n%@";
 "_managedServerUrlErrorMessage" = "Die Nextcloud-Serveradresse wurde vorkonfiguriert, aber die App konnte keine Verbindung zur Nextcloud-Instanz herstellen. Bitte kontaktiere deinen Administrator.";
 "_supportThisProjectMessage" = "Die TestFlight-Version der App ist installiert. Alle Käufe sind nur zu Testzwecken und werden nicht in Rechnung gestellt.";
+
+/* Apple's marketing term for pasteboard sync across the user's iCloud devices */
+"_universalClipboard" = "Allgemeine Zwischenablage";

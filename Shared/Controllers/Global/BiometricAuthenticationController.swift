@@ -7,31 +7,45 @@ final class BiometricAuthenticationController: ObservableObject {
     
     var autoFillController: AutoFillController?
     
-    @Published private(set) var isUnlocked = false
+    @Published private(set) var hideContents = true
+    private var isLocked = true
     
     private var subscriptions = Set<AnyCancellable>()
     private let semaphore = DispatchSemaphore(value: 1)
     
     init() {
         NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
-            .sink(receiveValue: unlockApp)
+            .sink { [weak self] _ in self?.unlockApp() }
             .store(in: &subscriptions)
         NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)
-            .sink(receiveValue: lockApp)
+            .sink { [weak self] _ in self?.hideContents = true }
+            .store(in: &subscriptions)
+        NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)
+            .sink { [weak self] _ in self?.isLocked = true }
             .store(in: &subscriptions)
     }
     
-    private init(isUnlocked: Bool) {
-        self.isUnlocked = isUnlocked
+    private init(isLocked: Bool) {
+        self.hideContents = isLocked
+        self.isLocked = isLocked
     }
     
-    private func unlockApp(_: Notification? = nil) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            [self] in
+    func invalidate() {
+        subscriptions.removeAll()
+    }
+    
+    private func unlockApp() {
+        DispatchQueue().async { [weak self] in
+            guard let self else {
+                return
+            }
             semaphore.wait()
             
-            guard !isUnlocked else {
-                semaphore.signal()
+            guard isLocked else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.hideContents = false
+                    self?.semaphore.signal()
+                }
                 return
             }
             
@@ -40,16 +54,15 @@ final class BiometricAuthenticationController: ObservableObject {
             var error: NSError?
             guard SessionController.default.session != nil,
                   context.canEvaluatePolicy(policy, error: &error) else {
-                DispatchQueue.main.async {
-                    [self] in
-                    isUnlocked = true
-                    semaphore.signal()
+                DispatchQueue.main.async { [weak self] in
+                    self?.hideContents = false
+                    self?.isLocked = false
+                    self?.semaphore.signal()
                 }
                 return
             }
             
-            context.evaluatePolicy(policy, localizedReason: "_unlockApp".localized) {
-                [weak self] success, error in
+            context.evaluatePolicy(policy, localizedReason: "_unlockApp".localized) { [weak self] success, error in
                 guard success else {
                     guard let laError = error as? LAError,
                           laError.code == .userCancel else {
@@ -66,20 +79,13 @@ final class BiometricAuthenticationController: ObservableObject {
                     return
                 }
                 
-                DispatchQueue.main.async {
-                    self?.isUnlocked = true
+                DispatchQueue.main.async { [weak self] in
+                    self?.hideContents = false
+                    self?.isLocked = false
                     self?.semaphore.signal()
                 }
             }
         }
-    }
-    
-    private func lockApp(_: Notification) {
-        isUnlocked = false
-    }
-    
-    func invalidate() {
-        subscriptions.removeAll()
     }
     
 }
@@ -88,7 +94,7 @@ final class BiometricAuthenticationController: ObservableObject {
 extension BiometricAuthenticationController: MockObject {
     
     static var mock: BiometricAuthenticationController {
-        BiometricAuthenticationController(isUnlocked: true)
+        BiometricAuthenticationController(isLocked: false)
     }
     
 }

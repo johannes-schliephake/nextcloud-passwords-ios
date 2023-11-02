@@ -32,7 +32,7 @@ final class ProductMock: Product, Mock, PropertyAccessLogging, FunctionCallLoggi
         return _displayPrice
     }
     
-    var _purchase: Result<PurchaseResult, Error> = .success(.unknown) // swiftlint:disable:this identifier_name
+    var _purchase: Result<PurchaseResult, any Error> = .success(.unknown) // swiftlint:disable:this identifier_name
     func purchase() async throws -> PurchaseResult {
         logFunctionCall()
         return try _purchase.get()

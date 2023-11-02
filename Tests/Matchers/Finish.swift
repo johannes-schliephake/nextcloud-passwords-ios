@@ -8,7 +8,7 @@ func finish<P: Publisher>(
     onMainThread expectMainThread: Bool? = nil,
     when block: (() -> Void)? = nil,
     from originQueue: DispatchQueue = .main
-) -> Predicate<P> {
+) -> Matcher<P> {
     .init { expression in
         var message = ExpectationMessage.expectedTo("finish")
         
@@ -17,7 +17,7 @@ func finish<P: Publisher>(
         }
         
         let expectation = XCTestExpectation()
-        var result: PredicateResult?
+        var result: MatcherResult?
         var cancellables = Set<AnyCancellable>()
         publisher
             .sink { completion in

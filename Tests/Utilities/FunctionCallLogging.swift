@@ -10,7 +10,7 @@ protocol FunctionCallLogging: AnyObject {
 }
 
 
-private var kFunctionCallLog = "kFunctionCallLog"
+private var kFunctionCallLog = malloc(1)
 
 
 extension FunctionCallLogging {

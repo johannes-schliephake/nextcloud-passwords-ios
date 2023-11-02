@@ -40,4 +40,22 @@ final class SettingsServiceMock: SettingsServiceProtocol, Mock, PropertyAccessLo
         return _isAutomaticPasswordGenerationEnabledPublisher.eraseToAnyPublisher()
     }
     
+    var _isUniversalClipboardEnabled = true // swiftlint:disable:this identifier_name
+    var isUniversalClipboardEnabled: Bool {
+        get {
+            logPropertyAccess()
+            return _isUniversalClipboardEnabled
+        }
+        set {
+            logPropertyAccess()
+            _isUniversalClipboardEnabled = newValue
+        }
+    }
+    
+    let _isUniversalClipboardEnabledPublisher = PassthroughSubject<Bool, Never>() // swiftlint:disable:this identifier_name
+    var isUniversalClipboardEnabledPublisher: AnyPublisher<Bool, Never> {
+        logPropertyAccess()
+        return _isUniversalClipboardEnabledPublisher.eraseToAnyPublisher()
+    }
+    
 }

@@ -10,7 +10,7 @@ protocol PropertyAccessLogging: AnyObject {
 }
 
 
-private var kPropertyAccessLog = "kFunctionCallLog"
+private var kPropertyAccessLog = malloc(1)
 
 
 extension PropertyAccessLogging {

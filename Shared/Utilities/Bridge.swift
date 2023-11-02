@@ -20,7 +20,7 @@ struct Bridge<Output, Failure: Error>: Publisher {
         .eraseToAnyAsyncSequence()
     }
     
-    init(priority: TaskPriority? = nil, operation: @escaping @Sendable () async throws -> Output) where Failure == Error {
+    init(priority: TaskPriority? = nil, operation: @escaping @Sendable () async throws -> Output) where Failure == any Error {
         self.priority = priority
         var didRunOperation = false
         sequence = AsyncThrowingStream<Output, Failure> {
@@ -38,7 +38,7 @@ struct Bridge<Output, Failure: Error>: Publisher {
         self.sequence = sequence.eraseToAnyAsyncSequence()
     }
     
-    init<Sequence: AsyncSequence>(priority: TaskPriority? = nil, throwing sequence: Sequence) where Sequence.Element == Output, Failure == Error {
+    init<Sequence: AsyncSequence>(priority: TaskPriority? = nil, throwing sequence: Sequence) where Sequence.Element == Output, Failure == any Error {
         self.priority = priority
         self.sequence = sequence.eraseToAnyAsyncSequence()
     }
