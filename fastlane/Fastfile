@@ -19,7 +19,7 @@ lane :generate_icons do
         sh("for size in 20 29 40 58 60 76 80 87 120 152 167 180 1024; do rsvg-convert Extension/Icon.svg -w ${size} -o Extension/Assets.xcassets/ExtensionIcon.appiconset/ExtensionIcon-${size}x${size}.png; done")
         sh("for icon in App/Assets.xcassets/AppIcon-debug.appiconset/*.png; do magick convert $icon -modulate 100,100,75 $icon; done")
         sh("for icon in Extension/Assets.xcassets/ExtensionIcon.appiconset/*.png; do magick convert $icon -fill white -colorize 100% $icon -compose CopyOpacity -composite $icon; done")
-        sh("git add .")
+        sh("git add */Assets.xcassets/*.appiconset")
         sh("git commit -m \"Update icons\"")
     end
 end
@@ -48,7 +48,7 @@ lane :take_screenshots do
         reset_git_repo(force: true)
         UI.user_error!("Did not keep screenshots, because the HTML file was rejected by the user")
     end
-    sh("git add .")
+    sh("git add ../fastlane/screenshots")
     sh("git commit -m \"Update screenshots\"")
 end
 
@@ -121,10 +121,13 @@ lane :git_release do
         UI.user_error!("The version number didn't change")
     end
     release_notes = File.read("metadata/en-US/release_notes.txt").strip
+    File.write("../CHANGELOG.md", "## [#{version}] - #{Time.now.strftime("%Y-%m-%d")}\n#{release_notes}\n\n#{File.read("../CHANGELOG.md")}")
+    sh("git add ../CHANGELOG.md")
+    sh("git commit -m \"Update changelog\"")
     sh("git checkout main")
     sh("git merge develop -m \"#{version}\"")
-    sh("git push")
     sh("git checkout develop")
+    sh("git push origin develop main")
     api_token = prompt(text: "Your GitHub API token: ", secure_text: true)
     set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: release_notes, upload_assets: ["fastlane/tmp/Passwords (#{version}, Build #{get_build_number}).ipa"])
     sh("git fetch --tags")
