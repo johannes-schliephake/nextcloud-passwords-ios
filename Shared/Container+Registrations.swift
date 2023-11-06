@@ -92,6 +92,14 @@ extension Container {
     }
     
     // MARK: Repositories
+    var pasteboardDataSource: Factory<any PasteboardDataSourceProtocol> {
+        self { PasteboardDataSource() }
+            .cached
+    }
+    var pasteboardRepository: Factory<any PasteboardRepositoryProtocol> {
+        self { PasteboardRepository() }
+            .cached
+    }
     var productIdentifiersPropertyListDataSource: Factory<any ProductIdentifiersPropertyListDataSourceProtocol> {
         self { ProductIdentifiersPropertyListDataSource() }
             .cached
@@ -119,6 +127,9 @@ extension Container {
     var appStoreType: Factory<any AppStore.Type> {
         self { StoreKit.AppStore.self }
     }
+    var pasteboard: Factory<any Pasteboard> {
+        self { UIPasteboard.general }
+    }
     var productType: Factory<any Product.Type> {
         self { StoreKit.Product.self }
     }
@@ -129,7 +140,13 @@ extension Container {
         self { StoreKit.Transaction.self }
     }
     var videoCapturer: Factory<(any VideoCapturing)?> {
-        self { AVCaptureDevice.default(for: .video) }
+        self {
+            if #available(iOS 17.0, *) {
+                AVCaptureDevice.userPreferredCamera
+            } else {
+                AVCaptureDevice.default(for: .video)
+            }
+        }
     }
     
     // MARK: Miscellaneous

@@ -29,17 +29,17 @@ enum CallCount {
 }
 
 
-func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil) -> Predicate<L> {
+func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil) -> Matcher<L> {
     beCalled(callCount, on: expectedCall, atCallIndex: nil)
 }
 
 
-func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameter expectedParameter: any Equatable, atCallIndex parameterCallIndex: Int? = nil) -> Predicate<L> {
+func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameter expectedParameter: any Equatable, atCallIndex parameterCallIndex: Int? = nil) -> Matcher<L> {
     beCalled(callCount, on: expectedCall, withParameters: expectedParameter, atCallIndex: parameterCallIndex)
 }
 
 
-func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameters expectedParameters: any Equatable..., atCallIndex parameterCallIndex: Int? = nil) -> Predicate<L> {
+func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameters expectedParameters: any Equatable..., atCallIndex parameterCallIndex: Int? = nil) -> Matcher<L> {
     .init { expression in
         var message: ExpectationMessage
         if let expectedCall {

@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct LabeledRow: View {
@@ -14,14 +15,14 @@ struct LabeledRow: View {
     @_disfavoredOverload init(type: RowType, label: String? = nil, value: String, copiable: Bool = false) {
         self.type = type
         labelKey = nil
-        self.labelString = label
+        labelString = label
         self.value = value
         self.copiable = copiable
     }
     
     init(type: RowType, label: LocalizedStringKey, value: String, copiable: Bool = false) {
         self.type = type
-        self.labelKey = label
+        labelKey = label
         labelString = nil
         self.value = value
         self.copiable = copiable
@@ -30,6 +31,8 @@ struct LabeledRow: View {
     var body: some View {
         switch type {
         case .text:
+            textStack()
+        case .nonLinguisticText:
             textStack()
         case .secret:
             secretStack()
@@ -54,11 +57,13 @@ struct LabeledRow: View {
             Spacer()
             Button {
                 hideSecret.toggle()
-            }
-            label: {
+            } label: {
                 Image(systemName: hideSecret ? "eye" : "eye.slash")
             }
             .buttonStyle(.borderless)
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+                hideSecret = true
+            }
         }
     }
     
@@ -115,12 +120,7 @@ struct LabeledRow: View {
     
     private func copiableStack() -> some View {
         Button {
-            if type == .secret {
-                UIPasteboard.general.privateString = value
-            }
-            else {
-                UIPasteboard.general.string = value
-            }
+            resolve(\.pasteboardService).set(string: value, sensitive: type == .secret)
         }
         label: {
             labeledStack()
@@ -141,6 +141,15 @@ struct LabeledRow: View {
                     .foregroundColor(.gray)
             }
             switch type {
+            case .nonLinguisticText:
+                Text(!value.isEmpty ? value : "-")
+                    .foregroundColor(.primary)
+                    .apply { view in
+                        if #available(iOS 17, *) {
+                            view
+                                .typesettingLanguage(.init(languageCode: .unavailable))
+                        }
+                    }
             case .secret:
                 Text(hideSecret ? "••••••••••••" : value)
                     .foregroundColor(.primary)
@@ -153,6 +162,12 @@ struct LabeledRow: View {
                         else {
                             view
                                 .font(.system(.body, design: .monospaced))
+                        }
+                    }
+                    .apply { view in
+                        if #available(iOS 17, *) {
+                            view
+                                .typesettingLanguage(.init(languageCode: .unavailable))
                         }
                     }
             case .pin:
@@ -169,6 +184,12 @@ struct LabeledRow: View {
                                 .font(.system(.body, design: .monospaced))
                         }
                     }
+                    .apply { view in
+                        if #available(iOS 17, *) {
+                            view
+                                .typesettingLanguage(.init(languageCode: .unavailable))
+                        }
+                    }
             default:
                 Text(!value.isEmpty ? value : "-")
                     .foregroundColor(.primary)
@@ -183,6 +204,7 @@ extension LabeledRow {
     
     enum RowType: String {
         case text
+        case nonLinguisticText
         case secret
         case email
         case url

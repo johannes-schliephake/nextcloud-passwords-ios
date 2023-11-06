@@ -1,18 +1,19 @@
-import SwiftUI
+import Factory
 
 
 protocol PasteboardServiceProtocol {
     
-    func set(_ string: String)
+    func set(string: String, sensitive: Bool)
     
 }
 
 
-// TODO: replace temporary implementation
 struct PasteboardService: PasteboardServiceProtocol {
     
-    func set(_ string: String) {
-        UIPasteboard.general.string = string
+    @Injected(\.pasteboardRepository) private var pasteboardRepository
+    
+    func set(string: String, sensitive: Bool) {
+        pasteboardRepository.set(string: string, sensitive: sensitive)
     }
     
 }

@@ -13,10 +13,6 @@ private struct Sync<Value: Hashable>: ViewModifier {
                 focusState = value
             }
             .onChange(of: focusState) { focusState in
-                guard focusState != nil else {
-                    self.focusState = value
-                    return
-                }
                 value = focusState
             }
     }

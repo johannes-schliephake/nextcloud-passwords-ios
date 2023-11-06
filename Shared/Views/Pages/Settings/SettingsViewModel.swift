@@ -19,6 +19,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         @Published var showLogoutAlert: Bool
         @Published fileprivate(set) var isOfflineStorageEnabled: Bool
         @Published fileprivate(set) var isAutomaticPasswordGenerationEnabled: Bool
+        @Published fileprivate(set) var isUniversalClipboardEnabled: Bool
         @Published fileprivate(set) var canPurchaseTip: Bool
         @Published fileprivate(set) var tipProducts: [any Product]?
         @Published fileprivate(set) var isTipTransactionRunning: Bool
@@ -30,12 +31,13 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         
         let shouldDismiss = PassthroughSubject<Void, Never>()
         
-        init(username: String?, server: String?, showLogoutAlert: Bool, isOfflineStorageEnabled: Bool, isAutomaticPasswordGenerationEnabled: Bool, canPurchaseTip: Bool, tipProducts: [any Product]?, isTipTransactionRunning: Bool, isTestFlight: Bool, betaUrl: URL?, isLogAvailable: Bool, versionName: String, sourceCodeUrl: URL?) {
+        init(username: String?, server: String?, showLogoutAlert: Bool, isOfflineStorageEnabled: Bool, isAutomaticPasswordGenerationEnabled: Bool, isUniversalClipboardEnabled: Bool, canPurchaseTip: Bool, tipProducts: [any Product]?, isTipTransactionRunning: Bool, isTestFlight: Bool, betaUrl: URL?, isLogAvailable: Bool, versionName: String, sourceCodeUrl: URL?) {
             self.username = username
             self.server = server
             self.showLogoutAlert = showLogoutAlert
             self.isOfflineStorageEnabled = isOfflineStorageEnabled
             self.isAutomaticPasswordGenerationEnabled = isAutomaticPasswordGenerationEnabled
+            self.isUniversalClipboardEnabled = isUniversalClipboardEnabled
             self.canPurchaseTip = canPurchaseTip
             self.tipProducts = tipProducts
             self.isTipTransactionRunning = isTipTransactionRunning
@@ -53,6 +55,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         case confirmLogout
         case setIsOfflineStorageEnabled(Bool)
         case setIsAutomaticPasswordGenerationEnabled(Bool)
+        case setIsUniversalClipboardEnabled(Bool)
         case tip(any Product)
         case done
     }
@@ -71,7 +74,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         let betaUrl = URL(string: "https://testflight.apple.com/join/iuljLJ4u")
         let versionName = "\(configuration.shortVersionString)\(configuration.isDebug || configuration.isTestFlight ? " (\(configuration.isDebug ? "Debug" : configuration.isTestFlight ? "TestFlight" : "Unknown"), Build \(configuration.buildNumberString))" : "")"
         let sourceCodeUrl = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios")
-        state = .init(username: nil, server: nil, showLogoutAlert: false, isOfflineStorageEnabled: false, isAutomaticPasswordGenerationEnabled: false, canPurchaseTip: false, tipProducts: nil, isTipTransactionRunning: false, isTestFlight: configuration.isTestFlight, betaUrl: betaUrl, isLogAvailable: false, versionName: versionName, sourceCodeUrl: sourceCodeUrl)
+        state = .init(username: nil, server: nil, showLogoutAlert: false, isOfflineStorageEnabled: false, isAutomaticPasswordGenerationEnabled: false, isUniversalClipboardEnabled: false, canPurchaseTip: false, tipProducts: nil, isTipTransactionRunning: false, isTestFlight: configuration.isTestFlight, betaUrl: betaUrl, isLogAvailable: false, versionName: versionName, sourceCodeUrl: sourceCodeUrl)
         
         setupPipelines()
     }
@@ -93,6 +96,10 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         
         settingsService.isAutomaticPasswordGenerationEnabledPublisher
             .sink { self?.state.isAutomaticPasswordGenerationEnabled = $0 }
+            .store(in: &cancellables)
+        
+        settingsService.isUniversalClipboardEnabledPublisher
+            .sink { self?.state.isUniversalClipboardEnabled = $0 }
             .store(in: &cancellables)
         
         purchaseService.products
@@ -138,6 +145,8 @@ final class SettingsViewModel: SettingsViewModelProtocol {
             settingsService.isOfflineStorageEnabled = isOfflineStorageEnabled
         case let .setIsAutomaticPasswordGenerationEnabled(isAutomaticPasswordGenerationEnabled):
             settingsService.isAutomaticPasswordGenerationEnabled = isAutomaticPasswordGenerationEnabled
+        case let .setIsUniversalClipboardEnabled(isUniversalClipboardEnabled):
+            settingsService.isUniversalClipboardEnabled = isUniversalClipboardEnabled
         case let .tip(product):
             purchaseService.purchase(product: product)
         case .done:

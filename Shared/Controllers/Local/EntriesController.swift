@@ -54,7 +54,7 @@ final class EntriesController: ObservableObject {
     @Published var filterBy = Filter(rawValue: Configuration.userDefaults.integer(forKey: "filterBy")) ?? .folders {
         willSet {
             Configuration.userDefaults.set(newValue.rawValue, forKey: "filterBy")
-            if newValue != .all,
+            if newValue != .all && newValue != .otps,
                sortBy != .label && sortBy != .updated {
                 sortBy = .label
             }
@@ -66,7 +66,7 @@ final class EntriesController: ObservableObject {
             if sortBy == newValue {
                 reversed.toggle()
             }
-            else if filterBy != .all,
+            else if filterBy != .all && filterBy != .otps,
                     newValue != .label && newValue != .updated {
                 filterBy = .all
             }
@@ -770,9 +770,12 @@ final class EntriesController: ObservableObject {
             else {
                 folders = folders.filter { $0.isDescendentOf(folder: folder, in: folders) && $0 !== folder }
             }
-        case .tags:
-            folders = []
         case .otps:
+            guard tag == nil else {
+                fallthrough
+            }
+            folders = []
+        case .tags:
             folders = []
         }
         
@@ -813,6 +816,11 @@ final class EntriesController: ObservableObject {
             else {
                 passwords = passwords.filter { $0.isDescendentOf(folder: folder, in: folders) }
             }
+        case .otps:
+            guard tag == nil else {
+                fallthrough
+            }
+            passwords = passwords.filter { $0.otp != nil }
         case .tags:
             if let tag {
                 passwords = passwords.filter { $0.tags.contains(tag.id) }
@@ -829,8 +837,6 @@ final class EntriesController: ObservableObject {
                     }
                 }
             }
-        case .otps:
-            passwords = passwords.filter { $0.otp != nil }
         }
         
         /// Apply filter to tags
@@ -851,12 +857,15 @@ final class EntriesController: ObservableObject {
                 fallthrough
             }
             tags = []
+        case .otps:
+            guard tag == nil else {
+                fallthrough
+            }
+            tags = []
         case .tags:
             if tag != nil {
                 tags = []
             }
-        case .otps:
-            tags = []
         }
         
         /// Sort folders

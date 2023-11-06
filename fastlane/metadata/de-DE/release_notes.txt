@@ -1,3 +1,2 @@
-• iOS 17 Kompatibilität
-• Teile der App auf eine neue Architektur aktualisiert
+• Unterstützung für allgemeine Zwischenablage
 • Fehlerbehebungen und Optimierungen

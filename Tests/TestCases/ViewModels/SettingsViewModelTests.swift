@@ -35,6 +35,7 @@ final class SettingsViewModelTests: XCTestCase {
         expect(settingsViewModel[\.showLogoutAlert]).to(beFalse())
         expect(settingsViewModel[\.isOfflineStorageEnabled]).to(beFalse())
         expect(settingsViewModel[\.isAutomaticPasswordGenerationEnabled]).to(beFalse())
+        expect(settingsViewModel[\.isUniversalClipboardEnabled]).to(beFalse())
         expect(settingsViewModel[\.canPurchaseTip]).to(beFalse())
         expect(settingsViewModel[\.tipProducts]).to(beNil())
         expect(settingsViewModel[\.isTipTransactionRunning]).to(beFalse())
@@ -106,6 +107,15 @@ final class SettingsViewModelTests: XCTestCase {
         settingsServiceMock._isAutomaticPasswordGenerationEnabledPublisher.send(isAutomaticPasswordGenerationEnabledMock)
         
         expect(settingsViewModel[\.isAutomaticPasswordGenerationEnabled]).to(equal(isAutomaticPasswordGenerationEnabledMock))
+    }
+    
+    func testInit_whenSettingsServiceEmittingIsUniversalClipboardEnabled_thenSetsIsUniversalClipboardEnabled() {
+        let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
+        let isUniversalClipboardEnabledMock = Bool.random()
+        
+        settingsServiceMock._isUniversalClipboardEnabledPublisher.send(isUniversalClipboardEnabledMock)
+        
+        expect(settingsViewModel[\.isUniversalClipboardEnabled]).to(equal(isUniversalClipboardEnabledMock))
     }
     
     func testInit_whenPurchaseServiceEmittingProducts_thenSetsTipProducts() {
@@ -290,6 +300,16 @@ final class SettingsViewModelTests: XCTestCase {
         
         expect(self.settingsServiceMock).to(beAccessed(.once, on: "isAutomaticPasswordGenerationEnabled"))
         expect(self.settingsServiceMock._isAutomaticPasswordGenerationEnabled).to(equal(isAutomaticPasswordGenerationEnabledMock))
+    }
+    
+    func testCallAsFunction_whenCallingSetIsUniversalClipboardEnabled_thenCallsSettingsService() {
+        let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
+        let isUniversalClipboardEnabledMock = Bool.random()
+        
+        settingsViewModel(.setIsUniversalClipboardEnabled(isUniversalClipboardEnabledMock))
+        
+        expect(self.settingsServiceMock).to(beAccessed(.once, on: "isUniversalClipboardEnabled"))
+        expect(self.settingsServiceMock._isUniversalClipboardEnabled).to(equal(isUniversalClipboardEnabledMock))
     }
     
     func testCallAsFunction_whenCallingTip_thenCallsPurchaseService() {

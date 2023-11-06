@@ -34,6 +34,8 @@ extension Container: AutoRegistering {
         //Self.shared.windowSizeService.register { WindowSizeServiceMock() }
         
         // MARK: Repositories
+        Self.shared.pasteboardDataSource.register { PasteboardDataSourceMock() }
+        Self.shared.pasteboardRepository.register { PasteboardRepositoryMock() }
         //Self.shared.productIdentifiersPropertyListDataSource.register { ProductIdentifiersPropertyListDataSourceMock() }
         //Self.shared.productIdentifiersRepository.register { ProductIdentifiersRepositoryMock() }
         //Self.shared.productsAppStoreDataSource.register { ProductsAppStoreDataSourceMock() }
@@ -44,6 +46,7 @@ extension Container: AutoRegistering {
         
         // MARK: Seams
         //Self.shared.appStoreType.register { AppStoreMock.self }
+        Self.shared.pasteboard.cached.register { PasteboardMock() }
         Self.shared.productType.register { ProductMock.self }
         Self.shared.qrCodeGenerator.cached.register { QRCodeGeneratorMock() }
         //Self.shared.transactionType.register { TransactionMock.self }

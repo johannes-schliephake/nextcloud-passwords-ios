@@ -307,6 +307,9 @@
 /* Possible value for "Strength" picker when generating a password */
 "_ultra" = "Ultra";
 
+/* Apple's marketing term for pasteboard sync across the user's iCloud devices */
+"_universalClipboard" = "Universal Clipboard";
+
 /* Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/InfoPlist.strings and Provider/InfoPlist.strings and Extension/InfoPlist.strings */
 "_unlockApp" = "Unlock App";
 

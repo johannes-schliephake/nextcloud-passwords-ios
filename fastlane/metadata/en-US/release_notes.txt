@@ -1,3 +1,2 @@
-• iOS 17 compatibility
-• Upgraded parts of the app to a new architecture
+• Support for Universal Clipboard
 • Bugfixes and optimizations

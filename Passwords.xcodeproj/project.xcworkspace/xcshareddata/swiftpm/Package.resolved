@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hmlongco/Factory",
       "state" : {
-        "revision" : "061b3afe0358a0da7ce568f8272c847910be3dd7",
-        "version" : "2.2.0"
+        "revision" : "8ca11a7bd1ede031e8e6d7a912bb116e2e43961b",
+        "version" : "2.3.1"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Quick/Nimble",
       "state" : {
-        "revision" : "f552a16f434eef1f18b62985172489f41d37a18e",
-        "version" : "12.2.0"
+        "revision" : "d616f15123bfb36db1b1075153f73cf40605b39d",
+        "version" : "13.0.0"
       }
     },
     {
@@ -51,7 +51,7 @@
       "location" : "https://github.com/jedisct1/swift-sodium",
       "state" : {
         "branch" : "master",
-        "revision" : "71999851db859b90d534dd800b090add758d35cd"
+        "revision" : "6262c021e108b5fb16d2caa1e319e913cea2406d"
       }
     }
   ],

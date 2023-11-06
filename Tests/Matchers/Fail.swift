@@ -9,7 +9,7 @@ func fail<P: Publisher>(
     onMainThread expectMainThread: Bool? = nil,
     when block: (() -> Void)? = nil,
     from originQueue: DispatchQueue = .main
-) -> Nimble.Predicate<P> where P.Failure: Equatable {
+) -> Matcher<P> where P.Failure: Equatable {
     .init { expression in
         var message: ExpectationMessage
         if let expectedError {
@@ -23,7 +23,7 @@ func fail<P: Publisher>(
         }
         
         let expectation = XCTestExpectation()
-        var result: PredicateResult?
+        var result: MatcherResult?
         var cancellables = Set<AnyCancellable>()
         publisher
             .sink { completion in

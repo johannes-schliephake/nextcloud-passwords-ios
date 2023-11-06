@@ -8,6 +8,7 @@ struct EntriesPage: View {
     private let showFilterSortMenu: Bool
     
     @Injected(\.logger) private var logger
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var sessionController: SessionController
     
@@ -128,8 +129,9 @@ struct EntriesPage: View {
     
     private func errorView() -> some View {
         List {
-            VStack(alignment: .center, spacing: 8) {
+            VStack(spacing: 8) {
                 Text("_anErrorOccurred")
+                    .multilineTextAlignment(.center)
                     .foregroundColor(.gray)
                     .padding()
                 Button {
@@ -152,14 +154,15 @@ struct EntriesPage: View {
     private func challengeView() -> some View {
         List {
             Section(header: Text("_e2ePassword")) {
-                SecureField("-", text: $challengePassword, onCommit: {
-                    solveChallenge()
-                })
-                .focused($focusedField, equals: .challengePassword)
-                .submitLabel(.done)
-                .onAppear {
-                    challengePassword = ""
-                }
+                EditLabeledRow(type: .secret, value: $challengePassword)
+                    .focused($focusedField, equals: .challengePassword)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        solveChallenge()
+                    }
+                    .onAppear {
+                        challengePassword = ""
+                    }
             }
             Section {
                 Toggle(isOn: $storeChallengePassword) {
@@ -236,6 +239,7 @@ struct EntriesPage: View {
                                     Text("_createPassword")
                                 })
                                 .buttonStyle(.action)
+                                .listRowSeparator(.hidden, edges: .bottom)
                                 .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
                             }
                         }
@@ -270,13 +274,12 @@ struct EntriesPage: View {
             }
             else {
                 List {
-                    VStack(alignment: .center) {
-                        Text("_nothingToSeeHere")
-                            .foregroundColor(.gray)
-                            .padding()
-                    }
-                    .frame(maxWidth: .infinity)
-                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+                    Text("_nothingToSeeHere")
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.gray)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .listRowBackground(Color(UIColor.systemGroupedBackground))
                 }
                 .listStyle(.insetGrouped)
             }
@@ -566,6 +569,7 @@ struct EntriesPage: View {
             }
         }
         .accessibility(identifier: "filterSortMenu")
+        .onChange(of: entriesController.filterBy, perform: didChange)
     }
     
     private func createMenu() -> some View {
@@ -600,6 +604,12 @@ struct EntriesPage: View {
     private func solveChallenge() {
         if !challengePassword.isEmpty {
             sessionController.solveChallenge(password: challengePassword, store: storeChallengePassword)
+        }
+    }
+    
+    private func didChange(filterBy: EntriesController.Filter) {
+        if !folderController.folder.isBaseFolder || folderController.tag != nil {
+            dismiss()
         }
     }
     
@@ -905,7 +915,7 @@ extension EntriesPage {
                         }
                         if !password.username.isEmpty {
                             Button {
-                                UIPasteboard.general.string = password.username
+                                resolve(\.pasteboardService).set(string: password.username, sensitive: false)
                             }
                             label: {
                                 Label("_copyUsername", systemImage: "doc.on.doc")
@@ -919,7 +929,7 @@ extension EntriesPage {
                             }
                         }
                         Button {
-                            UIPasteboard.general.privateString = password.password
+                            resolve(\.pasteboardService).set(string: password.password, sensitive: true)
                         }
                         label: {
                             Label("_copyPassword", systemImage: "doc.on.doc")
@@ -933,7 +943,7 @@ extension EntriesPage {
                         }
                         if let otp = password.otp {
                             Button {
-                                UIPasteboard.general.privateString = otp.current
+                                otp.current.map { resolve(\.pasteboardService).set(string: $0, sensitive: true) }
                             }
                             label: {
                                 Label("_copyOtp", systemImage: "doc.on.doc")
@@ -1083,6 +1093,12 @@ extension EntriesPage {
                                             .font(.system(.body, design: .monospaced))
                                     }
                                 }
+                                .apply { view in
+                                    if #available(iOS 17, *) {
+                                        view
+                                            .typesettingLanguage(.init(languageCode: .unavailable))
+                                    }
+                                }
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 4)
                                 .background(
@@ -1152,6 +1168,12 @@ extension EntriesPage {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .lineLimit(1)
+                    .apply { view in
+                        if #available(iOS 17, *) {
+                            view
+                                .typesettingLanguage(.init(languageCode: .unavailable))
+                        }
+                    }
             }
         }
         
