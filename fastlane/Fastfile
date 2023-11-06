@@ -121,7 +121,7 @@ lane :git_release do
         UI.user_error!("The version number didn't change")
     end
     release_notes = File.read("metadata/en-US/release_notes.txt").strip
-    File.write("../CHANGELOG.md", "## [#{version}] - #{Time.now.strftime("%Y-%m-%d")}\n#{release_notes}\n\n#{File.read("../CHANGELOG.md")}")
+    File.write("../CHANGELOG.md", "## [#{version}] - #{Time.now.strftime("%Y-%m-%d")}\n#{release_notes.gsub(/^• /, "- ")}\n\n#{File.read("../CHANGELOG.md")}")
     sh("git add ../CHANGELOG.md")
     sh("git commit -m \"Update changelog\"")
     sh("git checkout main")
