@@ -1,3 +1,7 @@
+## [v2.7.1] - 2023-11-06
+- Support for Universal Clipboard
+- Bugfixes and optimizations
+
 ## [v2.7] - 2023-09-15
 - iOS 17 compatibility
 - Upgraded parts of the app to a new architecture
