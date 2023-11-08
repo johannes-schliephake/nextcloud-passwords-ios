@@ -36,6 +36,18 @@ struct SettingsPage: View {
         Section(header: Text("_credentials")) {
             LabeledRow(type: .nonLinguisticText, label: "_nextcloudServerAddress", value: server)
             LabeledRow(type: .nonLinguisticText, label: "_username", value: username)
+            if viewModel[\.isChallengePasswordStored] {
+                Button {
+                    viewModel(.clearChallengePassword)
+                } label: {
+                    if #available(iOS 17, *) {
+                        Label(Strings.clearStoredE2EPassword, systemImage: "key.slash")
+                    } else {
+                        Label(Strings.clearStoredE2EPassword, systemImage: "delete.left")
+                    }
+                }
+                .disabled(viewModel[\.wasChallengePasswordCleared])
+            }
             Button(role: .destructive) {
                 viewModel(.logout)
             } label: {
