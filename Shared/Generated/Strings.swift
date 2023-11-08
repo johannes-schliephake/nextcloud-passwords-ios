@@ -25,6 +25,7 @@ internal enum Strings {
   internal static let appDeauthorizedMessage = Strings.tr("Localizable", "_appDeauthorizedMessage", fallback: "Because of too many failed login attempts this app was deauthorized by the server. Please try again later.")
   internal static let automaticallyGeneratePasswords = Strings.tr("Localizable", "_automaticallyGeneratePasswords", fallback: "Automatically Generate Passwords")
   internal static let cancel = Strings.tr("Localizable", "_cancel", fallback: "Cancel")
+  internal static let clearStoredE2EPassword = Strings.tr("Localizable", "_clearStoredE2EPassword", fallback: "Clear Stored E2E Password")
   internal static let clientSide = Strings.tr("Localizable", "_clientSide", fallback: "Client Side")
   internal static let color = Strings.tr("Localizable", "_color", fallback: "Color")
   internal static let configured = Strings.tr("Localizable", "_configured", fallback: "Configured")

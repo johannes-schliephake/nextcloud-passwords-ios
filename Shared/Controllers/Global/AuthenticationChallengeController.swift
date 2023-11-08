@@ -1,5 +1,6 @@
 import WebKit
 import Foundation
+import Factory
 
 
 final class AuthenticationChallengeController: NSObject, ObservableObject {
@@ -37,7 +38,7 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
     }
     
     func deny(certificateHash: String) {
-        SessionController.default.logout()
+        resolve(\.sessionService).logout()
         
         let deniedCertificateConfirmationRequests = certificateConfirmationRequests.filter { $0.hash == certificateHash }
         certificateConfirmationRequests.removeAll { deniedCertificateConfirmationRequests.contains($0) }

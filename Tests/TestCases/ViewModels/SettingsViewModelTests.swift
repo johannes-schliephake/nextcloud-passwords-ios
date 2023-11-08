@@ -32,6 +32,8 @@ final class SettingsViewModelTests: XCTestCase {
         
         expect(settingsViewModel[\.username]).to(beNil())
         expect(settingsViewModel[\.server]).to(beNil())
+        expect(settingsViewModel[\.isChallengePasswordStored]).to(beFalse())
+        expect(settingsViewModel[\.wasChallengePasswordCleared]).to(beFalse())
         expect(settingsViewModel[\.showLogoutAlert]).to(beFalse())
         expect(settingsViewModel[\.isOfflineStorageEnabled]).to(beFalse())
         expect(settingsViewModel[\.isAutomaticPasswordGenerationEnabled]).to(beFalse())
@@ -44,6 +46,14 @@ final class SettingsViewModelTests: XCTestCase {
         expect(settingsViewModel[\.isLogAvailable]).to(beFalse())
         expect(settingsViewModel[\.versionName]).to(equal("0.0.0 (Debug, Build 0)"))
         expect(settingsViewModel[\.sourceCodeUrl]).to(equal(.init(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios")!))
+    }
+    
+    func testInit_givenIsChallengePasswordStoredIsTrue_thenSetsIsChallengePasswordStoredToTrue() {
+        sessionServiceMock._isChallengePasswordStored = true
+        
+        let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
+        
+        expect(settingsViewModel[\.isChallengePasswordStored]).to(beTrue())
     }
     
     func testInit_givenIsDebugIsFalseAndIsTestFlightIsFalse_thenSetsVersionName() {
@@ -258,6 +268,22 @@ final class SettingsViewModelTests: XCTestCase {
         let isAvailableMock = Bool.random()
         
         expect(settingsViewModel[\.$isLogAvailable].dropFirst()).to(emit(isAvailableMock, onMainThread: true, when: { self.loggerMock._isAvailablePublisher.send(isAvailableMock) }, from: .init()))
+    }
+    
+    func testCallAsFunction_whenCallingClearChallengePassword_thenCallsSessionService() {
+        let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
+        
+        settingsViewModel(.clearChallengePassword)
+        
+        expect(self.sessionServiceMock).to(beCalled(.once, on: "clearChallengePassword()"))
+    }
+    
+    func testCallAsFunction_whenCallingClearChallengePassword_thenSetsWasChallengePasswordClearedToTrue() {
+        let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
+        
+        settingsViewModel(.clearChallengePassword)
+        
+        expect(settingsViewModel[\.wasChallengePasswordCleared]).to(beTrue())
     }
     
     func testCallAsFunction_whenCallingLogout_thenSetsShowLogoutAlertToTrue() {
