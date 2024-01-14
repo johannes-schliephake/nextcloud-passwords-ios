@@ -63,6 +63,12 @@ struct SettingsPage: View {
                 }])
             }
         }
+        .apply { view in
+            if #available(iOS 16, *) {
+                view
+                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
+            }
+        }
     }
     
     private func optionsSection() -> some View {
@@ -127,6 +133,12 @@ struct SettingsPage: View {
                 }
             }
         }
+        .apply { view in
+            if #available(iOS 16, *) {
+                view
+                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
+            }
+        }
     }
     
     @ViewBuilder private func supportThisProjectFooter() -> some View {
@@ -160,18 +172,18 @@ struct SettingsPage: View {
                         }
                 }
                 .isDetailLink(false)
-                .apply { view in
-                    if #available(iOS 16, *) {
-                        view
-                            .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
-                    }
-                }
             }
             LabeledRow(type: .text, label: "_version", value: viewModel[\.versionName])
             if let sourceCodeUrl = viewModel[\.sourceCodeUrl] {
                 Link(destination: sourceCodeUrl) {
                     Label("_sourceCode", systemImage: "curlybraces")
                 }
+            }
+        }
+        .apply { view in
+            if #available(iOS 16, *) {
+                view
+                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
             }
         }
     }
