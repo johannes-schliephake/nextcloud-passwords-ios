@@ -369,31 +369,33 @@ struct EntriesPage: View {
     private func entryRows(entries: [Entry]) -> some View {
         ForEach(entries) {
             entry in
-            switch entry {
-            case .folder(let folder):
-                FolderRow(entriesController: entriesController, folder: folder, editFolder: {
-                    sheetItem = .edit(entry: .folder(folder))
-                }, moveFolder: {
-                    sheetItem = .move(entry: .folder(folder))
-                }, deleteFolder: {
-                    actionSheetItem = .delete(entry: .folder(folder))
-                })
-            case .password(let password):
-                PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
-                    sheetItem = .edit(entry: .password(password))
-                }, movePassword: {
-                    sheetItem = .move(entry: .password(password))
-                }, tagPassword: {
-                    sheetItem = .tag(entry: .password(password))
-                }, deletePassword: {
-                    actionSheetItem = .delete(entry: .password(password))
-                })
-            case .tag(let tag):
-                TagRow(entriesController: entriesController, tag: tag, editTag: {
-                    sheetItem = .edit(entry: .tag(tag))
-                }, deleteTag: {
-                    actionSheetItem = .delete(entry: .tag(tag))
-                })
+            VStack { /// Wrapped switch statement to improve performance
+                switch entry {
+                case .folder(let folder):
+                    FolderRow(entriesController: entriesController, folder: folder, editFolder: {
+                        sheetItem = .edit(entry: .folder(folder))
+                    }, moveFolder: {
+                        sheetItem = .move(entry: .folder(folder))
+                    }, deleteFolder: {
+                        actionSheetItem = .delete(entry: .folder(folder))
+                    })
+                case .password(let password):
+                    PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
+                        sheetItem = .edit(entry: .password(password))
+                    }, movePassword: {
+                        sheetItem = .move(entry: .password(password))
+                    }, tagPassword: {
+                        sheetItem = .tag(entry: .password(password))
+                    }, deletePassword: {
+                        actionSheetItem = .delete(entry: .password(password))
+                    })
+                case .tag(let tag):
+                    TagRow(entriesController: entriesController, tag: tag, editTag: {
+                        sheetItem = .edit(entry: .tag(tag))
+                    }, deleteTag: {
+                        actionSheetItem = .delete(entry: .tag(tag))
+                    })
+                }
             }
         }
     }
