@@ -20,13 +20,7 @@ func emit<P: Publisher>(
         var result: MatcherResult?
         var cancellables = Set<AnyCancellable>()
         publisher
-            .sink { completion in
-                guard case let .failure(error) = completion else {
-                    return
-                }
-                result = result ?? .init(status: .doesNotMatch, message: message.appended(message: " - completed with failure <\(error)>"))
-                expectation.fulfill()
-            } receiveValue: { _ in
+            .sink { _ in
                 var matches = true
                 message = message.appended(message: " - received value")
                 if let expectMainThread {
@@ -34,6 +28,9 @@ func emit<P: Publisher>(
                     message = message.appended(message: " on \(Thread.isMainThread ? "main" : "background") thread")
                 }
                 result = result ?? .init(status: .init(bool: matches), message: message)
+                expectation.fulfill()
+            } receiveError: { error in
+                result = result ?? .init(status: .doesNotMatch, message: message.appended(message: " - completed with failure <\(error)>"))
                 expectation.fulfill()
             }
             .store(in: &cancellables)

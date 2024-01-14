@@ -167,6 +167,10 @@
 		DD03D9BD28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
 		DD03D9BE28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
 		DD03D9BF28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
+		DD0A087A2B548B8D000C2D35 /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A08792B548B8D000C2D35 /* Publisher+Sink.swift */; };
+		DD0A087B2B548B8D000C2D35 /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A08792B548B8D000C2D35 /* Publisher+Sink.swift */; };
+		DD0A087C2B548B8D000C2D35 /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A08792B548B8D000C2D35 /* Publisher+Sink.swift */; };
+		DD0A087D2B549122000C2D35 /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A08792B548B8D000C2D35 /* Publisher+Sink.swift */; };
 		DD0B7ADF2971A2A900A59E3C /* EditFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */; };
 		DD0B7AE02971A2A900A59E3C /* EditFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */; };
 		DD0B7AE12971A2A900A59E3C /* EditFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */; };
@@ -827,6 +831,7 @@
 		DD0424662829853A00E9B9DE /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DD0424672829854900E9B9DE /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DD0424682829858900E9B9DE /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD0A08792B548B8D000C2D35 /* Publisher+Sink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Sink.swift"; sourceTree = "<group>"; };
 		DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderViewModel.swift; sourceTree = "<group>"; };
 		DD0B7AE22971B35B00A59E3C /* FoldersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersService.swift; sourceTree = "<group>"; };
 		DD0B7AEE2972CEBD00A59E3C /* FolderValidationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderValidationServiceTests.swift; sourceTree = "<group>"; };
@@ -1404,6 +1409,7 @@
 				8F63617B25A741A400C832C9 /* PreviewDevice+Generate.swift */,
 				DDDD93EE2A1426B80061BEA0 /* Publisher+CompactFlatMap.swift */,
 				DDDD93F22A1427680061BEA0 /* Publisher+ReplaceNil.swift */,
+				DD0A08792B548B8D000C2D35 /* Publisher+Sink.swift */,
 				DDBEE5B62A07C7C3008F4099 /* Publishers+CombineLatest5.swift */,
 				DDBEE5BA2A07C7C8008F4099 /* Publishers+CombineLatest6.swift */,
 				8FBE43C4258D5A09003F7F34 /* String+Localized.swift */,
@@ -2368,6 +2374,7 @@
 				8F559A2225A0B23E00D7A39F /* MainView.swift in Sources */,
 				8F77DA6325699FB300CFDA8D /* EntriesController.swift in Sources */,
 				DDB00D292A6EA24E0060909F /* SettingsViewModel.swift in Sources */,
+				DD0A087A2B548B8D000C2D35 /* Publisher+Sink.swift in Sources */,
 				8F57B426256C0DD600329B05 /* SettingsPage.swift in Sources */,
 				8F559A1325A0AE2700D7A39F /* SettingsNavigation.swift in Sources */,
 				DDDB6B5627A80639007572B1 /* CaptureOTPNavigation.swift in Sources */,
@@ -2558,6 +2565,7 @@
 				DD1E1D732A010D0C002DB08B /* Enabled.swift in Sources */,
 				8FC361D225827E5D00785371 /* ListFoldersRequest.swift in Sources */,
 				DDB00D2A2A6EA24E0060909F /* SettingsViewModel.swift in Sources */,
+				DD0A087B2B548B8D000C2D35 /* Publisher+Sink.swift in Sources */,
 				8F559A2325A0B23E00D7A39F /* MainView.swift in Sources */,
 				8FC361C625827E5500785371 /* Entry.swift in Sources */,
 				8FC361CD25827E5D00785371 /* CreateFolderRequest.swift in Sources */,
@@ -2743,6 +2751,7 @@
 				DD24F0332A8E172A009823C8 /* SettingsViewModelMock.swift in Sources */,
 				DD7BC51829AFBA00004AA7BC /* Container+Mocks.swift in Sources */,
 				DD5E99F629ABFF4000A7A4B9 /* ClosureMock.swift in Sources */,
+				DD0A087D2B549122000C2D35 /* Publisher+Sink.swift in Sources */,
 				DD7BC52429AFFD6E004AA7BC /* FoldersServiceMock.swift in Sources */,
 				DD7BC52829AFFE0A004AA7BC /* EditFolderViewModelMock.swift in Sources */,
 				DD1466722A6BE2AE003BBA8F /* VideoCapturerMock.swift in Sources */,
@@ -2845,6 +2854,7 @@
 				DD1E1D742A010D0C002DB08B /* Enabled.swift in Sources */,
 				DDB169E927D20CC300F4D752 /* ShareSheet.swift in Sources */,
 				DDB00D2B2A6EA24E0060909F /* SettingsViewModel.swift in Sources */,
+				DD0A087C2B548B8D000C2D35 /* Publisher+Sink.swift in Sources */,
 				DDB169A127D20CC200F4D752 /* UIAlertController+PresentGlobalAlert.swift in Sources */,
 				DDB1699327D20CC200F4D752 /* Array+Zip.swift in Sources */,
 				DDB169AE27D20CC200F4D752 /* EditFolderPage.swift in Sources */,

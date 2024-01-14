@@ -26,10 +26,10 @@ func fail<P: Publisher>(
         var result: MatcherResult?
         var cancellables = Set<AnyCancellable>()
         publisher
-            .sink { completion in
-                guard case let .failure(error) = completion else {
-                    return
-                }
+            .sink { value in
+                result = result ?? .init(status: .doesNotMatch, message: message.appended(message: " - received value <\(stringify(value))>"))
+                expectation.fulfill()
+            } receiveError: { error in
                 var matches = true
                 message = message.appended(message: " - completed with failure <\(error)>")
                 if let expectedError {
@@ -40,9 +40,6 @@ func fail<P: Publisher>(
                     message = message.appended(message: " on \(Thread.isMainThread ? "main" : "background") thread")
                 }
                 result = result ?? .init(status: .init(bool: matches), message: message)
-                expectation.fulfill()
-            } receiveValue: { value in
-                result = result ?? .init(status: .doesNotMatch, message: message.appended(message: " - received value <\(stringify(value))>"))
                 expectation.fulfill()
             }
             .store(in: &cancellables)
