@@ -62,6 +62,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         case folderLabel
     }
     
+    @Injected(\.folderLabelUseCase) private var folderLabelUseCase
     @Injected(\.foldersService) private var foldersService
     @Injected(\.folderValidationService) private var folderValidationService
     @LazyInjected(\.logger) private var logger
@@ -88,8 +89,10 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         weak var `self` = self
         
         state.$folderParent
-            .compactMap { self?.foldersService.folderLabel(forId: $0) }
-            .switchToLatest()
+            .sink { self?.folderLabelUseCase(.setId($0)) }
+            .store(in: &cancellables)
+        
+        folderLabelUseCase[\.$label]
             .sink { self?.state.parentLabel = $0 }
             .store(in: &cancellables)
         

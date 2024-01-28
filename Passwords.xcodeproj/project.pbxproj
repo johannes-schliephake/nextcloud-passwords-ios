@@ -651,6 +651,9 @@
 		DDF924D52A5D7348005C9977 /* ArrayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */; };
 		DDF924D62A5D7348005C9977 /* ArrayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */; };
 		DDF924D72A5D7348005C9977 /* ArrayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */; };
+		DDFDD3D12B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */; };
+		DDFDD3D22B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */; };
+		DDFDD3D32B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */; };
 		DDFF5D4829D8443B00422603 /* Container+AutoRegistering.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */; };
 		DDFF5D4A29D850ED00422603 /* MockInjected.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFF5D4929D850ED00422603 /* MockInjected.swift */; };
 /* End PBXBuildFile section */
@@ -1045,6 +1048,7 @@
 		DDF423822A9BEACB0060C5E8 /* ObjectMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMock.swift; sourceTree = "<group>"; };
 		DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderViewModelTests.swift; sourceTree = "<group>"; };
 		DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayBuilder.swift; sourceTree = "<group>"; };
+		DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderLabelUseCase.swift; sourceTree = "<group>"; };
 		DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+AutoRegistering.swift"; sourceTree = "<group>"; };
 		DDFF5D4929D850ED00422603 /* MockInjected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInjected.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1146,6 +1150,7 @@
 			isa = PBXGroup;
 			children = (
 				8F55B9FE25611A7C008AAC63 /* Views */,
+				DDFDD3CF2B66D79C0082BB1E /* UseCases */,
 				DD214360295A0139006C08DD /* Services */,
 				8F5A8B1225699EEE00D97E06 /* Controllers */,
 				DDAC9C612A293625005E6011 /* Repositories */,
@@ -1924,6 +1929,14 @@
 			path = Pasteboard;
 			sourceTree = "<group>";
 		};
+		DDFDD3CF2B66D79C0082BB1E /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2422,6 +2435,7 @@
 				DDDF3388276F7FDE008EEB3F /* TagBadge.swift in Sources */,
 				8F55D99A2582D04200CE4FC2 /* AutoFillController.swift in Sources */,
 				DD8282C62938CBA00085115D /* ViewModel.swift in Sources */,
+				DDFDD3D12B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */,
 				DD03D9BD28C8DE92006118F2 /* Strings.swift in Sources */,
 				DDED770526E2186D0037A18D /* Apply.swift in Sources */,
 				DDCD27852A16C700009EC50F /* QRCodeGenerating.swift in Sources */,
@@ -2610,6 +2624,7 @@
 				DDDF3389276F7FDE008EEB3F /* TagBadge.swift in Sources */,
 				8FC361FF25828B0500785371 /* EntriesNavigation.swift in Sources */,
 				DD8282C72938CBA00085115D /* ViewModel.swift in Sources */,
+				DDFDD3D22B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */,
 				DD03D9BE28C8DE92006118F2 /* Strings.swift in Sources */,
 				DDED770626E2186D0037A18D /* Apply.swift in Sources */,
 				DDCD27862A16C701009EC50F /* QRCodeGenerating.swift in Sources */,
@@ -2886,6 +2901,7 @@
 				DDB169A427D20CC200F4D752 /* PasswordServiceRequest.swift in Sources */,
 				DD03D9BF28C8DE92006118F2 /* Strings.swift in Sources */,
 				DDB1698927D20CC200F4D752 /* Label+ShowIcon.swift in Sources */,
+				DDFDD3D32B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */,
 				DD8282C82938CBA00085115D /* ViewModel.swift in Sources */,
 				DDB1699E27D20CC200F4D752 /* EditOTPNavigation.swift in Sources */,
 				DDB1698A27D20CC200F4D752 /* SettingsNavigation.swift in Sources */,

@@ -29,7 +29,13 @@ extension Stateful {
         }
     }
     
-    subscript<Value, E: Error>(_ keyPath: KeyPath<State, Published<Result<Value, E>?>.Publisher>) -> some Publisher<Value, E> {
+    subscript<Output>(_ keyPath: KeyPath<State, Published<Result<Output, Never>?>.Publisher>) -> AnyPublisher<Output, Never> {
+        state[keyPath: keyPath]
+            .compactMap { try! $0?.get() } // swiftlint:disable:this force_try
+            .eraseToAnyPublisher()
+     }
+    
+    subscript<Output, Failure: Error>(_ keyPath: KeyPath<State, Published<Result<Output, Failure>?>.Publisher>) -> AnyPublisher<Output, Failure> {
          state[keyPath: keyPath]
              .compactMap { $0 }
              .tryMap { result in
@@ -40,7 +46,8 @@ extension Stateful {
                      throw error
                  }
              }
-             .mapError { $0 as! E } // swiftlint:disable:this force_cast
+             .mapError { $0 as! Failure } // swiftlint:disable:this force_cast
+             .eraseToAnyPublisher()
      }
     
 }
