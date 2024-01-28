@@ -3,7 +3,7 @@ import Combine
 import Factory
 
 
-protocol GlobalAlertsViewModelProtocol: ViewModel where State == GlobalAlertsViewModel.State, Action == Never {
+protocol GlobalAlertsViewModelProtocol: ViewModel where State == EmptyState, Action == Never {
     
     init()
     
@@ -13,17 +13,11 @@ protocol GlobalAlertsViewModelProtocol: ViewModel where State == GlobalAlertsVie
 // TODO: tests
 final class GlobalAlertsViewModel: GlobalAlertsViewModelProtocol {
     
-    final class State: ObservableObject {}
-    
     @Injected(\.purchaseService) private var purchaseService
-    
-    let state: State
     
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        state = .init()
-        
         setupPipelines()
     }
     
