@@ -2156,7 +2156,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "if which swiftlint >/dev/null; then\n  setopt extendedglob\n  for folder in ^(Provider|Extension|Snapshot|Tests|fastlane)/; do\n    swiftlint $folder\n  done\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "source ~/.zshrc\nif which swiftlint >/dev/null; then\n  setopt extendedglob\n  for folder in ^(Provider|Extension|Snapshot|Tests|fastlane)/; do\n    swiftlint $folder\n  done\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		8F0136FB25DE8E9A009455D7 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2208,7 +2208,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "if which swiftgen >/dev/null; then\n  swiftgen\n  sed -i \"\" \"s/_ args: CVarArg.../_ args: any CVarArg.../g\" Shared/Generated/Strings.swift # Temporary fix for missing \"any\"\nelse\n  echo \"warning: SwiftGen not installed, download from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
+			shellScript = "source ~/.zshrc\nif which swiftgen >/dev/null; then\n  swiftgen\n  sed -i \"\" \"s/_ args: CVarArg.../_ args: any CVarArg.../g\" Shared/Generated/Strings.swift # Temporary fix for missing \"any\"\nelse\n  echo \"warning: SwiftGen not installed, download from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
 		};
 		DDB1696C27D2033200F4D752 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
