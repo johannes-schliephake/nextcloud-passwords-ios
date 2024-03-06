@@ -28,7 +28,7 @@ You can install beta builds by joining the [TestFlight](https://testflight.apple
 Everybody is welcome to contribute translations via [Weblate](https://hosted.weblate.org/engage/nextcloud-passwords-ios)!
 
 ## Development
-To set up this project perform these steps:
+Perform these steps to set up this project:
 - Run `rbenv install` to install the matching Ruby version or manually install the version specified in the [.ruby-version](.ruby-version) file
 - Run `gem install bundler` to install Bundler
 - Run `bundle install` to install dependencies
@@ -41,4 +41,4 @@ To set up this project perform these steps:
   + If you aren't subscribed to the Apple Developer Program:
     - Delete the *In-App Purchase* entitlement from the "Passwords" target
     - Delete the *AutoFill Credential Provider* entitlement from the *Passwords* & *Provider* targets<br>
-      Some features of the app won't work without these entitlements.
+      **Some features of the app will be missing after deleting these entitlements.**

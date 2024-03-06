@@ -902,6 +902,7 @@
 		DD5E99F229AB6D3700A7A4B9 /* BeCalled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeCalled.swift; sourceTree = "<group>"; };
 		DD5E99F529ABFF4000A7A4B9 /* ClosureMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureMock.swift; sourceTree = "<group>"; };
 		DD6350E0293FED030058A787 /* Container+Registrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Registrations.swift"; sourceTree = "<group>"; };
+		DD66FBE52B985EFE00263284 /* .ruby-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".ruby-version"; sourceTree = "<group>"; };
 		DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPPage.swift; sourceTree = "<group>"; };
 		DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPNavigation.swift; sourceTree = "<group>"; };
 		DD6953EB27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
@@ -1103,8 +1104,9 @@
 				8FCBF8BB25AE152500F75B33 /* Snapshot */,
 				DD5E3CAF295363DB0032F517 /* Tests */,
 				8FD1039625A7BFFC0055A8F3 /* .gitignore */,
-				8F0136FF25DE903E009455D7 /* .swiftlint.yml */,
+				DD66FBE52B985EFE00263284 /* .ruby-version */,
 				DD941A332AF84293002D263E /* .xcode-version */,
+				8F0136FF25DE903E009455D7 /* .swiftlint.yml */,
 				DD03D9C028C8DFCB006118F2 /* swiftgen.yml */,
 				DD2B7D0827EE6D5E0018E07E /* fastlane */,
 				DD42600B293B736E004A77AB /* AppConfig */,
