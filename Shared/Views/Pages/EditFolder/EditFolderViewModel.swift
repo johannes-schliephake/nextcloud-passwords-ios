@@ -89,10 +89,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         weak var `self` = self
         
         state.$folderParent
-            .sink { self?.folderLabelUseCase(.setId($0)) }
-            .store(in: &cancellables)
-        
-        folderLabelUseCase[\.$label]
+            .handle(with: folderLabelUseCase, { .setId($0) }, publishing: \.$label)
             .sink { self?.state.parentLabel = $0 }
             .store(in: &cancellables)
         

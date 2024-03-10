@@ -29,26 +29,11 @@ extension Stateful {
         }
     }
     
-    subscript<Output>(_ keyPath: KeyPath<State, Published<Result<Output, Never>?>.Publisher>) -> AnyPublisher<Output, Never> {
+    subscript<Output, Failure>(_ keyPath: KeyPath<State, Published<Result<Output, Failure>?>.Publisher>) -> AnyPublisher<Output, Failure> {
         state[keyPath: keyPath]
-            .compactMap { try! $0?.get() } // swiftlint:disable:this force_try
+            .compactFlatMap { $0?.publisher }
             .eraseToAnyPublisher()
-     }
-    
-    subscript<Output, Failure: Error>(_ keyPath: KeyPath<State, Published<Result<Output, Failure>?>.Publisher>) -> AnyPublisher<Output, Failure> {
-         state[keyPath: keyPath]
-             .compactMap { $0 }
-             .tryMap { result in
-                 switch result {
-                 case let .success(value):
-                     return value
-                 case let .failure(error):
-                     throw error
-                 }
-             }
-             .mapError { $0 as! Failure } // swiftlint:disable:this force_cast
-             .eraseToAnyPublisher()
-     }
+    }
     
 }
 
