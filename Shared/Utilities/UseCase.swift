@@ -1,1 +1,1 @@
-protocol UseCase: Stateful, Actionable {}
+protocol UseCase: Handleable {}

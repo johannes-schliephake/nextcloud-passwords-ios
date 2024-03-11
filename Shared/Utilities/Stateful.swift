@@ -1,4 +1,3 @@
-import Combine
 import Foundation
 
 
@@ -27,12 +26,6 @@ extension Stateful {
         nonmutating set {
             state[keyPath: keyPath] = newValue
         }
-    }
-    
-    subscript<Output, Failure>(_ keyPath: KeyPath<State, Published<Result<Output, Failure>?>.Publisher>) -> AnyPublisher<Output, Failure> {
-        state[keyPath: keyPath]
-            .compactFlatMap { $0?.publisher }
-            .eraseToAnyPublisher()
     }
     
 }
