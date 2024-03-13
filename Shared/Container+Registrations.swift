@@ -121,6 +121,14 @@ extension Container {
         self { ProductsRepository() }
             .cached
     }
+    var windowSizeDataSource: Factory<any WindowSizeDataSourceProtocol> {
+        self { WindowSizeDataSource() }
+            .cached
+    }
+    var windowSizeRepository: Factory<any WindowSizeRepositoryProtocol> {
+        self { WindowSizeRepository() }
+            .cached
+    }
     
     // MARK: Helpers
     var logger: Factory<any Logging> {
@@ -140,6 +148,9 @@ extension Container {
     }
     var qrCodeGenerator: Factory<(any QRCodeGenerating)?> {
         self { CIFilter(name: "CIQRCodeGenerator") }
+    }
+    var systemNotifications: Factory <any Notifications> {
+        self { NotificationCenter.default }
     }
     var transactionType: Factory<any Transaction.Type> {
         self { StoreKit.Transaction.self }

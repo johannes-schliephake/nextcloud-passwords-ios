@@ -3,7 +3,7 @@ import StoreKit
 
 protocol Product: Equatable {
     
-    static func products<Identifiers: Collection>(for identifiers: Identifiers) async throws -> [Self] where Identifiers.Element == String
+    static func products<Identifiers: Collection>(for: Identifiers) async throws -> [Self] where Identifiers.Element == String
     
     var id: String { get }
     var price: Decimal { get }

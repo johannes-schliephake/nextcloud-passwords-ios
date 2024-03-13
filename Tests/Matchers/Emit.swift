@@ -8,7 +8,7 @@ func emit<P: Publisher>(
     onMainThread expectMainThread: Bool? = nil,
     when block: (() -> Void)? = nil,
     from originQueue: DispatchQueue = .main
-) -> Matcher<P> where P.Output == Void {
+) -> Matcher<P> {
     .init { expression in
         var message = ExpectationMessage.expectedTo("emit")
         
@@ -20,13 +20,7 @@ func emit<P: Publisher>(
         var result: MatcherResult?
         var cancellables = Set<AnyCancellable>()
         publisher
-            .sink { completion in
-                guard case let .failure(error) = completion else {
-                    return
-                }
-                result = result ?? .init(status: .doesNotMatch, message: message.appended(message: " - completed with failure <\(error)>"))
-                expectation.fulfill()
-            } receiveValue: {
+            .sink { _ in
                 var matches = true
                 message = message.appended(message: " - received value")
                 if let expectMainThread {
@@ -34,6 +28,9 @@ func emit<P: Publisher>(
                     message = message.appended(message: " on \(Thread.isMainThread ? "main" : "background") thread")
                 }
                 result = result ?? .init(status: .init(bool: matches), message: message)
+                expectation.fulfill()
+            } receiveError: { error in
+                result = result ?? .init(status: .doesNotMatch, message: message.appended(message: " - completed with failure <\(error)>"))
                 expectation.fulfill()
             }
             .store(in: &cancellables)
@@ -88,5 +85,25 @@ func emit<P: Publisher>(
         }
         XCTWaiter().wait(for: [expectation], timeout: timeout)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't receive value"))
+    }
+}
+
+
+func emit<P: Publisher>(
+    _ firstExpectedValue: P.Output,
+    _ otherExpectedValues: P.Output...,
+    within timeout: TimeInterval = 0.1,
+    onMainThread expectMainThread: Bool? = nil,
+    when block: (() -> Void)? = nil,
+    from originQueue: DispatchQueue = .main
+) -> Matcher<P> where P.Output: Equatable {
+    .init { expression in
+        let expectedValues = [firstExpectedValue] + otherExpectedValues
+        let result = try emit(expectedValues, within: timeout, onMainThread: expectMainThread, when: block, from: originQueue).satisfies(
+            .init(expression: {
+                try expression.evaluate()?.collect(expectedValues.count)
+            }, location: expression.location, isClosure: expression.isClosure)
+        )
+        return .init(status: result.status, message: result.message)
     }
 }

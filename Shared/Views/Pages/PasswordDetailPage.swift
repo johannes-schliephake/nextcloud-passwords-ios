@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct PasswordDetailPage: View {
@@ -42,7 +43,7 @@ struct PasswordDetailPage: View {
                         }
                     }
                 }
-                .onReceive(NotificationCenter.default.publisher(for: Notification.Name("deletePassword"), object: password)) {
+                .onReceive(resolve(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) {
                     _ in
                     dismiss()
                     

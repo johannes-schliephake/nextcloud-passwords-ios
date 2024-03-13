@@ -31,7 +31,7 @@ extension Container: AutoRegistering {
         Self.shared.tagValidationService.register { TagValidationServiceMock() }
         Self.shared.tagsService.register { TagsServiceMock() }
         Self.shared.torchService.cached.register { TorchServiceMock() }
-        //Self.shared.windowSizeService.register { WindowSizeServiceMock() }
+        Self.shared.windowSizeService.register { WindowSizeServiceMock() }
         
         // MARK: Repositories
         Self.shared.pasteboardDataSource.register { PasteboardDataSourceMock() }
@@ -40,6 +40,8 @@ extension Container: AutoRegistering {
         //Self.shared.productIdentifiersRepository.register { ProductIdentifiersRepositoryMock() }
         //Self.shared.productsAppStoreDataSource.register { ProductsAppStoreDataSourceMock() }
         //Self.shared.productsRepository.register { ProductsRepositoryMock() }
+        Self.shared.windowSizeDataSource.register { WindowSizeDataSourceMock() }
+        Self.shared.windowSizeRepository.register { WindowSizeRepositoryMock() }
         
         // MARK: Helpers
         Self.shared.logger.register { LoggerMock() }
@@ -49,6 +51,7 @@ extension Container: AutoRegistering {
         Self.shared.pasteboard.cached.register { PasteboardMock() }
         Self.shared.productType.register { ProductMock.self }
         Self.shared.qrCodeGenerator.cached.register { QRCodeGeneratorMock() }
+        Self.shared.systemNotifications.cached.register { NotificationsMock() }
         //Self.shared.transactionType.register { TransactionMock.self }
         Self.shared.videoCapturer.cached.register { VideoCapturerMock() }
         
