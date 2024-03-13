@@ -306,9 +306,6 @@
 		DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */; };
 		DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
 		DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
-		DD6FE0AE29F53DFD004DBE8E /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6FE0AD29F53DFD004DBE8E /* Lock.swift */; };
-		DD6FE0AF29F53DFD004DBE8E /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6FE0AD29F53DFD004DBE8E /* Lock.swift */; };
-		DD6FE0B029F53DFD004DBE8E /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6FE0AD29F53DFD004DBE8E /* Lock.swift */; };
 		DD718F2827B568E200F85780 /* String+Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD718F2727B568E200F85780 /* String+Segmented.swift */; };
 		DD718F2927B568E200F85780 /* String+Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD718F2727B568E200F85780 /* String+Segmented.swift */; };
 		DD72AE1928A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */; };
@@ -619,6 +616,9 @@
 		DDCE1263274140A9003912D0 /* ShowTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE1261274140A9003912D0 /* ShowTagRequest.swift */; };
 		DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
 		DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE126427414101003912D0 /* UpdateTagRequest.swift */; };
+		DDD517192B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */; };
+		DDD5171A2B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */; };
+		DDD5171B2B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */; };
 		DDDB6B5627A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5727A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5927A806ED007572B1 /* CaptureOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */; };
@@ -931,12 +931,12 @@
 		DD5E99F229AB6D3700A7A4B9 /* BeCalled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeCalled.swift; sourceTree = "<group>"; };
 		DD5E99F529ABFF4000A7A4B9 /* ClosureMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureMock.swift; sourceTree = "<group>"; };
 		DD6350E0293FED030058A787 /* Container+Registrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Registrations.swift"; sourceTree = "<group>"; };
+		DD66FBE52B985EFE00263284 /* .ruby-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".ruby-version"; sourceTree = "<group>"; };
 		DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPPage.swift; sourceTree = "<group>"; };
 		DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPNavigation.swift; sourceTree = "<group>"; };
 		DD6953EB27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD6953EC27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledRow.swift; sourceTree = "<group>"; };
-		DD6FE0AD29F53DFD004DBE8E /* Lock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
 		DD718F2727B568E200F85780 /* String+Segmented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Segmented.swift"; sourceTree = "<group>"; };
 		DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAppPasswordOCSRequest.swift; sourceTree = "<group>"; };
 		DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Root.swift"; sourceTree = "<group>"; };
@@ -972,6 +972,8 @@
 		DD845CD12AF405D300048F3F /* WindowMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowMock.swift; sourceTree = "<group>"; };
 		DD84EEF4288ECC4C0094B5A6 /* CGPoint+Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Operators.swift"; sourceTree = "<group>"; };
 		DD889A1A27DB4AB40021AF5F /* OnSizeChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnSizeChange.swift; sourceTree = "<group>"; };
+		DD941A322AF8419F002D263E /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		DD941A332AF84293002D263E /* .xcode-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".xcode-version"; sourceTree = "<group>"; };
 		DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceSpecificPadding.swift"; sourceTree = "<group>"; };
 		DD9A99F62A23E9120016722F /* EditTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagViewModel.swift; sourceTree = "<group>"; };
 		DD9A99FA2A23FE4A0016722F /* EditTagViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagViewModelTests.swift; sourceTree = "<group>"; };
@@ -1048,6 +1050,7 @@
 		DDCE125E2741408D003912D0 /* ListTagsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTagsRequest.swift; sourceTree = "<group>"; };
 		DDCE1261274140A9003912D0 /* ShowTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagRequest.swift; sourceTree = "<group>"; };
 		DDCE126427414101003912D0 /* UpdateTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTagRequest.swift; sourceTree = "<group>"; };
+		DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadersWriterLock.swift; sourceTree = "<group>"; };
 		DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPNavigation.swift; sourceTree = "<group>"; };
 		DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPPage.swift; sourceTree = "<group>"; };
 		DDDD93EE2A1426B80061BEA0 /* Publisher+CompactFlatMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+CompactFlatMap.swift"; sourceTree = "<group>"; };
@@ -1144,11 +1147,14 @@
 				8FCBF8BB25AE152500F75B33 /* Snapshot */,
 				DD5E3CAF295363DB0032F517 /* Tests */,
 				8FD1039625A7BFFC0055A8F3 /* .gitignore */,
+				DD66FBE52B985EFE00263284 /* .ruby-version */,
+				DD941A332AF84293002D263E /* .xcode-version */,
 				8F0136FF25DE903E009455D7 /* .swiftlint.yml */,
 				DD03D9C028C8DFCB006118F2 /* swiftgen.yml */,
 				DD2B7D0827EE6D5E0018E07E /* fastlane */,
 				DD42600B293B736E004A77AB /* AppConfig */,
 				8FD1038C25A790EC0055A8F3 /* README.md */,
+				DD941A322AF8419F002D263E /* CHANGELOG.md */,
 				DD3A993827FDD9AA000E1938 /* Icon.svg */,
 				8FD1038625A790B00055A8F3 /* LICENSE */,
 				8F580AF325A85D8A0047E484 /* PRIVACY */,
@@ -1345,11 +1351,11 @@
 				8F74244526039BD600B73646 /* Crypto.swift */,
 				DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */,
 				8F582BFD255EAD7000F1E3DA /* Keychain.swift */,
-				DD6FE0AD29F53DFD004DBE8E /* Lock.swift */,
 				8F52EFC825B1D0FC00DCFAC1 /* MockObject.swift */,
 				8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */,
 				8FA5B74B261109D7006CBC7D /* NetworkClient.swift */,
 				DD9C50072A7FC279002588DD /* PropertyListDataSource.swift */,
+				DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */,
 				DD8282C52938CBA00085115D /* ViewModel.swift */,
 			);
 			path = Utilities;
@@ -2234,7 +2240,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "if which swiftlint >/dev/null; then\n  setopt extendedglob\n  for folder in ^(Provider|Extension|Snapshot|Tests|fastlane)/; do\n    swiftlint $folder\n  done\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "source ~/.zshrc\nif which swiftlint >/dev/null; then\n  setopt extendedglob\n  for folder in ^(Provider|Extension|Snapshot|Tests|fastlane)/; do\n    swiftlint $folder\n  done\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		8F0136FB25DE8E9A009455D7 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2286,7 +2292,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "if which swiftgen >/dev/null; then\n  swiftgen\n  sed -i \"\" \"s/_ args: CVarArg.../_ args: any CVarArg.../g\" Shared/Generated/Strings.swift # Temporary fix for missing \"any\"\nelse\n  echo \"warning: SwiftGen not installed, download from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
+			shellScript = "source ~/.zshrc\nif which swiftgen >/dev/null; then\n  swiftgen\n  sed -i \"\" \"s/_ args: CVarArg.../_ args: any CVarArg.../g\" Shared/Generated/Strings.swift # Temporary fix for missing \"any\"\nelse\n  echo \"warning: SwiftGen not installed, download from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
 		};
 		DDB1696C27D2033200F4D752 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2364,6 +2370,7 @@
 				DD2AEB782AEAAE520001781E /* DataScannerView.swift in Sources */,
 				DDC87BCD2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */,
 				DD8282BE2937686A0085115D /* SelectTagsViewModel.swift in Sources */,
+				DDD517192B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */,
 				DD3FAD612775DC54002202DE /* ListSettingsRequest.swift in Sources */,
 				8F7A73A32677493500FCA15F /* URL+RelativeReference.swift in Sources */,
 				8F74244626039BD600B73646 /* Crypto.swift in Sources */,
@@ -2424,7 +2431,6 @@
 				DDCE125927413FF6003912D0 /* CreateTagRequest.swift in Sources */,
 				DD78D6D22AACDB3100854599 /* WindowSizeService.swift in Sources */,
 				8F560E69258F54A900C896EE /* Occlude.swift in Sources */,
-				DD6FE0AE29F53DFD004DBE8E /* Lock.swift in Sources */,
 				8F55564A25716BD200F5D805 /* DeletePasswordRequest.swift in Sources */,
 				DD1078782A69472B00E87B3F /* CaptureOTPViewModel.swift in Sources */,
 				DDE0701E27C8F83B00FC65E2 /* Tooltip.swift in Sources */,
@@ -2555,6 +2561,7 @@
 				DD2AEB792AEAAE520001781E /* DataScannerView.swift in Sources */,
 				DDC87BCE2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */,
 				DD8282BF2937686A0085115D /* SelectTagsViewModel.swift in Sources */,
+				DDD5171A2B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */,
 				8F854E6E26239457008885C3 /* OfflineContainer.swift in Sources */,
 				DD3FAD622775DC54002202DE /* ListSettingsRequest.swift in Sources */,
 				8F7A73A42677493500FCA15F /* URL+RelativeReference.swift in Sources */,
@@ -2617,7 +2624,6 @@
 				DD78D6D32AACDB3100854599 /* WindowSizeService.swift in Sources */,
 				DDCE125A27413FF6003912D0 /* CreateTagRequest.swift in Sources */,
 				8F560E6C258F5AD400C896EE /* Occlude.swift in Sources */,
-				DD6FE0AF29F53DFD004DBE8E /* Lock.swift in Sources */,
 				DD1078792A69472B00E87B3F /* CaptureOTPViewModel.swift in Sources */,
 				8FC361B525827E4C00785371 /* SettingsPage.swift in Sources */,
 				DDB00D322A6FBA180060909F /* SettingsService.swift in Sources */,
@@ -2844,6 +2850,7 @@
 				DD2AEB7A2AEAAE520001781E /* DataScannerView.swift in Sources */,
 				DDC87BCF2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */,
 				DD8282C02937686A0085115D /* SelectTagsViewModel.swift in Sources */,
+				DDD5171B2B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */,
 				DDB1699827D20CC200F4D752 /* String+Segmented.swift in Sources */,
 				DDB1697527D20C2200F4D752 /* CoreData.xcdatamodeld in Sources */,
 				DDB169D327D20CC200F4D752 /* ServerSetupPage.swift in Sources */,
@@ -2905,7 +2912,6 @@
 				DDB1699027D20CC200F4D752 /* Password.swift in Sources */,
 				DD78D6D42AACDB3100854599 /* WindowSizeService.swift in Sources */,
 				DDB169DB27D20CC200F4D752 /* ShowPasswordRequest.swift in Sources */,
-				DD6FE0B029F53DFD004DBE8E /* Lock.swift in Sources */,
 				DDB1699927D20CC200F4D752 /* Date+FormattedString.swift in Sources */,
 				DD10787A2A69472B00E87B3F /* CaptureOTPViewModel.swift in Sources */,
 				DDB169BD27D20CC200F4D752 /* OfflineContainer.swift in Sources */,
@@ -3215,7 +3221,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -3225,7 +3231,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -3242,7 +3248,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -3252,7 +3258,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -3266,7 +3272,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -3275,7 +3281,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3289,7 +3295,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -3298,7 +3304,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3324,6 +3330,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Passwords;
@@ -3347,6 +3354,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Passwords;
@@ -3369,6 +3377,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3392,6 +3401,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3405,7 +3415,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -3414,7 +3424,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3429,7 +3439,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -3438,7 +3448,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

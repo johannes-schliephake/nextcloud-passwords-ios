@@ -1,2 +1,2 @@
-• Support for Universal Clipboard
+• Button for clearing E2E password
 • Bugfixes and optimizations

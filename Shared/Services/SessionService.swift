@@ -5,7 +5,9 @@ protocol SessionServiceProtocol {
     
     var username: AnyPublisher<String?, Never> { get }
     var server: AnyPublisher<String?, Never> { get }
+    var isChallengePasswordStored: Bool { get }
     
+    func clearChallengePassword()
     func logout()
     
 }
@@ -24,6 +26,14 @@ struct SessionService: SessionServiceProtocol {
             .map(\.?.server)
             .eraseToAnyPublisher()
     }
+    var isChallengePasswordStored: Bool {
+        Keychain.default.load(key: "challengePassword") != nil
+    }
+    
+    func clearChallengePassword() {
+        Keychain.default.remove(key: "challengePassword")
+    }
+    
     func logout() {
         SessionController.default.logout()
     }

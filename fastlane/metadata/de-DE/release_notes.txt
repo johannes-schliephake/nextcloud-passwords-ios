@@ -1,2 +1,2 @@
-• Unterstützung für allgemeine Zwischenablage
+• Button zum Löschen des E2E-Passworts
 • Fehlerbehebungen und Optimierungen

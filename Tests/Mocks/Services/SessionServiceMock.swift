@@ -16,6 +16,16 @@ final class SessionServiceMock: SessionServiceProtocol, Mock, PropertyAccessLogg
         return _server.eraseToAnyPublisher()
     }
     
+    var _isChallengePasswordStored = false // swiftlint:disable:this identifier_name
+    var isChallengePasswordStored: Bool {
+        logPropertyAccess()
+        return _isChallengePasswordStored
+    }
+    
+    func clearChallengePassword() {
+        logFunctionCall()
+    }
+    
     func logout() {
         logFunctionCall()
     }

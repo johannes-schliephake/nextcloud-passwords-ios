@@ -36,6 +36,18 @@ struct SettingsPage: View {
         Section(header: Text("_credentials")) {
             LabeledRow(type: .nonLinguisticText, label: "_nextcloudServerAddress", value: server)
             LabeledRow(type: .nonLinguisticText, label: "_username", value: username)
+            if viewModel[\.isChallengePasswordStored] {
+                Button {
+                    viewModel(.clearChallengePassword)
+                } label: {
+                    if #available(iOS 17, *) {
+                        Label(Strings.clearStoredE2EPassword, systemImage: "key.slash")
+                    } else {
+                        Label(Strings.clearStoredE2EPassword, systemImage: "delete.left")
+                    }
+                }
+                .disabled(viewModel[\.wasChallengePasswordCleared])
+            }
             Button(role: .destructive) {
                 viewModel(.logout)
             } label: {
@@ -49,6 +61,12 @@ struct SettingsPage: View {
                 ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
                     viewModel(.confirmLogout)
                 }])
+            }
+        }
+        .apply { view in
+            if #available(iOS 16, *) {
+                view
+                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
             }
         }
     }
@@ -115,6 +133,12 @@ struct SettingsPage: View {
                 }
             }
         }
+        .apply { view in
+            if #available(iOS 16, *) {
+                view
+                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
+            }
+        }
     }
     
     @ViewBuilder private func supportThisProjectFooter() -> some View {
@@ -148,18 +172,18 @@ struct SettingsPage: View {
                         }
                 }
                 .isDetailLink(false)
-                .apply { view in
-                    if #available(iOS 16, *) {
-                        view
-                            .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
-                    }
-                }
             }
             LabeledRow(type: .text, label: "_version", value: viewModel[\.versionName])
             if let sourceCodeUrl = viewModel[\.sourceCodeUrl] {
                 Link(destination: sourceCodeUrl) {
                     Label("_sourceCode", systemImage: "curlybraces")
                 }
+            }
+        }
+        .apply { view in
+            if #available(iOS 16, *) {
+                view
+                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
             }
         }
     }

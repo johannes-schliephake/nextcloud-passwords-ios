@@ -32,6 +32,9 @@
 /* Use the same wording Apple uses across iOS */
 "_cancel" = "Cancel";
 
+/* This is a label for a settings button */
+"_clearStoredE2EPassword" = "Clear Stored E2E Password";
+
 /* Possible value for "Encryption" field on password detail page, other key is "_serverSide" */
 "_clientSide" = "Client Side";
 

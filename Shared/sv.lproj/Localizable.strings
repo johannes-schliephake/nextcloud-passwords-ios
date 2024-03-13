@@ -320,3 +320,9 @@
 "_select" = "Välj";
 "_passwords" = "Lösenord";
 "_supportThisProjectMessage" = "TestFlight-versionen av denna app är installerad. Alla köp som görs är endast för teständamål och kommer inte att faktureras.";
+
+/* This is a label for a settings button */
+"_clearStoredE2EPassword" = "Rensa lagrat E2E-lösenord";
+
+/* Apple's marketing term for pasteboard sync across the user's iCloud devices */
+"_universalClipboard" = "Universella urklipp";

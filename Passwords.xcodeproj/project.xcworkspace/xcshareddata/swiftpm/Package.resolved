@@ -1,4 +1,5 @@
 {
+  "originHash" : "8177ebc26b2667e9d46b7db5ce0d13f73ff96c0e046c1423700c1812fbb149a4",
   "pins" : [
     {
       "identity" : "anyasyncsequence",
@@ -14,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mattgallagher/CwlCatchException.git",
       "state" : {
-        "revision" : "3b123999de19bf04905bc1dfdb76f817b0f2cc00",
-        "version" : "2.1.2"
+        "revision" : "3ef6999c73b6938cc0da422f2c912d0158abb0a0",
+        "version" : "2.2.0"
       }
     },
     {
@@ -23,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mattgallagher/CwlPreconditionTesting.git",
       "state" : {
-        "revision" : "a23ded2c91df9156628a6996ab4f347526f17b6b",
-        "version" : "2.1.2"
+        "revision" : "2ef56b2caf25f55fa7eef8784c30d5a767550f54",
+        "version" : "2.2.1"
       }
     },
     {
@@ -41,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Quick/Nimble",
       "state" : {
-        "revision" : "d616f15123bfb36db1b1075153f73cf40605b39d",
-        "version" : "13.0.0"
+        "revision" : "efe11bbca024b57115260709b5c05e01131470d0",
+        "version" : "13.2.1"
       }
     },
     {
@@ -51,9 +52,9 @@
       "location" : "https://github.com/jedisct1/swift-sodium",
       "state" : {
         "branch" : "master",
-        "revision" : "6262c021e108b5fb16d2caa1e319e913cea2406d"
+        "revision" : "63240810df971557fe9badc557257bdfbfeb90a3"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
