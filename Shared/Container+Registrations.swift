@@ -38,6 +38,11 @@ extension Container {
         self { ShareOTPViewModel.self }
     }
     
+    // MARK: UseCases
+    var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
+        self { FolderLabelUseCase() }
+    }
+    
     // MARK: Services
     var folderValidationService: Factory<any FolderValidationServiceProtocol> {
         self { FolderValidationService() }
