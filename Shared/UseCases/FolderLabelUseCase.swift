@@ -6,6 +6,7 @@ import Factory
 protocol FolderLabelUseCaseProtocol: UseCase where State == FolderLabelUseCase.State, Action == FolderLabelUseCase.Action {}
 
 
+// TODO: replace temporary implementation
 final class FolderLabelUseCase: FolderLabelUseCaseProtocol {
     
     final class State: ObservableObject {

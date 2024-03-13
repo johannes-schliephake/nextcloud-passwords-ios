@@ -14,6 +14,15 @@ extension Handleable {
     
 }
 
+/// Be careful when using `handle` more than once in a pipeline. You might be creating a setup where a state is publishing changes caused by an action downstream, thus triggering an infintie loop.
+///
+/// This is an example for an infinite loop caused by chained usage of `handle`:
+///
+///     Just(())
+///         .handle(with: handleable, .doSomething, publishing: \.$value)
+///         .handle(with: handleable, { .setValue($0) }, publishing: \.$unimportant)
+///         .sink { print($0) }
+///         .store(in: &cancellables)
 
 extension Publisher {
     
