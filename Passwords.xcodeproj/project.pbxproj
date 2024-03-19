@@ -1246,7 +1246,6 @@
 				DD5D88002A8FCB1F008CD9F1 /* ShareOTP */,
 				8F997FA4257300A600B5F784 /* EditPasswordPage.swift */,
 				8F118754253C9EE10019FECA /* EntriesPage.swift */,
-				DD9C4FFB2A7EB691002588DD /* GlobalAlertsViewModel.swift */,
 				8F582BF9255EA63D00F1E3DA /* LoginFlowPage.swift */,
 				8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */,
 				8F513A62256064E9001C6EF9 /* ServerSetupPage.swift */,
@@ -1310,6 +1309,7 @@
 			isa = PBXGroup;
 			children = (
 				8F559A2125A0B23E00D7A39F /* MainView.swift */,
+				DD9C4FFB2A7EB691002588DD /* GlobalAlertsViewModel.swift */,
 				8F55295E259CAFA600419233 /* Navigations */,
 				8F55295D259CAF8100419233 /* Pages */,
 				8F55295F259CAFBE00419233 /* Components */,
