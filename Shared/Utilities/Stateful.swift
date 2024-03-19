@@ -6,7 +6,7 @@ final class EmptyState: ObservableObject {}
 
 protocol Stateful {
     
-    associatedtype State: ObservableObject
+    associatedtype State: AnyObject
     
     var state: State { get }
     

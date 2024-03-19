@@ -9,7 +9,7 @@ protocol FolderLabelUseCaseProtocol: UseCase where State == FolderLabelUseCase.S
 // TODO: replace temporary implementation
 final class FolderLabelUseCase: FolderLabelUseCaseProtocol {
     
-    final class State: ObservableObject {
+    final class State {
         
         @Published fileprivate(set) var label: Result<String, Never>?
         

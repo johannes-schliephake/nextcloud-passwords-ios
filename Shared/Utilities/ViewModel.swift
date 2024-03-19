@@ -1,7 +1,7 @@
 import Foundation
 
 
-protocol ViewModel: ObservableObject, Stateful, Actionable {}
+protocol ViewModel: ObservableObject, Stateful, Actionable where State: ObservableObject {}
 
 
 extension ViewModel {
