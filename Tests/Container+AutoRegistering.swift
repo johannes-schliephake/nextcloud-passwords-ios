@@ -18,6 +18,12 @@ extension Container: AutoRegistering {
         Self.shared.settingsViewModelType.register { SettingsViewModelMock.self }
         Self.shared.shareOTPViewModelType.register { ShareOTPViewModelMock.self }
         
+        // MARK: UseCases
+        //Self.shared.folderLabelUseCase.cached.register { FolderLabelUseCaseMock() }
+        //Self.shared.initiateLoginUseCase.cached.register { InitiateLoginUseCaseMock() }
+        //Self.shared.loginUrlUseCase.cached.register { LoginUrlUseCaseMock() }
+        //Self.shared.managedConfigurationUseCase.register { ManagedConfigurationUseCaseMock() }
+        
         // MARK: Services
         Self.shared.folderValidationService.register { FolderValidationServiceMock() }
         Self.shared.foldersService.register { FoldersServiceMock() }

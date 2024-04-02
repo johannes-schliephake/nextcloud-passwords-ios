@@ -3,12 +3,12 @@ import Combine
 
 extension Publisher {
     
-    func sink(receiveValue: @escaping (Output) -> Void, receiveError: @escaping (Failure) -> Void) -> AnyCancellable {
+    func sink(receiveValue: @escaping (Output) -> Void, receiveFailure: @escaping (Failure) -> Void) -> AnyCancellable {
         sink { completion in
             guard case let .failure(error) = completion else {
                 return
             }
-            receiveError(error)
+            receiveFailure(error)
         } receiveValue: { value in
             receiveValue(value)
         }

@@ -42,6 +42,16 @@ extension Container {
     var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
         self { FolderLabelUseCase() }
     }
+    var initiateLoginUseCase: Factory<any InitiateLoginUseCaseProtocol> {
+        self { InitiateLoginUseCase() }
+    }
+    var loginUrlUseCase: Factory<any LoginUrlUseCaseProtocol> {
+        self { LoginUrlUseCase() }
+    }
+    var managedConfigurationUseCase: Factory<any ManagedConfigurationUseCaseProtocol> {
+        self { ManagedConfigurationUseCase() }
+            .cached
+    }
     
     // MARK: Services
     var folderValidationService: Factory<any FolderValidationServiceProtocol> {

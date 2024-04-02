@@ -9,7 +9,7 @@ struct ServerSetupNavigation: View {
     
     var body: some View {
         NavigationView {
-            ServerSetupPage()
+            ServerSetupPage(viewModel: ServerSetupViewModel().eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {

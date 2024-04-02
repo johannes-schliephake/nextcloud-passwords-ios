@@ -7,9 +7,9 @@ final class LoginFlowNavigationController: NSObject {
     
     @LazyInjected(\.logger) private var logger
     
-    private let poll: ServerSetupController.Response.Poll
+    private let poll: LoginFlowChallenge.Poll
     
-    init(poll: ServerSetupController.Response.Poll) {
+    init(poll: LoginFlowChallenge.Poll) {
         self.poll = poll
         super.init()
     }

@@ -3,27 +3,22 @@ import SwiftUI
 
 struct ServerSetupPage: View {
     
-    @Environment(\.dismiss) private var dismiss
+    @StateObject var viewModel: AnyViewModel<ServerSetupViewModel.State, ServerSetupViewModel.Action>
     
-    @StateObject private var serverSetupController = ServerSetupController()
-    @FocusState private var focusedField: FocusField?
-    @State private var showLoginFlowPage = false
-    
-    // MARK: Views
+    @FocusState private var focusedField: ServerSetupViewModel.FocusField?
     
     var body: some View {
         Group {
-            if serverSetupController.serverUrlIsManaged {
+            if viewModel[\.isServerAddressManaged] {
                 managedSetupPage()
-            }
-            else {
+            } else {
                 listView()
                     .toolbar {
                         ToolbarItem(placement: .confirmationAction) {
                             connectButton()
                         }
                     }
-                    .initialize(focus: $focusedField, with: .serverAddress)
+                    .sync($viewModel[\.focusedField], to: _focusedField)
             }
         }
         .navigationTitle("_connectToServer")
@@ -32,24 +27,23 @@ struct ServerSetupPage: View {
                 cancelButton()
             }
         }
+        .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
     }
     
     @ViewBuilder private func managedSetupPage() -> some View {
-        if let serverSetupResponse = serverSetupController.response {
+        if let serverSetupResponse = viewModel[\.challenge] {
             LoginFlowPage(serverSetupResponse: serverSetupResponse)
-        }
-        else {
+        } else {
             VStack(spacing: 8) {
                 ProgressView()
-                Text(Strings.connectingToNextcloudInstanceAtUrl(serverSetupController.serverAddress))
+                Text(Strings.connectingToNextcloudInstanceAtUrl(viewModel[\.serverAddress]))
                     .font(.subheadline)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.gray)
-                
             }
-            .alert(isPresented: $serverSetupController.showManagedServerUrlErrorAlert) {
+            .alert(isPresented: $viewModel[\.showManagedServerAddressErrorAlert]) {
                 Alert(title: Text("_error"), message: Text(Strings.managedServerUrlErrorMessage), dismissButton: .cancel {
-                    dismiss()
+                    viewModel(.cancel)
                 })
             }
         }
@@ -64,9 +58,8 @@ struct ServerSetupPage: View {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 Button {
-                    focusedField = nil
-                }
-                label: {
+                    viewModel(.dismissKeyboard)
+                } label: {
                     Text("_dismiss")
                         .bold()
                 }
@@ -77,14 +70,14 @@ struct ServerSetupPage: View {
     private func serverAddressField() -> some View {
         Section(header: Text("_nextcloudServerAddress"), footer: serverAddressFieldFooter()) {
             ZStack {
-                if let serverSetupResponse = serverSetupController.response {
-                    NavigationLink(destination: LoginFlowPage(serverSetupResponse: serverSetupResponse), isActive: $showLoginFlowPage) {}
+                if let serverSetupResponse = viewModel[\.challenge] {
+                    NavigationLink(destination: LoginFlowPage(serverSetupResponse: serverSetupResponse), isActive: $viewModel[\.showLoginFlowPage]) {}
                         .isDetailLink(false)
                         .frame(width: 0, height: 0)
                         .hidden()
                 }
                 HStack {
-                    TextField("-", text: $serverSetupController.serverAddress)
+                    TextField("-", text: $viewModel[\.serverAddress])
                         .textContentType(.URL)
                         .keyboardType(.URL)
                         .autocapitalization(.none)
@@ -92,9 +85,9 @@ struct ServerSetupPage: View {
                         .focused($focusedField, equals: .serverAddress)
                         .submitLabel(.done)
                         .onSubmit {
-                            openLoginFlowPage()
+                            viewModel(.connect)
                         }
-                    if serverSetupController.isValidating {
+                    if viewModel[\.isValidating] {
                         Spacer()
                         ProgressView()
                     }
@@ -112,46 +105,15 @@ struct ServerSetupPage: View {
     
     private func cancelButton() -> some View {
         Button("_cancel", role: .cancel) {
-            dismiss()
+            viewModel(.cancel)
         }
     }
     
     private func connectButton() -> some View {
         Button("_connect") {
-            openLoginFlowPage()
+            viewModel(.connect)
         }
-        .disabled(serverSetupController.response == nil)
-    }
-    
-    // MARK: Functions
-    
-    private func openLoginFlowPage() {
-        if serverSetupController.response != nil {
-            showLoginFlowPage = true
-        }
-    }
-    
-}
-
-
-extension ServerSetupPage {
-    
-    private enum FocusField: Hashable {
-        case serverAddress
-    }
-    
-}
-
-
-struct ServerSetupPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        PreviewDevice.generate {
-            NavigationView {
-                ServerSetupPage()
-            }
-            .showColumns(false)
-        }
+        .enabled(viewModel[\.challengeAvailable])
     }
     
 }

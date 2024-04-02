@@ -4,7 +4,7 @@ import WebKit
 
 struct LoginFlowPage: View {
     
-    let serverSetupResponse: ServerSetupController.Response
+    let serverSetupResponse: LoginFlowChallenge
     
     // MARK: Views
     
@@ -30,7 +30,7 @@ extension LoginFlowPage {
         private let loginUrl: URL
         private let loginFlowNavigationController: LoginFlowNavigationController
         
-        init(serverSetupResponse: ServerSetupController.Response) {
+        init(serverSetupResponse: LoginFlowChallenge) {
             loginUrl = serverSetupResponse.login
             loginFlowNavigationController = LoginFlowNavigationController(poll: serverSetupResponse.poll)
         }
@@ -69,20 +69,6 @@ extension LoginFlowPage {
             return edgeInsets
         }
         
-    }
-    
-}
-
-
-struct LoginFlowPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        PreviewDevice.generate {
-            NavigationView {
-                LoginFlowPage(serverSetupResponse: ServerSetupController.Response.mock)
-            }
-            .showColumns(false)
-        }
     }
     
 }

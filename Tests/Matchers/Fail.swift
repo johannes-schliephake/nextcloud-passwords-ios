@@ -29,7 +29,7 @@ func fail<P: Publisher>(
             .sink { value in
                 result = result ?? .init(status: .doesNotMatch, message: message.appended(message: " - received value <\(stringify(value))>"))
                 expectation.fulfill()
-            } receiveError: { error in
+            } receiveFailure: { error in
                 var matches = true
                 message = message.appended(message: " - completed with failure <\(error)>")
                 if let expectedError {

@@ -29,7 +29,7 @@ func emit<P: Publisher>(
                 }
                 result = result ?? .init(status: .init(bool: matches), message: message)
                 expectation.fulfill()
-            } receiveError: { error in
+            } receiveFailure: { error in
                 result = result ?? .init(status: .doesNotMatch, message: message.appended(message: " - completed with failure <\(error)>"))
                 expectation.fulfill()
             }
@@ -71,7 +71,7 @@ func emit<P: Publisher>(
                 }
                 result = result ?? .init(status: .init(bool: matches), message: message)
                 expectation.fulfill()
-            } receiveError: { error in
+            } receiveFailure: { error in
                 result = result ?? .init(status: .doesNotMatch, message: message.appended(message: " - completed with failure <\(error)>"))
                 expectation.fulfill()
             }

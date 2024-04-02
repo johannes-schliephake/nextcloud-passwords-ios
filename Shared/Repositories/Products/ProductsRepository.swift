@@ -35,10 +35,8 @@ final class ProductsRepository: ProductsRepositoryProtocol {
         
         productIdentifiersRepository.productIdentifiers
             .flatMap(productsAppStoreDataSource.products)
-            .handleEvents(receiveCompletion: { completion in
-                if case let .failure(error) = completion {
-                    self?.logger.log(error: error)
-                }
+            .handleEvents(receiveFailure: { error in
+                self?.logger.log(error: error)
             })
             .catch { error in
                 Fail(error: error)
