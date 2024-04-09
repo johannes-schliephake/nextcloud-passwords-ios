@@ -66,26 +66,29 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
     private func setupPipelines() {
         weak var `self` = self
         
+        managedConfigurationUseCase[\.$serverUrl]
+            .sink { managedServerAddress in
+                self?.state.serverAddress = managedServerAddress ?? "https://"
+                self?.state.isServerAddressManaged = managedServerAddress != nil
+            }
+            .store(in: &cancellables)
+        
         state.$serverAddress
             .dropFirst()
             .removeDuplicates()
             .handleEvents(receiveOutput: { _ in
-                self?.initiateLoginUseCase = nil
+                self?.initiateLoginUseCase = nil /// Causes use case to deinit and cancel its pipelines provided `handle(with:_:publishing:)` releases the wrapped `callAsFunction(_:)` after completion
                 self?.state.isValidating = false
                 self?.state.challenge = nil
                 self?.state.challengeAvailable = false
             })
             .handle(with: loginUrlUseCase, { .setString($0) }, publishing: \.$loginUrl)
             .handleEvents(receiveOutput: { url in
-                if url == nil,
-                   self?.state.isServerAddressManaged == true {
-                    self?.state.showManagedServerAddressErrorAlert = true
-                    self?.logger.log(error: "Managed server URL isn't valid")
-                }
+                self?.state.isValidating = url != nil
+                self?.state.showManagedServerAddressErrorAlert = url == nil && self?.state.isServerAddressManaged == true
             })
-            .compactMap { $0 }
-            .handleEvents(receiveOutput: { _ in self?.state.isValidating = true })
             .debounce(for: 1.5, scheduler: DispatchQueue(qos: .userInitiated))
+            .compactMap { $0 }
             .flatMap { loginUrl in
                 let initiateLoginUseCase = resolve(\.initiateLoginUseCase)
                 self?.initiateLoginUseCase = initiateLoginUseCase
@@ -103,13 +106,6 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
                 self?.state.isValidating = false
                 self?.state.challenge = challenge
                 self?.state.challengeAvailable = challenge != nil
-            }
-            .store(in: &cancellables)
-        
-        managedConfigurationUseCase[\.$serverUrl]
-            .sink { managedServerAddress in
-                self?.state.serverAddress = managedServerAddress ?? "https://"
-                self?.state.isServerAddressManaged = managedServerAddress != nil
             }
             .store(in: &cancellables)
     }

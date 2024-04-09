@@ -23,7 +23,7 @@ final class InitiateLoginUseCase: InitiateLoginUseCaseProtocol {
     
     let state: State
     
-    private var cancellables = Set<AnyCancellable>()
+    private var cancellable: AnyCancellable?
     
     init() {
         state = .init()
@@ -39,11 +39,10 @@ final class InitiateLoginUseCase: InitiateLoginUseCaseProtocol {
             request.httpMethod = "POST"
             
             weak var `self` = self
-            NetworkClient.default.dataTaskPublisher(for: request)
+            cancellable = NetworkClient.default.dataTaskPublisher(for: request)
                 .map(\.data)
                 .decode(type: LoginFlowChallenge.self, decoder: configurationType.jsonDecoder)
                 .sink { self?.state.challenge = .success($0) } receiveFailure: { self?.state.challenge = .failure($0) }
-                .store(in: &cancellables)
         }
     }
     
