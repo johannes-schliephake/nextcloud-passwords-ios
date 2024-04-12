@@ -14,7 +14,7 @@ struct SettingsPage: View {
                     doneButton()
                 }
             }
-            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
+            .dismiss(on: viewModel[\.shouldDismiss])
     }
     
     private func listView() -> some View {

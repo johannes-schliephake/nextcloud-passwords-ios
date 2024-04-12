@@ -25,7 +25,7 @@ final class EditTagViewModel: EditTagViewModelProtocol {
         @Published fileprivate(set) var editIsValid: Bool
         @Published var focusedField: FocusField?
         
-        let shouldDismiss = PassthroughSubject<Void, Never>()
+        let shouldDismiss = Signal()
         
         init(tag: Tag, isCreating: Bool, tagLabel: String, tagColor: Color, tagFavorite: Bool, showDeleteAlert: Bool, showCancelAlert: Bool, hasChanges: Bool, editIsValid: Bool, focusedField: FocusField?) {
             self.tag = tag
@@ -101,7 +101,7 @@ final class EditTagViewModel: EditTagViewModelProtocol {
             state.showDeleteAlert = true
         case .confirmDelete:
             tagsService.delete(tag: state.tag)
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .applyToTag:
             do {
                 try tagsService.apply(to: state.tag, tagLabel: state.tagLabel, tagColor: state.tagColor, tagFavorite: state.tagFavorite)
@@ -109,15 +109,15 @@ final class EditTagViewModel: EditTagViewModelProtocol {
                 logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
                 return
             }
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .cancel:
             if state.hasChanges {
                 state.showCancelAlert = true
             } else {
-                state.shouldDismiss.send()
+                state.shouldDismiss()
             }
         case .discardChanges:
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .dismissKeyboard:
             state.focusedField = nil
         }

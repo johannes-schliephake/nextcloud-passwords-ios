@@ -19,7 +19,7 @@ final class CaptureOTPViewModel: CaptureOTPViewModelProtocol {
         @Published var showErrorAlert: Bool
         @Published fileprivate(set) var didCaptureOtp: Bool
         
-        let shouldDismiss = PassthroughSubject<Void, Never>()
+        let shouldDismiss = Signal()
         
         init(isTorchAvailable: Bool, isTorchActive: Bool, showErrorAlert: Bool, didCaptureOtp: Bool) {
             self.isTorchAvailable = isTorchAvailable
@@ -81,11 +81,11 @@ final class CaptureOTPViewModel: CaptureOTPViewModelProtocol {
             }
             state.didCaptureOtp = true
             captureOtp(otp)
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .captureQrResult(.failure):
             state.showErrorAlert = true
         case .cancel:
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         }
     }
     

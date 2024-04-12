@@ -20,7 +20,7 @@ struct EditFolderPage: View {
                 }
             }
             .sync($viewModel[\.focusedField], to: _focusedField)
-            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
+            .dismiss(on: viewModel[\.shouldDismiss])
     }
     
     private func listView() -> some View {

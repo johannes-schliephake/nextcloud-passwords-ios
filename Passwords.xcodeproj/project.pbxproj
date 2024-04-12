@@ -205,6 +205,9 @@
 		DD1466742A6BE625003BBA8F /* TorchServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1466732A6BE625003BBA8F /* TorchServiceMock.swift */; };
 		DD1466762A6BE720003BBA8F /* TorchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1466752A6BE720003BBA8F /* TorchServiceTests.swift */; };
 		DD1466782A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1466772A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift */; };
+		DD18E49B2BC940410037F696 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD18E49A2BC940410037F696 /* Signal.swift */; };
+		DD18E49C2BC940410037F696 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD18E49A2BC940410037F696 /* Signal.swift */; };
+		DD18E49D2BC940410037F696 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD18E49A2BC940410037F696 /* Signal.swift */; };
 		DD1CA71E2AA9110E00AADD94 /* ListWidthLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */; };
 		DD1CA71F2AA9110E00AADD94 /* ListWidthLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */; };
 		DD1CA7202AA9110E00AADD94 /* ListWidthLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */; };
@@ -888,6 +891,7 @@
 		DD1466732A6BE625003BBA8F /* TorchServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchServiceMock.swift; sourceTree = "<group>"; };
 		DD1466752A6BE720003BBA8F /* TorchServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchServiceTests.swift; sourceTree = "<group>"; };
 		DD1466772A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPViewModelTests.swift; sourceTree = "<group>"; };
+		DD18E49A2BC940410037F696 /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
 		DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidthLimit.swift; sourceTree = "<group>"; };
 		DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPViewModel.swift; sourceTree = "<group>"; };
 		DD1E1D712A010D0C002DB08B /* Enabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enabled.swift; sourceTree = "<group>"; };
@@ -1409,6 +1413,7 @@
 				8FA5B74B261109D7006CBC7D /* NetworkClient.swift */,
 				DD9C50072A7FC279002588DD /* PropertyListDataSource.swift */,
 				DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */,
+				DD18E49A2BC940410037F696 /* Signal.swift */,
 				DDC14A852B39A8C90062AA4C /* Stateful.swift */,
 				DDC14A8D2B3AFBA50062AA4C /* UseCase.swift */,
 				DD8282C52938CBA00085115D /* ViewModel.swift */,
@@ -2431,6 +2436,7 @@
 				DDE4F5D6274BEB3D00518167 /* LegacyFlowView.swift in Sources */,
 				DD83C20B2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */,
 				DD6F95DF2BAB8D2E00BA196E /* Publisher+HandleEvents.swift in Sources */,
+				DD18E49B2BC940410037F696 /* Signal.swift in Sources */,
 				DD27237B2A6976500017BAA2 /* TorchService.swift in Sources */,
 				DD5189EE27A16BFA00264A0D /* Data+Init.swift in Sources */,
 				8F570BFB25693F5C00BA4B74 /* ListFoldersRequest.swift in Sources */,
@@ -2634,6 +2640,7 @@
 				DD83C20C2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */,
 				DD27237C2A6976500017BAA2 /* TorchService.swift in Sources */,
 				DD6F95E02BAB8D2E00BA196E /* Publisher+HandleEvents.swift in Sources */,
+				DD18E49C2BC940410037F696 /* Signal.swift in Sources */,
 				8FBE43D4258D5A8C003F7F34 /* Date+FormattedString.swift in Sources */,
 				DD5189EF27A16BFA00264A0D /* Data+Init.swift in Sources */,
 				8FC361B625827E4C00785371 /* CopyToast.swift in Sources */,
@@ -2935,6 +2942,7 @@
 				DDB169C927D20CC200F4D752 /* UpdateTagRequest.swift in Sources */,
 				DD83C20D2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */,
 				DD6F95E12BAB8D2E00BA196E /* Publisher+HandleEvents.swift in Sources */,
+				DD18E49D2BC940410037F696 /* Signal.swift in Sources */,
 				DD27237D2A6976500017BAA2 /* TorchService.swift in Sources */,
 				DDB169BB27D20CC200F4D752 /* ShowTagRequest.swift in Sources */,
 				DDB169C727D20CC200F4D752 /* LegacyFlowView.swift in Sources */,

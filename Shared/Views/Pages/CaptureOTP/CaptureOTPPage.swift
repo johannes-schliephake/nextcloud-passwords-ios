@@ -19,7 +19,7 @@ struct CaptureOTPPage: View {
                     }
                 }
             }
-            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
+            .dismiss(on: viewModel[\.shouldDismiss])
     }
     
     private func mainStack() -> some View {

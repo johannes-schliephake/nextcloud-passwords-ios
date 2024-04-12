@@ -23,7 +23,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
         @Published var showLoginFlowPage: Bool
         @Published var focusedField: FocusField?
         
-        let shouldDismiss = PassthroughSubject<Void, Never>()
+        let shouldDismiss = Signal()
         
         init(serverAddress: String, isServerAddressManaged: Bool, showManagedServerAddressErrorAlert: Bool, isValidating: Bool, challenge: LoginFlowChallenge?, challengeAvailable: Bool, showLoginFlowPage: Bool, focusedField: FocusField?) {
             self.serverAddress = serverAddress

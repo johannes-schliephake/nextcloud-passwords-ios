@@ -27,7 +27,7 @@ struct ServerSetupPage: View {
                 cancelButton()
             }
         }
-        .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
+        .dismiss(on: viewModel[\.shouldDismiss])
     }
     
     @ViewBuilder private func managedSetupPage() -> some View {

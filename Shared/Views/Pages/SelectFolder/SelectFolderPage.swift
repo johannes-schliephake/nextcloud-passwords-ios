@@ -19,7 +19,7 @@ struct SelectFolderPage: View {
                     confirmButton()
                 }
             }
-            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
+            .dismiss(on: viewModel[\.shouldDismiss])
     }
     
     private func mainStack() -> some View {

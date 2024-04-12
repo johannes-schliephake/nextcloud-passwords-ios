@@ -21,7 +21,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
         @Published fileprivate(set) var hasChanges: Bool
         @Published var focusedField: FocusField?
         
-        let shouldDismiss = PassthroughSubject<Void, Never>()
+        let shouldDismiss = Signal()
         
         init(temporaryEntry: TemporaryEntry, tagLabel: String, tagLabelIsValid: Bool, selectableTags: [(tag: Tag, isSelected: Bool)], hasChanges: Bool, focusedField: FocusField?) {
             self.temporaryEntry = temporaryEntry
@@ -160,9 +160,9 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
                 return
             }
             selectTags(selectedTags, invalidTags)
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .cancel:
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .dismissKeyboard:
             state.focusedField = nil
         }
