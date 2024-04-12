@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct ServerSetupNavigation: View {
@@ -9,7 +10,7 @@ struct ServerSetupNavigation: View {
     
     var body: some View {
         NavigationView {
-            ServerSetupPage(viewModel: ServerSetupViewModel().eraseToAnyViewModel())
+            ServerSetupPage(viewModel: resolve(\.serverSetupViewModelType).init().eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {

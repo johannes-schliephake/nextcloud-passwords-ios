@@ -15,6 +15,7 @@ extension Container: AutoRegistering {
         Self.shared.logViewModelType.register { LogViewModelMock.self }
         Self.shared.selectFolderViewModelType.register { SelectFolderViewModelMock.self }
         Self.shared.selectTagsViewModelType.register { SelectTagsViewModelMock.self }
+        //Self.shared.serverSetupViewModelType.register { ServerSetupViewModelMock.self }
         Self.shared.settingsViewModelType.register { SettingsViewModelMock.self }
         Self.shared.shareOTPViewModelType.register { ShareOTPViewModelMock.self }
         

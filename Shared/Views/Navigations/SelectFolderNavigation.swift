@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct SelectFolderNavigation: View {
@@ -13,7 +14,7 @@ struct SelectFolderNavigation: View {
     
     var body: some View {
         NavigationView {
-            SelectFolderPage(viewModel: SelectFolderViewModel(entry: entry, temporaryEntry: temporaryEntry, selectFolder: selectFolder).eraseToAnyViewModel())
+            SelectFolderPage(viewModel: resolve(\.selectFolderViewModelType).init(entry: entry, temporaryEntry: temporaryEntry, selectFolder: selectFolder).eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {

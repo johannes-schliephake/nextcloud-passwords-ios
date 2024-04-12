@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct EditOTPNavigation: View {
@@ -12,7 +13,7 @@ struct EditOTPNavigation: View {
     
     var body: some View {
         NavigationView {
-            EditOTPPage(viewModel: EditOTPViewModel(otp: otp, updateOtp: updateOtp).eraseToAnyViewModel())
+            EditOTPPage(viewModel: resolve(\.editOTPViewModelType).init(otp: otp, updateOtp: updateOtp).eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {

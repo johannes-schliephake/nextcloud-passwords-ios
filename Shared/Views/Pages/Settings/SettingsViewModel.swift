@@ -149,7 +149,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
             state.showLogoutAlert = true
         case .confirmLogout:
             sessionService.logout()
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case let .setIsOfflineStorageEnabled(isOfflineStorageEnabled):
             settingsService.isOfflineStorageEnabled = isOfflineStorageEnabled
         case let .setIsAutomaticPasswordGenerationEnabled(isAutomaticPasswordGenerationEnabled):
@@ -159,7 +159,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         case let .tip(product):
             purchaseService.purchase(product: product)
         case .done:
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         }
     }
     

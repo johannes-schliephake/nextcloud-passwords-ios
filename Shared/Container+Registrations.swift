@@ -31,6 +31,9 @@ extension Container {
     var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {
         self { SelectTagsViewModel.self }
     }
+    var serverSetupViewModelType: Factory<any ServerSetupViewModelProtocol.Type> {
+        self { ServerSetupViewModel.self }
+    }
     var settingsViewModelType: Factory<any SettingsViewModelProtocol.Type> {
         self { SettingsViewModel.self }
     }

@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct EditTagNavigation: View {
@@ -11,7 +12,7 @@ struct EditTagNavigation: View {
     
     var body: some View {
         NavigationView {
-            EditTagPage(viewModel: EditTagViewModel(tag: tag).eraseToAnyViewModel())
+            EditTagPage(viewModel: resolve(\.editTagViewModelType).init(tag: tag).eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {

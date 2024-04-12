@@ -119,7 +119,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
             }
             state.showLoginFlowPage = true
         case .cancel:
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .dismissKeyboard:
             state.focusedField = nil
         }
