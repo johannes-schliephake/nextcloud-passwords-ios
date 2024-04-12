@@ -2081,7 +2081,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F11875E253C9EE30019FECA /* Build configuration list for PBXNativeTarget "Passwords" */;
 			buildPhases = (
-				DD03D9C428C8E09E006118F2 /* ShellScript */,
+				DD03D9C428C8E09E006118F2 /* Run Script */,
 				8F11874B253C9EE10019FECA /* Sources */,
 				8F0136FA25DE8DED009455D7 /* ShellScript */,
 				8F11874C253C9EE10019FECA /* Frameworks */,
@@ -2202,7 +2202,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					8F11874E253C9EE10019FECA = {
 						CreatedOnToolsVersion = 12.0.1;
@@ -2339,7 +2339,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint Provider\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "source ~/.zshrc\nif which swiftlint >/dev/null; then\n  swiftlint Provider\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		8FC70F132675086600AC5956 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2358,7 +2358,7 @@
 			shellPath = /bin/zsh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint Snapshot\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		DD03D9C428C8E09E006118F2 /* ShellScript */ = {
+		DD03D9C428C8E09E006118F2 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2367,6 +2367,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -2390,7 +2391,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint Extension\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "source ~/.zshrc\nif which swiftlint >/dev/null; then\n  swiftlint Extension\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		DDF4137B2955033B00B886EB /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -53,8 +53,8 @@ struct Bridge<Output, Failure: Error>: Publisher {
         
         private var task: Task<(), Never>?
         private let priority: TaskPriority?
-        private let sequence: AnyAsyncSequence<Output>
-        private let downstream: Downstream
+        private var sequence: AnyAsyncSequence<Output>?
+        private var downstream: Downstream?
         
         init(priority: TaskPriority?, sequence: AnyAsyncSequence<Output>, downstream: Downstream) {
             self.priority = priority
@@ -91,6 +91,9 @@ struct Bridge<Output, Failure: Error>: Publisher {
         
         func cancel() {
             task?.cancel()
+            task = nil
+            sequence = nil
+            downstream = nil
         }
         
     }
