@@ -1,7 +1,7 @@
 import Foundation
 
 
-struct LoginURL {
+struct LoginURL: Equatable {
     
     let value: URL
     
@@ -11,7 +11,7 @@ struct LoginURL {
               url.scheme?.lowercased() == "https" else {
             return nil
         }
-        value = url
+        value = url.appendingPathComponent("index.php/login/v2")
     }
     
 }

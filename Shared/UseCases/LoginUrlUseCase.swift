@@ -5,7 +5,6 @@ import Foundation
 protocol LoginUrlUseCaseProtocol: UseCase where State == LoginUrlUseCase.State, Action == LoginUrlUseCase.Action {}
 
 
-// TODO: tests
 final class LoginUrlUseCase: LoginUrlUseCaseProtocol {
     
     final class State {

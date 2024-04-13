@@ -34,8 +34,7 @@ final class InitiateLoginUseCase: InitiateLoginUseCaseProtocol {
         case let .setLoginUrl(loginUrl):
             AuthenticationChallengeController.default.clearAcceptedCertificateHash()
             
-            let loginFlowUrl = loginUrl.value.appendingPathComponent("index.php/login/v2")
-            var request = URLRequest(url: loginFlowUrl)
+            var request = URLRequest(url: loginUrl.value)
             request.httpMethod = "POST"
             
             weak var `self` = self

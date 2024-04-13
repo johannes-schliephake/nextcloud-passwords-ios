@@ -208,6 +208,7 @@
 		DD18E49B2BC940410037F696 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD18E49A2BC940410037F696 /* Signal.swift */; };
 		DD18E49C2BC940410037F696 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD18E49A2BC940410037F696 /* Signal.swift */; };
 		DD18E49D2BC940410037F696 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD18E49A2BC940410037F696 /* Signal.swift */; };
+		DD18E4A02BCA9EAF0037F696 /* LoginURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD18E49F2BCA9EAF0037F696 /* LoginURLTests.swift */; };
 		DD1CA71E2AA9110E00AADD94 /* ListWidthLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */; };
 		DD1CA71F2AA9110E00AADD94 /* ListWidthLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */; };
 		DD1CA7202AA9110E00AADD94 /* ListWidthLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */; };
@@ -363,6 +364,8 @@
 		DD8282C62938CBA00085115D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282C52938CBA00085115D /* ViewModel.swift */; };
 		DD8282C72938CBA00085115D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282C52938CBA00085115D /* ViewModel.swift */; };
 		DD8282C82938CBA00085115D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282C52938CBA00085115D /* ViewModel.swift */; };
+		DD82E5F22BC72B1100F8257F /* LoginUrlUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD82E5F12BC72B1100F8257F /* LoginUrlUseCaseTests.swift */; };
+		DD82E5F42BC72B2100F8257F /* ServerSetupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD82E5F32BC72B2100F8257F /* ServerSetupViewModelTests.swift */; };
 		DD83C20B2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD83C20A2A1CA90E005E9004 /* DispatchQueue+Init.swift */; };
 		DD83C20C2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD83C20A2A1CA90E005E9004 /* DispatchQueue+Init.swift */; };
 		DD83C20D2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD83C20A2A1CA90E005E9004 /* DispatchQueue+Init.swift */; };
@@ -892,6 +895,7 @@
 		DD1466752A6BE720003BBA8F /* TorchServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchServiceTests.swift; sourceTree = "<group>"; };
 		DD1466772A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPViewModelTests.swift; sourceTree = "<group>"; };
 		DD18E49A2BC940410037F696 /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
+		DD18E49F2BCA9EAF0037F696 /* LoginURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginURLTests.swift; sourceTree = "<group>"; };
 		DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidthLimit.swift; sourceTree = "<group>"; };
 		DD1E1D6C2A002D26002DB08B /* EditOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPViewModel.swift; sourceTree = "<group>"; };
 		DD1E1D712A010D0C002DB08B /* Enabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enabled.swift; sourceTree = "<group>"; };
@@ -1001,6 +1005,8 @@
 		DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPValidationServiceTests.swift; sourceTree = "<group>"; };
 		DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsViewModel.swift; sourceTree = "<group>"; };
 		DD8282C52938CBA00085115D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		DD82E5F12BC72B1100F8257F /* LoginUrlUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUrlUseCaseTests.swift; sourceTree = "<group>"; };
+		DD82E5F32BC72B2100F8257F /* ServerSetupViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSetupViewModelTests.swift; sourceTree = "<group>"; };
 		DD83C20A2A1CA90E005E9004 /* DispatchQueue+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Init.swift"; sourceTree = "<group>"; };
 		DD845CAE2AF38C2000048F3F /* WindowScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowScene.swift; sourceTree = "<group>"; };
 		DD845CB22AF38C2900048F3F /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
@@ -1523,6 +1529,14 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
+		DD18E49E2BCA9E840037F696 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DD18E49F2BCA9EAF0037F696 /* LoginURLTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		DD1E1D702A010CD0002DB08B /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1810,13 +1824,23 @@
 			isa = PBXGroup;
 			children = (
 				DDC0616E2A6DA64700C5082F /* ViewModels */,
+				DD82E5F02BC72AF100F8257F /* UseCases */,
 				DDC0616F2A6DA66900C5082F /* Services */,
 				DDF0C48B2ADD42CA00A50661 /* Repositories */,
 				DDC061702A6DA68400C5082F /* Helpers */,
+				DD18E49E2BCA9E840037F696 /* Models */,
 				DDC061722A6DA6B900C5082F /* Utilities */,
 				DDC061712A6DA6AC00C5082F /* Extensions */,
 			);
 			path = TestCases;
+			sourceTree = "<group>";
+		};
+		DD82E5F02BC72AF100F8257F /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				DD82E5F12BC72B1100F8257F /* LoginUrlUseCaseTests.swift */,
+			);
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 		DD845CB62AF3AB8E00048F3F /* WindowSize */ = {
@@ -1906,6 +1930,7 @@
 				DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */,
 				DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */,
 				DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */,
+				DD82E5F32BC72B2100F8257F /* ServerSetupViewModelTests.swift */,
 				DD24F0302A8D67F5009823C8 /* SettingsViewModelTests.swift */,
 				DDDD93F82A14BD720061BEA0 /* ShareOTPViewModelTests.swift */,
 			);
@@ -2847,6 +2872,7 @@
 				DDBEE5C12A080ADC008F4099 /* EditOTPViewModelMock.swift in Sources */,
 				DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */,
 				DD24F0352A8E2171009823C8 /* SessionServiceMock.swift in Sources */,
+				DD18E4A02BCA9EAF0037F696 /* LoginURLTests.swift in Sources */,
 				DD5419712A08D28B004C3EFA /* URL+Random.swift in Sources */,
 				DDF0C4922ADD430200A50661 /* PasteboardServiceTests.swift in Sources */,
 				DD845CC02AF3B87500048F3F /* WindowSizeServiceMock.swift in Sources */,
@@ -2869,6 +2895,7 @@
 				DD7BC52429AFFD6E004AA7BC /* FoldersServiceMock.swift in Sources */,
 				DD7BC52829AFFE0A004AA7BC /* EditFolderViewModelMock.swift in Sources */,
 				DD1466722A6BE2AE003BBA8F /* VideoCapturerMock.swift in Sources */,
+				DD82E5F22BC72B1100F8257F /* LoginUrlUseCaseTests.swift in Sources */,
 				DD845CCC2AF3DC2D00048F3F /* WindowSizeDataSourceTests.swift in Sources */,
 				DD7CCDE72A0B95910035C84C /* OTPValidationServiceTests.swift in Sources */,
 				DD5E3CB1295363DB0032F517 /* TagValidationServiceTests.swift in Sources */,
@@ -2906,6 +2933,7 @@
 				DD0B7AEF2972CEBD00A59E3C /* FolderValidationServiceTests.swift in Sources */,
 				DDC6E1A229F085D100607C81 /* PasteboardServiceMock.swift in Sources */,
 				DD7BC52A29AFFE43004AA7BC /* ViewModelMock.swift in Sources */,
+				DD82E5F42BC72B2100F8257F /* ServerSetupViewModelTests.swift in Sources */,
 				DDBEE5C32A080BCA008F4099 /* OTPServiceMock.swift in Sources */,
 				DD1466762A6BE720003BBA8F /* TorchServiceTests.swift in Sources */,
 				DD9A99FB2A23FE4A0016722F /* EditTagViewModelTests.swift in Sources */,
