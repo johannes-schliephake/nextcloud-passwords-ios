@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EditFolderPage: View {
     
-    @StateObject var viewModel: AnyViewModel<EditFolderViewModel.State, EditFolderViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<EditFolderViewModel>
     
     @FocusState private var focusedField: EditFolderViewModel.FocusField?
     

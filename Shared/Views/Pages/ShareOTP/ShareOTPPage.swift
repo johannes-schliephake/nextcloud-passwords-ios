@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ShareOTPPage: View {
     
-    @StateObject var viewModel: AnyViewModel<ShareOTPViewModel.State, ShareOTPViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<ShareOTPViewModel>
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.verticalSizeClass) private var verticalSizeClass

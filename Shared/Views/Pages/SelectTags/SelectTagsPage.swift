@@ -3,7 +3,7 @@ import SwiftUI
 
 struct SelectTagsPage: View {
     
-    @StateObject var viewModel: AnyViewModel<SelectTagsViewModel.State, SelectTagsViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<SelectTagsViewModel>
     
     @FocusState private var focusedField: SelectTagsViewModel.FocusField?
     

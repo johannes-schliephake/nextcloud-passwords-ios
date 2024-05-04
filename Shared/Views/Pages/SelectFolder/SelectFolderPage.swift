@@ -3,7 +3,7 @@ import SwiftUI
 
 struct SelectFolderPage: View {
     
-    @StateObject var viewModel: AnyViewModel<SelectFolderViewModel.State, SelectFolderViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<SelectFolderViewModel>
     
     var body: some View {
         mainStack()

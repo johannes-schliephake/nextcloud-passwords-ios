@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EditOTPPage: View {
     
-    @StateObject var viewModel: AnyViewModel<EditOTPViewModel.State, EditOTPViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<EditOTPViewModel>
     
     @FocusState private var focusedField: EditOTPViewModel.FocusField?
     

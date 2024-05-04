@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ServerSetupPage: View {
     
-    @StateObject var viewModel: AnyViewModel<ServerSetupViewModel.State, ServerSetupViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<ServerSetupViewModel>
     
     @FocusState private var focusedField: ServerSetupViewModel.FocusField?
     

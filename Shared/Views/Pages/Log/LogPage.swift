@@ -3,7 +3,7 @@ import SwiftUI
 
 struct LogPage: View {
     
-    @StateObject var viewModel: AnyViewModel<LogViewModel.State, LogViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<LogViewModel>
     
     @ScaledMetric private var eventTypeIconWidth = 30.0
     

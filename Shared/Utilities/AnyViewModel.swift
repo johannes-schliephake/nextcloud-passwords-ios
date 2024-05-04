@@ -1,6 +1,9 @@
 import Foundation
 
 
+typealias AnyViewModelOf<VM: ViewModel> = AnyViewModel<VM.State, VM.Action>
+
+
 final class AnyViewModel<State: ObservableObject, Action>: ViewModel {
     
     let state: State

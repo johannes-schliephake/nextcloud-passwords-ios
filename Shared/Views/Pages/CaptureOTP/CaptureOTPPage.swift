@@ -3,7 +3,7 @@ import SwiftUI
 
 struct CaptureOTPPage: View {
     
-    @StateObject var viewModel: AnyViewModel<CaptureOTPViewModel.State, CaptureOTPViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<CaptureOTPViewModel>
     
     var body: some View {
         mainStack()

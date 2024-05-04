@@ -10,7 +10,7 @@ extension ViewModel {
         state.objectWillChange
     }
     
-    func eraseToAnyViewModel() -> AnyViewModel<State, Action> {
+    func eraseToAnyViewModel() -> AnyViewModelOf<Self> {
         .init(self)
     }
     

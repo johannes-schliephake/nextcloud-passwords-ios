@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EditTagPage: View {
     
-    @StateObject var viewModel: AnyViewModel<EditTagViewModel.State, EditTagViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<EditTagViewModel>
     
     @FocusState private var focusedField: EditTagViewModel.FocusField?
     

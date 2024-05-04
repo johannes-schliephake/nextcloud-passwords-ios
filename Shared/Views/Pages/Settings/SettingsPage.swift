@@ -4,7 +4,7 @@ import Factory
 
 struct SettingsPage: View {
     
-    @StateObject var viewModel: AnyViewModel<SettingsViewModel.State, SettingsViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<SettingsViewModel>
     
     var body: some View {
         listView()
