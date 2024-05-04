@@ -4,9 +4,9 @@ import SwiftUI
 struct Node<Element> {
     
     let value: Element
-    let children: [Node]?
+    let children: [Self]?
     
-    init(value: Element, children: [Node]? = nil) {
+    init(value: Element, children: [Self]? = nil) {
         self.value = value
         self.children = children
     }

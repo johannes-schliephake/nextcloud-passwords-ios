@@ -22,7 +22,7 @@ extension Handleable {
 ///     Just(())
 ///         .handle(with: handleable, .doSomething, publishing: \.$value)
 ///         .handle(with: handleable, { .setValue($0) }, publishing: \.$unimportant)
-///         .sink { print($0) }
+///         .sink { _ in }
 ///         .store(in: &cancellables)
 
 extension Publisher {

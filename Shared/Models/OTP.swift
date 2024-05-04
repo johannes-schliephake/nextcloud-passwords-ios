@@ -174,7 +174,7 @@ struct OTP: Equatable, Hashable {
         return Crypto.OTP.value(algorithm: algorithm, secret: secretData, digits: digits, counter: counter)
     }
     
-    func next() -> OTP {
+    func next() -> Self {
         guard type == .hotp else {
             return self
         }

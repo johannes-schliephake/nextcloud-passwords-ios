@@ -445,8 +445,8 @@ extension Password {
         case breached = "BREACHED"
         case unknown = "NOT_CHECKED"
         
-        static func < (lhs: Password.StatusCode, rhs: Password.StatusCode) -> Bool {
-            let order: [StatusCode] = [.good, .outdated, .duplicate, .unknown, .breached]
+        static func < (lhs: Self, rhs: Self) -> Bool {
+            let order: [Self] = [.good, .outdated, .duplicate, .unknown, .breached]
             return order.firstIndex(of: lhs)! < order.firstIndex(of: rhs)!
         }
         

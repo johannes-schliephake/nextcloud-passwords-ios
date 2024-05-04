@@ -49,7 +49,6 @@ opt_in_rules:
   - toggle_bool
   - unneeded_parentheses_in_closure_argument
   - unowned_variable_capture
-  - unused_capture_list
   - yoda_condition
 
 custom_rules:
