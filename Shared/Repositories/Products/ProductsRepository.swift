@@ -43,7 +43,7 @@ final class ProductsRepository: ProductsRepositoryProtocol {
                     .delay(for: 60, scheduler: DispatchQueue())
             }
             .retry(3)
-            .map(Optional.init)
+            .optionalize()
             .replaceError(with: nil)
             .compactMap { $0 }
             .sink { self?.productsInternal = $0 }

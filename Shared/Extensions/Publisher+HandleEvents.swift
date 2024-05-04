@@ -10,7 +10,7 @@ extension Publisher {
         receiveFinished: (() -> Void)? = nil,
         receiveCancel: (() -> Void)? = nil,
         receiveRequest: ((Subscribers.Demand) -> Void)? = nil
-    ) -> Publishers.HandleEvents<Self> {
+    ) -> some Publisher<Output, Failure> {
         handleEvents(
             receiveSubscription: receiveSubscription,
             receiveOutput: receiveOutput,

@@ -114,7 +114,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
         Publishers.CombineLatest(
             state.$selectableTags
                 .dropFirst()
-                .compactMap { $0.filter(\.isSelected).map(\.tag) }
+                .map { $0.filter(\.isSelected).map(\.tag) }
                 .map(Set.init),
             selectionPublisher
                 .map(\.0.valid)

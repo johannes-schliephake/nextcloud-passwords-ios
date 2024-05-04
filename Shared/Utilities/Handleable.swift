@@ -67,12 +67,12 @@ extension Publisher where Failure == any Error {
 
 extension Publisher where Output == Void {
     
-    func handle<Subject: Handleable, Action, State, Output>(with handleable: Subject, _ action: Action, publishing keyPath: KeyPath<State, Published<Output>.Publisher>) -> AnyPublisher<Output, Failure> where Action == Subject.Action, State == Subject.State {
+    func handle<Subject: Handleable, Action, State, Output>(with handleable: Subject, _ action: Action, publishing keyPath: KeyPath<State, Published<Output>.Publisher>) -> some Publisher<Output, Failure> where Action == Subject.Action, State == Subject.State {
         handle(with: handleable, { action }, publishing: keyPath)
     }
     
     
-    func handle<Subject: Handleable, Action, State, Output>(with handleable: Subject, _ action: Action, publishing keyPath: KeyPath<State, Published<Result<Output, Failure>?>.Publisher>) -> AnyPublisher<Output, Failure> where Action == Subject.Action, State == Subject.State {
+    func handle<Subject: Handleable, Action, State, Output>(with handleable: Subject, _ action: Action, publishing keyPath: KeyPath<State, Published<Result<Output, Failure>?>.Publisher>) -> some Publisher<Output, Failure> where Action == Subject.Action, State == Subject.State {
         handle(with: handleable, { action }, publishing: keyPath)
     }
     
@@ -81,7 +81,7 @@ extension Publisher where Output == Void {
 
 extension Publisher where Output == Void, Failure == Never {
     
-    func handle<Subject: Handleable, Action, State, Output, Failure>(with handleable: Subject, _ action: Action, publishing keyPath: KeyPath<State, Published<Result<Output, Failure>?>.Publisher>) -> AnyPublisher<Output, Failure> where Action == Subject.Action, State == Subject.State {
+    func handle<Subject: Handleable, Action, State, Output, Failure>(with handleable: Subject, _ action: Action, publishing keyPath: KeyPath<State, Published<Result<Output, Failure>?>.Publisher>) -> some Publisher<Output, Failure> where Action == Subject.Action, State == Subject.State {
         handle(with: handleable, { action }, publishing: keyPath)
     }
     
@@ -90,7 +90,7 @@ extension Publisher where Output == Void, Failure == Never {
 
 extension Publisher where Output == Void, Failure == any Error {
     
-    func handle<Subject: Handleable, Action, State, Output, Failure>(with handleable: Subject, _ action: Action, publishing keyPath: KeyPath<State, Published<Result<Output, Failure>?>.Publisher>) -> AnyPublisher<Output, any Error> where Action == Subject.Action, State == Subject.State {
+    func handle<Subject: Handleable, Action, State, Output, Failure>(with handleable: Subject, _ action: Action, publishing keyPath: KeyPath<State, Published<Result<Output, Failure>?>.Publisher>) -> some Publisher<Output, any Error> where Action == Subject.Action, State == Subject.State {
         handle(with: handleable, { action }, publishing: keyPath)
     }
     
