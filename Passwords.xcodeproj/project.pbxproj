@@ -2193,7 +2193,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint Snapshot\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "source ~/.zshrc\nif which swiftlint >/dev/null; then\n  swiftlint Snapshot\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		DD03D9C428C8E09E006118F2 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2245,7 +2245,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint Tests\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "source ~/.zshrc\nif which swiftlint >/dev/null; then\n  swiftlint Tests\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
