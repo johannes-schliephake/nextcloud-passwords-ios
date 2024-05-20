@@ -89,7 +89,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
             })
             .debounce(for: 1.5, scheduler: DispatchQueue(qos: .userInitiated))
             .compactMap { $0 }
-            .flatMap { loginUrl in
+            .flatMapLatest { loginUrl in
                 let initiateLoginUseCase = resolve(\.initiateLoginUseCase)
                 self?.initiateLoginUseCase = initiateLoginUseCase
                 return Just(loginUrl)

@@ -658,6 +658,9 @@
 		DDD517192B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */; };
 		DDD5171A2B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */; };
 		DDD5171B2B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */; };
+		DDDA38AA2BFA514000FDC960 /* Publisher+FlatMapLatest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA46C52BF7A04C0077F068 /* Publisher+FlatMapLatest.swift */; };
+		DDDA38AB2BFA514000FDC960 /* Publisher+FlatMapLatest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA46C52BF7A04C0077F068 /* Publisher+FlatMapLatest.swift */; };
+		DDDA38AC2BFA514000FDC960 /* Publisher+FlatMapLatest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA46C52BF7A04C0077F068 /* Publisher+FlatMapLatest.swift */; };
 		DDDB6B5627A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5727A80639007572B1 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
 		DDDB6B5927A806ED007572B1 /* CaptureOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */; };
@@ -712,6 +715,9 @@
 		DDF9FEE52BE4CE7200A7161D /* Publisher+Optionalize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF9FEE42BE4CE7200A7161D /* Publisher+Optionalize.swift */; };
 		DDF9FEE62BE4CE7200A7161D /* Publisher+Optionalize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF9FEE42BE4CE7200A7161D /* Publisher+Optionalize.swift */; };
 		DDF9FEE72BE4CE7200A7161D /* Publisher+Optionalize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF9FEE42BE4CE7200A7161D /* Publisher+Optionalize.swift */; };
+		DDFA46CA2BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA46C92BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift */; };
+		DDFA46CB2BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA46C92BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift */; };
+		DDFA46CC2BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA46C92BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift */; };
 		DDFDD3D12B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */; };
 		DDFDD3D22B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */; };
 		DDFDD3D32B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */; };
@@ -1138,6 +1144,8 @@
 		DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderViewModelTests.swift; sourceTree = "<group>"; };
 		DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayBuilder.swift; sourceTree = "<group>"; };
 		DDF9FEE42BE4CE7200A7161D /* Publisher+Optionalize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Optionalize.swift"; sourceTree = "<group>"; };
+		DDFA46C52BF7A04C0077F068 /* Publisher+FlatMapLatest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+FlatMapLatest.swift"; sourceTree = "<group>"; };
+		DDFA46C92BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+CompactFlatMapLatest.swift"; sourceTree = "<group>"; };
 		DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderLabelUseCase.swift; sourceTree = "<group>"; };
 		DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+AutoRegistering.swift"; sourceTree = "<group>"; };
 		DDFF5D4929D850ED00422603 /* MockInjected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInjected.swift; sourceTree = "<group>"; };
@@ -1483,6 +1491,8 @@
 				DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */,
 				8F63617B25A741A400C832C9 /* PreviewDevice+Generate.swift */,
 				DDDD93EE2A1426B80061BEA0 /* Publisher+CompactFlatMap.swift */,
+				DDFA46C92BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift */,
+				DDFA46C52BF7A04C0077F068 /* Publisher+FlatMapLatest.swift */,
 				DD6F95DE2BAB8D2E00BA196E /* Publisher+HandleEvents.swift */,
 				DDF9FEE42BE4CE7200A7161D /* Publisher+Optionalize.swift */,
 				DDDD93F22A1427680061BEA0 /* Publisher+ReplaceNil.swift */,
@@ -2460,6 +2470,7 @@
 				8FC361FC25828AE600785371 /* EntriesNavigation.swift in Sources */,
 				DD62B06B2BBCAACC006E1530 /* LoginUrlUseCase.swift in Sources */,
 				DD0E59B527414EB5003D7D50 /* Color+Hex.swift in Sources */,
+				DDFA46CA2BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift in Sources */,
 				DD5739992A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				8F5E120825D3CC33007A2166 /* Configuration.swift in Sources */,
 				DDDD93EF2A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
@@ -2521,6 +2532,7 @@
 				8F71A822260762DC00863C27 /* KeepaliveSessionRequest.swift in Sources */,
 				8F09585125D159F10082D438 /* AuthenticationChallengeController.swift in Sources */,
 				8F781F52267CC8B400BD3DC1 /* FolderController.swift in Sources */,
+				DDDA38AA2BFA514000FDC960 /* Publisher+FlatMapLatest.swift in Sources */,
 				DDF924D52A5D7348005C9977 /* ArrayBuilder.swift in Sources */,
 				DD9FAD5826A3793A00770FEA /* SelectFolderNavigation.swift in Sources */,
 				8F997F9D2572ED7800B5F784 /* CreateFolderRequest.swift in Sources */,
@@ -2665,6 +2677,7 @@
 				8F5E120925D3CC33007A2166 /* Configuration.swift in Sources */,
 				DD62B06C2BBCAACC006E1530 /* LoginUrlUseCase.swift in Sources */,
 				DD0E59B627414EB5003D7D50 /* Color+Hex.swift in Sources */,
+				DDFA46CB2BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift in Sources */,
 				DD57399A2A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				DDDD93F02A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
 				DDACC45929F080D50094D141 /* PasteboardService.swift in Sources */,
@@ -2726,6 +2739,7 @@
 				DD718F2927B568E200F85780 /* String+Segmented.swift in Sources */,
 				DD29D1E527CF684A00B06835 /* ImagePicker.swift in Sources */,
 				8F71A823260762DC00863C27 /* KeepaliveSessionRequest.swift in Sources */,
+				DDDA38AB2BFA514000FDC960 /* Publisher+FlatMapLatest.swift in Sources */,
 				8F09585225D159F10082D438 /* AuthenticationChallengeController.swift in Sources */,
 				DDF924D62A5D7348005C9977 /* ArrayBuilder.swift in Sources */,
 				8F781F53267CC8B400BD3DC1 /* FolderController.swift in Sources */,
@@ -2971,6 +2985,7 @@
 				DDB169BA27D20CC200F4D752 /* ListPasswordsRequest.swift in Sources */,
 				DD62B06D2BBCAACC006E1530 /* LoginUrlUseCase.swift in Sources */,
 				DDB169CE27D20CC200F4D752 /* ShowFolderRequest.swift in Sources */,
+				DDFA46CC2BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift in Sources */,
 				DD57399B2A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				DDB169C027D20CC200F4D752 /* SettingsPage.swift in Sources */,
 				DDDD93F12A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
@@ -3032,6 +3047,7 @@
 				DDB169EC27D20CC300F4D752 /* UpdateFolderRequest.swift in Sources */,
 				DDB1697C27D20CC100F4D752 /* OTP.swift in Sources */,
 				DDB1698427D20CC200F4D752 /* SessionController.swift in Sources */,
+				DDDA38AC2BFA514000FDC960 /* Publisher+FlatMapLatest.swift in Sources */,
 				DDB1698627D20CC200F4D752 /* CoreData.swift in Sources */,
 				DDB169E827D20CC300F4D752 /* SelectTagsPage.swift in Sources */,
 				DDF924D72A5D7348005C9977 /* ArrayBuilder.swift in Sources */,

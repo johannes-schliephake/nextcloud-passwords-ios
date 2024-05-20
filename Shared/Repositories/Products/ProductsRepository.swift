@@ -34,7 +34,7 @@ final class ProductsRepository: ProductsRepositoryProtocol {
         weak var `self` = self
         
         productIdentifiersRepository.productIdentifiers
-            .flatMap(productsAppStoreDataSource.products)
+            .flatMapLatest(productsAppStoreDataSource.products)
             .handleEvents(receiveFailure: { error in
                 self?.logger.log(error: error)
             })

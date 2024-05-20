@@ -7,7 +7,7 @@ extension Publisher {
         ignoreOutput()
             .map { _ in }
             .prepend(())
-            .flatMap { publisher }
+            .flatMapLatest { publisher }
     }
     
 }

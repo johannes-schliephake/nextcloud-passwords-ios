@@ -70,7 +70,7 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
                 let webSession = flowSessionCookie.map { Session(server: appSession.server, user: appSession.user, password: $0.value) }
                 return (appSession, webSession)
             }
-            .flatMap {
+            .flatMapLatest {
                 appSession, webSession in
                 guard let webSession else {
                     return Just(appSession)

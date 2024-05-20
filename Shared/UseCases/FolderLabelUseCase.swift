@@ -35,7 +35,7 @@ final class FolderLabelUseCase: FolderLabelUseCaseProtocol {
         weak var `self` = self
         
         idSubject
-            .compactFlatMap { id in
+            .compactFlatMapLatest { id in
                 self?.foldersService.folders
                     .map { $0.first { $0.id == id } }
             }

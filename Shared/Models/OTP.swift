@@ -184,7 +184,7 @@ struct OTP: Equatable, Hashable {
     static var clock: AnyPublisher<Date, Never> = {
         Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()
-            .flatMap {
+            .flatMapLatest {
                 date in
                 let delay = 1 - date.timeIntervalSince1970.truncatingRemainder(dividingBy: 1)
                 return Just(())

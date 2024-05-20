@@ -32,7 +32,7 @@ final class WindowSizeDataSource: WindowSizeDataSourceProtocol {
             .map(\.object)
             .compactMap { $0 as? any WindowScene }
             .compactMap { $0.keyWindow }
-            .flatMap(\.framePublisher)
+            .flatMapLatest(\.framePublisher)
             .map(\.size)
             .removeDuplicates()
             .sink { [weak self] in self?.windowSizeInternal = $0 }

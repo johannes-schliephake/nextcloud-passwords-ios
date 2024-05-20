@@ -9,7 +9,7 @@ extension Handleable {
     /// Make use of optional `Result` (even with `Never` as error type) when published property is expected to deliver results of actions, therefore omitting publishing of uninitialized values
     subscript<Output, Failure>(_ keyPath: KeyPath<State, Published<Result<Output, Failure>?>.Publisher>) -> AnyPublisher<Output, Failure> {
         state[keyPath: keyPath]
-            .compactFlatMap { $0?.publisher }
+            .compactFlatMapLatest { $0?.publisher }
             .eraseToAnyPublisher()
     }
     
