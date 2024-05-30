@@ -9,7 +9,7 @@ final class LoginUrlUseCase: LoginUrlUseCaseProtocol {
     
     final class State {
         
-        @Published fileprivate(set) var loginUrl: Result<LoginURL?, Never>?
+        @Current(LoginURL?.self) fileprivate(set) var loginUrl
         
     }
     

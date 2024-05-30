@@ -10,7 +10,7 @@ final class FolderLabelUseCase: FolderLabelUseCaseProtocol {
     
     final class State {
         
-        @Published fileprivate(set) var label: Result<String, Never>?
+        @Current(String.self) fileprivate(set) var label
         
     }
     

@@ -281,6 +281,7 @@
 		DD57399D2A1031C9004B6E69 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD57399C2A1031C9004B6E69 /* QRCodeService.swift */; };
 		DD57399E2A1031C9004B6E69 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD57399C2A1031C9004B6E69 /* QRCodeService.swift */; };
 		DD57399F2A1031C9004B6E69 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD57399C2A1031C9004B6E69 /* QRCodeService.swift */; };
+		DD5862A42C08A90F00AB7343 /* Actionable+LogFunctionCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5862A32C08A90F00AB7343 /* Actionable+LogFunctionCall.swift */; };
 		DD5A73A627E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */; };
 		DD5A73A727E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */; };
 		DD5A73A827E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */; };
@@ -358,6 +359,7 @@
 		DD7BC52829AFFE0A004AA7BC /* EditFolderViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7BC52729AFFE0A004AA7BC /* EditFolderViewModelMock.swift */; };
 		DD7BC52A29AFFE43004AA7BC /* ViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7BC52929AFFE43004AA7BC /* ViewModelMock.swift */; };
 		DD7CCDE72A0B95910035C84C /* OTPValidationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */; };
+		DD7D452D2BFD1BB0006AB23B /* Current+ValueMockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7D452C2BFD1BB0006AB23B /* Current+ValueMockable.swift */; };
 		DD8282BE2937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
 		DD8282BF2937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
 		DD8282C02937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
@@ -396,6 +398,7 @@
 		DD889A1B27DB4AB40021AF5F /* OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* OnSizeChange.swift */; };
 		DD889A1C27DB4AB40021AF5F /* OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* OnSizeChange.swift */; };
 		DD889A1D27DB4AB40021AF5F /* OnSizeChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD889A1A27DB4AB40021AF5F /* OnSizeChange.swift */; };
+		DD8DC0482C0866480030FF6E /* Stateful+LogPropertyAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8DC0472C0866480030FF6E /* Stateful+LogPropertyAccess.swift */; };
 		DD9538F22B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9538F12B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift */; };
 		DD9538F32B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9538F12B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift */; };
 		DD9538F42B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9538F12B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift */; };
@@ -452,6 +455,8 @@
 		DDA25DA42A8C1F7C005D9320 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA25DA12A8C1F7C005D9320 /* AppStore.swift */; };
 		DDA4FE7626E755C000D6F92E /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* Initialize.swift */; };
 		DDA4FE7726E755C000D6F92E /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* Initialize.swift */; };
+		DDA5528D2C088CDF009687EA /* ValueMockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA5528C2C088CDF009687EA /* ValueMockable.swift */; };
+		DDA5528F2C088CF3009687EA /* Stateful+MockState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA5528E2C088CF3009687EA /* Stateful+MockState.swift */; };
 		DDA6F1802A0B9CB70050B352 /* OTPServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA6F17F2A0B9CB70050B352 /* OTPServiceTests.swift */; };
 		DDACC44E29EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
 		DDACC44F29EDEF500094D141 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC44D29EDEF500094D141 /* LogEvent.swift */; };
@@ -607,6 +612,12 @@
 		DDBEE5C12A080ADC008F4099 /* EditOTPViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5C02A080ADB008F4099 /* EditOTPViewModelMock.swift */; };
 		DDBEE5C32A080BCA008F4099 /* OTPServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5C22A080BCA008F4099 /* OTPServiceMock.swift */; };
 		DDBEE5C52A080D3B008F4099 /* OTPValidationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBEE5C42A080D3B008F4099 /* OTPValidationServiceMock.swift */; };
+		DDBFDFB22BFB640E000B5C30 /* Result+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBFDFB12BFB640E000B5C30 /* Result+Get.swift */; };
+		DDBFDFB32BFB640E000B5C30 /* Result+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBFDFB12BFB640E000B5C30 /* Result+Get.swift */; };
+		DDBFDFB42BFB640E000B5C30 /* Result+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBFDFB12BFB640E000B5C30 /* Result+Get.swift */; };
+		DDBFDFB62BFB78C1000B5C30 /* Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBFDFB52BFB78C1000B5C30 /* Current.swift */; };
+		DDBFDFB72BFB78C1000B5C30 /* Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBFDFB52BFB78C1000B5C30 /* Current.swift */; };
+		DDBFDFB82BFB78C1000B5C30 /* Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBFDFB52BFB78C1000B5C30 /* Current.swift */; };
 		DDC14A862B39A8C90062AA4C /* Stateful.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC14A852B39A8C90062AA4C /* Stateful.swift */; };
 		DDC14A872B39A8C90062AA4C /* Stateful.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC14A852B39A8C90062AA4C /* Stateful.swift */; };
 		DDC14A882B39A8C90062AA4C /* Stateful.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC14A852B39A8C90062AA4C /* Stateful.swift */; };
@@ -970,6 +981,7 @@
 		DD5419702A08D28B004C3EFA /* URL+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Random.swift"; sourceTree = "<group>"; };
 		DD5739982A1028FF004B6E69 /* ShareOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOTPViewModel.swift; sourceTree = "<group>"; };
 		DD57399C2A1031C9004B6E69 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
+		DD5862A32C08A90F00AB7343 /* Actionable+LogFunctionCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Actionable+LogFunctionCall.swift"; sourceTree = "<group>"; };
 		DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableObject+ObjectDidChangeRecently.swift"; sourceTree = "<group>"; };
 		DD5AECA727B1150B002DAA87 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
 		DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOTPPage.swift; sourceTree = "<group>"; };
@@ -1012,6 +1024,7 @@
 		DD7BC52729AFFE0A004AA7BC /* EditFolderViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderViewModelMock.swift; sourceTree = "<group>"; };
 		DD7BC52929AFFE43004AA7BC /* ViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelMock.swift; sourceTree = "<group>"; };
 		DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPValidationServiceTests.swift; sourceTree = "<group>"; };
+		DD7D452C2BFD1BB0006AB23B /* Current+ValueMockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current+ValueMockable.swift"; sourceTree = "<group>"; };
 		DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsViewModel.swift; sourceTree = "<group>"; };
 		DD8282C52938CBA00085115D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		DD82E5F12BC72B1100F8257F /* LoginUrlUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUrlUseCaseTests.swift; sourceTree = "<group>"; };
@@ -1032,6 +1045,7 @@
 		DD845CD12AF405D300048F3F /* WindowMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowMock.swift; sourceTree = "<group>"; };
 		DD84EEF4288ECC4C0094B5A6 /* CGPoint+Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Operators.swift"; sourceTree = "<group>"; };
 		DD889A1A27DB4AB40021AF5F /* OnSizeChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnSizeChange.swift; sourceTree = "<group>"; };
+		DD8DC0472C0866480030FF6E /* Stateful+LogPropertyAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stateful+LogPropertyAccess.swift"; sourceTree = "<group>"; };
 		DD941A322AF8419F002D263E /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		DD941A332AF84293002D263E /* .xcode-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".xcode-version"; sourceTree = "<group>"; };
 		DD9538F12B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+ReplaceOutput.swift"; sourceTree = "<group>"; };
@@ -1054,6 +1068,8 @@
 		DDA25D9D2A8C1F51005D9320 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		DDA25DA12A8C1F7C005D9320 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		DDA4FE7526E755C000D6F92E /* Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initialize.swift; sourceTree = "<group>"; };
+		DDA5528C2C088CDF009687EA /* ValueMockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueMockable.swift; sourceTree = "<group>"; };
+		DDA5528E2C088CF3009687EA /* Stateful+MockState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stateful+MockState.swift"; sourceTree = "<group>"; };
 		DDA6F17F2A0B9CB70050B352 /* OTPServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPServiceTests.swift; sourceTree = "<group>"; };
 		DDACC44D29EDEF500094D141 /* LogEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
 		DDACC45129EE73090094D141 /* LoggerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerMock.swift; sourceTree = "<group>"; };
@@ -1094,6 +1110,8 @@
 		DDBEE5C02A080ADB008F4099 /* EditOTPViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPViewModelMock.swift; sourceTree = "<group>"; };
 		DDBEE5C22A080BCA008F4099 /* OTPServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPServiceMock.swift; sourceTree = "<group>"; };
 		DDBEE5C42A080D3B008F4099 /* OTPValidationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPValidationServiceMock.swift; sourceTree = "<group>"; };
+		DDBFDFB12BFB640E000B5C30 /* Result+Get.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Get.swift"; sourceTree = "<group>"; };
+		DDBFDFB52BFB78C1000B5C30 /* Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Current.swift; sourceTree = "<group>"; };
 		DDC14A852B39A8C90062AA4C /* Stateful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stateful.swift; sourceTree = "<group>"; };
 		DDC14A892B39A8F20062AA4C /* Actionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actionable.swift; sourceTree = "<group>"; };
 		DDC14A8D2B3AFBA50062AA4C /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
@@ -1423,6 +1441,7 @@
 				DD250E3F2A979BC600A0D3C4 /* Bridge.swift */,
 				8F854E6826239314008885C3 /* CoreData.swift */,
 				8F74244526039BD600B73646 /* Crypto.swift */,
+				DDBFDFB52BFB78C1000B5C30 /* Current.swift */,
 				DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */,
 				DDB9DEE32B9EEEA800206F1E /* Handleable.swift */,
 				8F582BFD255EAD7000F1E3DA /* Keychain.swift */,
@@ -1500,6 +1519,7 @@
 				DD0A08792B548B8D000C2D35 /* Publisher+Sink.swift */,
 				DDBEE5B62A07C7C3008F4099 /* Publishers+CombineLatest5.swift */,
 				DDBEE5BA2A07C7C8008F4099 /* Publishers+CombineLatest6.swift */,
+				DDBFDFB12BFB640E000B5C30 /* Result+Get.swift */,
 				8FBE43C4258D5A09003F7F34 /* String+Localized.swift */,
 				8FBAC9CF264A7B050038A626 /* String+Score.swift */,
 				DD718F2727B568E200F85780 /* String+Segmented.swift */,
@@ -1787,8 +1807,12 @@
 		DD5E3CBB2954571B0032F517 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DD5862A32C08A90F00AB7343 /* Actionable+LogFunctionCall.swift */,
 				DD34C0A72A94A8BF005B25BA /* Collection+Subscript.swift */,
 				DD9A99FC2A248D1D0016722F /* Color+Random.swift */,
+				DD7D452C2BFD1BB0006AB23B /* Current+ValueMockable.swift */,
+				DD8DC0472C0866480030FF6E /* Stateful+LogPropertyAccess.swift */,
+				DDA5528E2C088CF3009687EA /* Stateful+MockState.swift */,
 				DD5E3CB72953B9690032F517 /* String+Random.swift */,
 				DD5419702A08D28B004C3EFA /* URL+Random.swift */,
 			);
@@ -1831,6 +1855,7 @@
 				DD5E3CBC295466F90032F517 /* Mock.swift */,
 				DDFF5D4929D850ED00422603 /* MockInjected.swift */,
 				DD760683295E498000109075 /* PropertyAccessLogging.swift */,
+				DDA5528C2C088CDF009687EA /* ValueMockable.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2491,6 +2516,7 @@
 				DD0E59A9274146C8003D7D50 /* EditTagPage.swift in Sources */,
 				DD845CBC2AF3AC2C00048F3F /* WindowSizeRepository.swift in Sources */,
 				DDBEE5BB2A07C7C8008F4099 /* Publishers+CombineLatest6.swift in Sources */,
+				DDBFDFB22BFB640E000B5C30 /* Result+Get.swift in Sources */,
 				8F5A8440259A4FA700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
 				8F68D73F26495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
 				8F854E6D26239457008885C3 /* OfflineContainer.swift in Sources */,
@@ -2589,6 +2615,7 @@
 				8FBC049C268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
 				DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				DDC14A862B39A8C90062AA4C /* Stateful.swift in Sources */,
+				DDBFDFB62BFB78C1000B5C30 /* Current.swift in Sources */,
 				8FA5B74C261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				DDACC45429EF3F440094D141 /* LogViewModel.swift in Sources */,
 				8F997F8D2572C2FB00B5F784 /* UpdatePasswordRequest.swift in Sources */,
@@ -2698,6 +2725,7 @@
 				DDF0C47E2AD7F35E00A50661 /* PasteboardRepository.swift in Sources */,
 				DD845CBD2AF3AC2C00048F3F /* WindowSizeRepository.swift in Sources */,
 				DDBEE5BC2A07C7C8008F4099 /* Publishers+CombineLatest6.swift in Sources */,
+				DDBFDFB32BFB640E000B5C30 /* Result+Get.swift in Sources */,
 				8FC361D525827E5D00785371 /* PasswordServiceRequest.swift in Sources */,
 				8FC361C825827E5500785371 /* Password.swift in Sources */,
 				8F68D74026495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
@@ -2796,6 +2824,7 @@
 				8FC361D025827E5D00785371 /* UpdatePasswordRequest.swift in Sources */,
 				8FBC049D268B9DD1006D4CB7 /* LoginFlowNavigationController.swift in Sources */,
 				DDC14A872B39A8C90062AA4C /* Stateful.swift in Sources */,
+				DDBFDFB72BFB78C1000B5C30 /* Current.swift in Sources */,
 				DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				8FA5B74D261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				DDACC45529EF3F440094D141 /* LogViewModel.swift in Sources */,
@@ -2918,10 +2947,12 @@
 				DD1466722A6BE2AE003BBA8F /* VideoCapturerMock.swift in Sources */,
 				DD82E5F22BC72B1100F8257F /* LoginUrlUseCaseTests.swift in Sources */,
 				DD845CCC2AF3DC2D00048F3F /* WindowSizeDataSourceTests.swift in Sources */,
+				DD7D452D2BFD1BB0006AB23B /* Current+ValueMockable.swift in Sources */,
 				DD7CCDE72A0B95910035C84C /* OTPValidationServiceTests.swift in Sources */,
 				DD5E3CB1295363DB0032F517 /* TagValidationServiceTests.swift in Sources */,
 				DD14666C2A6BDE68003BBA8F /* CaptureOTPViewModelMock.swift in Sources */,
 				DD7BC51A29AFBAD8004AA7BC /* PropertyAccessLogging.swift in Sources */,
+				DD8DC0482C0866480030FF6E /* Stateful+LogPropertyAccess.swift in Sources */,
 				DD1466742A6BE625003BBA8F /* TorchServiceMock.swift in Sources */,
 				DD7BC52029AFFD01004AA7BC /* FolderValidationServiceMock.swift in Sources */,
 				DDC2A4F429F58345001D79DC /* ConfigurationMock.swift in Sources */,
@@ -2929,6 +2960,7 @@
 				DD24F0312A8D67F5009823C8 /* SettingsViewModelTests.swift in Sources */,
 				DDF4138A2955AFD000B886EB /* ViewModelTests.swift in Sources */,
 				DD1466782A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift in Sources */,
+				DDA5528F2C088CF3009687EA /* Stateful+MockState.swift in Sources */,
 				DD845CCA2AF3DC1E00048F3F /* WindowSizeRepositoryTests.swift in Sources */,
 				DD5E99F129AAA15500A7A4B9 /* Emit.swift in Sources */,
 				DD9A99FD2A248D1D0016722F /* Color+Random.swift in Sources */,
@@ -2936,6 +2968,7 @@
 				DDF0C48A2ADD3F1700A50661 /* PasteboardMock.swift in Sources */,
 				DD845CC72AF3B8B300048F3F /* NotificationsMock.swift in Sources */,
 				DDF0C4902ADD42F100A50661 /* PasteboardRepositoryTests.swift in Sources */,
+				DD5862A42C08A90F00AB7343 /* Actionable+LogFunctionCall.swift in Sources */,
 				DDC6E1A829F0899700607C81 /* LoggerTests.swift in Sources */,
 				DD7BC51B29AFBAD8004AA7BC /* FunctionCallLogging.swift in Sources */,
 				DDBEE5C52A080D3B008F4099 /* OTPValidationServiceMock.swift in Sources */,
@@ -2959,6 +2992,7 @@
 				DD1466762A6BE720003BBA8F /* TorchServiceTests.swift in Sources */,
 				DD9A99FB2A23FE4A0016722F /* EditTagViewModelTests.swift in Sources */,
 				DD14666E2A6BDE82003BBA8F /* EditTagViewModelMock.swift in Sources */,
+				DDA5528D2C088CDF009687EA /* ValueMockable.swift in Sources */,
 				DDDD93FD2A1503460061BEA0 /* ShareOTPViewModelMock.swift in Sources */,
 				DD1466702A6BDE98003BBA8F /* SelectFolderViewModelMock.swift in Sources */,
 				DD5E3CB82953B9690032F517 /* String+Random.swift in Sources */,
@@ -3006,6 +3040,7 @@
 				DDF0C47F2AD7F35F00A50661 /* PasteboardRepository.swift in Sources */,
 				DD845CBE2AF3AC2C00048F3F /* WindowSizeRepository.swift in Sources */,
 				DDBEE5BD2A07C7C8008F4099 /* Publishers+CombineLatest6.swift in Sources */,
+				DDBFDFB42BFB640E000B5C30 /* Result+Get.swift in Sources */,
 				DDB169AD27D20CC200F4D752 /* Folder.swift in Sources */,
 				DDB169E427D20CC200F4D752 /* PreviewDevice+Generate.swift in Sources */,
 				DDB1697D27D20CC100F4D752 /* CreateTagRequest.swift in Sources */,
@@ -3104,6 +3139,7 @@
 				DDB1698527D20CC200F4D752 /* UpdatePasswordRequest.swift in Sources */,
 				DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */,
 				DDC14A882B39A8C90062AA4C /* Stateful.swift in Sources */,
+				DDBFDFB82BFB78C1000B5C30 /* Current.swift in Sources */,
 				DD95B08027D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
 				DDACC45629EF3F440094D141 /* LogViewModel.swift in Sources */,
 				DDB169DA27D20CC200F4D752 /* OpenSessionRequest.swift in Sources */,

@@ -11,11 +11,7 @@ final class ManagedConfigurationUseCase: ManagedConfigurationUseCaseProtocol {
     
     final class State {
         
-        @Published fileprivate(set) var serverUrl: String?
-        
-        init(serverUrl: String?) {
-            self.serverUrl = serverUrl
-        }
+        @Current(String?.self) fileprivate(set) var serverUrl
         
     }
     
@@ -24,7 +20,7 @@ final class ManagedConfigurationUseCase: ManagedConfigurationUseCaseProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        state = .init(serverUrl: nil)
+        state = .init()
         
         setupPipelines()
     }
@@ -38,7 +34,7 @@ final class ManagedConfigurationUseCase: ManagedConfigurationUseCaseProtocol {
             .prepend(())
             .map { UserDefaults.standard.dictionary(forKey: "com.apple.configuration.managed")?["serverUrl"] as? String }
             .removeDuplicates()
-            .sink { self?.state.serverUrl = $0 }
+            .sink { self?.state.serverUrl = .success($0) }
             .store(in: &cancellables)
     }
     

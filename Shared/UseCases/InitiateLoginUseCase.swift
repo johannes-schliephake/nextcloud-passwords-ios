@@ -11,7 +11,7 @@ final class InitiateLoginUseCase: InitiateLoginUseCaseProtocol {
     
     final class State {
         
-        @Published fileprivate(set) var challenge: Result<LoginFlowChallenge, any Error>?
+        @Current<LoginFlowChallenge, any Error> fileprivate(set) var challenge
         
     }
     

@@ -17,8 +17,8 @@ final class LoginUrlUseCaseTests: XCTestCase {
         
         loginUrlUseCase(.setString(.random()))
         
-        expect(loginUrlUseCase[\.loginUrl]).to(beSuccess {
-            expect($0).to(beNil())
+        expect(loginUrlUseCase[\.loginUrl]).to(beSuccess { value in
+            expect(value).to(beNil())
         })
     }
     
@@ -28,8 +28,8 @@ final class LoginUrlUseCaseTests: XCTestCase {
         
         loginUrlUseCase(.setString(urlStringMock))
         
-        expect(loginUrlUseCase[\.loginUrl]).to(beSuccess {
-            expect($0).to(equal(.init(string: urlStringMock)!))
+        expect(loginUrlUseCase[\.loginUrl]).to(beSuccess { value in
+            expect(value).to(equal(.init(string: urlStringMock)!))
         })
     }
     
