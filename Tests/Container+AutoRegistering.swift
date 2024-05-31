@@ -65,6 +65,7 @@ extension Container: AutoRegistering {
         // MARK: Miscellaneous
         Self.shared.configurationType.register { ConfigurationMock.self }
         Self.shared.currentDate.singleton.register { .init() }
+        Self.shared.userInitiatedScheduler.register { resolve(\.userInitiatedSchedulerMock).eraseToAnyScheduler() }
         
         // TODO: remove
         Self.shared.entriesController.register { .mock }

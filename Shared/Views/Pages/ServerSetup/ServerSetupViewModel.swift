@@ -87,7 +87,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
                 self?.state.isValidating = url != nil
                 self?.state.showManagedServerAddressErrorAlert = url == nil && self?.state.isServerAddressManaged == true
             })
-            .debounce(for: 1.5, scheduler: DispatchQueue(qos: .userInitiated))
+            .debounce(for: 1.5, scheduler: resolve(\.userInitiatedScheduler))
             .compactMap { $0 }
             .flatMapLatest { loginUrl in
                 let initiateLoginUseCase = resolve(\.initiateLoginUseCase)

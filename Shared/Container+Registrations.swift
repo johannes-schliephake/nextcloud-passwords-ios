@@ -2,6 +2,7 @@ import Factory
 import CoreImage
 import AVFoundation
 import StoreKit
+import CombineSchedulers
 
 
 extension Container {
@@ -184,6 +185,9 @@ extension Container {
     }
     var currentDate: Factory<Date> {
         self { .init() }
+    }
+    var userInitiatedScheduler: Factory<AnySchedulerOf<DispatchQueue>> {
+        self { DispatchQueue(qos: .userInitiated).eraseToAnyScheduler() }
     }
     
     // TODO: remove

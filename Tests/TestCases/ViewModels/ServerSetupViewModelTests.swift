@@ -6,6 +6,7 @@ import Factory
 
 final class ServerSetupViewModelTests: XCTestCase {
     
+    @LazyInjected(\.userInitiatedSchedulerMock) private var userInitiatedSchedulerMock
     @MockInjected(\.loginUrlUseCase) private var loginUrlUseCaseMock: LoginUrlUseCaseMock
     @MockInjected(\.managedConfigurationUseCase) private var managedConfigurationUseCaseMock: ManagedConfigurationUseCaseMock
     @MockInjected(\.initiateLoginUseCase) private var initiateLoginUseCaseMock: InitiateLoginUseCaseMock
