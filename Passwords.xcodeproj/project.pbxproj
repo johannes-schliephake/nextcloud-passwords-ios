@@ -364,6 +364,9 @@
 		DD8023FC2C08B03500C6808A /* LoginUrlUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8023F92C08B03500C6808A /* LoginUrlUseCaseMock.swift */; };
 		DD8023FD2C08B03500C6808A /* InitiateLoginUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8023FA2C08B03500C6808A /* InitiateLoginUseCaseMock.swift */; };
 		DD8023FE2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8023FB2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift */; };
+		DD8024012C08E2E500C6808A /* CombineSchedulers in Frameworks */ = {isa = PBXBuildFile; productRef = DD8024002C08E2E500C6808A /* CombineSchedulers */; };
+		DD8024032C08E2F300C6808A /* CombineSchedulers in Frameworks */ = {isa = PBXBuildFile; productRef = DD8024022C08E2F300C6808A /* CombineSchedulers */; };
+		DD8024052C08E2FA00C6808A /* CombineSchedulers in Frameworks */ = {isa = PBXBuildFile; productRef = DD8024042C08E2FA00C6808A /* CombineSchedulers */; };
 		DD8282BE2937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
 		DD8282BF2937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
 		DD8282C02937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
@@ -1183,6 +1186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F118765253CA2980019FECA /* AuthenticationServices.framework in Frameworks */,
+				DD8024012C08E2E500C6808A /* CombineSchedulers in Frameworks */,
 				DD6350DB293FEC7E0058A787 /* Factory in Frameworks */,
 				8F52F3C725936FDE00B4EFCE /* StoreKit.framework in Frameworks */,
 				DDA25D902A8C1C48005D9320 /* AnyAsyncSequence in Frameworks */,
@@ -1197,6 +1201,7 @@
 			files = (
 				8FC361992582762600785371 /* AuthenticationServices.framework in Frameworks */,
 				8F10C64D2602C05F00FA5B1D /* Clibsodium in Frameworks */,
+				DD8024032C08E2F300C6808A /* CombineSchedulers in Frameworks */,
 				8F10C64F2602C05F00FA5B1D /* Sodium in Frameworks */,
 				DDA25D922A8C1C70005D9320 /* AnyAsyncSequence in Frameworks */,
 				DD6350DD293FEC9B0058A787 /* Factory in Frameworks */,
@@ -1224,6 +1229,7 @@
 			files = (
 				DDB1695527D1FCFF00F4D752 /* UniformTypeIdentifiers.framework in Frameworks */,
 				DDB1696627D1FD2900F4D752 /* Clibsodium in Frameworks */,
+				DD8024052C08E2FA00C6808A /* CombineSchedulers in Frameworks */,
 				DDB1696827D1FD2900F4D752 /* Sodium in Frameworks */,
 				DDA25D942A8C1C77005D9320 /* AnyAsyncSequence in Frameworks */,
 				DD6350DF293FECA00058A787 /* Factory in Frameworks */,
@@ -2185,6 +2191,7 @@
 				8F10C64A2602BD9200FA5B1D /* Sodium */,
 				DD6350DA293FEC7E0058A787 /* Factory */,
 				DDA25D8F2A8C1C48005D9320 /* AnyAsyncSequence */,
+				DD8024002C08E2E500C6808A /* CombineSchedulers */,
 			);
 			productName = Passwords;
 			productReference = 8F11874F253C9EE10019FECA /* Passwords.app */;
@@ -2209,6 +2216,7 @@
 				8F10C64E2602C05F00FA5B1D /* Sodium */,
 				DD6350DC293FEC9B0058A787 /* Factory */,
 				DDA25D912A8C1C70005D9320 /* AnyAsyncSequence */,
+				DD8024022C08E2F300C6808A /* CombineSchedulers */,
 			);
 			productName = Provider;
 			productReference = 8FC361982582762600785371 /* Provider.appex */;
@@ -2274,6 +2282,7 @@
 				DDB1696727D1FD2900F4D752 /* Sodium */,
 				DD6350DE293FECA00058A787 /* Factory */,
 				DDA25D932A8C1C77005D9320 /* AnyAsyncSequence */,
+				DD8024042C08E2FA00C6808A /* CombineSchedulers */,
 			);
 			productName = Extension;
 			productReference = DDB1695327D1FCFF00F4D752 /* Extension.appex */;
@@ -2328,6 +2337,7 @@
 				DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */,
 				DD5E99EA29AA88C500A7A4B9 /* XCRemoteSwiftPackageReference "Nimble" */,
 				DDA25D8E2A8C1C48005D9320 /* XCRemoteSwiftPackageReference "AnyAsyncSequence" */,
+				DD8023FF2C08E28100C6808A /* XCRemoteSwiftPackageReference "combine-schedulers" */,
 			);
 			productRefGroup = 8F118750253C9EE10019FECA /* Products */;
 			projectDirPath = "";
@@ -3774,6 +3784,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		DD8023FF2C08E28100C6808A /* XCRemoteSwiftPackageReference "combine-schedulers" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/combine-schedulers";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		DDA25D8E2A8C1C48005D9320 /* XCRemoteSwiftPackageReference "AnyAsyncSequence" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/vsanthanam/AnyAsyncSequence";
@@ -3824,6 +3842,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */;
 			productName = Factory;
+		};
+		DD8024002C08E2E500C6808A /* CombineSchedulers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD8023FF2C08E28100C6808A /* XCRemoteSwiftPackageReference "combine-schedulers" */;
+			productName = CombineSchedulers;
+		};
+		DD8024022C08E2F300C6808A /* CombineSchedulers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD8023FF2C08E28100C6808A /* XCRemoteSwiftPackageReference "combine-schedulers" */;
+			productName = CombineSchedulers;
+		};
+		DD8024042C08E2FA00C6808A /* CombineSchedulers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD8023FF2C08E28100C6808A /* XCRemoteSwiftPackageReference "combine-schedulers" */;
+			productName = CombineSchedulers;
 		};
 		DDA25D8F2A8C1C48005D9320 /* AnyAsyncSequence */ = {
 			isa = XCSwiftPackageProductDependency;
