@@ -15,15 +15,15 @@ extension Container: AutoRegistering {
         Self.shared.logViewModelType.register { LogViewModelMock.self }
         Self.shared.selectFolderViewModelType.register { SelectFolderViewModelMock.self }
         Self.shared.selectTagsViewModelType.register { SelectTagsViewModelMock.self }
-        //Self.shared.serverSetupViewModelType.register { ServerSetupViewModelMock.self }
+        Self.shared.serverSetupViewModelType.register { ServerSetupViewModelMock.self }
         Self.shared.settingsViewModelType.register { SettingsViewModelMock.self }
         Self.shared.shareOTPViewModelType.register { ShareOTPViewModelMock.self }
         
         // MARK: UseCases
         //Self.shared.folderLabelUseCase.cached.register { FolderLabelUseCaseMock() }
-        //Self.shared.initiateLoginUseCase.cached.register { InitiateLoginUseCaseMock() }
-        //Self.shared.loginUrlUseCase.cached.register { LoginUrlUseCaseMock() }
-        //Self.shared.managedConfigurationUseCase.register { ManagedConfigurationUseCaseMock() }
+        Self.shared.initiateLoginUseCase.cached.register { InitiateLoginUseCaseMock() }
+        Self.shared.loginUrlUseCase.cached.register { LoginUrlUseCaseMock() }
+        Self.shared.managedConfigurationUseCase.register { ManagedConfigurationUseCaseMock() }
         
         // MARK: Services
         Self.shared.folderValidationService.register { FolderValidationServiceMock() }

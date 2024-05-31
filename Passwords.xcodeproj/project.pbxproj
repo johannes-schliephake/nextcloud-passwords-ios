@@ -282,6 +282,7 @@
 		DD57399E2A1031C9004B6E69 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD57399C2A1031C9004B6E69 /* QRCodeService.swift */; };
 		DD57399F2A1031C9004B6E69 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD57399C2A1031C9004B6E69 /* QRCodeService.swift */; };
 		DD5862A42C08A90F00AB7343 /* Actionable+LogFunctionCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5862A32C08A90F00AB7343 /* Actionable+LogFunctionCall.swift */; };
+		DD5862AF2C08AEAE00AB7343 /* ServerSetupViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5862AE2C08AEAE00AB7343 /* ServerSetupViewModelMock.swift */; };
 		DD5A73A627E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */; };
 		DD5A73A727E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */; };
 		DD5A73A827E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */; };
@@ -360,6 +361,9 @@
 		DD7BC52A29AFFE43004AA7BC /* ViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7BC52929AFFE43004AA7BC /* ViewModelMock.swift */; };
 		DD7CCDE72A0B95910035C84C /* OTPValidationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */; };
 		DD7D452D2BFD1BB0006AB23B /* Current+ValueMockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7D452C2BFD1BB0006AB23B /* Current+ValueMockable.swift */; };
+		DD8023FC2C08B03500C6808A /* LoginUrlUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8023F92C08B03500C6808A /* LoginUrlUseCaseMock.swift */; };
+		DD8023FD2C08B03500C6808A /* InitiateLoginUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8023FA2C08B03500C6808A /* InitiateLoginUseCaseMock.swift */; };
+		DD8023FE2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8023FB2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift */; };
 		DD8282BE2937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
 		DD8282BF2937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
 		DD8282C02937686A0085115D /* SelectTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */; };
@@ -982,6 +986,7 @@
 		DD5739982A1028FF004B6E69 /* ShareOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOTPViewModel.swift; sourceTree = "<group>"; };
 		DD57399C2A1031C9004B6E69 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
 		DD5862A32C08A90F00AB7343 /* Actionable+LogFunctionCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Actionable+LogFunctionCall.swift"; sourceTree = "<group>"; };
+		DD5862AE2C08AEAE00AB7343 /* ServerSetupViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSetupViewModelMock.swift; sourceTree = "<group>"; };
 		DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableObject+ObjectDidChangeRecently.swift"; sourceTree = "<group>"; };
 		DD5AECA727B1150B002DAA87 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
 		DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOTPPage.swift; sourceTree = "<group>"; };
@@ -1025,6 +1030,9 @@
 		DD7BC52929AFFE43004AA7BC /* ViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelMock.swift; sourceTree = "<group>"; };
 		DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPValidationServiceTests.swift; sourceTree = "<group>"; };
 		DD7D452C2BFD1BB0006AB23B /* Current+ValueMockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current+ValueMockable.swift"; sourceTree = "<group>"; };
+		DD8023F92C08B03500C6808A /* LoginUrlUseCaseMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUrlUseCaseMock.swift; sourceTree = "<group>"; };
+		DD8023FA2C08B03500C6808A /* InitiateLoginUseCaseMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitiateLoginUseCaseMock.swift; sourceTree = "<group>"; };
+		DD8023FB2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedConfigurationUseCaseMock.swift; sourceTree = "<group>"; };
 		DD8282BD2937686A0085115D /* SelectTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagsViewModel.swift; sourceTree = "<group>"; };
 		DD8282C52938CBA00085115D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		DD82E5F12BC72B1100F8257F /* LoginUrlUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUrlUseCaseTests.swift; sourceTree = "<group>"; };
@@ -1835,6 +1843,7 @@
 			isa = PBXGroup;
 			children = (
 				DDC061732A6DA6FD00C5082F /* ViewModels */,
+				DD8023F82C08B01A00C6808A /* UseCases */,
 				DDC061742A6DA70400C5082F /* Services */,
 				DDF0C4822ADD3E9700A50661 /* Repositories */,
 				DDC061762A6DA75600C5082F /* Helpers */,
@@ -1873,6 +1882,16 @@
 				DDC061712A6DA6AC00C5082F /* Extensions */,
 			);
 			path = TestCases;
+			sourceTree = "<group>";
+		};
+		DD8023F82C08B01A00C6808A /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				DD8023FA2C08B03500C6808A /* InitiateLoginUseCaseMock.swift */,
+				DD8023F92C08B03500C6808A /* LoginUrlUseCaseMock.swift */,
+				DD8023FB2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift */,
+			);
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 		DD82E5F02BC72AF100F8257F /* UseCases */ = {
@@ -2027,6 +2046,7 @@
 				DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */,
 				DD14666F2A6BDE98003BBA8F /* SelectFolderViewModelMock.swift */,
 				DD7BC52529AFFDC3004AA7BC /* SelectTagsViewModelMock.swift */,
+				DD5862AE2C08AEAE00AB7343 /* ServerSetupViewModelMock.swift */,
 				DD24F0322A8E172A009823C8 /* SettingsViewModelMock.swift */,
 				DDDD93FC2A1503460061BEA0 /* ShareOTPViewModelMock.swift */,
 			);
@@ -2943,13 +2963,16 @@
 				DD5E99F629ABFF4000A7A4B9 /* ClosureMock.swift in Sources */,
 				DD0A087D2B549122000C2D35 /* Publisher+Sink.swift in Sources */,
 				DD7BC52429AFFD6E004AA7BC /* FoldersServiceMock.swift in Sources */,
+				DD8023FE2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift in Sources */,
 				DD7BC52829AFFE0A004AA7BC /* EditFolderViewModelMock.swift in Sources */,
 				DD1466722A6BE2AE003BBA8F /* VideoCapturerMock.swift in Sources */,
 				DD82E5F22BC72B1100F8257F /* LoginUrlUseCaseTests.swift in Sources */,
 				DD845CCC2AF3DC2D00048F3F /* WindowSizeDataSourceTests.swift in Sources */,
+				DD5862AF2C08AEAE00AB7343 /* ServerSetupViewModelMock.swift in Sources */,
 				DD7D452D2BFD1BB0006AB23B /* Current+ValueMockable.swift in Sources */,
 				DD7CCDE72A0B95910035C84C /* OTPValidationServiceTests.swift in Sources */,
 				DD5E3CB1295363DB0032F517 /* TagValidationServiceTests.swift in Sources */,
+				DD8023FD2C08B03500C6808A /* InitiateLoginUseCaseMock.swift in Sources */,
 				DD14666C2A6BDE68003BBA8F /* CaptureOTPViewModelMock.swift in Sources */,
 				DD7BC51A29AFBAD8004AA7BC /* PropertyAccessLogging.swift in Sources */,
 				DD8DC0482C0866480030FF6E /* Stateful+LogPropertyAccess.swift in Sources */,
@@ -2967,6 +2990,7 @@
 				DDF0C48E2ADD42E300A50661 /* PasteboardDataSourceTests.swift in Sources */,
 				DDF0C48A2ADD3F1700A50661 /* PasteboardMock.swift in Sources */,
 				DD845CC72AF3B8B300048F3F /* NotificationsMock.swift in Sources */,
+				DD8023FC2C08B03500C6808A /* LoginUrlUseCaseMock.swift in Sources */,
 				DDF0C4902ADD42F100A50661 /* PasteboardRepositoryTests.swift in Sources */,
 				DD5862A42C08A90F00AB7343 /* Actionable+LogFunctionCall.swift in Sources */,
 				DDC6E1A829F0899700607C81 /* LoggerTests.swift in Sources */,

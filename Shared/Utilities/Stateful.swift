@@ -10,6 +10,9 @@ protocol Stateful {
     
     var state: State { get }
     
+    subscript<Value>(_ keyPath: KeyPath<State, Value>) -> Value { get }
+    subscript<Value>(_ keyPath: ReferenceWritableKeyPath<State, Value>) -> Value { get nonmutating set }
+    
 }
 
 
