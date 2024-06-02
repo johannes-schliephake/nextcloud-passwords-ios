@@ -48,17 +48,19 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
         case serverAddress
     }
     
+    static private let fallbackServerAddress = "https://"
+    
     @Injected(\.loginUrlUseCase) private var loginUrlUseCase
+    @Injected(\.initiateLoginUseCase) private var initiateLoginUseCase
     @Injected(\.managedConfigurationUseCase) private var managedConfigurationUseCase
     @LazyInjected(\.logger) private var logger
     
     let state: State
     
-    private var initiateLoginUseCase: (any InitiateLoginUseCaseProtocol)?
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        state = .init(serverAddress: "", isServerAddressManaged: false, showManagedServerAddressErrorAlert: false, isValidating: false, challenge: nil, challengeAvailable: false, showLoginFlowPage: false, focusedField: .serverAddress)
+        state = .init(serverAddress: Self.fallbackServerAddress, isServerAddressManaged: false, showManagedServerAddressErrorAlert: false, isValidating: false, challenge: nil, challengeAvailable: false, showLoginFlowPage: false, focusedField: .serverAddress)
         
         setupPipelines()
     }
@@ -68,7 +70,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
         
         managedConfigurationUseCase[\.$serverUrl]
             .sink { managedServerAddress in
-                self?.state.serverAddress = managedServerAddress ?? "https://"
+                self?.state.serverAddress = managedServerAddress ?? Self.fallbackServerAddress
                 self?.state.isServerAddressManaged = managedServerAddress != nil
             }
             .store(in: &cancellables)
@@ -77,7 +79,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
             .dropFirst()
             .removeDuplicates()
             .handleEvents(receiveOutput: { _ in
-                self?.initiateLoginUseCase = nil /// Causes use case to deinit and cancel its pipelines provided `handle(with:_:publishing:)` releases the wrapped `callAsFunction(_:)` after completion
+                self?.initiateLoginUseCase(.cancel)
                 self?.state.isValidating = false
                 self?.state.challenge = nil
                 self?.state.challengeAvailable = false
@@ -90,10 +92,8 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
             .debounce(for: 1.5, scheduler: resolve(\.userInitiatedScheduler))
             .compactMap { $0 }
             .flatMapLatest { loginUrl in
-                let initiateLoginUseCase = resolve(\.initiateLoginUseCase)
-                self?.initiateLoginUseCase = initiateLoginUseCase
-                return Just(loginUrl)
-                    .handle(with: initiateLoginUseCase, { .setLoginUrl($0) }, publishing: \.$challenge)
+                Just(loginUrl)
+                    .handle(with: self!.initiateLoginUseCase, { .setLoginUrl($0) }, publishing: \.$challenge)
                     .optionalize()
                     .receive(on: DispatchQueue.main)
                     .handleEvents(receiveFailure: { error in

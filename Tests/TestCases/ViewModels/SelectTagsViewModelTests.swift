@@ -100,24 +100,24 @@ final class SelectTagsViewModelTests: XCTestCase {
         expect(selectTagsViewModel[\.focusedField]).to(equal(.addTagLabel))
     }
     
-    func testCallAsFunction_givenFocusedFieldIsNotNil_whenCallingAddTagAndSettingFocusedFieldToNil_thenSetsFocusedFieldToAddTagLabel() {
+    func testCallAsFunction_givenFocusedFieldIsNotNil_whenCallingAddTagAndSettingFocusedFieldToNil_thenSetsFocusedFieldToAddTagLabel() throws {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntryMock) { _, _ in }
         selectTagsViewModel[\.focusedField] = .addTagLabel
         
         selectTagsViewModel(.addTag)
         selectTagsViewModel[\.focusedField] = nil
-        expect(selectTagsViewModel[\.focusedField]).to(beNil())
+        try require(selectTagsViewModel[\.focusedField]).to(beNil())
         
         expect(selectTagsViewModel[\.focusedField]).toEventually(equal(.addTagLabel))
     }
     
-    func testCallAsFunction_givenFocusedFieldIsNotNil_whenCallingAddTagAndSettingFocusedFieldToNilTwice_thenKeepsFocusedFieldNil() {
+    func testCallAsFunction_givenFocusedFieldIsNotNil_whenCallingAddTagAndSettingFocusedFieldToNilTwice_thenKeepsFocusedFieldNil() throws {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntryMock) { _, _ in }
         selectTagsViewModel[\.focusedField] = .addTagLabel
         
         selectTagsViewModel(.addTag)
         selectTagsViewModel[\.focusedField] = nil
-        expect(selectTagsViewModel[\.focusedField]).toEventuallyNot(beNil())
+        try require(selectTagsViewModel[\.focusedField]).toEventuallyNot(beNil())
         selectTagsViewModel[\.focusedField] = nil
         
         expect(selectTagsViewModel[\.focusedField]).toAlways(beNil())

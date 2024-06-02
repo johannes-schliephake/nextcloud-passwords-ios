@@ -2,7 +2,6 @@ import XCTest
 import Nimble
 import Factory
 @testable import Passwords
-import Combine
 
 
 final class LogViewModelTests: XCTestCase {

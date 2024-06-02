@@ -22,11 +22,11 @@ final class QRCodeServiceTests: XCTestCase {
         expect(qrCodeService.generateQrCode(from: .random()).map { $0.pngData() }).to(emit(expectedImageData, onMainThread: false))
     }
     
-    func testGenerateQrCode_thenCallsQrCodeGenerator() {
+    func testGenerateQrCode_thenCallsQrCodeGenerator() throws {
         let urlMock = URL.random()
         let qrCodeService: any QRCodeServiceProtocol = QRCodeService()
         
-        expect(qrCodeService.generateQrCode(from: urlMock)).to(fail())
+        try require(qrCodeService.generateQrCode(from: urlMock)).to(fail())
         
         let expectedData = Data(urlMock.absoluteString.utf8)
         expect(self.qrCodeGeneratorMock).toEventually(beCalled(.once, on: "setValue(_:forKey:)", withParameters: expectedData, "inputMessage"))

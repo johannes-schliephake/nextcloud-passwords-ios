@@ -9,6 +9,8 @@ final class InitiateLoginUseCaseMock: InitiateLoginUseCaseProtocol, Mock, Proper
         switch action {
         case let .setLoginUrl(loginUrl):
             logFunctionCall(of: action, parameters: loginUrl)
+        case .cancel:
+            logFunctionCall(of: action)
         }
     }
     

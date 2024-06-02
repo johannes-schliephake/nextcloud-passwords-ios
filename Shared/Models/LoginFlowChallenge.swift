@@ -14,3 +14,12 @@ struct LoginFlowChallenge: Decodable {
     }
     
 }
+
+
+#if DEBUG
+
+extension LoginFlowChallenge: Equatable {}
+
+extension LoginFlowChallenge.Poll: Equatable {}
+
+#endif

@@ -1,7 +1,7 @@
 @testable import Passwords
 
 
-extension Stateful {
+extension Stateful where Self: Mock {
     
     func mockState<Value>(_ keyPath: KeyPath<State, Value>, value: Value) {
         let mirror = Mirror(reflecting: state)
