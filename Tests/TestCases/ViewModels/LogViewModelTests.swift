@@ -11,12 +11,6 @@ final class LogViewModelTests: XCTestCase {
     @MockInjected(\.logger) private var loggerMock: LoggerMock
     @MockInjected(\.pasteboardService) private var pasteboardServiceMock: PasteboardServiceMock
     
-    override func setUp() {
-        super.setUp()
-        
-        PollingDefaults.timeout = .milliseconds(100)
-    }
-    
     override func tearDown() {
         super.tearDown()
         

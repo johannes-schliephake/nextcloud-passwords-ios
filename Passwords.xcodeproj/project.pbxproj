@@ -172,6 +172,7 @@
 		DD0A087B2B548B8D000C2D35 /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A08792B548B8D000C2D35 /* Publisher+Sink.swift */; };
 		DD0A087C2B548B8D000C2D35 /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A08792B548B8D000C2D35 /* Publisher+Sink.swift */; };
 		DD0A087D2B549122000C2D35 /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A08792B548B8D000C2D35 /* Publisher+Sink.swift */; };
+		DD0A70492C0C9F0900CFAF54 /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A70482C0C9F0900CFAF54 /* Configurator.swift */; };
 		DD0B7ADF2971A2A900A59E3C /* EditFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */; };
 		DD0B7AE02971A2A900A59E3C /* EditFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */; };
 		DD0B7AE12971A2A900A59E3C /* EditFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */; };
@@ -901,6 +902,7 @@
 		DD0424682829858900E9B9DE /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD04DE042BAA390B00954A72 /* ManagedConfigurationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedConfigurationUseCase.swift; sourceTree = "<group>"; };
 		DD0A08792B548B8D000C2D35 /* Publisher+Sink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Sink.swift"; sourceTree = "<group>"; };
+		DD0A70482C0C9F0900CFAF54 /* Configurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurator.swift; sourceTree = "<group>"; };
 		DD0B7ADE2971A2A900A59E3C /* EditFolderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderViewModel.swift; sourceTree = "<group>"; };
 		DD0B7AE22971B35B00A59E3C /* FoldersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersService.swift; sourceTree = "<group>"; };
 		DD0B7AEE2972CEBD00A59E3C /* FolderValidationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderValidationServiceTests.swift; sourceTree = "<group>"; };
@@ -1811,6 +1813,7 @@
 				DD5E99F429ABFF3300A7A4B9 /* Mocks */,
 				DD7BC52B29B00233004AA7BC /* TestCases */,
 				DD7BC51929AFBAC5004AA7BC /* Utilities */,
+				DD0A70482C0C9F0900CFAF54 /* Configurator.swift */,
 				DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */,
 				DD7BC51729AFBA00004AA7BC /* Container+Mocks.swift */,
 				DDB409BE29E211F30002517F /* Unit.xctestplan */,
@@ -2950,6 +2953,7 @@
 				DDC6E1A029F085C700607C81 /* LogViewModelMock.swift in Sources */,
 				DD24F03B2A8EA9F0009823C8 /* ProductMock.swift in Sources */,
 				DDBEE5C12A080ADC008F4099 /* EditOTPViewModelMock.swift in Sources */,
+				DD0A70492C0C9F0900CFAF54 /* Configurator.swift in Sources */,
 				DDBE8ABA29B68D100054F179 /* BeAccessed.swift in Sources */,
 				DD24F0352A8E2171009823C8 /* SessionServiceMock.swift in Sources */,
 				DD18E4A02BCA9EAF0037F696 /* LoginURLTests.swift in Sources */,
@@ -3613,6 +3617,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).Configurator";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Tests";
@@ -3637,6 +3642,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPrincipalClass = "$(PRODUCT_MODULE_NAME).Configurator";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Tests";
