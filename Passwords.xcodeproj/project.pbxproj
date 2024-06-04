@@ -535,6 +535,7 @@
 		DDB169EF27D20CC300F4D752 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F582BFD255EAD7000F1E3DA /* Keychain.swift */; };
 		DDB16A0927D2308600F4D752 /* OTPAutoFillScript.js in Resources */ = {isa = PBXBuildFile; fileRef = DDB16A0827D2308600F4D752 /* OTPAutoFillScript.js */; };
 		DDB16A0C27D24D6300F4D752 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDB16A0B27D24D6300F4D752 /* Assets.xcassets */; };
+		DDB465D82C0FB0930001E70D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = DDB465D72C0FB0930001E70D /* PrivacyInfo.xcprivacy */; };
 		DDBE8AB229B3F9A10054F179 /* FolderValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */; };
 		DDBE8AB329B3F9A10054F179 /* FolderValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */; };
 		DDBE8AB429B3F9A10054F179 /* FolderValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */; };
@@ -977,6 +978,7 @@
 		DDB16A0B27D24D6300F4D752 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DDB409BE29E211F30002517F /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
 		DDB409C029E216750002517F /* Snapshot.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Snapshot.xctestplan; sourceTree = "<group>"; };
+		DDB465D72C0FB0930001E70D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		DDBD6EA12702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA22702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA32702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1233,6 +1235,7 @@
 				DD6953EB27FADEA10007DAEE /* Icon.svg */,
 				8F118752253C9EE10019FECA /* PasswordsApp.swift */,
 				8F118756253C9EE30019FECA /* Assets.xcassets */,
+				DDB465D72C0FB0930001E70D /* PrivacyInfo.xcprivacy */,
 				8F5757E625671EA4003F1E9F /* InfoPlist.strings */,
 			);
 			path = App;
@@ -2102,6 +2105,7 @@
 				8F5331A825605B9400AB6FED /* Localizable.strings in Resources */,
 				8F52F3E225937B2700B4EFCE /* IAP.plist in Resources */,
 				8F09583725D14FDD0082D438 /* Assets.xcassets in Resources */,
+				DDB465D82C0FB0930001E70D /* PrivacyInfo.xcprivacy in Resources */,
 				8F5757E425671EA4003F1E9F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
