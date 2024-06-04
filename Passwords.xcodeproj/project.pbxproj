@@ -603,6 +603,7 @@
 		DDBC925A2AF1097B009C42BF /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC92592AF1097B009C42BF /* Notifications.swift */; };
 		DDBC925B2AF1097B009C42BF /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC92592AF1097B009C42BF /* Notifications.swift */; };
 		DDBC925C2AF1097B009C42BF /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC92592AF1097B009C42BF /* Notifications.swift */; };
+		DDB465D82C0FB0930001E70D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = DDB465D72C0FB0930001E70D /* PrivacyInfo.xcprivacy */; };
 		DDBE8AB229B3F9A10054F179 /* FolderValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */; };
 		DDBE8AB329B3F9A10054F179 /* FolderValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */; };
 		DDBE8AB429B3F9A10054F179 /* FolderValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */; };
@@ -1111,6 +1112,7 @@
 		DDB409C029E216750002517F /* Snapshot.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Snapshot.xctestplan; sourceTree = "<group>"; };
 		DDB9DEE32B9EEEA800206F1E /* Handleable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handleable.swift; sourceTree = "<group>"; };
 		DDBC92592AF1097B009C42BF /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		DDB465D72C0FB0930001E70D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		DDBD6EA12702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA22702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA32702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1380,6 +1382,7 @@
 				DD6953EB27FADEA10007DAEE /* Icon.svg */,
 				8F118752253C9EE10019FECA /* PasswordsApp.swift */,
 				8F118756253C9EE30019FECA /* Assets.xcassets */,
+				DDB465D72C0FB0930001E70D /* PrivacyInfo.xcprivacy */,
 				8F5757E625671EA4003F1E9F /* InfoPlist.strings */,
 			);
 			path = App;
@@ -2363,6 +2366,7 @@
 				8F5331A825605B9400AB6FED /* Localizable.strings in Resources */,
 				8F52F3E225937B2700B4EFCE /* IAP.plist in Resources */,
 				8F09583725D14FDD0082D438 /* Assets.xcassets in Resources */,
+				DDB465D82C0FB0930001E70D /* PrivacyInfo.xcprivacy in Resources */,
 				8F5757E425671EA4003F1E9F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3468,7 +3472,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -3495,7 +3499,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -3519,7 +3523,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -3542,7 +3546,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -3664,7 +3668,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -3688,7 +3692,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
