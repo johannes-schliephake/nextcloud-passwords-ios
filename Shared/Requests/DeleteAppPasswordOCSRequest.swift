@@ -17,10 +17,7 @@ extension DeleteAppPasswordOCSRequest {
                 .setFailureType(to: URLError.self)
                 .eraseToAnyPublisher()
         }
-        guard let authorizationData = "\(session.user):\(session.password)".data(using: .utf8) else {
-            return Fail(error: URLError(.userAuthenticationRequired))
-                .eraseToAnyPublisher()
-        }
+        let authorizationData = Data("\(session.user):\(session.password)".utf8)
         guard let serverUrl = URL(string: session.server) else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()

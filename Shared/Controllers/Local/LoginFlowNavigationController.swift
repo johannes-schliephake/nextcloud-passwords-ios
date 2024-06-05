@@ -28,7 +28,7 @@ extension LoginFlowNavigationController: WKNavigationDelegate {
         
         var request = URLRequest(url: poll.endpoint)
         request.httpMethod = "POST"
-        request.httpBody = "token=\(poll.token)".data(using: .utf8)
+        request.httpBody = Data("token=\(poll.token)".utf8)
         
         let sessionPublisher = NetworkClient.default.dataTaskPublisher(for: request)
             .tryMap {

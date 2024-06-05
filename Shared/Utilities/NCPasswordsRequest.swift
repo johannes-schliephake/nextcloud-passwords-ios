@@ -81,8 +81,8 @@ extension NCPasswordsRequest {
                 return
             }
             
-            guard let authorizationData = "\(session.user):\(session.password)".data(using: .utf8),
-                  let serverUrl = URL(string: session.server) else {
+            let authorizationData = Data("\(session.user):\(session.password)".utf8)
+            guard let serverUrl = URL(string: session.server) else {
                 DispatchQueue.main.async {
                     completion(nil)
                 }

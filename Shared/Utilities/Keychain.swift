@@ -24,9 +24,7 @@ final class Keychain {
             return
         }
         
-        guard let dataFromString = value.data(using: .utf8) else {
-            return
-        }
+        let dataFromString = Data(value.utf8)
         var attributes: [CFString: Any] = [kSecAttrService: service,
                           kSecAttrAccessGroup: accessGroup,
                           kSecClass: kSecClassGenericPassword,
@@ -62,7 +60,7 @@ final class Keychain {
               let data = result as? Data else {
             return nil
         }
-        return String(data: data, encoding: .utf8)
+        return String(data: data, encoding: .utf8) // swiftlint:disable:this non_optional_string_data_conversion
     }
     
     func remove(key: String) {

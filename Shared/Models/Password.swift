@@ -58,12 +58,11 @@ final class Password: ObservableObject, Identifiable {
     }
     var otp: OTP? {
         get {
-            guard let otpValue = customFields.first(where: { $0.isOtpField })?.value,
-                  let otpData = otpValue.data(using: .utf8) else {
+            guard let otpValue = customFields.first(where: { $0.isOtpField })?.value else {
                 return nil
             }
             do {
-                return try Configuration.jsonDecoder.decode(OTP.self, from: otpData)
+                return try Configuration.jsonDecoder.decode(OTP.self, from: .init(otpValue.utf8))
             }
             catch {
                 logger.log(error: error)
@@ -75,7 +74,7 @@ final class Password: ObservableObject, Identifiable {
             guard let newValue,
                   customFields.count < 20,
                   let data = try? Configuration.updatingJsonEncoder.encode(newValue),
-                  let value = String(data: data, encoding: .utf8) else {
+                  let value = String(data: data, encoding: .utf8) else { // swiftlint:disable:this non_optional_string_data_conversion
                 return
             }
             let otpField = CustomField(label: CustomField.otpKey, type: .data, value: value)
@@ -177,9 +176,7 @@ final class Password: ObservableObject, Identifiable {
         if customFieldsString.isEmpty {
             customFieldsString = "[]"
         }
-        guard let customFieldsData = customFieldsString.data(using: .utf8) else {
-            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Custom fields decoding failed"))
-        }
+        let customFieldsData = Data(customFieldsString.utf8)
         do {
             customFields = try Configuration.jsonDecoder.decode([FailableDecodable<CustomField>].self, from: customFieldsData)
                 .compactMap { try? $0.result.get() } /// Catch null values and non-conforming custom fields
@@ -358,7 +355,7 @@ extension Password: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         let customFieldsData = try Configuration.nonUpdatingJsonEncoder.encode(customFields)
-        guard let customFieldsString = String(data: customFieldsData, encoding: .utf8) else {
+        guard let customFieldsString = String(data: customFieldsData, encoding: .utf8) else { // swiftlint:disable:this non_optional_string_data_conversion
             throw EncodingError.invalidValue(self, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Custom fields encoding failed"))
         }
         
@@ -536,7 +533,7 @@ extension Password: MockObject {
     
     static var mocks: [Password] {
         [
-            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com/index.php/login", customFields: [CustomField(label: CustomField.otpKey, type: .data, value: String(data: try! Configuration.nonUpdatingJsonEncoder.encode(OTP.mock), encoding: .utf8)!)], status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", favorite: true, edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001", "00000000-0000-0000-0003-000000000002"]), // swiftlint:disable:this force_try
+            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com/index.php/login", customFields: [CustomField(label: CustomField.otpKey, type: .data, value: String(data: try! Configuration.nonUpdatingJsonEncoder.encode(OTP.mock), encoding: .utf8)!)], status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", favorite: true, edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001", "00000000-0000-0000-0003-000000000002"]), // swiftlint:disable:this force_try non_optional_string_data_conversion
             Password(id: "00000000-0000-0000-0002-000000000002", label: "GitHub", username: "johannes-schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://github.com/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001"]),
             Password(id: "00000000-0000-0000-0002-000000000003", label: "Weblate", username: "johannes.schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://hosted.weblate.org/accounts/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date()),
             Password(id: "00000000-0000-0000-0002-000000000004", label: "Swift.org", username: "johannes", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://forums.swift.org/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001"])

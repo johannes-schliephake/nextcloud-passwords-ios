@@ -497,16 +497,14 @@ struct PasswordDetailPage: View {
                                 }
                         }
                     }
-                    if let hashData = password.password.data(using: .utf8) {
-                        labeledFootnote("_hash") {
-                            Text(Crypto.SHA1.hash(hashData, humanReadable: true))
-                                .apply { view in
-                                    if #available(iOS 17, *) {
-                                        view
-                                            .typesettingLanguage(.init(languageCode: .unavailable))
-                                    }
+                    labeledFootnote("_hash") {
+                        Text(Crypto.SHA1.hash(.init(password.password.utf8), humanReadable: true))
+                            .apply { view in
+                                if #available(iOS 17, *) {
+                                    view
+                                        .typesettingLanguage(.init(languageCode: .unavailable))
                                 }
-                        }
+                            }
                     }
                 }
 #if targetEnvironment(simulator)
