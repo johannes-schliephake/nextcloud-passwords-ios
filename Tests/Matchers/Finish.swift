@@ -4,7 +4,7 @@ import Combine
 
 
 func finish<P: Publisher>(
-    within timeout: TimeInterval = 0.1,
+    within timeout: NimbleTimeInterval = PollingDefaults.timeout,
     onMainThread expectMainThread: Bool? = nil,
     when block: (() -> Void)? = nil,
     from originQueue: DispatchQueue = .main
@@ -42,7 +42,7 @@ func finish<P: Publisher>(
         originQueue.async(flags: .enforceQoS) {
             block?()
         }
-        XCTWaiter().wait(for: [expectation], timeout: timeout)
+        XCTWaiter().wait(for: [expectation], timeout: timeout.timeInterval)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't complete"))
     }
 }
