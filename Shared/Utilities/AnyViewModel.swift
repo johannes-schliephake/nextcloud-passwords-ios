@@ -11,7 +11,7 @@ final class AnyViewModel<State: ObservableObject, Action>: ViewModel {
     private let wrappedCallAsFunction: (Action) -> Void
 
     init<WrappableViewModel: ViewModel>(_ wrappableViewModel: WrappableViewModel) where WrappableViewModel.State == State, WrappableViewModel.Action == Action {
-        state = wrappableViewModel.state
+        state = wrappableViewModel.state // swiftlint:disable:this state_access
         wrappedCallAsFunction = wrappableViewModel.callAsFunction
     }
 

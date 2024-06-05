@@ -4,6 +4,8 @@ import Factory
 @testable import Passwords
 
 
+// swiftlint:disable state_access
+
 final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_order
     
     override func tearDown() {
@@ -52,6 +54,8 @@ final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_or
     }
     
 }
+
+// swiftlint:enable state_access
 
 
 protocol BasicViewModelProtocol: ViewModel where State == BasicViewModel.State, Action == BasicViewModel.Action {
