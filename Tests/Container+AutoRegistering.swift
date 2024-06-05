@@ -20,7 +20,7 @@ extension Container: AutoRegistering {
         Self.shared.shareOTPViewModelType.register { ShareOTPViewModelMock.self }
         
         // MARK: UseCases
-        //Self.shared.folderLabelUseCase.cached.register { FolderLabelUseCaseMock() }
+        Self.shared.folderLabelUseCase.cached.register { FolderLabelUseCaseMock() }
         Self.shared.initiateLoginUseCase.cached.register { InitiateLoginUseCaseMock() }
         Self.shared.loginUrlUseCase.cached.register { LoginUrlUseCaseMock() }
         Self.shared.managedConfigurationUseCase.register { ManagedConfigurationUseCaseMock() }
