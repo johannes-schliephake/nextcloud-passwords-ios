@@ -1,3 +1,7 @@
+## [v2.7.2] - 2024-06-06
+- Button for clearing E2E password
+- Bugfixes and optimizations
+
 ## [v2.7.1] - 2023-11-06
 - Support for Universal Clipboard
 - Bugfixes and optimizations

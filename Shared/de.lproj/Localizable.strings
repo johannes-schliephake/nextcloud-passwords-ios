@@ -53,7 +53,7 @@
 "_discardChanges" = "Änderungen verwerfen";
 "_dismiss" = "Schließen";
 "_done" = "Fertig";
-"_e2ePassword" = "E2E Passwort";
+"_e2ePassword" = "E2E-Passwort";
 "_edit" = "Bearbeiten";
 "_editFolderErrorMessage" = "Beim Bearbeiten des Ordners ist ein Fehler aufgetreten. Bitte speichere den Ordner nochmals.";
 "_editPassword" = "Passwort bearbeiten";
@@ -127,7 +127,7 @@
 "_sourceCode" = "Quellcode";
 "_specialCharacters" = "Sonderzeichen";
 "_storePassword" = "Passwort speichern";
-"_storePasswordMessage" = "Wenn diese Option aktiviert ist, wird das E2E Passwort verschlüsselt im Schlüsselbund des Geräts gespeichert.";
+"_storePasswordMessage" = "Wenn diese Option aktiviert ist, wird das E2E-Passwort verschlüsselt im Schlüsselbund des Geräts gespeichert.";
 "_strength" = "Stärke";
 "_suggestions" = "Vorschläge";
 "_supportThisProject" = "Dieses Projekt unterstützen";
@@ -164,3 +164,6 @@
 
 /* Apple's marketing term for pasteboard sync across the user's iCloud devices */
 "_universalClipboard" = "Allgemeine Zwischenablage";
+
+/* This is a label for a settings button */
+"_clearStoredE2EPassword" = "Gespeichertes E2E-Passwort entfernen";

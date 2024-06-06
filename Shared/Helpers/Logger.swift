@@ -20,10 +20,10 @@ protocol Logging {
 final class Logger: Logging {
     
     var events: [LogEvent]? {
-        lock { eventsInternal }
+        lock.read { eventsInternal }
     }
     var eventsPublisher: AnyPublisher<[LogEvent]?, Never> {
-        lock { $eventsInternal }
+        lock.read { $eventsInternal }
             .eraseToAnyPublisher()
     }
     var isAvailable: Bool {
@@ -37,7 +37,7 @@ final class Logger: Logging {
     }
     
     @Published private var eventsInternal: [LogEvent]?
-    private var lock = Lock()
+    private var lock = ReadersWriterLock()
     
     init() {
         let configuration = resolve(\.configurationType)
@@ -60,12 +60,12 @@ final class Logger: Logging {
     }
     
     func reset() {
-        lock { eventsInternal?.removeAll() }
+        lock.write { eventsInternal?.removeAll() }
         log(info: "Log cleared")
     }
     
     private func log(event: LogEvent) {
-        lock { eventsInternal?.append(event) }
+        lock.write { eventsInternal?.append(event) }
 #if DEBUG
         print(event) // swiftlint:disable:this print
 #endif

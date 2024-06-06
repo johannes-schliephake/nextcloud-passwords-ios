@@ -16,6 +16,8 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         
         @Published fileprivate(set) var username: String?
         @Published fileprivate(set) var server: String?
+        fileprivate(set) var isChallengePasswordStored: Bool
+        @Published fileprivate(set) var wasChallengePasswordCleared: Bool
         @Published var showLogoutAlert: Bool
         @Published fileprivate(set) var isOfflineStorageEnabled: Bool
         @Published fileprivate(set) var isAutomaticPasswordGenerationEnabled: Bool
@@ -31,9 +33,11 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         
         let shouldDismiss = PassthroughSubject<Void, Never>()
         
-        init(username: String?, server: String?, showLogoutAlert: Bool, isOfflineStorageEnabled: Bool, isAutomaticPasswordGenerationEnabled: Bool, isUniversalClipboardEnabled: Bool, canPurchaseTip: Bool, tipProducts: [any Product]?, isTipTransactionRunning: Bool, isTestFlight: Bool, betaUrl: URL?, isLogAvailable: Bool, versionName: String, sourceCodeUrl: URL?) {
+        init(username: String?, server: String?, isChallengePasswordStored: Bool, wasChallengePasswordCleared: Bool, showLogoutAlert: Bool, isOfflineStorageEnabled: Bool, isAutomaticPasswordGenerationEnabled: Bool, isUniversalClipboardEnabled: Bool, canPurchaseTip: Bool, tipProducts: [any Product]?, isTipTransactionRunning: Bool, isTestFlight: Bool, betaUrl: URL?, isLogAvailable: Bool, versionName: String, sourceCodeUrl: URL?) {
             self.username = username
             self.server = server
+            self.isChallengePasswordStored = isChallengePasswordStored
+            self.wasChallengePasswordCleared = wasChallengePasswordCleared
             self.showLogoutAlert = showLogoutAlert
             self.isOfflineStorageEnabled = isOfflineStorageEnabled
             self.isAutomaticPasswordGenerationEnabled = isAutomaticPasswordGenerationEnabled
@@ -51,6 +55,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     }
     
     enum Action {
+        case clearChallengePassword
         case logout
         case confirmLogout
         case setIsOfflineStorageEnabled(Bool)
@@ -70,11 +75,12 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
+        let isChallengePasswordStored = _sessionService.wrappedValue.isChallengePasswordStored
         let configuration = resolve(\.configurationType)
         let betaUrl = URL(string: "https://testflight.apple.com/join/iuljLJ4u")
         let versionName = "\(configuration.shortVersionString)\(configuration.isDebug || configuration.isTestFlight ? " (\(configuration.isDebug ? "Debug" : configuration.isTestFlight ? "TestFlight" : "Unknown"), Build \(configuration.buildNumberString))" : "")"
         let sourceCodeUrl = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios")
-        state = .init(username: nil, server: nil, showLogoutAlert: false, isOfflineStorageEnabled: false, isAutomaticPasswordGenerationEnabled: false, isUniversalClipboardEnabled: false, canPurchaseTip: false, tipProducts: nil, isTipTransactionRunning: false, isTestFlight: configuration.isTestFlight, betaUrl: betaUrl, isLogAvailable: false, versionName: versionName, sourceCodeUrl: sourceCodeUrl)
+        state = .init(username: nil, server: nil, isChallengePasswordStored: isChallengePasswordStored, wasChallengePasswordCleared: false, showLogoutAlert: false, isOfflineStorageEnabled: false, isAutomaticPasswordGenerationEnabled: false, isUniversalClipboardEnabled: false, canPurchaseTip: false, tipProducts: nil, isTipTransactionRunning: false, isTestFlight: configuration.isTestFlight, betaUrl: betaUrl, isLogAvailable: false, versionName: versionName, sourceCodeUrl: sourceCodeUrl)
         
         setupPipelines()
     }
@@ -136,6 +142,9 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     
     func callAsFunction(_ action: Action) {
         switch action {
+        case .clearChallengePassword:
+            sessionService.clearChallengePassword()
+            state.wasChallengePasswordCleared = true
         case .logout:
             state.showLogoutAlert = true
         case .confirmLogout:
