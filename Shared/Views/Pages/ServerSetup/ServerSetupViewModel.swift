@@ -91,9 +91,12 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
             })
             .debounce(for: 1.5, scheduler: resolve(\.userInitiatedScheduler))
             .compactMap { $0 }
-            .flatMapLatest { loginUrl in
-                Just(loginUrl)
-                    .handle(with: self!.initiateLoginUseCase, { .setLoginUrl($0) }, publishing: \.$challenge)
+            .compactFlatMapLatest { loginUrl -> AnyPublisher<LoginFlowChallenge?, Never>? in
+                guard let initiateLoginUseCase = self?.initiateLoginUseCase else {
+                    return nil
+                }
+                return Just(loginUrl)
+                    .handle(with: initiateLoginUseCase, { .setLoginUrl($0) }, publishing: \.$challenge)
                     .optionalize()
                     .receive(on: DispatchQueue.main)
                     .handleEvents(receiveFailure: { error in
@@ -101,6 +104,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
                         self?.logger.log(error: error)
                     })
                     .replaceError(with: nil)
+                    .eraseToAnyPublisher()
             }
             .sink { challenge in
                 self?.state.isValidating = false

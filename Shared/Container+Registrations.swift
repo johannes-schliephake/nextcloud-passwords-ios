@@ -3,6 +3,7 @@ import CoreImage
 import AVFoundation
 import StoreKit
 import CombineSchedulers
+import WebKit
 
 
 extension Container {
@@ -22,6 +23,9 @@ extension Container {
     }
     var globalAlertsViewModelType: Factory<any GlobalAlertsViewModelProtocol.Type> {
         self { GlobalAlertsViewModel.self }
+    }
+    var loginFlowViewModelType: Factory<any LoginFlowViewModelProtocol.Type> {
+        self { LoginFlowViewModel.self }
     }
     var logViewModelType: Factory<any LogViewModelProtocol.Type> {
         self { LogViewModel.self }
@@ -43,11 +47,23 @@ extension Container {
     }
     
     // MARK: UseCases
+    var checkLoginGrantUseCase: Factory<any CheckLoginGrantUseCaseProtocol> {
+        self { CheckLoginGrantUseCase() }
+    }
+    var checkTrustUseCase: Factory<any CheckTrustUseCaseProtocol> {
+        self { CheckTrustUseCase() }
+    }
+    var extractSessionIdUseCase: Factory<any ExtractSessionIdUseCaseProtocol> {
+        self { ExtractSessionIdUseCase() }
+    }
     var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
         self { FolderLabelUseCase() }
     }
     var initiateLoginUseCase: Factory<any InitiateLoginUseCaseProtocol> {
         self { InitiateLoginUseCase() }
+    }
+    var loginPollUseCase: Factory<any LoginPollUseCaseProtocol> {
+        self { LoginPollUseCase() }
     }
     var loginUrlUseCase: Factory<any LoginUrlUseCaseProtocol> {
         self { LoginUrlUseCase() }
@@ -153,6 +169,9 @@ extension Container {
     // MARK: Seams
     var appStoreType: Factory<any AppStore.Type> {
         self { StoreKit.AppStore.self }
+    }
+    var nonPersistentWebDataStore: Factory<WKWebsiteDataStore> {
+        self { .nonPersistent() }
     }
     var pasteboard: Factory<any Pasteboard> {
         self { UIPasteboard.general }

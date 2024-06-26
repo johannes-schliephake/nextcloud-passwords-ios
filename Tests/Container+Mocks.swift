@@ -2,6 +2,7 @@ import Factory
 @testable import Passwords
 import Foundation
 import CombineSchedulers
+import WebKit
 
 
 extension Container {
@@ -51,6 +52,10 @@ extension Container {
             .shared
     }
     
+    @available(iOS 17.0, *) var nonPersistentWebDataStoreMock: Factory<WKWebsiteDataStore> {
+        self { WKWebsiteDataStore(forIdentifier: .init(uuidString: "801496FD-4A16-498A-8F50-FB8B9B8F539F")!) }
+            .cached
+    }
     var userInitiatedSchedulerMock: Factory<TestSchedulerOf<DispatchQueue>> {
         self { DispatchQueue.test }
             .cached

@@ -53,6 +53,55 @@ final class ViewModelTests: XCTestCase { // swiftlint:disable:this file_types_or
         expect(result.state.value).to(equal(newValue))
     }
     
+    func testCallAsFunction_givenNoInitialValue_whenSettingValue_thenReturnsSetValue() async {
+        let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
+        let newValue = String.random()
+        
+        await expect({ await basicViewModel(.setCurrent(newValue), returning: \.$current) }).to(equal(newValue))
+    }
+    
+    func testCallAsFunction_givenInitialValue_whenSettingValue_thenReturnsSetValue() async {
+        let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
+        basicViewModel(.setCurrent(.random()))
+        let newValue = String.random()
+        
+        await expect({ await basicViewModel(.setCurrent(newValue), returning: \.$current) }).to(equal(newValue))
+    }
+    
+    func testCallAsFunction_givenNoInitialValue_whenSettingValueFromSomewhereElse_thenReturnsSetValue() async {
+        let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
+        let newValue = String.random()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+            basicViewModel(.setCurrent(newValue))
+        }
+        await expect({ await basicViewModel(.setValue(.random()), returning: \.$current) }).to(equal(newValue))
+    }
+    
+    func testCallAsFunction_givenInitialValue_whenSettingValueFromSomewhereElse_thenReturnsSetValue() async {
+        let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
+        basicViewModel(.setCurrent(.random()))
+        let newValue = String.random()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+            basicViewModel(.setCurrent(newValue))
+        }
+        await expect({ await basicViewModel(.setValue(.random()), returning: \.$current) }).to(equal(newValue))
+    }
+    
+    func testCallAsFunction_givenNoInitialValue_whenNotSettingValue_thenDoesntReturn() async {
+        let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
+        
+        await expect({ await basicViewModel(.setValue(.random()), returning: \.$current) }).to(timeout())
+    }
+    
+    func testCallAsFunction_givenInitialValue_whenNotSettingValue_thenDoesntReturn() async {
+        let basicViewModel: any BasicViewModelProtocol = BasicViewModel(value: .random())
+        basicViewModel(.setCurrent(.random()))
+        
+        await expect({ await basicViewModel(.setValue(.random()), returning: \.$current) }).to(timeout())
+    }
+    
 }
 
 // swiftlint:enable state_access
@@ -70,6 +119,7 @@ final class BasicViewModel: BasicViewModelProtocol {
     final class State: ObservableObject {
         
         @Published var value: String
+        @Current(String.self) var current
         
         init(value: String) {
             self.value = value
@@ -79,6 +129,7 @@ final class BasicViewModel: BasicViewModelProtocol {
     
     enum Action {
         case setValue(String)
+        case setCurrent(String?)
     }
     
     let state: State
@@ -91,6 +142,8 @@ final class BasicViewModel: BasicViewModelProtocol {
         switch action {
         case let .setValue(newValue):
             state.value = newValue
+        case let .setCurrent(current):
+            state.current = current.map { .success($0) }
         }
     }
     

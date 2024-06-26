@@ -43,9 +43,7 @@ final class ProductsRepository: ProductsRepositoryProtocol {
                     .delay(for: 60, scheduler: DispatchQueue())
             }
             .retry(3)
-            .optionalize()
-            .replaceError(with: nil)
-            .compactMap { $0 }
+            .ignoreFailure()
             .sink { self?.productsInternal = $0 }
             .store(in: &cancellables)
     }

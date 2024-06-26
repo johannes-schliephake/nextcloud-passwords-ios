@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct ServerSetupPage: View {
@@ -31,8 +32,8 @@ struct ServerSetupPage: View {
     }
     
     @ViewBuilder private func managedSetupPage() -> some View {
-        if let serverSetupResponse = viewModel[\.challenge] {
-            LoginFlowPage(serverSetupResponse: serverSetupResponse)
+        if let challenge = viewModel[\.challenge] {
+            LoginFlowPage(viewModel: resolve(\.loginFlowViewModelType).init(challenge: challenge).eraseToAnyViewModel())
         } else {
             VStack(spacing: 8) {
                 ProgressView()
@@ -70,8 +71,8 @@ struct ServerSetupPage: View {
     private func serverAddressField() -> some View {
         Section(header: Text("_nextcloudServerAddress"), footer: serverAddressFieldFooter()) {
             ZStack {
-                if let serverSetupResponse = viewModel[\.challenge] {
-                    NavigationLink(destination: LoginFlowPage(serverSetupResponse: serverSetupResponse), isActive: $viewModel[\.showLoginFlowPage]) {}
+                if let challenge = viewModel[\.challenge] {
+                    NavigationLink(destination: LoginFlowPage(viewModel: resolve(\.loginFlowViewModelType).init(challenge: challenge).eraseToAnyViewModel()), isActive: $viewModel[\.showLoginFlowPage]) {}
                         .isDetailLink(false)
                         .frame(width: 0, height: 0)
                         .hidden()
@@ -85,7 +86,9 @@ struct ServerSetupPage: View {
                         .focused($focusedField, equals: .serverAddress)
                         .submitLabel(.done)
                         .onSubmit {
-                            viewModel(.connect)
+                            if viewModel[\.challengeAvailable] {
+                                viewModel(.connect)
+                            }
                         }
                     if viewModel[\.isValidating] {
                         Spacer()

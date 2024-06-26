@@ -30,7 +30,7 @@ final class ManagedConfigurationUseCase: ManagedConfigurationUseCaseProtocol {
         
         Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()
-            .map { _ in }
+            .ignoreValue()
             .prepend(())
             .map { UserDefaults.standard.dictionary(forKey: "com.apple.configuration.managed")?["serverUrl"] as? String }
             .removeDuplicates()

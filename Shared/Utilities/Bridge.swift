@@ -78,7 +78,7 @@ struct Bridge<Output, Failure: Error>: Publisher {
                     guard !(error is CancellationError) else {
                         return
                     }
-                    if let failableCompletion = downstream.receive(completion:) as? (Subscribers.Completion<Error>) -> Void {
+                    if let failableCompletion = downstream.receive(completion:) as? (Subscribers.Completion<any Error>) -> Void {
                         failableCompletion(.failure(error))
                     } else {
                         downstream.receive(completion: .finished)

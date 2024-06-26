@@ -19,8 +19,6 @@ final class LoginUrlUseCase: LoginUrlUseCaseProtocol {
     
     let state: State
     
-    private var cancellable: AnyCancellable?
-    
     init() {
         state = .init()
     }
