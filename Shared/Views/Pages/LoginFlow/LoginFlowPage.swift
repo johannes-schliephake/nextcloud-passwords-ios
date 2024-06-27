@@ -20,5 +20,3 @@ struct LoginFlowPage: View {
     }
     
 }
-
-

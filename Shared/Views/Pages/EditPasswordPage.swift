@@ -566,21 +566,3 @@ extension EditPasswordPage {
     }
     
 }
-
-
-#if DEBUG
-
-struct EditPasswordPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        PreviewDevice.generate {
-            NavigationView {
-                EditPasswordPage(entriesController: EntriesController.mock, password: Password.mock)
-            }
-            .showColumns(false)
-        }
-    }
-    
-}
-
-#endif

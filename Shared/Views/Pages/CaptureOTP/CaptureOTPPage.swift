@@ -23,8 +23,7 @@ struct CaptureOTPPage: View {
     }
     
     private func mainStack() -> some View {
-        GeometryReader {
-            geometryProxy in
+        GeometryReader { geometryProxy in
             ZStack {
                 if #available(iOS 16, *),
                    DataScannerView.isSupported {

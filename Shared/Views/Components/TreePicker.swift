@@ -73,12 +73,4 @@ struct TreePicker<Element: Identifiable, Content: View>: View {
 
 extension Node: Equatable where Element: Equatable {}
 
-extension Node {
-    
-    init(value: Element, @ArrayBuilder<Node> _ children: @escaping () -> [Node]) {
-        self.init(value: value, children: children())
-    }
-    
-}
-
 #endif

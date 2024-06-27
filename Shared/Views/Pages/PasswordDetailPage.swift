@@ -691,24 +691,3 @@ extension PasswordDetailPage {
     }
     
 }
-
-
-#if DEBUG
-
-struct PasswordDetailPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        PreviewDevice.generate {
-            NavigationView {
-                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, updatePassword: {}, deletePassword: {})
-            }
-            .showColumns(false)
-            .environmentObject(AutoFillController.mock)
-            .environmentObject(BiometricAuthenticationController.mock)
-            .environmentObject(SessionController.mock)
-        }
-    }
-    
-}
-
-#endif
