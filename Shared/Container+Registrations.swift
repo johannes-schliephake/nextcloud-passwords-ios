@@ -170,8 +170,8 @@ extension Container {
     var appStoreType: Factory<any AppStore.Type> {
         self { StoreKit.AppStore.self }
     }
-    var nonPersistentWebDataStore: Factory<WKWebsiteDataStore> {
-        self { .nonPersistent() }
+    var nonPersistentWebDataStore: Factory<any WebDataStore> {
+        self { WKWebsiteDataStore.nonPersistent() }
     }
     var pasteboard: Factory<any Pasteboard> {
         self { UIPasteboard.general }

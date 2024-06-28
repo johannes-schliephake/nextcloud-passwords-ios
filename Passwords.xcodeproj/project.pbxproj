@@ -158,6 +158,9 @@
 		8FC361FF25828B0500785371 /* EntriesNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC361FB25828AE600785371 /* EntriesNavigation.swift */; };
 		8FCBF8BD25AE152500F75B33 /* ScreenshotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8BC25AE152500F75B33 /* ScreenshotGenerator.swift */; };
 		8FCBF8D925AE160B00F75B33 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8D725AE15E900F75B33 /* SnapshotHelper.swift */; };
+		DD027F2F2C2EE35F00287708 /* HTTPCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD027F2E2C2EE35F00287708 /* HTTPCookieStore.swift */; };
+		DD027F302C2EE35F00287708 /* HTTPCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD027F2E2C2EE35F00287708 /* HTTPCookieStore.swift */; };
+		DD027F312C2EE35F00287708 /* HTTPCookieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD027F2E2C2EE35F00287708 /* HTTPCookieStore.swift */; };
 		DD03D9BD28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
 		DD03D9BE28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
 		DD03D9BF28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
@@ -339,6 +342,9 @@
 		DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */; };
 		DD6C1EF1269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
 		DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */; };
+		DD6D1EDC2C2E047500D2AAC4 /* WebDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6D1EDB2C2E047500D2AAC4 /* WebDataStore.swift */; };
+		DD6D1EDD2C2E047500D2AAC4 /* WebDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6D1EDB2C2E047500D2AAC4 /* WebDataStore.swift */; };
+		DD6D1EDE2C2E047500D2AAC4 /* WebDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6D1EDB2C2E047500D2AAC4 /* WebDataStore.swift */; };
 		DD6F95DF2BAB8D2E00BA196E /* Publisher+HandleEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6F95DE2BAB8D2E00BA196E /* Publisher+HandleEvents.swift */; };
 		DD6F95E02BAB8D2E00BA196E /* Publisher+HandleEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6F95DE2BAB8D2E00BA196E /* Publisher+HandleEvents.swift */; };
 		DD6F95E12BAB8D2E00BA196E /* Publisher+HandleEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6F95DE2BAB8D2E00BA196E /* Publisher+HandleEvents.swift */; };
@@ -915,6 +921,7 @@
 		9F5B819C26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819D26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819E26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD027F2E2C2EE35F00287708 /* HTTPCookieStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCookieStore.swift; sourceTree = "<group>"; };
 		DD03D9BC28C8DE92006118F2 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		DD03D9C028C8DFCB006118F2 /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		DD0424652829853100E9B9DE /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1043,6 +1050,7 @@
 		DD6953EB27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD6953EC27FADEA10007DAEE /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD6C1EF0269E32B200BD6F34 /* LabeledRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledRow.swift; sourceTree = "<group>"; };
+		DD6D1EDB2C2E047500D2AAC4 /* WebDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDataStore.swift; sourceTree = "<group>"; };
 		DD6F95DE2BAB8D2E00BA196E /* Publisher+HandleEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+HandleEvents.swift"; sourceTree = "<group>"; };
 		DD718F2727B568E200F85780 /* String+Segmented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Segmented.swift"; sourceTree = "<group>"; };
 		DD72AE1828A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAppPasswordOCSRequest.swift; sourceTree = "<group>"; };
@@ -1980,6 +1988,7 @@
 			isa = PBXGroup;
 			children = (
 				DDA25DA12A8C1F7C005D9320 /* AppStore.swift */,
+				DD027F2E2C2EE35F00287708 /* HTTPCookieStore.swift */,
 				DDBC92592AF1097B009C42BF /* Notifications.swift */,
 				DD4D06132ABF3472002DEAAD /* Pasteboard.swift */,
 				DD9C50172A819692002588DD /* Product.swift */,
@@ -1988,6 +1997,7 @@
 				DDA25D9D2A8C1F51005D9320 /* Transaction.swift */,
 				DDA25D992A8C1F2A005D9320 /* VerificationResult.swift */,
 				DD27237E2A69847E0017BAA2 /* VideoCapturing.swift */,
+				DD6D1EDB2C2E047500D2AAC4 /* WebDataStore.swift */,
 				DD845CB22AF38C2900048F3F /* Window.swift */,
 				DD845CAE2AF38C2000048F3F /* WindowScene.swift */,
 			);
@@ -2892,6 +2902,7 @@
 				DD9C4FFC2A7EB691002588DD /* GlobalAlertsViewModel.swift in Sources */,
 				8F561EBE258D26CC008AE12B /* NCPasswordsRequest.swift in Sources */,
 				DDC7C94828C1FA3A00451B81 /* Bundle+IsTestFlight.swift in Sources */,
+				DD027F312C2EE35F00287708 /* HTTPCookieStore.swift in Sources */,
 				DDBE8AB229B3F9A10054F179 /* FolderValidationService.swift in Sources */,
 				8F559A1D25A0AE3E00D7A39F /* EditPasswordNavigation.swift in Sources */,
 				8F6ED3BA2663841D00DD61DE /* URL+Score.swift in Sources */,
@@ -2901,6 +2912,7 @@
 				8F118755253C9EE10019FECA /* EntriesPage.swift in Sources */,
 				DD62B0732BBCB121006E1530 /* LoginFlowChallenge.swift in Sources */,
 				DD76068C295F731200109075 /* Dismiss.swift in Sources */,
+				DD6D1EDD2C2E047500D2AAC4 /* WebDataStore.swift in Sources */,
 				DD9C50042A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */,
 				8F77DA5D25699F8900CFDA8D /* CopyToast.swift in Sources */,
 				8F513A63256064E9001C6EF9 /* ServerSetupPage.swift in Sources */,
@@ -3107,6 +3119,7 @@
 				DDCE125727411B09003912D0 /* Tag.swift in Sources */,
 				DD9C4FFD2A7EB691002588DD /* GlobalAlertsViewModel.swift in Sources */,
 				DD6C1EF2269E32B200BD6F34 /* LabeledRow.swift in Sources */,
+				DD027F302C2EE35F00287708 /* HTTPCookieStore.swift in Sources */,
 				DDDB6B5A27A806ED007572B1 /* CaptureOTPPage.swift in Sources */,
 				8F561EC3258D2759008AE12B /* NCPasswordsRequest.swift in Sources */,
 				DDBE8AB329B3F9A10054F179 /* FolderValidationService.swift in Sources */,
@@ -3116,6 +3129,7 @@
 				DD57399E2A1031C9004B6E69 /* QRCodeService.swift in Sources */,
 				DD62B0742BBCB121006E1530 /* LoginFlowChallenge.swift in Sources */,
 				DD6350E2293FED030058A787 /* Container+Registrations.swift in Sources */,
+				DD6D1EDC2C2E047500D2AAC4 /* WebDataStore.swift in Sources */,
 				DDA4FE7726E755C000D6F92E /* Initialize.swift in Sources */,
 				DD9C50052A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */,
 				DD76068D295F731200109075 /* Dismiss.swift in Sources */,
@@ -3437,6 +3451,7 @@
 				DD9C4FFE2A7EB691002588DD /* GlobalAlertsViewModel.swift in Sources */,
 				DDB1697827D20CC100F4D752 /* Tooltip.swift in Sources */,
 				DDC7C94A28C1FA3A00451B81 /* Bundle+IsTestFlight.swift in Sources */,
+				DD027F2F2C2EE35F00287708 /* HTTPCookieStore.swift in Sources */,
 				DDBE8AB429B3F9A10054F179 /* FolderValidationService.swift in Sources */,
 				DDB1698027D20CC100F4D752 /* Occlude.swift in Sources */,
 				DDB169E727D20CC300F4D752 /* SelectFolderPage.swift in Sources */,
@@ -3446,6 +3461,7 @@
 				DD57399F2A1031C9004B6E69 /* QRCodeService.swift in Sources */,
 				DDB169D527D20CC200F4D752 /* URL+RelativeReference.swift in Sources */,
 				DD9C50062A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */,
+				DD6D1EDE2C2E047500D2AAC4 /* WebDataStore.swift in Sources */,
 				DD76068E295F731200109075 /* Dismiss.swift in Sources */,
 				DDB1699B27D20CC200F4D752 /* EditPasswordController.swift in Sources */,
 				DD28587B2C2C2C07009549FE /* ExtractSessionIdUseCase.swift in Sources */,

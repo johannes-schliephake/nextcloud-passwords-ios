@@ -1,7 +1,6 @@
 import SwiftUI
 import Combine
 import Factory
-import WebKit
 
 
 protocol LoginFlowViewModelProtocol: ViewModel where State == LoginFlowViewModel.State, Action == LoginFlowViewModel.Action {
@@ -18,10 +17,10 @@ final class LoginFlowViewModel: LoginFlowViewModelProtocol {
         
         @Published var request: URLRequest
         let userAgent: String
-        let dataStore: WKWebsiteDataStore
+        let dataStore: any WebDataStore
         @Current(Bool.self) fileprivate(set) var isTrusted
         
-        init(request: URLRequest, userAgent: String, dataStore: WKWebsiteDataStore) {
+        init(request: URLRequest, userAgent: String, dataStore: any WebDataStore) {
             self.request = request
             self.userAgent = userAgent
             self.dataStore = dataStore

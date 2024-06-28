@@ -60,13 +60,7 @@ extension Container: AutoRegistering {
         
         // MARK: Seams
         //Self.shared.appStoreType.register { AppStoreMock.self }
-        Self.shared.nonPersistentWebDataStore.register {
-            if #available(iOS 17.0, *) {
-                resolve(\.nonPersistentWebDataStoreMock)
-            } else {
-                fatalError("Website data store can only be instantiated on iOS 17+")
-            }
-        }
+        //Self.shared.nonPersistentWebDataStore.cached.register { WebDataStoreMock() }
         Self.shared.pasteboard.cached.register { PasteboardMock() }
         Self.shared.productType.register { ProductMock.self }
         Self.shared.qrCodeGenerator.cached.register { QRCodeGeneratorMock() }

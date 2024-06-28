@@ -6,10 +6,10 @@ struct WebView: UIViewRepresentable {
     
     @Binding private var request: URLRequest
     private let userAgent: String?
-    private let dataStore: WKWebsiteDataStore
+    private let dataStore: any WebDataStore
     private let checkTrust: ((SecTrust) async -> Bool)?
     
-    init(request: Binding<URLRequest>, userAgent: String? = nil, dataStore: WKWebsiteDataStore = .nonPersistent(), checkTrust: ((SecTrust) async -> Bool)? = nil) {
+    init(request: Binding<URLRequest>, userAgent: String? = nil, dataStore: any WebDataStore = WKWebsiteDataStore.nonPersistent(), checkTrust: ((SecTrust) async -> Bool)? = nil) {
         _request = request
         self.userAgent = userAgent
         self.dataStore = dataStore
@@ -22,7 +22,11 @@ struct WebView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
-        configuration.websiteDataStore = dataStore
+        if let dataStore = dataStore as? WKWebsiteDataStore {
+            configuration.websiteDataStore = dataStore
+        } else {
+            assertionFailure("WKWebView requires a data store of type WKWebsiteDataStore")
+        }
         let webView = BottomlessWKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
         webView.isOpaque = false

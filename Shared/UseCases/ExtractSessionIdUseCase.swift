@@ -1,5 +1,5 @@
 import Combine
-import WebKit
+import Foundation
 
 
 protocol ExtractSessionIdUseCaseProtocol: UseCase where State == ExtractSessionIdUseCase.State, Action == ExtractSessionIdUseCase.Action {}
@@ -15,7 +15,7 @@ final class ExtractSessionIdUseCase: ExtractSessionIdUseCaseProtocol {
     }
     
     enum Action {
-        case setDataStore(WKWebsiteDataStore)
+        case setDataStore(any WebDataStore)
     }
     
     let state: State
