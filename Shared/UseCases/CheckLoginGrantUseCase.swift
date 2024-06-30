@@ -5,7 +5,6 @@ import Foundation
 protocol CheckLoginGrantUseCaseProtocol: UseCase where State == CheckLoginGrantUseCase.State, Action == CheckLoginGrantUseCase.Action {}
 
 
-// TODO: tests
 final class CheckLoginGrantUseCase: CheckLoginGrantUseCaseProtocol {
     
     final class State {

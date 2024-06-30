@@ -12,6 +12,12 @@ final class LoginUrlUseCaseTests: XCTestCase {
         Container.shared.reset()
     }
     
+    func testInit_thenSetsInitialState() {
+        let loginUrlUseCase: any LoginUrlUseCaseProtocol = LoginUrlUseCase()
+        
+        expect(loginUrlUseCase[\.loginUrl]).to(beNil())
+    }
+    
     func testCallAsFunction_givenInvalidString_whenCallingSetString_thenSetsLoginUrl() {
         let loginUrlUseCase: any LoginUrlUseCaseProtocol = LoginUrlUseCase()
         

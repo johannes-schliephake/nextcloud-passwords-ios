@@ -258,9 +258,6 @@
 		DD2723832A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2723822A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift */; };
 		DD2723842A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2723822A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift */; };
 		DD2723852A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2723822A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift */; };
-		DD2858792C2C2C07009549FE /* ExtractSessionIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2858782C2C2C07009549FE /* ExtractSessionIdUseCase.swift */; };
-		DD28587A2C2C2C07009549FE /* ExtractSessionIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2858782C2C2C07009549FE /* ExtractSessionIdUseCase.swift */; };
-		DD28587B2C2C2C07009549FE /* ExtractSessionIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2858782C2C2C07009549FE /* ExtractSessionIdUseCase.swift */; };
 		DD28587D2C2C31C6009549FE /* Publisher+IgnoreValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD28587C2C2C31C6009549FE /* Publisher+IgnoreValue.swift */; };
 		DD28587E2C2C31C6009549FE /* Publisher+IgnoreValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD28587C2C2C31C6009549FE /* Publisher+IgnoreValue.swift */; };
 		DD28587F2C2C31C6009549FE /* Publisher+IgnoreValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD28587C2C2C31C6009549FE /* Publisher+IgnoreValue.swift */; };
@@ -756,6 +753,14 @@
 		DDF4138A2955AFD000B886EB /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF413892955AFD000B886EB /* ViewModelTests.swift */; };
 		DDF423832A9BEACB0060C5E8 /* ObjectMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF423822A9BEACB0060C5E8 /* ObjectMock.swift */; };
 		DDF423842A9BEC350060C5E8 /* Collection+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD34C0A72A94A8BF005B25BA /* Collection+Subscript.swift */; };
+		DDF856F92C2F6277002F2581 /* LoginFlowViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF856F82C2F6277002F2581 /* LoginFlowViewModelMock.swift */; };
+		DDF856FB2C2F6380002F2581 /* WebDataStoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF856FA2C2F6380002F2581 /* WebDataStoreMock.swift */; };
+		DDF856FD2C2F65FA002F2581 /* HTTPCookieStoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF856FC2C2F65FA002F2581 /* HTTPCookieStoreMock.swift */; };
+		DDF856FF2C2F666D002F2581 /* CheckLoginGrantUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF856FE2C2F666D002F2581 /* CheckLoginGrantUseCaseMock.swift */; };
+		DDF857012C2F6674002F2581 /* CheckTrustUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF857002C2F6674002F2581 /* CheckTrustUseCaseMock.swift */; };
+		DDF857052C2F6681002F2581 /* LoginPollUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF857042C2F6681002F2581 /* LoginPollUseCaseMock.swift */; };
+		DDF857072C316FED002F2581 /* CheckLoginGrantUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF857062C316FED002F2581 /* CheckLoginGrantUseCaseTests.swift */; };
+		DDF857092C3173A6002F2581 /* LoginFlowViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF857082C3173A6002F2581 /* LoginFlowViewModelTests.swift */; };
 		DDF924D32A5D4173005C9977 /* SelectFolderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */; };
 		DDF9FEE52BE4CE7200A7161D /* Publisher+Optionalize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF9FEE42BE4CE7200A7161D /* Publisher+Optionalize.swift */; };
 		DDF9FEE62BE4CE7200A7161D /* Publisher+Optionalize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF9FEE42BE4CE7200A7161D /* Publisher+Optionalize.swift */; };
@@ -975,7 +980,6 @@
 		DD27237A2A6976500017BAA2 /* TorchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchService.swift; sourceTree = "<group>"; };
 		DD27237E2A69847E0017BAA2 /* VideoCapturing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCapturing.swift; sourceTree = "<group>"; };
 		DD2723822A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVCaptureDevice.TorchMode+Toggled.swift"; sourceTree = "<group>"; };
-		DD2858782C2C2C07009549FE /* ExtractSessionIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractSessionIdUseCase.swift; sourceTree = "<group>"; };
 		DD28587C2C2C31C6009549FE /* Publisher+IgnoreValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+IgnoreValue.swift"; sourceTree = "<group>"; };
 		DD29D1E327CF684A00B06835 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		DD2AEB772AEAAE520001781E /* DataScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataScannerView.swift; sourceTree = "<group>"; };
@@ -1213,6 +1217,14 @@
 		DDF413892955AFD000B886EB /* ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
 		DDF4138B29571D1D00B886EB /* FunctionCallLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionCallLogging.swift; sourceTree = "<group>"; };
 		DDF423822A9BEACB0060C5E8 /* ObjectMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMock.swift; sourceTree = "<group>"; };
+		DDF856F82C2F6277002F2581 /* LoginFlowViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowViewModelMock.swift; sourceTree = "<group>"; };
+		DDF856FA2C2F6380002F2581 /* WebDataStoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDataStoreMock.swift; sourceTree = "<group>"; };
+		DDF856FC2C2F65FA002F2581 /* HTTPCookieStoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCookieStoreMock.swift; sourceTree = "<group>"; };
+		DDF856FE2C2F666D002F2581 /* CheckLoginGrantUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckLoginGrantUseCaseMock.swift; sourceTree = "<group>"; };
+		DDF857002C2F6674002F2581 /* CheckTrustUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckTrustUseCaseMock.swift; sourceTree = "<group>"; };
+		DDF857042C2F6681002F2581 /* LoginPollUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPollUseCaseMock.swift; sourceTree = "<group>"; };
+		DDF857062C316FED002F2581 /* CheckLoginGrantUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckLoginGrantUseCaseTests.swift; sourceTree = "<group>"; };
+		DDF857082C3173A6002F2581 /* LoginFlowViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowViewModelTests.swift; sourceTree = "<group>"; };
 		DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderViewModelTests.swift; sourceTree = "<group>"; };
 		DDF924D42A5D7348005C9977 /* ArrayBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayBuilder.swift; sourceTree = "<group>"; };
 		DDF9FEE42BE4CE7200A7161D /* Publisher+Optionalize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Optionalize.swift"; sourceTree = "<group>"; };
@@ -2177,8 +2189,11 @@
 		DD8023F82C08B01A00C6808A /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				DDF856FE2C2F666D002F2581 /* CheckLoginGrantUseCaseMock.swift */,
+				DDF857002C2F6674002F2581 /* CheckTrustUseCaseMock.swift */,
 				DDA0B8412C106BBC00DA2940 /* FolderLabelUseCaseMock.swift */,
 				DD8023FA2C08B03500C6808A /* InitiateLoginUseCaseMock.swift */,
+				DDF857042C2F6681002F2581 /* LoginPollUseCaseMock.swift */,
 				DD8023F92C08B03500C6808A /* LoginUrlUseCaseMock.swift */,
 				DD8023FB2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift */,
 			);
@@ -2197,6 +2212,7 @@
 		DD82E5F02BC72AF100F8257F /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				DDF857062C316FED002F2581 /* CheckLoginGrantUseCaseTests.swift */,
 				DD82E5F12BC72B1100F8257F /* LoginUrlUseCaseTests.swift */,
 			);
 			path = UseCases;
@@ -2286,6 +2302,7 @@
 				DD0B7AF22972CFE400A59E3C /* EditFolderViewModelTests.swift */,
 				DDBEE5BE2A07C802008F4099 /* EditOTPViewModelTests.swift */,
 				DD9A99FA2A23FE4A0016722F /* EditTagViewModelTests.swift */,
+				DDF857082C3173A6002F2581 /* LoginFlowViewModelTests.swift */,
 				DDC6E1A329F0891D00607C81 /* LogViewModelTests.swift */,
 				DDF924D22A5D4173005C9977 /* SelectFolderViewModelTests.swift */,
 				DD5E3CB92953BD620032F517 /* SelectTagsViewModelTests.swift */,
@@ -2343,6 +2360,7 @@
 				DD7BC52729AFFE0A004AA7BC /* EditFolderViewModelMock.swift */,
 				DDBEE5C02A080ADB008F4099 /* EditOTPViewModelMock.swift */,
 				DD14666D2A6BDE82003BBA8F /* EditTagViewModelMock.swift */,
+				DDF856F82C2F6277002F2581 /* LoginFlowViewModelMock.swift */,
 				DDC6E19F29F085C700607C81 /* LogViewModelMock.swift */,
 				DD14666F2A6BDE98003BBA8F /* SelectFolderViewModelMock.swift */,
 				DD7BC52529AFFDC3004AA7BC /* SelectTagsViewModelMock.swift */,
@@ -2419,11 +2437,13 @@
 		DDF0C4882ADD3F0A00A50661 /* Seams */ = {
 			isa = PBXGroup;
 			children = (
+				DDF856FC2C2F65FA002F2581 /* HTTPCookieStoreMock.swift */,
 				DD845CC62AF3B8B300048F3F /* NotificationsMock.swift */,
 				DDF0C4892ADD3F1700A50661 /* PasteboardMock.swift */,
 				DD24F03A2A8EA9F0009823C8 /* ProductMock.swift */,
 				DDCD277F2A16C55F009EC50F /* QRCodeGeneratorMock.swift */,
 				DD1466712A6BE2AE003BBA8F /* VideoCapturerMock.swift */,
+				DDF856FA2C2F6380002F2581 /* WebDataStoreMock.swift */,
 				DD845CD12AF405D300048F3F /* WindowMock.swift */,
 				DD845CCF2AF405CD00048F3F /* WindowSceneMock.swift */,
 			);
@@ -2453,7 +2473,6 @@
 			children = (
 				DD0EF29B2C16D8BD00F0D59B /* CheckLoginGrantUseCase.swift */,
 				DDFF227E2C2A9D3100350BFD /* CheckTrustUseCase.swift */,
-				DD2858782C2C2C07009549FE /* ExtractSessionIdUseCase.swift */,
 				DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */,
 				DD62B0662BBCAAC7006E1530 /* InitiateLoginUseCase.swift */,
 				DD0EF29F2C16DBD900F0D59B /* LoginPollUseCase.swift */,
@@ -2916,7 +2935,6 @@
 				DD9C50042A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */,
 				8F77DA5D25699F8900CFDA8D /* CopyToast.swift in Sources */,
 				8F513A63256064E9001C6EF9 /* ServerSetupPage.swift in Sources */,
-				DD28587A2C2C2C07009549FE /* ExtractSessionIdUseCase.swift in Sources */,
 				DD27237F2A69847E0017BAA2 /* VideoCapturing.swift in Sources */,
 				DD214362295A014B006C08DD /* TagsService.swift in Sources */,
 				DDCE125927413FF6003912D0 /* CreateTagRequest.swift in Sources */,
@@ -3133,7 +3151,6 @@
 				DDA4FE7726E755C000D6F92E /* Initialize.swift in Sources */,
 				DD9C50052A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */,
 				DD76068D295F731200109075 /* Dismiss.swift in Sources */,
-				DD2858792C2C2C07009549FE /* ExtractSessionIdUseCase.swift in Sources */,
 				8FBE43D3258D5A8C003F7F34 /* String+Localized.swift in Sources */,
 				DD2723802A69847E0017BAA2 /* VideoCapturing.swift in Sources */,
 				8FC361B725827E4C00785371 /* PasswordDetailPage.swift in Sources */,
@@ -3258,10 +3275,14 @@
 			files = (
 				DD24F0372A8E2246009823C8 /* SettingsServiceMock.swift in Sources */,
 				DD0B7AF32972CFE400A59E3C /* EditFolderViewModelTests.swift in Sources */,
+				DDF856FB2C2F6380002F2581 /* WebDataStoreMock.swift in Sources */,
+				DDF856F92C2F6277002F2581 /* LoginFlowViewModelMock.swift in Sources */,
 				DDDD93F92A14BD720061BEA0 /* ShareOTPViewModelTests.swift in Sources */,
 				DD7BC52629AFFDC3004AA7BC /* SelectTagsViewModelMock.swift in Sources */,
 				DDDD93FB2A1501810061BEA0 /* QRCodeServiceMock.swift in Sources */,
+				DDF857092C3173A6002F2581 /* LoginFlowViewModelTests.swift in Sources */,
 				DD5E99F329AB6D3700A7A4B9 /* BeCalled.swift in Sources */,
+				DDF857052C2F6681002F2581 /* LoginPollUseCaseMock.swift in Sources */,
 				DDC6E1A029F085C700607C81 /* LogViewModelMock.swift in Sources */,
 				DD24F03B2A8EA9F0009823C8 /* ProductMock.swift in Sources */,
 				DDBEE5C12A080ADC008F4099 /* EditOTPViewModelMock.swift in Sources */,
@@ -3275,6 +3296,7 @@
 				DDF423832A9BEACB0060C5E8 /* ObjectMock.swift in Sources */,
 				DDDD93F72A14BD650061BEA0 /* QRCodeServiceTests.swift in Sources */,
 				DD7BC51E29AFFCCF004AA7BC /* TagValidationServiceMock.swift in Sources */,
+				DDF856FD2C2F65FA002F2581 /* HTTPCookieStoreMock.swift in Sources */,
 				DDBEE5BF2A07C802008F4099 /* EditOTPViewModelTests.swift in Sources */,
 				DD845CC52AF3B89900048F3F /* WindowSizeRepositoryMock.swift in Sources */,
 				DDFF5D4A29D850ED00422603 /* MockInjected.swift in Sources */,
@@ -3285,6 +3307,7 @@
 				DD7BC52229AFFD33004AA7BC /* TagsServiceMock.swift in Sources */,
 				DD46282D2A948FAE002DB487 /* Fail.swift in Sources */,
 				DDA0B8422C106BBC00DA2940 /* FolderLabelUseCaseMock.swift in Sources */,
+				DDF857072C316FED002F2581 /* CheckLoginGrantUseCaseTests.swift in Sources */,
 				DD24F0332A8E172A009823C8 /* SettingsViewModelMock.swift in Sources */,
 				DD7BC51829AFBA00004AA7BC /* Container+Mocks.swift in Sources */,
 				DD5E99F629ABFF4000A7A4B9 /* ClosureMock.swift in Sources */,
@@ -3340,6 +3363,8 @@
 				DD0B7AEF2972CEBD00A59E3C /* FolderValidationServiceTests.swift in Sources */,
 				DDC6E1A229F085D100607C81 /* PasteboardServiceMock.swift in Sources */,
 				DD7BC52A29AFFE43004AA7BC /* ViewModelMock.swift in Sources */,
+				DDF857012C2F6674002F2581 /* CheckTrustUseCaseMock.swift in Sources */,
+				DDF856FF2C2F666D002F2581 /* CheckLoginGrantUseCaseMock.swift in Sources */,
 				DD82E5F42BC72B2100F8257F /* ServerSetupViewModelTests.swift in Sources */,
 				DDBEE5C32A080BCA008F4099 /* OTPServiceMock.swift in Sources */,
 				DD1466762A6BE720003BBA8F /* TorchServiceTests.swift in Sources */,
@@ -3464,7 +3489,6 @@
 				DD6D1EDE2C2E047500D2AAC4 /* WebDataStore.swift in Sources */,
 				DD76068E295F731200109075 /* Dismiss.swift in Sources */,
 				DDB1699B27D20CC200F4D752 /* EditPasswordController.swift in Sources */,
-				DD28587B2C2C2C07009549FE /* ExtractSessionIdUseCase.swift in Sources */,
 				DDB169CB27D20CC200F4D752 /* AutoFillController.swift in Sources */,
 				DD2723812A69847E0017BAA2 /* VideoCapturing.swift in Sources */,
 				DD214364295A014B006C08DD /* TagsService.swift in Sources */,

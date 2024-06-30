@@ -1,4 +1,4 @@
-import SwiftUI
+import Foundation
 import Combine
 import Factory
 
@@ -10,7 +10,6 @@ protocol LoginFlowViewModelProtocol: ViewModel where State == LoginFlowViewModel
 }
 
 
-// TODO: tests
 final class LoginFlowViewModel: LoginFlowViewModelProtocol {
     
     final class State: ObservableObject {
@@ -34,12 +33,10 @@ final class LoginFlowViewModel: LoginFlowViewModelProtocol {
     
     @Injected(\.checkLoginGrantUseCase) private var checkLoginGrantUseCase
     @Injected(\.checkTrustUseCase) private var checkTrustUseCase
-    @Injected(\.extractSessionIdUseCase) private var extractSessionIdUseCase
-    @LazyInjected(\.loginPollUseCase) private var loginPollUseCase
+    @Injected(\.loginPollUseCase) private var loginPollUseCase
     
     let state: State
     
-    private let poll: LoginFlowChallenge.Poll
     private let trustSubject = PassthroughSubject<SecTrust, Never>()
     private var cancellables = Set<AnyCancellable>()
     
@@ -51,9 +48,11 @@ final class LoginFlowViewModel: LoginFlowViewModelProtocol {
         }
         let nonPersistentWebDataStore = resolve(\.nonPersistentWebDataStore)
         state = .init(request: request, userAgent: configuration.clientName, dataStore: nonPersistentWebDataStore)
-        poll = challenge.poll
         
         setupPipelines()
+        
+        loginPollUseCase(.setDataStore(nonPersistentWebDataStore))
+        loginPollUseCase(.setPoll(challenge.poll))
     }
     
     private func setupPipelines() {
@@ -65,10 +64,7 @@ final class LoginFlowViewModel: LoginFlowViewModelProtocol {
             .handle(with: checkLoginGrantUseCase, { .setUrl($0) }, publishing: \.$granted)
             .filter { $0 }
             .ignoreValue()
-            .handle(with: extractSessionIdUseCase, .setDataStore(state.dataStore), publishing: \.$sessionId)
-            .handleEvents(receiveOutput: { self?.loginPollUseCase(.setTemporarySessionId($0)) })
-            .compactMap { _ in self?.poll }
-            .sink { self?.loginPollUseCase(.setPoll($0)) }
+            .sink { self?.loginPollUseCase(.startPolling) }
             .store(in: &cancellables)
         
         trustSubject

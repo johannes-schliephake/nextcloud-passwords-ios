@@ -12,7 +12,7 @@ extension Container: AutoRegistering {
         Self.shared.editOTPViewModelType.register { EditOTPViewModelMock.self }
         Self.shared.editTagViewModelType.register { EditTagViewModelMock.self }
         //Self.shared.globalAlertsViewModelType.register { GlobalAlertsViewModelMock.self }
-        //Self.shared.loginFlowViewModelType.register { LoginFlowViewModelMock.self }
+        Self.shared.loginFlowViewModelType.register { LoginFlowViewModelMock.self }
         Self.shared.logViewModelType.register { LogViewModelMock.self }
         Self.shared.selectFolderViewModelType.register { SelectFolderViewModelMock.self }
         Self.shared.selectTagsViewModelType.register { SelectTagsViewModelMock.self }
@@ -21,12 +21,11 @@ extension Container: AutoRegistering {
         Self.shared.shareOTPViewModelType.register { ShareOTPViewModelMock.self }
         
         // MARK: UseCases
-        //Self.shared.checkLoginGrantUseCase.cached.register { CheckLoginGrantUseCaseMock() }
-        //Self.shared.checkTrustUseCase.cached.register { CheckTrustUseCaseMock() }
-        //Self.shared.extractSessionIdUseCase.cached.register { ExtractSessionIdUseCaseMock() }
+        Self.shared.checkLoginGrantUseCase.cached.register { CheckLoginGrantUseCaseMock() }
+        Self.shared.checkTrustUseCase.cached.register { CheckTrustUseCaseMock() }
         Self.shared.folderLabelUseCase.cached.register { FolderLabelUseCaseMock() }
         Self.shared.initiateLoginUseCase.cached.register { InitiateLoginUseCaseMock() }
-        //Self.shared.loginPollUseCase.cached.register { LoginPollUseCaseMock() }
+        Self.shared.loginPollUseCase.cached.register { LoginPollUseCaseMock() }
         Self.shared.loginUrlUseCase.cached.register { LoginUrlUseCaseMock() }
         Self.shared.managedConfigurationUseCase.register { ManagedConfigurationUseCaseMock() }
         
@@ -60,7 +59,7 @@ extension Container: AutoRegistering {
         
         // MARK: Seams
         //Self.shared.appStoreType.register { AppStoreMock.self }
-        //Self.shared.nonPersistentWebDataStore.cached.register { WebDataStoreMock() }
+        Self.shared.nonPersistentWebDataStore.cached.register { WebDataStoreMock() }
         Self.shared.pasteboard.cached.register { PasteboardMock() }
         Self.shared.productType.register { ProductMock.self }
         Self.shared.qrCodeGenerator.cached.register { QRCodeGeneratorMock() }

@@ -1,7 +1,7 @@
 import WebKit
 
 
-protocol WebDataStore {
+protocol WebDataStore: AnyObject {
     
     associatedtype HTTPCookieStoreType: HTTPCookieStore
     

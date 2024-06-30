@@ -10,19 +10,29 @@ protocol LoginPollUseCaseProtocol: UseCase where State == EmptyState, Action == 
 final class LoginPollUseCase: LoginPollUseCaseProtocol {
     
     enum Action {
-        case setTemporarySessionId(String?)
+        case setDataStore(any WebDataStore)
         case setPoll(LoginFlowChallenge.Poll)
+        case startPolling
     }
     
     @LazyInjected(\.logger) private var logger
     
-    private var temporarySessionId: String?
+    private var dataStore: (any WebDataStore)?
+    private var poll: LoginFlowChallenge.Poll?
     
     func callAsFunction(_ action: Action) {
         switch action {
-        case let .setTemporarySessionId(temporarySessionId):
-            self.temporarySessionId = temporarySessionId
+        case let .setDataStore(dataStore):
+            self.dataStore = dataStore
         case let .setPoll(poll):
+            self.poll = poll
+        case .startPolling:
+            guard let dataStore,
+                  let poll else {
+                logger.log(error: "UseCase usage inconsistency encountered, this case shouldn't be reachable")
+                return
+            }
+            
             var request = URLRequest(url: poll.endpoint)
             request.httpMethod = "POST"
             request.httpBody = Data("token=\(poll.token)".utf8)
@@ -45,9 +55,18 @@ final class LoginPollUseCase: LoginPollUseCaseProtocol {
                     self?.logger.log(error: error)
                 })
                 .ignoreFailure()
-                .map { [weak self] response in
+                .combineLatest(Future { promise in
+                    DispatchQueue.main.async {
+                        dataStore.httpCookieStore.getAllCookies { cookies in
+                            let sessionCookie = cookies.first { $0.name == "nc_session_id" }
+                            let sessionId = sessionCookie?.value
+                            promise(.success(sessionId))
+                        }
+                    }
+                })
+                .map { response, temporarySessionId in
                     let appSession = Session(server: response.server, user: response.loginName, password: response.appPassword)
-                    let webSession = self?.temporarySessionId.map { Session(server: appSession.server, user: appSession.user, password: $0) }
+                    let webSession = temporarySessionId.map { Session(server: appSession.server, user: appSession.user, password: $0) }
                     return (appSession, webSession)
                 }
                 .flatMapLatest { appSession, webSession in

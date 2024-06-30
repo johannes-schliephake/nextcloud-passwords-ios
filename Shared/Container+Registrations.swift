@@ -53,9 +53,6 @@ extension Container {
     var checkTrustUseCase: Factory<any CheckTrustUseCaseProtocol> {
         self { CheckTrustUseCase() }
     }
-    var extractSessionIdUseCase: Factory<any ExtractSessionIdUseCaseProtocol> {
-        self { ExtractSessionIdUseCase() }
-    }
     var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
         self { FolderLabelUseCase() }
     }

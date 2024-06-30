@@ -1,7 +1,7 @@
 import WebKit
 
 
-protocol HTTPCookieStore {
+protocol HTTPCookieStore: AnyObject {
     
     func getAllCookies(_ completionHandler: @escaping @MainActor ([HTTPCookie]) -> Void)
     
