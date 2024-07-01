@@ -28,6 +28,7 @@ final class LoginFlowViewModelTests: XCTestCase {
         expect(loginFlowViewModel[\.request].allHTTPHeaderFields).to(equal(["Accept-Language": "en"]))
         expect(loginFlowViewModel[\.userAgent]).to(equal("Mock"))
         expect(loginFlowViewModel[\.dataStore]).to(be(nonPersistentWebDataStoreMock))
+        expect(loginFlowViewModel[\.isLoading]).to(beTrue())
         expect(loginFlowViewModel[\.isTrusted]).to(beNil())
     }
     
@@ -93,6 +94,25 @@ final class LoginFlowViewModelTests: XCTestCase {
         }
     }
     
+    func testInit_whenCheckLoginGrantUseCaseEmittingGrantedTrue_thenSetsIsLoadingToTrue() throws {
+        let loginFlowViewModel: any LoginFlowViewModelProtocol = LoginFlowViewModel(challenge: challengeMock)
+        loginFlowViewModel(.updateLoadingState(false))
+        try require(loginFlowViewModel[\.isLoading]).to(beFalse())
+        
+        checkLoginGrantUseCaseMock.mockState(\.granted, value: .success(true))
+        
+        expect(loginFlowViewModel[\.isLoading]).to(beTrue())
+    }
+    
+    func testInit_whenCheckLoginGrantUseCaseEmittingGrantedFalse_thenDoesntSetIsLoading() throws {
+        let loginFlowViewModel: any LoginFlowViewModelProtocol = LoginFlowViewModel(challenge: challengeMock)
+        try require(loginFlowViewModel[\.isLoading]).to(beTrue())
+        
+        checkLoginGrantUseCaseMock.mockState(\.granted, value: .success(false))
+        
+        expect(loginFlowViewModel[\.isLoading]).to(beTrue())
+    }
+    
     func testInit_whenCheckTrustUseCaseEmittingIsTrusted_thenSetsIsTrusted() {
         let loginFlowViewModel: any LoginFlowViewModelProtocol = LoginFlowViewModel(challenge: challengeMock)
         let isTrustedMock = Bool.random()
@@ -114,6 +134,35 @@ final class LoginFlowViewModelTests: XCTestCase {
         loginFlowViewModel(.checkTrust(trust))
         
         expect(self.checkTrustUseCaseMock).to(beCalled(.once, on: "setTrust", withParameter: trust))
+    }
+    
+    func testCallAsFunction_whenCallingUpdateLoadingState_thenSetsIsLoading() {
+        let loginFlowViewModel: any LoginFlowViewModelProtocol = LoginFlowViewModel(challenge: challengeMock)
+        let isLoadingMock = Bool.random()
+        
+        loginFlowViewModel(.updateLoadingState(isLoadingMock))
+        
+        expect(loginFlowViewModel[\.isLoading]).to(equal(isLoadingMock))
+    }
+    
+    func testCallAsFunction_givenCheckLoginGrantUseCaseEmittingGrantedTrue_whenCallingUpdateLoadingState_thenDoesntSetIsLoading() throws {
+        let loginFlowViewModel: any LoginFlowViewModelProtocol = LoginFlowViewModel(challenge: challengeMock)
+        checkLoginGrantUseCaseMock.mockState(\.granted, value: .success(true))
+        try require(loginFlowViewModel[\.isLoading]).to(beTrue())
+        
+        loginFlowViewModel(.updateLoadingState(false))
+        
+        expect(loginFlowViewModel[\.isLoading]).to(beTrue())
+    }
+    
+    func testCallAsFunction_givenCheckLoginGrantUseCaseEmittingGrantedFalse_whenCallingUpdateLoadingState_thenSetsIsLoading() throws {
+        let loginFlowViewModel: any LoginFlowViewModelProtocol = LoginFlowViewModel(challenge: challengeMock)
+        checkLoginGrantUseCaseMock.mockState(\.granted, value: .success(false))
+        try require(loginFlowViewModel[\.isLoading]).to(beTrue())
+        
+        loginFlowViewModel(.updateLoadingState(false))
+        
+        expect(loginFlowViewModel[\.isLoading]).to(beFalse())
     }
     
 }

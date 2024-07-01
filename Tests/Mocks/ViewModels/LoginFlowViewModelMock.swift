@@ -16,7 +16,7 @@ extension LoginFlowViewModel.State: Mock {
     convenience init() {
         let configurationTypeMock = resolve(\.configurationType)
         let nonPersistentWebDataStoreMock = resolve(\.nonPersistentWebDataStore)
-        self.init(request: .init(url: .init(string: ".")!), userAgent: configurationTypeMock.clientName, dataStore: nonPersistentWebDataStoreMock)
+        self.init(request: .init(url: .init(string: ".")!), userAgent: configurationTypeMock.clientName, dataStore: nonPersistentWebDataStoreMock, isLoading: false)
     }
     
 }

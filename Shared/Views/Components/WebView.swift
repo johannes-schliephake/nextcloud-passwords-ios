@@ -7,12 +7,14 @@ struct WebView: UIViewRepresentable {
     @Binding private var request: URLRequest
     private let userAgent: String?
     private let dataStore: any WebDataStore
+    private let updateLoadingState: ((Bool) -> Void)?
     private let checkTrust: ((SecTrust) async -> Bool)?
     
-    init(request: Binding<URLRequest>, userAgent: String? = nil, dataStore: any WebDataStore = WKWebsiteDataStore.nonPersistent(), checkTrust: ((SecTrust) async -> Bool)? = nil) {
+    init(request: Binding<URLRequest>, userAgent: String? = nil, dataStore: any WebDataStore = WKWebsiteDataStore.nonPersistent(), updateLoadingState: ((Bool) -> Void)? = nil, checkTrust: ((SecTrust) async -> Bool)? = nil) {
         _request = request
         self.userAgent = userAgent
         self.dataStore = dataStore
+        self.updateLoadingState = updateLoadingState
         self.checkTrust = checkTrust
     }
     
@@ -79,8 +81,28 @@ extension WebView {
             return (.useCredential, .init(trust: trust))
         }
         
-    }
+        func webView(_: WKWebView, didStartProvisionalNavigation _: WKNavigation) {
+            webView.updateLoadingState?(true)
+        }
         
+        func webView(_: WKWebView, didFinish _: WKNavigation) {
+            webView.updateLoadingState?(false)
+        }
+        
+        func webView(_: WKWebView, didFailProvisionalNavigation _: WKNavigation, withError _: any Error) {
+            webView.updateLoadingState?(false)
+        }
+        
+        func webView(_: WKWebView, didFail _: WKNavigation, withError _: any Error) {
+            webView.updateLoadingState?(false)
+        }
+        
+        func webViewWebContentProcessDidTerminate(_: WKWebView) {
+            webView.updateLoadingState?(false)
+        }
+        
+    }
+    
 }
 
 

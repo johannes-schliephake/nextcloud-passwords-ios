@@ -17,18 +17,21 @@ final class LoginFlowViewModel: LoginFlowViewModelProtocol {
         @Published var request: URLRequest
         let userAgent: String
         let dataStore: any WebDataStore
+        @Published fileprivate(set) var isLoading: Bool
         @Current(Bool.self) fileprivate(set) var isTrusted
         
-        init(request: URLRequest, userAgent: String, dataStore: any WebDataStore) {
+        init(request: URLRequest, userAgent: String, dataStore: any WebDataStore, isLoading: Bool) {
             self.request = request
             self.userAgent = userAgent
             self.dataStore = dataStore
+            self.isLoading = isLoading
         }
         
     }
     
     enum Action {
         case checkTrust(SecTrust)
+        case updateLoadingState(Bool)
     }
     
     @Injected(\.checkLoginGrantUseCase) private var checkLoginGrantUseCase
@@ -38,6 +41,7 @@ final class LoginFlowViewModel: LoginFlowViewModelProtocol {
     let state: State
     
     private let trustSubject = PassthroughSubject<SecTrust, Never>()
+    private var didGrant = false
     private var cancellables = Set<AnyCancellable>()
     
     init(challenge: LoginFlowChallenge) {
@@ -47,7 +51,7 @@ final class LoginFlowViewModel: LoginFlowViewModelProtocol {
             request.addValue(language, forHTTPHeaderField: "Accept-Language")
         }
         let nonPersistentWebDataStore = resolve(\.nonPersistentWebDataStore)
-        state = .init(request: request, userAgent: configuration.clientName, dataStore: nonPersistentWebDataStore)
+        state = .init(request: request, userAgent: configuration.clientName, dataStore: nonPersistentWebDataStore, isLoading: true)
         
         setupPipelines()
         
@@ -64,6 +68,10 @@ final class LoginFlowViewModel: LoginFlowViewModelProtocol {
             .handle(with: checkLoginGrantUseCase, { .setUrl($0) }, publishing: \.$granted)
             .filter { $0 }
             .ignoreValue()
+            .handleEvents(receiveOutput: {
+                self?.didGrant = true
+                self?.state.isLoading = true
+            })
             .sink { self?.loginPollUseCase(.startPolling) }
             .store(in: &cancellables)
         
@@ -77,6 +85,11 @@ final class LoginFlowViewModel: LoginFlowViewModelProtocol {
         switch action {
         case let .checkTrust(trust):
             trustSubject.send(trust)
+        case let .updateLoadingState(isLoading):
+            guard !didGrant else {
+                return
+            }
+            state.isLoading = isLoading
         }
     }
     
