@@ -3,7 +3,7 @@ import SwiftUI
 
 struct SelectFolderPage: View {
     
-    @StateObject var viewModel: AnyViewModel<SelectFolderViewModel.State, SelectFolderViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<SelectFolderViewModel>
     
     var body: some View {
         mainStack()
@@ -19,7 +19,7 @@ struct SelectFolderPage: View {
                     confirmButton()
                 }
             }
-            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
+            .dismiss(on: viewModel[\.shouldDismiss])
     }
     
     private func mainStack() -> some View {

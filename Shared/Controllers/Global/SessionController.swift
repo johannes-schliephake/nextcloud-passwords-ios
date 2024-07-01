@@ -285,7 +285,7 @@ final class SessionController: ObservableObject {
             CloseSessionRequest(session: session).send { _ in promise(.success(())) }
             session.invalidate(reason: .logout)
         }
-        .flatMap {
+        .flatMapLatest {
             DeleteAppPasswordOCSRequest(session: session).publisher
                 .replaceError(with: ())
         }

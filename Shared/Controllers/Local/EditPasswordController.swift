@@ -117,7 +117,7 @@ final class EditPasswordController: ObservableObject {
         }
         password.updated = Date()
         
-        let hash = Crypto.SHA1.hash(passwordPassword.data(using: .utf8)!)
+        let hash = Crypto.SHA1.hash(.init(passwordPassword.utf8))
         password.hash = String(hash.prefix(SettingsController.default.userPasswordSecurityHash))
         
         password.password = passwordPassword

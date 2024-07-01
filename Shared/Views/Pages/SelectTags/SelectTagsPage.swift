@@ -3,7 +3,7 @@ import SwiftUI
 
 struct SelectTagsPage: View {
     
-    @StateObject var viewModel: AnyViewModel<SelectTagsViewModel.State, SelectTagsViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<SelectTagsViewModel>
     
     @FocusState private var focusedField: SelectTagsViewModel.FocusField?
     
@@ -19,7 +19,7 @@ struct SelectTagsPage: View {
                 }
             }
             .sync($viewModel[\.focusedField], to: _focusedField)
-            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
+            .dismiss(on: viewModel[\.shouldDismiss])
     }
     
     private func mainStack() -> some View {

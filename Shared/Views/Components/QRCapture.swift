@@ -40,7 +40,7 @@ extension QRCapture {
             fatalError("init(coder:) has not been implemented") // swiftlint:disable:this fatal_error
         }
         
-        override class var layerClass: AnyClass {
+        override class var layerClass: AnyClass { // swiftlint:disable:this static_over_final_class
             AVCaptureVideoPreviewLayer.self
         }
         

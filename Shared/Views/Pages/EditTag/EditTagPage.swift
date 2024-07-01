@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EditTagPage: View {
     
-    @StateObject var viewModel: AnyViewModel<EditTagViewModel.State, EditTagViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<EditTagViewModel>
     
     @FocusState private var focusedField: EditTagViewModel.FocusField?
     
@@ -20,7 +20,7 @@ struct EditTagPage: View {
                 }
             }
             .sync($viewModel[\.focusedField], to: _focusedField)
-            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
+            .dismiss(on: viewModel[\.shouldDismiss])
     }
     
     private func listView() -> some View {

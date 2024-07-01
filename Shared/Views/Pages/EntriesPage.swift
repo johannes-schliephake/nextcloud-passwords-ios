@@ -1435,24 +1435,3 @@ extension EntriesPage {
     }
     
 }
-
-
-#if DEBUG
-
-struct EntriesPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        PreviewDevice.generate {
-            NavigationView {
-                EntriesPage(entriesController: EntriesController.mock)
-            }
-            .showColumns(true)
-            .environmentObject(AutoFillController.mock)
-            .environmentObject(BiometricAuthenticationController.mock)
-            .environmentObject(SessionController.mock)
-        }
-    }
-    
-}
-
-#endif

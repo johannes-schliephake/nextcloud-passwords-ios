@@ -18,5 +18,6 @@ enum ConfigurationMock: Configurating {
     static var nonUpdatingJsonEncoder = JSONEncoder()
     static var updatingJsonEncoder = JSONEncoder()
     static var propertyListDecoder = PropertyListDecoder()
+    static var preferredLanguage: String? = "en"
     
 }

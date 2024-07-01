@@ -1,2 +1,2 @@
-• Button zum Löschen des E2E-Passworts
+• Weitere Teile der App auf neue Architektur aktualisiert
 • Fehlerbehebungen und Optimierungen

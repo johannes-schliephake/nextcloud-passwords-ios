@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct SettingsNavigation: View {
@@ -9,7 +10,7 @@ struct SettingsNavigation: View {
     
     var body: some View {
         NavigationView {
-            SettingsPage(viewModel: SettingsViewModel().eraseToAnyViewModel())
+            SettingsPage(viewModel: resolve(\.settingsViewModelType).init().eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {

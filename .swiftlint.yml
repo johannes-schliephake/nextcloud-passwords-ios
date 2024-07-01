@@ -49,7 +49,6 @@ opt_in_rules:
   - toggle_bool
   - unneeded_parentheses_in_closure_argument
   - unowned_variable_capture
-  - unused_capture_list
   - yoda_condition
 
 custom_rules:
@@ -59,11 +58,11 @@ custom_rules:
     regex: '\b(Swift\s*\.\s*)?print\b'
     message: 'Prints should be removed'
     severity: warning
-  view_model_state_access:
+  state_access:
     included: '.*\.swift'
-    name: 'ViewModel State Access'
-    regex: '\bviewModel\s*\.\s*state'
-    message: 'ViewModel state should be accessed via subscript'
+    name: 'State Access'
+    regex: '\b[a-zA-Z0-9]*(?i)(viewModel|useCase)(?-i)\s*\.\s*state'
+    message: 'State should be accessed via subscript'
     severity: warning
   test_naming:
     included: '.*Tests\.swift'

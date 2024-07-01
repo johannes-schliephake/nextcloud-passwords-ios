@@ -1,5 +1,7 @@
 import Factory
 @testable import Passwords
+import Foundation
+import CombineSchedulers
 
 
 extension Container {
@@ -47,6 +49,11 @@ extension Container {
     var tags: Factory<[Tag]> {
         self { Tag.mocks }
             .shared
+    }
+    
+    var userInitiatedSchedulerMock: Factory<TestSchedulerOf<DispatchQueue>> {
+        self { DispatchQueue.test }
+            .cached
     }
     
 }

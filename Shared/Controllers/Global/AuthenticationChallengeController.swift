@@ -1,6 +1,7 @@
 import WebKit
 import Foundation
 import Factory
+import Combine
 
 
 final class AuthenticationChallengeController: NSObject, ObservableObject {
@@ -45,20 +46,19 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
         deniedCertificateConfirmationRequests.forEach { $0.deny() }
     }
     
-    private func handler(didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            [weak self] in
+    private func checkTrust(_ trust: SecTrust?, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             
             /// Check certificate and calculate SHA-256 if invalid
-            guard let serverTrust = challenge.protectionSpace.serverTrust else {
+            guard let trust else {
                 completionHandler(.performDefaultHandling, nil)
                 return
             }
-            if SecTrustEvaluateWithError(serverTrust, nil) {
+            if SecTrustEvaluateWithError(trust, nil) {
                 completionHandler(.performDefaultHandling, nil)
                 return
             }
-            guard let certificateChain = SecTrustCopyCertificateChain(serverTrust) as? [SecCertificate],
+            guard let certificateChain = SecTrustCopyCertificateChain(trust) as? [SecCertificate],
                   let certificate = certificateChain.first else {
                 completionHandler(.performDefaultHandling, nil)
                 return
@@ -68,13 +68,13 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
             
             /// Check certificate hash against accepted hash
             if certificateHash == self?.acceptedCertificateHash {
-                completionHandler(.useCredential, URLCredential(trust: serverTrust))
+                completionHandler(.useCredential, .init(trust: trust))
                 return
             }
             
             /// Add data needed for certificate confirmation
             let certificateConfirmationRequest = CertificateConfirmationRequest(hash: certificateHash, accept: {
-                completionHandler(.useCredential, URLCredential(trust: serverTrust))
+                completionHandler(.useCredential, .init(trust: trust))
             }, deny: {
                 completionHandler(.performDefaultHandling, nil)
             })
@@ -82,6 +82,18 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
                 self?.certificateConfirmationRequests.append(certificateConfirmationRequest)
             }
         }
+    }
+    
+    func checkTrust(_ trust: SecTrust?) -> AnyPublisher<Bool, Never> {
+        Just(trust)
+            .flatMap { [weak self] trust in
+                Future { promise in
+                    self?.checkTrust(trust) { disposition, _ in
+                        promise(.success(disposition == .useCredential))
+                    }
+                }
+            }
+            .eraseToAnyPublisher()
     }
     
 }
@@ -108,7 +120,7 @@ extension AuthenticationChallengeController {
 extension AuthenticationChallengeController: URLSessionDelegate {
     
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        handler(didReceive: challenge, completionHandler: completionHandler)
+        checkTrust(challenge.protectionSpace.serverTrust, completionHandler: completionHandler)
     }
     
 }
@@ -117,7 +129,7 @@ extension AuthenticationChallengeController: URLSessionDelegate {
 extension AuthenticationChallengeController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        handler(didReceive: challenge, completionHandler: completionHandler)
+        checkTrust(challenge.protectionSpace.serverTrust, completionHandler: completionHandler)
     }
     
 }

@@ -49,7 +49,7 @@ final class ShareOTPViewModel: ShareOTPViewModelProtocol {
         weak var `self` = self
         
         Just(otpUrl)
-            .compactFlatMap { self?.qrCodeService.generateQrCode(from: $0) }
+            .compactFlatMapLatest { self?.qrCodeService.generateQrCode(from: $0) }
             .catch { error in
                 self?.logger.log(error: error)
                 return Empty<UIImage, Never>()

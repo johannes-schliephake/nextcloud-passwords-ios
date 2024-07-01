@@ -32,7 +32,7 @@ final class EditOTPViewModel: EditOTPViewModelProtocol {
         @Published fileprivate(set) var editIsValid: Bool
         @Published var focusedField: FocusField?
         
-        let shouldDismiss = PassthroughSubject<Void, Never>()
+        let shouldDismiss = Signal()
         
         init(isCreating: Bool, otpType: OTP.OTPType, otpAlgorithm: Crypto.OTP.Algorithm, otpSecret: String, otpDigits: Int, otpCounter: Int, otpPeriod: Int, showMore: Bool, sharingUrl: URL?, sharingAvailable: Bool, previousFieldFocusable: Bool, nextFieldFocusable: Bool, showDeleteAlert: Bool, showCancelAlert: Bool, hasChanges: Bool, editIsValid: Bool, focusedField: FocusField?) {
             self.isCreating = isCreating
@@ -210,22 +210,22 @@ final class EditOTPViewModel: EditOTPViewModelProtocol {
             state.showDeleteAlert = true
         case .confirmDelete:
             updateOtp(nil)
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .applyToOTP:
             guard let otp = otpService.makeOtp(type: state.otpType, algorithm: state.otpAlgorithm, secret: state.otpSecret, digits: state.otpDigits, counter: state.otpCounter, period: state.otpPeriod) else {
                 logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
                 return
             }
             updateOtp(otp)
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .cancel:
             if state.hasChanges {
                 state.showCancelAlert = true
             } else {
-                state.shouldDismiss.send()
+                state.shouldDismiss()
             }
         case .discardChanges:
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .dismissKeyboard:
             state.focusedField = nil
         }

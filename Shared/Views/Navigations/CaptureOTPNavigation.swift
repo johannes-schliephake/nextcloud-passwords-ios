@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct CaptureOTPNavigation: View {
@@ -11,7 +12,7 @@ struct CaptureOTPNavigation: View {
     
     var body: some View {
         NavigationView {
-            CaptureOTPPage(viewModel: CaptureOTPViewModel(captureOtp: capture).eraseToAnyViewModel())
+            CaptureOTPPage(viewModel: resolve(\.captureOTPViewModelType).init(captureOtp: capture).eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {

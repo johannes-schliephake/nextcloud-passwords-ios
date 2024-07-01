@@ -4,9 +4,9 @@ import SwiftUI
 struct Node<Element> {
     
     let value: Element
-    let children: [Node]?
+    let children: [Self]?
     
-    init(value: Element, children: [Node]? = nil) {
+    init(value: Element, children: [Self]? = nil) {
         self.value = value
         self.children = children
     }
@@ -72,13 +72,5 @@ struct TreePicker<Element: Identifiable, Content: View>: View {
 #if DEBUG
 
 extension Node: Equatable where Element: Equatable {}
-
-extension Node {
-    
-    init(value: Element, @ArrayBuilder<Node> _ children: @escaping () -> [Node]) {
-        self.init(value: value, children: children())
-    }
-    
-}
 
 #endif

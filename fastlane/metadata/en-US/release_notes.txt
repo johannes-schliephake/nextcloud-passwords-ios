@@ -1,2 +1,2 @@
-• Button for clearing E2E password
+• Upgraded more parts of the app to new architecture
 • Bugfixes and optimizations

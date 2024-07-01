@@ -1,4 +1,4 @@
-import SwiftUI
+import Foundation
 import Combine
 import Factory
 
@@ -31,7 +31,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         let versionName: String
         let sourceCodeUrl: URL?
         
-        let shouldDismiss = PassthroughSubject<Void, Never>()
+        let shouldDismiss = Signal()
         
         init(username: String?, server: String?, isChallengePasswordStored: Bool, wasChallengePasswordCleared: Bool, showLogoutAlert: Bool, isOfflineStorageEnabled: Bool, isAutomaticPasswordGenerationEnabled: Bool, isUniversalClipboardEnabled: Bool, canPurchaseTip: Bool, tipProducts: [any Product]?, isTipTransactionRunning: Bool, isTestFlight: Bool, betaUrl: URL?, isLogAvailable: Bool, versionName: String, sourceCodeUrl: URL?) {
             self.username = username
@@ -149,7 +149,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
             state.showLogoutAlert = true
         case .confirmLogout:
             sessionService.logout()
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case let .setIsOfflineStorageEnabled(isOfflineStorageEnabled):
             settingsService.isOfflineStorageEnabled = isOfflineStorageEnabled
         case let .setIsAutomaticPasswordGenerationEnabled(isAutomaticPasswordGenerationEnabled):
@@ -159,7 +159,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         case let .tip(product):
             purchaseService.purchase(product: product)
         case .done:
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         }
     }
     

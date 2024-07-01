@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EditFolderPage: View {
     
-    @StateObject var viewModel: AnyViewModel<EditFolderViewModel.State, EditFolderViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<EditFolderViewModel>
     
     @FocusState private var focusedField: EditFolderViewModel.FocusField?
     
@@ -20,7 +20,7 @@ struct EditFolderPage: View {
                 }
             }
             .sync($viewModel[\.focusedField], to: _focusedField)
-            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
+            .dismiss(on: viewModel[\.shouldDismiss])
     }
     
     private func listView() -> some View {
