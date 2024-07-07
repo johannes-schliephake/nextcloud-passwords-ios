@@ -1,0 +1,328 @@
+"_appDeauthorized" = "Додаток деавторизовано";
+
+/* I.e. all passwords */
+"_all" = "Все";
+/* I.e. about this app */
+"_about" = "Про";
+
+/* I.e. add tags to a password */
+"_addTags" = "Додати теги";
+"_aboutOtps" = "Про одноразові паролі";
+
+/* This message is shown before the user can add the first one-time password */
+"_aboutOtpsMessage" = "Цей додаток підтримує одноразові паролі лише для зручності. Зберігання одноразового пароля разом з паролем облікового запису нівелює деякі переваги багатофакторної автентифікації. Увімкнення другого фактору краще, ніж не використовувати його взагалі, але окремий додаток з одноразовим паролем буде більш безпечним. НЕ зберігайте одноразові паролі до свого облікового запису Nextcloud або критично важливих облікових записів, таких як електронна пошта або банківські рахунки в Інтернеті. Одноразові паролі синхронізуються через ваш екземпляр Nextcloud Passwords, але наразі підтримуються лише у додатку для iOS (v2.6 або новішої версії).";
+"_addOtp" = "Додати одноразовий пароль";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture" */
+"_addManually" = "Додати вручну";
+"_algorithm" = "Алгоритм";
+"_anErrorOccurred" = "Виникла помилка …";
+
+/* This refers to the noun ("the counter") and counts how many OTPs have been used */
+"_counter" = "Лічильник";
+
+/* I.e. date when a password was created */
+"_created" = "Створено";
+"_createPassword" = "Сворити пароль";
+"_createTag" = "Створити тег";
+"_deletePasswordErrorMessage" = "Виникла помилка при видаленні пароля. Будь ласка, видаліть пароль ще раз.";
+
+/* I.e. the number of digits to show of an OTP */
+"_digits" = "Цифри";
+"_decryptTagErrorMessage" = "Виникла помилка при розшифровці тегу.";
+"_deletePassword" = "Видалити пароль";
+"_editPassword" = "Редагувати пароль";
+"_deleteOtp" = "Видалити одноразовий пароль";
+"_deleteTagErrorMessage" = "Виникла помилка при видаленні тегу. Будь ласка, видаліть тег ще раз.";
+"_duplicatesTrashMessage" = "Всі дублікати цього пароля знаходяться в смітнику.";
+
+/* Possible option when adding an OTP, other keys are "_scanQrCode" and "_addManually" */
+"_detectQrCodeInPicture" = "Визначити QR-код на картинці";
+"_editTagErrorMessage" = "Під час редагування тегу сталася помилка. Будь ласка, збережіть тег ще раз.";
+
+/* Make sure to use the correct notation in your language, e.g. in German a dash is added: "E-Mail" */
+"_email" = "Електронна пошта";
+"_discardChanges" = "Відхилити зміни";
+
+/* I.e. duplicates of a password */
+"_duplicates" = "Дублікати";
+
+/* I.e. server or client side encryption */
+"_encryption" = "Шифрування";
+
+/* This refers to the noun ("the file") */
+"_file" = "Файл";
+"_folders" = "Теки";
+"_generatePassword" = "Згенерувати пароль";
+"_otp" = "Одноразовий пароль";
+"_managedServerUrlErrorMessage" = "Адреса сервера Nextcloud була попередньо налаштована, але програма не змогла під'єднатися до екземпляра Nextcloud. Будь ласка, зверніться до вашого адміністратора.";
+
+/* Shown in empty lists */
+"_nothingToSeeHere" = "Тут немає на що дивитися …";
+
+/* I.e. settings options */
+"_options" = "Опції";
+"_otps" = "Одноразові паролі";
+"_passwordStatusUnknownMessage" = "Цей пароль ще не було перевірено на безпеку або опція зберігання хешів для перевірки безпеки вимкнена.";
+
+/* In earlier versions this value was split into two strings */
+"_passwordStatusBreachedMessage" = "Цей пароль небезпечний для використання. Його було знайдено в базі даних скомпрометованих паролів.";
+
+/* In earlier versions this value was split into three strings */
+"_passwordStatusGoodMessage" = "Цей пароль безпечний для використання. Він не був порушений і не порушує правил, визначених користувачем.";
+
+/* How long each OTP is valid in seconds */
+"_periodSeconds" = "Період (Секунди)";
+
+/* This refers to the noun ("the tag") */
+"_tag" = "Тег";
+
+/* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
+"_providerInstructionsMessage" = "Цей додаток підтримує автоматичне заповнення пароля. Функцію потрібно ввімкнути в додатку \"Налаштування\" в iOS:\n1. Відкрити Налаштування додатку\n2. Натисніть Паролі\n3. Натисніть Автозаповнення Паролів\n4. Увімкніть Автозаповнення Паролів\n5. Увімкніть даний додаток";
+
+/* I.e. strength of the password to generate */
+"_strength" = "Міцність";
+"_thanksMessage" = "Дякуємо всій спільноті Nextcloud та всім, хто долучився до створення такої дивовижної екосистеми. Я сподіваюся, що зможу зробити свій внесок за допомогою цього додатку.";
+
+/* I.e. this OTP is a time-based one, possible value for "Type" field in OTP editor, other key is "_counterBased" */
+"_timeBased" = "На основі часу";
+"_tipReceivedMessage" = "Дякуємо, що підтримали проєкт своїми чайовими!";
+
+/* I.e. try again to load the data */
+"_tryAgain" = "Спробуйте знову";
+
+/* Shown when user is asked for biometric unlock, same as "NSFaceIDUsageDescription" in App/InfoPlist.strings and Provider/InfoPlist.strings and Extension/InfoPlist.strings */
+"_unlockApp" = "Розблокувати додаток";
+"_createFolderErrorMessage" = "Під час створення теки сталася помилка. Будь ласка, збережіть папку ще раз.";
+"_createPasswordErrorMessage" = "Виникла помилка при створенні пароля. Будь ласка, збережіть пароль ще раз.";
+"_copyOtp" = "Скопіювати одноразовий пароль";
+
+/* This is a label for a settings toggle */
+"_encryptedOfflineStorage" = "Зашифроване офлайн-сховище";
+
+/* This refers to the noun ("the name") */
+"_name" = "Ім'я";
+
+/* I.e. the app has no connection to the server and is offline */
+"_offline" = "Офлайн";
+"_deleteTag" = "Видалити тег";
+
+/* E.g. a website, an app, etc. */
+"_service" = "Сервіс";
+"_username" = "Ім'я користувача";
+
+/* Use the same wording Apple uses across iOS */
+"_delete" = "Видалити";
+"_error" = "Помилка";
+
+/* I.e. accept this certificate */
+"_accept" = "Прийняти";
+
+/* This refers to the noun ("the account") */
+"_account" = "Обліковий запис";
+"_addCustomField" = "Додати користувацьке поле";
+"_appDeauthorizedMessage" = "Через занадто велику кількість невдалих спроб входу цей додаток було деавторизовано сервером. Будь ласка, спробуйте пізніше.";
+
+/* This is a label for a settings toggle */
+"_automaticallyGeneratePasswords" = "Автоматично генерувати паролі";
+
+/* Use the same wording Apple uses across iOS */
+"_cancel" = "Скасувати";
+
+/* This is a label for a settings button */
+"_clearStoredE2EPassword" = "Очистити збережений пароль E2E";
+
+/* Possible value for "Encryption" field on password detail page, other key is "_serverSide" */
+"_clientSide" = "Сторона клієнта";
+
+/* This refers to the noun ("the color"), i.e. the color of a tag */
+"_color" = "Колір";
+
+/* I.e. a one-time password is configured */
+"_configured" = "Налаштовано";
+
+/* I.e. confirm that the OTP message has been read */
+"_confirm" = "Підтвердити";
+
+/* E.g. confirm deletion or confirm log out */
+"_confirmAction" = "Підтвердити дію";
+
+/* I.e. connect to server */
+"_connect" = "Під'єднати";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_connectingToNextcloudInstanceAt(url)" = "Під'єднання до Nextcloud Instance за адресою\n%@";
+"_connectToServer" = "З'єднатися із сервером";
+"_copyPassword" = "Копіювати пароль";
+"_copyUsername" = "Копіювати ім'я користувача";
+
+/* I.e. this OTP is a counter-based one, possible value for "Type" field in OTP editor, other key is "_timeBased" */
+"_counterBased" = "На основі лічильника";
+
+/* I.e. create folder or password */
+"_create" = "Створити";
+"_createFolder" = "Створити теку";
+"_createTagErrorMessage" = "Під час створення тегу сталася помилка. Будь ласка, збережіть тег ще раз.";
+
+/* Nextcloud credentials that were used to connect to an instance */
+"_credentials" = "Облікові дані";
+"_customFields" = "Користувацькі поля";
+"_decryptFolderErrorMessage" = "Під час розшифрування теки сталася помилка.";
+"_decryptPasswordErrorMessage" = "Виникла помилка при розшифровці пароля.";
+"_deletedPasswordMessage" = "Цей пароль було видалено.";
+"_deleteFolder" = "Видалити теку";
+"_deleteFolderErrorMessage" = "Під час видалення теки сталася помилка. Будь ласка, видаліть теку ще раз.";
+
+/* Use the same wording Apple uses across iOS */
+"_dismiss" = "Відхилити";
+
+/* Use the same wording Apple uses across iOS */
+"_done" = "Готово";
+
+/* I.e. end-to-end password */
+"_e2ePassword" = "Пароль E2E";
+
+/* This refers to the verb ("to edit"), use the same wording Apple uses across iOS */
+"_edit" = "Редагувати";
+"_editFolderErrorMessage" = "Під час редагування теки сталася помилка. Будь ласка, збережіть папку ще раз.";
+"_editPasswordErrorMessage" = "Виникла помилка при редагуванні пароля. Будь ласка, збережіть пароль ще раз.";
+"_editTags" = "Редагувати теги";
+
+/* I.e. export this OTP as a QR code */
+"_exportAsQrCode" = "Експортувати як QR-код";
+"_extractOtpErrorMessage" = "Виникла помилка під час пошуку QR-коду на вибраному зображенні.";
+
+/* This refers to the noun ("the favorite") */
+"_favorite" = "Обране";
+
+/* This refers to the noun ("the favorites") */
+"_favorites" = "Обрані";
+"_folder" = "Тека";
+
+/* This is the label for starting an In-App purchase */
+"_giveATip" = "Дати пораду";
+
+/* E.g. a SHA1 hash */
+"_hash" = "Хеш";
+
+/* Keep this in English */
+"_highFive" = "Дай п'ять! 👏";
+"_id" = "Ідентифікатор";
+"_incorrectPassword" = "Невірний пароль";
+"_incorrectPasswordMessage" = "Будь ласка, спробуйте знову.";
+
+/* I.e. integration into the OS (Password AutoFill) */
+"_integration" = "Інтеграція";
+"_invalidCertificate" = "Недійсний сертифікат";
+
+/* Make sure to keep newlines (\n) and the placeholder (%@) */
+"_invalidCertificateMessage(hash)" = "Сертифікат сервера недійсний. Безпечне з'єднання не гарантується. Чи варто все ще використовувати сертифікат?\n\nSHA-256 сертифіката:\n%@";
+"_joinTestFlightBeta" = "Приєднуйтесь до TestFlight Beta";
+
+/* This refers to the verb ("to log in") */
+"_logIn" = "Увійти у систему";
+
+/* This refers to the verb ("to log out") */
+"_logOut" = "Вийти із системи";
+
+/* Possible value for "Strength" picker when generating a password */
+"_low" = "Низький";
+
+/* Possible value for "Strength" picker when generating a password */
+"_medium" = "Середній";
+"_metadata" = "Метадані";
+
+/* I.e. show more options */
+"_moreOptions" = "Більше опцій";
+
+/* This refers to the verb ("to move"), i.e. move a file to another folder */
+"_move" = "Рухати";
+"_nextcloudServerAddress" = "Адреса сервера Nextcloud";
+"_noConnection" = "Немає з'єднання";
+"_noConnectionMessage" = "Не вдалося під'єднатися до екземпляра Nextcloud Passwords.";
+
+/* This refers to the noun ("the notes") */
+"_notes" = "Нотатки";
+
+/* This is a label for a password generator toggle */
+"_numbers" = "Числа";
+"_openUrl" = "Відкрити URL";
+"_password" = "Пароль";
+"_passwords" = "Паролі";
+"_passwordServiceErrorMessage" = "Виникла помилка під час генерації пароля.";
+"_passwordStatusDuplicateMessage" = "Цей пароль використовується більше одного разу.";
+
+/* "Maximum age": Use the same wording that the web client uses in its settings */
+"_passwordStatusOutdatedMessage" = "Цей пароль досяг максимального віку.";
+"_qrCaptureErrorMessage" = "Під час запуску камери сталася помилка.";
+
+/* I.e. reject this certificate */
+"_reject" = "Відкинути";
+
+/* The folder all passwords and folders are placed in, which are not in a subfolder */
+"_rootFolder" = "Коренева тека";
+
+/* Possible option when adding an OTP, other keys are "_detectQrCodeInPicture" and "_addManually" */
+"_scanQrCode" = "Відскануйте QR-код";
+
+/* This refers to the noun ("the secret") and is used in similar places as "password" */
+"_secret" = "Секрет";
+
+/* I.e. security status of a password */
+"_security" = "Безпека";
+
+/* This refers to the verb ("to select"), i.e. select a password */
+"_select" = "Обрати";
+
+/* I.e. select a color for a tag */
+"_selectColor" = "Обрати колір";
+"_serverAddressFieldMessage" = "Потрібне HTTPS-з'єднання.";
+
+/* Possible value for "Encryption" field on password detail page, other key is "_clientSide" */
+"_serverSide" = "Сторона сервера";
+"_settings" = "Налаштування";
+"_shareOtpWarningMessage" = "Цей QR-код містить конфіденційні дані про одноразовий пароль";
+"_shareQrCode" = "Поширити QR-код";
+"_sourceCode" = "Вихідний код";
+
+/* This is a label for a password generator toggle */
+"_specialCharacters" = "Спеціальні символи";
+
+/* I.e. store the E2E password */
+"_storePassword" = "Пароль зберігання";
+"_storePasswordMessage" = "Якщо цю опцію увімкнено, пароль E2E зберігається в зашифрованому вигляді у брелоку вашого пристрою.";
+
+/* I.e. password suggestions when using Password AutoFill */
+"_suggestions" = "Пропозиції";
+"_supportThisProject" = "Підтримати цей проєкт";
+"_supportThisProjectMessage" = "Встановлено версію TestFlight цього додатка. Будь-які покупки здійснюються лише в тестових цілях і не підлягають оплаті.";
+"_tags" = "Теги";
+
+/* This refers to the noun ("the text") */
+"_text" = "Текст";
+
+/* Shown when Apple's "Ask to Buy" feature (parental control) is active */
+"_tipDeferred" = "Чайові відкладено";
+"_tipDeferredMessage" = "Ваш чайові зараз чекають на затвердження.";
+"_tipFailed" = "Помилка чайових";
+"_tipFailedMessage" = "Під час обробки ваших чайових сталася помилка.";
+"_tipReceived" = "Чайові отримано";
+
+/* This refers to the noun ("the type") */
+"_type" = "Тип";
+
+/* Possible value for "Strength" picker when generating a password */
+"_ultra" = "Ультра";
+
+/* Apple's marketing term for pasteboard sync across the user's iCloud devices */
+"_universalClipboard" = "Універсальний буфер обміну";
+
+/* I.e. date when a password was last updated */
+"_updated" = "Оновлено";
+"_url" = "URL";
+
+/* E.g. password, username or URL was copied to the clipboard */
+"_valueCopied" = "Значення Скопійовано";
+
+/* I.e. installed version of the app */
+"_version" = "Версія";
