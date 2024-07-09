@@ -1,2 +1,3 @@
+• Ukrainian translation (Thanks Hotripak!)
 • Upgraded more parts of the app to new architecture
 • Bugfixes and optimizations

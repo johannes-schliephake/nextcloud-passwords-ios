@@ -24,6 +24,7 @@ You can install beta builds by joining the [TestFlight](https://testflight.apple
 - Norwegian: [Allan Nordhøy](https://github.com/comradekingu)
 - Catalan: [Maite Guix](https://hosted.weblate.org/user/maite.guix)
 - Swedish: [Anders Johansson](https://github.com/tellustheguru)
+- Ukrainian: [Hotripak](https://github.com/Hotr1pak)
 
 Everybody is welcome to contribute translations via [Weblate](https://hosted.weblate.org/engage/nextcloud-passwords-ios)!
 
