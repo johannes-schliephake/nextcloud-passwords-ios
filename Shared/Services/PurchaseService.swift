@@ -110,7 +110,7 @@ final class PurchaseService: PurchaseServiceProtocol {
             }
             transactionState = .purchased
             Bridge { await transaction.finish() }
-                .sink {}
+                .sink()
                 .store(in: &cancellables)
         case .pending:
             transactionState = .pending

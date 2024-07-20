@@ -16,10 +16,10 @@ extension Publisher {
             receiveOutput: receiveOutput,
             receiveCompletion: { completion in
                 switch completion {
-                case .finished:
-                    receiveFinished?()
                 case let .failure(error):
                     receiveFailure?(error)
+                case .finished:
+                    receiveFinished?()
                 }
             },
             receiveCancel: receiveCancel,
