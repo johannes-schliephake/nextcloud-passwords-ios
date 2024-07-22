@@ -37,6 +37,18 @@
 		<string>$(PRODUCT_MODULE_NAME).ProviderViewController</string>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.authentication-services-credential-provider-ui</string>
+		<key>NSExtensionAttributes</key>
+		<dict>
+			<key>ASCredentialProviderExtensionCapabilities</key>
+			<dict>
+				<key>ProvidesOneTimeCodes</key>
+				<true/>
+				<key>ProvidesPasswords</key>
+				<true/>
+				<key>ProvidesTextToInsert</key>
+				<false/>
+			</dict>
+		</dict>
 	</dict>
 </dict>
 </plist>

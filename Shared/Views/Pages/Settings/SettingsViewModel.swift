@@ -61,6 +61,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         case setIsOfflineStorageEnabled(Bool)
         case setIsAutomaticPasswordGenerationEnabled(Bool)
         case setIsUniversalClipboardEnabled(Bool)
+        case openProviderSettingsUrl(URL)
         case tip(any Product)
         case done
     }
@@ -156,6 +157,17 @@ final class SettingsViewModel: SettingsViewModelProtocol {
             settingsService.isAutomaticPasswordGenerationEnabled = isAutomaticPasswordGenerationEnabled
         case let .setIsUniversalClipboardEnabled(isUniversalClipboardEnabled):
             settingsService.isUniversalClipboardEnabled = isUniversalClipboardEnabled
+        case let .openProviderSettingsUrl(url):
+            guard #available(iOS 17, *) else {
+                logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
+                return
+            }
+            guard url.absoluteString == "autoFillSettings" else {
+                logger.log(error: "Localizables contain Markdown with URL that can't be handled")
+                return
+            }
+            let openProviderSettingsUseCase = resolve(\.openProviderSettingsUseCase)
+            openProviderSettingsUseCase(.open)
         case let .tip(product):
             purchaseService.purchase(product: product)
         case .done:

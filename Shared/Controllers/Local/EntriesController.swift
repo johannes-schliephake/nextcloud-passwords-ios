@@ -436,8 +436,15 @@ final class EntriesController: ObservableObject {
             }
             if Configuration.userDefaults.bool(forKey: "storeOffline"),
                let passwords = self.passwords {
-                let credentials = passwords.map { ASPasswordCredentialIdentity(serviceIdentifier: ASCredentialServiceIdentifier(identifier: $0.url, type: .URL), user: $0.username, recordIdentifier: $0.id) }
-                ASCredentialIdentityStore.shared.replaceCredentialIdentities(with: credentials)
+                let passwordIdentities = passwords.map { ASPasswordCredentialIdentity(serviceIdentifier: ASCredentialServiceIdentifier(identifier: $0.url, type: .URL), user: $0.username, recordIdentifier: $0.id) }
+                if #available(iOS 18, *) {
+                    let otpIdentities = passwords
+                        .filter { $0.otp != nil }
+                        .map { ASOneTimeCodeCredentialIdentity(serviceIdentifier: .init(identifier: $0.url, type: .URL), label: $0.username, recordIdentifier: $0.id) }
+                    ASCredentialIdentityStore.shared.replaceCredentialIdentities(passwordIdentities + otpIdentities)
+                } else {
+                    ASCredentialIdentityStore.shared.replaceCredentialIdentities(with: passwordIdentities)
+                }
             }
             else {
                 ASCredentialIdentityStore.shared.removeAllCredentialIdentities()
