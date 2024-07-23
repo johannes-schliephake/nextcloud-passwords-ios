@@ -368,6 +368,9 @@
 		DD77FF352C4C6C0C00E193C9 /* CredentialProviderSettingsHelping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD77FF322C4C6C0C00E193C9 /* CredentialProviderSettingsHelping.swift */; };
 		DD77FF3E2C4E3E0300E193C9 /* Associating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD77FF3D2C4E3E0300E193C9 /* Associating.swift */; };
 		DD77FF402C4E3E2900E193C9 /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD77FF3F2C4E3E2900E193C9 /* Initializable.swift */; };
+		DD77FF372C4C722A00E193C9 /* OpenProviderSettingsUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD77FF362C4C722A00E193C9 /* OpenProviderSettingsUseCaseMock.swift */; };
+		DD77FF392C4C73D400E193C9 /* CredentialProviderSettingsHelperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD77FF382C4C73D400E193C9 /* CredentialProviderSettingsHelperMock.swift */; };
+		DD77FF3B2C4D7A1900E193C9 /* OpenProviderSettingsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD77FF3A2C4D7A1900E193C9 /* OpenProviderSettingsUseCaseTests.swift */; };
 		DD7815FC2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */; };
 		DD7815FD2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */; };
 		DD7815FE2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */; };
@@ -1076,6 +1079,9 @@
 		DD77FF322C4C6C0C00E193C9 /* CredentialProviderSettingsHelping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialProviderSettingsHelping.swift; sourceTree = "<group>"; };
 		DD77FF3D2C4E3E0300E193C9 /* Associating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Associating.swift; sourceTree = "<group>"; };
 		DD77FF3F2C4E3E2900E193C9 /* Initializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializable.swift; sourceTree = "<group>"; };
+		DD77FF362C4C722A00E193C9 /* OpenProviderSettingsUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenProviderSettingsUseCaseMock.swift; sourceTree = "<group>"; };
+		DD77FF382C4C73D400E193C9 /* CredentialProviderSettingsHelperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialProviderSettingsHelperMock.swift; sourceTree = "<group>"; };
+		DD77FF3A2C4D7A1900E193C9 /* OpenProviderSettingsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenProviderSettingsUseCaseTests.swift; sourceTree = "<group>"; };
 		DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsyncSequence+First.swift"; sourceTree = "<group>"; };
 		DD78D6CD2AAC77A200854599 /* LegacySafeAreaPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySafeAreaPadding.swift; sourceTree = "<group>"; };
 		DD78D6D12AACDB3100854599 /* WindowSizeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeService.swift; sourceTree = "<group>"; };
@@ -2234,6 +2240,7 @@
 				DDF857042C2F6681002F2581 /* LoginPollUseCaseMock.swift */,
 				DD8023F92C08B03500C6808A /* LoginUrlUseCaseMock.swift */,
 				DD8023FB2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift */,
+				DD77FF362C4C722A00E193C9 /* OpenProviderSettingsUseCaseMock.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -2252,6 +2259,7 @@
 			children = (
 				DDF857062C316FED002F2581 /* CheckLoginGrantUseCaseTests.swift */,
 				DD82E5F12BC72B1100F8257F /* LoginUrlUseCaseTests.swift */,
+				DD77FF3A2C4D7A1900E193C9 /* OpenProviderSettingsUseCaseTests.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -2475,6 +2483,7 @@
 		DDF0C4882ADD3F0A00A50661 /* Seams */ = {
 			isa = PBXGroup;
 			children = (
+				DD77FF382C4C73D400E193C9 /* CredentialProviderSettingsHelperMock.swift */,
 				DDF856FC2C2F65FA002F2581 /* HTTPCookieStoreMock.swift */,
 				DD845CC62AF3B8B300048F3F /* NotificationsMock.swift */,
 				DDF0C4892ADD3F1700A50661 /* PasteboardMock.swift */,
@@ -3327,6 +3336,7 @@
 				DDF857092C3173A6002F2581 /* LoginFlowViewModelTests.swift in Sources */,
 				DD5E99F329AB6D3700A7A4B9 /* BeCalled.swift in Sources */,
 				DDF857052C2F6681002F2581 /* LoginPollUseCaseMock.swift in Sources */,
+				DD77FF392C4C73D400E193C9 /* CredentialProviderSettingsHelperMock.swift in Sources */,
 				DDC6E1A029F085C700607C81 /* LogViewModelMock.swift in Sources */,
 				DD24F03B2A8EA9F0009823C8 /* ProductMock.swift in Sources */,
 				DDBEE5C12A080ADC008F4099 /* EditOTPViewModelMock.swift in Sources */,
@@ -3348,6 +3358,7 @@
 				DDF4137A2954C28100B886EB /* ScoreTests.swift in Sources */,
 				DDF924D32A5D4173005C9977 /* SelectFolderViewModelTests.swift in Sources */,
 				DD845CD22AF405D300048F3F /* WindowMock.swift in Sources */,
+				DD77FF3B2C4D7A1900E193C9 /* OpenProviderSettingsUseCaseTests.swift in Sources */,
 				DDCD27802A16C55F009EC50F /* QRCodeGeneratorMock.swift in Sources */,
 				DD7BC52229AFFD33004AA7BC /* TagsServiceMock.swift in Sources */,
 				DD46282D2A948FAE002DB487 /* Fail.swift in Sources */,
@@ -3423,6 +3434,7 @@
 				DD1466702A6BDE98003BBA8F /* SelectFolderViewModelMock.swift in Sources */,
 				DD5E3CB82953B9690032F517 /* String+Random.swift in Sources */,
 				DDC6E1A429F0891D00607C81 /* LogViewModelTests.swift in Sources */,
+				DD77FF372C4C722A00E193C9 /* OpenProviderSettingsUseCaseMock.swift in Sources */,
 				DDA6F1802A0B9CB70050B352 /* OTPServiceTests.swift in Sources */,
 				DD250E442A979C4C00A0D3C4 /* BridgeTests.swift in Sources */,
 			);
