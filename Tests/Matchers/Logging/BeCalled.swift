@@ -40,6 +40,34 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
 
 
 func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameters expectedParameters: any Equatable..., atCallIndex parameterCallIndex: Int? = nil) -> Matcher<L> {
+    beCalled(callCount, on: expectedCall, withParameters: expectedParameters, atCallIndex: parameterCallIndex)
+}
+
+
+func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil) -> Matcher<L.Type> {
+    beCalled(callCount, on: expectedCall, atCallIndex: nil)
+}
+
+
+func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameter expectedParameter: any Equatable, atCallIndex parameterCallIndex: Int? = nil) -> Matcher<L.Type> {
+    beCalled(callCount, on: expectedCall, withParameters: expectedParameter, atCallIndex: parameterCallIndex)
+}
+
+
+func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil, withParameters expectedParameters: any Equatable..., atCallIndex parameterCallIndex: Int? = nil) -> Matcher<L.Type> {
+    .init { expression in
+        let result = try beCalled(callCount, on: expectedCall, withParameters: expectedParameters, atCallIndex: parameterCallIndex).satisfies(
+            .init(expression: {
+                try expression.evaluate().map(StaticFunctionCallLoggerSnapshot.init)
+            }, location: expression.location, isClosure: expression.isClosure)
+        )
+        return .init(status: result.status, message: result.message)
+    }
+    
+}
+
+
+private func beCalled<L: FunctionCallLogging>(_ callCount: CallCount, on expectedCall: String?, withParameters expectedParameters: [any Equatable], atCallIndex parameterCallIndex: Int?) -> Matcher<L> {
     .init { expression in
         var message: ExpectationMessage
         if let expectedCall {
@@ -87,6 +115,17 @@ func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes
         }
         return .init(status: .matches, message: message)
     }
+}
+
+
+private class StaticFunctionCallLoggerSnapshot: FunctionCallLogging {
+    
+    var functionCallLog: Log
+    
+    init<L: FunctionCallLogging>(_ functionCallLogger: L.Type) {
+        functionCallLog = functionCallLogger.functionCallLog
+    }
+    
 }
 
 

@@ -4,8 +4,10 @@ import Foundation
 
 final class ProductMock: Product, Mock, PropertyAccessLogging, FunctionCallLogging {
     
-    static func products<Identifiers>(for identifiers: Identifiers) async throws -> [ProductMock] where Identifiers: Collection, Identifiers.Element == String {
-        [] // TODO: mock & log
+    static var _products: Result<[ProductMock], any Error> = .success([]) // swiftlint:disable:this identifier_name
+    static func products<Identifiers: Collection>(for identifiers: Identifiers) async throws -> [ProductMock] where Identifiers.Element == String {
+        logFunctionCall(parameters: Array(identifiers))
+        return try _products.get()
     }
     
     var _id = String.random() // swiftlint:disable:this identifier_name
