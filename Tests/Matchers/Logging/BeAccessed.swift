@@ -3,32 +3,6 @@
 import Nimble
 
 
-enum AccessCount {
-    
-    case anyNumberOfTimes
-    case once
-    case twice
-    case thrice
-    case aSpecifiedAmount(Int)
-    
-    var rawValue: Int {
-        switch self {
-        case .anyNumberOfTimes:
-            return 0
-        case .once:
-            return 1
-        case .twice:
-            return 2
-        case .thrice:
-            return 3
-        case let .aSpecifiedAmount(count):
-            return count
-        }
-    }
-    
-}
-
-
 func beAccessed<L: PropertyAccessLogging>(_ accessCount: AccessCount = .anyNumberOfTimes, on expectedAccess: String? = nil) -> Matcher<L.Type> {
     .init { expression in
         let result = try beAccessed(accessCount, on: expectedAccess).satisfies(
@@ -82,6 +56,32 @@ private class StaticPropertyAccessLoggerSnapshot: PropertyAccessLogging {
     
     init<L: PropertyAccessLogging>(_ functionCallLogger: L.Type) {
         propertyAccessLog = functionCallLogger.propertyAccessLog
+    }
+    
+}
+
+
+enum AccessCount {
+    
+    case anyNumberOfTimes
+    case once
+    case twice
+    case thrice
+    case aSpecifiedAmount(Int)
+    
+    var rawValue: Int {
+        switch self {
+        case .anyNumberOfTimes:
+            return 0
+        case .once:
+            return 1
+        case .twice:
+            return 2
+        case .thrice:
+            return 3
+        case let .aSpecifiedAmount(count):
+            return count
+        }
     }
     
 }
