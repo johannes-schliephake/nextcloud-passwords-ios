@@ -1,2 +1,3 @@
-• Button for clearing E2E password
+• Ukrainian translation (Thanks Markevych Dmytro!)
+• Upgraded more parts of the app to new architecture
 • Bugfixes and optimizations

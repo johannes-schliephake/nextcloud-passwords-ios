@@ -7,7 +7,6 @@ protocol FoldersServiceProtocol {
     
     var folders: AnyPublisher<[Folder], Never> { get }
     
-    func folderLabel(forId folderId: String) -> AnyPublisher<String, Never>
     func makeFolder(parentId: String) -> Folder
     func apply(to folder: Folder, folderLabel: String, folderFavorite: Bool, folderParent: String) throws
     func delete(folder: Folder)
@@ -32,14 +31,6 @@ final class FoldersService: FoldersServiceProtocol {
         .prepend(())
         .compactMap { [weak self] in self?.entriesController.folders }
         .eraseToAnyPublisher()
-    
-    func folderLabel(forId folderId: String) -> AnyPublisher<String, Never> {
-        folders
-            .map { $0.first { $0.id == folderId } }
-            .map(\.?.label)
-            .replaceNil(with: "_rootFolder".localized)
-            .eraseToAnyPublisher()
-    }
     
     func makeFolder(parentId: String) -> Folder {
         .init(parent: parentId, client: configurationType.clientName)

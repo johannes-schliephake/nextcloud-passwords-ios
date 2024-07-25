@@ -11,12 +11,6 @@ final class SettingsViewModelTests: XCTestCase {
     @MockInjected(\.purchaseService) private var purchaseServiceMock: PurchaseServiceMock
     @MockInjected(\.logger) private var loggerMock: LoggerMock
     
-    override func setUp() {
-        super.setUp()
-        
-        PollingDefaults.timeout = .milliseconds(300)
-    }
-    
     override func tearDown() {
         super.tearDown()
         

@@ -1,3 +1,6 @@
+/// The GitHub URL of this file is referenced by legal documentation. Should this code be moved somewhere else in the future this file should be kept with a refence to the new location(s) of the implementation.
+
+
 import Foundation
 import Sodium
 import CryptoKit

@@ -85,11 +85,7 @@ final class PurchaseService: PurchaseServiceProtocol {
         
         Bridge { try await product.purchase() }
             .receive(on: DispatchQueue.main)
-            .sink { completion in
-                if case .failure = completion {
-                    self?.transactionStateInternal = .failed
-                }
-            } receiveValue: { self?.handlePurchaseResult($0) }
+            .sink { self?.handlePurchaseResult($0) } receiveFailure: { _ in self?.transactionStateInternal = .failed }
             .store(in: &cancellables)
     }
     

@@ -9,7 +9,7 @@ protocol VideoCapturing: AnyObject {
     var isTorchActivePublisher: AnyPublisher<Bool, Never> { get }
     var torchMode: AVCaptureDevice.TorchMode { get set }
     
-    func isTorchModeSupported(_ torchMode: AVCaptureDevice.TorchMode) -> Bool
+    func isTorchModeSupported(_: AVCaptureDevice.TorchMode) -> Bool
     func lockForConfiguration() throws
     func unlockForConfiguration()
     

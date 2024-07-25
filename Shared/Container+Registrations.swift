@@ -2,6 +2,8 @@ import Factory
 import CoreImage
 import AVFoundation
 import StoreKit
+import CombineSchedulers
+import WebKit
 
 
 extension Container {
@@ -22,6 +24,9 @@ extension Container {
     var globalAlertsViewModelType: Factory<any GlobalAlertsViewModelProtocol.Type> {
         self { GlobalAlertsViewModel.self }
     }
+    var loginFlowViewModelType: Factory<any LoginFlowViewModelProtocol.Type> {
+        self { LoginFlowViewModel.self }
+    }
     var logViewModelType: Factory<any LogViewModelProtocol.Type> {
         self { LogViewModel.self }
     }
@@ -31,11 +36,38 @@ extension Container {
     var selectTagsViewModelType: Factory<any SelectTagsViewModelProtocol.Type> {
         self { SelectTagsViewModel.self }
     }
+    var serverSetupViewModelType: Factory<any ServerSetupViewModelProtocol.Type> {
+        self { ServerSetupViewModel.self }
+    }
     var settingsViewModelType: Factory<any SettingsViewModelProtocol.Type> {
         self { SettingsViewModel.self }
     }
     var shareOTPViewModelType: Factory<any ShareOTPViewModelProtocol.Type> {
         self { ShareOTPViewModel.self }
+    }
+    
+    // MARK: UseCases
+    var checkLoginGrantUseCase: Factory<any CheckLoginGrantUseCaseProtocol> {
+        self { CheckLoginGrantUseCase() }
+    }
+    var checkTrustUseCase: Factory<any CheckTrustUseCaseProtocol> {
+        self { CheckTrustUseCase() }
+    }
+    var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
+        self { FolderLabelUseCase() }
+    }
+    var initiateLoginUseCase: Factory<any InitiateLoginUseCaseProtocol> {
+        self { InitiateLoginUseCase() }
+    }
+    var loginPollUseCase: Factory<any LoginPollUseCaseProtocol> {
+        self { LoginPollUseCase() }
+    }
+    var loginUrlUseCase: Factory<any LoginUrlUseCaseProtocol> {
+        self { LoginUrlUseCase() }
+    }
+    var managedConfigurationUseCase: Factory<any ManagedConfigurationUseCaseProtocol> {
+        self { ManagedConfigurationUseCase() }
+            .cached
     }
     
     // MARK: Services
@@ -116,6 +148,14 @@ extension Container {
         self { ProductsRepository() }
             .cached
     }
+    var windowSizeDataSource: Factory<any WindowSizeDataSourceProtocol> {
+        self { WindowSizeDataSource() }
+            .cached
+    }
+    var windowSizeRepository: Factory<any WindowSizeRepositoryProtocol> {
+        self { WindowSizeRepository() }
+            .cached
+    }
     
     // MARK: Helpers
     var logger: Factory<any Logging> {
@@ -127,6 +167,9 @@ extension Container {
     var appStoreType: Factory<any AppStore.Type> {
         self { StoreKit.AppStore.self }
     }
+    var nonPersistentWebDataStore: Factory<any WebDataStore> {
+        self { WKWebsiteDataStore.nonPersistent() }
+    }
     var pasteboard: Factory<any Pasteboard> {
         self { UIPasteboard.general }
     }
@@ -135,6 +178,9 @@ extension Container {
     }
     var qrCodeGenerator: Factory<(any QRCodeGenerating)?> {
         self { CIFilter(name: "CIQRCodeGenerator") }
+    }
+    var systemNotifications: Factory <any Notifications> {
+        self { NotificationCenter.default }
     }
     var transactionType: Factory<any Transaction.Type> {
         self { StoreKit.Transaction.self }
@@ -155,6 +201,9 @@ extension Container {
     }
     var currentDate: Factory<Date> {
         self { .init() }
+    }
+    var userInitiatedScheduler: Factory<AnySchedulerOf<DispatchQueue>> {
+        self { DispatchQueue(qos: .userInitiated).eraseToAnyScheduler() }
     }
     
     // TODO: remove

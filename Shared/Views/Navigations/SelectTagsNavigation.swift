@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct SelectTagsNavigation: View {
@@ -12,7 +13,7 @@ struct SelectTagsNavigation: View {
     
     var body: some View {
         NavigationView {
-            SelectTagsPage(viewModel: SelectTagsViewModel(temporaryEntry: temporaryEntry, selectTags: selectTags).eraseToAnyViewModel())
+            SelectTagsPage(viewModel: resolve(\.selectTagsViewModelType).init(temporaryEntry: temporaryEntry, selectTags: selectTags).eraseToAnyViewModel())
         }
         .showColumns(false)
         .apply {

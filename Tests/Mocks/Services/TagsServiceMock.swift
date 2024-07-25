@@ -35,7 +35,7 @@ final class TagsServiceMock: TagsServiceProtocol, Mock, PropertyAccessLogging, F
         logFunctionCall(parameters: tag)
     }
     
-    var _allIdsLocallyAvailable = true  // swiftlint:disable:this identifier_name
+    var _allIdsLocallyAvailable = true // swiftlint:disable:this identifier_name
     func allIdsLocallyAvailable(of tags: [Tag]) -> Bool {
         logFunctionCall(parameters: tags)
         return _allIdsLocallyAvailable

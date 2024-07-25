@@ -27,7 +27,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         @Published fileprivate(set) var editIsValid: Bool
         @Published var focusedField: FocusField?
         
-        let shouldDismiss = PassthroughSubject<Void, Never>()
+        let shouldDismiss = Signal()
         
         init(folder: Folder, isCreating: Bool, folderLabel: String, folderFavorite: Bool, folderParent: String, parentLabel: String, showSelectFolderView: Bool, showDeleteAlert: Bool, showCancelAlert: Bool, hasChanges: Bool, editIsValid: Bool, focusedField: FocusField?) {
             self.folder = folder
@@ -62,6 +62,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         case folderLabel
     }
     
+    @Injected(\.folderLabelUseCase) private var folderLabelUseCase
     @Injected(\.foldersService) private var foldersService
     @Injected(\.folderValidationService) private var folderValidationService
     @LazyInjected(\.logger) private var logger
@@ -88,8 +89,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         weak var `self` = self
         
         state.$folderParent
-            .compactMap { self?.foldersService.folderLabel(forId: $0) }
-            .switchToLatest()
+            .handle(with: folderLabelUseCase, { .setId($0) }, publishing: \.$label)
             .sink { self?.state.parentLabel = $0 }
             .store(in: &cancellables)
         
@@ -126,7 +126,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
             state.showDeleteAlert = true
         case .confirmDelete:
             foldersService.delete(folder: state.folder)
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .applyToFolder:
             do {
                 try foldersService.apply(to: state.folder, folderLabel: state.folderLabel, folderFavorite: state.folderFavorite, folderParent: state.folderParent)
@@ -135,15 +135,15 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
                 return
             }
             didEdit?(state.folder)
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .cancel:
             if state.hasChanges {
                 state.showCancelAlert = true
             } else {
-                state.shouldDismiss.send()
+                state.shouldDismiss()
             }
         case .discardChanges:
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .dismissKeyboard:
             state.focusedField = nil
         }

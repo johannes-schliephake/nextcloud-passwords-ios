@@ -34,20 +34,16 @@ final class ProductsRepository: ProductsRepositoryProtocol {
         weak var `self` = self
         
         productIdentifiersRepository.productIdentifiers
-            .flatMap(productsAppStoreDataSource.products)
-            .handleEvents(receiveCompletion: { completion in
-                if case let .failure(error) = completion {
-                    self?.logger.log(error: error)
-                }
+            .flatMapLatest(productsAppStoreDataSource.products)
+            .handleEvents(receiveFailure: { error in
+                self?.logger.log(error: error)
             })
             .catch { error in
                 Fail(error: error)
                     .delay(for: 60, scheduler: DispatchQueue())
             }
             .retry(3)
-            .map(Optional.init)
-            .replaceError(with: nil)
-            .compactMap { $0 }
+            .ignoreFailure()
             .sink { self?.productsInternal = $0 }
             .store(in: &cancellables)
     }

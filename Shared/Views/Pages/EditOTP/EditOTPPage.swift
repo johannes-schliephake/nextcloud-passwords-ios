@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EditOTPPage: View {
     
-    @StateObject var viewModel: AnyViewModel<EditOTPViewModel.State, EditOTPViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<EditOTPViewModel>
     
     @FocusState private var focusedField: EditOTPViewModel.FocusField?
     
@@ -20,7 +20,7 @@ struct EditOTPPage: View {
                 }
             }
             .sync($viewModel[\.focusedField], to: _focusedField)
-            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
+            .dismiss(on: viewModel[\.shouldDismiss])
     }
     
     private func listView() -> some View {

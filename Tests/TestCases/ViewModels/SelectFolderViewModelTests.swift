@@ -55,9 +55,9 @@ final class SelectFolderViewModelTests: XCTestCase {
         foldersServiceMock._folders.send(folderMocks.shuffled())
         
         let expectedTree = Node(value: Folder()) {
-            Node(value: self.folderMocks[1])
-            Node(value: self.folderMocks[0])
             Node(value: self.folderMocks[2])
+            Node(value: self.folderMocks[0])
+            Node(value: self.folderMocks[1])
         }
         expect(selectFolderViewModel[\.tree]).to(equal(expectedTree))
     }

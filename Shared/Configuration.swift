@@ -17,6 +17,7 @@ protocol Configurating {
     static var nonUpdatingJsonEncoder: JSONEncoder { get }
     static var updatingJsonEncoder: JSONEncoder { get }
     static var propertyListDecoder: PropertyListDecoder { get }
+    static var preferredLanguage: String? { get }
     
 }
 
@@ -66,5 +67,6 @@ enum Configuration: Configurating {
         return encoder
     }()
     static let propertyListDecoder = PropertyListDecoder()
+    static let preferredLanguage = NSLocale.preferredLanguages.first
     
 }

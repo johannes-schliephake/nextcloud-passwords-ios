@@ -8,6 +8,7 @@ final class EditFolderViewModelTests: XCTestCase {
     
     @Injected(\.folder) private var folderMock
     
+    @MockInjected(\.folderLabelUseCase) private var folderLabelUseCaseMock: FolderLabelUseCaseMock
     @MockInjected(\.foldersService) private var foldersServiceMock: FoldersServiceMock
     @MockInjected(\.folderValidationService) private var folderValidationServiceMock: FolderValidationServiceMock
     
@@ -52,23 +53,23 @@ final class EditFolderViewModelTests: XCTestCase {
         expect(editFolderViewModel[\.focusedField]).to(equal(.folderLabel))
     }
     
-    func testInit_whenChangingFolderParent_thenCallsFoldersService() {
+    func testInit_whenChangingFolderParent_thenCallsFolderLabelUseCase() {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
         let parentId = String.random()
         let newParentFolder = Folder(id: parentId, parent: nil)
         
         editFolderViewModel(.selectParent(newParentFolder))
         
-        expect(self.foldersServiceMock).to(beCalled(.twice, on: "folderLabel(forId:)", withParameter: parentId, atCallIndex: 1))
+        expect(self.folderLabelUseCaseMock).to(beCalled(.twice, on: "setId", withParameter: parentId, atCallIndex: 1))
         expect(self.folderValidationServiceMock).to(beCalled(.twice, on: "validate(label:parent:)", withParameters: folderMock.label, parentId, atCallIndex: 1))
     }
     
-    func testInit_whenFoldersServiceEmittingFolderLabel_thenSetsParentLabel() {
+    func testInit_whenFoldersLabelUseCaseEmittingFolderLabel_thenSetsParentLabel() {
         let newFolder = Folder(parent: .random())
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: newFolder) { _ in }
         let parentLabelMock = String.random()
         
-        foldersServiceMock._folderLabel.send(parentLabelMock)
+        folderLabelUseCaseMock.mockState(\.label, value: .success(parentLabelMock))
         
         expect(editFolderViewModel[\.parentLabel]).to(equal(parentLabelMock))
     }

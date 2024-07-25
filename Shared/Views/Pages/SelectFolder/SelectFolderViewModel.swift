@@ -21,7 +21,7 @@ final class SelectFolderViewModel: SelectFolderViewModelProtocol {
         @Published fileprivate(set) var hasChanges: Bool
         @Published fileprivate(set) var selectionIsValid: Bool
         
-        let shouldDismiss = PassthroughSubject<Void, Never>()
+        let shouldDismiss = Signal()
         
         init(sheetItem: SheetItem?, temporaryEntry: TemporaryEntry, tree: Node<Folder>, selection: Folder?, hasChanges: Bool, selectionIsValid: Bool) {
             self.sheetItem = sheetItem
@@ -148,9 +148,9 @@ final class SelectFolderViewModel: SelectFolderViewModelProtocol {
                 return
             }
             selectFolder(selectedFolder)
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .cancel:
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         }
     }
     

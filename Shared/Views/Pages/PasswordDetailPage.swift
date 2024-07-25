@@ -1,4 +1,5 @@
 import SwiftUI
+import Factory
 
 
 struct PasswordDetailPage: View {
@@ -42,7 +43,7 @@ struct PasswordDetailPage: View {
                         }
                     }
                 }
-                .onReceive(NotificationCenter.default.publisher(for: Notification.Name("deletePassword"), object: password)) {
+                .onReceive(resolve(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) {
                     _ in
                     dismiss()
                     
@@ -496,16 +497,14 @@ struct PasswordDetailPage: View {
                                 }
                         }
                     }
-                    if let hashData = password.password.data(using: .utf8) {
-                        labeledFootnote("_hash") {
-                            Text(Crypto.SHA1.hash(hashData, humanReadable: true))
-                                .apply { view in
-                                    if #available(iOS 17, *) {
-                                        view
-                                            .typesettingLanguage(.init(languageCode: .unavailable))
-                                    }
+                    labeledFootnote("_hash") {
+                        Text(Crypto.SHA1.hash(.init(password.password.utf8), humanReadable: true))
+                            .apply { view in
+                                if #available(iOS 17, *) {
+                                    view
+                                        .typesettingLanguage(.init(languageCode: .unavailable))
                                 }
-                        }
+                            }
                     }
                 }
 #if targetEnvironment(simulator)
@@ -692,24 +691,3 @@ extension PasswordDetailPage {
     }
     
 }
-
-
-#if DEBUG
-
-struct PasswordDetailPagePreview: PreviewProvider {
-    
-    static var previews: some View {
-        PreviewDevice.generate {
-            NavigationView {
-                PasswordDetailPage(entriesController: EntriesController.mock, password: Password.mock, updatePassword: {}, deletePassword: {})
-            }
-            .showColumns(false)
-            .environmentObject(AutoFillController.mock)
-            .environmentObject(BiometricAuthenticationController.mock)
-            .environmentObject(SessionController.mock)
-        }
-    }
-    
-}
-
-#endif

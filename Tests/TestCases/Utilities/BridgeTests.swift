@@ -153,11 +153,11 @@ final class BridgeTests: XCTestCase {
         expect(bridge.collect()).to(emit(sequenceMock, onMainThread: false))
     }
     
-    func testReceive_givenNonthrowingOperation_whenReturning_thenDoesntLeak() {
+    func testReceive_givenNonthrowingOperation_whenReturning_thenDoesntLeak() throws {
         let objectMock = ObjectMock()
         let bridge = Bridge { objectMock }
         
-        expect(bridge.dropFirst()).to(finish())
+        try require(bridge.dropFirst()).to(finish())
         
         addTeardownBlock { [weak objectMock] in
             withExtendedLifetime(bridge) {
@@ -166,11 +166,11 @@ final class BridgeTests: XCTestCase {
         }
     }
     
-    func testReceive_givenThrowingOperation_whenReturning_thenDoesntLeak() {
+    func testReceive_givenThrowingOperation_whenReturning_thenDoesntLeak() throws {
         let objectMock = ObjectMock()
         let bridge = Bridge { () throws in objectMock }
         
-        expect(bridge.dropFirst()).to(finish())
+        try require(bridge.dropFirst()).to(finish())
         
         addTeardownBlock { [weak objectMock] in
             withExtendedLifetime(bridge) {
@@ -179,11 +179,11 @@ final class BridgeTests: XCTestCase {
         }
     }
     
-    func testReceive_givenNonthrowingSequence_whenReturningValues_thenDoesntLeak() {
+    func testReceive_givenNonthrowingSequence_whenReturningValues_thenDoesntLeak() throws {
         let objectMock = ObjectMock()
         let bridge = Bridge(nonthrowing: AsyncStream { objectMock })
         
-        expect(bridge.first().dropFirst()).to(finish())
+        try require(bridge.first().dropFirst()).to(finish())
         
         addTeardownBlock { [weak objectMock] in
             withExtendedLifetime(bridge) {
@@ -192,11 +192,11 @@ final class BridgeTests: XCTestCase {
         }
     }
     
-    func testReceive_givenThrowingSequence_whenReturningValues_thenDoesntLeak() {
+    func testReceive_givenThrowingSequence_whenReturningValues_thenDoesntLeak() throws {
         let objectMock = ObjectMock()
         let bridge = Bridge(throwing: AsyncThrowingStream { objectMock })
         
-        expect(bridge.first().dropFirst()).to(finish())
+        try require(bridge.first().dropFirst()).to(finish())
         
         addTeardownBlock { [weak objectMock] in
             withExtendedLifetime(bridge) {

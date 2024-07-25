@@ -21,7 +21,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
         @Published fileprivate(set) var hasChanges: Bool
         @Published var focusedField: FocusField?
         
-        let shouldDismiss = PassthroughSubject<Void, Never>()
+        let shouldDismiss = Signal()
         
         init(temporaryEntry: TemporaryEntry, tagLabel: String, tagLabelIsValid: Bool, selectableTags: [(tag: Tag, isSelected: Bool)], hasChanges: Bool, focusedField: FocusField?) {
             self.temporaryEntry = temporaryEntry
@@ -114,7 +114,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
         Publishers.CombineLatest(
             state.$selectableTags
                 .dropFirst()
-                .compactMap { $0.filter(\.isSelected).map(\.tag) }
+                .map { $0.filter(\.isSelected).map(\.tag) }
                 .map(Set.init),
             selectionPublisher
                 .map(\.0.valid)
@@ -160,9 +160,9 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
                 return
             }
             selectTags(selectedTags, invalidTags)
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .cancel:
-            state.shouldDismiss.send()
+            state.shouldDismiss()
         case .dismissKeyboard:
             state.focusedField = nil
         }

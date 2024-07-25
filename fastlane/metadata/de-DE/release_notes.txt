@@ -1,2 +1,3 @@
-• Button zum Löschen des E2E-Passworts
+• Ukrainische Übersetzung (Danke Markevych Dmytro!)
+• Weitere Teile der App auf neue Architektur aktualisiert
 • Fehlerbehebungen und Optimierungen

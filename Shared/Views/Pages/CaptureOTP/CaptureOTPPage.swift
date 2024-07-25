@@ -3,7 +3,7 @@ import SwiftUI
 
 struct CaptureOTPPage: View {
     
-    @StateObject var viewModel: AnyViewModel<CaptureOTPViewModel.State, CaptureOTPViewModel.Action>
+    @StateObject var viewModel: AnyViewModelOf<CaptureOTPViewModel>
     
     var body: some View {
         mainStack()
@@ -19,12 +19,11 @@ struct CaptureOTPPage: View {
                     }
                 }
             }
-            .dismiss(on: viewModel[\.shouldDismiss].eraseToAnyPublisher())
+            .dismiss(on: viewModel[\.shouldDismiss])
     }
     
     private func mainStack() -> some View {
-        GeometryReader {
-            geometryProxy in
+        GeometryReader { geometryProxy in
             ZStack {
                 if #available(iOS 16, *),
                    DataScannerView.isSupported {

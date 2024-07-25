@@ -7,7 +7,7 @@ class ExtensionViewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         _ = resolve(\.logger)
-        _ = resolve(\.windowSizeService)
+        _ = resolve(\.windowSizeDataSource)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
