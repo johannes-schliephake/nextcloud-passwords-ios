@@ -269,6 +269,7 @@
 		DD2D701028C7ED1F000F1607 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */; };
 		DD2D701128C7ED1F000F1607 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */; };
 		DD2D701228C7ED1F000F1607 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */; };
+		DD3634042C4EA9FB00B5AC57 /* Array+Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3634032C4EA9FB00B5AC57 /* Array+Initializable.swift */; };
 		DD38ACF927DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
 		DD38ACFA27DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
 		DD38ACFB27DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
@@ -359,6 +360,8 @@
 		DD76068C295F731200109075 /* Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76068B295F731200109075 /* Dismiss.swift */; };
 		DD76068D295F731200109075 /* Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76068B295F731200109075 /* Dismiss.swift */; };
 		DD76068E295F731200109075 /* Dismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD76068B295F731200109075 /* Dismiss.swift */; };
+		DD77FF3E2C4E3E0300E193C9 /* Associating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD77FF3D2C4E3E0300E193C9 /* Associating.swift */; };
+		DD77FF402C4E3E2900E193C9 /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD77FF3F2C4E3E2900E193C9 /* Initializable.swift */; };
 		DD7815FC2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */; };
 		DD7815FD2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */; };
 		DD7815FE2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */; };
@@ -1009,6 +1012,7 @@
 		DD34DEEC2828F592004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DD34DEED2828F5A3004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DD34DEEE2828F5AF004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		DD3634032C4EA9FB00B5AC57 /* Array+Initializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Initializable.swift"; sourceTree = "<group>"; };
 		DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		DD3A993827FDD9AA000E1938 /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD3FAD602775DC54002202DE /* ListSettingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSettingsRequest.swift; sourceTree = "<group>"; };
@@ -1062,6 +1066,8 @@
 		DD760683295E498000109075 /* PropertyAccessLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyAccessLogging.swift; sourceTree = "<group>"; };
 		DD760687295F72BC00109075 /* Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
 		DD76068B295F731200109075 /* Dismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dismiss.swift; sourceTree = "<group>"; };
+		DD77FF3D2C4E3E0300E193C9 /* Associating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Associating.swift; sourceTree = "<group>"; };
+		DD77FF3F2C4E3E2900E193C9 /* Initializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializable.swift; sourceTree = "<group>"; };
 		DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsyncSequence+First.swift"; sourceTree = "<group>"; };
 		DD78D6CD2AAC77A200854599 /* LegacySafeAreaPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySafeAreaPadding.swift; sourceTree = "<group>"; };
 		DD78D6D12AACDB3100854599 /* WindowSizeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeService.swift; sourceTree = "<group>"; };
@@ -1983,6 +1989,14 @@
 			path = "en-US";
 			sourceTree = "<group>";
 		};
+		DD3634022C4EA9EB00B5AC57 /* Conformance */ = {
+			isa = PBXGroup;
+			children = (
+				DD3634032C4EA9FB00B5AC57 /* Array+Initializable.swift */,
+			);
+			path = Conformance;
+			sourceTree = "<group>";
+		};
 		DD42600B293B736E004A77AB /* AppConfig */ = {
 			isa = PBXGroup;
 			children = (
@@ -2131,6 +2145,7 @@
 		DD5E3CBB2954571B0032F517 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DD3634022C4EA9EB00B5AC57 /* Conformance */,
 				DD1256682C2C8FDD00406836 /* Convenience */,
 				DD1256672C2C8FC700406836 /* Mocking */,
 				DD1256662C2C8F9C00406836 /* Randomizers */,
@@ -2166,9 +2181,19 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		DD77FF3C2C4E3DFA00E193C9 /* Architecture */ = {
+			isa = PBXGroup;
+			children = (
+				DD77FF3D2C4E3E0300E193C9 /* Associating.swift */,
+				DD77FF3F2C4E3E2900E193C9 /* Initializable.swift */,
+			);
+			path = Architecture;
+			sourceTree = "<group>";
+		};
 		DD7BC51929AFBAC5004AA7BC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				DD77FF3C2C4E3DFA00E193C9 /* Architecture */,
 				DD1256622C2C8F5200406836 /* Convenience */,
 				DD1256602C2C8F2F00406836 /* Mocking */,
 			);
@@ -3298,6 +3323,7 @@
 				DD5419712A08D28B004C3EFA /* URL+Random.swift in Sources */,
 				DDF0C4922ADD430200A50661 /* PasteboardServiceTests.swift in Sources */,
 				DD845CC02AF3B87500048F3F /* WindowSizeServiceMock.swift in Sources */,
+				DD77FF402C4E3E2900E193C9 /* Initializable.swift in Sources */,
 				DDF423832A9BEACB0060C5E8 /* ObjectMock.swift in Sources */,
 				DDDD93F72A14BD650061BEA0 /* QRCodeServiceTests.swift in Sources */,
 				DD7BC51E29AFFCCF004AA7BC /* TagValidationServiceMock.swift in Sources */,
@@ -3361,11 +3387,13 @@
 				DD24F0392A8E23E2009823C8 /* PurchaseServiceMock.swift in Sources */,
 				DD7BC51C29AFBAD8004AA7BC /* Mock.swift in Sources */,
 				DDF0C4872ADD3EC300A50661 /* PasteboardRepositoryMock.swift in Sources */,
+				DD77FF3E2C4E3E0300E193C9 /* Associating.swift in Sources */,
 				DD4628292A9407F7002DB487 /* ErrorMock.swift in Sources */,
 				DDF423842A9BEC350060C5E8 /* Collection+Subscript.swift in Sources */,
 				DD46282B2A948F87002DB487 /* Finish.swift in Sources */,
 				DDFF5D4829D8443B00422603 /* Container+AutoRegistering.swift in Sources */,
 				DD0B7AEF2972CEBD00A59E3C /* FolderValidationServiceTests.swift in Sources */,
+				DD3634042C4EA9FB00B5AC57 /* Array+Initializable.swift in Sources */,
 				DDC6E1A229F085D100607C81 /* PasteboardServiceMock.swift in Sources */,
 				DD7BC52A29AFFE43004AA7BC /* ViewModelMock.swift in Sources */,
 				DDF857012C2F6674002F2581 /* CheckTrustUseCaseMock.swift in Sources */,
