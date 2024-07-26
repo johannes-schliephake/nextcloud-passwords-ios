@@ -31,6 +31,7 @@ struct WebView: UIViewRepresentable {
         }
         let webView = BottomlessWKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
+        webView.uiDelegate = context.coordinator
         webView.isOpaque = false
         webView.customUserAgent = userAgent
 #if DEBUG
@@ -55,7 +56,7 @@ struct WebView: UIViewRepresentable {
 
 extension WebView {
     
-    final class Coordinator: NSObject, WKNavigationDelegate {
+    final class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         
         private let webView: WebView
         fileprivate(set) var latestRequest: URLRequest?
@@ -71,6 +72,13 @@ extension WebView {
             }
             latestRequest = navigationAction.request
             webView.request = navigationAction.request
+        }
+        
+        func webView(_ webView: WKWebView, createWebViewWith _: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures _: WKWindowFeatures) -> WKWebView? {
+            if navigationAction.targetFrame == nil {
+                webView.load(navigationAction.request)
+            }
+            return nil
         }
         
         func webView(_: WKWebView, respondTo challenge: URLAuthenticationChallenge) async -> (URLSession.AuthChallengeDisposition, URLCredential?) {
