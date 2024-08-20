@@ -1,3 +1,2 @@
-• Ukrainische Übersetzung (Danke Markevych Dmytro!)
-• Weitere Teile der App auf neue Architektur aktualisiert
-• Fehlerbehebungen und Optimierungen
+• Galicische Übersetzung (Danke Miguel A. Bouzada!)
+• Optimierungen
