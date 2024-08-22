@@ -1,2 +1,3 @@
 • Galician translation (Thanks Miguel A. Bouzada!)
+• Polish translation (Thanks Radosław Rudner!)
 • Optimizations

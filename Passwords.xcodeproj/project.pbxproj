@@ -1034,6 +1034,10 @@
 		DD57399C2A1031C9004B6E69 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
 		DD5862A32C08A90F00AB7343 /* Actionable+LogFunctionCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Actionable+LogFunctionCall.swift"; sourceTree = "<group>"; };
 		DD5862AE2C08AEAE00AB7343 /* ServerSetupViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSetupViewModelMock.swift; sourceTree = "<group>"; };
+		DD5A1B482C77CFFD00B57205 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD5A1B492C77CFFD00B57205 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD5A1B4A2C77CFFD00B57205 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD5A1B4B2C77CFFD00B57205 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableObject+ObjectDidChangeRecently.swift"; sourceTree = "<group>"; };
 		DD5AECA727B1150B002DAA87 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
 		DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOTPPage.swift; sourceTree = "<group>"; };
@@ -2682,6 +2686,7 @@
 				sv,
 				uk,
 				gl,
+				pl,
 			);
 			mainGroup = 8F118746253C9EE10019FECA;
 			packageReferences = (
@@ -3674,6 +3679,7 @@
 				DDAF982829910BA7005D062D /* sv */,
 				DDDBF1E72C3D50DD0036B94C /* uk */,
 				DD8CE44E2C753C90002A6C1C /* gl */,
+				DD5A1B4B2C77CFFD00B57205 /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -3691,6 +3697,7 @@
 				DDAF982529910B86005D062D /* sv */,
 				DDDBF1E42C3D50DD0036B94C /* uk */,
 				DD8CE44B2C753C90002A6C1C /* gl */,
+				DD5A1B482C77CFFD00B57205 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3708,6 +3715,7 @@
 				DDAF982629910B8F005D062D /* sv */,
 				DDDBF1E52C3D50DD0036B94C /* uk */,
 				DD8CE44C2C753C90002A6C1C /* gl */,
+				DD5A1B492C77CFFD00B57205 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3725,6 +3733,7 @@
 				DDAF982729910B9A005D062D /* sv */,
 				DDDBF1E62C3D50DD0036B94C /* uk */,
 				DD8CE44D2C753C90002A6C1C /* gl */,
+				DD5A1B4A2C77CFFD00B57205 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
