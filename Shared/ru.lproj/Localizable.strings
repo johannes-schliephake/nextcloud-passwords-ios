@@ -161,5 +161,3 @@
 "_duplicatesTrashMessage" = "Все дубликаты этого пароля находятся в корзине.";
 "_managedServerUrlErrorMessage" = "Адрес сервера Nextcloud был предварительно настроен, но приложению не удалось подключиться к экземпляру Nextcloud. Обратитесь к администратору.";
 "_supportThisProjectMessage" = "Установлена TestFligh версия приложения. Любые сделанные покупки предназначены только для целей тестирования и не будут оплачены.";
-"_universalClipboard" = "";
-"_clearStoredE2EPassword" = "";
