@@ -1,7 +1,7 @@
 "_algorithm" = "";
 "_aboutOtps" = "";
 "_addTags" = "";
-"_about" = "";
+"_about" = "O";
 "_addCustomField" = "";
 "_addOtp" = "";
 "_clearStoredE2EPassword" = "";
@@ -92,7 +92,7 @@
 "_copyOtp" = "";
 "_medium" = "";
 "_specialCharacters" = "";
-"_aboutOtpsMessage" = "";
+"_aboutOtpsMessage" = "Ta aplikacja obsługuje hasła jednorazowe wyłącznie dla wygody. Przechowywanie hasła jednorazowego wraz z hasłem do konta eliminuje niektóre korzyści związane z bezpieczeństwem uwierzytelniania wieloskładnikowego. Włączenie drugiego czynnika jest lepsze niż nieużywanie go w ogóle, ale samodzielna aplikacja do haseł jednorazowych będzie bezpieczniejsza. NIE przechowuj jednorazowych haseł do konta Nextcloud lub krytycznych kont, takich jak poczta e-mail lub konta bankowości internetowej. Hasła jednorazowe będą synchronizowane przez instancję Nextcloud Passwords, ale obecnie są obsługiwane tylko przez aplikację na iOS (wersja 2.6 lub nowsza).";
 "_e2ePassword" = "";
 "_favorite" = "";
 "_counter" = "";
@@ -148,7 +148,7 @@
 "_deleteTag" = "";
 "_deletePasswordErrorMessage" = "";
 "_createTag" = "";
-"_accept" = "";
+"_accept" = "Akceptuj";
 "_storePassword" = "";
 "_delete" = "";
 "_favorites" = "";
