@@ -204,3 +204,6 @@
 /* Make sure to keep newlines (\n) and the placeholder (%@) */
 "_connectingToNextcloudInstanceAt(url)" = "Connexion à l'instance Nextcloud à\n%@";
 "_managedServerUrlErrorMessage" = "L'adresse du serveur Nextcloud a été préconfigurée, mais l'application n'a pas pu se connecter à l'instance Nextcloud. Veuillez contacter votre administrateur.";
+"_universalClipboard" = "";
+"_clearStoredE2EPassword" = "";
+"_supportThisProjectMessage" = "";
