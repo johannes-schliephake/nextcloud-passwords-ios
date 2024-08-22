@@ -1,0 +1,4 @@
+"NSPhotoLibraryAddUsageDescription" = "Udostępnij kod QR";
+"CFBundleDisplayName" = "Wstaw jednorazowe hasło";
+"NSCameraUsageDescription" = "Skanuj kodu QR";
+"NSFaceIDUsageDescription" = "Odblokuj aplikację";
