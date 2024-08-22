@@ -315,3 +315,8 @@
 /* I.e. duplicates of a password */
 "_duplicates" = "Duplikater";
 "_joinTestFlightBeta" = "Ta del i TestFlight-beta";
+"_connectingToNextcloudInstanceAt(url)" = "";
+"_managedServerUrlErrorMessage" = "";
+"_supportThisProjectMessage" = "";
+"_universalClipboard" = "";
+"_clearStoredE2EPassword" = "";
