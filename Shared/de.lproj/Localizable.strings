@@ -12,6 +12,7 @@
 "_anErrorOccurred" = "Es ist ein Fehler aufgetreten …";
 "_appDeauthorized" = "App deautorisiert";
 "_appDeauthorizedMessage" = "Aufgrund zu vieler fehlgeschlagener Anmeldeversuche wurde diese App vom Server deautorisiert. Bitte später erneut versuchen.";
+"_automaticallyAddedOtp" = "Einmalpasswort automatisch hinzugefügt";
 "_automaticallyGeneratePasswords" = "Passwörter automatisch generieren";
 "_cancel" = "Abbrechen";
 "_clientSide" = "Client-seitig";
@@ -65,7 +66,7 @@
 "_encryption" = "Verschlüsselung";
 "_error" = "Fehler";
 "_exportAsQrCode" = "Exportiere als QR-Code";
-"_extractOtpErrorMessage" = "Bei der Suche nach einem QR-Code im ausgewählten Bild ist ein Fehler aufgetreten.";
+"_extractOtpErrorMessage" = "Bei der Suche nach einem QR-Code ist ein Fehler aufgetreten.";
 "_favorite" = "Favorit";
 "_favorites" = "Favoriten";
 "_file" = "Datei";
@@ -110,7 +111,7 @@
 "_passwordStatusUnknownMessage" = "Dieses Passwort wurde noch nicht auf seine Sicherheit geprüft oder die Option zum Speichern von Hashes zur Sicherheitsüberprüfung ist deaktiviert.";
 "_periodSeconds" = "Periode (Sekunden)";
 "_providerInstructionsMessage" = "Diese App unterstützt AutoFill. Das Feature muss in den Systemeinstellungen aktiviert werden:\n1. Öffne die Einstellungen App\n2. Tippe auf Passwörter\n3. Tippe auf Passwortoptionen oder Automatisch ausfüllen\n4. Aktiviere Automatisch ausfüllen\n5. Aktiviere diese App";
-"_providerInstructionsMessageWithLink" = "Diese App unterstützt AutoFill. Das Feature muss manuell aktiviert werden:\n1. [Hier tippen](autoFillSettings), um die AutoFill-Systemeinstellungen zu öffnen\n2. Aktiviere Automatisch ausfüllen\n3. Aktiviere diese App";
+"_providerInstructionsMessageWithLink" = "Diese App unterstützt AutoFill. Das Feature muss manuell aktiviert werden:\n1. [Hier tippen](autoFillSettings), um die AutoFill-Systemeinstellungen zu öffnen\n2. Automatisches ausfüllen aktivieren\n3. Diese App aktivieren\n4. Optional: Diese App für Code-Konfiguration aktivieren";
 "_qrCaptureErrorMessage" = "Beim Starten der Kamera ist ein Fehler aufgetreten.";
 "_reject" = "Ablehnen";
 "_rootFolder" = "Stammordner";

@@ -270,6 +270,9 @@
 		DD2D701128C7ED1F000F1607 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */; };
 		DD2D701228C7ED1F000F1607 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */; };
 		DD3634042C4EA9FB00B5AC57 /* Array+Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3634032C4EA9FB00B5AC57 /* Array+Initializable.swift */; };
+		DD381C8C2C6BA2E100E0D683 /* AddOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD381C8B2C6BA2E100E0D683 /* AddOTPNavigation.swift */; };
+		DD381C8D2C6BA2E100E0D683 /* AddOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD381C8B2C6BA2E100E0D683 /* AddOTPNavigation.swift */; };
+		DD381C8E2C6BA2E100E0D683 /* AddOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD381C8B2C6BA2E100E0D683 /* AddOTPNavigation.swift */; };
 		DD38ACF927DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
 		DD38ACFA27DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
 		DD38ACFB27DCC3B600E13648 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */; };
@@ -1022,6 +1025,7 @@
 		DD34DEED2828F5A3004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DD34DEEE2828F5AF004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DD3634032C4EA9FB00B5AC57 /* Array+Initializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Initializable.swift"; sourceTree = "<group>"; };
+		DD381C8B2C6BA2E100E0D683 /* AddOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOTPNavigation.swift; sourceTree = "<group>"; };
 		DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		DD3A993827FDD9AA000E1938 /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
 		DD3FAD602775DC54002202DE /* ListSettingsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSettingsRequest.swift; sourceTree = "<group>"; };
@@ -1414,6 +1418,7 @@
 		8F55295E259CAFA600419233 /* Navigations */ = {
 			isa = PBXGroup;
 			children = (
+				DD381C8B2C6BA2E100E0D683 /* AddOTPNavigation.swift */,
 				DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */,
 				8F559A1725A0AE3300D7A39F /* EditFolderNavigation.swift */,
 				DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */,
@@ -2896,6 +2901,7 @@
 				DDFA46CA2BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift in Sources */,
 				DD5739992A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				8F5E120825D3CC33007A2166 /* Configuration.swift in Sources */,
+				DD381C8D2C6BA2E100E0D683 /* AddOTPNavigation.swift in Sources */,
 				DDDD93EF2A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
 				DDACC45829F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDE4F5D6274BEB3D00518167 /* LegacyFlowView.swift in Sources */,
@@ -3114,6 +3120,7 @@
 				DDFA46CB2BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift in Sources */,
 				DD57399A2A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				DDDD93F02A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
+				DD381C8E2C6BA2E100E0D683 /* AddOTPNavigation.swift in Sources */,
 				DDACC45929F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDE4F5D7274BEB3D00518167 /* LegacyFlowView.swift in Sources */,
 				DD83C20C2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */,
@@ -3461,6 +3468,7 @@
 				DDFA46CC2BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift in Sources */,
 				DD57399B2A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				DDB169C027D20CC200F4D752 /* SettingsPage.swift in Sources */,
+				DD381C8C2C6BA2E100E0D683 /* AddOTPNavigation.swift in Sources */,
 				DDDD93F12A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
 				DDACC45A29F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDB169C927D20CC200F4D752 /* UpdateTagRequest.swift in Sources */,

@@ -17,6 +17,13 @@ import Factory
         WindowGroup {
             MainView()
                 .environmentObject(autoFillController)
+                .onOpenURL { url in
+                    guard let otp = OTP(from: url) else {
+                        UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_extractOtpErrorMessage".localized)
+                        return
+                    }
+                    autoFillController.receivedOtp = otp
+                }
                 .onAppear {
                     NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
                 }

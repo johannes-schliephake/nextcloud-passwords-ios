@@ -68,7 +68,7 @@ struct PasswordDetailPage: View {
             VStack(spacing: 0) {
                 listView()
                 if let complete = autoFillController.complete,
-                   autoFillController.mode == .provider || autoFillController.mode == .extension && password.otp != nil {
+                   autoFillController.mode != .extension || password.otp != nil {
                     Divider()
                     selectView(geometryProxy: geometryProxy, complete: complete)
                 }
@@ -542,7 +542,7 @@ struct PasswordDetailPage: View {
                 Button(autoFillController.mode == .extension && !autoFillController.hasField ? "_copyOtp" : "_select") {
                     switch autoFillController.mode {
                     case .app:
-                        break
+                        complete(password.id, "")
                     case .provider:
                         complete(password.username, password.password)
                     case .extension:
