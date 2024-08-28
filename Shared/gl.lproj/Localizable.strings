@@ -153,7 +153,7 @@
 "_numbers" = "Números";
 "_offline" = "Sen conexión";
 "_passwordStatusDuplicateMessage" = "Este contrasinal está a ser usado máis dunha vez.";
-"_passwordStatusGoodMessage" = "Este contrasinal é seguro. Nin infrinxiu nin infrinxe as regras definidas polo usuario.";
+"_passwordStatusGoodMessage" = "Este contrasinal é seguro. Non foi comprometido e non infrinxe as regras de seguranza definidas.";
 "_providerInstructionsMessage" = "Esta aplicación admite a enchedura automática de contrasinais. A función ten que estar activada na aplicación de Axustes de iOS:\n1. Abra a aplicación Axustes\n2. Toque en Contrasinais\n3. Toque en Enchedura automática de contrasinais\n4. Active a Enchedura automática de contrasinais\n5. Active esta aplicación";
 "_passwordStatusOutdatedMessage" = "Este contrasinal acadou a duración límite.";
 "_shareOtpWarningMessage" = "Este código QR contén datos moi sensíbeis sobre o contrasinal dun só uso";
