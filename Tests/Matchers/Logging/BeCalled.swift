@@ -3,32 +3,6 @@
 import Nimble
 
 
-enum CallCount {
-    
-    case anyNumberOfTimes
-    case once
-    case twice
-    case thrice
-    case aSpecifiedAmount(Int)
-    
-    var rawValue: Int {
-        switch self {
-        case .anyNumberOfTimes:
-            return 0
-        case .once:
-            return 1
-        case .twice:
-            return 2
-        case .thrice:
-            return 3
-        case let .aSpecifiedAmount(count):
-            return count
-        }
-    }
-    
-}
-
-
 func beCalled<L: FunctionCallLogging>(_ callCount: CallCount = .anyNumberOfTimes, on expectedCall: String? = nil) -> Matcher<L> {
     beCalled(callCount, on: expectedCall, atCallIndex: nil)
 }
@@ -124,6 +98,32 @@ private class StaticFunctionCallLoggerSnapshot: FunctionCallLogging {
     
     init<L: FunctionCallLogging>(_ functionCallLogger: L.Type) {
         functionCallLog = functionCallLogger.functionCallLog
+    }
+    
+}
+
+
+enum CallCount {
+    
+    case anyNumberOfTimes
+    case once
+    case twice
+    case thrice
+    case aSpecifiedAmount(Int)
+    
+    var rawValue: Int {
+        switch self {
+        case .anyNumberOfTimes:
+            return 0
+        case .once:
+            return 1
+        case .twice:
+            return 2
+        case .thrice:
+            return 3
+        case let .aSpecifiedAmount(count):
+            return count
+        }
     }
     
 }

@@ -1047,6 +1047,10 @@
 		DD57399C2A1031C9004B6E69 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
 		DD5862A32C08A90F00AB7343 /* Actionable+LogFunctionCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Actionable+LogFunctionCall.swift"; sourceTree = "<group>"; };
 		DD5862AE2C08AEAE00AB7343 /* ServerSetupViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSetupViewModelMock.swift; sourceTree = "<group>"; };
+		DD5A1B482C77CFFD00B57205 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD5A1B492C77CFFD00B57205 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD5A1B4A2C77CFFD00B57205 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD5A1B4B2C77CFFD00B57205 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD5A73A527E5F87400CC90E4 /* ObservableObject+ObjectDidChangeRecently.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableObject+ObjectDidChangeRecently.swift"; sourceTree = "<group>"; };
 		DD5AECA727B1150B002DAA87 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
 		DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOTPPage.swift; sourceTree = "<group>"; };
@@ -1124,6 +1128,10 @@
 		DD85E22F2C2A140000EDBC9C /* Timeout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeout.swift; sourceTree = "<group>"; };
 		DD889A1A27DB4AB40021AF5F /* OnSizeChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnSizeChange.swift; sourceTree = "<group>"; };
 		DD8A77D22C2774430086CFDD /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		DD8CE44B2C753C90002A6C1C /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD8CE44C2C753C90002A6C1C /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD8CE44D2C753C90002A6C1C /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD8CE44E2C753C90002A6C1C /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD8DC0472C0866480030FF6E /* Stateful+LogPropertyAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stateful+LogPropertyAccess.swift"; sourceTree = "<group>"; };
 		DD941A322AF8419F002D263E /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		DD941A332AF84293002D263E /* .xcode-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".xcode-version"; sourceTree = "<group>"; };
@@ -2701,6 +2709,8 @@
 				ca,
 				sv,
 				uk,
+				gl,
+				pl,
 			);
 			mainGroup = 8F118746253C9EE10019FECA;
 			packageReferences = (
@@ -3704,6 +3714,8 @@
 				DD0424682829858900E9B9DE /* ca */,
 				DDAF982829910BA7005D062D /* sv */,
 				DDDBF1E72C3D50DD0036B94C /* uk */,
+				DD8CE44E2C753C90002A6C1C /* gl */,
+				DD5A1B4B2C77CFFD00B57205 /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -3720,6 +3732,8 @@
 				DD0424652829853100E9B9DE /* ca */,
 				DDAF982529910B86005D062D /* sv */,
 				DDDBF1E42C3D50DD0036B94C /* uk */,
+				DD8CE44B2C753C90002A6C1C /* gl */,
+				DD5A1B482C77CFFD00B57205 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3736,6 +3750,8 @@
 				DD0424662829853A00E9B9DE /* ca */,
 				DDAF982629910B8F005D062D /* sv */,
 				DDDBF1E52C3D50DD0036B94C /* uk */,
+				DD8CE44C2C753C90002A6C1C /* gl */,
+				DD5A1B492C77CFFD00B57205 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3752,6 +3768,8 @@
 				DD0424672829854900E9B9DE /* ca */,
 				DDAF982729910B9A005D062D /* sv */,
 				DDDBF1E62C3D50DD0036B94C /* uk */,
+				DD8CE44D2C753C90002A6C1C /* gl */,
+				DD5A1B4A2C77CFFD00B57205 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3891,7 +3909,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -3901,7 +3919,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.3;
+				MARKETING_VERSION = 2.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -3918,7 +3936,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				ENABLE_PREVIEWS = YES;
@@ -3928,7 +3946,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7.3;
+				MARKETING_VERSION = 2.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -3942,7 +3960,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -3951,7 +3969,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.3;
+				MARKETING_VERSION = 2.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3965,7 +3983,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Provider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -3974,7 +3992,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.3;
+				MARKETING_VERSION = 2.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4087,7 +4105,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -4096,7 +4114,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.3;
+				MARKETING_VERSION = 2.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4111,7 +4129,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 3L4U93393E;
 				INFOPLIST_FILE = Extension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -4120,7 +4138,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.7.3;
+				MARKETING_VERSION = 2.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

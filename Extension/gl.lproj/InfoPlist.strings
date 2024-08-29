@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "Insira o contrasinal dun só uso";
+"NSCameraUsageDescription" = "Escanear código QR";
+"NSFaceIDUsageDescription" = "Desbloquear a aplicación";
+"NSPhotoLibraryAddUsageDescription" = "Compartir código QR";

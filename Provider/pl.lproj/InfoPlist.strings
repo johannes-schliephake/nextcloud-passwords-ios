@@ -1,0 +1,3 @@
+"NSPhotoLibraryAddUsageDescription" = "Udostępnij kod QR";
+"NSCameraUsageDescription" = "Skanuj kodu QR";
+"NSFaceIDUsageDescription" = "Odblokuj aplikację";

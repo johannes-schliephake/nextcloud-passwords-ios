@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Escanear código QR";
+"NSFaceIDUsageDescription" = "Desbloquear a aplicación";
+"NSPhotoLibraryAddUsageDescription" = "Compartir código QR";

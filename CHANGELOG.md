@@ -1,3 +1,13 @@
+## [v2.7.4] - 2024-08-29
+- Galician translation (Thanks Miguel A. Bouzada!)
+- Polish translation (Thanks Radosław Rudner!)
+- Optimizations
+
+## [v2.7.3] - 2024-07-25
+- Ukrainian translation (Thanks Markevych Dmytro!)
+- Upgraded more parts of the app to new architecture
+- Bugfixes and optimizations
+
 ## [v2.7.2] - 2024-06-06
 - Button for clearing E2E password
 - Bugfixes and optimizations
