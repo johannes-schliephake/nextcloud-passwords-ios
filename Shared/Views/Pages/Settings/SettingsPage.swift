@@ -93,7 +93,6 @@ struct SettingsPage: View {
     
     private func enableProviderSection() -> some View {
         Section(header: Text("_integration")) {
-            // TODO: check if `requestCredentialProviderExtensionEnablement(completionHandler:)` works with later Xcode betas
             if #available(iOS 17, *),
                let attributedString = try? AttributedString(markdown: Strings.providerInstructionsMessageWithLink, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
                 Text(attributedString)

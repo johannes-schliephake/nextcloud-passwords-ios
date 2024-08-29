@@ -215,6 +215,16 @@ final class EntriesController: ObservableObject {
             }, receiveValue: {
                 [weak self] folders, passwords, tags in
                 self?.merge(folders: folders, passwords: passwords, tags: tags)
+                if #available(iOS 18, *),
+                   !Configuration.userDefaults.bool(forKey: "didRequestProviderPermission") {
+                    ASSettingsHelper.requestToTurnOnCredentialProviderExtension { [weak self] isProviderEnabled in
+                        Configuration.userDefaults.set(true, forKey: "didRequestProviderPermission")
+                        guard isProviderEnabled else {
+                            return
+                        }
+                        self?.updateAutoFillCredentials()
+                    }
+                }
                 self?.updateAutoFillCredentials()
                 self?.completeCredentialIdentifierAutoFill()
             })
