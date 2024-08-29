@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "Escanear código QR";
+"CFBundleDisplayName" = "Contrasinais";
+"NSPhotoLibraryAddUsageDescription" = "Compartir código QR";
+"NSFaceIDUsageDescription" = "Desbloquear a aplicación";

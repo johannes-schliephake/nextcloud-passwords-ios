@@ -1,38 +1,32 @@
-import ObjectiveC.runtime
-
-
-protocol PropertyAccessLogging: AnyObject {
+protocol PropertyAccessLogging: AnyObject, Associating {
     
     typealias Log = [String]
     
+    static var propertyAccessLog: Log { get set }
     var propertyAccessLog: Log { get set }
     
 }
 
 
-private var kPropertyAccessLog = malloc(1)
-
-
 extension PropertyAccessLogging {
     
-    var propertyAccessLog: Log {
-        get {
-            guard let propertyAccessLog = objc_getAssociatedObject(self, &kPropertyAccessLog) as? Log else {
-                let propertyAccessLog = Log()
-                self.propertyAccessLog = propertyAccessLog
-                return propertyAccessLog
-            }
-            return propertyAccessLog
-        }
-        set {
-            objc_setAssociatedObject(self, &kPropertyAccessLog, newValue, .OBJC_ASSOCIATION_RETAIN)
-        }
+    static var propertyAccessLog: Log {
+        get { getAssociated() }
+        set { setAssociated(newValue) }
     }
     
-}
-
-
-extension PropertyAccessLogging {
+    var propertyAccessLog: Log {
+        get { getAssociated() }
+        set { setAssociated(newValue) }
+    }
+    
+    static func propertyAccessLog(of propertyName: String) -> Log {
+        propertyAccessLog.filter { $0 == propertyName }
+    }
+    
+    static func logPropertyAccess(of propertyName: String = #function) {
+        propertyAccessLog.append(propertyName)
+    }
     
     func propertyAccessLog(of propertyName: String) -> Log {
         propertyAccessLog.filter { $0 == propertyName }

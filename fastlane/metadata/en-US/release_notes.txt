@@ -1,3 +1,3 @@
-• Ukrainian translation (Thanks Markevych Dmytro!)
-• Upgraded more parts of the app to new architecture
-• Bugfixes and optimizations
+• Galician translation (Thanks Miguel A. Bouzada!)
+• Polish translation (Thanks Radosław Rudner!)
+• Optimizations
