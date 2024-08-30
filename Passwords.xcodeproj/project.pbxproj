@@ -983,6 +983,7 @@
 		DD1E1D752A016785002DB08B /* OTPValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPValidationService.swift; sourceTree = "<group>"; };
 		DD1E1D792A016ABE002DB08B /* OTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPService.swift; sourceTree = "<group>"; };
 		DD214361295A014B006C08DD /* TagsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsService.swift; sourceTree = "<group>"; };
+		DD22E2D92C81B763005AECF1 /* Icon-Dark.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Icon-Dark.svg"; sourceTree = "<group>"; };
 		DD24F0302A8D67F5009823C8 /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
 		DD24F0322A8E172A009823C8 /* SettingsViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelMock.swift; sourceTree = "<group>"; };
 		DD24F0342A8E2171009823C8 /* SessionServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionServiceMock.swift; sourceTree = "<group>"; };
@@ -1025,6 +1026,7 @@
 		DD34DEED2828F5A3004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DD34DEEE2828F5AF004DA186 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DD3634032C4EA9FB00B5AC57 /* Array+Initializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Initializable.swift"; sourceTree = "<group>"; };
+		DD367DA12C81BD4100942CF8 /* Icon-Tinted.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Icon-Tinted.svg"; sourceTree = "<group>"; };
 		DD381C8B2C6BA2E100E0D683 /* AddOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOTPNavigation.swift; sourceTree = "<group>"; };
 		DD38ACF827DCC3B600E13648 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		DD3A993827FDD9AA000E1938 /* Icon.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Icon.svg; sourceTree = "<group>"; };
@@ -1470,6 +1472,8 @@
 				8F11875B253C9EE30019FECA /* Info.plist */,
 				8F01371225DE9EAD009455D7 /* IAP.storekit */,
 				DD6953EB27FADEA10007DAEE /* Icon.svg */,
+				DD22E2D92C81B763005AECF1 /* Icon-Dark.svg */,
+				DD367DA12C81BD4100942CF8 /* Icon-Tinted.svg */,
 				8F118752253C9EE10019FECA /* PasswordsApp.swift */,
 				8F118756253C9EE30019FECA /* Assets.xcassets */,
 				DDB465D72C0FB0930001E70D /* PrivacyInfo.xcprivacy */,
