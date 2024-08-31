@@ -3,7 +3,7 @@ import WebKit
 
 protocol HTTPCookieStore: AnyObject {
     
-    func getAllCookies(_ completionHandler: @escaping @MainActor ([HTTPCookie]) -> Void)
+    @MainActor func getAllCookies(_ completionHandler: @escaping @MainActor @Sendable ([HTTPCookie]) -> Void)
     
 }
 

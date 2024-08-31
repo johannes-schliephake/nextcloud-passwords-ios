@@ -2,7 +2,7 @@ import Factory
 @testable import Passwords
 
 
-extension Container: AutoRegistering {
+extension Container: @retroactive AutoRegistering {
     
     public func autoRegister() {
         
