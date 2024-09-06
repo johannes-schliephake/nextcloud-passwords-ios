@@ -133,6 +133,6 @@ lane :git_release do
     sh("git checkout develop")
     sh("git push origin develop main")
     api_token = prompt(text: "Your GitHub API token: ", secure_text: true)
-    set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: release_notes, upload_assets: ["fastlane/tmp/Passwords (#{version}, Build #{get_build_number}).ipa"])
+    set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: release_notes, upload_assets: ["fastlane/tmp/Passwords (#{version}, Build #{get_build_number}).ipa", "fastlane/tmp/Passwords (#{version}, Build #{get_build_number}).app.dSYM.zip"])
     sh("git fetch --tags")
 end
