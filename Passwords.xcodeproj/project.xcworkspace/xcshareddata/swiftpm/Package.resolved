@@ -1,5 +1,5 @@
 {
-  "originHash" : "dc6dc453aff4c1686fe3d3f715279c9740fcc90fe3907cfc8b63a0d90e6733bd",
+  "originHash" : "6321229f0ce2ce3140fdbac0aaca5f78e8a9f6564985bc581d69d011e7328303",
   "pins" : [
     {
       "identity" : "anyasyncsequence",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/combine-schedulers",
       "state" : {
-        "revision" : "9dc9cbe4bc45c65164fa653a563d8d8db61b09bb",
-        "version" : "1.0.0"
+        "revision" : "9fa31f4403da54855f1e2aeaeff478f4f0e40b13",
+        "version" : "1.0.2"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Quick/Nimble",
       "state" : {
-        "revision" : "1c49fc1243018f81a7ea99cb5e0985b00096e9f4",
-        "version" : "13.3.0"
+        "revision" : "54b4e52183f16fe806014cbfd63718a84f8ba072",
+        "version" : "13.4.0"
       }
     },
     {
@@ -78,8 +78,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
       "state" : {
-        "revision" : "6f30bdba373bbd7fbfe241dddd732651f2fbd1e2",
-        "version" : "1.1.2"
+        "revision" : "96beb108a57f24c8476ae1f309239270772b2940",
+        "version" : "1.2.5"
       }
     }
   ],
