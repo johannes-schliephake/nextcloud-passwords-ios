@@ -5,6 +5,7 @@ import PhotosUI
 struct EditPasswordPage: View {
     
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var settingsController: SettingsController
     
     @StateObject private var editPasswordController: EditPasswordController
@@ -17,6 +18,13 @@ struct EditPasswordPage: View {
     @State private var showPhotosPicker = false
     @State private var showDeleteAlert = false
     @State private var showCancelAlert = false
+    
+    private var didAutoAddOtp: Bool {
+        guard let receivedOtp = autoFillController.receivedOtp else {
+            return false
+        }
+        return editPasswordController.passwordOtp == receivedOtp
+    }
     
     init(entriesController: EntriesController, password: Password) {
         _editPasswordController = StateObject(wrappedValue: EditPasswordController(entriesController: entriesController, password: password))
@@ -38,6 +46,12 @@ struct EditPasswordPage: View {
             .initialize(focus: $focusedField, with: editPasswordController.password.id.isEmpty ? .passwordLabel : nil)
             .interactiveDismissDisabled(editPasswordController.hasChanges)
             .environment(\.editMode, .constant(editMode ? .active : .inactive))
+            .onAppear {
+                guard let receivedOtp = autoFillController.receivedOtp else {
+                    return
+                }
+                editPasswordController.passwordOtp = receivedOtp
+            }
     }
     
     private func listView() -> some View {
@@ -164,6 +178,8 @@ struct EditPasswordPage: View {
                     .accessibility(identifier: "passwordGenerator")
             }
             otpButton()
+                .listRowBackground(didAutoAddOtp ? Color.blue : nil)
+                .listRowSeparator(didAutoAddOtp ? .hidden : .automatic)
         }
     }
     
@@ -177,16 +193,16 @@ struct EditPasswordPage: View {
                     VStack(alignment: .leading, spacing: 6) {
                         Text("_otp")
                             .font(.subheadline)
-                            .foregroundColor(.gray)
-                        Label("_configured", systemImage: "checkmark.circle")
-                            .foregroundColor(.green)
+                            .foregroundColor(didAutoAddOtp ? .white : .gray)
+                        Label(didAutoAddOtp ? Strings.automaticallyAddedOtp : Strings.configured, systemImage: "checkmark.circle")
+                            .foregroundColor(didAutoAddOtp ? .white : .green)
                     }
                     Spacer()
                     NavigationLink(destination: EmptyView()) {
                         EmptyView()
                     }
                     .fixedSize()
-                    .tint(.primary)
+                    .tint(didAutoAddOtp ? .white : .primary)
                 }
             }
         }
@@ -469,6 +485,9 @@ struct EditPasswordPage: View {
             return
         }
         editPasswordController.applyToPassword()
+        if didAutoAddOtp {
+            autoFillController.cancel?()
+        }
         dismiss()
     }
     

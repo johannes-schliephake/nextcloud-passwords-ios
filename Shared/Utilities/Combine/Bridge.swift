@@ -49,7 +49,7 @@ struct Bridge<Output, Failure: Error>: Publisher {
         subscription.start()
     }
     
-    private final class TaskSubscription<Output, Downstream: Subscriber>: Subscription where Downstream.Input == Output, Downstream.Failure == Failure {
+    private final class TaskSubscription<Downstream: Subscriber>: Subscription where Downstream.Input == Output, Downstream.Failure == Failure {
         
         private var task: Task<(), Never>?
         private let priority: TaskPriority?

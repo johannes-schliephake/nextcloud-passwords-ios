@@ -53,13 +53,13 @@ private enum TooltipConstants {
 }
 
 
-private struct LegacyTooltip<Content: View>: View {
+private struct LegacyTooltip<PopoverContent: View>: View {
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
     @Binding var isPresented: Bool
     let arrowDirections: UIPopoverArrowDirection
-    let content: () -> Content
+    let content: () -> PopoverContent
     
     @State private var containerHeight = 0.0
     @State private var contentHeight = 0.0

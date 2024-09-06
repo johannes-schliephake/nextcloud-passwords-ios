@@ -2,7 +2,7 @@ import Factory
 @testable import Passwords
 
 
-extension Container: AutoRegistering {
+extension Container: @retroactive AutoRegistering {
     
     public func autoRegister() {
         
@@ -28,6 +28,9 @@ extension Container: AutoRegistering {
         Self.shared.loginPollUseCase.cached.register { LoginPollUseCaseMock() }
         Self.shared.loginUrlUseCase.cached.register { LoginUrlUseCaseMock() }
         Self.shared.managedConfigurationUseCase.register { ManagedConfigurationUseCaseMock() }
+        if #available(iOS 17, *) {
+            Self.shared.openProviderSettingsUseCase.cached.register { OpenProviderSettingsUseCaseMock() }
+        }
         
         // MARK: Services
         Self.shared.folderValidationService.register { FolderValidationServiceMock() }
@@ -59,6 +62,9 @@ extension Container: AutoRegistering {
         
         // MARK: Seams
         //Self.shared.appStoreType.register { AppStoreMock.self }
+        if #available(iOS 17, *) {
+            Self.shared.credentialProviderSettingsHelperType.cached.register { CredentialProviderSettingsHelperMock.self }
+        }
         Self.shared.nonPersistentWebDataStore.cached.register { WebDataStoreMock() }
         Self.shared.pasteboard.cached.register { PasteboardMock() }
         Self.shared.productType.register { ProductMock.self }

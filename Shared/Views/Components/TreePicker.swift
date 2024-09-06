@@ -62,7 +62,7 @@ struct TreePicker<Element: Identifiable, Content: View>: View {
     
     // MARK: Functions
     
-    private static func treeContainsElement<Element: Identifiable>(node: Node<Element>, value: Element) -> Bool {
+    private static func treeContainsElement(node: Node<Element>, value: Element) -> Bool {
         node.children?.contains { $0.value.id == value.id || treeContainsElement(node: $0, value: value) } == true
     }
     
