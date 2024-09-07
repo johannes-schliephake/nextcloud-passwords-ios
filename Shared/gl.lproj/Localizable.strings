@@ -14,7 +14,7 @@
 "_editPasswordErrorMessage" = "Produciuse un erro ao editar o contrasinal. Garde o contrasinal de novo.";
 "_editTagErrorMessage" = "Produciuse un erro ao editar a etiqueta. Garde a etiqueta de novo.";
 "_email" = "Correo-e";
-"_extractOtpErrorMessage" = "Produciuse un erro ao buscar un código QR na imaxe seleccionada.";
+"_extractOtpErrorMessage" = "Produciuse un erro ao buscar un código QR.";
 "_favorite" = "Favorito";
 "_generatePassword" = "Xerar contrasinal";
 "_file" = "Ficheiro";
@@ -154,8 +154,10 @@
 "_offline" = "Sen conexión";
 "_passwordStatusDuplicateMessage" = "Este contrasinal está a ser usado máis dunha vez.";
 "_passwordStatusGoodMessage" = "Este contrasinal é seguro. Non foi comprometido e non infrinxe as regras de seguranza definidas.";
-"_providerInstructionsMessage" = "Esta aplicación admite a enchedura automática de contrasinais. A función ten que estar activada na aplicación de Axustes de iOS:\n1. Abra a aplicación Axustes\n2. Toque en Contrasinais\n3. Toque en Enchedura automática de contrasinais\n4. Active a Enchedura automática de contrasinais\n5. Active esta aplicación";
+"_providerInstructionsMessage" = "Esta aplicación admite o autocompletado. A función ten que estar activada na aplicación de Axustes do sistema:\n1. Abra a aplicación Axustes\n2. Toque en Contrasinais\n3. Toque en Opcións de contrasinal ou Autocompletar contrasinais\n4. Active o autocompletado\n5. Active esta aplicación";
 "_passwordStatusOutdatedMessage" = "Este contrasinal acadou a duración límite.";
 "_shareOtpWarningMessage" = "Este código QR contén datos moi sensíbeis sobre o contrasinal dun só uso";
 "_supportThisProjectMessage" = "A versión TestFlight desta aplicación está instalada. As compras realizanse só a efecto de probas e non van ser facturadas.";
 "_thanksMessage" = "Grazas a toda a comunidade Nextcloud e a todos os implicados por facer posíbel un ecosistema tan incrible. Agardo poder achegar algo con esta aplicación.";
+"_providerInstructionsMessageWithLink" = "Esta aplicación admite o autocompletado. A función ten que ser activada manualmente:\n1. [Toque aquí](autoFillSettings) para abrir os axustes de autocompletado do sistema\n2. Active o autocompletado\n3. Active esta aplicación\n4. Opcional: active esta aplicación para a configuración do código";
+"_automaticallyAddedOtp" = "OTP engadido automaticamente";
