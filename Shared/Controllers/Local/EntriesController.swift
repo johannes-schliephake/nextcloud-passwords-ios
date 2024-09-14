@@ -908,7 +908,7 @@ final class EntriesController: ObservableObject {
             passwords.sort { $0.url.compare($1.url, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
             passwords.sort { !$0.url.isEmpty && $1.url.isEmpty }
         case .status:
-            passwords.sort { $0.statusCode > $1.statusCode }
+            passwords.sort { $0.statusCode < $1.statusCode }
         }
         
         /// Sort tags
