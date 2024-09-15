@@ -32,7 +32,8 @@ enum Configuration: Configurating {
         "showMetadata": true,
         "generatorNumbers": true,
         "generatorSpecial": true,
-        "generatorStrength": PasswordServiceRequest.Strength.ultra.rawValue
+        "generatorStrength": PasswordServiceRequest.Strength.ultra.rawValue,
+        "didRequestProviderPermission": false
     ]
     
     static let buildNumberString = Bundle.main.infoDictionary?["CFBundleVersion"] as! String // swiftlint:disable:this force_cast

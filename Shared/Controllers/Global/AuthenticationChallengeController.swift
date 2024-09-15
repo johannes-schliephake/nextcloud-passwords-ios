@@ -1,4 +1,4 @@
-import WebKit
+@preconcurrency import WebKit
 import Foundation
 import Factory
 import Combine
@@ -119,7 +119,7 @@ extension AuthenticationChallengeController {
 
 extension AuthenticationChallengeController: URLSessionDelegate {
     
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping @Sendable (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         checkTrust(challenge.protectionSpace.serverTrust, completionHandler: completionHandler)
     }
     

@@ -4,6 +4,7 @@ import AVFoundation
 import StoreKit
 import CombineSchedulers
 import WebKit
+import AuthenticationServices
 
 
 extension Container {
@@ -68,6 +69,9 @@ extension Container {
     var managedConfigurationUseCase: Factory<any ManagedConfigurationUseCaseProtocol> {
         self { ManagedConfigurationUseCase() }
             .cached
+    }
+    @available(iOS 17, *) var openProviderSettingsUseCase: Factory<any OpenProviderSettingsUseCaseProtocol> {
+        self { OpenProviderSettingsUseCase() }
     }
     
     // MARK: Services
@@ -166,6 +170,9 @@ extension Container {
     // MARK: Seams
     var appStoreType: Factory<any AppStore.Type> {
         self { StoreKit.AppStore.self }
+    }
+    @available(iOS 17, *) var credentialProviderSettingsHelperType: Factory<any CredentialProviderSettingsHelping.Type> {
+        self { ASSettingsHelper.self }
     }
     var nonPersistentWebDataStore: Factory<any WebDataStore> {
         self { WKWebsiteDataStore.nonPersistent() }

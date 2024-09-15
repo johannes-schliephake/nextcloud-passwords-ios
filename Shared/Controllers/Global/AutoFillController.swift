@@ -7,6 +7,7 @@ final class AutoFillController: ObservableObject {
     
     /// Attributes may be set by AutoFill credential provider or action extension
     @Published var mode: Mode = .app
+    @Published var receivedOtp: OTP?
     @Published var complete: ((String, String) -> Void)?
     @Published var cancel: (() -> Void)?
     @Published var serviceURLs: [URL]?
@@ -14,7 +15,7 @@ final class AutoFillController: ObservableObject {
     @Published var hasField = false
     var keychain: Crypto.CSEv1r1.Keychain?
     
-    private init() {}
+    init() {}
     
 }
 

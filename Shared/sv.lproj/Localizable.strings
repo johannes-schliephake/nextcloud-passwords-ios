@@ -274,7 +274,7 @@
 
 /* I.e. server or client side encryption */
 "_encryption" = "Kryptering";
-"_extractOtpErrorMessage" = "Ett fel uppstod vid sökning efter en QR-kod i den valda bilden.";
+"_extractOtpErrorMessage" = "Ett fel uppstod vid sökning efter en QR-kod.";
 
 /* This refers to the noun ("the favorite") */
 "_favorite" = "Favorit";
@@ -326,3 +326,4 @@
 
 /* Apple's marketing term for pasteboard sync across the user's iCloud devices */
 "_universalClipboard" = "Universella urklipp";
+"_automaticallyAddedOtp" = "Automatiskt tillagd OTP";

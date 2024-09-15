@@ -215,6 +215,16 @@ final class EntriesController: ObservableObject {
             }, receiveValue: {
                 [weak self] folders, passwords, tags in
                 self?.merge(folders: folders, passwords: passwords, tags: tags)
+                if #available(iOS 18, *),
+                   !Configuration.userDefaults.bool(forKey: "didRequestProviderPermission") {
+                    ASSettingsHelper.requestToTurnOnCredentialProviderExtension { [weak self] isProviderEnabled in
+                        Configuration.userDefaults.set(true, forKey: "didRequestProviderPermission")
+                        guard isProviderEnabled else {
+                            return
+                        }
+                        self?.updateAutoFillCredentials()
+                    }
+                }
                 self?.updateAutoFillCredentials()
                 self?.completeCredentialIdentifierAutoFill()
             })
@@ -436,8 +446,15 @@ final class EntriesController: ObservableObject {
             }
             if Configuration.userDefaults.bool(forKey: "storeOffline"),
                let passwords = self.passwords {
-                let credentials = passwords.map { ASPasswordCredentialIdentity(serviceIdentifier: ASCredentialServiceIdentifier(identifier: $0.url, type: .URL), user: $0.username, recordIdentifier: $0.id) }
-                ASCredentialIdentityStore.shared.replaceCredentialIdentities(with: credentials)
+                let passwordIdentities = passwords.map { ASPasswordCredentialIdentity(serviceIdentifier: ASCredentialServiceIdentifier(identifier: $0.url, type: .URL), user: $0.username, recordIdentifier: $0.id) }
+                if #available(iOS 18, *) {
+                    let otpIdentities = passwords
+                        .filter { $0.otp != nil }
+                        .map { ASOneTimeCodeCredentialIdentity(serviceIdentifier: .init(identifier: $0.url, type: .URL), label: $0.username, recordIdentifier: $0.id) }
+                    ASCredentialIdentityStore.shared.replaceCredentialIdentities(passwordIdentities + otpIdentities)
+                } else {
+                    ASCredentialIdentityStore.shared.replaceCredentialIdentities(with: passwordIdentities)
+                }
             }
             else {
                 ASCredentialIdentityStore.shared.removeAllCredentialIdentities()
@@ -891,7 +908,7 @@ final class EntriesController: ObservableObject {
             passwords.sort { $0.url.compare($1.url, options: [.caseInsensitive, .diacriticInsensitive, .numeric]) == .orderedAscending }
             passwords.sort { !$0.url.isEmpty && $1.url.isEmpty }
         case .status:
-            passwords.sort { $0.statusCode > $1.statusCode }
+            passwords.sort { $0.statusCode < $1.statusCode }
         }
         
         /// Sort tags

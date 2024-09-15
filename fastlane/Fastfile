@@ -14,11 +14,15 @@ end
 desc("Generates all icon sets and commits the changes.")
 lane :generate_icons do
     Dir.chdir("..") do
-        sh("for size in 20 29 40 58 60 76 80 87 120 152 167 180 1024; do rsvg-convert App/Icon.svg -w ${size} -o App/Assets.xcassets/AppIcon.appiconset/AppIcon-${size}x${size}.png; done")
-        sh("for size in 20 29 40 58 60 76 80 87 120 152 167 180 1024; do rsvg-convert App/Icon.svg -w ${size} -o App/Assets.xcassets/AppIcon-debug.appiconset/AppIcon-${size}x${size}.png; done")
-        sh("for size in 20 29 40 58 60 76 80 87 120 152 167 180 1024; do rsvg-convert Extension/Icon.svg -w ${size} -o Extension/Assets.xcassets/ExtensionIcon.appiconset/ExtensionIcon-${size}x${size}.png; done")
-        sh("for icon in App/Assets.xcassets/AppIcon-debug.appiconset/*.png; do magick convert $icon -modulate 100,100,75 $icon; done")
-        sh("for icon in Extension/Assets.xcassets/ExtensionIcon.appiconset/*.png; do magick convert $icon -fill white -colorize 100% $icon -compose CopyOpacity -composite $icon; done")
+        sh("for size in 40 58 60 76 80 87 114 120 128 136 152 167 180 192 1024; do rsvg-convert App/Icon.svg -w ${size} -o App/Assets.xcassets/AppIcon.appiconset/AppIcon-${size}x${size}.png; done")
+        sh("for size in 40 58 60 76 80 87 114 120 128 136 152 167 180 192 1024; do rsvg-convert App/Icon-Dark.svg -w ${size} -o App/Assets.xcassets/AppIcon.appiconset/AppIcon-${size}x${size}-Dark.png; done")
+        sh("for size in 40 58 60 76 80 87 114 120 128 136 152 167 180 192 1024; do rsvg-convert App/Icon-Tinted.svg -w ${size} -o App/Assets.xcassets/AppIcon.appiconset/AppIcon-${size}x${size}-Tinted.png; done")
+        sh("for size in 40 58 60 76 80 87 114 120 128 136 152 167 180 192 1024; do rsvg-convert App/Icon.svg -w ${size} -o App/Assets.xcassets/AppIcon-debug.appiconset/AppIcon-${size}x${size}.png; done")
+        sh("for size in 40 58 60 76 80 87 114 120 128 136 152 167 180 192 1024; do rsvg-convert App/Icon-Dark.svg -w ${size} -o App/Assets.xcassets/AppIcon-debug.appiconset/AppIcon-${size}x${size}-Dark.png; done")
+        sh("for size in 40 58 60 76 80 87 114 120 128 136 152 167 180 192 1024; do rsvg-convert App/Icon-Tinted.svg -w ${size} -o App/Assets.xcassets/AppIcon-debug.appiconset/AppIcon-${size}x${size}-Tinted.png; done")
+        sh("for icon in App/Assets.xcassets/AppIcon-debug.appiconset/*.png; do magick $icon -modulate 100,100,75 $icon; done")
+        sh("for size in 40 58 60 76 80 87 114 120 128 136 152 167 180 192 1024; do rsvg-convert Extension/Icon.svg -w ${size} -o Extension/Assets.xcassets/ExtensionIcon.appiconset/ExtensionIcon-${size}x${size}.png; done")
+        sh("for icon in Extension/Assets.xcassets/ExtensionIcon.appiconset/*.png; do magick $icon -fill white -colorize 100% $icon -compose CopyOpacity -composite $icon; done")
         sh("git add */Assets.xcassets/*.appiconset")
         sh("git commit -m \"Update icons\"")
     end
@@ -129,6 +133,6 @@ lane :git_release do
     sh("git checkout develop")
     sh("git push origin develop main")
     api_token = prompt(text: "Your GitHub API token: ", secure_text: true)
-    set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: release_notes, upload_assets: ["fastlane/tmp/Passwords (#{version}, Build #{get_build_number}).ipa"])
+    set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: release_notes, upload_assets: ["fastlane/tmp/Passwords (#{version}, Build #{get_build_number}).ipa", "fastlane/tmp/Passwords (#{version}, Build #{get_build_number}).app.dSYM.zip"])
     sh("git fetch --tags")
 end

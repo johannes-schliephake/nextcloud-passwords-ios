@@ -65,6 +65,13 @@ struct EntriesPage: View {
                     }
                 }
             }
+            .onChange(of: autoFillController.receivedOtp) { receivedOtp in
+                guard let receivedOtp else {
+                    return
+                }
+                sheetItem = .addOtp(receivedOtp)
+                autoFillController.receivedOtp = nil
+            }
     }
     
     private var navigationTitle: String {
@@ -72,24 +79,20 @@ struct EntriesPage: View {
               autoFillController.credentialIdentifier == nil else {
             return "_passwords".localized
         }
-        guard autoFillController.mode != .extension else {
+        if autoFillController.receivedOtp != nil && folderController.folder.isBaseFolder {
+            return "_addOtp".localized
+        }
+        if autoFillController.mode == .extension {
             return "_otps".localized
         }
-        switch (entriesController.filterBy, folderController.folder.isBaseFolder, folderController.tag) {
-        case (.all, true, nil):
-            return "_passwords".localized
-        case (.folders, true, nil):
-            return "_folders".localized
-        case (.favorites, true, nil):
-            return "_favorites".localized
-        case (.tags, true, nil):
-            return "_tags".localized
-        case (.otps, true, nil):
-            return "_otps".localized
-        case (_, _, let tag?):
-            return tag.label
-        case (_, false, _):
-            return folderController.folder.label
+        return switch (entriesController.filterBy, folderController.folder.isBaseFolder, folderController.tag) {
+        case (.all, true, nil): "_passwords".localized
+        case (.folders, true, nil): "_folders".localized
+        case (.favorites, true, nil): "_favorites".localized
+        case (.tags, true, nil): "_tags".localized
+        case (.otps, true, nil): "_otps".localized
+        case (_, _, let tag?): tag.label
+        case (_, false, _): folderController.folder.label
         }
     }
     
@@ -330,6 +333,8 @@ struct EntriesPage: View {
                 })
             case .tag(.tag):
                 EmptyView()
+            case .addOtp(let otp):
+                AddOTPNavigation(entriesController: entriesController, otp: otp)
             }
         }
         .actionSheet(item: $actionSheetItem) {
@@ -540,19 +545,19 @@ struct EntriesPage: View {
                     .tag(EntriesController.Filter.otps)
             }
             Picker("", selection: $entriesController.sortBy) {
-                Label("_name", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
+                Label("_name", systemImage: entriesController.reversed ? "arrow.up" : "arrow.down")
                     .showIcon(entriesController.sortBy == .label)
                     .tag(EntriesController.Sorting.label)
-                Label("_updated", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
+                Label("_updated", systemImage: entriesController.reversed ? "arrow.up" : "arrow.down")
                     .showIcon(entriesController.sortBy == .updated)
                     .tag(EntriesController.Sorting.updated)
-                Label("_username", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
+                Label("_username", systemImage: entriesController.reversed ? "arrow.up" : "arrow.down")
                     .showIcon(entriesController.sortBy == .username)
                     .tag(EntriesController.Sorting.username)
-                Label("_url", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
+                Label("_url", systemImage: entriesController.reversed ? "arrow.up" : "arrow.down")
                     .showIcon(entriesController.sortBy == .url)
                     .tag(EntriesController.Sorting.url)
-                Label("_security", systemImage: entriesController.reversed ? "chevron.down" : "chevron.up")
+                Label("_security", systemImage: entriesController.reversed ? "arrow.up" : "arrow.down")
                     .showIcon(entriesController.sortBy == .status)
                     .tag(EntriesController.Sorting.status)
             }
@@ -625,11 +630,14 @@ extension EntriesPage {
         case edit(entry: Entry)
         case move(entry: Entry)
         case tag(entry: Entry)
+        case addOtp(OTP)
         
         var id: String {
             switch self {
             case .edit(let entry), .move(let entry), .tag(let entry):
-                return entry.id
+                entry.id
+            case .addOtp(let otp):
+                .init(otp.hashValue)
             }
         }
         
@@ -1007,7 +1015,7 @@ extension EntriesPage {
                     Button {
                         switch autoFillController.mode {
                         case .app:
-                            break
+                            complete(password.id, "")
                         case .provider:
                             complete(password.username, password.password)
                         case .extension:

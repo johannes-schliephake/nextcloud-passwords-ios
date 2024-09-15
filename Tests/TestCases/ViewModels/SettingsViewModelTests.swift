@@ -332,6 +332,24 @@ final class SettingsViewModelTests: XCTestCase {
         expect(self.settingsServiceMock._isUniversalClipboardEnabled).to(equal(isUniversalClipboardEnabledMock))
     }
     
+    @available(iOS 17, *) func testCallAsFunction_givenRandomUrl_whenCallingOpenProviderSettingsUrl_thenDoesntCallOpenProviderSettingsUseCase() throws {
+        let openProviderSettingsUseCaseMock = try unwrap(resolve(\.openProviderSettingsUseCase) as? OpenProviderSettingsUseCaseMock)
+        let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
+        
+        settingsViewModel(.openProviderSettingsUrl(.random()))
+        
+        expect(openProviderSettingsUseCaseMock).toNot(beCalled())
+    }
+    
+    @available(iOS 17, *) func testCallAsFunction_givenAutoFillSettingsUrl_whenCallingOpenProviderSettingsUrl_thenCallsOpenProviderSettingsUseCase() throws {
+        let openProviderSettingsUseCaseMock = try unwrap(resolve(\.openProviderSettingsUseCase) as? OpenProviderSettingsUseCaseMock)
+        let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
+        
+        settingsViewModel(.openProviderSettingsUrl(.init(string: "autoFillSettings")!))
+        
+        expect(openProviderSettingsUseCaseMock).to(beCalled(.once, on: "open"))
+    }
+    
     func testCallAsFunction_whenCallingTip_thenCallsPurchaseService() {
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         let productMock = ProductMock()
