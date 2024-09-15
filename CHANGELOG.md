@@ -1,3 +1,10 @@
+## [v2.8] - 2024-09-15
+- iOS 18 compatibility
+- AutoFill for one-time passwords (iOS 18+)
+- Setup one-time passwords via Camera app (iOS 16+)
+- Automated AutoFill permissions (iOS 18+)
+- Optimizations
+
 ## [v2.7.4] - 2024-08-29
 - Galician translation (Thanks Miguel A. Bouzada!)
 - Polish translation (Thanks Radosław Rudner!)
