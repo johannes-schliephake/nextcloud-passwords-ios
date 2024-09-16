@@ -78,7 +78,7 @@
 "_tag" = "Тег";
 
 /* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
-"_providerInstructionsMessage" = "Цей додаток підтримує автоматичне заповнення пароля. Функцію потрібно ввімкнути в додатку \"Налаштування\" в iOS:\n1. Відкрити Налаштування додатку\n2. Натисніть Паролі\n3. Натисніть Автозаповнення Паролів\n4. Увімкніть Автозаповнення Паролів\n5. Увімкніть даний додаток";
+"_providerInstructionsMessage" = "Цей додаток підтримує автозаповнення. Ця функція повинна бути ввімкнена в додатку Налаштування системи:\n1. Відкрийте програму Налаштування\n2. Торкніться Паролі\n3. Торкніться Параметри паролів або Автоматичне заповнення паролів\n4. Увімкніть автозаповнення\n5. Увімкніть цей додаток";
 
 /* I.e. strength of the password to generate */
 "_strength" = "Міцність";
@@ -190,7 +190,7 @@
 
 /* I.e. export this OTP as a QR code */
 "_exportAsQrCode" = "Експортувати як QR-код";
-"_extractOtpErrorMessage" = "Виникла помилка під час пошуку QR-коду на вибраному зображенні.";
+"_extractOtpErrorMessage" = "Виникла помилка під час пошуку QR-коду.";
 
 /* This refers to the noun ("the favorite") */
 "_favorite" = "Обране";
@@ -326,3 +326,5 @@
 
 /* I.e. installed version of the app */
 "_version" = "Версія";
+"_automaticallyAddedOtp" = "Автоматично доданий OTP";
+"_providerInstructionsMessageWithLink" = "Цей додаток підтримує автозаповнення. Функцію потрібно ввімкнути вручну:\n1. [Натисніть тут](autoFillSettings), щоб відкрити налаштування автозаповнення системи\n2. Увімкніть автозаповнення\n3. Увімкніть цей додаток\n4. Необов'язково: Увімкнути цей додаток для налаштування коду";
