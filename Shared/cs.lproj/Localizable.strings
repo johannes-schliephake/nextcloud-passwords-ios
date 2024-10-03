@@ -65,7 +65,7 @@
 "_encryption" = "Šifrování";
 "_error" = "Chyba";
 "_exportAsQrCode" = "Exportovat jako QR kód";
-"_extractOtpErrorMessage" = "Došlo k chybě při hledání QR kódu v označeném obrázku.";
+"_extractOtpErrorMessage" = "Došlo k chybě při hledání QR kódu.";
 "_favorite" = "Oblíbené";
 "_favorites" = "Oblíbené";
 "_file" = "Soubor";
@@ -161,3 +161,6 @@
 "_connectingToNextcloudInstanceAt(url)" = "Připojování k instanci Nextcloud na\n%@";
 "_managedServerUrlErrorMessage" = "Adresa Nextcloud serveru byla předem nastavena, ale aplikaci se nepodařilo se k této instanci Nextcloud připojit. Obraťte se na správce.";
 "_supportThisProjectMessage" = "Je nainstalována testovací vývojová verze této aplikace. Jakékoli nákupy slouží pouze testovacím účelům a nebudou účtovány.";
+"_automaticallyAddedOtp" = "Automaticky přidané OTP";
+"_clearStoredE2EPassword" = "Vymazat uložené E2E heslo";
+"_universalClipboard" = "Univerzální schránka";
