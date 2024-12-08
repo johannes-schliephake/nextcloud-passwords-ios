@@ -1,7 +1,7 @@
 import Factory
 
 
-@available(iOS 17, *) protocol OpenProviderSettingsUseCaseProtocol: UseCase where State == EmptyState, Action == OpenProviderSettingsUseCase.Action {}
+@available(iOS 17, *) protocol OpenProviderSettingsUseCaseProtocol: UseCase where Action == OpenProviderSettingsUseCase.Action {}
 
 
 @available(iOS 17, *) final class OpenProviderSettingsUseCase: OpenProviderSettingsUseCaseProtocol {

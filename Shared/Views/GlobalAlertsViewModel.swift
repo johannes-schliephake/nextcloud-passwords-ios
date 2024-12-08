@@ -3,7 +3,7 @@ import Combine
 import Factory
 
 
-protocol GlobalAlertsViewModelProtocol: ViewModel where State == EmptyState, Action == Never {
+protocol GlobalAlertsViewModelProtocol: ViewModel {
     
     init()
     
