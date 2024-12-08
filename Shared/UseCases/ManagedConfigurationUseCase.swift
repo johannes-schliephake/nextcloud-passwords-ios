@@ -3,7 +3,7 @@ import Combine
 import Factory
 
 
-protocol ManagedConfigurationUseCaseProtocol: UseCase where State == ManagedConfigurationUseCase.State, Action == Never {}
+protocol ManagedConfigurationUseCaseProtocol: UseCase where State == ManagedConfigurationUseCase.State {}
 
 
 // TODO: replace temporary implementation
