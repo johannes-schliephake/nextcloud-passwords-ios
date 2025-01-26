@@ -1,2 +1,4 @@
 "NSCameraUsageDescription" = "QR குறியீட்டை ச்கேன் செய்யுங்கள்";
 "NSFaceIDUsageDescription" = "பயன்பாட்டைத் திறக்கவும்";
+"CFBundleDisplayName" = "ஒரு முறை கடவுச்சொல்லைச் செருகவும்";
+"NSPhotoLibraryAddUsageDescription" = "QR குறியீட்டைப் பகிரவும்";
