@@ -1,5 +1,2 @@
-• iOS 18 compatibility
-• AutoFill for one-time passwords (iOS 18+)
-• Setup one-time passwords via Camera app (iOS 16+)
-• Automated AutoFill permissions (iOS 18+)
+• Tamil translation (Thanks TamilNeram!)
 • Optimizations

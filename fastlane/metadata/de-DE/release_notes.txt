@@ -1,5 +1,2 @@
-• iOS 18 Kompatibilität
-• AutoFill für Einmalpasswörter (iOS 18+)
-• Einmalpasswörter via Kamera-App einrichten (iOS 16+)
-• Automatisierte AutoFill-Berechtigungen (iOS 18+)
+• Tamilische Übersetzung (Danke TamilNeram!)
 • Optimierungen
