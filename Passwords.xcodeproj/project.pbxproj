@@ -1109,6 +1109,10 @@
 		DD7BC52929AFFE43004AA7BC /* ViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelMock.swift; sourceTree = "<group>"; };
 		DD7CCDE62A0B95910035C84C /* OTPValidationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPValidationServiceTests.swift; sourceTree = "<group>"; };
 		DD7D452C2BFD1BB0006AB23B /* Current+ValueMockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Current+ValueMockable.swift"; sourceTree = "<group>"; };
+		DD7F69082D5D39B3006F1136 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		DD7F69092D5D39B3006F1136 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		DD7F690A2D5D39B3006F1136 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		DD7F690B2D5D39B3006F1136 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DD8023F92C08B03500C6808A /* LoginUrlUseCaseMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUrlUseCaseMock.swift; sourceTree = "<group>"; };
 		DD8023FA2C08B03500C6808A /* InitiateLoginUseCaseMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitiateLoginUseCaseMock.swift; sourceTree = "<group>"; };
 		DD8023FB2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedConfigurationUseCaseMock.swift; sourceTree = "<group>"; };
@@ -2720,6 +2724,7 @@
 				gl,
 				pl,
 				ta,
+				"zh-Hans",
 			);
 			mainGroup = 8F118746253C9EE10019FECA;
 			packageReferences = (
@@ -3726,6 +3731,7 @@
 				DD8CE44E2C753C90002A6C1C /* gl */,
 				DD5A1B4B2C77CFFD00B57205 /* pl */,
 				DD67283B2D46F57A00C1F3E0 /* ta */,
+				DD7F690B2D5D39B3006F1136 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -3745,6 +3751,7 @@
 				DD8CE44B2C753C90002A6C1C /* gl */,
 				DD5A1B482C77CFFD00B57205 /* pl */,
 				DD6728382D46F57A00C1F3E0 /* ta */,
+				DD7F69082D5D39B3006F1136 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3764,6 +3771,7 @@
 				DD8CE44C2C753C90002A6C1C /* gl */,
 				DD5A1B492C77CFFD00B57205 /* pl */,
 				DD6728392D46F57A00C1F3E0 /* ta */,
+				DD7F69092D5D39B3006F1136 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3783,6 +3791,7 @@
 				DD8CE44D2C753C90002A6C1C /* gl */,
 				DD5A1B4A2C77CFFD00B57205 /* pl */,
 				DD67283A2D46F57A00C1F3E0 /* ta */,
+				DD7F690A2D5D39B3006F1136 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

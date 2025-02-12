@@ -28,6 +28,7 @@ You can install beta builds by joining the [TestFlight](https://testflight.apple
 - Galician: [Miguel A. Bouzada](https://github.com/mbouzada)
 - Polish: [Radosław Rudner](https://hosted.weblate.org/user/rudass)
 - Tamil: [தமிழ் நேரம் (TamilNeram)](https://github.com/TamilNeram)
+- Simplified Chinese: [Sketch6580](https://hosted.weblate.org/user/Sketch6580)
 
 Everybody is welcome to contribute translations via [Weblate](https://hosted.weblate.org/engage/nextcloud-passwords-ios)!
 
