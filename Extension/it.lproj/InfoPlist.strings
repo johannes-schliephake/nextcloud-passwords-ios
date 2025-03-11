@@ -1,1 +1,4 @@
-
+"NSPhotoLibraryAddUsageDescription" = "Condividi Codice QR";
+"NSCameraUsageDescription" = "Scansiona Codice QR";
+"CFBundleDisplayName" = "Inserisci One-Time Password";
+"NSFaceIDUsageDescription" = "Sblocca App";
