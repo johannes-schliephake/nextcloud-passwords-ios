@@ -1,3 +1,1 @@
-• Tamil translation (Thanks TamilNeram!)
-• Simplified Chinese translation (Thanks Sketch6580!)
-• Optimizations
+• Italian translation (Thanks Luca!)
