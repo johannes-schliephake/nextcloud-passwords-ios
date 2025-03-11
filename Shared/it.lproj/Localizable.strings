@@ -111,7 +111,7 @@
 "_passwordStatusUnknownMessage" = "La sicurezza di questa password non è ancora stata verificata oppure l'opzione di memorizzazione degli hash per i controlli di sicurezza è disattivata.";
 "_periodSeconds" = "Periodo (Secondi)";
 "_providerInstructionsMessage" = "Questa applicazione supporta l'AutoFill. La funzione deve essere attivata nell'app Impostazioni:\n1. Apri l'app Impostazioni\n2. Tocca Generali\n3. Tocca Inserimento automatico e password\n4. Abilita Inserimento automatico password e passkey\n5. Abilita questa app";
-"_providerInstructionsMessageWithLink" = "Questa app supporta l'inserimento automatico. La funzionalità deve essere attivata manualmente:\n1. [Tocca qui] (autoFillSettings] per aprire le impostazioni di sistema di inserimento automatico\n2. Abilita l'inserimento automatico\n3. Abilita questa app\n4. Opzionale: Abilita questa app per la configurazione dei codici";
+"_providerInstructionsMessageWithLink" = "Questa app supporta l'inserimento automatico. La funzionalità deve essere attivata manualmente:\n1. [Tocca qui](autoFillSettings) per aprire le impostazioni di sistema di inserimento automatico\n2. Abilita l'inserimento automatico\n3. Abilita questa app\n4. Opzionale: Abilita questa app per la configurazione dei codici";
 "_secret" = "Segreto";
 "_security" = "Sicurezza";
 "_select" = "Seleziona";
