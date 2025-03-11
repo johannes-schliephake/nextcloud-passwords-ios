@@ -9,6 +9,6 @@ protocol Actionable {
 
 extension Actionable where Action == Never {
     
-    func callAsFunction(_ action: Action) {}
+    func callAsFunction(_ action: Never) {}
     
 }

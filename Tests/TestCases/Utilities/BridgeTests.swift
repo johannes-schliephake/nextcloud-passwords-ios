@@ -40,7 +40,7 @@ final class BridgeTests: XCTestCase {
     
     func testReceive_givenThrowingOperation_whenReturningValue_thenEmitsValue() {
         let valueMock = String.random()
-        let bridge = Bridge { () throws in  valueMock }
+        let bridge = Bridge { () throws in valueMock }
         
         expect(bridge).to(emit(valueMock))
     }
@@ -214,7 +214,7 @@ final class BridgeTests: XCTestCase {
     
     func testPriority_givenThrowingOperationWithExplicitPriority_thenTaskHasGivenPriority() {
         let priorityMock = taskPriorities.randomElement()!
-        let bridge = Bridge(priority: priorityMock) { Task.currentPriority }
+        let bridge = Bridge(priority: priorityMock) { () throws in Task.currentPriority }
         
         expect(bridge).to(emit(priorityMock))
     }

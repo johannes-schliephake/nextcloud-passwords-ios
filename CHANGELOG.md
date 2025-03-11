@@ -1,3 +1,8 @@
+## [v2.8.1] - 2025-03-11
+- Tamil translation (Thanks TamilNeram!)
+- Simplified Chinese translation (Thanks Sketch6580!)
+- Optimizations
+
 ## [v2.8] - 2024-09-15
 - iOS 18 compatibility
 - AutoFill for one-time passwords (iOS 18+)

@@ -38,7 +38,7 @@
 "_customFields" = "Uživatelsky určené kolonky";
 "_decryptFolderErrorMessage" = "Při rozšifrovávání složky došlo k chybě.";
 "_decryptPasswordErrorMessage" = "Při rozšifrovávání hesla došlo k chybě.";
-"_decryptTagErrorMessage" = "Při vytváření štítku došlo k chybě. Uložte ho znovu.";
+"_decryptTagErrorMessage" = "Při rozšifrovávání štítku došlo k chybě. Uložte ho znovu.";
 "_delete" = "Smazat";
 "_deletedPasswordMessage" = "Toto heslo bylo smazáno.";
 "_deleteFolder" = "Smazat složku";
@@ -65,7 +65,7 @@
 "_encryption" = "Šifrování";
 "_error" = "Chyba";
 "_exportAsQrCode" = "Exportovat jako QR kód";
-"_extractOtpErrorMessage" = "Došlo k chybě při hledání QR kódu v označeném obrázku.";
+"_extractOtpErrorMessage" = "Došlo k chybě při hledání QR kódu.";
 "_favorite" = "Oblíbené";
 "_favorites" = "Oblíbené";
 "_file" = "Soubor";
@@ -109,7 +109,7 @@
 "_passwordStatusOutdatedMessage" = "Toto heslo zůstalo už příliš dlouho nezměněno.";
 "_passwordStatusUnknownMessage" = "Toto heslo ještě nebylo zkontrolováno ohledně jeho bezpečnosti nebo je vypnutá volba pro ukládání otisků pro kontroly jejich bezpečnosti.";
 "_periodSeconds" = "Doba platnosti (sekundy)";
-"_providerInstructionsMessage" = "Tato aplikace podporuje automatické vyplňování hesel. Tuto funkci je třeba zapnout v nastavení systému iOS:\n1. Otevřete aplikaci Nastavení\n2. Klepněte na Hesla\n3. Klepněte na automatické vyplňování hesel\n4. Zapněte automatické vyplňování hesel\n5. Povolte pro tuto aplikaci";
+"_providerInstructionsMessage" = "Tato aplikace podporuje automatické vyplňování. Tuto funkci je třeba zapnout v nastavení systému iOS:\n1. Otevřete aplikaci Nastavení\n2. Klepněte na Hesla\n3. Klepněte na předvolby Hesel nebo Automatické vyplňování hesel\n4. Zapněte automatické vyplňování\n5. Povolte pro tuto aplikaci";
 "_qrCaptureErrorMessage" = "Došlo k chybě při spouštění kamery.";
 "_reject" = "Odmítnout";
 "_rootFolder" = "Kořenová složka";
@@ -161,3 +161,7 @@
 "_connectingToNextcloudInstanceAt(url)" = "Připojování k instanci Nextcloud na\n%@";
 "_managedServerUrlErrorMessage" = "Adresa Nextcloud serveru byla předem nastavena, ale aplikaci se nepodařilo se k této instanci Nextcloud připojit. Obraťte se na správce.";
 "_supportThisProjectMessage" = "Je nainstalována testovací vývojová verze této aplikace. Jakékoli nákupy slouží pouze testovacím účelům a nebudou účtovány.";
+"_automaticallyAddedOtp" = "Automaticky přidané OTP";
+"_clearStoredE2EPassword" = "Vymazat uložené E2E heslo";
+"_universalClipboard" = "Univerzální schránka";
+"_providerInstructionsMessageWithLink" = "Tato aplikace podporuje automatické vyplňování. Funkci je ale třeba zapnout ručně:\n1. [Klepněte sem](autoFillSettings) a otevřou se systémová nastavení pro automatické vyplňování\n2. Zapněte automatické vyplňování\n3. Povolte pro něj tuto aplikaci\n4. Volitelné: Povolte tuto aplikaci pro Code Set Up";

@@ -3,7 +3,7 @@ import Foundation
 import Factory
 
 
-protocol LoginPollUseCaseProtocol: UseCase where State == EmptyState, Action == LoginPollUseCase.Action {}
+protocol LoginPollUseCaseProtocol: UseCase where Action == LoginPollUseCase.Action {}
 
 
 // TODO: replace temporary implementation

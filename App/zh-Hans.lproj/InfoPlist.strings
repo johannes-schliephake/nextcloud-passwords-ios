@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "密码";
+"NSCameraUsageDescription" = "扫描二维码";
+"NSFaceIDUsageDescription" = "解锁应用";
+"NSPhotoLibraryAddUsageDescription" = "分享二维码";
