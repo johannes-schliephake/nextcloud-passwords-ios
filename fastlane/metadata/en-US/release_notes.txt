@@ -1,1 +1,2 @@
 • Italian translation (Thanks Luca!)
+• Optimizations
