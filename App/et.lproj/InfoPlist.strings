@@ -1,1 +1,4 @@
-
+"NSFaceIDUsageDescription" = "Eemalda rakenduse lukustus";
+"CFBundleDisplayName" = "Salasõnad";
+"NSCameraUsageDescription" = "Skaneeri QR-koodi";
+"NSPhotoLibraryAddUsageDescription" = "Jaga QR-koodi";
