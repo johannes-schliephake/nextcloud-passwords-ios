@@ -1,1 +1,4 @@
-
+"CFBundleDisplayName" = "Sisesta ühekordne salasõna";
+"NSPhotoLibraryAddUsageDescription" = "Jaga QR-koodi";
+"NSCameraUsageDescription" = "Skaneeri QR-koodi";
+"NSFaceIDUsageDescription" = "Eemalda rakenduse lukustus";
