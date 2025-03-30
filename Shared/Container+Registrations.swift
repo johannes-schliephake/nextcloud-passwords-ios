@@ -73,6 +73,10 @@ extension Container {
     @available(iOS 17, *) var openProviderSettingsUseCase: Factory<any OpenProviderSettingsUseCaseProtocol> {
         self { OpenProviderSettingsUseCase() }
     }
+    var preferredUsernameUseCase: Factory<any PreferredUsernameUseCaseProtocol> {
+        self { PreferredUsernameUseCase() }
+            .cached
+    }
     
     // MARK: Services
     var folderValidationService: Factory<any FolderValidationServiceProtocol> {

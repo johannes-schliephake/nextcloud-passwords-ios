@@ -166,9 +166,46 @@ struct EditPasswordPage: View {
     
     private func accountSection() -> some View {
         Section(header: Text("_account")) {
-            EditLabeledRow(type: .email, label: "_username", value: $editPasswordController.passwordUsername)
-                .focused($focusedField, equals: .passwordUsername)
-                .submitLabel(.next)
+            VStack {
+                EditLabeledRow(type: .email, label: "_username", value: $editPasswordController.passwordUsername)
+                    .focused($focusedField, equals: .passwordUsername)
+                    .submitLabel(.next)
+                if editPasswordController.password.id.isEmpty,
+                   let preferredUsernames = editPasswordController.preferredUsernames {
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 10) {
+                            ForEach(preferredUsernames, id: \.self) { preferredUsername in
+                                Button {
+                                    editPasswordController.passwordUsername = preferredUsername
+                                } label: {
+                                    Text(preferredUsername)
+                                        .tint(editPasswordController.passwordUsername == preferredUsername ? .white : Color(.secondaryLabel))
+                                        .font(.subheadline)
+                                        .padding(.horizontal, 11)
+                                        .padding(.vertical, 6)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: .infinity)
+                                                .fill(editPasswordController.passwordUsername == preferredUsername ? .gray : Color(.systemGroupedBackground))
+                                        )
+                                }
+                                .buttonStyle(.borderless)
+                            }
+                        }
+                    }
+                    .apply { view in
+                        if #available(iOS 16, *) {
+                            view
+                                .scrollIndicators(.hidden)
+                        }
+                    }
+                    .apply { view in
+                        if #available(iOS 17, *) {
+                            view
+                                .scrollClipDisabled()
+                        }
+                    }
+                }
+            }
             HStack(spacing: 16) {
                 EditLabeledRow(type: .secret, label: "_password", value: $editPasswordController.passwordPassword)
                     .focused($focusedField, equals: .passwordPassword)
