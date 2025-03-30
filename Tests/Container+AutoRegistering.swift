@@ -31,6 +31,7 @@ extension Container: @retroactive AutoRegistering {
         if #available(iOS 17, *) {
             Self.shared.openProviderSettingsUseCase.cached.register { OpenProviderSettingsUseCaseMock() }
         }
+        //Self.shared.preferredUsernameUseCase.register { PreferredUsernameUseCaseMock() }
         
         // MARK: Services
         Self.shared.folderValidationService.register { FolderValidationServiceMock() }

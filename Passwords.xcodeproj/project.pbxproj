@@ -515,6 +515,9 @@
 		DDACC45829F080D50094D141 /* PasteboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45729F080D50094D141 /* PasteboardService.swift */; };
 		DDACC45929F080D50094D141 /* PasteboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45729F080D50094D141 /* PasteboardService.swift */; };
 		DDACC45A29F080D50094D141 /* PasteboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDACC45729F080D50094D141 /* PasteboardService.swift */; };
+		DDAE72B42D96EF18008D6E54 /* PreferredUsernameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE72B32D96EF18008D6E54 /* PreferredUsernameUseCase.swift */; };
+		DDAE72B52D96EF18008D6E54 /* PreferredUsernameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE72B32D96EF18008D6E54 /* PreferredUsernameUseCase.swift */; };
+		DDAE72B62D96EF18008D6E54 /* PreferredUsernameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAE72B32D96EF18008D6E54 /* PreferredUsernameUseCase.swift */; };
 		DDB00D292A6EA24E0060909F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D282A6EA24E0060909F /* SettingsViewModel.swift */; };
 		DDB00D2A2A6EA24E0060909F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D282A6EA24E0060909F /* SettingsViewModel.swift */; };
 		DDB00D2B2A6EA24E0060909F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB00D282A6EA24E0060909F /* SettingsViewModel.swift */; };
@@ -1173,6 +1176,7 @@
 		DDACC45129EE73090094D141 /* LoggerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerMock.swift; sourceTree = "<group>"; };
 		DDACC45329EF3F440094D141 /* LogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewModel.swift; sourceTree = "<group>"; };
 		DDACC45729F080D50094D141 /* PasteboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardService.swift; sourceTree = "<group>"; };
+		DDAE72B32D96EF18008D6E54 /* PreferredUsernameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredUsernameUseCase.swift; sourceTree = "<group>"; };
 		DDAF982529910B86005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDAF982629910B8F005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDAF982729910B9A005D062D /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2555,6 +2559,7 @@
 				DD62B06A2BBCAACC006E1530 /* LoginUrlUseCase.swift */,
 				DD04DE042BAA390B00954A72 /* ManagedConfigurationUseCase.swift */,
 				DD77FF2E2C4C6A5500E193C9 /* OpenProviderSettingsUseCase.swift */,
+				DDAE72B32D96EF18008D6E54 /* PreferredUsernameUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -2957,6 +2962,7 @@
 				8F854E6D26239457008885C3 /* OfflineContainer.swift in Sources */,
 				DD2AEB782AEAAE520001781E /* DataScannerView.swift in Sources */,
 				DDC87BCD2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */,
+				DDAE72B62D96EF18008D6E54 /* PreferredUsernameUseCase.swift in Sources */,
 				DD8282BE2937686A0085115D /* SelectTagsViewModel.swift in Sources */,
 				DDFF22812C2A9D3100350BFD /* CheckTrustUseCase.swift in Sources */,
 				DDD517192B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */,
@@ -3176,6 +3182,7 @@
 				8F68D74026495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
 				DD2AEB792AEAAE520001781E /* DataScannerView.swift in Sources */,
 				DDC87BCE2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */,
+				DDAE72B52D96EF18008D6E54 /* PreferredUsernameUseCase.swift in Sources */,
 				DD8282BF2937686A0085115D /* SelectTagsViewModel.swift in Sources */,
 				DDFF22802C2A9D3100350BFD /* CheckTrustUseCase.swift in Sources */,
 				DDD5171A2B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */,
@@ -3524,6 +3531,7 @@
 				DD2AEB7A2AEAAE520001781E /* DataScannerView.swift in Sources */,
 				DDC87BCF2A54100900D56A49 /* SelectFolderViewModel.swift in Sources */,
 				DD8282C02937686A0085115D /* SelectTagsViewModel.swift in Sources */,
+				DDAE72B42D96EF18008D6E54 /* PreferredUsernameUseCase.swift in Sources */,
 				DDFF227F2C2A9D3100350BFD /* CheckTrustUseCase.swift in Sources */,
 				DDD5171B2B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */,
 				DDB1699827D20CC200F4D752 /* String+Segmented.swift in Sources */,
