@@ -9,7 +9,7 @@ struct EditPasswordPage: View {
     @EnvironmentObject private var settingsController: SettingsController
     
     @StateObject private var editPasswordController: EditPasswordController
-    @ScaledMetric private var customFieldTypeIconWidth = 30.0
+    @ScaledMetric private var customFieldTypeIconWidth = 30
     @FocusState private var focusedField: FocusField?
     @AppStorage("didAcceptAboutOtps", store: Configuration.userDefaults) private var didAcceptAboutOtps = Configuration.defaults["didAcceptAboutOtps"] as! Bool // swiftlint:disable:this force_cast
     @State private var editMode = false
