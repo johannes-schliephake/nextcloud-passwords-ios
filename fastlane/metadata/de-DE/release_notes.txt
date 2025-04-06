@@ -1,3 +1,4 @@
 • Italienische Übersetzung (Danke Luca!)
+• Anzeigen der Zeichenanzahl beim Hinzufügen eines Passworts
 • Anzeigen des nächsten Einmalpassworts
 • Optimierungen

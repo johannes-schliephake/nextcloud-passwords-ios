@@ -752,6 +752,12 @@
 		DDEC99012926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */; };
 		DDED770526E2186D0037A18D /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDED770426E2186D0037A18D /* Apply.swift */; };
 		DDED770626E2186D0037A18D /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDED770426E2186D0037A18D /* Apply.swift */; };
+		DDF05AA22DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF05AA12DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift */; };
+		DDF05AA32DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF05AA12DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift */; };
+		DDF05AA42DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF05AA12DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift */; };
+		DDF05AA62DA2F2120059CD16 /* CharacterCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF05AA52DA2F2120059CD16 /* CharacterCounter.swift */; };
+		DDF05AA72DA2F2120059CD16 /* CharacterCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF05AA52DA2F2120059CD16 /* CharacterCounter.swift */; };
+		DDF05AA82DA2F2120059CD16 /* CharacterCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF05AA52DA2F2120059CD16 /* CharacterCounter.swift */; };
 		DDF0C47C2AD7F35A00A50661 /* PasteboardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4D06112ABF33D8002DEAAD /* PasteboardDataSource.swift */; };
 		DDF0C47D2AD7F35B00A50661 /* PasteboardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4D06112ABF33D8002DEAAD /* PasteboardDataSource.swift */; };
 		DDF0C47E2AD7F35E00A50661 /* PasteboardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4D060F2ABF32C8002DEAAD /* PasteboardRepository.swift */; };
@@ -1261,6 +1267,8 @@
 		DDE6F2012C16149000D4CA36 /* LoginFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowViewModel.swift; sourceTree = "<group>"; };
 		DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EdgeInsets+ListRow.swift"; sourceTree = "<group>"; };
 		DDED770426E2186D0037A18D /* Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apply.swift; sourceTree = "<group>"; };
+		DDF05AA12DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Entries.swift"; sourceTree = "<group>"; };
+		DDF05AA52DA2F2120059CD16 /* CharacterCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCounter.swift; sourceTree = "<group>"; };
 		DDF0C4842ADD3EB900A50661 /* PasteboardDataSourceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardDataSourceMock.swift; sourceTree = "<group>"; };
 		DDF0C4862ADD3EC300A50661 /* PasteboardRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardRepositoryMock.swift; sourceTree = "<group>"; };
 		DDF0C4892ADD3F1700A50661 /* PasteboardMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardMock.swift; sourceTree = "<group>"; };
@@ -1859,6 +1867,7 @@
 		DD1256752C2D573700406836 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DDF05AA12DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift */,
 				8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */,
 				8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */,
 				8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */,
@@ -1950,6 +1959,7 @@
 			isa = PBXGroup;
 			children = (
 				DDED770426E2186D0037A18D /* Apply.swift */,
+				DDF05AA52DA2F2120059CD16 /* CharacterCounter.swift */,
 				DD76068B295F731200109075 /* Dismiss.swift */,
 				DD1E1D712A010D0C002DB08B /* Enabled.swift */,
 				DDA4FE7526E755C000D6F92E /* Initialize.swift */,
@@ -2936,6 +2946,7 @@
 				DD5739992A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				8F5E120825D3CC33007A2166 /* Configuration.swift in Sources */,
 				DD381C8D2C6BA2E100E0D683 /* AddOTPNavigation.swift in Sources */,
+				DDF05AA62DA2F2120059CD16 /* CharacterCounter.swift in Sources */,
 				DDDD93EF2A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
 				DDACC45829F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDE4F5D6274BEB3D00518167 /* LegacyFlowView.swift in Sources */,
@@ -3048,6 +3059,7 @@
 				8F559A1825A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
 				DD9FAD5B26A3796500770FEA /* SelectFolderPage.swift in Sources */,
 				DD5B586B27D00E6F00E54E71 /* ShareOTPPage.swift in Sources */,
+				DDF05AA22DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift in Sources */,
 				DD0EF29C2C16D8BD00F0D59B /* CheckLoginGrantUseCase.swift in Sources */,
 				DD4D06142ABF3472002DEAAD /* Pasteboard.swift in Sources */,
 				8F55FBD72570276800CC6920 /* SessionController.swift in Sources */,
@@ -3156,6 +3168,7 @@
 				DD57399A2A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				DDDD93F02A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
 				DD381C8E2C6BA2E100E0D683 /* AddOTPNavigation.swift in Sources */,
+				DDF05AA82DA2F2120059CD16 /* CharacterCounter.swift in Sources */,
 				DDACC45929F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDE4F5D7274BEB3D00518167 /* LegacyFlowView.swift in Sources */,
 				DD83C20C2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */,
@@ -3268,6 +3281,7 @@
 				8FC361C925827E5500785371 /* Session.swift in Sources */,
 				DD0C28762766028500E3DAEF /* SelectTagsPage.swift in Sources */,
 				8F559A1925A0AE3300D7A39F /* EditFolderNavigation.swift in Sources */,
+				DDF05AA32DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift in Sources */,
 				DD0EF29D2C16D8BD00F0D59B /* CheckLoginGrantUseCase.swift in Sources */,
 				DD9FAD5C26A3796500770FEA /* SelectFolderPage.swift in Sources */,
 				DD5B586C27D00E6F00E54E71 /* ShareOTPPage.swift in Sources */,
@@ -3505,6 +3519,7 @@
 				DD57399B2A1028FF004B6E69 /* ShareOTPViewModel.swift in Sources */,
 				DDB169C027D20CC200F4D752 /* SettingsPage.swift in Sources */,
 				DD381C8C2C6BA2E100E0D683 /* AddOTPNavigation.swift in Sources */,
+				DDF05AA72DA2F2120059CD16 /* CharacterCounter.swift in Sources */,
 				DDDD93F12A1426B80061BEA0 /* Publisher+CompactFlatMap.swift in Sources */,
 				DDACC45A29F080D50094D141 /* PasteboardService.swift in Sources */,
 				DDB169C927D20CC200F4D752 /* UpdateTagRequest.swift in Sources */,
@@ -3617,6 +3632,7 @@
 				DDB1698727D20CC200F4D752 /* EntriesNavigation.swift in Sources */,
 				DDB169E227D20CC200F4D752 /* Initialize.swift in Sources */,
 				DD0EF29E2C16D8BD00F0D59B /* CheckLoginGrantUseCase.swift in Sources */,
+				DDF05AA42DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift in Sources */,
 				DDB169C627D20CC200F4D752 /* Entry.swift in Sources */,
 				DD9C501A2A819692002588DD /* Product.swift in Sources */,
 				DDB169AB27D20CC200F4D752 /* TagBadge.swift in Sources */,

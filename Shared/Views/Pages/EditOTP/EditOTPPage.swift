@@ -66,6 +66,7 @@ struct EditOTPPage: View {
     private func otpSecretField() -> some View {
         Section(header: Text("_secret")) {
             EditLabeledRow(type: .secret, value: $viewModel[\.otpSecret])
+                .characterCounter(false)
                 .focused($focusedField, equals: .otpSecret)
                 .submitLabel(viewModel[\.showMore] ? .next : .done)
         }

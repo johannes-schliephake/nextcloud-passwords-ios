@@ -158,6 +158,7 @@ struct EntriesPage: View {
         List {
             Section(header: Text("_e2ePassword")) {
                 EditLabeledRow(type: .secret, value: $challengePassword)
+                    .characterCounter(false)
                     .focused($focusedField, equals: .challengePassword)
                     .submitLabel(.done)
                     .onSubmit {
