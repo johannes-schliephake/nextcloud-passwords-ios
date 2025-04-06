@@ -1,2 +1,3 @@
 • Italian translation (Thanks Luca!)
+• Show upcoming one-time password
 • Optimizations

@@ -1,2 +1,3 @@
 • Italienische Übersetzung (Danke Luca!)
+• Anzeigen des nächsten Einmalpassworts
 • Optimierungen

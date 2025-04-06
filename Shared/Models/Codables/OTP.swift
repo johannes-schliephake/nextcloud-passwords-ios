@@ -174,6 +174,15 @@ struct OTP: Equatable, Hashable {
         return Crypto.OTP.value(algorithm: algorithm, secret: secretData, digits: digits, counter: counter)
     }
     
+    var upcoming: String? {
+        guard type == .totp,
+              let secretData = Data(base32Encoded: secret) else {
+            return nil
+        }
+        let counter = Int(Date().timeIntervalSince1970) / period + 1
+        return Crypto.OTP.value(algorithm: algorithm, secret: secretData, digits: digits, counter: counter)
+    }
+    
     func next() -> Self {
         guard type == .hotp else {
             return self

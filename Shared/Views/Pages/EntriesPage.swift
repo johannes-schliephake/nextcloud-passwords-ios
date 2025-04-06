@@ -1089,7 +1089,7 @@ extension EntriesPage {
                             entriesController.update(password: password)
                         }
                         content: {
-                            current, accessoryView in
+                            current, _, accessoryView in
                             Text((current ?? "").segmented)
                                 .foregroundColor(.primary)
                                 .apply {
