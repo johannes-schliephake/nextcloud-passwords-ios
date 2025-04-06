@@ -1,4 +1,5 @@
 • Italian translation (Thanks Luca!)
+• Username recommendations when creating a password
 • Show character count when creating a password
 • Show upcoming one-time password
 • Optimizations

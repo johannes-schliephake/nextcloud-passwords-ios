@@ -1,4 +1,5 @@
 • Italienische Übersetzung (Danke Luca!)
+• Vorgeschlagene Benutzernamen beim Hinzufügen eines Passworts
 • Anzeigen der Zeichenanzahl beim Hinzufügen eines Passworts
 • Anzeigen des nächsten Einmalpassworts
 • Optimierungen
