@@ -7,3 +7,7 @@
 "_algorithm" = "Algoritm";
 "_all" = "Kõik";
 "_anErrorOccurred" = "Tekkis viga…";
+"_about" = "Rakenduse teave";
+"_copyPassword" = "Kopeeri salasõna";
+"_copyUsername" = "Kopeeri kasutajanimi";
+"_counter" = "Loendur";
