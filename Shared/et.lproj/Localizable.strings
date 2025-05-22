@@ -115,3 +115,14 @@
 "_tags" = "Sildid";
 "_passwordStatusDuplicateMessage" = "Seda salasõna on kasutatud enam kui üks kord.";
 "_text" = "Tekst";
+"_aboutOtps" = "Teave ühekordsete salasõnade kohta";
+"_appDeauthorized" = "Rakendus ligipääs on keelatud";
+"_appDeauthorizedMessage" = "Liiga paljude ebaõnnestunud sisselogimiskatsete tõttu on see rakendus ajutiselt serveri poolt keelatud. Palun proovi hiljem uuesti.";
+"_automaticallyAddedOtp" = "Automaatselt lisatud ühekordne salasõna";
+"_credentials" = "Kasutajanimi/salasõna";
+"_customFields" = "Sinu lisatud väljad";
+"_managedServerUrlErrorMessage" = "See Nextcloudi server on eelseadistatud, aga see rakendus ei suuda etteantud ühendust luua. Palun küsi lisateavet serveri haldajalt.";
+"_medium" = "Keskmine";
+"_passwordStatusGoodMessage" = "See salasõna sobib kasutamiseks. Teda pole rääderdatud ning ta ei riku kasutaja etteantud reegleid.";
+"_passwordStatusOutdatedMessage" = "Salasõna kasutamise lubatud kestus on lõppenud.";
+"_aboutOtpsMessage" = "See rakendus toetab ühekordseid salasõnu vaid mugavuse nimel. Ühekordse salasõna salvestamine koos kasutajakonto salasõnaga on olemuselt ebaloogiline - nii kaob osa mitmeastmelise autentimise turvaeelistest. Teise faktori/salasõna lubamine on muidugi parem kui selle puudumine, kuid eraldiseisev ühekordsete salasõnade rakendus on turvalisem. ÄRA salvesta siia ühekordseid salasõnu oma Nextcloudi kasutajakonto või muude oluliste kasutajakontide jaoks, näiteks e-posti või internetipanga kontode puhul. Ühekordsed salasõnad sünkroniseeritakse sinu Nextcloudi Salasõnarakenduse kaudu, kuid neid toetab praegu ainult iOS-i rakendus (versioon 2.6 või uuem).";
