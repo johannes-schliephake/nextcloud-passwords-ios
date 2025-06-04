@@ -1,4 +1,5 @@
 • Italian translation (Thanks Luca!)
+• Estonian translation (Thanks Priit Jõerüüt!)
 • Username recommendations when creating a password
 • Show character count when creating a password
 • Show upcoming one-time password

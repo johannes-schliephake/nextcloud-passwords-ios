@@ -1080,6 +1080,10 @@
 		DD62B06E2BBCAD16006E1530 /* LoginURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginURL.swift; sourceTree = "<group>"; };
 		DD62B0722BBCB121006E1530 /* LoginFlowChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowChallenge.swift; sourceTree = "<group>"; };
 		DD6350E0293FED030058A787 /* Container+Registrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Registrations.swift"; sourceTree = "<group>"; };
+		DD63A1E22DF08723002C9846 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD63A1E32DF08723002C9846 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD63A1E42DF08723002C9846 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD63A1E52DF08724002C9846 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD66FBE52B985EFE00263284 /* .ruby-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".ruby-version"; sourceTree = "<group>"; };
 		DD67204127BAFCAD0078CF47 /* EditOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPPage.swift; sourceTree = "<group>"; };
 		DD67204727BB94F00078CF47 /* EditOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOTPNavigation.swift; sourceTree = "<group>"; };
@@ -2745,6 +2749,7 @@
 				ta,
 				"zh-Hans",
 				it,
+				et,
 			);
 			mainGroup = 8F118746253C9EE10019FECA;
 			packageReferences = (
@@ -3762,6 +3767,7 @@
 				DD67283B2D46F57A00C1F3E0 /* ta */,
 				DD7F690B2D5D39B3006F1136 /* zh-Hans */,
 				DDAFAD552D80D1CC009C53F3 /* it */,
+				DD63A1E52DF08724002C9846 /* et */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -3783,6 +3789,7 @@
 				DD6728382D46F57A00C1F3E0 /* ta */,
 				DD7F69082D5D39B3006F1136 /* zh-Hans */,
 				DDAFAD522D80D1CC009C53F3 /* it */,
+				DD63A1E22DF08723002C9846 /* et */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3804,6 +3811,7 @@
 				DD6728392D46F57A00C1F3E0 /* ta */,
 				DD7F69092D5D39B3006F1136 /* zh-Hans */,
 				DDAFAD532D80D1CC009C53F3 /* it */,
+				DD63A1E32DF08723002C9846 /* et */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3825,6 +3833,7 @@
 				DD67283A2D46F57A00C1F3E0 /* ta */,
 				DD7F690A2D5D39B3006F1136 /* zh-Hans */,
 				DDAFAD542D80D1CC009C53F3 /* it */,
+				DD63A1E42DF08723002C9846 /* et */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
