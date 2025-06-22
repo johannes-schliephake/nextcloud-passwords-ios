@@ -173,6 +173,9 @@
 "_invalidCertificateMessage(hash)" = "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%@";
 "_joinTestFlightBeta" = "Join TestFlight Beta";
 
+/* E.g. length of a password */
+"_length" = "Length";
+
 /* This refers to the verb ("to log in") */
 "_logIn" = "Log In";
 
@@ -210,6 +213,9 @@
 
 /* I.e. the app has no connection to the server and is offline */
 "_offline" = "Offline";
+
+/* This is a label for a settings toggle */
+"_onDevicePasswordGenerator" = "On-Device Password Generator";
 "_openUrl" = "Open URL";
 
 /* I.e. settings options */

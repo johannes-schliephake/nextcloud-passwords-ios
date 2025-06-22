@@ -89,7 +89,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
                 self?.state.isValidating = url != nil
                 self?.state.showManagedServerAddressErrorAlert = url == nil && self?.state.isServerAddressManaged == true
             })
-            .debounce(for: 1.5, scheduler: resolve(\.userInitiatedScheduler))
+            .debounce(for: 1.5, scheduler: \.userInitiatedScheduler)
             .compactMap { $0 }
             .compactFlatMapLatest { loginUrl -> AnyPublisher<LoginFlowChallenge?, Never>? in
                 guard let initiateLoginUseCase = self?.initiateLoginUseCase else {

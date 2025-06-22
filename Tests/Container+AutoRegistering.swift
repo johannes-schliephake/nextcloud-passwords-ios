@@ -24,14 +24,18 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.checkLoginGrantUseCase.cached.register { CheckLoginGrantUseCaseMock() }
         Self.shared.checkTrustUseCase.cached.register { CheckTrustUseCaseMock() }
         Self.shared.folderLabelUseCase.cached.register { FolderLabelUseCaseMock() }
+        //Self.shared.generatePasswordUseCase.cached.register { GeneratePasswordUseCaseMock() }
         Self.shared.initiateLoginUseCase.cached.register { InitiateLoginUseCaseMock() }
         Self.shared.loginPollUseCase.cached.register { LoginPollUseCaseMock() }
         Self.shared.loginUrlUseCase.cached.register { LoginUrlUseCaseMock() }
         Self.shared.managedConfigurationUseCase.register { ManagedConfigurationUseCaseMock() }
+        //Self.shared.onDemandWordlistUseCase.register { OnDemandWordlistUseCaseMock() }
         if #available(iOS 17, *) {
             Self.shared.openProviderSettingsUseCase.cached.register { OpenProviderSettingsUseCaseMock() }
         }
         //Self.shared.preferredUsernameUseCase.register { PreferredUsernameUseCaseMock() }
+        //Self.shared.randomWordUseCase.cached.register { RandomWordUseCaseMock() }
+        //Self.shared.wordlistLocaleUseCase.register { WordlistLocaleUseCaseMock() }
         
         // MARK: Services
         Self.shared.folderValidationService.register { FolderValidationServiceMock() }
@@ -49,6 +53,7 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.windowSizeService.register { WindowSizeServiceMock() }
         
         // MARK: Repositories
+        //Self.shared.onDemandResourcesPropertyListDataSource.register { OnDemandResourcesPropertyListDataSourceMock() }
         Self.shared.pasteboardDataSource.register { PasteboardDataSourceMock() }
         Self.shared.pasteboardRepository.register { PasteboardRepositoryMock() }
         //Self.shared.productIdentifiersPropertyListDataSource.register { ProductIdentifiersPropertyListDataSourceMock() }
@@ -70,6 +75,7 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.pasteboard.cached.register { PasteboardMock() }
         Self.shared.productType.register { ProductMock.self }
         Self.shared.qrCodeGenerator.cached.register { QRCodeGeneratorMock() }
+        //Self.shared.randomNumberGenerator.cached.register { RandomNumberGeneratorMock() }
         Self.shared.systemNotifications.cached.register { NotificationsMock() }
         //Self.shared.transactionType.register { TransactionMock.self }
         Self.shared.videoCapturer.cached.register { VideoCapturerMock() }
@@ -77,6 +83,7 @@ extension Container: @retroactive AutoRegistering {
         // MARK: Miscellaneous
         Self.shared.configurationType.register { ConfigurationMock.self }
         Self.shared.currentDate.singleton.register { .init() }
+        //Self.shared.mainScheduler.register { resolve(\.mainSchedulerMock).eraseToAnyScheduler() }
         Self.shared.userInitiatedScheduler.register { resolve(\.userInitiatedSchedulerMock).eraseToAnyScheduler() }
         
         // TODO: remove

@@ -42,7 +42,8 @@ final class InitiateLoginUseCase: InitiateLoginUseCaseProtocol {
             cancellable = NetworkClient.default.dataTaskPublisher(for: request)
                 .map(\.data)
                 .decode(type: LoginFlowChallenge.self, decoder: configurationType.jsonDecoder)
-                .sink { self?.state.challenge = .success($0) } receiveFailure: { self?.state.challenge = .failure($0) }
+                .resultize()
+                .sink { self?.state.challenge = $0 }
         case .cancel:
             cancellable = nil
             state.challenge = nil

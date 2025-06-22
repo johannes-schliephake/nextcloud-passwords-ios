@@ -6,6 +6,8 @@ protocol SettingsServiceProtocol {
     
     var isOfflineStorageEnabled: Bool { get set }
     var isOfflineStorageEnabledPublisher: AnyPublisher<Bool, Never> { get }
+    var isOnDevicePasswordGeneratorEnabled: Bool { get set }
+    var isOnDevicePasswordGeneratorEnabledPublisher: AnyPublisher<Bool, Never> { get } // swiftlint:disable:this identifier_name
     var isAutomaticPasswordGenerationEnabled: Bool { get set }
     var isAutomaticPasswordGenerationEnabledPublisher: AnyPublisher<Bool, Never> { get } // swiftlint:disable:this identifier_name
     var isUniversalClipboardEnabled: Bool { get set }
@@ -38,6 +40,19 @@ final class SettingsService: SettingsServiceProtocol {
         $isOfflineStorageEnabledInternal
             .eraseToAnyPublisher()
     }
+    var isOnDevicePasswordGeneratorEnabled: Bool {
+        get {
+            isOnDevicePasswordGeneratorEnabledInternal
+        }
+        set {
+            isOnDevicePasswordGeneratorEnabledInternal = newValue
+            resolve(\.configurationType).userDefaults.set(newValue, forKey: "onDeviceGenerator")
+        }
+    }
+    var isOnDevicePasswordGeneratorEnabledPublisher: AnyPublisher<Bool, Never> { // swiftlint:disable:this identifier_name
+        $isOnDevicePasswordGeneratorEnabledInternal
+            .eraseToAnyPublisher()
+    }
     var isAutomaticPasswordGenerationEnabled: Bool {
         get {
             isAutomaticPasswordGenerationEnabledInternal
@@ -66,6 +81,7 @@ final class SettingsService: SettingsServiceProtocol {
     }
     
     @Published private var isOfflineStorageEnabledInternal = resolve(\.configurationType).userDefaults.bool(forKey: "storeOffline")
+    @Published private var isOnDevicePasswordGeneratorEnabledInternal = resolve(\.configurationType).userDefaults.bool(forKey: "onDeviceGenerator") // swiftlint:disable:this identifier_name
     @Published private var isAutomaticPasswordGenerationEnabledInternal = resolve(\.configurationType).userDefaults.bool(forKey: "automaticallyGeneratePasswords") // swiftlint:disable:this identifier_name
     @Published private var isUniversalClipboardEnabledInternal = resolve(\.configurationType).userDefaults.bool(forKey: "universalClipboard")
 

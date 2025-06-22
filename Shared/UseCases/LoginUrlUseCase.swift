@@ -1,5 +1,4 @@
 import Combine
-import Foundation
 
 
 protocol LoginUrlUseCaseProtocol: UseCase where State == LoginUrlUseCase.State, Action == LoginUrlUseCase.Action {}

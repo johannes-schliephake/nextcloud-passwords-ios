@@ -3,6 +3,6 @@ import SwiftUI
 
 extension EnvironmentValues {
     
-    @Entry var enableCharacterCounter: Bool? = nil
+    @Entry var enableCharacterCounter: Bool?
     
 }

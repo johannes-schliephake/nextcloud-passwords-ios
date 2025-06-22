@@ -5,6 +5,7 @@ import StoreKit
 import CombineSchedulers
 import WebKit
 import AuthenticationServices
+import Sodium
 
 
 extension Container {
@@ -57,6 +58,9 @@ extension Container {
     var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
         self { FolderLabelUseCase() }
     }
+    var generatePasswordUseCase: Factory<any GeneratePasswordUseCaseProtocol> {
+        self { GeneratePasswordUseCase() }
+    }
     var initiateLoginUseCase: Factory<any InitiateLoginUseCaseProtocol> {
         self { InitiateLoginUseCase() }
     }
@@ -70,11 +74,22 @@ extension Container {
         self { ManagedConfigurationUseCase() }
             .cached
     }
+    var onDemandWordlistUseCase: Factory<any OnDemandWordlistUseCaseProtocol> {
+        self { OnDemandWordlistUseCase() }
+            .cached
+    }
     @available(iOS 17, *) var openProviderSettingsUseCase: Factory<any OpenProviderSettingsUseCaseProtocol> {
         self { OpenProviderSettingsUseCase() }
     }
     var preferredUsernameUseCase: Factory<any PreferredUsernameUseCaseProtocol> {
         self { PreferredUsernameUseCase() }
+            .cached
+    }
+    var randomWordUseCase: Factory<any RandomWordUseCaseProtocol> {
+        self { RandomWordUseCase() }
+    }
+    var wordlistLocaleUseCase: Factory<any WordlistLocaleUseCaseProtocol> {
+        self { WordlistLocaleUseCase() }
             .cached
     }
     
@@ -132,6 +147,10 @@ extension Container {
     }
     
     // MARK: Repositories
+    var onDemandResourcesPropertyListDataSource: Factory<any OnDemandResourcesPropertyListDataSourceProtocol> {
+        self { OnDemandResourcesPropertyListDataSource() }
+            .cached
+    }
     var pasteboardDataSource: Factory<any PasteboardDataSourceProtocol> {
         self { PasteboardDataSource() }
             .cached
@@ -190,6 +209,9 @@ extension Container {
     var qrCodeGenerator: Factory<(any QRCodeGenerating)?> {
         self { CIFilter(name: "CIQRCodeGenerator") }
     }
+    var randomNumberGenerator: Factory<any RandomNumberGenerator> {
+        self { RandomBytes.Generator() }
+    }
     var systemNotifications: Factory <any Notifications> {
         self { NotificationCenter.default }
     }
@@ -212,6 +234,9 @@ extension Container {
     }
     var currentDate: Factory<Date> {
         self { .init() }
+    }
+    var mainScheduler: Factory<AnySchedulerOf<DispatchQueue>> {
+        self { DispatchQueue.main.eraseToAnyScheduler() }
     }
     var userInitiatedScheduler: Factory<AnySchedulerOf<DispatchQueue>> {
         self { DispatchQueue(qos: .userInitiated).eraseToAnyScheduler() }

@@ -78,6 +78,11 @@ struct SettingsPage: View {
             } set: { isOn in
                 viewModel(.setIsOfflineStorageEnabled(isOn))
             })
+            Toggle(Strings.onDevicePasswordGenerator, isOn: .init {
+                viewModel[\.isOnDevicePasswordGeneratorEnabled]
+            } set: { isOn in
+                viewModel(.setIsOnDevicePasswordGeneratorEnabled(isOn))
+            })
             Toggle("_automaticallyGeneratePasswords", isOn: .init {
                 viewModel[\.isAutomaticPasswordGenerationEnabled]
             } set: { isOn in
