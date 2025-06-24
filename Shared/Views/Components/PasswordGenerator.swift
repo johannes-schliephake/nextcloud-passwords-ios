@@ -169,7 +169,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
         showProgressView = true
         Task {
             defer { showProgressView = false }
-            let password = await GeneratePasswordHelperViewModel()(.generatePassword(withNumbers: generatorNumbers, withSpecialCharacters: generatorSpecial, length: generatorLength), returning: \.$password)
+            let password = await GeneratePasswordHelperViewModel()(.generatePassword(includingNumbers: generatorNumbers, includingSpecialCharacters: generatorSpecial, length: generatorLength), returning: \.$password)
             guard let password, let password else {
                 showPasswordServiceErrorAlert = true
                 return
@@ -212,7 +212,7 @@ private class GeneratePasswordHelperViewModel: ViewModel {
     }
     
     enum Action {
-        case generatePassword(withNumbers: Bool, withSpecialCharacters: Bool, length: Int)
+        case generatePassword(includingNumbers: Bool, includingSpecialCharacters: Bool, length: Int)
     }
     
     @Injected(\.generatePasswordUseCase) private var generatePasswordUseCase
@@ -227,10 +227,10 @@ private class GeneratePasswordHelperViewModel: ViewModel {
     
     func callAsFunction(_ action: Action) {
         switch action {
-        case let .generatePassword(withNumbers: withNumbers, withSpecialCharacters: withSpecialCharacters, length: length):
-            cancellable = Just((withNumbers, withSpecialCharacters, length))
+        case let .generatePassword(includingNumbers: includingNumbers, includingSpecialCharacters: includingSpecialCharacters, length: length):
+            cancellable = Just((includingNumbers, includingSpecialCharacters, length))
                 .receive(on: \.userInitiatedScheduler)
-                .handle(with: generatePasswordUseCase, { .generatePassword(withNumbers: $0, withSpecialCharacters: $1, length: $2) }, publishing: \.$password)
+                .handle(with: generatePasswordUseCase, { .generatePassword(includingNumbers: $0, includingSpecialCharacters: $1, length: $2) }, publishing: \.$generatedPassword)
                 .optionalize()
                 .replaceError(with: nil)
                 .receive(on: \.mainScheduler)
