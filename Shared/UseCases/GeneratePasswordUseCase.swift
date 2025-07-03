@@ -5,11 +5,16 @@ import Combine
 protocol GeneratePasswordUseCaseProtocol: UseCase where State == GeneratePasswordUseCase.State, Action == GeneratePasswordUseCase.Action {}
 
 
+enum GeneratePasswordError: Error {
+    case randomWordError
+}
+
+
 final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
     
     final class State {
         
-        @Current<String, RandomWordError> fileprivate(set) var generatedPassword
+        @Current<String, GeneratePasswordError> fileprivate(set) var generatedPassword
         
     }
     
@@ -24,6 +29,7 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
     
     @Injected(\.randomWordUseCase) private var randomWordUseCase
     @LazyInjected(\.wordlistLocaleUseCase) private var wordlistLocaleUseCase
+    @LazyInjected(\.logger) private var logger
     
     let state: State
     
@@ -73,6 +79,10 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
             /// Receive random words and build a password from them
             var rejectedRounds = 0
             cancellable = randomWordUseCase[\.$word]
+                .handleEvents(receiveFailure: { error in
+                    self?.logger.log(error: "Failed to get random words while generating password (\(error))")
+                })
+                .mapError { _ in GeneratePasswordError.randomWordError }
                 .scan((words: [String](), expectedCount: 0)) { previousResult, word in
                     let words = previousResult.words + [word]
                     /// Calculate expected password length
@@ -94,7 +104,7 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
                     }
                 }
                 .first { $0.expectedCount >= length } /// Accept password once it reaches the desired length
-                .handleEvents(receiveOutput: { _ in self?.randomWordUseCase(.stop) }) /// Stop stream of words
+                .handleEvents(receiveOutput: { _ in self?.randomWordUseCase(.stopStreamingWords) }) /// Stop stream of words
                 .map(\.words)
                 .map { words in
                     var words = words
@@ -149,7 +159,7 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
                 .sink { self?.state.generatedPassword = $0 }
             
             /// Start generating a stream of words
-            randomWordUseCase(.start)
+            randomWordUseCase(.startStreamingWords)
         }
     }
     

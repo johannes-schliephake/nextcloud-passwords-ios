@@ -6,10 +6,23 @@ import Factory
 protocol RandomWordUseCaseProtocol: UseCase where State == RandomWordUseCase.State, Action == RandomWordUseCase.Action {}
 
 
-enum RandomWordError: Error {
+enum RandomWordError: Error, CustomStringConvertible {
+    
     case cannotOpenWordlist
     case cannotReadWordlist
     case cannotParseWordlist
+    
+    var description: String {
+        switch self {
+        case .cannotOpenWordlist:
+            "Unable to open wordlist file"
+        case .cannotReadWordlist:
+            "Unable to read from wordlist file"
+        case .cannotParseWordlist:
+            "Unable to parse word from wordlist file"
+        }
+    }
+    
 }
 
 
@@ -22,8 +35,8 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
     }
     
     enum Action {
-        case start
-        case stop
+        case startStreamingWords
+        case stopStreamingWords
     }
     
     private static let readLength: UInt64 = (62 + 1) * 2 /// Maximum byte count of a word in wordlist, adding 1 for comma, times 2 for worst case scenario (currently Ukrainian has the biggest word)
@@ -54,7 +67,7 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
     
     func callAsFunction(_ action: Action) {
         switch action {
-        case .start:
+        case .startStreamingWords:
             isRunning = true
             defer { isRunning = false }
             
@@ -78,7 +91,7 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
                 }
                 state.word = .success(word)
             }
-        case .stop:
+        case .stopStreamingWords:
             isRunning = false
         }
     }
