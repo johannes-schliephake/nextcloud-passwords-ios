@@ -828,6 +828,9 @@
 		DDFC42082E1728420080D52A /* OnDemandResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFC42072E1728420080D52A /* OnDemandResources.swift */; };
 		DDFC42092E1728420080D52A /* OnDemandResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFC42072E1728420080D52A /* OnDemandResources.swift */; };
 		DDFC420A2E1728420080D52A /* OnDemandResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFC42072E1728420080D52A /* OnDemandResources.swift */; };
+		DDFC420C2E17E04B0080D52A /* OnDemandResourcesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFC420B2E17E04B0080D52A /* OnDemandResourcesRepository.swift */; };
+		DDFC420D2E17E04B0080D52A /* OnDemandResourcesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFC420B2E17E04B0080D52A /* OnDemandResourcesRepository.swift */; };
+		DDFC420E2E17E04B0080D52A /* OnDemandResourcesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFC420B2E17E04B0080D52A /* OnDemandResourcesRepository.swift */; };
 		DDFDD3D12B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */; };
 		DDFDD3D22B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */; };
 		DDFDD3D32B66D7CF0082BB1E /* FolderLabelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */; };
@@ -1350,6 +1353,7 @@
 		DDFA46C92BF7A74A0077F068 /* Publisher+CompactFlatMapLatest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+CompactFlatMapLatest.swift"; sourceTree = "<group>"; };
 		DDFB16AE2DA8F0B700E6C492 /* WordlistLocaleUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordlistLocaleUseCase.swift; sourceTree = "<group>"; };
 		DDFC42072E1728420080D52A /* OnDemandResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnDemandResources.swift; sourceTree = "<group>"; };
+		DDFC420B2E17E04B0080D52A /* OnDemandResourcesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnDemandResourcesRepository.swift; sourceTree = "<group>"; };
 		DDFDD3D02B66D7CF0082BB1E /* FolderLabelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderLabelUseCase.swift; sourceTree = "<group>"; };
 		DDFF227E2C2A9D3100350BFD /* CheckTrustUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckTrustUseCase.swift; sourceTree = "<group>"; };
 		DDFF5D4729D8443B00422603 /* Container+AutoRegistering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+AutoRegistering.swift"; sourceTree = "<group>"; };
@@ -2572,6 +2576,7 @@
 			isa = PBXGroup;
 			children = (
 				DDC8ADC32DA6B601001A1ED8 /* OnDemandResourcesPropertyListDataSource.swift */,
+				DDFC420B2E17E04B0080D52A /* OnDemandResourcesRepository.swift */,
 			);
 			path = OnDemandResources;
 			sourceTree = "<group>";
@@ -3204,6 +3209,7 @@
 				8FA5B74C261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				DDACC45429EF3F440094D141 /* LogViewModel.swift in Sources */,
 				8F997F8D2572C2FB00B5F784 /* UpdatePasswordRequest.swift in Sources */,
+				DDFC420E2E17E04B0080D52A /* OnDemandResourcesRepository.swift in Sources */,
 				DD67204827BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
 				DD0B7AE32971B35B00A59E3C /* FoldersService.swift in Sources */,
 				DD95B07E27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
@@ -3435,6 +3441,7 @@
 				DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				8FA5B74D261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				DDACC45529EF3F440094D141 /* LogViewModel.swift in Sources */,
+				DDFC420C2E17E04B0080D52A /* OnDemandResourcesRepository.swift in Sources */,
 				8FBE43D2258D5A8C003F7F34 /* UIApplication+IsExtension.swift in Sources */,
 				DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
 				DD0B7AE42971B35B00A59E3C /* FoldersService.swift in Sources */,
@@ -3794,6 +3801,7 @@
 				DDACC45629EF3F440094D141 /* LogViewModel.swift in Sources */,
 				DDB169DA27D20CC200F4D752 /* OpenSessionRequest.swift in Sources */,
 				DDB169B327D20CC200F4D752 /* String+Localized.swift in Sources */,
+				DDFC420D2E17E04B0080D52A /* OnDemandResourcesRepository.swift in Sources */,
 				DD0B7AE52971B35B00A59E3C /* FoldersService.swift in Sources */,
 				DDB1699F27D20CC200F4D752 /* OTPDisplay.swift in Sources */,
 				DDB169A227D20CC200F4D752 /* DeleteTagRequest.swift in Sources */,

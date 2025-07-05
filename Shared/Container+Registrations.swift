@@ -151,6 +151,10 @@ extension Container {
         self { OnDemandResourcesPropertyListDataSource() }
             .cached
     }
+    var onDemandResourcesRepository: Factory<any OnDemandResourcesRepositoryProtocol> {
+        self { OnDemandResourcesRepository() }
+            .cached
+    }
     var pasteboardDataSource: Factory<any PasteboardDataSourceProtocol> {
         self { PasteboardDataSource() }
             .cached

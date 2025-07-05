@@ -15,7 +15,7 @@ final class WordlistLocaleUseCase: WordlistLocaleUseCaseProtocol {
         
     }
     
-    @Injected(\.onDemandResourcesPropertyListDataSource) private var onDemandResourcesPropertyListDataSource
+    @Injected(\.onDemandResourcesRepository) private var onDemandResourcesRepository
     @LazyInjected(\.configurationType) private var configurationType
     @LazyInjected(\.logger) private var logger
     
@@ -32,16 +32,16 @@ final class WordlistLocaleUseCase: WordlistLocaleUseCaseProtocol {
     private func setupPipelines() {
         weak var `self` = self
         
-        onDemandResourcesPropertyListDataSource.propertyListPublisher
-            .handleEvents(receiveFailure: { _ in
-                self?.logger.log(error: "Failed to load on-demand resource list, falling back to default wordlist language")
-            })
+        onDemandResourcesRepository.onDemandResources
             .map { onDemandResources in
                 onDemandResources
                     .tagKeys
                     .compactMap { $0.split(separator: ".").first }
                     .map(String.init)
             }
+            .handleEvents(receiveFailure: { _ in
+                self?.logger.log(error: "Failed to load on-demand resource list, falling back to default wordlist language")
+            })
             .replaceError(with: [])
             .map { languageIdentifiers in
                 if let language = self?.configurationType.preferredLanguageIdentifier,

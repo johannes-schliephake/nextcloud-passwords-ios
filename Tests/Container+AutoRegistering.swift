@@ -54,6 +54,7 @@ extension Container: @retroactive AutoRegistering {
         
         // MARK: Repositories
         //Self.shared.onDemandResourcesPropertyListDataSource.register { OnDemandResourcesPropertyListDataSourceMock() }
+        //Self.shared.onDemandResourcesRepository.register { OnDemandResourcesRepositoryMock() }
         Self.shared.pasteboardDataSource.register { PasteboardDataSourceMock() }
         Self.shared.pasteboardRepository.register { PasteboardRepositoryMock() }
         //Self.shared.productIdentifiersPropertyListDataSource.register { ProductIdentifiersPropertyListDataSourceMock() }

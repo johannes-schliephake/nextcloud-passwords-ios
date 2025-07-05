@@ -6,6 +6,7 @@ import Foundation
 protocol OnDemandWordlistUseCaseProtocol: UseCase where Action == OnDemandWordlistUseCase.Action {}
 
 
+// TODO: tests
 final class OnDemandWordlistUseCase: OnDemandWordlistUseCaseProtocol {
     
     enum Action {

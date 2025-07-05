@@ -10,6 +10,7 @@ enum GeneratePasswordError: Error {
 }
 
 
+// TODO: tests
 final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
     
     final class State {
@@ -144,7 +145,7 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
                     var remainingSubstitutions = (password.count + 5) / 10
                     while remainingSubstitutions > 0,
                           !substitutionCandidates.isEmpty {
-                        guard let (indexToSubstitute, diacriticInsensitiveCharacterToSubstitute) = substitutionCandidates.randomElement(using: &randomNumberGenerator),
+                        guard let (indexToSubstitute, diacriticInsensitiveCharacterToSubstitute) = substitutionCandidates.randomElement(using: &randomNumberGenerator), // swiftlint:disable:this identifier_name
                               let replacementCharacterPool = characterReplacementPool[diacriticInsensitiveCharacterToSubstitute],
                               let replacementCharacter = replacementCharacterPool.randomElement(using: &randomNumberGenerator) else {
                             continue

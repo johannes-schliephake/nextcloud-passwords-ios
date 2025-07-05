@@ -26,6 +26,7 @@ enum RandomWordError: Error, CustomStringConvertible {
 }
 
 
+// TODO: tests
 final class RandomWordUseCase: RandomWordUseCaseProtocol {
     
     final class State {
