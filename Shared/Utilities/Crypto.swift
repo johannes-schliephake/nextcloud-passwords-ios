@@ -137,6 +137,16 @@ extension Crypto {
             return CryptoKit.SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
         }
         
+        static func hash(_ file: FileHandle) throws -> Data {
+            var hasher = CryptoKit.SHA256()
+            try file.seek(toOffset: 0)
+            while let chunk = try file.read(upToCount: 16 * 1024), // TODO: test constant
+                  !chunk.isEmpty {
+                hasher.update(data: chunk)
+            }
+            return .init(hasher.finalize())
+        }
+        
     }
     
 }

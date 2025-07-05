@@ -45,7 +45,7 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
     let state: State
     
     private let handle: FileHandle
-    private let length: UInt64
+    private let wordlistLength: UInt64
     private var isRunning = false
     
     init() {
@@ -53,15 +53,28 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
         let appGroupDirectory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: configuration.appGroup)
         guard let wordlistLanguage = resolve(\.wordlistLocaleUseCase)[\.wordlistLocale]?.get().identifier,
               let wordlistUrl = appGroupDirectory?.appendingPathComponent("\(wordlistLanguage).wordlist"),
-              let handle = try? FileHandle(forReadingFrom: wordlistUrl),
-              let length = try? handle.seekToEnd() else {
+              let wordlistHandle = try? FileHandle(forReadingFrom: wordlistUrl),
+              let wordlistLength = try? wordlistHandle.seekToEnd() else {
             throw RandomWordError.cannotOpenWordlist
         }
-        guard length <= 1024 * 1024 * 4 else {
-            fatalError("File is larger than expected") // swiftlint:disable:this fatal_error
+        self.handle = wordlistHandle
+        self.wordlistLength = wordlistLength
+        
+        /// Validate wordlist file integrity
+        let wordlistHash = try? Crypto.SHA256.hash(wordlistHandle).base64EncodedString()
+        switch (wordlistLanguage, wordlistLength, wordlistHash) {
+        case ("cs", 4007396, "KBMyMnjizSIozG+u31x22Als4fmDP/3w0MTfQWbmFs8="): break
+        case ("de", 4017560, "LJKIUY9B0w5Uyx2plUS7MF+8Q3S0CjiyPwoC98ZJ1YM="): break
+        case ("en", 3936682, "5ujiMUFM0RnhjM9IrKKWa6A5g2S9rxLiSmnVCMrcUhU="): break
+        case ("fr", 3895645, "4SO5+Q1F4Nw64BjmXMuXHzXBy2GldJr4Q2UjZIs3sDk="): break
+        case ("it", 4033833, "D5kj2U7zZ9tBHEk4x+4ffT46o2BuAfW79bXEXgq1gZI="): break
+        case ("nb", 2159934, "IzBm27G1HyBULEHvJ9AifGjGF/E3e0/QgL7f1vz/emE="): break
+        case ("pl", 4073274, "8l4OEjAoCj5l0f3LIlu/+MudgQPjA9BiLNTQ0aYiVwk="): break
+        case ("ru", 3419421, "/T7xvRRJLvAEwFaHG+NpBtivdVtLBWKg+K+76S3XA5I="): break
+        case ("sv", 3873783, "0NG8y/Nb7NIjII5DRIxRP/sNEXQDPeRBLjMxC/9JvUQ="): break
+        case ("uk", 2615978, "qeb8jJvqok8Eck3Gk5Zbua8BbMPJvTyOnqtm22IcgUw="): break
+        default: fatalError()
         }
-        self.handle = handle
-        self.length = length
         
         state = .init()
     }
@@ -75,7 +88,7 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
             @Injected(\.randomNumberGenerator) var randomNumberGenerator
             
             while isRunning {
-                let randomOffset = UInt64.random(in: 0..<(length - Self.readLength), using: &randomNumberGenerator)
+                let randomOffset = UInt64.random(in: 0..<(wordlistLength - Self.readLength), using: &randomNumberGenerator)
                 let chunkData: Data?
                 do {
                     try handle.seek(toOffset: UInt64(randomOffset))
