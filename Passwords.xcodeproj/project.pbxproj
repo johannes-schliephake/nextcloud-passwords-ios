@@ -498,10 +498,8 @@
 		DDA216A82DACEE8700713B50 /* it.wordlist in Resources */ = {isa = PBXBuildFile; fileRef = DDA216A02DACEE8700713B50 /* it.wordlist */; settings = {ASSET_TAGS = (it.wordlist, ); }; };
 		DDA216A92DACEE8700713B50 /* nb.wordlist in Resources */ = {isa = PBXBuildFile; fileRef = DDA216A12DACEE8700713B50 /* nb.wordlist */; settings = {ASSET_TAGS = (nb.wordlist, ); }; };
 		DDA216AA2DACEE8700713B50 /* sv.wordlist in Resources */ = {isa = PBXBuildFile; fileRef = DDA216A42DACEE8700713B50 /* sv.wordlist */; settings = {ASSET_TAGS = (sv.wordlist, ); }; };
-		DDA216AB2DACEE8700713B50 /* uk.wordlist in Resources */ = {isa = PBXBuildFile; fileRef = DDA216A52DACEE8700713B50 /* uk.wordlist */; settings = {ASSET_TAGS = (uk.wordlist, ); }; };
 		DDA216AC2DACEE8700713B50 /* pl.wordlist in Resources */ = {isa = PBXBuildFile; fileRef = DDA216A22DACEE8700713B50 /* pl.wordlist */; settings = {ASSET_TAGS = (pl.wordlist, ); }; };
 		DDA216AE2DACEE8700713B50 /* cs.wordlist in Resources */ = {isa = PBXBuildFile; fileRef = DDA2169E2DACEE8700713B50 /* cs.wordlist */; settings = {ASSET_TAGS = (cs.wordlist, ); }; };
-		DDA216AF2DACEE8700713B50 /* ru.wordlist in Resources */ = {isa = PBXBuildFile; fileRef = DDA216A32DACEE8700713B50 /* ru.wordlist */; settings = {ASSET_TAGS = (ru.wordlist, ); }; };
 		DDA25D902A8C1C48005D9320 /* AnyAsyncSequence in Frameworks */ = {isa = PBXBuildFile; productRef = DDA25D8F2A8C1C48005D9320 /* AnyAsyncSequence */; };
 		DDA25D922A8C1C70005D9320 /* AnyAsyncSequence in Frameworks */ = {isa = PBXBuildFile; productRef = DDA25D912A8C1C70005D9320 /* AnyAsyncSequence */; };
 		DDA25D942A8C1C77005D9320 /* AnyAsyncSequence in Frameworks */ = {isa = PBXBuildFile; productRef = DDA25D932A8C1C77005D9320 /* AnyAsyncSequence */; };
@@ -1221,9 +1219,7 @@
 		DDA216A02DACEE8700713B50 /* it.wordlist */ = {isa = PBXFileReference; lastKnownFileType = text; path = it.wordlist; sourceTree = "<group>"; };
 		DDA216A12DACEE8700713B50 /* nb.wordlist */ = {isa = PBXFileReference; lastKnownFileType = text; path = nb.wordlist; sourceTree = "<group>"; };
 		DDA216A22DACEE8700713B50 /* pl.wordlist */ = {isa = PBXFileReference; lastKnownFileType = text; path = pl.wordlist; sourceTree = "<group>"; };
-		DDA216A32DACEE8700713B50 /* ru.wordlist */ = {isa = PBXFileReference; lastKnownFileType = text; path = ru.wordlist; sourceTree = "<group>"; };
 		DDA216A42DACEE8700713B50 /* sv.wordlist */ = {isa = PBXFileReference; lastKnownFileType = text; path = sv.wordlist; sourceTree = "<group>"; };
-		DDA216A52DACEE8700713B50 /* uk.wordlist */ = {isa = PBXFileReference; lastKnownFileType = text; path = uk.wordlist; sourceTree = "<group>"; };
 		DDA25D952A8C1F05005D9320 /* PurchaseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseResult.swift; sourceTree = "<group>"; };
 		DDA25D992A8C1F2A005D9320 /* VerificationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationResult.swift; sourceTree = "<group>"; };
 		DDA25D9D2A8C1F51005D9320 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -2652,9 +2648,7 @@
 				DDA216A02DACEE8700713B50 /* it.wordlist */,
 				DDA216A12DACEE8700713B50 /* nb.wordlist */,
 				DDA216A22DACEE8700713B50 /* pl.wordlist */,
-				DDA216A32DACEE8700713B50 /* ru.wordlist */,
 				DDA216A42DACEE8700713B50 /* sv.wordlist */,
-				DDA216A52DACEE8700713B50 /* uk.wordlist */,
 			);
 			path = Wordlists;
 			sourceTree = "<group>";
@@ -2817,9 +2811,7 @@
 					it.wordlist,
 					nb.wordlist,
 					pl.wordlist,
-					ru.wordlist,
 					sv.wordlist,
-					uk.wordlist,
 				);
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1530;
@@ -2896,10 +2888,8 @@
 				DDA216A82DACEE8700713B50 /* it.wordlist in Resources */,
 				DDA216A92DACEE8700713B50 /* nb.wordlist in Resources */,
 				DDA216AA2DACEE8700713B50 /* sv.wordlist in Resources */,
-				DDA216AB2DACEE8700713B50 /* uk.wordlist in Resources */,
 				DDA216AC2DACEE8700713B50 /* pl.wordlist in Resources */,
 				DDA216AE2DACEE8700713B50 /* cs.wordlist in Resources */,
-				DDA216AF2DACEE8700713B50 /* ru.wordlist in Resources */,
 				8F09583725D14FDD0082D438 /* Assets.xcassets in Resources */,
 				DDF5A0CB2DA5C1A200AA0EEF /* de.wordlist in Resources */,
 				DDF5A0CF2DA5D27E00AA0EEF /* en.wordlist in Resources */,

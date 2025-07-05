@@ -40,7 +40,7 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
         case stopStreamingWords
     }
     
-    private static let readLength: UInt64 = (62 + 1) * 2 /// Maximum byte count of a word in wordlist, adding 1 for comma, times 2 for worst case scenario (currently Ukrainian has the biggest word)
+    private static let readLength: UInt64 = (45 + 1) * 2 /// Maximum byte count of a word in wordlist, adding 1 for comma, times 2 for worst case scenario (currently English has the biggest word: cs 31, de 41, en 45, fr 25, it 18, nb 30, pl 44, sv 37)
     
     let state: State
     
@@ -70,9 +70,7 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
         case ("it", 4033833, "D5kj2U7zZ9tBHEk4x+4ffT46o2BuAfW79bXEXgq1gZI="): break
         case ("nb", 2159934, "IzBm27G1HyBULEHvJ9AifGjGF/E3e0/QgL7f1vz/emE="): break
         case ("pl", 4073274, "8l4OEjAoCj5l0f3LIlu/+MudgQPjA9BiLNTQ0aYiVwk="): break
-        case ("ru", 3419421, "/T7xvRRJLvAEwFaHG+NpBtivdVtLBWKg+K+76S3XA5I="): break
         case ("sv", 3873783, "0NG8y/Nb7NIjII5DRIxRP/sNEXQDPeRBLjMxC/9JvUQ="): break
-        case ("uk", 2615978, "qeb8jJvqok8Eck3Gk5Zbua8BbMPJvTyOnqtm22IcgUw="): break
         default: fatalError()
         }
         
