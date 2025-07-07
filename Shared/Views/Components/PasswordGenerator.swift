@@ -215,7 +215,7 @@ private class GeneratePasswordHelperViewModel: ViewModel {
         case generatePassword(includingNumbers: Bool, includingSpecialCharacters: Bool, length: Int)
     }
     
-    @Injected(\.generatePasswordUseCase) private var generatePasswordUseCase
+    @LazyInjected(\.generatePasswordUseCase) private var generatePasswordUseCase
     
     let state: State
     

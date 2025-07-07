@@ -10,6 +10,7 @@ enum RandomWordError: Error, CustomStringConvertible {
     
     case cannotOpenWordlist
     case cannotReadWordlist
+    case cannotVerifyWordlistIntegrity
     case cannotParseWordlist
     
     var description: String {
@@ -18,6 +19,8 @@ enum RandomWordError: Error, CustomStringConvertible {
             "Unable to open wordlist file"
         case .cannotReadWordlist:
             "Unable to read from wordlist file"
+        case .cannotVerifyWordlistIntegrity:
+            "Unable to verify wordlist integrity"
         case .cannotParseWordlist:
             "Unable to parse word from wordlist file"
         }
@@ -40,11 +43,9 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
         case stopStreamingWords
     }
     
-    private static let readLength = (45 + 1) * 2 /// Maximum byte count of a word in wordlist, adding 1 for comma, times 2 for worst case scenario (currently English has the biggest word: cs 31, de 41, en 45, fr 25, it 18, nb 30, pl 44, sv 37)
-    
     let state: State
     
-    private let wordlist: Data
+    private let words: [Data]
     private var isRunning = false
     
     init() {
@@ -69,10 +70,10 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
         case ("nb", 2159934, "233066dbb1b51f20542c41ef27d0227c68c617f1377b4fd080bedfd6fcff7a61"): break
         case ("pl", 4073274, "f25e0e1230280a3e65d1fdcb225bbff8cb9d8103e303d0622cd4d0d1a6225709"): break
         case ("sv", 3873783, "d0d1bccbf35becd223208e43448c513ffb0d1174033de4412e33310bff49bd44"): break
-        default: fatalError()
+        default: throw RandomWordError.cannotVerifyWordlistIntegrity
         }
         
-        self.wordlist = wordlist
+        self.words = wordlist.split(separator: .init(ascii: ","))
         state = .init()
     }
     
@@ -85,10 +86,7 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
             @Injected(\.randomNumberGenerator) var randomNumberGenerator
             
             while isRunning {
-                let randomOffset = Int.random(in: 0..<(wordlist.count - Self.readLength), using: &randomNumberGenerator)
-                let chunkData = wordlist.subdata(in: randomOffset..<(randomOffset + Self.readLength))
-                let wordData = chunkData.split(separator: .init(ascii: ","), maxSplits: 2, omittingEmptySubsequences: false)[safe: 1]
-                guard let wordData,
+                guard let wordData = words.randomElement(using: &randomNumberGenerator),
                       let word = String(data: wordData, encoding: .utf8) else { // swiftlint:disable:this non_optional_string_data_conversion
                     state.word = .failure(.cannotParseWordlist)
                     return

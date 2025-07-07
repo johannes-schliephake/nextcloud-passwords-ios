@@ -28,7 +28,7 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
     private static let specialCharacters = Set("!$%&/()+?@,.:;_#*<>=")
     private static let specialCharacterReplacements: [Character: Set<Character>] = ["A": "@", "a": "@", "C": "(", "c": "(", "H": "#", "h": "#", "I": "!/", "i": "!/", "l": "!/", "S": "$", "s": "$", "T": "+", "t": "+", "X": "%", "x": "%"].mapValues(Set.init)
     
-    @Injected(\.randomWordUseCase) private var randomWordUseCase
+    @LazyInjected(\.randomWordUseCase) private var randomWordUseCase
     @LazyInjected(\.wordlistLocaleUseCase) private var wordlistLocaleUseCase
     @LazyInjected(\.logger) private var logger
     
