@@ -23,6 +23,7 @@ internal enum Strings {
   internal static let anErrorOccurred = Strings.tr("Localizable", "_anErrorOccurred", fallback: "An error occurred …")
   internal static let appDeauthorized = Strings.tr("Localizable", "_appDeauthorized", fallback: "App Deauthorized")
   internal static let appDeauthorizedMessage = Strings.tr("Localizable", "_appDeauthorizedMessage", fallback: "Because of too many failed login attempts this app was deauthorized by the server. Please try again later.")
+  internal static let appExtensionWordlistErrorMessage = Strings.tr("Localizable", "_appExtensionWordlistErrorMessage", fallback: "An error occurred while generating the password. Try to open the main app to fix this issue.")
   internal static let automaticallyAddedOtp = Strings.tr("Localizable", "_automaticallyAddedOtp", fallback: "Automatically added OTP")
   internal static let automaticallyGeneratePasswords = Strings.tr("Localizable", "_automaticallyGeneratePasswords", fallback: "Automatically Generate Passwords")
   internal static let cancel = Strings.tr("Localizable", "_cancel", fallback: "Cancel")

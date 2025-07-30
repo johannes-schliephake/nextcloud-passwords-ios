@@ -1,5 +1,6 @@
 import SwiftUI
 import Factory
+import Combine
 
 
 struct MainView: View {
@@ -23,8 +24,19 @@ struct MainView: View {
             .environmentObject(settingsController)
             .onAppear {
                 biometricAuthenticationController.autoFillController = autoFillController
-                let onDemandWordlistUseCase = resolve(\.onDemandWordlistUseCase)
-                onDemandWordlistUseCase.callAsFunction(.prepareWordlist)
+                
+                Task {
+                    do {
+                        @Injected(\.prepareWordlistUseCase) var prepareWordlistUseCase
+                        try await Just(())
+                            .handle(with: prepareWordlistUseCase, .prepareWordlist, publishing: \.$preparationSignal)
+                            .values
+                            .first()
+                    } catch {
+                        @Injected(\.logger) var logger
+                        logger.log(error: error)
+                    }
+                }
             }
             .onDisappear {
                 /// In some specific situations SwiftUI doesn't reliably deallocate StateObjects. Most of the time this "just" is a memory leak, but in case of the BiometricAuthenticationController it also results in unwanted biometric evaluation calls. Therefore all notification subscriptions have to be manually cancelled through the invalidate function.

@@ -5,17 +5,12 @@ import Combine
 protocol GeneratePasswordUseCaseProtocol: UseCase where State == GeneratePasswordUseCase.State, Action == GeneratePasswordUseCase.Action {}
 
 
-enum GeneratePasswordError: Error {
-    case randomWordError
-}
-
-
 // TODO: tests
 final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
     
     final class State {
         
-        @Current<String, GeneratePasswordError> fileprivate(set) var generatedPassword
+        @Current<String, any Error> fileprivate(set) var generatedPassword
         
     }
     
@@ -30,7 +25,6 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
     
     @LazyInjected(\.randomWordUseCase) private var randomWordUseCase
     @LazyInjected(\.wordlistLocaleUseCase) private var wordlistLocaleUseCase
-    @LazyInjected(\.logger) private var logger
     
     let state: State
     
@@ -80,10 +74,6 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
             /// Receive random words and build a password from them
             var rejectedRounds = 0
             cancellable = randomWordUseCase[\.$word]
-                .handleEvents(receiveFailure: { error in
-                    self?.logger.log(error: "Failed to get random words while generating password (\(error))")
-                })
-                .mapError { _ in GeneratePasswordError.randomWordError }
                 .scan((words: [String](), expectedCount: 0)) { previousResult, word in
                     let words = previousResult.words + [word]
                     /// Calculate expected password length

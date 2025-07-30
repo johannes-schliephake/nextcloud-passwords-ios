@@ -17,6 +17,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
     @ScaledMetric private var generatorLengthLabelWidth = 30
     @State private var showPasswordGenerator = false
     @State private var showPasswordServiceErrorAlert = false
+    @State private var showAppExtensionWordlistErrorAlert = false
     @State private var showProgressView = false
     
     // MARK: Views
@@ -34,6 +35,9 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
         }
         .alert(isPresented: $showPasswordServiceErrorAlert) {
             Alert(title: Text("_error"), message: Text("_passwordServiceErrorMessage"))
+        }
+        .alert(isPresented: $showAppExtensionWordlistErrorAlert) {
+            Alert(title: Text("_error"), message: Text(Strings.appExtensionWordlistErrorMessage))
         }
         .onChange(of: password) { _ in showPasswordGenerator = false }
         .onAppear {
@@ -169,9 +173,14 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
         showProgressView = true
         Task {
             defer { showProgressView = false }
-            let password = await GeneratePasswordHelperViewModel()(.generatePassword(includingNumbers: generatorNumbers, includingSpecialCharacters: generatorSpecial, length: generatorLength), returning: \.$password)
+            let generatePasswordHelperViewModel = GeneratePasswordHelperViewModel()
+            let password = await generatePasswordHelperViewModel(.generatePassword(includingNumbers: generatorNumbers, includingSpecialCharacters: generatorSpecial, length: generatorLength), returning: \.$password)
             guard let password, let password else {
-                showPasswordServiceErrorAlert = true
+                if generatePasswordHelperViewModel[\.hasFailedInsideAppExtension] {
+                    showAppExtensionWordlistErrorAlert = true
+                } else {
+                    showPasswordServiceErrorAlert = true
+                }
                 return
             }
             self.password = password
@@ -204,9 +213,11 @@ private class GeneratePasswordHelperViewModel: ViewModel {
     final class State: ObservableObject {
         
         @Published fileprivate(set) var password: String?
+        fileprivate(set) var hasFailedInsideAppExtension: Bool
         
-        init(password: String?) {
+        init(password: String?, hasFailedInExtension: Bool) {
             self.password = password
+            self.hasFailedInsideAppExtension = hasFailedInExtension
         }
         
     }
@@ -216,25 +227,32 @@ private class GeneratePasswordHelperViewModel: ViewModel {
     }
     
     @LazyInjected(\.generatePasswordUseCase) private var generatePasswordUseCase
+    @LazyInjected(\.logger) private var logger
     
     let state: State
     
     private var cancellable: AnyCancellable?
     
     init() {
-        state = .init(password: nil)
+        state = .init(password: nil, hasFailedInExtension: false)
     }
     
     func callAsFunction(_ action: Action) {
         switch action {
         case let .generatePassword(includingNumbers: includingNumbers, includingSpecialCharacters: includingSpecialCharacters, length: length):
+            weak var `self` = self
+            
             cancellable = Just((includingNumbers, includingSpecialCharacters, length))
                 .receive(on: \.userInitiatedScheduler)
                 .handle(with: generatePasswordUseCase, { .generatePassword(includingNumbers: $0, includingSpecialCharacters: $1, length: $2) }, publishing: \.$generatedPassword)
+                .handleEvents(receiveFailure: { error in
+                    self?.logger.log(error: error)
+                    self?.state.hasFailedInsideAppExtension = (error as NSError).code == 4994
+                })
                 .optionalize()
                 .replaceError(with: nil)
                 .receive(on: \.mainScheduler)
-                .sink { [weak self] in self?.state.password = $0 }
+                .sink { self?.state.password = $0 }
         }
     }
     

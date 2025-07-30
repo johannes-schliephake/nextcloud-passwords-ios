@@ -27,11 +27,7 @@ extension PropertyListDataSource {
     var propertyListPublisher: AnyPublisher<Content, any Error> {
         Deferred {
             Future { promise in
-                do {
-                    promise(.success(try propertyList()))
-                } catch {
-                    promise(.failure(error))
-                }
+                promise(.init { try propertyList() })
             }
         }
         .eraseToAnyPublisher()

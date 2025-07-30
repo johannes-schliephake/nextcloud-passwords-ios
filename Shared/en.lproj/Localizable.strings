@@ -25,6 +25,7 @@
 "_anErrorOccurred" = "An error occurred …";
 "_appDeauthorized" = "App Deauthorized";
 "_appDeauthorizedMessage" = "Because of too many failed login attempts this app was deauthorized by the server. Please try again later.";
+"_appExtensionWordlistErrorMessage" = "An error occurred while generating the password. Try to open the main app to fix this issue.";
 
 /* Might be shown when an OTP QR code was scanned */
 "_automaticallyAddedOtp" = "Automatically added OTP";

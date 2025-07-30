@@ -9,7 +9,7 @@ protocol OnDemandResourcesRepositoryProtocol {
 }
 
 
-// TODO: tests?
+// TODO: tests
 struct OnDemandResourcesRepository: OnDemandResourcesRepositoryProtocol {
     
     @Injected(\.onDemandResourcesPropertyListDataSource) private var onDemandResourcesPropertyListDataSource

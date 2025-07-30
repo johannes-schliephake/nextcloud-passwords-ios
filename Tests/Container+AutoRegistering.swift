@@ -29,11 +29,11 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.loginPollUseCase.cached.register { LoginPollUseCaseMock() }
         Self.shared.loginUrlUseCase.cached.register { LoginUrlUseCaseMock() }
         Self.shared.managedConfigurationUseCase.register { ManagedConfigurationUseCaseMock() }
-        //Self.shared.onDemandWordlistUseCase.register { OnDemandWordlistUseCaseMock() }
         if #available(iOS 17, *) {
             Self.shared.openProviderSettingsUseCase.cached.register { OpenProviderSettingsUseCaseMock() }
         }
         //Self.shared.preferredUsernameUseCase.register { PreferredUsernameUseCaseMock() }
+        //Self.shared.prepareWordlistUseCase.register { PrepareWordlistUseCaseMock() }
         //Self.shared.randomWordUseCase.cached.register { RandomWordUseCaseMock() }
         //Self.shared.wordlistLocaleUseCase.register { WordlistLocaleUseCaseMock() }
         
@@ -63,15 +63,21 @@ extension Container: @retroactive AutoRegistering {
         //Self.shared.productsRepository.register { ProductsRepositoryMock() }
         Self.shared.windowSizeDataSource.register { WindowSizeDataSourceMock() }
         Self.shared.windowSizeRepository.register { WindowSizeRepositoryMock() }
+        //Self.shared.wordlistDataSource.cached.register { WordlistDataSourceMock() }
+        //Self.shared.wordlistPreparationDataSource.register { WordlistPreparationDataSourceMock() }
+        //Self.shared.wordlistRepository.cached.register { WordlistRepositoryMock() }
         
         // MARK: Helpers
         Self.shared.logger.register { LoggerMock() }
         
         // MARK: Seams
         //Self.shared.appStoreType.register { AppStoreMock.self }
+        //Self.shared.bundleResourceRequestType.register { BundleResourceRequestMock.self }
         if #available(iOS 17, *) {
             Self.shared.credentialProviderSettingsHelperType.cached.register { CredentialProviderSettingsHelperMock.self }
         }
+        //Self.shared.fileHandleType.register { FileHandleMock.self }
+        //Self.shared.fileManager.cached.register { FileManagerMock() }
         Self.shared.nonPersistentWebDataStore.cached.register { WebDataStoreMock() }
         Self.shared.pasteboard.cached.register { PasteboardMock() }
         Self.shared.productType.register { ProductMock.self }
@@ -83,6 +89,7 @@ extension Container: @retroactive AutoRegistering {
         
         // MARK: Miscellaneous
         Self.shared.configurationType.register { ConfigurationMock.self }
+        //Self.shared.cryptoSHA256Type.register { CryptoSHA256Mock.self }
         Self.shared.currentDate.singleton.register { .init() }
         //Self.shared.mainScheduler.register { resolve(\.mainSchedulerMock).eraseToAnyScheduler() }
         Self.shared.userInitiatedScheduler.register { resolve(\.userInitiatedSchedulerMock).eraseToAnyScheduler() }

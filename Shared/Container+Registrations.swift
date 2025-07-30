@@ -6,6 +6,7 @@ import CombineSchedulers
 import WebKit
 import AuthenticationServices
 import Sodium
+import Foundation
 
 
 extension Container {
@@ -74,15 +75,15 @@ extension Container {
         self { ManagedConfigurationUseCase() }
             .cached
     }
-    var onDemandWordlistUseCase: Factory<any OnDemandWordlistUseCaseProtocol> {
-        self { OnDemandWordlistUseCase() }
-            .cached
-    }
     @available(iOS 17, *) var openProviderSettingsUseCase: Factory<any OpenProviderSettingsUseCaseProtocol> {
         self { OpenProviderSettingsUseCase() }
     }
     var preferredUsernameUseCase: Factory<any PreferredUsernameUseCaseProtocol> {
         self { PreferredUsernameUseCase() }
+            .cached
+    }
+    var prepareWordlistUseCase: Factory<any PrepareWordlistUseCaseProtocol> {
+        self { PrepareWordlistUseCase() }
             .cached
     }
     var randomWordUseCase: Factory<any RandomWordUseCaseProtocol> {
@@ -187,6 +188,16 @@ extension Container {
         self { WindowSizeRepository() }
             .cached
     }
+    var wordlistDataSource: Factory<any WordlistDataSourceProtocol> {
+        self { WordlistDataSource() }
+    }
+    var wordlistPreparationDataSource: Factory<any WordlistPreparationDataSourceProtocol> {
+        self { WordlistPreparationDataSource() }
+            .cached
+    }
+    var wordlistRepository: Factory<any WordlistRepositoryProtocol> {
+        self { WordlistRepository() }
+    }
     
     // MARK: Helpers
     var logger: Factory<any Logging> {
@@ -198,8 +209,17 @@ extension Container {
     var appStoreType: Factory<any AppStore.Type> {
         self { StoreKit.AppStore.self }
     }
+    var bundleResourceRequestType: Factory<any BundleResourceRequesting.Type> {
+        self { NSBundleResourceRequest.self }
+    }
     @available(iOS 17, *) var credentialProviderSettingsHelperType: Factory<any CredentialProviderSettingsHelping.Type> {
         self { ASSettingsHelper.self }
+    }
+    var fileHandleType: Factory<any FileHandling.Type> {
+        self { FileHandle.self }
+    }
+    var fileManager: Factory<any FileManaging> {
+        self { FileManager.default }
     }
     var nonPersistentWebDataStore: Factory<any WebDataStore> {
         self { WKWebsiteDataStore.nonPersistent() }
@@ -235,6 +255,9 @@ extension Container {
     // MARK: Miscellaneous
     var configurationType: Factory<any Configurating.Type> {
         self { Configuration.self }
+    }
+    var cryptoSHA256Type: Factory<any CryptoSHA256Protocol.Type> {
+        self { Crypto.SHA256.self }
     }
     var currentDate: Factory<Date> {
         self { .init() }
