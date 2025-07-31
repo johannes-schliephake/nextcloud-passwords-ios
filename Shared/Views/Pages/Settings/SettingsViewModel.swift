@@ -20,6 +20,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         @Published fileprivate(set) var wasChallengePasswordCleared: Bool
         @Published var showLogoutAlert: Bool
         @Published fileprivate(set) var isOfflineStorageEnabled: Bool
+        @Published fileprivate(set) var isOnDevicePasswordGeneratorEnabled: Bool
         @Published fileprivate(set) var isAutomaticPasswordGenerationEnabled: Bool
         @Published fileprivate(set) var isUniversalClipboardEnabled: Bool
         @Published fileprivate(set) var canPurchaseTip: Bool
@@ -33,13 +34,14 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         
         let shouldDismiss = Signal()
         
-        init(username: String?, server: String?, isChallengePasswordStored: Bool, wasChallengePasswordCleared: Bool, showLogoutAlert: Bool, isOfflineStorageEnabled: Bool, isAutomaticPasswordGenerationEnabled: Bool, isUniversalClipboardEnabled: Bool, canPurchaseTip: Bool, tipProducts: [any Product]?, isTipTransactionRunning: Bool, isTestFlight: Bool, betaUrl: URL?, isLogAvailable: Bool, versionName: String, sourceCodeUrl: URL?) {
+        init(username: String?, server: String?, isChallengePasswordStored: Bool, wasChallengePasswordCleared: Bool, showLogoutAlert: Bool, isOfflineStorageEnabled: Bool, isOnDevicePasswordGeneratorEnabled: Bool, isAutomaticPasswordGenerationEnabled: Bool, isUniversalClipboardEnabled: Bool, canPurchaseTip: Bool, tipProducts: [any Product]?, isTipTransactionRunning: Bool, isTestFlight: Bool, betaUrl: URL?, isLogAvailable: Bool, versionName: String, sourceCodeUrl: URL?) {
             self.username = username
             self.server = server
             self.isChallengePasswordStored = isChallengePasswordStored
             self.wasChallengePasswordCleared = wasChallengePasswordCleared
             self.showLogoutAlert = showLogoutAlert
             self.isOfflineStorageEnabled = isOfflineStorageEnabled
+            self.isOnDevicePasswordGeneratorEnabled = isOnDevicePasswordGeneratorEnabled
             self.isAutomaticPasswordGenerationEnabled = isAutomaticPasswordGenerationEnabled
             self.isUniversalClipboardEnabled = isUniversalClipboardEnabled
             self.canPurchaseTip = canPurchaseTip
@@ -59,6 +61,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         case logout
         case confirmLogout
         case setIsOfflineStorageEnabled(Bool)
+        case setIsOnDevicePasswordGeneratorEnabled(Bool)
         case setIsAutomaticPasswordGenerationEnabled(Bool)
         case setIsUniversalClipboardEnabled(Bool)
         case openProviderSettingsUrl(URL)
@@ -81,7 +84,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         let betaUrl = URL(string: "https://testflight.apple.com/join/iuljLJ4u")
         let versionName = "\(configuration.shortVersionString)\(configuration.isDebug || configuration.isTestFlight ? " (\(configuration.isDebug ? "Debug" : configuration.isTestFlight ? "TestFlight" : "Unknown"), Build \(configuration.buildNumberString))" : "")"
         let sourceCodeUrl = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios")
-        state = .init(username: nil, server: nil, isChallengePasswordStored: isChallengePasswordStored, wasChallengePasswordCleared: false, showLogoutAlert: false, isOfflineStorageEnabled: false, isAutomaticPasswordGenerationEnabled: false, isUniversalClipboardEnabled: false, canPurchaseTip: false, tipProducts: nil, isTipTransactionRunning: false, isTestFlight: configuration.isTestFlight, betaUrl: betaUrl, isLogAvailable: false, versionName: versionName, sourceCodeUrl: sourceCodeUrl)
+        state = .init(username: nil, server: nil, isChallengePasswordStored: isChallengePasswordStored, wasChallengePasswordCleared: false, showLogoutAlert: false, isOfflineStorageEnabled: false, isOnDevicePasswordGeneratorEnabled: false, isAutomaticPasswordGenerationEnabled: false, isUniversalClipboardEnabled: false, canPurchaseTip: false, tipProducts: nil, isTipTransactionRunning: false, isTestFlight: configuration.isTestFlight, betaUrl: betaUrl, isLogAvailable: false, versionName: versionName, sourceCodeUrl: sourceCodeUrl)
         
         setupPipelines()
     }
@@ -99,6 +102,10 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         
         settingsService.isOfflineStorageEnabledPublisher
             .sink { self?.state.isOfflineStorageEnabled = $0 }
+            .store(in: &cancellables)
+        
+        settingsService.isOnDevicePasswordGeneratorEnabledPublisher
+            .sink { self?.state.isOnDevicePasswordGeneratorEnabled = $0 }
             .store(in: &cancellables)
         
         settingsService.isAutomaticPasswordGenerationEnabledPublisher
@@ -153,6 +160,8 @@ final class SettingsViewModel: SettingsViewModelProtocol {
             state.shouldDismiss()
         case let .setIsOfflineStorageEnabled(isOfflineStorageEnabled):
             settingsService.isOfflineStorageEnabled = isOfflineStorageEnabled
+        case let .setIsOnDevicePasswordGeneratorEnabled(isOnDevicePasswordGeneratorEnabled):
+            settingsService.isOnDevicePasswordGeneratorEnabled = isOnDevicePasswordGeneratorEnabled
         case let .setIsAutomaticPasswordGenerationEnabled(isAutomaticPasswordGenerationEnabled):
             settingsService.isAutomaticPasswordGenerationEnabled = isAutomaticPasswordGenerationEnabled
         case let .setIsUniversalClipboardEnabled(isUniversalClipboardEnabled):

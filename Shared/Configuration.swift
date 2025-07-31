@@ -17,7 +17,8 @@ protocol Configurating {
     static var nonUpdatingJsonEncoder: JSONEncoder { get }
     static var updatingJsonEncoder: JSONEncoder { get }
     static var propertyListDecoder: PropertyListDecoder { get }
-    static var preferredLanguage: String? { get }
+    static var preferredLocaleIdentifier: String? { get }
+    static var preferredLanguageIdentifier: String? { get }
     
 }
 
@@ -33,6 +34,8 @@ enum Configuration: Configurating {
         "generatorNumbers": true,
         "generatorSpecial": true,
         "generatorStrength": PasswordServiceRequest.Strength.ultra.rawValue,
+        "generatorLength": 36,
+        "onDeviceGenerator": true,
         "didRequestProviderPermission": false
     ]
     
@@ -68,6 +71,7 @@ enum Configuration: Configurating {
         return encoder
     }()
     static let propertyListDecoder = PropertyListDecoder()
-    static let preferredLanguage = NSLocale.preferredLanguages.first
+    static let preferredLocaleIdentifier = Locale.preferredLanguages.first
+    static let preferredLanguageIdentifier = Locale.current.languageCode
     
 }

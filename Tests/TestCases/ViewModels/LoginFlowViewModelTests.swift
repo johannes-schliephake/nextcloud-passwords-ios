@@ -18,14 +18,14 @@ final class LoginFlowViewModelTests: XCTestCase {
         
         Container.shared.reset()
         ConfigurationMock.clientName = "Mock"
-        ConfigurationMock.preferredLanguage = "en"
+        ConfigurationMock.preferredLocaleIdentifier = "en-US"
     }
     
     func testInit_thenSetsInitialState() {
         let loginFlowViewModel: any LoginFlowViewModelProtocol = LoginFlowViewModel(challenge: challengeMock)
         
         expect(loginFlowViewModel[\.request].url).to(equal(challengeMock.login))
-        expect(loginFlowViewModel[\.request].allHTTPHeaderFields).to(equal(["Accept-Language": "en"]))
+        expect(loginFlowViewModel[\.request].allHTTPHeaderFields).to(equal(["Accept-Language": "en-US"]))
         expect(loginFlowViewModel[\.userAgent]).to(equal("Mock"))
         expect(loginFlowViewModel[\.dataStore]).to(be(nonPersistentWebDataStoreMock))
         expect(loginFlowViewModel[\.isLoading]).to(beTrue())
@@ -51,21 +51,21 @@ final class LoginFlowViewModelTests: XCTestCase {
         expect(self.checkTrustUseCaseMock).to(beAccessed(.once, on: "$isTrusted"))
     }
     
-    func testInit_givenNoPreferredLanguage_thenSetsRequestWithoutHeaderFields() {
-        ConfigurationMock.preferredLanguage = nil
+    func testInit_givenNoPreferredLocale_thenSetsRequestWithoutHeaderFields() {
+        ConfigurationMock.preferredLocaleIdentifier = nil
         
         let loginFlowViewModel: any LoginFlowViewModelProtocol = LoginFlowViewModel(challenge: challengeMock)
         
         expect(loginFlowViewModel[\.request].allHTTPHeaderFields).to(beNil())
     }
     
-    func testInit_givenRandomPreferredLanguage_thenSetsRequestHeaderFields() {
-        let preferredLanguageMock = String.random()
-        ConfigurationMock.preferredLanguage = preferredLanguageMock
+    func testInit_givenRandomPreferredLocale_thenSetsRequestHeaderFields() {
+        let preferredLocaleMock = String.random()
+        ConfigurationMock.preferredLocaleIdentifier = preferredLocaleMock
         
         let loginFlowViewModel: any LoginFlowViewModelProtocol = LoginFlowViewModel(challenge: challengeMock)
         
-        expect(loginFlowViewModel[\.request].allHTTPHeaderFields).to(equal(["Accept-Language": preferredLanguageMock]))
+        expect(loginFlowViewModel[\.request].allHTTPHeaderFields).to(equal(["Accept-Language": preferredLocaleMock]))
     }
     
     func testInit_whenSettingRequest_thenCallsCheckLoginGrantUseCase() {

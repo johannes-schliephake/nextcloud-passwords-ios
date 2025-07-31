@@ -47,7 +47,7 @@ final class LoginFlowViewModel: LoginFlowViewModelProtocol {
     init(challenge: LoginFlowChallenge) {
         let configuration = resolve(\.configurationType)
         var request = URLRequest(url: challenge.login)
-        if let language = configuration.preferredLanguage {
+        if let language = configuration.preferredLocaleIdentifier {
             request.addValue(language, forHTTPHeaderField: "Accept-Language")
         }
         let nonPersistentWebDataStore = resolve(\.nonPersistentWebDataStore)

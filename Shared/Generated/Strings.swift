@@ -23,6 +23,7 @@ internal enum Strings {
   internal static let anErrorOccurred = Strings.tr("Localizable", "_anErrorOccurred", fallback: "An error occurred …")
   internal static let appDeauthorized = Strings.tr("Localizable", "_appDeauthorized", fallback: "App Deauthorized")
   internal static let appDeauthorizedMessage = Strings.tr("Localizable", "_appDeauthorizedMessage", fallback: "Because of too many failed login attempts this app was deauthorized by the server. Please try again later.")
+  internal static let appExtensionWordlistErrorMessage = Strings.tr("Localizable", "_appExtensionWordlistErrorMessage", fallback: "An error occurred while generating the password. Try to open the main app to fix this issue.")
   internal static let automaticallyAddedOtp = Strings.tr("Localizable", "_automaticallyAddedOtp", fallback: "Automatically added OTP")
   internal static let automaticallyGeneratePasswords = Strings.tr("Localizable", "_automaticallyGeneratePasswords", fallback: "Automatically Generate Passwords")
   internal static let cancel = Strings.tr("Localizable", "_cancel", fallback: "Cancel")
@@ -102,6 +103,7 @@ internal enum Strings {
     return Strings.tr("Localizable", "_invalidCertificateMessage(hash)", String(describing: p1), fallback: "The server's certificate is invalid. A secure connection can't be guaranteed. Should the certificate still be used?\n\nSHA-256 of the certificate:\n%@")
   }
   internal static let joinTestFlightBeta = Strings.tr("Localizable", "_joinTestFlightBeta", fallback: "Join TestFlight Beta")
+  internal static let length = Strings.tr("Localizable", "_length", fallback: "Length")
   internal static let logIn = Strings.tr("Localizable", "_logIn", fallback: "Log In")
   internal static let logOut = Strings.tr("Localizable", "_logOut", fallback: "Log Out")
   internal static let low = Strings.tr("Localizable", "_low", fallback: "Low")
@@ -118,6 +120,7 @@ internal enum Strings {
   internal static let nothingToSeeHere = Strings.tr("Localizable", "_nothingToSeeHere", fallback: "Nothing to see here …")
   internal static let numbers = Strings.tr("Localizable", "_numbers", fallback: "Numbers")
   internal static let offline = Strings.tr("Localizable", "_offline", fallback: "Offline")
+  internal static let onDevicePasswordGenerator = Strings.tr("Localizable", "_onDevicePasswordGenerator", fallback: "On-Device Password Generator")
   internal static let openUrl = Strings.tr("Localizable", "_openUrl", fallback: "Open URL")
   internal static let options = Strings.tr("Localizable", "_options", fallback: "Options")
   internal static let otp = Strings.tr("Localizable", "_otp", fallback: "One-Time Password")

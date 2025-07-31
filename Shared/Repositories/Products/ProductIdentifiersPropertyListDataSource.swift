@@ -7,6 +7,6 @@ protocol ProductIdentifiersPropertyListDataSourceProtocol: PropertyListDataSourc
 // TODO: tests
 struct ProductIdentifiersPropertyListDataSource: ProductIdentifiersPropertyListDataSourceProtocol {
     
-    let url = Bundle.main.url(forResource: "IAP", withExtension: "plist")
+    let url = Bundle.root.url(forResource: "IAP", withExtension: "plist")
     
 }

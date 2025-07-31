@@ -5,6 +5,8 @@ import StoreKit
 import CombineSchedulers
 import WebKit
 import AuthenticationServices
+import Sodium
+import Foundation
 
 
 extension Container {
@@ -57,6 +59,9 @@ extension Container {
     var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
         self { FolderLabelUseCase() }
     }
+    var generatePasswordUseCase: Factory<any GeneratePasswordUseCaseProtocol> {
+        self { GeneratePasswordUseCase() }
+    }
     var initiateLoginUseCase: Factory<any InitiateLoginUseCaseProtocol> {
         self { InitiateLoginUseCase() }
     }
@@ -75,6 +80,17 @@ extension Container {
     }
     var preferredUsernameUseCase: Factory<any PreferredUsernameUseCaseProtocol> {
         self { PreferredUsernameUseCase() }
+            .cached
+    }
+    var prepareWordlistUseCase: Factory<any PrepareWordlistUseCaseProtocol> {
+        self { PrepareWordlistUseCase() }
+            .cached
+    }
+    var randomWordUseCase: Factory<any RandomWordUseCaseProtocol> {
+        self { RandomWordUseCase() }
+    }
+    var wordlistLocaleUseCase: Factory<any WordlistLocaleUseCaseProtocol> {
+        self { WordlistLocaleUseCase() }
             .cached
     }
     
@@ -132,6 +148,14 @@ extension Container {
     }
     
     // MARK: Repositories
+    var onDemandResourcesPropertyListDataSource: Factory<any OnDemandResourcesPropertyListDataSourceProtocol> {
+        self { OnDemandResourcesPropertyListDataSource() }
+            .cached
+    }
+    var onDemandResourcesRepository: Factory<any OnDemandResourcesRepositoryProtocol> {
+        self { OnDemandResourcesRepository() }
+            .cached
+    }
     var pasteboardDataSource: Factory<any PasteboardDataSourceProtocol> {
         self { PasteboardDataSource() }
             .cached
@@ -164,6 +188,16 @@ extension Container {
         self { WindowSizeRepository() }
             .cached
     }
+    var wordlistDataSource: Factory<any WordlistDataSourceProtocol> {
+        self { WordlistDataSource() }
+    }
+    var wordlistPreparationDataSource: Factory<any WordlistPreparationDataSourceProtocol> {
+        self { WordlistPreparationDataSource() }
+            .cached
+    }
+    var wordlistRepository: Factory<any WordlistRepositoryProtocol> {
+        self { WordlistRepository() }
+    }
     
     // MARK: Helpers
     var logger: Factory<any Logging> {
@@ -175,8 +209,17 @@ extension Container {
     var appStoreType: Factory<any AppStore.Type> {
         self { StoreKit.AppStore.self }
     }
+    var bundleResourceRequestType: Factory<any BundleResourceRequesting.Type> {
+        self { NSBundleResourceRequest.self }
+    }
     @available(iOS 17, *) var credentialProviderSettingsHelperType: Factory<any CredentialProviderSettingsHelping.Type> {
         self { ASSettingsHelper.self }
+    }
+    var fileHandleType: Factory<any FileHandling.Type> {
+        self { FileHandle.self }
+    }
+    var fileManager: Factory<any FileManaging> {
+        self { FileManager.default }
     }
     var nonPersistentWebDataStore: Factory<any WebDataStore> {
         self { WKWebsiteDataStore.nonPersistent() }
@@ -189,6 +232,9 @@ extension Container {
     }
     var qrCodeGenerator: Factory<(any QRCodeGenerating)?> {
         self { CIFilter(name: "CIQRCodeGenerator") }
+    }
+    var randomNumberGenerator: Factory<any RandomNumberGenerator> {
+        self { RandomBytes.Generator() }
     }
     var systemNotifications: Factory <any Notifications> {
         self { NotificationCenter.default }
@@ -210,8 +256,14 @@ extension Container {
     var configurationType: Factory<any Configurating.Type> {
         self { Configuration.self }
     }
+    var cryptoSHA256Type: Factory<any CryptoSHA256Protocol.Type> {
+        self { Crypto.SHA256.self }
+    }
     var currentDate: Factory<Date> {
         self { .init() }
+    }
+    var mainScheduler: Factory<AnySchedulerOf<DispatchQueue>> {
+        self { DispatchQueue.main.eraseToAnyScheduler() }
     }
     var userInitiatedScheduler: Factory<AnySchedulerOf<DispatchQueue>> {
         self { DispatchQueue(qos: .userInitiated).eraseToAnyScheduler() }

@@ -16,7 +16,7 @@ final class ProductIdentifiersRepository: ProductIdentifiersRepositoryProtocol {
     @LazyInjected(\.logger) private var logger
     
     var productIdentifiers: AnyPublisher<[String], any Error> {
-        productIdentifiersPropertyListDataSource.propertyList
+        productIdentifiersPropertyListDataSource.propertyListPublisher
             .handleEvents(receiveOutput: { [weak self] productIdentifiers in
                 if productIdentifiers.isEmpty {
                     self?.logger.log(info: "Received empty product identifiers list but no error")
