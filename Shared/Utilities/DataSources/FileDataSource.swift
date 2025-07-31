@@ -26,7 +26,7 @@ protocol FileDataSource: DataSource {}
 extension FileDataSource {
     
     func readFile(from fileUrl: URL) throws(FileError) -> Data {
-        @LazyInjected(\.fileHandleType) var fileHandleType
+        @Injected(\.fileHandleType) var fileHandleType
         
         guard let fileHandle = try? fileHandleType.init(forReadingFrom: fileUrl) else {
             throw .cannotOpen(fileName: fileUrl.lastPathComponent)
