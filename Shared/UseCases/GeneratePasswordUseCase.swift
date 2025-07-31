@@ -113,7 +113,7 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
                     } else {
                         /// Capitalize words for readability and remove diacritics, then join
                         words
-                            .map(\.localizedCapitalized)
+                            .map { $0.capitalized(with: wordlistLocale) }
                             .map { $0.folding(options: [.diacriticInsensitive, .widthInsensitive], locale: wordlistLocale) }
                             .joined()
                     }
