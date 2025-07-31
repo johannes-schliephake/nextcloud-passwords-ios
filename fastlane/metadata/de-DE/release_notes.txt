@@ -1,3 +1,4 @@
+• Lokal ausgeführter Passwortgenerator
 • Italienische Übersetzung (Danke Luca!)
 • Estnische Übersetzung (Danke Priit Jõerüüt!)
 • Vorgeschlagene Benutzernamen beim Hinzufügen eines Passworts

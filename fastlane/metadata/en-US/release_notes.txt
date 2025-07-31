@@ -1,3 +1,4 @@
+• On-device password generator
 • Italian translation (Thanks Luca!)
 • Estonian translation (Thanks Priit Jõerüüt!)
 • Username recommendations when creating a password
