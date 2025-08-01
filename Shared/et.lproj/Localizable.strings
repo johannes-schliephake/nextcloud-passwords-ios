@@ -161,3 +161,6 @@
 "_universalClipboard" = "Süsteemiülene lõikelaud (Universal Clipboard)";
 "_unlockApp" = "Võta rakendus lukust lahti";
 "_updated" = "Uuendatud";
+"_appExtensionWordlistErrorMessage" = "Salasõna loomisel tekkis viga. Vea parandmiseks proovi avada põhirakendus.";
+"_length" = "Pikkus";
+"_onDevicePasswordGenerator" = "Salasõnade looja nutiseadmes";
