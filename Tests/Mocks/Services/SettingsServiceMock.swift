@@ -22,6 +22,24 @@ final class SettingsServiceMock: SettingsServiceProtocol, Mock, PropertyAccessLo
         return _isOfflineStorageEnabledPublisher.eraseToAnyPublisher()
     }
     
+    var _isOnDevicePasswordGeneratorEnabled = true // swiftlint:disable:this identifier_name
+    var isOnDevicePasswordGeneratorEnabled: Bool {
+        get {
+            logPropertyAccess()
+            return _isOnDevicePasswordGeneratorEnabled
+        }
+        set {
+            logPropertyAccess()
+            _isOnDevicePasswordGeneratorEnabled = newValue
+        }
+    }
+    
+    let _isOnDevicePasswordGeneratorEnabledPublisher = PassthroughSubject<Bool, Never>() // swiftlint:disable:this identifier_name
+    var isOnDevicePasswordGeneratorEnabledPublisher: AnyPublisher<Bool, Never> { // swiftlint:disable:this identifier_name
+        logPropertyAccess()
+        return _isOnDevicePasswordGeneratorEnabledPublisher.eraseToAnyPublisher()
+    }
+    
     var _isAutomaticPasswordGenerationEnabled = true // swiftlint:disable:this identifier_name
     var isAutomaticPasswordGenerationEnabled: Bool {
         get {
