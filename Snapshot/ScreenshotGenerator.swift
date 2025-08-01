@@ -1,9 +1,9 @@
 import XCTest
 
 
-class ScreenshotGenerator: XCTestCase {
+@MainActor class ScreenshotGenerator: XCTestCase {
     
-    private var app: XCUIApplication!
+    private let app = XCUIApplication()
     
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -17,7 +17,6 @@ class ScreenshotGenerator: XCTestCase {
             XCUIDevice.shared.orientation = .portrait
         }
         
-        app = XCUIApplication()
         app.launchEnvironment = ["TEST": "true"]
         setupSnapshot(app)
         app.launch()
