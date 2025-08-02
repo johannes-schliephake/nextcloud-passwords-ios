@@ -4,4 +4,4 @@
 • Vorgeschlagene Benutzernamen beim Hinzufügen eines Passworts
 • Anzeigen der Zeichenanzahl beim Hinzufügen eines Passworts
 • Anzeigen des nächsten Einmalpassworts
-• Optimierungen
+• Fehlerbehebungen und Optimierungen
