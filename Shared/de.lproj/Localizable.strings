@@ -169,3 +169,6 @@
 
 /* This is a label for a settings button */
 "_clearStoredE2EPassword" = "Gespeichertes E2E-Passwort entfernen";
+"_length" = "Länge";
+"_onDevicePasswordGenerator" = "Lokaler Passwortgenerator";
+"_appExtensionWordlistErrorMessage" = "Beim Generieren des Passworts ist ein Fehler aufgetreten. Versuche, die Haupt-App zu öffnen, um das Problem zu beheben.";
