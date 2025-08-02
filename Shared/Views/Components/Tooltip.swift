@@ -6,6 +6,8 @@ private enum TooltipConstants {
     static let maxSize = CGSize(width: 400, height: 400)
     static let padding = EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20)
     static let safeArea = EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
+    static let minimumHorizontalSpacing = 19.0
+    static let horizontalArrowWidth = 45.0
 }
 
 
@@ -38,10 +40,21 @@ private enum TooltipConstants {
                 .frame(maxHeight: TooltipConstants.maxSize.height)
                 .apply { view in
                     if let windowWidth = windowSizeService.windowSize?.width {
-                        let maxWidthAvailableToTooltip = windowWidth - 19 * 2
+                        let maxWidth = TooltipConstants.maxSize.width
+                        let maxWidthAvailable = windowWidth - TooltipConstants.minimumHorizontalSpacing * 2
+                        let maxWidthAvailableWithoutArrow = maxWidthAvailable - TooltipConstants.horizontalArrowWidth
+                        
+                        let (contentWidth, forcedWidth) = if maxWidthAvailable < maxWidth {
+                            (maxWidthAvailable, 10000.0)
+                        } else if maxWidthAvailableWithoutArrow < maxWidth {
+                            (maxWidthAvailableWithoutArrow, maxWidthAvailableWithoutArrow)
+                        } else {
+                            (maxWidth, maxWidth)
+                        }
+                        
                         view
-                            .frame(width: min(TooltipConstants.maxSize.width, maxWidthAvailableToTooltip)) // Force popover content to the maximum possible width
-                            .frame(width: TooltipConstants.maxSize.width < maxWidthAvailableToTooltip ? TooltipConstants.maxSize.width : 10000) // Force arrow to the top or bottom when popover uses the window's full width
+                            .frame(width: contentWidth) // Force popover content to the maximum possible width
+                            .frame(width: forcedWidth) // Force arrow to the top or bottom when popover uses the window's full width
                     }
                 }
                 .background(Color(.tertiarySystemBackground))
