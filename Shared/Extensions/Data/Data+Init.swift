@@ -7,12 +7,11 @@ extension Data {
     
     init?(base32Encoded base32String: String) {
         let base32String = base32String.uppercased()
-        guard (base32String.count * 5).isMultiple(of: 8),
-              base32String.allSatisfy({ Data.base32Alphabet[$0] != nil }) else {
+        guard base32String.allSatisfy({ Data.base32Alphabet[$0] != nil }) else {
             return nil
         }
         
-        var bytes = [UInt8](repeating: 0, count: base32String.count * 5 / 8)
+        var bytes = [UInt8](repeating: 0, count: (base32String.count * 5 + 7) / 8)
         base32String
             .enumerated()
             .map {
