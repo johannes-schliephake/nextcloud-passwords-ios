@@ -27,8 +27,9 @@ struct OTPDisplay<Content: View>: View {
                 Image(systemName: "forward")
             }
             .buttonStyle(.borderless)
-            .onAppear { current = otp.current }
-            .onChange(of: otp) { current = $0.current }
+            .task(id: otp) {
+                current = otp.current
+            }
         case .totp:
             ZStack {
                 Circle()
@@ -44,14 +45,10 @@ struct OTPDisplay<Content: View>: View {
                         .foregroundColor(.accentColor)
                 }
             }
-            .onAppear {
+            .task(id: otp) {
                 updateTotp(otp, date: Date(), isInitial: true)
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) {
-                _ in
-                updateTotp(otp, date: Date(), isInitial: true)
-            }
-            .onChange(of: otp.period) {
                 _ in
                 updateTotp(otp, date: Date(), isInitial: true)
             }

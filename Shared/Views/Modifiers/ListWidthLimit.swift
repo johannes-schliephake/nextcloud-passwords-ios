@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-@available(iOS 17.0, *) private struct ListWidthLimit: ViewModifier {
+@available(iOS 17, *) private struct ListWidthLimit: ViewModifier {
     
     let limit: Double
     
@@ -16,7 +16,7 @@ import SwiftUI
 }
 
 
-@available(iOS 17.0, *) extension View {
+@available(iOS 17, *) extension View {
     
     func listWidthLimit(_ limit: Double) -> some View {
         modifier(ListWidthLimit(limit: limit))
