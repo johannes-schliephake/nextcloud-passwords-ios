@@ -5,7 +5,7 @@ class ReadersWriterLock {
     
     private var lock = pthread_rwlock_t()
     
-    public init() {
+    init() {
         pthread_rwlock_init(&lock, nil)
     }
     

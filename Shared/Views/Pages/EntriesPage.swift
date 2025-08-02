@@ -1162,11 +1162,7 @@ extension EntriesPage {
                 .frame(width: 40, height: 40)
                 .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
                 .cornerRadius(3.75)
-                .onAppear {
-                    requestFavicon()
-                }
-                .onChange(of: password.url) {
-                    _ in
+                .task(id: password.url) {
                     requestFavicon()
                 }
         }

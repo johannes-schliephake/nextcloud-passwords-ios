@@ -244,7 +244,7 @@ extension Container {
     }
     var videoCapturer: Factory<(any VideoCapturing)?> {
         self {
-            if #available(iOS 17.0, *) {
+            if #available(iOS 17, *) {
                 AVCaptureDevice.userPreferredCamera
             } else {
                 AVCaptureDevice.default(for: .video)
