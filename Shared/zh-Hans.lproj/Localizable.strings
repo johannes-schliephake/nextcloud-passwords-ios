@@ -161,3 +161,6 @@
 "_scanQrCode" = "扫描二维码";
 "_supportThisProjectMessage" = "安装了此应用的 TestFlight 版本。任何购买仅用于测试目的，不会收费。";
 "_providerInstructionsMessageWithLink" = "此应用支持自动填充，必须手动启用此功能：\n1. [点按此处](autoFillSettings)打开系统的自动填充设置\n2. 启用自动填充\n3. 启用此应用\n4. 可选：启用此应用以设置代码";
+"_appExtensionWordlistErrorMessage" = "生成密码时出错。请尝试打开主应用以修复此问题。";
+"_length" = "长度";
+"_onDevicePasswordGenerator" = "设备端密码生成器";
