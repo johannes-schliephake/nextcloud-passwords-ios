@@ -1,3 +1,12 @@
+## [v2.9] - 2025-08-10
+- On-device password generator
+- Italian translation (Thanks Luca!)
+- Estonian translation (Thanks Priit Jõerüüt!)
+- Username recommendations when creating a password
+- Show character count when creating a password
+- Show upcoming one-time password
+- Bugfixes and optimizations
+
 ## [v2.8.1] - 2025-03-11
 - Tamil translation (Thanks TamilNeram!)
 - Simplified Chinese translation (Thanks Sketch6580!)
