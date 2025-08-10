@@ -10,7 +10,7 @@ A Password AutoFill provider is integrated into the app for seamless login exper
 
 This app requires a Nextcloud server with the Passwords app installed.
 
-<img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2014-1.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2014-2.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2014-3.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2014-4.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2014-5.png" width="19%">
+<img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2016%20Pro-1.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2016%20Pro-2.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2016%20Pro-3.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2016%20Pro-4.png" width="19%"> <img src="https://raw.githubusercontent.com/johannes-schliephake/nextcloud-passwords-ios/main/fastlane/screenshots/en-US/iPhone%2016%20Pro-5.png" width="19%">
 
 ## TestFlight
 
@@ -29,6 +29,8 @@ You can install beta builds by joining the [TestFlight](https://testflight.apple
 - Polish: [Radosław Rudner](https://hosted.weblate.org/user/rudass)
 - Tamil: [தமிழ் நேரம் (TamilNeram)](https://github.com/TamilNeram)
 - Simplified Chinese: [Sketch6580](https://hosted.weblate.org/user/Sketch6580)
+- Italian: [Luca](https://hosted.weblate.org/user/Pigro)
+- Estonian: [Priit Jõerüüt](https://hosted.weblate.org/user/jrthwlate)
 
 Everybody is welcome to contribute translations via [Weblate](https://hosted.weblate.org/engage/nextcloud-passwords-ios)!
 

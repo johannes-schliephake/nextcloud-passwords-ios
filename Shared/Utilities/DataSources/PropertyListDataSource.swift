@@ -15,21 +15,19 @@ protocol PropertyListDataSource<Content> {
 // TODO: tests
 extension PropertyListDataSource {
     
-    var propertyList: AnyPublisher<Content, any Error> {
+    func propertyList() throws -> Content {
+        guard let url else {
+            throw URLError(.badURL)
+        }
+        let data = try Data(contentsOf: url)
+        let content = try resolve(\.configurationType).propertyListDecoder.decode(Content.self, from: data)
+        return content
+    }
+    
+    var propertyListPublisher: AnyPublisher<Content, any Error> {
         Deferred {
             Future { promise in
-                guard let url else {
-                    promise(.failure(URLError(.badURL)))
-                    return
-                }
-                do {
-                    let data = try Data(contentsOf: url)
-                    let content = try resolve(\.configurationType).propertyListDecoder.decode(Content.self, from: data)
-                    promise(.success(content))
-                } catch {
-                    promise(.failure(error))
-                    return
-                }
+                promise(.init { try propertyList() })
             }
         }
         .eraseToAnyPublisher()

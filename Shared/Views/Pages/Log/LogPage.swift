@@ -5,7 +5,7 @@ struct LogPage: View {
     
     @StateObject var viewModel: AnyViewModelOf<LogViewModel>
     
-    @ScaledMetric private var eventTypeIconWidth = 30.0
+    @ScaledMetric private var eventTypeIconWidth = 30
     
     var body: some View {
         listView()

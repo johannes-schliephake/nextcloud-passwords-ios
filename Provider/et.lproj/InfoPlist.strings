@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Skaneeri QR-koodi";
+"NSPhotoLibraryAddUsageDescription" = "Jaga QR-koodi";
+"NSFaceIDUsageDescription" = "Eemalda rakenduse lukustus";

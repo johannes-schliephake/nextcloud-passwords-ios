@@ -65,7 +65,7 @@
 "_encryption" = "Шифрование";
 "_error" = "Ошибка";
 "_exportAsQrCode" = "Экспортировать как QR-код";
-"_extractOtpErrorMessage" = "Произошла ошибка при чтении QR-кода на выбранном изображении.";
+"_extractOtpErrorMessage" = "Произошла ошибка при чтении QR-кода.";
 "_favorite" = "Избранное";
 "_favorites" = "Избранные";
 "_file" = "Файл";
@@ -161,3 +161,6 @@
 "_duplicatesTrashMessage" = "Все дубликаты этого пароля находятся в корзине.";
 "_managedServerUrlErrorMessage" = "Адрес сервера Nextcloud был предварительно настроен, но приложению не удалось подключиться к экземпляру Nextcloud. Обратитесь к администратору.";
 "_supportThisProjectMessage" = "Установлена TestFligh версия приложения. Любые сделанные покупки предназначены только для целей тестирования и не будут оплачены.";
+"_automaticallyAddedOtp" = "Автоматически добавленный OTP";
+"_universalClipboard" = "Универсальный буфер обмена";
+"_clearStoredE2EPassword" = "Очистить сохраненный пароль E2E";

@@ -5,14 +5,16 @@ struct OTPDisplay<Content: View>: View {
     
     let otp: OTP
     let updateOtp: (OTP) -> Void
-    @ViewBuilder let content: (String?, AnyView) -> Content
+    @ViewBuilder let content: (String?, String?, AnyView) -> Content
     
+    @State private var current: String?
+    @State private var upcoming: String?
     @State private var totpAge: Double?
     
     // MARK: Views
     
     var body: some View {
-        content(otp.current, AnyView(accessoryView()))
+        content(current, upcoming, AnyView(accessoryView()))
     }
     
     @ViewBuilder private func accessoryView() -> some View {
@@ -25,6 +27,9 @@ struct OTPDisplay<Content: View>: View {
                 Image(systemName: "forward")
             }
             .buttonStyle(.borderless)
+            .task(id: otp) {
+                current = otp.current
+            }
         case .totp:
             ZStack {
                 Circle()
@@ -40,14 +45,10 @@ struct OTPDisplay<Content: View>: View {
                         .foregroundColor(.accentColor)
                 }
             }
-            .onAppear {
+            .task(id: otp) {
                 updateTotp(otp, date: Date(), isInitial: true)
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) {
-                _ in
-                updateTotp(otp, date: Date(), isInitial: true)
-            }
-            .onChange(of: otp.period) {
                 _ in
                 updateTotp(otp, date: Date(), isInitial: true)
             }
@@ -78,6 +79,10 @@ struct OTPDisplay<Content: View>: View {
         }
         guard isInitial || totpAge != nil && Int(date.timeIntervalSince1970).isMultiple(of: totp.period) else {
             return
+        }
+        withAnimation(isInitial ? nil : .default) {
+            current = otp.current
+            upcoming = otp.upcoming
         }
         let period = Double(totp.period)
         let age = date.timeIntervalSince1970.truncatingRemainder(dividingBy: period)

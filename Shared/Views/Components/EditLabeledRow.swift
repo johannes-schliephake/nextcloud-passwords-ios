@@ -3,6 +3,8 @@ import SwiftUI
 
 struct EditLabeledRow: View {
     
+    @Environment(\.enableCharacterCounter) private var enableCharacterCounter
+    
     private let type: LabeledRow.RowType
     private let labelKey: LocalizedStringKey?
     private let labelString: String?
@@ -133,15 +135,25 @@ struct EditLabeledRow: View {
     
     private func labeledStack() -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            if let labelKey {
-                Text(labelKey)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-            }
-            else if let labelString {
-                Text(labelString)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+            HStack {
+                if let labelKey {
+                    Text(labelKey)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+                else if let labelString {
+                    Text(labelString)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+                if enableCharacterCounter == true || enableCharacterCounter != false && (type == .email || type == .secret),
+                   !stringValue.isEmpty {
+                    Spacer()
+                    Text("\(stringValue.count)")
+                        .font(.caption2)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.trailing)
+                }
             }
             switch type {
             case .text:

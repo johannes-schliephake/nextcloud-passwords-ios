@@ -1,5 +1,7 @@
 import SwiftUI
 import PhotosUI
+import Combine
+import Factory
 
 
 final class EditPasswordController: ObservableObject {
@@ -30,6 +32,9 @@ final class EditPasswordController: ObservableObject {
     let passwordInvalidTags: [String]
     @Published var passwordFolder: String
     @Published var showExtractOtpErrorAlert = false
+    @Published private(set) var preferredUsernames: [String]?
+    
+    private var cancellables = Set<AnyCancellable>()
     
     init(entriesController: EntriesController, password: Password) {
         self.entriesController = entriesController
@@ -44,6 +49,11 @@ final class EditPasswordController: ObservableObject {
         passwordFavorite = password.favorite
         (passwordValidTags, passwordInvalidTags) = EntriesController.tags(for: password.tags, in: entriesController.tags ?? [])
         passwordFolder = password.folder
+        
+        resolve(\.preferredUsernameUseCase)[\.$preferredUsernames]
+            .map { $0.map { Array($0.prefix(5)) } }
+            .sink { [weak self] in self?.preferredUsernames = $0 }
+            .store(in: &cancellables)
     }
     
     var folderLabel: String {

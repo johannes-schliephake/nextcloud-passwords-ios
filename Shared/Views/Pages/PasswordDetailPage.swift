@@ -23,6 +23,9 @@ struct PasswordDetailPage: View {
     @State private var navigationSelection: NavigationSelection?
     @State private var showSelectTagsView = false
     @State private var showPasswordStatusTooltip = false
+    @ScaledMetric private var currentOtpFontSize = 17
+    @ScaledMetric private var upcomingOtpFontSize = 12
+    @ScaledMetric private var otpLabelsDistance = 6
     
     // MARK: Views
     
@@ -278,11 +281,7 @@ struct PasswordDetailPage: View {
             .frame(width: 64, height: 64)
             .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
             .cornerRadius(6)
-            .onAppear {
-                requestFavicon()
-            }
-            .onChange(of: password.url) {
-                _ in
+            .task(id: password.url) {
                 requestFavicon()
             }
     }
@@ -391,15 +390,81 @@ struct PasswordDetailPage: View {
             LabeledRow(type: .secret, label: "_password", value: password.password, copiable: true)
             if let otp = password.otp {
                 HStack {
-                    OTPDisplay(otp: otp) {
-                        otp in
+                    OTPDisplay(otp: otp) { otp in
                         password.updated = Date()
                         password.otp = otp
                         entriesController.update(password: password)
-                    }
-                    content: {
-                        current, accessoryView in
-                        LabeledRow(type: .pin, label: "_otp", value: current ?? "", copiable: true)
+                    } content: { current, upcoming, accessoryView in
+                        Button {
+                            if let current {
+                                resolve(\.pasteboardService).set(string: current, sensitive: false)
+                            }
+                        } label: {
+                            VStack(alignment: .leading, spacing: otpLabelsDistance) {
+                                Text("_otp")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                Text((current ?? "").segmented)
+                                    .font(.system(size: currentOtpFontSize))
+                                    .foregroundColor(.primary)
+                                    .apply { view in
+                                        if #available(iOS 16, *) {
+                                            view
+                                                .monospaced()
+                                        } else {
+                                            view
+                                                .font(.system(.body, design: .monospaced))
+                                        }
+                                    }
+                                    .apply { view in
+                                        if #available(iOS 17, *) {
+                                            view
+                                                .typesettingLanguage(.init(languageCode: .unavailable))
+                                        }
+                                    }
+                                    .id(current)
+                                    .transition(
+                                        .asymmetric(
+                                            insertion: .scale(scale: upcomingOtpFontSize / currentOtpFontSize, anchor: .leading)
+                                                .combined(with: .offset(y: currentOtpFontSize + otpLabelsDistance))
+                                                .combined(with: .opacity),
+                                            removal: .offset(y: -(currentOtpFontSize + otpLabelsDistance))
+                                                .combined(with: .opacity)
+                                        )
+                                    )
+                                if let upcoming {
+                                    Text(upcoming.segmented)
+                                        .font(.system(size: upcomingOtpFontSize))
+                                        .foregroundColor(.gray)
+                                        .apply { view in
+                                            if #available(iOS 16, *) {
+                                                view
+                                                    .monospaced()
+                                            } else {
+                                                view
+                                                    .font(.system(.body, design: .monospaced))
+                                            }
+                                        }
+                                        .apply { view in
+                                            if #available(iOS 17, *) {
+                                                view
+                                                    .typesettingLanguage(.init(languageCode: .unavailable))
+                                            }
+                                        }
+                                        .id(upcoming)
+                                        .transition(
+                                            .asymmetric(
+                                                insertion: .offset(y: currentOtpFontSize + otpLabelsDistance)
+                                                    .combined(with: .opacity),
+                                                removal: .scale(scale: currentOtpFontSize / upcomingOtpFontSize, anchor: .leading)
+                                                    .combined(with: .offset(y: -(currentOtpFontSize + otpLabelsDistance)))
+                                                    .combined(with: .opacity)
+                                            )
+                                        )
+                                }
+                            }
+                        }
+                        .disabled(current == nil)
                         Spacer()
                         switch otp.type {
                         case .hotp:

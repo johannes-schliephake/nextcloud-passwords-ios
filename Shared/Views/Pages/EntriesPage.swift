@@ -158,6 +158,7 @@ struct EntriesPage: View {
         List {
             Section(header: Text("_e2ePassword")) {
                 EditLabeledRow(type: .secret, value: $challengePassword)
+                    .characterCounter(false)
                     .focused($focusedField, equals: .challengePassword)
                     .submitLabel(.done)
                     .onSubmit {
@@ -1089,7 +1090,7 @@ extension EntriesPage {
                             entriesController.update(password: password)
                         }
                         content: {
-                            current, accessoryView in
+                            current, _, accessoryView in
                             Text((current ?? "").segmented)
                                 .foregroundColor(.primary)
                                 .apply {
@@ -1161,11 +1162,7 @@ extension EntriesPage {
                 .frame(width: 40, height: 40)
                 .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
                 .cornerRadius(3.75)
-                .onAppear {
-                    requestFavicon()
-                }
-                .onChange(of: password.url) {
-                    _ in
+                .task(id: password.url) {
                     requestFavicon()
                 }
         }
