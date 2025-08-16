@@ -725,6 +725,7 @@ extension EntriesPage {
                     .tint(.purple)
                     .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 }
+                .labelStyle(.iconOnly)
                 .contextMenu {
                     Button {
                         editFolder()
@@ -917,6 +918,7 @@ extension EntriesPage {
                     .tint(.purple)
                     .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
+                .labelStyle(.iconOnly)
                 .contextMenu {
                     Section {
                         if let url = URL(string: password.url) {
@@ -1303,6 +1305,7 @@ extension EntriesPage {
                     }
                     .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
                 }
+                .labelStyle(.iconOnly)
                 .contextMenu {
                     Button {
                         editTag()
