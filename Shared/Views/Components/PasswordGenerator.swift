@@ -53,12 +53,24 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
         VStack(spacing: 15) {
             VStack {
                 Toggle("_numbers", isOn: $generatorNumbers)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .padding(.vertical, 4)
+                        }
+                    }
                 Toggle("_specialCharacters", isOn: $generatorSpecial)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .padding(.vertical, 4)
+                        }
+                    }
                 if onDeviceGenerator {
                     HStack {
                         segmentedSlider(
                             Strings.length,
-                            segmentCount: 9,
+                            tickCount: 9,
                             labels: .init(
                                 leading: "8",
                                 center: "36",
@@ -74,7 +86,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                 } else {
                     segmentedSlider(
                         Strings.strength,
-                        segmentCount: PasswordServiceRequest.Strength.allCases.count,
+                        tickCount: PasswordServiceRequest.Strength.allCases.count,
                         labels: .init(
                             leading: Strings.low,
                             center: Strings.medium,
@@ -107,43 +119,81 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
         }
     }
     
-    private func segmentedSlider(_ label: String, segmentCount: Int = 5, labels: SegmentedSliderLabels? = nil, value: Binding<Int>, in bounds: ClosedRange<Int>) -> some View {
+    private func segmentedSlider(_ label: String, tickCount: Int, labels: SegmentedSliderLabels? = nil, value: Binding<Int>, in bounds: ClosedRange<Int>) -> some View {
         HStack(spacing: 16) {
             Text(label)
             VStack(spacing: 4) {
-                ZStack {
-                    HStack {
-                        Rectangle()
-                            .frame(width: 4, height: 6)
-                        ForEach(1..<segmentCount, id: \.self) {
-                            _ in
-                            Spacer()
+                if #available(iOS 26, *) {
+                    Slider(
+                        value: Binding(
+                            get: { Double(value.wrappedValue) },
+                            set: { value.wrappedValue = Int($0) }
+                        ),
+                        in: Double(bounds.lowerBound)...Double(bounds.upperBound),
+                        label: {},
+                        ticks: {
+                            SliderTickContentForEach(
+                                Array(
+                                    stride(
+                                        from: Double(bounds.lowerBound),
+                                        through: Double(bounds.upperBound),
+                                        by: Double(bounds.count / (tickCount - 1))
+                                    )
+                                ),
+                                id: \.self,
+                                content: SliderTick.init
+                            )
+                        }
+                    )
+                } else {
+                    ZStack {
+                        HStack {
                             Rectangle()
                                 .frame(width: 4, height: 6)
+                            ForEach(1..<tickCount, id: \.self) { _ in
+                                Spacer()
+                                Rectangle()
+                                    .frame(width: 4, height: 6)
+                            }
                         }
+                        .foregroundColor(Color(white: 0.5, opacity: 0.23))
+                        .padding(.horizontal, 11.5)
+                        .offset(y: 5.5)
+                        Slider(value: Binding(
+                            get: { Double(value.wrappedValue) },
+                            set: { value.wrappedValue = Int($0) }
+                        ), in: Double(bounds.lowerBound)...Double(bounds.upperBound), step: 1)
                     }
-                    .foregroundColor(Color(white: 0.5, opacity: 0.23))
-                    .padding(.horizontal, 11.5)
-                    .offset(y: 5.5)
-                    Slider(value: Binding(
-                        get: { Double(value.wrappedValue) },
-                        set: { value.wrappedValue = Int($0) }
-                    ), in: Double(bounds.lowerBound)...Double(bounds.upperBound), step: 1)
                 }
                 if let labels,
                    labels.leading != nil || labels.center != nil || labels.trailing != nil {
                     ZStack {
                         if let leading = labels.leading {
                             Text(leading)
+                                .frame(width: 36)
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .apply { view in
+                                    if #unavailable(iOS 26) {
+                                        view
+                                            .offset(x: -4.5)
+                                    }
+                                }
                         }
                         if let center = labels.center {
                             Text(center)
+                                .frame(width: 36)
                                 .frame(maxWidth: .infinity, alignment: .center)
                         }
                         if let trailing = labels.trailing {
                             Text(trailing)
+                                .frame(width: 36)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
+                                .apply { view in
+                                    if #unavailable(iOS 26) {
+                                        view
+                                            .offset(x: 4.5)
+                                    }
+                                }
                         }
                     }
                     .font(.footnote)
