@@ -586,12 +586,19 @@ struct PasswordDetailPage: View {
                         .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
 #endif
                 }
-            }
-            label: {
+            } label: {
                 Text("_metadata")
-                    .textCase(.uppercase)
-                    .font(.footnote)
                     .foregroundColor(.gray)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .font(.headline)
+                        } else {
+                            view
+                                .textCase(.uppercase)
+                                .font(.footnote)
+                        }
+                    }
             }
         }
     }

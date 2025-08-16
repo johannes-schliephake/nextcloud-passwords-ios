@@ -309,24 +309,7 @@ struct EditPasswordPage: View {
     }
     
     private func customFieldsSection() -> some View {
-        Section(header: HStack {
-            Text("_customFields")
-            Spacer()
-            Button {
-                editMode.toggle()
-            }
-            label: {
-                if editMode {
-                    Text("_done")
-                }
-                else {
-                    Text("_edit")
-                }
-            }
-            .disabled(editPasswordController.passwordCustomUserFields.isEmpty)
-            .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { editMode = editMode && !$0 }
-        }
-            .font(.footnote)) {
+        Section(header: customFieldsSectionHeader()) {
             ForEach($editPasswordController.passwordCustomUserFields) {
                 $customUserField in
                 HStack {
@@ -389,6 +372,32 @@ struct EditPasswordPage: View {
                 Label("_addCustomField", systemImage: "rectangle.and.paperclip")
             }
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
+        }
+    }
+    
+    private func customFieldsSectionHeader() -> some View {
+        HStack {
+            Text("_customFields")
+            Spacer()
+            Button {
+                editMode.toggle()
+            }
+            label: {
+                if editMode {
+                    Text("_done")
+                }
+                else {
+                    Text("_edit")
+                }
+            }
+            .disabled(editPasswordController.passwordCustomUserFields.isEmpty)
+            .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { editMode = editMode && !$0 }
+        }
+        .apply { view in
+            if #unavailable(iOS 26) {
+                view
+                    .font(.footnote)
+            }
         }
     }
     

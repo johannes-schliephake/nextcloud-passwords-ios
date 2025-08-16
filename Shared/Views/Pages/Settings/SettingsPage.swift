@@ -98,20 +98,22 @@ struct SettingsPage: View {
     
     private func enableProviderSection() -> some View {
         Section(header: Text("_integration")) {
-            if #available(iOS 17, *),
-               let attributedString = try? AttributedString(markdown: Strings.providerInstructionsMessageWithLink, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
-                Text(attributedString)
-                    .environment(\.openURL, .init { url in
-                        viewModel(.openProviderSettingsUrl(url))
-                        return .handled
-                    })
-            } else {
-                Text("_providerInstructionsMessage")
+            Group {
+                if #available(iOS 17, *),
+                   let attributedString = try? AttributedString(markdown: Strings.providerInstructionsMessageWithLink, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
+                    Text(attributedString)
+                        .environment(\.openURL, .init { url in
+                            viewModel(.openProviderSettingsUrl(url))
+                            return .handled
+                        })
+                } else {
+                    Text("_providerInstructionsMessage")
+                }
             }
+            .font(.footnote)
+            .foregroundColor(.gray)
+            .monospacedDigit()
         }
-        .font(.footnote)
-        .foregroundColor(.gray)
-        .monospacedDigit()
         .listRowBackground(Color(UIColor.systemGroupedBackground))
     }
     
