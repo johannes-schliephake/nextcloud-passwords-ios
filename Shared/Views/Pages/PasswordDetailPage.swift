@@ -572,11 +572,20 @@ struct PasswordDetailPage: View {
                             }
                     }
                 }
+                .apply { view in
 #if targetEnvironment(simulator)
-                .listRowInsets(EdgeInsets(top: 8, leading: UIDevice.current.deviceSpecificPadding - 4, bottom: 8, trailing: 16 + UIDevice.current.deviceSpecificPadding))
+                    if #available(iOS 26, *) {
+                        view
+                            .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
+                    } else {
+                        view
+                            .listRowInsets(EdgeInsets(top: 8, leading: UIDevice.current.deviceSpecificPadding - 4, bottom: 8, trailing: 16 + UIDevice.current.deviceSpecificPadding))
+                    }
 #else
-                .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
+                    view
+                        .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
 #endif
+                }
             }
             label: {
                 Text("_metadata")
