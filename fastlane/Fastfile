@@ -42,11 +42,11 @@ lane :take_screenshots do
         "iPad Pro (12.9-inch) (2nd generation)",
         "iPad Pro 11-inch (M4)",
         "iPad Air (3rd generation)",
-        "iPad (6th generation)"
+        "iPad mini (5th generation)"
     ]
     languages = ["en-US", "de-DE"]
     run_tests(build_for_testing: true, scheme: "Passwords", derived_data_path: "fastlane/tmp", disable_package_automatic_updates: true)
-    capture_screenshots(devices: devices, languages: languages, ios_version: "18.5", clear_previous_screenshots: true, override_status_bar: true, dark_mode: false, test_without_building: true, scheme: "Passwords", stop_after_first_error: true, derived_data_path: "fastlane/tmp", testplan: "Snapshot")
+    capture_screenshots(devices: devices, languages: languages, clear_previous_screenshots: true, override_status_bar: true, dark_mode: false, test_without_building: true, scheme: "Passwords", stop_after_first_error: true, derived_data_path: "fastlane/tmp", testplan: "Snapshot")
     unless prompt(text: "Does the preview on path './fastlane/screenshots/screenshots.html' look okay for you?", boolean: true)
         reset_git_repo(force: true)
         UI.user_error!("Did not keep screenshots, because the HTML file was rejected by the user")
