@@ -26,15 +26,15 @@ final class EditOTPViewModel: EditOTPViewModelProtocol {
         @Published fileprivate(set) var sharingAvailable: Bool
         @Published fileprivate(set) var previousFieldFocusable: Bool
         @Published fileprivate(set) var nextFieldFocusable: Bool
-        @Published var showDeleteAlert: Bool
-        @Published var showCancelAlert: Bool
+        @Published var showDeletionConfirmation: Bool
+        @Published var showCancellationConfirmation: Bool
         @Published fileprivate(set) var hasChanges: Bool
         @Published fileprivate(set) var editIsValid: Bool
         @Published var focusedField: FocusField?
         
         let shouldDismiss = Signal()
         
-        init(isCreating: Bool, otpType: OTP.OTPType, otpAlgorithm: Crypto.OTP.Algorithm, otpSecret: String, otpDigits: Int, otpCounter: Int, otpPeriod: Int, showMore: Bool, sharingUrl: URL?, sharingAvailable: Bool, previousFieldFocusable: Bool, nextFieldFocusable: Bool, showDeleteAlert: Bool, showCancelAlert: Bool, hasChanges: Bool, editIsValid: Bool, focusedField: FocusField?) {
+        init(isCreating: Bool, otpType: OTP.OTPType, otpAlgorithm: Crypto.OTP.Algorithm, otpSecret: String, otpDigits: Int, otpCounter: Int, otpPeriod: Int, showMore: Bool, sharingUrl: URL?, sharingAvailable: Bool, previousFieldFocusable: Bool, nextFieldFocusable: Bool, showDeletionConfirmation: Bool, showCancellationConfirmation: Bool, hasChanges: Bool, editIsValid: Bool, focusedField: FocusField?) {
             self.isCreating = isCreating
             self.otpType = otpType
             self.otpAlgorithm = otpAlgorithm
@@ -47,8 +47,8 @@ final class EditOTPViewModel: EditOTPViewModelProtocol {
             self.sharingAvailable = sharingAvailable
             self.previousFieldFocusable = previousFieldFocusable
             self.nextFieldFocusable = nextFieldFocusable
-            self.showDeleteAlert = showDeleteAlert
-            self.showCancelAlert = showCancelAlert
+            self.showDeletionConfirmation = showDeletionConfirmation
+            self.showCancellationConfirmation = showCancellationConfirmation
             self.hasChanges = hasChanges
             self.editIsValid = editIsValid
             self.focusedField = focusedField
@@ -89,7 +89,7 @@ final class EditOTPViewModel: EditOTPViewModelProtocol {
     
     init(otp: OTP, updateOtp: @escaping (OTP?) -> Void) {
         let showMore = !_otpService.wrappedValue.hasDefaults(otp: otp)
-        state = .init(isCreating: otp.secret.isEmpty, otpType: otp.type, otpAlgorithm: otp.algorithm, otpSecret: otp.secret, otpDigits: otp.digits, otpCounter: otp.counter, otpPeriod: otp.period, showMore: showMore, sharingUrl: nil, sharingAvailable: false, previousFieldFocusable: false, nextFieldFocusable: false, showDeleteAlert: false, showCancelAlert: false, hasChanges: false, editIsValid: true, focusedField: otp.secret.isEmpty ? .otpSecret : nil)
+        state = .init(isCreating: otp.secret.isEmpty, otpType: otp.type, otpAlgorithm: otp.algorithm, otpSecret: otp.secret, otpDigits: otp.digits, otpCounter: otp.counter, otpPeriod: otp.period, showMore: showMore, sharingUrl: nil, sharingAvailable: false, previousFieldFocusable: false, nextFieldFocusable: false, showDeletionConfirmation: false, showCancellationConfirmation: false, hasChanges: false, editIsValid: true, focusedField: otp.secret.isEmpty ? .otpSecret : nil)
         self.otp = otp
         self.updateOtp = updateOtp
         
@@ -207,7 +207,7 @@ final class EditOTPViewModel: EditOTPViewModelProtocol {
                 self(.applyToOTP)
             }
         case .deleteOTP:
-            state.showDeleteAlert = true
+            state.showDeletionConfirmation = true
         case .confirmDelete:
             updateOtp(nil)
             state.shouldDismiss()
@@ -220,7 +220,7 @@ final class EditOTPViewModel: EditOTPViewModelProtocol {
             state.shouldDismiss()
         case .cancel:
             if state.hasChanges {
-                state.showCancelAlert = true
+                state.showCancellationConfirmation = true
             } else {
                 state.shouldDismiss()
             }

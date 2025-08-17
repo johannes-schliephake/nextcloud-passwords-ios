@@ -10,7 +10,7 @@ struct SettingsPage: View {
         listView()
             .navigationTitle("_settings")
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
+                ToolbarItem(placement: .primaryAction) {
                     doneButton()
                 }
             }
@@ -57,10 +57,10 @@ struct SettingsPage: View {
                     Spacer()
                 }
             }
-            .actionSheet(isPresented: $viewModel[\.showLogoutAlert]) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
+            .confirmationDialog("_confirmAction", isPresented: $viewModel[\.showLogoutAlert]) {
+                Button("_logOut", role: .destructive) {
                     viewModel(.confirmLogout)
-                }])
+                }
             }
         }
         .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
@@ -206,8 +206,19 @@ struct SettingsPage: View {
     }
     
     private func doneButton() -> some View {
-        Button("_done") {
-            viewModel(.done)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .close) {
+                    viewModel(.done)
+                }
+            } else {
+                Button {
+                    viewModel(.done)
+                } label: {
+                    Text("_done")
+                        .bold()
+                }
+            }
         }
     }
     

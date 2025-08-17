@@ -12,7 +12,7 @@ struct SelectFolderPage: View {
                 ToolbarItem(placement: .cancellationAction) {
                     cancelButton()
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .primaryAction) {
                     addFolderButton()
                 }
                 ToolbarItem(placement: .confirmationAction) {
@@ -68,9 +68,15 @@ struct SelectFolderPage: View {
         }
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 26, *) {
+            Button(role: .cancel) {
+                viewModel(.cancel)
+            }
+        } else {
+            Button("_cancel", role: .cancel) {
+                viewModel(.cancel)
+            }
         }
     }
     
@@ -91,8 +97,16 @@ struct SelectFolderPage: View {
     }
     
     private func confirmButton() -> some View {
-        Button("_done") {
-            viewModel(.selectFolder)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    viewModel(.selectFolder)
+                }
+            } else {
+                Button("_done") {
+                    viewModel(.selectFolder)
+                }
+            }
         }
         .enabled(viewModel[\.hasChanges])
         .enabled(viewModel[\.selectionIsValid])

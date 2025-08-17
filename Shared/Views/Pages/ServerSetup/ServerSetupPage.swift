@@ -106,15 +106,29 @@ struct ServerSetupPage: View {
             .padding(.vertical, 6)
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 26, *) {
+            Button(role: .cancel) {
+                viewModel(.cancel)
+            }
+        } else {
+            Button("_cancel", role: .cancel) {
+                viewModel(.cancel)
+            }
         }
     }
     
     private func connectButton() -> some View {
-        Button("_connect") {
-            viewModel(.connect)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    viewModel(.connect)
+                }
+            } else {
+                Button("_connect") {
+                    viewModel(.connect)
+                }
+            }
         }
         .enabled(viewModel[\.challengeAvailable])
     }

@@ -46,9 +46,15 @@ struct CaptureOTPPage: View {
         }
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 26, *) {
+            Button(role: .cancel) {
+                viewModel(.cancel)
+            }
+        } else {
+            Button("_cancel", role: .cancel) {
+                viewModel(.cancel)
+            }
         }
     }
     

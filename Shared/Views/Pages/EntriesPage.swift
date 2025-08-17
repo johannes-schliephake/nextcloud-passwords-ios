@@ -20,7 +20,7 @@ struct EntriesPage: View {
     @State private var storeChallengePassword = false
     @State private var showStorePasswordTooltip = false
     @State private var sheetItem: SheetItem?
-    @State private var actionSheetItem: ActionSheetItem?
+    @State private var confirmationDialogItem: ConfirmationDialogItem?
     @State private var showFolderErrorAlert = false
     @State private var showTagErrorAlert = false
     @State private var showOfflineText = false
@@ -36,23 +36,39 @@ struct EntriesPage: View {
     var body: some View {
         mainStack()
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .navigation) {
                     leadingToolbarView()
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if sessionController.session != nil,
-                       entriesController.state != .error && sessionController.state != .error,
-                       !sessionController.state.isChallengeAvailable,
-                       entriesController.state == .offline || entriesController.state == .online,
-                       autoFillController.credentialIdentifier == nil,
-                       folderController.entries != nil {
-                        trailingToolbarView()
-                    }
                 }
                 ToolbarItem(placement: .principal) {
                     if entriesController.state == .offline || sessionController.state == .offlineChallengeAvailable {
                         principalToolbarView()
                     }
+                }
+            }
+            .apply { view in
+                let showTrailingToolbarView = sessionController.session != nil &&
+                                              entriesController.state != .error &&
+                                              sessionController.state != .error &&
+                                              !sessionController.state.isChallengeAvailable &&
+                                              (entriesController.state == .offline || entriesController.state == .online) &&
+                                              autoFillController.credentialIdentifier == nil &&
+                                              folderController.entries != nil
+                if #available(iOS 26, *) {
+                    view
+                        .toolbar {
+                            if showTrailingToolbarView {
+                                trailingToolbar()
+                            }
+                        }
+                } else {
+                    view
+                        .toolbar {
+                            ToolbarItem(placement: .primaryAction) {
+                                if showTrailingToolbarView {
+                                    trailingToolbarView()
+                                }
+                            }
+                        }
                 }
             }
             .navigationTitle(navigationTitle)
@@ -321,21 +337,26 @@ struct EntriesPage: View {
                 AddOTPNavigation(entriesController: entriesController, otp: otp)
             }
         }
-        .actionSheet(item: $actionSheetItem) {
-            item in
+        .confirmationDialog("_confirmAction", isPresented: .init {
+            confirmationDialogItem != nil
+        } set: { isPresented in
+            if !isPresented {
+                confirmationDialogItem = nil
+            }
+        }, presenting: confirmationDialogItem) { item in
             switch item {
             case .delete(.folder(let folder)):
-                return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
+                Button("_deleteFolder", role: .destructive) {
                     entriesController.delete(folder: folder)
-                }])
+                }
             case .delete(.password(let password)):
-                return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                Button("_deletePassword", role: .destructive) {
                     entriesController.delete(password: password)
-                }])
+                }
             case .delete(.tag(let tag)):
-                return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteTag")) {
+                Button("_deleteTag", role: .destructive) {
                     entriesController.delete(tag: tag)
-                }])
+                }
             }
         }
     }
@@ -350,7 +371,7 @@ struct EntriesPage: View {
             }, tagPassword: {
                 sheetItem = .tag(entry: .password(password))
             }, deletePassword: {
-                actionSheetItem = .delete(entry: .password(password))
+                confirmationDialogItem = .delete(entry: .password(password))
             })
         }
     }
@@ -366,7 +387,7 @@ struct EntriesPage: View {
                     }, moveFolder: {
                         sheetItem = .move(entry: .folder(folder))
                     }, deleteFolder: {
-                        actionSheetItem = .delete(entry: .folder(folder))
+                        confirmationDialogItem = .delete(entry: .folder(folder))
                     })
                 case .password(let password):
                     PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
@@ -376,13 +397,13 @@ struct EntriesPage: View {
                     }, tagPassword: {
                         sheetItem = .tag(entry: .password(password))
                     }, deletePassword: {
-                        actionSheetItem = .delete(entry: .password(password))
+                        confirmationDialogItem = .delete(entry: .password(password))
                     })
                 case .tag(let tag):
                     TagRow(entriesController: entriesController, tag: tag, editTag: {
                         sheetItem = .edit(entry: .tag(tag))
                     }, deleteTag: {
-                        actionSheetItem = .delete(entry: .tag(tag))
+                        confirmationDialogItem = .delete(entry: .tag(tag))
                     })
                 }
             }
@@ -398,13 +419,62 @@ struct EntriesPage: View {
                     }
                 }
                 else {
-                    Button("_settings") {
+                    Button {
                         showSettingsView = true
+                    } label: {
+                        Label("_settings", systemImage: "gear")
+                            .apply { view in
+                                if #unavailable(iOS 26) {
+                                    view
+                                        .labelStyle(.titleOnly)
+                                }
+                            }
                     }
                     .sheet(isPresented: $showSettingsView) {
                         SettingsNavigation()
                     }
                 }
+            }
+        }
+    }
+    
+    @available(iOS 26, *) @ToolbarContentBuilder private func trailingToolbar() -> some ToolbarContent {
+        if let state = folderController.folder.state {
+            if state.isError {
+                ToolbarItem(placement: .primaryAction) {
+                    folderErrorButton(state: state)
+                }
+                .sharedBackgroundVisibility(.hidden)
+            }
+            else if state.isProcessing {
+                ToolbarItem(placement: .primaryAction) {
+                    ProgressView()
+                }
+                .sharedBackgroundVisibility(.hidden)
+            }
+        }
+        else if let state = folderController.tag?.state {
+            if state.isError {
+                ToolbarItem(placement: .primaryAction) {
+                    tagErrorButton(state: state)
+                }
+                .sharedBackgroundVisibility(.hidden)
+            }
+            else if state.isProcessing {
+                ToolbarItem(placement: .primaryAction) {
+                    ProgressView()
+                }
+                .sharedBackgroundVisibility(.hidden)
+            }
+        }
+        if autoFillController.mode != .extension {
+            if showFilterSortMenu {
+                ToolbarItem(placement: .primaryAction) {
+                    filterSortMenu()
+                }
+            }
+            ToolbarItem(placement: .primaryAction) {
+                createMenu()
             }
         }
     }
@@ -547,9 +617,13 @@ struct EntriesPage: View {
             }
         }
         label: {
-            HStack {
-                Spacer()
+            if #available(iOS 26, *) {
                 Image(systemName: "arrow.up.arrow.down")
+            } else {
+                HStack {
+                    Spacer()
+                    Image(systemName: "arrow.up.arrow.down")
+                }
             }
         }
         .menuActionDismissBehavior(.disabled)
@@ -576,9 +650,13 @@ struct EntriesPage: View {
             })
         }
         label: {
-            HStack {
-                Spacer()
+            if #available(iOS 26, *) {
                 Image(systemName: "plus")
+            } else {
+                HStack {
+                    Spacer()
+                    Image(systemName: "plus")
+                }
             }
         }
         .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
@@ -626,7 +704,7 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    private enum ActionSheetItem: Identifiable {
+    private enum ConfirmationDialogItem: Identifiable {
         
         case delete(entry: Entry)
         

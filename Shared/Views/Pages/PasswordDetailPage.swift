@@ -37,13 +37,25 @@ struct PasswordDetailPage: View {
             mainStack()
                 .navigationTitle(password.label)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        stateView()
-                    }
                     ToolbarItem(placement: .primaryAction) {
                         if password.editable {
                             editButton()
                         }
+                    }
+                }
+                .apply { view in
+                    if #available(iOS 26, *) {
+                        view
+                            .toolbar {
+                                stateToolbar()
+                            }
+                    } else {
+                        view
+                            .toolbar {
+                                ToolbarItem(placement: .primaryAction) {
+                                    stateView()
+                                }
+                            }
                     }
                 }
                 .onReceive(resolve(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) {
@@ -584,6 +596,23 @@ struct PasswordDetailPage: View {
         .background(Color(UIColor.systemGroupedBackground))
     }
     
+    @available(iOS 26, *) @ToolbarContentBuilder private func stateToolbar() -> some ToolbarContent {
+        if let state = password.state {
+            if state.isError {
+                ToolbarItem(placement: .primaryAction) {
+                    errorButton(state: state)
+                }
+                .sharedBackgroundVisibility(.hidden)
+            }
+            else if state.isProcessing {
+                ToolbarItem(placement: .primaryAction) {
+                    ProgressView()
+                }
+                .sharedBackgroundVisibility(.hidden)
+            }
+        }
+    }
+    
     @ViewBuilder private func stateView() -> some View {
         if let state = password.state {
             if state.isError {
@@ -599,7 +628,13 @@ struct PasswordDetailPage: View {
         Button(action: {
             showEditPasswordView = true
         }, label: {
-            Text("_edit")
+            Label("_edit", systemImage: "square.and.pencil")
+                .apply { view in
+                    if #unavailable(iOS 26) {
+                        view
+                            .labelStyle(.titleOnly)
+                    }
+                }
         })
         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }

@@ -16,8 +16,8 @@ struct EditPasswordPage: View {
     @State private var sheetItem: SheetItem?
     @State private var showAboutOtpsTooltip = false
     @State private var showPhotosPicker = false
-    @State private var showDeleteAlert = false
-    @State private var showCancelAlert = false
+    @State private var showDeletionConfirmation = false
+    @State private var showCancellationConfirmation = false
     
     private var didAutoAddOtp: Bool {
         guard let receivedOtp = autoFillController.receivedOtp else {
@@ -441,7 +441,7 @@ struct EditPasswordPage: View {
     
     private func deleteButton() -> some View {
         Button(role: .destructive) {
-            showDeleteAlert = true
+            showDeletionConfirmation = true
         }
         label: {
             HStack {
@@ -450,27 +450,43 @@ struct EditPasswordPage: View {
                 Spacer()
             }
         }
-        .actionSheet(isPresented: $showDeleteAlert) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+        .confirmationDialog("_confirmAction", isPresented: $showDeletionConfirmation) {
+            Button("_deletePassword", role: .destructive) {
                 deleteAndDismiss()
-            }])
+            }
         }
     }
     
     private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            cancelAndDismiss()
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .cancel) {
+                    cancelAndDismiss()
+                }
+            } else {
+                Button("_cancel", role: .cancel) {
+                    cancelAndDismiss()
+                }
+            }
         }
-        .actionSheet(isPresented: $showCancelAlert) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+        .confirmationDialog("_confirmAction", isPresented: $showCancellationConfirmation) {
+            Button("_discardChanges", role: .destructive) {
                 dismiss()
-            }])
+            }
         }
     }
     
     private func confirmButton() -> some View {
-        Button(editPasswordController.password.id.isEmpty ? "_create" : "_done") {
-            applyAndDismiss()
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    applyAndDismiss()
+                }
+            } else {
+                Button(editPasswordController.password.id.isEmpty ? "_create" : "_done") {
+                    applyAndDismiss()
+                }
+            }
         }
         .disabled(!editPasswordController.editIsValid)
     }
@@ -479,7 +495,7 @@ struct EditPasswordPage: View {
     
     private func cancelAndDismiss() {
         if editPasswordController.hasChanges {
-            showCancelAlert = true
+            showCancellationConfirmation = true
         }
         else {
             dismiss()

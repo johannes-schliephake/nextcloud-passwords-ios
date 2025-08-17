@@ -19,22 +19,22 @@ final class EditTagViewModel: EditTagViewModelProtocol {
         @Published var tagLabel: String
         @Published var tagColor: Color
         @Published var tagFavorite: Bool
-        @Published var showDeleteAlert: Bool
-        @Published var showCancelAlert: Bool
+        @Published var showDeletionConfirmation: Bool
+        @Published var showCancellationConfirmation: Bool
         @Published fileprivate(set) var hasChanges: Bool
         @Published fileprivate(set) var editIsValid: Bool
         @Published var focusedField: FocusField?
         
         let shouldDismiss = Signal()
         
-        init(tag: Tag, isCreating: Bool, tagLabel: String, tagColor: Color, tagFavorite: Bool, showDeleteAlert: Bool, showCancelAlert: Bool, hasChanges: Bool, editIsValid: Bool, focusedField: FocusField?) {
+        init(tag: Tag, isCreating: Bool, tagLabel: String, tagColor: Color, tagFavorite: Bool, showDeletionConfirmation: Bool, showCancellationConfirmation: Bool, hasChanges: Bool, editIsValid: Bool, focusedField: FocusField?) {
             self.tag = tag
             self.isCreating = isCreating
             self.tagLabel = tagLabel
             self.tagColor = tagColor
             self.tagFavorite = tagFavorite
-            self.showDeleteAlert = showDeleteAlert
-            self.showCancelAlert = showCancelAlert
+            self.showDeletionConfirmation = showDeletionConfirmation
+            self.showCancellationConfirmation = showCancellationConfirmation
             self.hasChanges = hasChanges
             self.editIsValid = editIsValid
             self.focusedField = focusedField
@@ -65,7 +65,7 @@ final class EditTagViewModel: EditTagViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init(tag: Tag) {
-        state = .init(tag: tag, isCreating: tag.id.isEmpty, tagLabel: tag.label, tagColor: .init(hex: tag.color) ?? .black, tagFavorite: tag.favorite, showDeleteAlert: false, showCancelAlert: false, hasChanges: false, editIsValid: true, focusedField: tag.id.isEmpty ? .tagLabel : nil)
+        state = .init(tag: tag, isCreating: tag.id.isEmpty, tagLabel: tag.label, tagColor: .init(hex: tag.color) ?? .black, tagFavorite: tag.favorite, showDeletionConfirmation: false, showCancellationConfirmation: false, hasChanges: false, editIsValid: true, focusedField: tag.id.isEmpty ? .tagLabel : nil)
         
         setupPipelines()
     }
@@ -98,7 +98,7 @@ final class EditTagViewModel: EditTagViewModelProtocol {
         case .toggleFavorite:
             state.tagFavorite.toggle()
         case .deleteTag:
-            state.showDeleteAlert = true
+            state.showDeletionConfirmation = true
         case .confirmDelete:
             tagsService.delete(tag: state.tag)
             state.shouldDismiss()
@@ -112,7 +112,7 @@ final class EditTagViewModel: EditTagViewModelProtocol {
             state.shouldDismiss()
         case .cancel:
             if state.hasChanges {
-                state.showCancelAlert = true
+                state.showCancellationConfirmation = true
             } else {
                 state.shouldDismiss()
             }

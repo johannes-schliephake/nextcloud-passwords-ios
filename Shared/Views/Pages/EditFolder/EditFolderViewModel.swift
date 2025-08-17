@@ -21,15 +21,15 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         @Published fileprivate(set) var folderParent: String
         @Published fileprivate(set) var parentLabel: String
         @Published var showSelectFolderView: Bool
-        @Published var showDeleteAlert: Bool
-        @Published var showCancelAlert: Bool
+        @Published var showDeletionConfirmation: Bool
+        @Published var showCancellationConfirmation: Bool
         @Published fileprivate(set) var hasChanges: Bool
         @Published fileprivate(set) var editIsValid: Bool
         @Published var focusedField: FocusField?
         
         let shouldDismiss = Signal()
         
-        init(folder: Folder, isCreating: Bool, folderLabel: String, folderFavorite: Bool, folderParent: String, parentLabel: String, showSelectFolderView: Bool, showDeleteAlert: Bool, showCancelAlert: Bool, hasChanges: Bool, editIsValid: Bool, focusedField: FocusField?) {
+        init(folder: Folder, isCreating: Bool, folderLabel: String, folderFavorite: Bool, folderParent: String, parentLabel: String, showSelectFolderView: Bool, showDeletionConfirmation: Bool, showCancellationConfirmation: Bool, hasChanges: Bool, editIsValid: Bool, focusedField: FocusField?) {
             self.folder = folder
             self.isCreating = isCreating
             self.folderLabel = folderLabel
@@ -37,8 +37,8 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
             self.folderParent = folderParent
             self.parentLabel = parentLabel
             self.showSelectFolderView = showSelectFolderView
-            self.showDeleteAlert = showDeleteAlert
-            self.showCancelAlert = showCancelAlert
+            self.showDeletionConfirmation = showDeletionConfirmation
+            self.showCancellationConfirmation = showCancellationConfirmation
             self.hasChanges = hasChanges
             self.editIsValid = editIsValid
             self.focusedField = focusedField
@@ -73,7 +73,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init(folder: Folder, didEdit: ((Folder) -> Void)?) {
-        state = .init(folder: folder, isCreating: folder.id.isEmpty, folderLabel: folder.label, folderFavorite: folder.favorite, folderParent: folder.parent ?? "", parentLabel: "", showSelectFolderView: false, showDeleteAlert: false, showCancelAlert: false, hasChanges: false, editIsValid: true, focusedField: folder.id.isEmpty ? .folderLabel : nil)
+        state = .init(folder: folder, isCreating: folder.id.isEmpty, folderLabel: folder.label, folderFavorite: folder.favorite, folderParent: folder.parent ?? "", parentLabel: "", showSelectFolderView: false, showDeletionConfirmation: false, showCancellationConfirmation: false, hasChanges: false, editIsValid: true, focusedField: folder.id.isEmpty ? .folderLabel : nil)
         self.didEdit = didEdit
         
         if folder.isBaseFolder {
@@ -123,7 +123,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         case let .selectParent(parent):
             state.folderParent = parent.id
         case .deleteFolder:
-            state.showDeleteAlert = true
+            state.showDeletionConfirmation = true
         case .confirmDelete:
             foldersService.delete(folder: state.folder)
             state.shouldDismiss()
@@ -138,7 +138,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
             state.shouldDismiss()
         case .cancel:
             if state.hasChanges {
-                state.showCancelAlert = true
+                state.showCancellationConfirmation = true
             } else {
                 state.shouldDismiss()
             }

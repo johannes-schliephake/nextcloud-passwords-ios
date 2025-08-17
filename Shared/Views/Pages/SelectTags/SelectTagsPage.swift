@@ -126,15 +126,29 @@ struct SelectTagsPage: View {
         }
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 26, *) {
+            Button(role: .cancel) {
+                viewModel(.cancel)
+            }
+        } else {
+            Button("_cancel", role: .cancel) {
+                viewModel(.cancel)
+            }
         }
     }
     
     private func confirmButton() -> some View {
-        Button("_done") {
-            viewModel(.selectTags)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    viewModel(.selectTags)
+                }
+            } else {
+                Button("_done") {
+                    viewModel(.selectTags)
+                }
+            }
         }
         .enabled(viewModel[\.hasChanges])
     }
