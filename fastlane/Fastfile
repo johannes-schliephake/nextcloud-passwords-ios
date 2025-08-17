@@ -38,7 +38,6 @@ lane :take_screenshots do
         "iPhone 16e",
         "iPhone 8 Plus",
         "iPhone SE (3rd generation)",
-        "iPhone SE (1st generation)",
         "iPad Pro 13-inch (M4)",
         "iPad Pro (12.9-inch) (2nd generation)",
         "iPad Pro 11-inch (M4)",

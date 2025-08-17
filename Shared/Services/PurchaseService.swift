@@ -62,13 +62,6 @@ final class PurchaseService: PurchaseServiceProtocol {
         
         productsRepository.products
             .map { $0.sorted { $0.price < $1.price } }
-            .map { products in
-                if #available(iOS 16, *) {
-                    return products
-                } else {
-                    return products.reversed()
-                }
-            }
             .sink { self?.productsInternal = $0 }
             .store(in: &cancellables)
         

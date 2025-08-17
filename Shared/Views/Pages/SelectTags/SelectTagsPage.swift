@@ -57,13 +57,7 @@ struct SelectTagsPage: View {
                 }
             }
             .listRowSeparator(.hidden)
-            .apply {
-                view in
-                if #available(iOS 16, *) {
-                    view
-                        .listRowInsets(.listRow)
-                }
-            }
+            .listRowInsets(.listRow)
         }
         .listStyle(.plain)
         .toolbar {

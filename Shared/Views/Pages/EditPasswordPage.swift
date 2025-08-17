@@ -105,20 +105,14 @@ struct EditPasswordPage: View {
                 applyAndDismiss()
             }
         }
-        .apply {
-            view in
-            if #available(iOS 16, *) {
-                view
-                    .photosPicker(isPresented: $showPhotosPicker, selection: Binding(get: {
-                        nil
-                    }, set: { selection in
-                        guard let selection else {
-                            return
-                        }
-                        editPasswordController.extractOtp(from: selection)
-                    }), matching: .images)
+        .photosPicker(isPresented: $showPhotosPicker, selection: Binding(get: {
+            nil
+        }, set: { selection in
+            guard let selection else {
+                return
             }
-        }
+            editPasswordController.extractOtp(from: selection)
+        }), matching: .images)
         .sheet(item: $sheetItem) {
             item in
             switch item {
@@ -131,13 +125,6 @@ struct EditPasswordPage: View {
                 CaptureOTPNavigation {
                     otp in
                     editPasswordController.passwordOtp = otp
-                }
-            case .detectQrCode:
-                if #unavailable(iOS 16) {
-                    ImagePicker {
-                        image in
-                        editPasswordController.extractOtp(from: image)
-                    }
                 }
             case .selectTags:
                 SelectTagsNavigation(temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
@@ -192,12 +179,7 @@ struct EditPasswordPage: View {
                             }
                         }
                     }
-                    .apply { view in
-                        if #available(iOS 16, *) {
-                            view
-                                .scrollIndicators(.hidden)
-                        }
-                    }
+                    .scrollIndicators(.hidden)
                     .apply { view in
                         if #available(iOS 17, *) {
                             view
@@ -277,12 +259,7 @@ struct EditPasswordPage: View {
                 }
                 .disabled(UIApplication.isExtension)
                 Button {
-                    if #available(iOS 16, *) {
-                        showPhotosPicker = true
-                    }
-                    else {
-                        sheetItem = .detectQrCode
-                    }
+                    showPhotosPicker = true
                 }
                 label: {
                     Label("_detectQrCodeInPicture", systemImage: "photo")
@@ -332,13 +309,7 @@ struct EditPasswordPage: View {
                             .frame(minWidth: customFieldTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     }
                     .fixedSize(horizontal: false, vertical: true)
-                    .apply {
-                        view in
-                        if #available(iOS 16, *) {
-                            view
-                                .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
-                        }
-                    }
+                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
                     Spacer()
                     VStack {
                         EditLabeledRow(type: .text, label: "_name", value: $customUserField.label)
@@ -430,22 +401,13 @@ struct EditPasswordPage: View {
                         Label("_addTags", systemImage: "tag")
                     }
                     else {
-                        if #available(iOS 16, *) {
-                            FlowView(alignment: .leading) {
-                                ForEach(editPasswordController.passwordValidTags.sorted()) {
-                                    tag in
-                                    TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
-                                }
-                            }
-                            .padding(.vertical, 3)
-                        }
-                        else {
-                            LegacyFlowView(editPasswordController.passwordValidTags.sorted(), alignment: .leading) {
+                        FlowView(alignment: .leading) {
+                            ForEach(editPasswordController.passwordValidTags.sorted()) {
                                 tag in
                                 TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
                             }
-                            .padding(.vertical, 6)
                         }
+                        .padding(.vertical, 3)
                     }
                     Spacer()
                     NavigationLink(destination: EmptyView()) {
@@ -551,7 +513,6 @@ extension EditPasswordPage {
         
         case edit(otp: OTP)
         case scanQrCode
-        case detectQrCode
         case selectTags
         case selectFolder
         

@@ -15,13 +15,7 @@ struct EditTagNavigation: View {
             EditTagPage(viewModel: resolve(\.editTagViewModelType).init(tag: tag).eraseToAnyViewModel())
         }
         .showColumns(false)
-        .apply {
-            view in
-            if #available(iOS 16, *) {
-                view
-                    .scrollDismissesKeyboard(.interactively)
-            }
-        }
+        .scrollDismissesKeyboard(.interactively)
         .occlude(biometricAuthenticationController.hideContents)
     }
     

@@ -17,13 +17,7 @@ struct SelectFolderNavigation: View {
             SelectFolderPage(viewModel: resolve(\.selectFolderViewModelType).init(entry: entry, temporaryEntry: temporaryEntry, selectFolder: selectFolder).eraseToAnyViewModel())
         }
         .showColumns(false)
-        .apply {
-            view in
-            if #available(iOS 16, *) {
-                view
-                    .scrollDismissesKeyboard(.interactively)
-            }
-        }
+        .scrollDismissesKeyboard(.interactively)
         .occlude(biometricAuthenticationController.hideContents)
     }
     

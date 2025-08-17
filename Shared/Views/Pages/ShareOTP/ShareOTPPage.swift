@@ -46,21 +46,9 @@ struct ShareOTPPage: View {
     }
     
     @ViewBuilder private func shareButton() -> some View {
-        if #available(iOS 16, *) {
-            let item = Image(uiImage: viewModel[\.qrCode] ?? UIImage())
-            ShareLink("_shareQrCode", item: item, preview: SharePreview("_otp", image: item))
-                .enabled(viewModel[\.qrCodeAvailable])
-        } else {
-            Button {
-                viewModel(.share)
-            } label: {
-                Label("_shareQrCode", systemImage: "square.and.arrow.up")
-            }
+        let item = Image(uiImage: viewModel[\.qrCode] ?? UIImage())
+        ShareLink("_shareQrCode", item: item, preview: SharePreview("_otp", image: item))
             .enabled(viewModel[\.qrCodeAvailable])
-            .sheet(isPresented: $viewModel[\.showShareSheet]) {
-                ShareSheet(activityItems: [viewModel[\.qrCode] as Any, "_otp".localized])
-            }
-        }
     }
     
 }

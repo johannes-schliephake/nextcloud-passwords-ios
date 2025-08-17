@@ -87,7 +87,7 @@ final class EditPasswordController: ObservableObject {
         passwordCustomUserFields.count + password.customDataFields.count + (passwordOtp != nil ? 1 : 0)
     }
     
-    @available(iOS 16, *) func extractOtp(from selection: PhotosPickerItem) {
+    func extractOtp(from selection: PhotosPickerItem) {
         selection.loadTransferable(type: Data.self) {
             [weak self] result in
             guard let data = try? result.get(),

@@ -3,7 +3,7 @@ import Vision
 import VisionKit
 
 
-@available(iOS 16, *) struct DataScannerView: UIViewControllerRepresentable {
+struct DataScannerView: UIViewControllerRepresentable {
     
     @MainActor static var isSupported: Bool {
         DataScannerViewController.isSupported
@@ -49,7 +49,7 @@ import VisionKit
 }
 
 
-@available(iOS 16, *) extension DataScannerView {
+extension DataScannerView {
     
     final class Coordinator: DataScannerViewControllerDelegate {
         

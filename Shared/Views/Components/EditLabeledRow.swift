@@ -203,17 +203,7 @@ struct EditLabeledRow: View {
                 if hideSecret {
                     ZStack(alignment: .leading) {
                         TextField("", text: .constant(""))
-                            .apply {
-                                view in
-                                if #available(iOS 16, *) {
-                                    view
-                                        .monospaced()
-                                }
-                                else {
-                                    view
-                                        .font(.system(.body, design: .monospaced))
-                                }
-                            }
+                            .monospaced()
                             .disabled(true)
                             .hidden()
                         SecureField("-", text: $stringValue)
@@ -222,17 +212,7 @@ struct EditLabeledRow: View {
                 }
                 else {
                     TextField("-", text: $stringValue)
-                        .apply {
-                            view in
-                            if #available(iOS 16, *) {
-                                view
-                                    .monospaced()
-                            }
-                            else {
-                                view
-                                    .font(.system(.body, design: .monospaced))
-                            }
-                        }
+                        .monospaced()
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                 }
@@ -250,17 +230,7 @@ struct EditLabeledRow: View {
                     .disableAutocorrection(true)
             case .pin:
                 TextField("-", text: $stringValue)
-                    .apply {
-                        view in
-                        if #available(iOS 16, *) {
-                            view
-                                .monospaced()
-                        }
-                        else {
-                            view
-                                .font(.system(.body, design: .monospaced))
-                        }
-                    }
+                    .monospaced()
                     .keyboardType(.numberPad)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)

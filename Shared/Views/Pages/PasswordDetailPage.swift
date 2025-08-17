@@ -256,13 +256,7 @@ struct PasswordDetailPage: View {
                                 }
                                 Divider()
                                     .padding(.trailing, -100)
-                                    .apply {
-                                        view in
-                                        if #available(iOS 16, *) {
-                                            view
-                                                .padding(.leading, 40 + 12)
-                                        }
-                                    }
+                                    .padding(.leading, 40 + 12)
                             }
                         }
                     }
@@ -312,16 +306,8 @@ struct PasswordDetailPage: View {
         }) {
             if !validTags.isEmpty {
                 if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
-                    if #available(iOS 16, *) {
-                        FlowView {
-                            ForEach(validTags.sorted()) {
-                                tag in
-                                TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
-                            }
-                        }
-                    }
-                    else {
-                        LegacyFlowView(validTags.sorted()) {
+                    FlowView {
+                        ForEach(validTags.sorted()) {
                             tag in
                             TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
                         }
@@ -338,22 +324,8 @@ struct PasswordDetailPage: View {
                             .frame(width: 0, height: 0)
                         }
                         .hidden()
-                        if #available(iOS 16, *) {
-                            FlowView {
-                                ForEach(validTags.sorted()) {
-                                    tag in
-                                    Button {
-                                        navigationSelection = .entries(tag: tag)
-                                    }
-                                    label: {
-                                        TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
-                                    }
-                                    .buttonStyle(.borderless)
-                                }
-                            }
-                        }
-                        else {
-                            LegacyFlowView(validTags.sorted()) {
+                        FlowView {
+                            ForEach(validTags.sorted()) {
                                 tag in
                                 Button {
                                     navigationSelection = .entries(tag: tag)
@@ -407,15 +379,7 @@ struct PasswordDetailPage: View {
                                 Text((current ?? "").segmented)
                                     .font(.system(size: currentOtpFontSize))
                                     .foregroundColor(.primary)
-                                    .apply { view in
-                                        if #available(iOS 16, *) {
-                                            view
-                                                .monospaced()
-                                        } else {
-                                            view
-                                                .font(.system(.body, design: .monospaced))
-                                        }
-                                    }
+                                    .monospaced()
                                     .apply { view in
                                         if #available(iOS 17, *) {
                                             view
@@ -436,15 +400,7 @@ struct PasswordDetailPage: View {
                                     Text(upcoming.segmented)
                                         .font(.system(size: upcomingOtpFontSize))
                                         .foregroundColor(.gray)
-                                        .apply { view in
-                                            if #available(iOS 16, *) {
-                                                view
-                                                    .monospaced()
-                                            } else {
-                                                view
-                                                    .font(.system(.body, design: .monospaced))
-                                            }
-                                        }
+                                        .monospaced()
                                         .apply { view in
                                             if #available(iOS 17, *) {
                                                 view
@@ -522,22 +478,8 @@ struct PasswordDetailPage: View {
                     }
                     if let folders = entriesController.folders {
                         labeledFootnote("_folder") {
-                            if #available(iOS 16, *) {
-                                FlowView(spacing: 5, alignment: .trailing) {
-                                    ForEach(password.ancestors(in: folders)) {
-                                        ancestor in
-                                        HStack(spacing: 5) {
-                                            Text(ancestor.label)
-                                            if password.folder != ancestor.id {
-                                                Image(systemName: "chevron.forward")
-                                                    .foregroundColor(Color(.systemGray))
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else {
-                                LegacyFlowView(password.ancestors(in: folders), spacing: 5, alignment: .trailing) {
+                            FlowView(spacing: 5, alignment: .trailing) {
+                                ForEach(password.ancestors(in: folders)) {
                                     ancestor in
                                     HStack(spacing: 5) {
                                         Text(ancestor.label)

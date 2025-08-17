@@ -35,9 +35,7 @@ struct WebView: UIViewRepresentable {
         webView.isOpaque = false
         webView.customUserAgent = userAgent
 #if DEBUG
-        if #available(iOS 16.4, *) {
-            webView.isInspectable = true
-        }
+        webView.isInspectable = true
 #endif
         
         return webView

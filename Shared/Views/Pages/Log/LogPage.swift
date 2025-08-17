@@ -16,15 +16,7 @@ struct LogPage: View {
                         .typesettingLanguage(.init(languageCode: .english))
                 }
             }
-            .apply { view in
-                if #available(iOS 16, *) {
-                    view
-                        .environment(\.locale, .init(languageCode: .english))
-                } else {
-                    view
-                        .environment(\.locale, .init(identifier: "en"))
-                }
-            }
+            .environment(\.locale, .init(languageCode: .english))
             .environment(\.layoutDirection, .leftToRight)
     }
     
@@ -76,29 +68,14 @@ struct LogPage: View {
                         .frame(minWidth: eventTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     VStack(alignment: .leading, spacing: 6) {
                         LabeledRow(type: .text, label: event.dateDescription, value: event.message)
-                        Group {
-                            if #available(iOS 16, *) {
-                                FlowView(spacing: 5, alignment: .leading) {
-                                    ForEach(event.trace, id: \.self) {
-                                        traceItem in
-                                        HStack(spacing: 5) {
-                                            Text(traceItem)
-                                            if traceItem != event.trace.last {
-                                                Image(systemName: "chevron.forward")
-                                                    .foregroundColor(Color(.systemGray3))
-                                            }
-                                        }
-                                    }
-                                }
-                            } else {
-                                LegacyFlowView(event.trace, spacing: 5, alignment: .leading) {
-                                    traceItem in
-                                    HStack(spacing: 5) {
-                                        Text(traceItem)
-                                        if traceItem != event.trace.last {
-                                            Image(systemName: "chevron.forward")
-                                                .foregroundColor(Color(.systemGray3))
-                                        }
+                        FlowView(spacing: 5, alignment: .leading) {
+                            ForEach(event.trace, id: \.self) {
+                                traceItem in
+                                HStack(spacing: 5) {
+                                    Text(traceItem)
+                                    if traceItem != event.trace.last {
+                                        Image(systemName: "chevron.forward")
+                                            .foregroundColor(Color(.systemGray3))
                                     }
                                 }
                             }

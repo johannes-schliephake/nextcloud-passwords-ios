@@ -15,13 +15,7 @@ struct EditPasswordNavigation: View {
             EditPasswordPage(entriesController: entriesController, password: password)
         }
         .showColumns(false)
-        .apply {
-            view in
-            if #available(iOS 16, *) {
-                view
-                    .scrollDismissesKeyboard(.interactively)
-            }
-        }
+        .scrollDismissesKeyboard(.interactively)
         .occlude(biometricAuthenticationController.hideContents)
     }
     

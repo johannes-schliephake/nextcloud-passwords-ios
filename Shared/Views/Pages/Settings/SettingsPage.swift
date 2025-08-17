@@ -63,12 +63,7 @@ struct SettingsPage: View {
                 }])
             }
         }
-        .apply { view in
-            if #available(iOS 16, *) {
-                view
-                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
-            }
-        }
+        .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
     }
     
     private func optionsSection() -> some View {
@@ -147,12 +142,7 @@ struct SettingsPage: View {
                 }
             }
         }
-        .apply { view in
-            if #available(iOS 16, *) {
-                view
-                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
-            }
-        }
+        .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
     }
     
     @ViewBuilder private func supportThisProjectFooter() -> some View {
@@ -175,15 +165,7 @@ struct SettingsPage: View {
                                     .typesettingLanguage(.init(languageCode: .english))
                             }
                         }
-                        .apply { view in
-                            if #available(iOS 16, *) {
-                                view
-                                    .environment(\.locale, .init(languageCode: .english))
-                            } else {
-                                view
-                                    .environment(\.locale, .init(identifier: "en"))
-                            }
-                        }
+                        .environment(\.locale, .init(languageCode: .english))
                 }
                 .isDetailLink(false)
             }
@@ -194,12 +176,7 @@ struct SettingsPage: View {
                 }
             }
         }
-        .apply { view in
-            if #available(iOS 16, *) {
-                view
-                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
-            }
-        }
+        .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
     }
     
     private func thanksSection() -> some View {
@@ -220,15 +197,7 @@ struct SettingsPage: View {
                                     .typesettingLanguage(.init(languageCode: .german))
                             }
                         }
-                        .apply { view in
-                            if #available(iOS 16, *) {
-                                view
-                                    .environment(\.locale, .init(languageCode: .german))
-                            } else {
-                                view
-                                    .environment(\.locale, .init(identifier: "de"))
-                            }
-                        }
+                        .environment(\.locale, .init(languageCode: .german))
                     Spacer()
                 }
             }

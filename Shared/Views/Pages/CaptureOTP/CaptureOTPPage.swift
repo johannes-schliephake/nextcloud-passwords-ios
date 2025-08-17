@@ -25,8 +25,7 @@ struct CaptureOTPPage: View {
     private func mainStack() -> some View {
         GeometryReader { geometryProxy in
             ZStack {
-                if #available(iOS 16, *),
-                   DataScannerView.isSupported {
+                if DataScannerView.isSupported { // Requires device with A12 chip, check supported devices again when dropping iOS 27 lol
                     DataScannerView(.qr) { viewModel(.captureQrResult($0)) }
                 } else {
                     QRCapture { viewModel(.captureQrResult($0)) }

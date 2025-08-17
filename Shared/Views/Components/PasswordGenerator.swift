@@ -30,7 +30,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
             Image(systemName: "slider.horizontal.3")
         }
         .buttonStyle(.borderless)
-        .tooltip(isPresented: $showPasswordGenerator, arrowDirections: [.up, .down]) {
+        .tooltip(isPresented: $showPasswordGenerator) {
             passwordGenerator()
         }
         .alert(isPresented: $showPasswordServiceErrorAlert) {

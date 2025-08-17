@@ -195,12 +195,7 @@ struct EntriesPage: View {
             .disabled(challengePassword.count < 12)
         }
         .listStyle(.insetGrouped)
-        .apply { view in
-            if #available(iOS 16.4, *) {
-                view
-                    .scrollBounceBehavior(.basedOnSize)
-            }
-        }
+        .scrollBounceBehavior(.basedOnSize)
         .apply { view in
             if #available(iOS 17, *) {
                 view
@@ -253,26 +248,14 @@ struct EntriesPage: View {
                             }
                         }
                     }
-                    .apply {
-                        view in
-                        if #available(iOS 16, *) {
-                            view
-                                .listRowInsets(.listRow)
-                        }
-                    }
+                    .listRowInsets(.listRow)
                 }
                 .listStyle(.plain)
             }
             else if !entries.isEmpty {
                 List {
                     entryRows(entries: entries)
-                        .apply {
-                            view in
-                            if #available(iOS 16, *) {
-                                view
-                                    .listRowInsets(.listRow)
-                            }
-                        }
+                        .listRowInsets(.listRow)
                 }
                 .listStyle(.plain)
             }
@@ -569,13 +552,7 @@ struct EntriesPage: View {
                 Image(systemName: "arrow.up.arrow.down")
             }
         }
-        .apply {
-            view in
-            if #available(iOS 16.4, *) {
-                view
-                    .menuActionDismissBehavior(.disabled)
-            }
-        }
+        .menuActionDismissBehavior(.disabled)
         .accessibility(identifier: "filterSortMenu")
         .onChange(of: entriesController.filterBy, perform: didChange)
     }
@@ -933,13 +910,7 @@ extension EntriesPage {
                             label: {
                                 Label("_copyUsername", systemImage: "doc.on.doc")
                             }
-                            .apply {
-                                view in
-                                if #available(iOS 16.4, *) {
-                                    view
-                                        .menuActionDismissBehavior(.disabled)
-                                }
-                            }
+                            .menuActionDismissBehavior(.disabled)
                         }
                         Button {
                             resolve(\.pasteboardService).set(string: password.password, sensitive: true)
@@ -947,13 +918,7 @@ extension EntriesPage {
                         label: {
                             Label("_copyPassword", systemImage: "doc.on.doc")
                         }
-                        .apply {
-                            view in
-                            if #available(iOS 16.4, *) {
-                                view
-                                    .menuActionDismissBehavior(.disabled)
-                            }
-                        }
+                        .menuActionDismissBehavior(.disabled)
                         if let otp = password.otp {
                             Button {
                                 otp.current.map { resolve(\.pasteboardService).set(string: $0, sensitive: true) }
@@ -961,13 +926,7 @@ extension EntriesPage {
                             label: {
                                 Label("_copyOtp", systemImage: "doc.on.doc")
                             }
-                            .apply {
-                                view in
-                                if #available(iOS 16.4, *) {
-                                    view
-                                        .menuActionDismissBehavior(.disabled)
-                                }
-                            }
+                            .menuActionDismissBehavior(.disabled)
                         }
                     }
                     Section {
@@ -1095,17 +1054,7 @@ extension EntriesPage {
                             current, _, accessoryView in
                             Text((current ?? "").segmented)
                                 .foregroundColor(.primary)
-                                .apply {
-                                    view in
-                                    if #available(iOS 16, *) {
-                                        view
-                                            .monospaced()
-                                    }
-                                    else {
-                                        view
-                                            .font(.system(.body, design: .monospaced))
-                                    }
-                                }
+                                .monospaced()
                                 .apply { view in
                                     if #available(iOS 17, *) {
                                         view

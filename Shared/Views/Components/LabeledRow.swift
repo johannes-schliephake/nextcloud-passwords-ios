@@ -153,17 +153,7 @@ struct LabeledRow: View {
             case .secret:
                 Text(hideSecret ? "••••••••••••" : value)
                     .foregroundColor(.primary)
-                    .apply {
-                        view in
-                        if #available(iOS 16, *) {
-                            view
-                                .monospaced()
-                        }
-                        else {
-                            view
-                                .font(.system(.body, design: .monospaced))
-                        }
-                    }
+                    .monospaced()
                     .apply { view in
                         if #available(iOS 17, *) {
                             view
@@ -173,17 +163,7 @@ struct LabeledRow: View {
             case .pin:
                 Text(value.segmented)
                     .foregroundColor(.primary)
-                    .apply {
-                        view in
-                        if #available(iOS 16, *) {
-                            view
-                                .monospaced()
-                        }
-                        else {
-                            view
-                                .font(.system(.body, design: .monospaced))
-                        }
-                    }
+                    .monospaced()
                     .apply { view in
                         if #available(iOS 17, *) {
                             view

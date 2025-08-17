@@ -54,13 +54,7 @@ struct SelectFolderPage: View {
                         .id(folder.id)
                 }
                 .listSectionSeparator(.hidden, edges: .top)
-                .apply {
-                    view in
-                    if #available(iOS 16, *) {
-                        view
-                            .listRowInsets(.listRow)
-                    }
-                }
+                .listRowInsets(.listRow)
             }
             .listStyle(.plain)
             .onAppear {

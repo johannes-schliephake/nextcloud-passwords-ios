@@ -16,13 +16,7 @@ struct EditFolderNavigation: View {
             EditFolderPage(viewModel: resolve(\.editFolderViewModelType).init(folder: folder, didEdit: didEdit).eraseToAnyViewModel())
         }
         .showColumns(false)
-        .apply {
-            view in
-            if #available(iOS 16, *) {
-                view
-                    .scrollDismissesKeyboard(.interactively)
-            }
-        }
+        .scrollDismissesKeyboard(.interactively)
         .occlude(biometricAuthenticationController.hideContents)
     }
     

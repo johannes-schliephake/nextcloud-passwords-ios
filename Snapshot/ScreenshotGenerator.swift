@@ -24,112 +24,53 @@ import XCTest
     
     func test_entriesPage_searchBarVisible_filterByFolders() throws {
         /// Swipe down to show search bar, filter by folders
-        if #available(iOS 16, *) {
-            app.collectionViews.firstMatch.cells.firstMatch.swipeDown()
-        } else {
-            app.tables.firstMatch.cells.firstMatch.swipeDown()
-        }
-        if #available(iOS 16, *) {
-            app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else {
-            app.navigationBars.buttons["filterSortMenu"].tap()
-        }
+        app.collectionViews.firstMatch.cells.firstMatch.swipeDown()
+        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
         app.collectionViews.firstMatch.buttons.element(boundBy: 1).tap()
-        if #available(iOS 16.4, *) {
-            app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        }
+        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
         
         snapshot("1")
     }
     
     func test_entriesPage_searchBarVisible_filterByFavorites_sortingOptionsVisible() throws {
         /// Swipe down to show search bar, filter by favorites, show sort menu again
-        if #available(iOS 16, *) {
-            app.collectionViews.firstMatch.cells.firstMatch.swipeDown()
-        } else {
-            app.tables.firstMatch.cells.firstMatch.swipeDown()
-        }
-        if #available(iOS 16, *) {
-            app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else {
-            app.navigationBars.buttons["filterSortMenu"].tap()
-        }
+        app.collectionViews.firstMatch.cells.firstMatch.swipeDown()
+        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        if #unavailable(iOS 16.4) {
-            app.navigationBars.buttons["filterSortMenu"].tap()
-        }
         
         snapshot("2")
     }
     
     func test_entriesPage_filterByFavorites_passwordContextMenuVisible() throws {
         /// Filter by favorites, long tap last entry (has to be a password)
-        if #available(iOS 16, *) {
-            app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else {
-            app.navigationBars.buttons["filterSortMenu"].tap()
-        }
+        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        if #available(iOS 16.4, *) {
-            app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        }
-        if #available(iOS 16, *) {
-            app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.pressUnhittable(forDuration: 1)
-        } else {
-            app.tables.firstMatch.cells.lastMatch.buttons.firstMatch.press(forDuration: 1)
-        }
+        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.pressUnhittable(forDuration: 1)
         
         snapshot("3")
     }
     
     func test_passwordDetailPage() throws {
         /// Filter by favorites, open last entry (has to be a password)
-        if #available(iOS 16, *) {
-            app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else {
-            app.navigationBars.buttons["filterSortMenu"].tap()
-        }
+        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        if #available(iOS 16.4, *) {
-            app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        }
-        if #available(iOS 16, *) {
-            app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.tapUnhittable()
-        } else {
-            sleep(1)
-            app.tables.firstMatch.cells.lastMatch.buttons.firstMatch.tap()
-        }
+        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.tapUnhittable()
         
         snapshot("4")
     }
     
     func test_editPasswordPage() throws {
         /// Filter by favorites, open last entry (has to be a password), open edit page, show password and password generator, scroll down
-        if #available(iOS 16, *) {
-            app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        } else {
-            app.navigationBars.buttons["filterSortMenu"].tap()
-        }
+        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        if #available(iOS 16.4, *) {
-            app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
-        }
-        if #available(iOS 16, *) {
-            app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.tapUnhittable()
-            app.navigationBars.lastMatch.buttons.lastMatch.tap()
-        } else {
-            app.tables.firstMatch.cells.lastMatch.buttons.firstMatch.tap()
-            app.navigationBars.lastMatch.buttons.lastMatch.tapUnhittable()
-        }
-        if #available(iOS 16, *) {
-            app.collectionViews.buttons["showPasswordButton"].tap()
-            app.collectionViews.buttons["passwordGenerator"].tap()
-            // app.collectionViews.lastMatch.swipeUp(velocity: 280)
-        } else {
-            app.tables.buttons["showPasswordButton"].tap()
-            app.tables.buttons["passwordGenerator"].tap()
-            // app.tables.lastMatch.swipeUp(velocity: 280)
-        }
+        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.tapUnhittable()
+        app.navigationBars.lastMatch.buttons.lastMatch.tap()
+        app.collectionViews.buttons["showPasswordButton"].tap()
+        app.collectionViews.buttons["passwordGenerator"].tap()
+        // app.collectionViews.lastMatch.swipeUp(velocity: 280)
         
         snapshot("5")
     }
