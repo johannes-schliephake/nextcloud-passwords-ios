@@ -410,12 +410,18 @@ struct EntriesPage: View {
         }
     }
     
-    private func leadingToolbarView() -> some View {
-        HStack {
-            if folderController.folder.isBaseFolder && folderController.tag == nil {
+    @ViewBuilder private func leadingToolbarView() -> some View {
+        if folderController.folder.isBaseFolder && folderController.tag == nil {
+            HStack {
                 if let cancel = autoFillController.cancel {
-                    Button("_cancel", role: .cancel) {
-                        cancel()
+                    if #available(iOS 26, *) {
+                        Button(role: .cancel) {
+                            cancel()
+                        }
+                    } else {
+                        Button("_cancel", role: .cancel) {
+                            cancel()
+                        }
                     }
                 }
                 else {
@@ -467,14 +473,29 @@ struct EntriesPage: View {
                 .sharedBackgroundVisibility(.hidden)
             }
         }
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
         if autoFillController.mode != .extension {
             if showFilterSortMenu {
-                ToolbarItem(placement: .primaryAction) {
+                ToolbarItem(placement: .bottomBar) {
                     filterSortMenu()
                 }
+                if !isPad {
+                    ToolbarSpacer(.flexible, placement: .bottomBar)
+                }
             }
-            ToolbarItem(placement: .primaryAction) {
+        }
+        if !isPad {
+            DefaultToolbarItem(kind: .search, placement: .bottomBar)
+        }
+        if autoFillController.mode != .extension {
+            if !isPad {
+                ToolbarSpacer(.flexible, placement: .bottomBar)
+            }
+            ToolbarItem(placement: .bottomBar) {
                 createMenu()
+            }
+            if isPad {
+                ToolbarSpacer(.flexible, placement: .bottomBar)
             }
         }
     }
