@@ -2,6 +2,7 @@ import SwiftUI
 import PhotosUI
 import Combine
 import Factory
+import FoundationModels
 
 
 final class EditPasswordController: ObservableObject {
@@ -54,6 +55,20 @@ final class EditPasswordController: ObservableObject {
             .map { $0.map { Array($0.prefix(5)) } }
             .sink { [weak self] in self?.preferredUsernames = $0 }
             .store(in: &cancellables)
+        
+        if #available(iOS 26, *),
+              password.id.isEmpty {
+            @Injected(\.urlLabelSuggestionRepository) var urlLabelSuggestionRepository
+            do {
+                guard let suggestedLabel = try urlLabelSuggestionRepository[\.suggestedLabel]?.get() else {
+                    return
+                }
+                passwordLabel = suggestedLabel
+            } catch {
+                @Injected(\.logger) var logger
+                logger.log(error: error)
+            }
+        }
     }
     
     var folderLabel: String {

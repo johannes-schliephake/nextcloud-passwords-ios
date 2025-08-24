@@ -61,6 +61,10 @@ extension Container: @retroactive AutoRegistering {
         //Self.shared.productIdentifiersRepository.register { ProductIdentifiersRepositoryMock() }
         //Self.shared.productsAppStoreDataSource.register { ProductsAppStoreDataSourceMock() }
         //Self.shared.productsRepository.register { ProductsRepositoryMock() }
+//        if #available(iOS 26, *) {
+            //Self.shared.urlLabelSuggestionLanguangeModelDataSource.cached.register { UrlLabelSuggestionLanguangeModelDataSourceMock() }
+            //Self.shared.urlLabelSuggestionRepository.register { UrlLabelSuggestionRepositoryMock() }
+//        }
         Self.shared.windowSizeDataSource.register { WindowSizeDataSourceMock() }
         Self.shared.windowSizeRepository.register { WindowSizeRepositoryMock() }
         //Self.shared.wordlistDataSource.cached.register { WordlistDataSourceMock() }
@@ -76,6 +80,9 @@ extension Container: @retroactive AutoRegistering {
         if #available(iOS 17, *) {
             Self.shared.credentialProviderSettingsHelperType.cached.register { CredentialProviderSettingsHelperMock.self }
         }
+//        if #available(iOS 26, *) {
+            //Self.shared.defaultLanguageModelType.register { DefaultLanguageModelMock.self }
+//        }
         //Self.shared.fileHandleType.register { FileHandleMock.self }
         //Self.shared.fileManager.cached.register { FileManagerMock() }
         Self.shared.nonPersistentWebDataStore.cached.register { WebDataStoreMock() }

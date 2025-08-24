@@ -7,6 +7,7 @@ import WebKit
 import AuthenticationServices
 import Sodium
 import Foundation
+import FoundationModels
 
 
 extension Container {
@@ -180,6 +181,13 @@ extension Container {
         self { ProductsRepository() }
             .cached
     }
+    @available(iOS 26, *) var urlLabelSuggestionLanguangeModelDataSource: Factory<any UrlLabelSuggestionLanguangeModelDataSourceProtocol> { // swiftlint:disable:this identifier_name.
+        self { UrlLabelSuggestionLanguangeModelDataSource() }
+    }
+    @available(iOS 26, *) var urlLabelSuggestionRepository: Factory<any UrlLabelSuggestionRepositoryProtocol> {
+        self { UrlLabelSuggestionRepository() }
+            .cached
+    }
     var windowSizeDataSource: Factory<any WindowSizeDataSourceProtocol> {
         self { WindowSizeDataSource() }
             .cached
@@ -214,6 +222,9 @@ extension Container {
     }
     @available(iOS 17, *) var credentialProviderSettingsHelperType: Factory<any CredentialProviderSettingsHelping.Type> {
         self { ASSettingsHelper.self }
+    }
+    @available(iOS 26, *) var defaultLanguageModelType: Factory<any DefaultLanguageModel.Type> {
+        self { LanguageModelSession.self }
     }
     var fileHandleType: Factory<any FileHandling.Type> {
         self { FileHandle.self }

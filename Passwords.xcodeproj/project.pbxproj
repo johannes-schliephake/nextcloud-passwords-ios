@@ -676,6 +676,15 @@
 		DDBC925A2AF1097B009C42BF /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC92592AF1097B009C42BF /* Notifications.swift */; };
 		DDBC925B2AF1097B009C42BF /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC92592AF1097B009C42BF /* Notifications.swift */; };
 		DDBC925C2AF1097B009C42BF /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC92592AF1097B009C42BF /* Notifications.swift */; };
+		DDBDA4822E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift */; };
+		DDBDA4832E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift */; };
+		DDBDA4842E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift */; };
+		DDBDA4862E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4852E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift */; };
+		DDBDA4872E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4852E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift */; };
+		DDBDA4882E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4852E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift */; };
+		DDBDA48A2E5B7956009EE4CF /* DefaultLanguageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4892E5B7956009EE4CF /* DefaultLanguageModel.swift */; };
+		DDBDA48B2E5B7956009EE4CF /* DefaultLanguageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4892E5B7956009EE4CF /* DefaultLanguageModel.swift */; };
+		DDBDA48C2E5B7956009EE4CF /* DefaultLanguageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4892E5B7956009EE4CF /* DefaultLanguageModel.swift */; };
 		DDBDCF6C2E1D1CFE00DADBC8 /* FileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDCF6B2E1D1CFE00DADBC8 /* FileDataSource.swift */; };
 		DDBDCF6D2E1D1CFE00DADBC8 /* FileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDCF6B2E1D1CFE00DADBC8 /* FileDataSource.swift */; };
 		DDBDCF6E2E1D1CFE00DADBC8 /* FileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDCF6B2E1D1CFE00DADBC8 /* FileDataSource.swift */; };
@@ -1291,6 +1300,9 @@
 		DDBD6EA12702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA22702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA32702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlLabelSuggestionLanguangeModelDataSource.swift; sourceTree = "<group>"; };
+		DDBDA4852E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlLabelSuggestionRepository.swift; sourceTree = "<group>"; };
+		DDBDA4892E5B7956009EE4CF /* DefaultLanguageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLanguageModel.swift; sourceTree = "<group>"; };
 		DDBDCF6B2E1D1CFE00DADBC8 /* FileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDataSource.swift; sourceTree = "<group>"; };
 		DDBDCF702E1D1FE100DADBC8 /* WordlistDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordlistDataSource.swift; sourceTree = "<group>"; };
 		DDBE8AB129B3F9A10054F179 /* FolderValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderValidationService.swift; sourceTree = "<group>"; };
@@ -2169,6 +2181,7 @@
 				DDA25DA12A8C1F7C005D9320 /* AppStore.swift */,
 				DD34DFE92E363A5600028DF2 /* BundleResourceRequesting.swift */,
 				DD77FF322C4C6C0C00E193C9 /* CredentialProviderSettingsHelping.swift */,
+				DDBDA4892E5B7956009EE4CF /* DefaultLanguageModel.swift */,
 				DD34DFE12E33EB0200028DF2 /* FileHandling.swift */,
 				DD34DFDD2E33EA4100028DF2 /* FileManaging.swift */,
 				DD027F2E2C2EE35F00287708 /* HTTPCookieStore.swift */,
@@ -2452,6 +2465,7 @@
 				DDC8ADC22DA6B5B9001A1ED8 /* OnDemandResources */,
 				DD4D060E2ABF32BD002DEAAD /* Pasteboard */,
 				DD5D87F72A8FCA3C008CD9F1 /* Products */,
+				DDBDA4802E5B74D6009EE4CF /* UrlLabelSuggestion */,
 				DD845CB62AF3AB8E00048F3F /* WindowSize */,
 				DDBDCF6F2E1D1FD200DADBC8 /* Wordlist */,
 			);
@@ -2478,6 +2492,15 @@
 				DDB1696F27D2040300F4D752 /* InfoPlist.strings */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		DDBDA4802E5B74D6009EE4CF /* UrlLabelSuggestion */ = {
+			isa = PBXGroup;
+			children = (
+				DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift */,
+				DDBDA4852E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift */,
+			);
+			path = UrlLabelSuggestion;
 			sourceTree = "<group>";
 		};
 		DDBDCF6F2E1D1FD200DADBC8 /* Wordlist */ = {
@@ -3157,6 +3180,7 @@
 				DD34DFE02E33EA4100028DF2 /* FileManaging.swift in Sources */,
 				DDE6F2022C16149000D4CA36 /* LoginFlowViewModel.swift in Sources */,
 				DDDB6B5627A80639007572B1 /* CaptureOTPNavigation.swift in Sources */,
+				DDBDA4882E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift in Sources */,
 				DD4A9E89269F84B9007268E2 /* EditLabeledRow.swift in Sources */,
 				8F559A0E25A0AE1C00D7A39F /* ServerSetupNavigation.swift in Sources */,
 				DD3FAD6727772C15002202DE /* SettingsController.swift in Sources */,
@@ -3168,6 +3192,7 @@
 				8F854E6926239314008885C3 /* CoreData.swift in Sources */,
 				8F997F952572C79900B5F784 /* EditFolderPage.swift in Sources */,
 				DD760688295F72BC00109075 /* Sync.swift in Sources */,
+				DDBDA4842E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */,
 				8F71A8252607634E00863C27 /* CloseSessionRequest.swift in Sources */,
 				DD9C50082A7FC279002588DD /* PropertyListDataSource.swift in Sources */,
 				8F854E66262390FA008885C3 /* CoreData.xcdatamodeld in Sources */,
@@ -3261,6 +3286,7 @@
 				DD2723832A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */,
 				DDBDCF6C2E1D1CFE00DADBC8 /* FileDataSource.swift in Sources */,
 				DD1078742A691F5200E87B3F /* QRCapture.swift in Sources */,
+				DDBDA48A2E5B7956009EE4CF /* DefaultLanguageModel.swift in Sources */,
 				8F552956259CAF4900419233 /* Folder.swift in Sources */,
 				DD1E1D762A016785002DB08B /* OTPValidationService.swift in Sources */,
 				DDA25D9E2A8C1F51005D9320 /* Transaction.swift in Sources */,
@@ -3396,6 +3422,7 @@
 				DD34DFDE2E33EA4100028DF2 /* FileManaging.swift in Sources */,
 				DDE6F2032C16149000D4CA36 /* LoginFlowViewModel.swift in Sources */,
 				8FC361CD25827E5D00785371 /* CreateFolderRequest.swift in Sources */,
+				DDBDA4862E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift in Sources */,
 				DDDB6B5727A80639007572B1 /* CaptureOTPNavigation.swift in Sources */,
 				8F559A1425A0AE2700D7A39F /* SettingsNavigation.swift in Sources */,
 				DD4A9E8A269F84B9007268E2 /* EditLabeledRow.swift in Sources */,
@@ -3407,6 +3434,7 @@
 				8F5A844C259A67AE00BFDF29 /* UIAlertController+PresentGlobalAlert.swift in Sources */,
 				8F65736B25E3C4F200139163 /* TextView.swift in Sources */,
 				DD760689295F72BC00109075 /* Sync.swift in Sources */,
+				DDBDA4822E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */,
 				8F854E6A26239314008885C3 /* CoreData.swift in Sources */,
 				DD9C50092A7FC279002588DD /* PropertyListDataSource.swift in Sources */,
 				8FC361D125827E5D00785371 /* DeleteFolderRequest.swift in Sources */,
@@ -3500,6 +3528,7 @@
 				DD2723842A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */,
 				DDBDCF6E2E1D1CFE00DADBC8 /* FileDataSource.swift in Sources */,
 				DD1078752A691F5200E87B3F /* QRCapture.swift in Sources */,
+				DDBDA48B2E5B7956009EE4CF /* DefaultLanguageModel.swift in Sources */,
 				8F52EFCA25B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
 				DD1E1D772A016785002DB08B /* OTPValidationService.swift in Sources */,
 				DDA25D9F2A8C1F51005D9320 /* Transaction.swift in Sources */,
@@ -3763,6 +3792,7 @@
 				DDB1699427D20CC200F4D752 /* Data+Init.swift in Sources */,
 				DDB1698B27D20CC200F4D752 /* CreatePasswordRequest.swift in Sources */,
 				DDB169B727D20CC200F4D752 /* SettingsController.swift in Sources */,
+				DDBDA4872E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift in Sources */,
 				DD9538F42B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift in Sources */,
 				DDB169C827D20CC200F4D752 /* EntriesPage.swift in Sources */,
 				DDF0C47D2AD7F35B00A50661 /* PasteboardDataSource.swift in Sources */,
@@ -3774,6 +3804,7 @@
 				DD9C500A2A7FC279002588DD /* PropertyListDataSource.swift in Sources */,
 				DDB169B227D20CC200F4D752 /* NavigationView+ShowColumns.swift in Sources */,
 				DDB169B427D20CC200F4D752 /* ListSettingsRequest.swift in Sources */,
+				DDBDA4832E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */,
 				DDB169D727D20CC200F4D752 /* MockObject.swift in Sources */,
 				DD34DFE22E33EB0200028DF2 /* FileHandling.swift in Sources */,
 				DD845CBA2AF3AB9B00048F3F /* WindowSizeDataSource.swift in Sources */,
@@ -3867,6 +3898,7 @@
 				DDBDCF6D2E1D1CFE00DADBC8 /* FileDataSource.swift in Sources */,
 				DD1E1D782A016785002DB08B /* OTPValidationService.swift in Sources */,
 				DDB1699627D20CC200F4D752 /* EditTagNavigation.swift in Sources */,
+				DDBDA48C2E5B7956009EE4CF /* DefaultLanguageModel.swift in Sources */,
 				DDA25DA02A8C1F51005D9320 /* Transaction.swift in Sources */,
 				DDC7BF102B442828001737BF /* ServerSetupViewModel.swift in Sources */,
 				DDB169C527D20CC200F4D752 /* String+Score.swift in Sources */,

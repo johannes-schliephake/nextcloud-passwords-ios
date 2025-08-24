@@ -249,7 +249,7 @@ struct EntriesPage: View {
                             }
                             else {
                                 Button(action: {
-                                    sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
+                                    sheetItem = .edit(entry: .password(Password(label: autoFillController.serviceURLs?.first?.host ?? "", url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
                                 }, label: {
                                     Text("_createPassword")
                                 })
@@ -660,7 +660,7 @@ struct EntriesPage: View {
                 Label("_createFolder", systemImage: "folder")
             })
             Button(action: {
-                sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
+                sheetItem = .edit(entry: .password(Password(label: autoFillController.serviceURLs?.first?.host ?? "", url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
             }, label: {
                 Label("_createPassword", systemImage: "key")
             })
