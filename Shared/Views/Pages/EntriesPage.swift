@@ -135,10 +135,23 @@ struct EntriesPage: View {
     }
     
     private func connectView() -> some View {
-        Button("_connectToServer") {
+        Button {
             showServerSetupView = true
+        } label: {
+            Text("_connectToServer")
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, minHeight: 34)
         }
-        .buttonStyle(.action)
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .buttonStyle(.glassProminent)
+            } else {
+                view
+                    .buttonStyle(.action)
+            }
+        }
         .frame(maxWidth: 600)
         .padding()
         .sheet(isPresented: $showServerSetupView) {
@@ -203,10 +216,23 @@ struct EntriesPage: View {
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
                 .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
-            Button("_logIn") {
+            Button {
                 solveChallenge()
+            } label: {
+                Text("_logIn")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, minHeight: 34)
             }
-            .buttonStyle(.action)
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .buttonStyle(.glassProminent)
+                } else {
+                    view
+                        .buttonStyle(.action)
+                }
+            }
             .listRowInsets(EdgeInsets())
             .disabled(challengePassword.count < 12)
         }
@@ -248,12 +274,23 @@ struct EntriesPage: View {
                                 suggestionRows(suggestions: suggestions)
                             }
                             else {
-                                Button(action: {
+                                Button {
                                     sheetItem = .edit(entry: .password(Password(label: autoFillController.serviceURLs?.first?.host ?? "", url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
-                                }, label: {
+                                } label: {
                                     Text("_createPassword")
-                                })
-                                .buttonStyle(.action)
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity, minHeight: 34)
+                                }
+                                .apply { view in
+                                    if #available(iOS 26, *) {
+                                        view
+                                            .buttonStyle(.glassProminent)
+                                    } else {
+                                        view
+                                            .buttonStyle(.action)
+                                    }
+                                }
                                 .listRowSeparator(.hidden, edges: .bottom)
                                 .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
                             }

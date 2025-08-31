@@ -241,11 +241,21 @@ struct EditPasswordPage: View {
                     Button {
                         showAboutOtpsTooltip = false
                         didAcceptAboutOtps = true
-                    }
-                    label: {
+                    } label: {
                         Text("_confirm")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, minHeight: 34)
                     }
-                    .buttonStyle(.action)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .buttonStyle(.glassProminent)
+                        } else {
+                            view
+                                .buttonStyle(.action)
+                        }
+                    }
                 }
             }
         }

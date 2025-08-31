@@ -78,21 +78,35 @@ struct PasswordDetailPage: View {
     }
     
     private func mainStack() -> some View {
-        GeometryReader {
-            geometryProxy in
-            VStack(spacing: 0) {
-                listView()
-                if let complete = autoFillController.complete,
-                   autoFillController.mode != .extension || password.otp != nil {
-                    Divider()
-                    selectView(geometryProxy: geometryProxy, complete: complete)
+        listView()
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .toolbar {
+                            if let complete = autoFillController.complete,
+                               autoFillController.mode != .extension || password.otp != nil {
+                                ToolbarItem(placement: .bottomBar) {
+                                    selectButton(complete: complete)
+                                }
+                            }
+                        }
+                } else {
+                    GeometryReader { geometryProxy in
+                        VStack(spacing: 0) {
+                            view
+                            if let complete = autoFillController.complete,
+                               autoFillController.mode != .extension || password.otp != nil {
+                                Divider()
+                                selectBar(geometryProxy: geometryProxy, complete: complete)
+                            }
+                        }
+                        .edgesIgnoringSafeArea(autoFillController.complete != nil ? .bottom : [])
+                    }
                 }
             }
-            .edgesIgnoringSafeArea(autoFillController.complete != nil ? .bottom : [])
-        }
-        .sheet(isPresented: $showEditPasswordView, content: {
-            EditPasswordNavigation(entriesController: entriesController, password: password)
-        })
+            .sheet(isPresented: $showEditPasswordView, content: {
+                EditPasswordNavigation(entriesController: entriesController, password: password)
+            })
     }
     
     private func listView() -> some View {
@@ -571,29 +585,47 @@ struct PasswordDetailPage: View {
         }
     }
     
-    private func selectView(geometryProxy: GeometryProxy, complete: @escaping (String, String) -> Void) -> some View {
+    private func selectBar(geometryProxy: GeometryProxy, complete: @escaping (String, String) -> Void) -> some View {
         VStack {
             VStack {
-                Button(autoFillController.mode == .extension && !autoFillController.hasField ? "_copyOtp" : "_select") {
-                    switch autoFillController.mode {
-                    case .app:
-                        complete(password.id, "")
-                    case .provider:
-                        complete(password.username, password.password)
-                    case .extension:
-                        guard let currentOtp = password.otp?.current else {
-                            return
-                        }
-                        complete(password.username, currentOtp)
-                    }
-                }
-                .buttonStyle(.action)
-                .disabled(password.state == .decryptionFailed)
+                selectButton(complete: complete)
             }
             .padding()
         }
         .padding(.bottom, geometryProxy.safeAreaInsets.bottom)
         .background(Color(UIColor.systemGroupedBackground))
+    }
+    
+    func selectButton(complete: @escaping (String, String) -> Void) -> some View {
+        Button {
+            switch autoFillController.mode {
+            case .app:
+                complete(password.id, "")
+            case .provider:
+                complete(password.username, password.password)
+            case .extension:
+                guard let currentOtp = password.otp?.current else {
+                    return
+                }
+                complete(password.username, currentOtp)
+            }
+        } label: {
+            Text(autoFillController.mode == .extension && !autoFillController.hasField ? "_copyOtp" : "_select")
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, minHeight: 34)
+        }
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .frame(maxWidth: .infinity)
+                    .buttonStyle(.glassProminent)
+            } else {
+                view
+                    .buttonStyle(.action)
+            }
+        }
+        .disabled(password.state == .decryptionFailed)
     }
     
     @available(iOS 26, *) @ToolbarContentBuilder private func stateToolbar() -> some ToolbarContent {
