@@ -101,7 +101,12 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                 }
             }
             Divider()
-                .padding(.trailing, -100)
+                .apply { view in
+                    if #unavailable(iOS 26) {
+                        view
+                            .padding(.trailing, -100)
+                    }
+                }
             Button {
                 generatePassword()
             }

@@ -232,7 +232,12 @@ struct PasswordDetailPage: View {
                 if password.editable,
                    password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
                     Divider()
-                        .padding(.trailing, -100)
+                        .apply { view in
+                            if #unavailable(iOS 26) {
+                                view
+                                    .padding(.trailing, -100)
+                            }
+                        }
                     Button {
                         showPasswordStatusTooltip = false
                         showEditPasswordView = true
@@ -246,7 +251,12 @@ struct PasswordDetailPage: View {
                 if password.statusCode == .duplicate,
                    let duplicates = entriesController.passwords?.filter({ $0.password == password.password && $0.id != password.id }) {
                     Divider()
-                        .padding(.trailing, -100)
+                        .apply { view in
+                            if #unavailable(iOS 26) {
+                                view
+                                    .padding(.trailing, -100)
+                            }
+                        }
                     VStack(alignment: .leading, spacing: 0) {
                         Text(Strings.duplicates)
                             .font(.subheadline)
@@ -255,7 +265,12 @@ struct PasswordDetailPage: View {
                             .padding(.top, 12)
                             .padding(.bottom, EdgeInsets.listRow.bottom)
                         Divider()
-                            .padding(.trailing, -100)
+                            .apply { view in
+                                if #unavailable(iOS 26) {
+                                    view
+                                        .padding(.trailing, -100)
+                                }
+                            }
                         if duplicates.isEmpty {
                             Text(Strings.duplicatesTrashMessage)
                                 .foregroundColor(.gray)
@@ -281,7 +296,12 @@ struct PasswordDetailPage: View {
                                     }
                                 }
                                 Divider()
-                                    .padding(.trailing, -100)
+                                    .apply { view in
+                                        if #unavailable(iOS 26) {
+                                            view
+                                                .padding(.trailing, -100)
+                                        }
+                                    }
                                     .padding(.leading, 40 + 12)
                             }
                         }
