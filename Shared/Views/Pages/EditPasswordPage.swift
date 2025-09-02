@@ -43,7 +43,7 @@ struct EditPasswordPage: View {
                     confirmButton()
                 }
             }
-            .initialize(focus: $focusedField, with: editPasswordController.password.id.isEmpty ? .passwordLabel : nil)
+            .initialize(focus: $focusedField, with: editPasswordController.password.label.isEmpty ? .passwordLabel : nil)
             .interactiveDismissDisabled(editPasswordController.hasChanges)
             .environment(\.editMode, .constant(editMode ? .active : .inactive))
             .onAppear {
@@ -171,7 +171,7 @@ struct EditPasswordPage: View {
                                         .padding(.horizontal, 11)
                                         .padding(.vertical, 6)
                                         .background(
-                                            RoundedRectangle(cornerRadius: .infinity)
+                                            Capsule()
                                                 .fill(editPasswordController.passwordUsername == preferredUsername ? .gray : Color(.systemGroupedBackground))
                                         )
                                 }

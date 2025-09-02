@@ -160,27 +160,40 @@ struct EntriesPage: View {
     }
     
     private func errorView() -> some View {
-        List {
-            VStack(spacing: 8) {
-                Text("_anErrorOccurred")
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.gray)
-                    .padding()
-                Button {
-                    entriesController.refresh()
-                }
-                label: {
-                    Label("_tryAgain", systemImage: "arrow.clockwise")
-                }
-                .buttonStyle(.borderless)
+        List {}
+            .refreshable {
+                await entriesController.refresh()
             }
-            .frame(maxWidth: .infinity)
-            .listRowBackground(Color(UIColor.systemGroupedBackground))
-        }
-        .refreshable {
-            await entriesController.refresh()
-        }
-        .listStyle(.insetGrouped)
+            .listStyle(.insetGrouped)
+            .overlay {
+                VStack(spacing: 8) {
+                    Text("_anErrorOccurred")
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.gray)
+                        .padding()
+                    Button {
+                        entriesController.refresh()
+                    } label: {
+                        Label("_tryAgain", systemImage: "arrow.clockwise")
+                            .apply { view in
+                                if #available(iOS 26, *) {
+                                    view
+                                        .foregroundColor(.primary)
+                                        .frame(minHeight: 34)
+                                }
+                            }
+                    }
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .buttonStyle(.glass)
+                        } else {
+                            view
+                                .buttonStyle(.borderless)
+                        }
+                    }
+                }
+            }
     }
     
     private func challengeView() -> some View {
@@ -1248,7 +1261,15 @@ extension EntriesPage {
                 .resizable()
                 .frame(width: 40, height: 40)
                 .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
-                .cornerRadius(3.75)
+                .apply { view in
+                    if #available(iOS 26, *) {
+                        view
+                            .cornerRadius(6)
+                    } else {
+                        view
+                            .cornerRadius(3.75)
+                    }
+                }
                 .task(id: password.url) {
                     requestFavicon()
                 }

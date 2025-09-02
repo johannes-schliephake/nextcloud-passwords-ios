@@ -320,7 +320,15 @@ struct PasswordDetailPage: View {
             .resizable()
             .frame(width: 64, height: 64)
             .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
-            .cornerRadius(6)
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .cornerRadius(9.6)
+                } else {
+                    view
+                        .cornerRadius(6)
+                }
+            }
             .task(id: password.url) {
                 requestFavicon()
             }
@@ -765,7 +773,15 @@ extension PasswordDetailPage {
                     .resizable()
                     .frame(width: 40, height: 40)
                     .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
-                    .cornerRadius(3.75)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .cornerRadius(6)
+                        } else {
+                            view
+                                .cornerRadius(3.75)
+                        }
+                    }
                     .onAppear {
                         requestFavicon()
                     }
