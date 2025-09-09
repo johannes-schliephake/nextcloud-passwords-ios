@@ -64,6 +64,9 @@ struct LabeledRow: View {
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
                 hideSecret = true
             }
+            .onChange(of: value) { _ in
+                hideSecret = true
+            }
         }
     }
     
