@@ -1,2 +1,3 @@
 • iOS 26 compatibility
 • Prefilled name when creating a password from AutoFill
+• Bugfixes and optimizations

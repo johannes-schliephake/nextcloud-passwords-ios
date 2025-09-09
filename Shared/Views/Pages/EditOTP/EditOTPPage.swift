@@ -9,6 +9,7 @@ struct EditOTPPage: View {
     
     var body: some View {
         listView()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_otp")
             .interactiveDismissDisabled(viewModel[\.hasChanges])
             .toolbar {
@@ -33,29 +34,6 @@ struct EditOTPPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Button {
-                    viewModel(.focusPreviousField)
-                } label: {
-                    Image(systemName: "chevron.up")
-                }
-                .enabled(viewModel[\.previousFieldFocusable])
-                Button {
-                    viewModel(.focusNextField)
-                } label: {
-                    Image(systemName: "chevron.down")
-                }
-                .enabled(viewModel[\.nextFieldFocusable])
-                Spacer()
-                Button {
-                    viewModel(.dismissKeyboard)
-                } label: {
-                    Text("_dismiss")
-                        .bold()
-                }
-            }
-        }
         .onSubmit {
             if viewModel[\.nextFieldFocusable] || viewModel[\.editIsValid] {
                 viewModel(.submit)

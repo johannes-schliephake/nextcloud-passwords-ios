@@ -71,6 +71,7 @@ struct EntriesPage: View {
                         }
                 }
             }
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle(navigationTitle)
             .onAppear {
                 folderController.autoFillController = autoFillController
@@ -258,18 +259,6 @@ struct EntriesPage: View {
             } else {
                 view
                     .frame(maxWidth: 600)
-            }
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button {
-                    focusedField = nil
-                }
-                label: {
-                    Text("_dismiss")
-                        .bold()
-                }
             }
         }
         .initialize(focus: $focusedField, with: .challengePassword)
@@ -698,6 +687,7 @@ struct EntriesPage: View {
             }
         }
         .menuActionDismissBehavior(.disabled)
+        .menuOrder(.fixed)
         .accessibility(identifier: "filterSortMenu")
         .onChange(of: entriesController.filterBy, perform: didChange)
     }
@@ -730,6 +720,7 @@ struct EntriesPage: View {
                 }
             }
         }
+        .menuOrder(.fixed)
         .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
     }
     
@@ -886,10 +877,18 @@ extension EntriesPage {
         }
         
         private func entriesPageLink() -> some View {
-            NavigationLink(destination: EntriesPage(entriesController: entriesController, folder: folder)) {
+            NavigationLink {
+                EntriesPage(entriesController: entriesController, folder: folder)
+            } label: {
                 mainStack()
             }
             .isDetailLink(false)
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .navigationLinkIndicatorVisibility(.visible)
+                }
+            }
         }
         
         private func mainStack() -> some View {
@@ -1143,33 +1142,38 @@ extension EntriesPage {
                     .buttonStyle(.plain)
                     .frame(maxWidth: .infinity)
                     Spacer()
-                    ZStack {
-                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
+                    Button {
+                        showPasswordDetailView = true
+                    }
+                    label: {
+                        Image(systemName: "info.circle")
+                    }
+                    .buttonStyle(.borderless)
+                    .navigationDestination(isPresented: $showPasswordDetailView) {
+                        PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
                             entriesController.update(password: password)
                         }, deletePassword: {
                             entriesController.delete(password: password)
-                        }), isActive: $showPasswordDetailView) {}
-                        .isDetailLink(true)
-                        .frame(width: 0, height: 0)
-                        .hidden()
-                        Button {
-                            showPasswordDetailView = true
-                        }
-                        label: {
-                            Image(systemName: "info.circle")
-                        }
-                        .buttonStyle(.borderless)
+                        })
                     }
                 }
                 else {
-                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
-                        entriesController.update(password: password)
-                    }, deletePassword: {
-                        entriesController.delete(password: password)
-                    })) {
+                    NavigationLink {
+                        PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
+                            entriesController.update(password: password)
+                        }, deletePassword: {
+                            entriesController.delete(password: password)
+                        })
+                    } label: {
                         mainStack()
                     }
                     .isDetailLink(true)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .navigationLinkIndicatorVisibility(.hidden)
+                        }
+                    }
                 }
             }
         }
@@ -1439,10 +1443,18 @@ extension EntriesPage {
         }
         
         private func entriesPageLink() -> some View {
-            NavigationLink(destination: EntriesPage(entriesController: entriesController, tag: tag)) {
+            NavigationLink {
+                EntriesPage(entriesController: entriesController, tag: tag)
+            } label: {
                 mainStack()
             }
             .isDetailLink(false)
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .navigationLinkIndicatorVisibility(.visible)
+                }
+            }
         }
         
         private func mainStack() -> some View {

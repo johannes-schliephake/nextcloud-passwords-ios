@@ -7,6 +7,7 @@ struct SelectFolderPage: View {
     
     var body: some View {
         mainStack()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_move")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

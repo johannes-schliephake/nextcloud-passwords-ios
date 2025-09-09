@@ -9,6 +9,7 @@ struct EditTagPage: View {
     
     var body: some View {
         listView()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_tag")
             .interactiveDismissDisabled(viewModel[\.hasChanges])
             .toolbar {
@@ -33,17 +34,6 @@ struct EditTagPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button {
-                    viewModel(.dismissKeyboard)
-                } label: {
-                    Text("_dismiss")
-                        .bold()
-                }
-            }
-        }
     }
     
     private func tagLabelField() -> some View {

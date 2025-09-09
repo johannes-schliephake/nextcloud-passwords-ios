@@ -34,6 +34,7 @@ struct EditPasswordPage: View {
     
     var body: some View {
         listView()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_password")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -68,32 +69,6 @@ struct EditPasswordPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Button {
-                    focusedField = focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
-                }
-                label: {
-                    Image(systemName: "chevron.up")
-                }
-                .disabled(focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
-                Button {
-                    focusedField = focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
-                }
-                label: {
-                    Image(systemName: "chevron.down")
-                }
-                .disabled(focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
-                Spacer()
-                Button {
-                    focusedField = nil
-                }
-                label: {
-                    Text("_dismiss")
-                        .bold()
-                }
-            }
-        }
         .onSubmit {
             guard sheetItem == nil else { /// Prevent submit handling when page is not visible
                 return
@@ -217,7 +192,9 @@ struct EditPasswordPage: View {
                             .foregroundColor(didAutoAddOtp ? .white : .green)
                     }
                     Spacer()
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink {
+                        EmptyView()
+                    } label: {
                         EmptyView()
                     }
                     .fixedSize()
@@ -288,6 +265,7 @@ struct EditPasswordPage: View {
                 Label("_addOtp", systemImage: "123.rectangle")
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .menuOrder(.fixed)
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
             .alert(isPresented: $editPasswordController.showExtractOtpErrorAlert) {
                 Alert(title: Text("_error"), message: Text("_extractOtpErrorMessage"))
@@ -318,6 +296,7 @@ struct EditPasswordPage: View {
                         Image(systemName: customUserField.type.systemName)
                             .frame(minWidth: customFieldTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     }
+                    .menuOrder(.fixed)
                     .fixedSize(horizontal: false, vertical: true)
                     .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
                     Spacer()
@@ -420,7 +399,9 @@ struct EditPasswordPage: View {
                         .padding(.vertical, 3)
                     }
                     Spacer()
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink {
+                        EmptyView()
+                    } label: {
                         EmptyView()
                     }
                     .fixedSize()
@@ -439,7 +420,9 @@ struct EditPasswordPage: View {
                 HStack {
                     Label(editPasswordController.folderLabel, systemImage: "folder")
                     Spacer()
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink {
+                        EmptyView()
+                    } label: {
                         EmptyView()
                     }
                     .fixedSize()
@@ -565,29 +548,6 @@ extension EditPasswordPage {
         case passwordUsername
         case passwordPassword
         case passwordCustomFields(id: UUID, row: CustomFieldRow)
-        
-        func previous(customUserFieldIds: [UUID]) -> Self? {
-            switch self {
-            case .passwordLabel:
-                return nil
-            case .passwordUrl:
-                return .passwordLabel
-            case .passwordUsername:
-                return .passwordUrl
-            case .passwordPassword:
-                return .passwordUsername
-            case .passwordCustomFields(let id, let row):
-                switch row {
-                case .label:
-                    guard let previousId = customUserFieldIds.reversed().reduce(Optional(id), { $0 == nil ? $1 : $0 == $1 ? nil : $0 }) else {
-                        return .passwordPassword
-                    }
-                    return .passwordCustomFields(id: previousId, row: .value)
-                case .value:
-                    return .passwordCustomFields(id: id, row: .label)
-                }
-            }
-        }
         
         func next(customUserFieldIds: [UUID]) -> Self? {
             switch self {

@@ -9,6 +9,7 @@ struct SelectTagsPage: View {
     
     var body: some View {
         mainStack()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_editTags")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -64,17 +65,6 @@ struct SelectTagsPage: View {
             .listRowInsets(.listRow)
         }
         .listStyle(.plain)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button {
-                    viewModel(.dismissKeyboard)
-                } label: {
-                    Text("_dismiss")
-                        .bold()
-                }
-            }
-        }
     }
     
     private func row() -> some View {

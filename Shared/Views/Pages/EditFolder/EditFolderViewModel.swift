@@ -55,7 +55,6 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
         case applyToFolder
         case cancel
         case discardChanges
-        case dismissKeyboard
     }
     
     enum FocusField: Hashable {
@@ -73,7 +72,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init(folder: Folder, didEdit: ((Folder) -> Void)?) {
-        state = .init(folder: folder, isCreating: folder.id.isEmpty, folderLabel: folder.label, folderFavorite: folder.favorite, folderParent: folder.parent ?? "", parentLabel: "", showSelectFolderView: false, showDeletionConfirmation: false, showCancellationConfirmation: false, hasChanges: false, editIsValid: true, focusedField: folder.id.isEmpty ? .folderLabel : nil)
+        state = .init(folder: folder, isCreating: folder.id.isEmpty, folderLabel: folder.label, folderFavorite: folder.favorite, folderParent: folder.parent ?? "", parentLabel: "", showSelectFolderView: false, showDeletionConfirmation: false, showCancellationConfirmation: false, hasChanges: false, editIsValid: true, focusedField: folder.label.isEmpty ? .folderLabel : nil)
         self.didEdit = didEdit
         
         if folder.isBaseFolder {
@@ -144,8 +143,6 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
             }
         case .discardChanges:
             state.shouldDismiss()
-        case .dismissKeyboard:
-            state.focusedField = nil
         }
     }
     

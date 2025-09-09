@@ -9,11 +9,10 @@ struct SettingsNavigation: View {
     // MARK: Views
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             SettingsPage(viewModel: resolve(\.settingsViewModelType).init().eraseToAnyViewModel())
         }
-        .showColumns(false)
-        .scrollDismissesKeyboard(.interactively)
+        .scrollDismissesKeyboard(.immediately)
         .occlude(biometricAuthenticationController.hideContents)
     }
     

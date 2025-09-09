@@ -49,7 +49,6 @@ final class EditTagViewModel: EditTagViewModelProtocol {
         case applyToTag
         case cancel
         case discardChanges
-        case dismissKeyboard
     }
     
     enum FocusField: Hashable {
@@ -65,7 +64,7 @@ final class EditTagViewModel: EditTagViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init(tag: Tag) {
-        state = .init(tag: tag, isCreating: tag.id.isEmpty, tagLabel: tag.label, tagColor: .init(hex: tag.color) ?? .black, tagFavorite: tag.favorite, showDeletionConfirmation: false, showCancellationConfirmation: false, hasChanges: false, editIsValid: true, focusedField: tag.id.isEmpty ? .tagLabel : nil)
+        state = .init(tag: tag, isCreating: tag.id.isEmpty, tagLabel: tag.label, tagColor: .init(hex: tag.color) ?? .black, tagFavorite: tag.favorite, showDeletionConfirmation: false, showCancellationConfirmation: false, hasChanges: false, editIsValid: true, focusedField: tag.label.isEmpty ? .tagLabel : nil)
         
         setupPipelines()
     }
@@ -118,8 +117,6 @@ final class EditTagViewModel: EditTagViewModelProtocol {
             }
         case .discardChanges:
             state.shouldDismiss()
-        case .dismissKeyboard:
-            state.focusedField = nil
         }
     }
     

@@ -75,8 +75,6 @@
 		8F68D74026495AE200FF192C /* ShowPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D73E26495AE200FF192C /* ShowPasswordRequest.swift */; };
 		8F68D74226495BD100FF192C /* ShowFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D74126495BD100FF192C /* ShowFolderRequest.swift */; };
 		8F68D74326495BD100FF192C /* ShowFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F68D74126495BD100FF192C /* ShowFolderRequest.swift */; };
-		8F696B4125E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */; };
-		8F696B4225E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */; };
 		8F6ED3BA2663841D00DD61DE /* URL+Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6ED3B92663841D00DD61DE /* URL+Score.swift */; };
 		8F6ED3BB2663841D00DD61DE /* URL+Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6ED3B92663841D00DD61DE /* URL+Score.swift */; };
 		8F703BFC26245C6100CC7018 /* Array+Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F703BFB26245C6100CC7018 /* Array+Zip.swift */; };
@@ -618,7 +616,6 @@
 		DDB169AF27D20CC200F4D752 /* ServerSetupNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F559A0D25A0AE1C00D7A39F /* ServerSetupNavigation.swift */; };
 		DDB169B027D20CC200F4D752 /* Comparable+Clamped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7237962651466000832A88 /* Comparable+Clamped.swift */; };
 		DDB169B127D20CC200F4D752 /* BiometricAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C1A83257D7D5F009FF66F /* BiometricAuthenticationController.swift */; };
-		DDB169B227D20CC200F4D752 /* NavigationView+ShowColumns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */; };
 		DDB169B327D20CC200F4D752 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE43C4258D5A09003F7F34 /* String+Localized.swift */; };
 		DDB169B427D20CC200F4D752 /* ListSettingsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3FAD602775DC54002202DE /* ListSettingsRequest.swift */; };
 		DDB169B627D20CC200F4D752 /* FaviconServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */; };
@@ -971,7 +968,6 @@
 		8F65736925E3C4F200139163 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		8F68D73E26495AE200FF192C /* ShowPasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPasswordRequest.swift; sourceTree = "<group>"; };
 		8F68D74126495BD100FF192C /* ShowFolderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFolderRequest.swift; sourceTree = "<group>"; };
-		8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationView+ShowColumns.swift"; sourceTree = "<group>"; };
 		8F6ED3B92663841D00DD61DE /* URL+Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Score.swift"; sourceTree = "<group>"; };
 		8F6ED7C0265BC807008CF387 /* ScoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTests.swift; sourceTree = "<group>"; };
 		8F703BFB26245C6100CC7018 /* Array+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Zip.swift"; sourceTree = "<group>"; };
@@ -1972,7 +1968,6 @@
 			children = (
 				DDF05AA12DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift */,
 				8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */,
-				8F696B4025E9A6FF00C6A24C /* NavigationView+ShowColumns.swift */,
 				8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */,
 				DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */,
 			);
@@ -3247,7 +3242,6 @@
 				DD9C4FF02A7E735C002588DD /* ProductsRepository.swift in Sources */,
 				DDE6E31C28604F090089BB0B /* FlowView.swift in Sources */,
 				8FBE43B9258D599E003F7F34 /* Date+FormattedString.swift in Sources */,
-				8F696B4125E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
 				DD9C4FF82A7E74FC002588DD /* PurchaseService.swift in Sources */,
 				8F513A5F2560624F001C6EF9 /* Session.swift in Sources */,
 				DD34DFEC2E363A5600028DF2 /* BundleResourceRequesting.swift in Sources */,
@@ -3493,7 +3487,6 @@
 				8FC361D325827E5D00785371 /* DeletePasswordRequest.swift in Sources */,
 				DD9C4FF92A7E74FC002588DD /* PurchaseService.swift in Sources */,
 				DD34DFEB2E363A5600028DF2 /* BundleResourceRequesting.swift in Sources */,
-				8F696B4225E9A6FF00C6A24C /* NavigationView+ShowColumns.swift in Sources */,
 				8FC361C925827E5500785371 /* Session.swift in Sources */,
 				DD0C28762766028500E3DAEF /* SelectTagsPage.swift in Sources */,
 				DDF432B62DAFBD670070E93C /* GeneratePasswordUseCase.swift in Sources */,
@@ -3802,7 +3795,6 @@
 				DD76068A295F72BC00109075 /* Sync.swift in Sources */,
 				DDB169A527D20CC200F4D752 /* ListTagsRequest.swift in Sources */,
 				DD9C500A2A7FC279002588DD /* PropertyListDataSource.swift in Sources */,
-				DDB169B227D20CC200F4D752 /* NavigationView+ShowColumns.swift in Sources */,
 				DDB169B427D20CC200F4D752 /* ListSettingsRequest.swift in Sources */,
 				DDBDA4832E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */,
 				DDB169D727D20CC200F4D752 /* MockObject.swift in Sources */,

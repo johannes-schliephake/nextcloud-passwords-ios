@@ -9,6 +9,7 @@ struct EditFolderPage: View {
     
     var body: some View {
         listView()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_folder")
             .interactiveDismissDisabled(viewModel[\.hasChanges])
             .toolbar {
@@ -33,17 +34,6 @@ struct EditFolderPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button {
-                    viewModel(.dismissKeyboard)
-                } label: {
-                    Text("_dismiss")
-                        .bold()
-                }
-            }
-        }
     }
     
     private func folderLabelField() -> some View {
@@ -77,7 +67,9 @@ struct EditFolderPage: View {
                 HStack {
                     Label(viewModel[\.parentLabel], systemImage: "folder")
                     Spacer()
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink {
+                        EmptyView()
+                    } label: {
                         EmptyView()
                     }
                     .fixedSize()

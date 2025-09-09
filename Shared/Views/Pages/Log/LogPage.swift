@@ -9,6 +9,7 @@ struct LogPage: View {
     
     var body: some View {
         listView()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("Log")
             .apply { view in
                 if #available(iOS 17, *) {

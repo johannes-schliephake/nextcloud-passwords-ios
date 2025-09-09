@@ -35,6 +35,7 @@ struct PasswordDetailPage: View {
         }
         else {
             mainStack()
+                .navigationBarTitleDisplayMode(.large)
                 .navigationTitle(password.label)
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
@@ -107,6 +108,49 @@ struct PasswordDetailPage: View {
             .sheet(isPresented: $showEditPasswordView, content: {
                 EditPasswordNavigation(entriesController: entriesController, password: password)
             })
+            .apply { view in
+                if #available(iOS 17, *) {
+                    view
+                        .navigationDestination(item: $navigationSelection) { navigationSelection in
+                            switch navigationSelection {
+                            case let .duplicate(password):
+                                Self(entriesController: entriesController, password: password, updatePassword: {
+                                    entriesController.update(password: password)
+                                }, deletePassword: {
+                                    entriesController.delete(password: password)
+                                })
+                            case let .entries(tag):
+                                EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
+                            }
+                        }
+                } else {
+                    view
+                        .navigationDestination(
+                            isPresented: .init(
+                                get: { navigationSelection != nil },
+                                set: { newValue in
+                                    if !newValue {
+                                        navigationSelection = nil
+                                    }
+                                }
+                            ),
+                            destination: {
+                                if let navigationSelection {
+                                    switch navigationSelection {
+                                    case let .duplicate(password):
+                                        Self(entriesController: entriesController, password: password, updatePassword: {
+                                            entriesController.update(password: password)
+                                        }, deletePassword: {
+                                            entriesController.delete(password: password)
+                                        })
+                                    case let .entries(tag):
+                                        EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
+                                    }
+                                }
+                            }
+                        )
+                }
+            }
     }
     
     private func listView() -> some View {
@@ -170,31 +214,10 @@ struct PasswordDetailPage: View {
                 Image(systemName: "checkmark.shield.fill")
                     .font(.title)
                     .foregroundColor(.green)
-            case .outdated:
+            case .outdated, .duplicate:
                 Image(systemName: "exclamationmark.shield.fill")
                     .font(.title)
                     .foregroundColor(.yellow)
-            case .duplicate:
-                ZStack {
-                    if let duplicates = entriesController.passwords?.filter({ $0.password == password.password && $0.id != password.id }) {
-                        ForEach(duplicates) {
-                            duplicate in
-                            NavigationLink("", tag: .duplicate(password: duplicate), selection: $navigationSelection) {
-                                Self(entriesController: entriesController, password: duplicate, updatePassword: {
-                                    entriesController.update(password: duplicate)
-                                }, deletePassword: {
-                                    entriesController.delete(password: duplicate)
-                                })
-                            }
-                            .isDetailLink(true)
-                            .frame(width: 0, height: 0)
-                        }
-                        .hidden()
-                    }
-                    Image(systemName: "exclamationmark.shield.fill")
-                        .font(.title)
-                        .foregroundColor(.yellow)
-                }
             case .breached:
                 Image(systemName: "xmark.shield.fill")
                     .font(.title)
@@ -282,18 +305,11 @@ struct PasswordDetailPage: View {
                                 Button {
                                     showPasswordStatusTooltip = false
                                     navigationSelection = .duplicate(password: duplicate)
-                                }
-                                label: {
-                                    HStack {
-                                        PasswordRow(label: duplicate.label, username: duplicate.username, url: duplicate.url)
-                                            .padding(.top, EdgeInsets.listRow.top)
-                                            .padding(.bottom, EdgeInsets.listRow.bottom)
-                                            .foregroundColor(.primary)
-                                        Spacer()
-                                        Image(systemName: "chevron.forward")
-                                            .font(.system(size: 13.5, weight: .semibold))
-                                            .foregroundColor(Color(.tertiaryLabel))
-                                    }
+                                } label: {
+                                    PasswordRow(label: duplicate.label, username: duplicate.username, url: duplicate.url)
+                                        .padding(.top, EdgeInsets.listRow.top)
+                                        .padding(.bottom, EdgeInsets.listRow.bottom)
+                                        .foregroundColor(.primary)
                                 }
                                 Divider()
                                     .apply { view in
@@ -361,34 +377,20 @@ struct PasswordDetailPage: View {
             if !validTags.isEmpty {
                 if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
                     FlowView {
-                        ForEach(validTags.sorted()) {
-                            tag in
+                        ForEach(validTags.sorted()) { tag in
                             TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
                         }
                     }
                 }
                 else {
-                    ZStack {
-                        ForEach(validTags) {
-                            tag in
-                            NavigationLink("", tag: .entries(tag: tag), selection: $navigationSelection) {
-                                EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
+                    FlowView {
+                        ForEach(validTags.sorted()) { tag in
+                            Button {
+                                navigationSelection = .entries(tag: tag)
+                            } label: {
+                                TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
                             }
-                            .isDetailLink(false)
-                            .frame(width: 0, height: 0)
-                        }
-                        .hidden()
-                        FlowView {
-                            ForEach(validTags.sorted()) {
-                                tag in
-                                Button {
-                                    navigationSelection = .entries(tag: tag)
-                                }
-                                label: {
-                                    TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
-                                }
-                                .buttonStyle(.borderless)
-                            }
+                            .buttonStyle(.borderless)
                         }
                     }
                 }

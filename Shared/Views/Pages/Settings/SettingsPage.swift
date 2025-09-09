@@ -8,6 +8,7 @@ struct SettingsPage: View {
     
     var body: some View {
         listView()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_settings")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -134,6 +135,7 @@ struct SettingsPage: View {
                     }
                 }
             }
+            .menuOrder(.fixed)
             .enabled(viewModel[\.canPurchaseTip])
             if !viewModel[\.isTestFlight],
                let betaUrl = viewModel[\.betaUrl] {
