@@ -1150,20 +1150,12 @@ extension EntriesPage {
                     }
                     .buttonStyle(.borderless)
                     .navigationDestination(isPresented: $showPasswordDetailView) {
-                        PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
-                            entriesController.update(password: password)
-                        }, deletePassword: {
-                            entriesController.delete(password: password)
-                        })
+                        PasswordDetailPage(entriesController: entriesController, password: password)
                     }
                 }
                 else {
                     NavigationLink {
-                        PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
-                            entriesController.update(password: password)
-                        }, deletePassword: {
-                            entriesController.delete(password: password)
-                        })
+                        PasswordDetailPage(entriesController: entriesController, password: password)
                     } label: {
                         mainStack()
                     }

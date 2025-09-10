@@ -6,8 +6,6 @@ struct PasswordDetailPage: View {
     
     @ObservedObject var entriesController: EntriesController
     @ObservedObject var password: Password
-    let updatePassword: () -> Void
-    let deletePassword: () -> Void
     
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var autoFillController: AutoFillController
@@ -15,7 +13,13 @@ struct PasswordDetailPage: View {
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var settingsController: SettingsController
     
-    @AppStorage("showMetadata", store: Configuration.userDefaults) private var showMetadata = Configuration.defaults["showMetadata"] as! Bool // swiftlint:disable:this force_cast
+    // TODO: This specific AppStorage crashes iOS 16+17, wait for fix from Apple
+//    @AppStorage("showMetadata", store: Configuration.userDefaults) private var showMetadata = Configuration.defaults["showMetadata"] as! Bool // swiftlint:disable:this force_cast
+    @State private var showMetadata = Configuration.userDefaults.bool(forKey: "showMetadata") {
+        didSet {
+            Configuration.userDefaults.set(showMetadata, forKey: "showMetadata")
+        }
+    }
     @State private var favicon: UIImage?
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
@@ -114,11 +118,7 @@ struct PasswordDetailPage: View {
                         .navigationDestination(item: $navigationSelection) { navigationSelection in
                             switch navigationSelection {
                             case let .duplicate(password):
-                                Self(entriesController: entriesController, password: password, updatePassword: {
-                                    entriesController.update(password: password)
-                                }, deletePassword: {
-                                    entriesController.delete(password: password)
-                                })
+                                Self(entriesController: entriesController, password: password)
                             case let .entries(tag):
                                 EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
                             }
@@ -138,11 +138,7 @@ struct PasswordDetailPage: View {
                                 if let navigationSelection {
                                     switch navigationSelection {
                                     case let .duplicate(password):
-                                        Self(entriesController: entriesController, password: password, updatePassword: {
-                                            entriesController.update(password: password)
-                                        }, deletePassword: {
-                                            entriesController.delete(password: password)
-                                        })
+                                        Self(entriesController: entriesController, password: password)
                                     case let .entries(tag):
                                         EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
                                     }
