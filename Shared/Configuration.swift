@@ -30,7 +30,7 @@ enum Configuration: Configurating {
         "storeOffline": true,
         "universalClipboard": false,
         "didAcceptAboutOtps": false,
-        "showMetadata": true,
+        "showMetadata": false,
         "generatorNumbers": true,
         "generatorSpecial": true,
         "generatorStrength": PasswordServiceRequest.Strength.ultra.rawValue,
