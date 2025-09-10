@@ -39,7 +39,6 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
         case toggleTag(Tag)
         case selectTags
         case cancel
-        case dismissKeyboard
     }
     
     enum TemporaryEntry {
@@ -163,8 +162,6 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
             state.shouldDismiss()
         case .cancel:
             state.shouldDismiss()
-        case .dismissKeyboard:
-            state.focusedField = nil
         }
     }
     

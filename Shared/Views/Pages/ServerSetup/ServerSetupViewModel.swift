@@ -41,7 +41,6 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
     enum Action {
         case connect
         case cancel
-        case dismissKeyboard
     }
     
     enum FocusField: Hashable {
@@ -124,8 +123,6 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
             state.showLoginFlowPage = true
         case .cancel:
             state.shouldDismiss()
-        case .dismissKeyboard:
-            state.focusedField = nil
         }
     }
     

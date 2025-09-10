@@ -9,6 +9,7 @@ struct EditTagPage: View {
     
     var body: some View {
         listView()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_tag")
             .interactiveDismissDisabled(viewModel[\.hasChanges])
             .toolbar {
@@ -33,17 +34,6 @@ struct EditTagPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button {
-                    viewModel(.dismissKeyboard)
-                } label: {
-                    Text("_dismiss")
-                        .bold()
-                }
-            }
-        }
     }
     
     private func tagLabelField() -> some View {
@@ -118,27 +108,43 @@ struct EditTagPage: View {
                 Spacer()
             }
         }
-        .actionSheet(isPresented: $viewModel[\.showDeleteAlert]) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteTag")) {
+        .confirmationDialog("_confirmAction", isPresented: $viewModel[\.showDeletionConfirmation]) {
+            Button("_deleteTag", role: .destructive) {
                 viewModel(.confirmDelete)
-            }])
+            }
         }
     }
     
     private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .cancel) {
+                    viewModel(.cancel)
+                }
+            } else {
+                Button("_cancel", role: .cancel) {
+                    viewModel(.cancel)
+                }
+            }
         }
-        .actionSheet(isPresented: $viewModel[\.showCancelAlert]) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+        .confirmationDialog("_confirmAction", isPresented: $viewModel[\.showCancellationConfirmation]) {
+            Button("_discardChanges", role: .destructive) {
                 viewModel(.discardChanges)
-            }])
+            }
         }
     }
     
     private func confirmButton() -> some View {
-        Button(viewModel[\.isCreating] ? "_create" : "_done") {
-            viewModel(.applyToTag)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    viewModel(.applyToTag)
+                }
+            } else {
+                Button(viewModel[\.isCreating] ? "_create" : "_done") {
+                    viewModel(.applyToTag)
+                }
+            }
         }
         .enabled(viewModel[\.editIsValid])
     }

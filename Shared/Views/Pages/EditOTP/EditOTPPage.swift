@@ -9,6 +9,7 @@ struct EditOTPPage: View {
     
     var body: some View {
         listView()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_otp")
             .interactiveDismissDisabled(viewModel[\.hasChanges])
             .toolbar {
@@ -33,29 +34,6 @@ struct EditOTPPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Button {
-                    viewModel(.focusPreviousField)
-                } label: {
-                    Image(systemName: "chevron.up")
-                }
-                .enabled(viewModel[\.previousFieldFocusable])
-                Button {
-                    viewModel(.focusNextField)
-                } label: {
-                    Image(systemName: "chevron.down")
-                }
-                .enabled(viewModel[\.nextFieldFocusable])
-                Spacer()
-                Button {
-                    viewModel(.dismissKeyboard)
-                } label: {
-                    Text("_dismiss")
-                        .bold()
-                }
-            }
-        }
         .onSubmit {
             if viewModel[\.nextFieldFocusable] || viewModel[\.editIsValid] {
                 viewModel(.submit)
@@ -158,27 +136,43 @@ struct EditOTPPage: View {
                 Spacer()
             }
         }
-        .actionSheet(isPresented: $viewModel[\.showDeleteAlert]) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteOtp")) {
+        .confirmationDialog("_confirmAction", isPresented: $viewModel[\.showDeletionConfirmation]) {
+            Button("_deleteOtp", role: .destructive) {
                 viewModel(.confirmDelete)
-            }])
+            }
         }
     }
     
     private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .cancel) {
+                    viewModel(.cancel)
+                }
+            } else {
+                Button("_cancel", role: .cancel) {
+                    viewModel(.cancel)
+                }
+            }
         }
-        .actionSheet(isPresented: $viewModel[\.showCancelAlert]) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+        .confirmationDialog("_confirmAction", isPresented: $viewModel[\.showCancellationConfirmation]) {
+            Button("_discardChanges", role: .destructive) {
                 viewModel(.discardChanges)
-            }])
+            }
         }
     }
     
     private func confirmButton() -> some View {
-        Button("_done") {
-            viewModel(.applyToOTP)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    viewModel(.applyToOTP)
+                }
+            } else {
+                Button(viewModel[\.isCreating] ? "_create" : "_done") {
+                    viewModel(.applyToOTP)
+                }
+            }
         }
         .enabled(viewModel[\.editIsValid])
     }

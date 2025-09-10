@@ -12,17 +12,10 @@ struct SelectTagsNavigation: View {
     // MARK: Views
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             SelectTagsPage(viewModel: resolve(\.selectTagsViewModelType).init(temporaryEntry: temporaryEntry, selectTags: selectTags).eraseToAnyViewModel())
         }
-        .showColumns(false)
-        .apply {
-            view in
-            if #available(iOS 16, *) {
-                view
-                    .scrollDismissesKeyboard(.interactively)
-            }
-        }
+        .scrollDismissesKeyboard(.immediately)
         .occlude(biometricAuthenticationController.hideContents)
     }
     

@@ -30,7 +30,7 @@ enum Configuration: Configurating {
         "storeOffline": true,
         "universalClipboard": false,
         "didAcceptAboutOtps": false,
-        "showMetadata": true,
+        "showMetadata": false,
         "generatorNumbers": true,
         "generatorSpecial": true,
         "generatorStrength": PasswordServiceRequest.Strength.ultra.rawValue,
@@ -72,6 +72,6 @@ enum Configuration: Configurating {
     }()
     static let propertyListDecoder = PropertyListDecoder()
     static let preferredLocaleIdentifier = Locale.preferredLanguages.first
-    static let preferredLanguageIdentifier = Locale.current.languageCode
+    static let preferredLanguageIdentifier = Locale.current.language.languageCode?.identifier
     
 }

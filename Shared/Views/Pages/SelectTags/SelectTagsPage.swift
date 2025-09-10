@@ -9,6 +9,7 @@ struct SelectTagsPage: View {
     
     var body: some View {
         mainStack()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_editTags")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -23,25 +24,29 @@ struct SelectTagsPage: View {
     }
     
     private func mainStack() -> some View {
-        VStack(spacing: 0) {
-            VStack {
-                Group {
-                    switch viewModel[\.temporaryEntry] {
-                    case .password(let label, let username, let url, _):
-                        PasswordRow(label: label, username: username, url: url)
+        listView()
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .safeAreaPadding(.bottom, 20)
+                        .toolbar {
+                            ToolbarItem(placement: .bottomBar) {
+                                row()
+                            }
+                        }
+                } else {
+                    VStack(spacing: 0) {
+                        row()
+                            .background(Color(UIColor.secondarySystemBackground))
+                            .cornerRadius(10)
+                            .padding(.top, 1)
+                            .padding([.horizontal, .bottom])
+                        Divider()
+                            .padding(.leading)
+                        view
                     }
                 }
-                .padding(.vertical, 6)
-                .padding(.horizontal)
             }
-            .background(Color(UIColor.secondarySystemBackground))
-            .cornerRadius(10)
-            .padding(.top, 1)
-            .padding([.horizontal, .bottom])
-            Divider()
-                .padding(.leading)
-            listView()
-        }
     }
     
     private func listView() -> some View {
@@ -57,26 +62,20 @@ struct SelectTagsPage: View {
                 }
             }
             .listRowSeparator(.hidden)
-            .apply {
-                view in
-                if #available(iOS 16, *) {
-                    view
-                        .listRowInsets(.listRow)
-                }
-            }
+            .listRowInsets(.listRow)
         }
         .listStyle(.plain)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button {
-                    viewModel(.dismissKeyboard)
-                } label: {
-                    Text("_dismiss")
-                        .bold()
-                }
+    }
+    
+    private func row() -> some View {
+        Group {
+            switch viewModel[\.temporaryEntry] {
+            case .password(let label, let username, let url, _):
+                PasswordRow(label: label, username: username, url: url)
             }
         }
+        .padding(.vertical, 6)
+        .padding(.horizontal)
     }
     
     private func addTagBadge() -> some View {
@@ -132,15 +131,29 @@ struct SelectTagsPage: View {
         }
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 26, *) {
+            Button(role: .cancel) {
+                viewModel(.cancel)
+            }
+        } else {
+            Button("_cancel", role: .cancel) {
+                viewModel(.cancel)
+            }
         }
     }
     
     private func confirmButton() -> some View {
-        Button("_done") {
-            viewModel(.selectTags)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    viewModel(.selectTags)
+                }
+            } else {
+                Button("_done") {
+                    viewModel(.selectTags)
+                }
+            }
         }
         .enabled(viewModel[\.hasChanges])
     }
@@ -166,7 +179,15 @@ extension SelectTagsPage {
                     .resizable()
                     .frame(width: 40, height: 40)
                     .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
-                    .cornerRadius(3.75)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .cornerRadius(6)
+                        } else {
+                            view
+                                .cornerRadius(3.75)
+                        }
+                    }
                     .onAppear {
                         requestFavicon()
                     }

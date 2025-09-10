@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-@available(iOS 16, *) struct FlowView: Layout {
+struct FlowView: Layout {
     
     let spacing: Double
     let alignment: HorizontalAlignment

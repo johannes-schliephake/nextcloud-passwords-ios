@@ -12,17 +12,10 @@ struct EditOTPNavigation: View {
     // MARK: Views
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             EditOTPPage(viewModel: resolve(\.editOTPViewModelType).init(otp: otp, updateOtp: updateOtp).eraseToAnyViewModel())
         }
-        .showColumns(false)
-        .apply {
-            view in
-            if #available(iOS 16, *) {
-                view
-                    .scrollDismissesKeyboard(.interactively)
-            }
-        }
+        .scrollDismissesKeyboard(.immediately)
         .occlude(biometricAuthenticationController.hideContents)
     }
     

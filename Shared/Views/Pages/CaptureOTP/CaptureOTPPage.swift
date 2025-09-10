@@ -25,8 +25,7 @@ struct CaptureOTPPage: View {
     private func mainStack() -> some View {
         GeometryReader { geometryProxy in
             ZStack {
-                if #available(iOS 16, *),
-                   DataScannerView.isSupported {
+                if DataScannerView.isSupported { // Requires device with A12 chip, check supported devices again when dropping iOS 27 lol
                     DataScannerView(.qr) { viewModel(.captureQrResult($0)) }
                 } else {
                     QRCapture { viewModel(.captureQrResult($0)) }
@@ -47,9 +46,15 @@ struct CaptureOTPPage: View {
         }
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 26, *) {
+            Button(role: .cancel) {
+                viewModel(.cancel)
+            }
+        } else {
+            Button("_cancel", role: .cancel) {
+                viewModel(.cancel)
+            }
         }
     }
     

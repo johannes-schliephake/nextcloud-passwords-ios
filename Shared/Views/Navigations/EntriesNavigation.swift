@@ -5,7 +5,6 @@ import Factory
 struct EntriesNavigation: View {
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    @EnvironmentObject private var sessionController: SessionController
     
 #if DEBUG
     @StateObject private var entriesController = Configuration.isTestEnvironment ? EntriesController.mock : resolve(\.entriesController)
@@ -16,17 +15,20 @@ struct EntriesNavigation: View {
     // MARK: Views
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             EntriesPage(entriesController: entriesController)
         }
-        .showColumns(sessionController.session != nil && !sessionController.state.isChallengeAvailable)
-        .apply {
-            view in
-            if #available(iOS 16, *) {
-                view
-                    .scrollDismissesKeyboard(.interactively)
+        .apply { view in
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                NavigationSplitView(
+                    columnVisibility: .constant(.all),
+                    sidebar: { view },
+                    detail: {}
+                )
+                .navigationSplitViewStyle(.balanced)
             }
         }
+        .scrollDismissesKeyboard(.immediately)
         .occlude(biometricAuthenticationController.hideContents)
     }
     

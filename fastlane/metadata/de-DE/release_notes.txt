@@ -1,7 +1,3 @@
-• Lokal ausgeführter Passwortgenerator
-• Italienische Übersetzung (Danke Luca!)
-• Estnische Übersetzung (Danke Priit Jõerüüt!)
-• Vorgeschlagene Benutzernamen beim Hinzufügen eines Passworts
-• Anzeigen der Zeichenanzahl beim Hinzufügen eines Passworts
-• Anzeigen des nächsten Einmalpassworts
+• iOS 26 Kompatibilität
+• Vorausgefüllter Name beim Hinzufügen eines Passworts über AutoFill
 • Fehlerbehebungen und Optimierungen
