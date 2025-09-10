@@ -6,11 +6,7 @@ private enum TooltipConstants {
     static let maxSize = CGSize(width: 400, height: 400)
     static let padding = EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20)
     static let safeArea = EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
-    static let minimumHorizontalSpacing = if #available(iOS 26, *), UIDevice.current.userInterfaceIdiom == .phone {
-        10.0
-    } else {
-        19.0
-    }
+    static let minimumHorizontalSpacing = if #available(iOS 26, *), UIDevice.current.userInterfaceIdiom == .phone { 10.0 } else { 19.0 }
     static let horizontalArrowWidth = 46.0
 }
 

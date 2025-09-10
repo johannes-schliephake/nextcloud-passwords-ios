@@ -2,7 +2,6 @@ import SwiftUI
 import PhotosUI
 import Combine
 import Factory
-import FoundationModels
 
 
 final class EditPasswordController: ObservableObject {
