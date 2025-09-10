@@ -128,30 +128,21 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
         HStack(spacing: 16) {
             Text(label)
             VStack(spacing: 4) {
-                if #available(iOS 26, *) {
-                    Slider(
-                        value: Binding(
-                            get: { Double(value.wrappedValue) },
-                            set: { value.wrappedValue = Int($0) }
-                        ),
-                        in: Double(bounds.lowerBound)...Double(bounds.upperBound),
-                        label: {},
-                        ticks: {
-                            SliderTickContentForEach(
-                                Array(
-                                    stride(
-                                        from: Double(bounds.lowerBound),
-                                        through: Double(bounds.upperBound),
-                                        by: Double(bounds.count / (tickCount - 1))
-                                    )
-                                ),
-                                id: \.self,
-                                content: SliderTick.init
-                            )
+                ZStack {
+                    if #available(iOS 26, *) {
+                        HStack {
+                            Circle()
+                                .frame(width: 3, height: 3)
+                            ForEach(1..<tickCount, id: \.self) { _ in
+                                Spacer()
+                                Circle()
+                                    .frame(width: 3, height: 3)
+                            }
                         }
-                    )
-                } else {
-                    ZStack {
+                        .foregroundColor(Color(white: 0.49, opacity: 0.22))
+                        .padding(.horizontal, 17)
+                        .offset(y: 8.5)
+                    } else {
                         HStack {
                             Rectangle()
                                 .frame(width: 4, height: 6)
@@ -164,11 +155,15 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                         .foregroundColor(Color(white: 0.5, opacity: 0.23))
                         .padding(.horizontal, 11.5)
                         .offset(y: 5.5)
-                        Slider(value: Binding(
-                            get: { Double(value.wrappedValue) },
-                            set: { value.wrappedValue = Int($0) }
-                        ), in: Double(bounds.lowerBound)...Double(bounds.upperBound), step: 1)
                     }
+                    Slider(
+                        value: .init(
+                            get: { .init(value.wrappedValue) },
+                            set: { value.wrappedValue = .init($0) }
+                        ),
+                        in: Double(bounds.lowerBound)...Double(bounds.upperBound),
+                        step: 1
+                    )
                 }
                 if let labels,
                    labels.leading != nil || labels.center != nil || labels.trailing != nil {
