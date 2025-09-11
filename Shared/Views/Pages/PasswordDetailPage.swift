@@ -14,12 +14,9 @@ struct PasswordDetailPage: View {
     @EnvironmentObject private var settingsController: SettingsController
     
     // TODO: This specific AppStorage crashes iOS 16+17, wait for fix from Apple
+    // TODO: remove onChange for showMetadata when reverting temporary fix
 //    @AppStorage("showMetadata", store: Configuration.userDefaults) private var showMetadata = Configuration.defaults["showMetadata"] as! Bool // swiftlint:disable:this force_cast
-    @State private var showMetadata = Configuration.userDefaults.bool(forKey: "showMetadata") {
-        didSet {
-            Configuration.userDefaults.set(showMetadata, forKey: "showMetadata")
-        }
-    }
+    @State private var showMetadata = Configuration.userDefaults.bool(forKey: "showMetadata")
     @State private var favicon: UIImage?
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
@@ -70,6 +67,9 @@ struct PasswordDetailPage: View {
                     /// Clear password detail page on iPad when password was deleted (SwiftUI doesn't close view when NavigationLink is removed)
                     /// This has to be done with a notification because a password can also be deleted from the EntriesPage
                     passwordDeleted = true
+                }
+                .onChange(of: showMetadata) { showMetadata in
+                    Configuration.userDefaults.set(showMetadata, forKey: "showMetadata")
                 }
         }
     }
