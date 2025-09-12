@@ -28,15 +28,15 @@ final class EditFolderViewModelTests: XCTestCase {
         expect(editFolderViewModel[\.folderParent]).to(equal(folderMock.parent))
         expect(editFolderViewModel[\.parentLabel]).to(beEmpty())
         expect(editFolderViewModel[\.showSelectFolderView]).to(beFalse())
-        expect(editFolderViewModel[\.showDeleteAlert]).to(beFalse())
-        expect(editFolderViewModel[\.showCancelAlert]).to(beFalse())
+        expect(editFolderViewModel[\.showDeletionConfirmation]).to(beFalse())
+        expect(editFolderViewModel[\.showCancellationConfirmation]).to(beFalse())
         expect(editFolderViewModel[\.hasChanges]).to(beFalse())
         expect(editFolderViewModel[\.editIsValid]).to(beFalse())
         expect(editFolderViewModel[\.focusedField]).to(beNil())
     }
     
     func testInit_givenNewlyCreatedFolder_thenSetsInitialState() {
-        let newFolder = Folder(label: .random(), parent: .random(), favorite: .random())
+        let newFolder = Folder(parent: .random(), favorite: .random())
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: newFolder) { _ in }
         
         expect(editFolderViewModel[\.folder]).to(be(newFolder))
@@ -46,8 +46,8 @@ final class EditFolderViewModelTests: XCTestCase {
         expect(editFolderViewModel[\.folderParent]).to(equal(newFolder.parent))
         expect(editFolderViewModel[\.parentLabel]).to(beEmpty())
         expect(editFolderViewModel[\.showSelectFolderView]).to(beFalse())
-        expect(editFolderViewModel[\.showDeleteAlert]).to(beFalse())
-        expect(editFolderViewModel[\.showCancelAlert]).to(beFalse())
+        expect(editFolderViewModel[\.showDeletionConfirmation]).to(beFalse())
+        expect(editFolderViewModel[\.showCancellationConfirmation]).to(beFalse())
         expect(editFolderViewModel[\.hasChanges]).to(beFalse())
         expect(editFolderViewModel[\.editIsValid]).to(beFalse())
         expect(editFolderViewModel[\.focusedField]).to(equal(.folderLabel))
@@ -174,12 +174,12 @@ final class EditFolderViewModelTests: XCTestCase {
         expect(editFolderViewModel[\.folderParent]).to(equal(parentId))
     }
     
-    func testCallAsFunction_whenCallingDeleteFolder_thenSetsShowDeleteAlertToTrue() {
+    func testCallAsFunction_whenCallingDeleteFolder_thenSetsshowDeletionConfirmationToTrue() {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
         
         editFolderViewModel(.deleteFolder)
         
-        expect(editFolderViewModel[\.showDeleteAlert]).to(beTrue())
+        expect(editFolderViewModel[\.showDeletionConfirmation]).to(beTrue())
     }
     
     func testCallAsFunction_whenCallingConfirmDelete_thenCallsFoldersService() {
@@ -236,13 +236,13 @@ final class EditFolderViewModelTests: XCTestCase {
         expect(editFolderViewModel[\.shouldDismiss]).toNot(emit(when: { editFolderViewModel(.applyToFolder) }))
     }
     
-    func testCallAsFunction_givenHasChangesIsTrue_whenCallingCancel_thenSetsShowCancelAlertToTrue() {
+    func testCallAsFunction_givenHasChangesIsTrue_whenCallingCancel_thenSetsshowCancellationConfirmationToTrue() {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
         editFolderViewModel(.toggleFavorite)
         
         editFolderViewModel(.cancel)
         
-        expect(editFolderViewModel[\.showCancelAlert]).to(beTrue())
+        expect(editFolderViewModel[\.showCancellationConfirmation]).to(beTrue())
     }
     
     func testCallAsFunction_givenHasChangesIsFalse_whenCallingCancel_thenShouldDismissEmits() {
@@ -262,15 +262,6 @@ final class EditFolderViewModelTests: XCTestCase {
         let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
         
         expect(editFolderViewModel[\.shouldDismiss]).to(emit(when: { editFolderViewModel(.discardChanges) }))
-    }
-    
-    func testCallAsFunction_whenCallingDismissKeyboard_thenSetsFocusedFieldToNil() {
-        let editFolderViewModel: any EditFolderViewModelProtocol = EditFolderViewModel(folder: folderMock) { _ in }
-        editFolderViewModel[\.focusedField] = .folderLabel
-        
-        editFolderViewModel(.dismissKeyboard)
-        
-        expect(editFolderViewModel[\.focusedField]).to(beNil())
     }
     
 }
