@@ -56,7 +56,12 @@ struct SelectFolderPage: View {
                     FolderRow(label: folder.label)
                         .id(folder.id)
                 }
-                .listSectionSeparator(.hidden, edges: .top)
+                .apply { view in
+                    if #unavailable(iOS 26) {
+                        view
+                            .listSectionSeparator(.hidden, edges: .top)
+                    }
+                }
                 .listRowInsets(.listRow)
             }
             .listStyle(.plain)
