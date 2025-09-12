@@ -1225,17 +1225,20 @@ extension EntriesPage {
                                         index, tag in
                                         Circle()
                                             .stroke(Color(UIColor.systemBackground), lineWidth: 2)
+                                            .frame(width: 16, height: 16)
                                             .background(
                                                 Circle()
-                                                    .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
-                                                    .background(
-                                                        Circle()
-                                                            .fill(Color(hex: tag.color) ?? .primary)
-                                                    )
-                                                    .frame(width: 14, height: 14)
+                                                    .fill(Color(hex: tag.color) ?? .primary)
+                                                    .apply { view in
+                                                        if #unavailable(iOS 26) {
+                                                            Circle()
+                                                                .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
+                                                                .frame(width: 14, height: 14)
+                                                                .background(view)
+                                                        }
+                                                    }
                                             )
                                             .zIndex(Double(validTags.count - index))
-                                            .frame(width: 16, height: 16)
                                     }
                                 }
                             }
