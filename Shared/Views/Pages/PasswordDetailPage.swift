@@ -38,42 +38,36 @@ struct PasswordDetailPage: View {
             mainStack()
                 .navigationBarTitleDisplayMode(.large)
                 .navigationTitle(password.label)
-                .apply { view in
+                .toolbar {
                     if #available(iOS 26, *) {
-                        view
-                            .toolbar {
-                                ToolbarItem(placement: .largeTitle) {
-                                    Text("")
-                                }
-                                stateToolbar()
-                                if let complete = autoFillController.complete,
-                                   autoFillController.mode != .extension || password.otp != nil {
-                                    ToolbarItem(placement: .bottomBar) {
-                                        selectButton(complete: complete)
-                                    }
-                                }
-                                ToolbarSpacer(.flexible, placement: .bottomBar)
-                                ToolbarItem(placement: .bottomBar) {
-                                    favoriteButton()
-                                }
-                                ToolbarItem(placement: .bottomBar) {
-                                    if password.editable {
-                                        editButton()
-                                    }
-                                }
+                        ToolbarItem(placement: .largeTitle) {
+                            Text("")
+                        }
+                        stateToolbar()
+                        if let complete = autoFillController.complete,
+                           autoFillController.mode != .extension || password.otp != nil {
+                            ToolbarItem(placement: .bottomBar) {
+                                selectButton(complete: complete)
                             }
+                        }
+                        ToolbarSpacer(.flexible, placement: .bottomBar)
+                        ToolbarItem(placement: .bottomBar) {
+                            favoriteButton()
+                        }
+                        ToolbarItem(placement: .bottomBar) {
+                            if password.editable {
+                                editButton()
+                            }
+                        }
                     } else {
-                        view
-                            .toolbar {
-                                ToolbarItem(placement: .primaryAction) {
-                                    stateView()
-                                }
-                                ToolbarItem(placement: .primaryAction) {
-                                    if password.editable {
-                                        editButton()
-                                    }
-                                }
+                        ToolbarItem(placement: .primaryAction) {
+                            stateView()
+                        }
+                        ToolbarItem(placement: .primaryAction) {
+                            if password.editable {
+                                editButton()
                             }
+                        }
                     }
                 }
                 .onReceive(resolve(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) {

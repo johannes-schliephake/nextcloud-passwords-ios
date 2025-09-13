@@ -13,8 +13,18 @@ struct SelectFolderPage: View {
                 ToolbarItem(placement: .cancellationAction) {
                     cancelButton()
                 }
-                ToolbarItem(placement: .primaryAction) {
-                    addFolderButton()
+                if #available(iOS 26, *) {
+                    ToolbarItem(placement: .bottomBar) {
+                        row()
+                    }
+                    ToolbarSpacer(.flexible, placement: .bottomBar)
+                    ToolbarItem(placement: .bottomBar) {
+                        addFolderButton()
+                    }
+                } else {
+                    ToolbarItem(placement: .primaryAction) {
+                        addFolderButton()
+                    }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
@@ -29,11 +39,6 @@ struct SelectFolderPage: View {
                 if #available(iOS 26, *) {
                     view
                         .safeAreaPadding(.bottom, 20)
-                        .toolbar {
-                            ToolbarItem(placement: .bottomBar) {
-                                row()
-                            }
-                        }
                 } else {
                     VStack(spacing: 0) {
                         row()
