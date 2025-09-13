@@ -38,24 +38,40 @@ struct PasswordDetailPage: View {
             mainStack()
                 .navigationBarTitleDisplayMode(.large)
                 .navigationTitle(password.label)
-                .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        if password.editable {
-                            editButton()
-                        }
-                    }
-                }
                 .apply { view in
                     if #available(iOS 26, *) {
                         view
                             .toolbar {
+                                ToolbarItem(placement: .largeTitle) {
+                                    Text("")
+                                }
                                 stateToolbar()
+                                if let complete = autoFillController.complete,
+                                   autoFillController.mode != .extension || password.otp != nil {
+                                    ToolbarItem(placement: .bottomBar) {
+                                        selectButton(complete: complete)
+                                    }
+                                }
+                                ToolbarSpacer(.flexible, placement: .bottomBar)
+                                ToolbarItem(placement: .bottomBar) {
+                                    favoriteButton()
+                                }
+                                ToolbarItem(placement: .bottomBar) {
+                                    if password.editable {
+                                        editButton()
+                                    }
+                                }
                             }
                     } else {
                         view
                             .toolbar {
                                 ToolbarItem(placement: .primaryAction) {
                                     stateView()
+                                }
+                                ToolbarItem(placement: .primaryAction) {
+                                    if password.editable {
+                                        editButton()
+                                    }
                                 }
                             }
                     }
@@ -85,17 +101,7 @@ struct PasswordDetailPage: View {
     private func mainStack() -> some View {
         listView()
             .apply { view in
-                if #available(iOS 26, *) {
-                    view
-                        .toolbar {
-                            if let complete = autoFillController.complete,
-                               autoFillController.mode != .extension || password.otp != nil {
-                                ToolbarItem(placement: .bottomBar) {
-                                    selectButton(complete: complete)
-                                }
-                            }
-                        }
-                } else {
+                if #unavailable(iOS 26) {
                     GeometryReader { geometryProxy in
                         VStack(spacing: 0) {
                             view
@@ -152,18 +158,35 @@ struct PasswordDetailPage: View {
     private func listView() -> some View {
         List {
             Section {
-                HStack {
-                    Spacer()
-                    passwordStatusIcon()
-                    Spacer()
-                    faviconImage()
-                    Spacer()
-                    favoriteButton()
-                    Spacer()
+                if #available(iOS 26, *) {
+                    HStack(spacing: 20) {
+                        faviconImage()
+                        Text(password.label)
+                            .multilineTextAlignment(.leading)
+                            .font(.largeTitle)
+                            .bold()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                } else {
+                    HStack {
+                        Spacer()
+                        passwordStatusIcon()
+                        Spacer()
+                        faviconImage()
+                        Spacer()
+                        favoriteButton()
+                        Spacer()
+                    }
+                    .padding(.top)
                 }
-                .padding(.top)
             }
             .listRowBackground(Color(UIColor.systemGroupedBackground))
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .listSectionSpacing(0)
+                }
+            }
             if let tags = entriesController.tags {
                 let validTags = EntriesController.tags(for: password.tags, in: tags).valid
                 tagsSection(validTags: validTags)
@@ -195,26 +218,27 @@ struct PasswordDetailPage: View {
             showPasswordStatusTooltip = true
         }
         label: {
+            let font: Font = if #available(iOS 26, *) { .title2 } else { .title }
             switch password.statusCode {
             case .good:
                 Image(systemName: "checkmark.shield.fill")
-                    .font(.title)
+                    .font(font)
                     .foregroundColor(.green)
             case .outdated, .duplicate:
                 Image(systemName: "exclamationmark.shield.fill")
-                    .font(.title)
+                    .font(font)
                     .foregroundColor(.yellow)
             case .breached:
                 Image(systemName: "xmark.shield.fill")
-                    .font(.title)
+                    .font(font)
                     .foregroundColor(.red)
             case .unknown:
                 Image(systemName: "shield.fill")
-                    .font(.title)
+                    .font(font)
                     .foregroundColor(.gray)
                     .mask {
                         Image(systemName: "questionmark")
-                            .font(.title.bold())
+                            .font(font.bold())
                             .scaleEffect(0.5)
                             .foregroundColor(.black)
                             .background(.white)
@@ -339,46 +363,49 @@ struct PasswordDetailPage: View {
     private func favoriteButton() -> some View {
         Button {
             toggleFavorite()
-        }
-        label: {
+        } label: {
             Image(systemName: password.favorite ? "star.fill" : "star")
-                .font(.title)
+                .apply { view in
+                    if #unavailable(iOS 26) {
+                        view
+                            .font(.title)
+                    }
+                }
         }
         .buttonStyle(.borderless)
         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
     private func tagsSection(validTags: [Tag]) -> some View {
-        Section(footer: HStack {
-            Spacer()
-            Button(validTags.isEmpty ? "_addTags" : "_editTags") {
-                showSelectTagsView = true
-            }
-            .font(.footnote)
-            .textCase(.uppercase)
-            .buttonStyle(.borderless)
-            .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-            Spacer()
-        }) {
-            if !validTags.isEmpty {
-                if UIDevice.current.userInterfaceIdiom == .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
-                    FlowView {
-                        ForEach(validTags.sorted()) { tag in
-                            TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
-                        }
+        Section {
+            let iOS26 = if #available(iOS 26, *) { true } else { false }
+            if iOS26 || !validTags.isEmpty {
+                let aligment: HorizontalAlignment = iOS26 ? .leading : .center
+                FlowView(alignment: aligment) {
+                    ForEach(validTags.sorted()) { tag in
+                        TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
+                            .apply { view in
+                                if UIDevice.current.userInterfaceIdiom != .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
+                                    Button {
+                                        navigationSelection = .entries(tag: tag)
+                                    } label: {
+                                        view
+                                    }
+                                    .buttonStyle(.borderless)
+                                }
+                            }
+                    }
+                    if #available(iOS 26, *) {
+                        selectTagsButton(hasTags: !validTags.isEmpty)
                     }
                 }
-                else {
-                    FlowView {
-                        ForEach(validTags.sorted()) { tag in
-                            Button {
-                                navigationSelection = .entries(tag: tag)
-                            } label: {
-                                TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
-                            }
-                            .buttonStyle(.borderless)
-                        }
-                    }
+            }
+        } footer: {
+            if #unavailable(iOS 26) {
+                HStack {
+                    Spacer()
+                    selectTagsButton(hasTags: !validTags.isEmpty)
+                    Spacer()
                 }
             }
         }
@@ -391,16 +418,68 @@ struct PasswordDetailPage: View {
         }
     }
     
+    private func selectTagsButton(hasTags: Bool) -> some View {
+        Button {
+            showSelectTagsView = true
+        } label: {
+            if #available(iOS 26, *) {
+                if hasTags {
+                    Label("_editTags", systemImage: "checklist")
+                        .labelStyle(.iconOnly)
+                        .font(.subheadline)
+                        .bold()
+                        .foregroundColor(.gray)
+                        .padding(6)
+                        .background(
+                            Capsule()
+                                .fill(Color(.secondarySystemGroupedBackground))
+                        )
+                } else {
+                    HStack(spacing: 6) {
+                        Circle()
+                            .strokeBorder(Color(.placeholderText), lineWidth: 1.5)
+                            .frame(width: 14, height: 14)
+                        Text("_addTags")
+                            .font(.subheadline)
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(Color(.placeholderText))
+                    }
+                    .padding(.init(top: 6, leading: 6, bottom: 6, trailing: 10))
+                    .background {
+                        Capsule()
+                            .strokeBorder(Color(.placeholderText), style: StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
+                    }
+                }
+            } else {
+                Text(hasTags ? "_editTags" : "_addTags")
+                    .font(.footnote)
+                    .textCase(.uppercase)
+            }
+        }
+        .buttonStyle(.borderless)
+        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+    }
+    
     private func serviceSection() -> some View {
-        Section(header: Text("_service")) {
-            LabeledRow(type: .text, label: "_name", value: password.label, copiable: true)
-            LabeledRow(type: .url, label: "_url", value: password.url, copiable: true)
+        Section {
+            if #unavailable(iOS 26) {
+                LabeledRow(type: .text, label: "_name", value: password.label, copiable: true)
+            }
+            if !password.url.isEmpty {
+                LabeledRow(type: .url, label: "_url", value: password.url, copiable: true)
+            }
+        } header: {
+            if #unavailable(iOS 26) {
+                Text("_service")
+            }
         }
     }
     
     private func accountSection() -> some View {
-        Section(header: Text("_account")) {
-            LabeledRow(type: .nonLinguisticText, label: "_username", value: password.username, copiable: true)
+        Section {
+            if !password.username.isEmpty {
+                LabeledRow(type: .nonLinguisticText, label: "_username", value: password.username, copiable: true)
+            }
             LabeledRow(type: .secret, label: "_password", value: password.password, copiable: true)
             if let otp = password.otp {
                 HStack {
@@ -474,6 +553,10 @@ struct PasswordDetailPage: View {
                     }
                     .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
+            }
+        } header: {
+            if !password.username.isEmpty || password.otp != nil {
+                Text("_account")
             }
         }
     }
@@ -659,6 +742,10 @@ struct PasswordDetailPage: View {
                 .sharedBackgroundVisibility(.hidden)
             }
         }
+        ToolbarItem(placement: .primaryAction) {
+            passwordStatusIcon()
+        }
+        .sharedBackgroundVisibility(.hidden)
     }
     
     @ViewBuilder private func stateView() -> some View {

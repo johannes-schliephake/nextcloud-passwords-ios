@@ -129,7 +129,15 @@ struct SelectTagsPage: View {
                 Image(systemName: "checkmark")
                     .font(.body.bold())
                     .foregroundColor(Color(hex: tag.color) ?? .primary)
-                    .opacity(isSelected ? 1 : 0)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .symbolEffect(.drawOn, isActive: !isSelected)
+                        } else {
+                            view
+                                .opacity(isSelected ? 1 : 0)
+                        }
+                    }
             }
             .apply { view in
                 if #available(iOS 26, *) {
