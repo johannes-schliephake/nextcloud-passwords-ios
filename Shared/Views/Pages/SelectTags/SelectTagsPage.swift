@@ -65,6 +65,13 @@ struct SelectTagsPage: View {
             .listRowInsets(.listRow)
         }
         .listStyle(.plain)
+        .apply { view in
+            if #available(iOS 26, *),
+               UIDevice.current.userInterfaceIdiom == .pad {
+                view
+                    .scrollContentBackground(.visible)
+            }
+        }
     }
     
     private func row() -> some View {

@@ -70,6 +70,13 @@ struct SelectFolderPage: View {
                 .listRowInsets(.listRow)
             }
             .listStyle(.plain)
+            .apply { view in
+                if #available(iOS 26, *),
+                   UIDevice.current.userInterfaceIdiom == .pad {
+                    view
+                        .scrollContentBackground(.visible)
+                }
+            }
             .onAppear {
                 withAnimation {
                     guard let selection = viewModel[\.selection] else {

@@ -1,3 +1,4 @@
 • iOS 26 Kompatibilität
+• iOS 26 Redesign
 • Vorausgefüllter Name beim Hinzufügen eines Passworts über AutoFill
 • Fehlerbehebungen und Optimierungen
