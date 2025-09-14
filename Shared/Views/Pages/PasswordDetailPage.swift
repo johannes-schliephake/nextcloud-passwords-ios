@@ -243,21 +243,59 @@ struct PasswordDetailPage: View {
         }
         .buttonStyle(.borderless)
         .tooltip(isPresented: $showPasswordStatusTooltip) {
-            VStack(alignment: .leading, spacing: 15) {
-                switch password.statusCode {
-                case .good:
-                    Text("_passwordStatusGoodMessage")
-                case .outdated:
-                    Text("_passwordStatusOutdatedMessage")
-                case .duplicate:
-                    Text("_passwordStatusDuplicateMessage")
-                case .breached:
-                    Text("_passwordStatusBreachedMessage")
-                case .unknown:
-                    Text("_passwordStatusUnknownMessage")
+            tooltipContent()
+        }
+    }
+    
+    private func tooltipContent() -> some View {
+        VStack(alignment: .leading, spacing: 15) {
+            switch password.statusCode {
+            case .good:
+                Text("_passwordStatusGoodMessage")
+            case .outdated:
+                Text("_passwordStatusOutdatedMessage")
+            case .duplicate:
+                Text("_passwordStatusDuplicateMessage")
+            case .breached:
+                Text("_passwordStatusBreachedMessage")
+            case .unknown:
+                Text("_passwordStatusUnknownMessage")
+            }
+            if password.editable,
+               password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
+                Divider()
+                    .apply { view in
+                        if #unavailable(iOS 26) {
+                            view
+                                .padding(.trailing, -100)
+                        }
+                    }
+                Button {
+                    showPasswordStatusTooltip = false
+                    showEditPasswordView = true
                 }
-                if password.editable,
-                   password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
+                label: {
+                    Label("_editPassword", systemImage: "square.and.pencil")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+            }
+            if password.statusCode == .duplicate,
+               let duplicates = entriesController.passwords?.filter({ $0.password == password.password && $0.id != password.id }) {
+                Divider()
+                    .apply { view in
+                        if #unavailable(iOS 26) {
+                            view
+                                .padding(.trailing, -100)
+                        }
+                    }
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(Strings.duplicates)
+                        .font(.subheadline)
+                        .bold()
+                        .foregroundColor(.gray)
+                        .padding(.top, 12)
+                        .padding(.bottom, EdgeInsets.listRow.bottom)
                     Divider()
                         .apply { view in
                             if #unavailable(iOS 26) {
@@ -265,74 +303,40 @@ struct PasswordDetailPage: View {
                                     .padding(.trailing, -100)
                             }
                         }
-                    Button {
-                        showPasswordStatusTooltip = false
-                        showEditPasswordView = true
-                    }
-                    label: {
-                        Label("_editPassword", systemImage: "square.and.pencil")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
-                }
-                if password.statusCode == .duplicate,
-                   let duplicates = entriesController.passwords?.filter({ $0.password == password.password && $0.id != password.id }) {
-                    Divider()
-                        .apply { view in
-                            if #unavailable(iOS 26) {
-                                view
-                                    .padding(.trailing, -100)
-                            }
-                        }
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text(Strings.duplicates)
-                            .font(.subheadline)
-                            .bold()
+                    if duplicates.isEmpty {
+                        Text(Strings.duplicatesTrashMessage)
                             .foregroundColor(.gray)
-                            .padding(.top, 12)
-                            .padding(.bottom, EdgeInsets.listRow.bottom)
-                        Divider()
-                            .apply { view in
-                                if #unavailable(iOS 26) {
-                                    view
-                                        .padding(.trailing, -100)
-                                }
+                            .padding(.top, 15)
+                    }
+                    else {
+                        ForEach(duplicates.sortedByLabel()) {
+                            duplicate in
+                            Button {
+                                showPasswordStatusTooltip = false
+                                navigationSelection = .duplicate(password: duplicate)
+                            } label: {
+                                PasswordRow(label: duplicate.label, username: duplicate.username, url: duplicate.url)
+                                    .padding(.top, EdgeInsets.listRow.top)
+                                    .padding(.bottom, EdgeInsets.listRow.bottom)
+                                    .foregroundColor(.primary)
                             }
-                        if duplicates.isEmpty {
-                            Text(Strings.duplicatesTrashMessage)
-                                .foregroundColor(.gray)
-                                .padding(.top, 15)
-                        }
-                        else {
-                            ForEach(duplicates.sortedByLabel()) {
-                                duplicate in
-                                Button {
-                                    showPasswordStatusTooltip = false
-                                    navigationSelection = .duplicate(password: duplicate)
-                                } label: {
-                                    PasswordRow(label: duplicate.label, username: duplicate.username, url: duplicate.url)
-                                        .padding(.top, EdgeInsets.listRow.top)
-                                        .padding(.bottom, EdgeInsets.listRow.bottom)
-                                        .foregroundColor(.primary)
-                                }
-                                Divider()
-                                    .apply { view in
-                                        if #unavailable(iOS 26) {
-                                            view
-                                                .padding(.trailing, -100)
-                                        }
+                            Divider()
+                                .apply { view in
+                                    if #unavailable(iOS 26) {
+                                        view
+                                            .padding(.trailing, -100)
                                     }
-                                    .padding(.leading, 40 + 12)
-                            }
+                                }
+                                .padding(.leading, 40 + 12)
                         }
                     }
                 }
             }
-            .environmentObject(autoFillController)
-            .environmentObject(biometricAuthenticationController)
-            .environmentObject(sessionController)
-            .environmentObject(settingsController)
         }
+        .environmentObject(autoFillController)
+        .environmentObject(biometricAuthenticationController)
+        .environmentObject(sessionController)
+        .environmentObject(settingsController)
     }
     
     private func faviconImage() -> some View {
