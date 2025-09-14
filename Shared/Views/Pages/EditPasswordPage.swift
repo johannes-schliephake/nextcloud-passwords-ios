@@ -143,7 +143,7 @@ struct EditPasswordPage: View {
                                     Text(preferredUsername)
                                         .tint(editPasswordController.passwordUsername == preferredUsername ? .white : Color(.secondaryLabel))
                                         .font(.subheadline)
-                                        .padding(.horizontal, 11)
+                                        .padding(.horizontal, 10)
                                         .padding(.vertical, 6)
                                         .background(
                                             Capsule()

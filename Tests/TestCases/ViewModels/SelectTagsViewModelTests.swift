@@ -304,13 +304,4 @@ final class SelectTagsViewModelTests: XCTestCase {
         expect(selectTagsViewModel[\.shouldDismiss]).to(emit(when: { selectTagsViewModel(.cancel) }))
     }
     
-    func testCallAsFunction_whenCallingDismissKeyboard_thenSetsFocusedFieldToNil() {
-        let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntryMock) { _, _ in }
-        selectTagsViewModel[\.focusedField] = .addTagLabel
-        
-        selectTagsViewModel(.dismissKeyboard)
-        
-        expect(selectTagsViewModel[\.focusedField]).to(beNil())
-    }
-    
 }

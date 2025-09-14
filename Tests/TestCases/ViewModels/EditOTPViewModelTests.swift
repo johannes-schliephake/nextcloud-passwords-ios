@@ -31,10 +31,9 @@ final class EditOTPViewModelTests: XCTestCase {
         expect(editOTPViewModel[\.showMore]).to(beFalse())
         expect(editOTPViewModel[\.sharingUrl]).to(beNil())
         expect(editOTPViewModel[\.sharingAvailable]).to(beFalse())
-        expect(editOTPViewModel[\.previousFieldFocusable]).to(beFalse())
         expect(editOTPViewModel[\.nextFieldFocusable]).to(beFalse())
-        expect(editOTPViewModel[\.showDeleteAlert]).to(beFalse())
-        expect(editOTPViewModel[\.showCancelAlert]).to(beFalse())
+        expect(editOTPViewModel[\.showDeletionConfirmation]).to(beFalse())
+        expect(editOTPViewModel[\.showCancellationConfirmation]).to(beFalse())
         expect(editOTPViewModel[\.hasChanges]).to(beFalse())
         expect(editOTPViewModel[\.editIsValid]).to(beFalse())
         expect(editOTPViewModel[\.focusedField]).to(beNil())
@@ -56,10 +55,9 @@ final class EditOTPViewModelTests: XCTestCase {
         expect(editOTPViewModel[\.showMore]).to(beFalse())
         expect(editOTPViewModel[\.sharingUrl]).to(beNil())
         expect(editOTPViewModel[\.sharingAvailable]).to(beFalse())
-        expect(editOTPViewModel[\.previousFieldFocusable]).to(beFalse())
         expect(editOTPViewModel[\.nextFieldFocusable]).to(beFalse())
-        expect(editOTPViewModel[\.showDeleteAlert]).to(beFalse())
-        expect(editOTPViewModel[\.showCancelAlert]).to(beFalse())
+        expect(editOTPViewModel[\.showDeletionConfirmation]).to(beFalse())
+        expect(editOTPViewModel[\.showCancellationConfirmation]).to(beFalse())
         expect(editOTPViewModel[\.hasChanges]).to(beFalse())
         expect(editOTPViewModel[\.editIsValid]).to(beFalse())
         expect(editOTPViewModel[\.focusedField]).to(equal(.otpSecret))
@@ -80,10 +78,9 @@ final class EditOTPViewModelTests: XCTestCase {
         expect(editOTPViewModel[\.showMore]).to(beTrue())
         expect(editOTPViewModel[\.sharingUrl]).to(beNil())
         expect(editOTPViewModel[\.sharingAvailable]).to(beFalse())
-        expect(editOTPViewModel[\.previousFieldFocusable]).to(beFalse())
         expect(editOTPViewModel[\.nextFieldFocusable]).to(beTrue())
-        expect(editOTPViewModel[\.showDeleteAlert]).to(beFalse())
-        expect(editOTPViewModel[\.showCancelAlert]).to(beFalse())
+        expect(editOTPViewModel[\.showDeletionConfirmation]).to(beFalse())
+        expect(editOTPViewModel[\.showCancellationConfirmation]).to(beFalse())
         expect(editOTPViewModel[\.hasChanges]).to(beFalse())
         expect(editOTPViewModel[\.editIsValid]).to(beFalse())
         expect(editOTPViewModel[\.focusedField]).to(equal(.otpSecret))
@@ -134,67 +131,60 @@ final class EditOTPViewModelTests: XCTestCase {
         expect(editOTPViewModel[\.sharingAvailable]).to(beFalse())
     }
     
-    func testInit_givenFocusedFieldIsNil_thenSetsFieldFocusableProperties() {
+    func testInit_givenFocusedFieldIsNil_thenSetsNextFieldFocusable() {
         let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
         editOTPViewModel[\.focusedField] = nil
         
-        expect(editOTPViewModel[\.previousFieldFocusable]).to(beFalse())
         expect(editOTPViewModel[\.nextFieldFocusable]).to(beFalse())
     }
     
-    func testInit_givenFocusedFieldIsOtpSecretAndShowMoreIsFalse_thenSetsFieldFocusableProperties() {
+    func testInit_givenFocusedFieldIsOtpSecretAndShowMoreIsFalse_thenSetsNextFieldFocusable() {
         let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
         editOTPViewModel[\.showMore] = false
         editOTPViewModel[\.focusedField] = .otpSecret
         
-        expect(editOTPViewModel[\.previousFieldFocusable]).to(beFalse())
         expect(editOTPViewModel[\.nextFieldFocusable]).to(beFalse())
     }
     
-    func testInit_givenFocusedFieldIsOtpSecretAndShowMoreIsTrue_thenSetsFieldFocusableProperties() {
+    func testInit_givenFocusedFieldIsOtpSecretAndShowMoreIsTrue_thenSetsNextFieldFocusable() {
         let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
         editOTPViewModel[\.showMore] = true
         editOTPViewModel[\.focusedField] = .otpSecret
         
-        expect(editOTPViewModel[\.previousFieldFocusable]).to(beFalse())
         expect(editOTPViewModel[\.nextFieldFocusable]).to(beTrue())
     }
     
-    func testInit_givenFocusedFieldIsOtpDigitsAndOtpTypeIsTotp_thenSetsFieldFocusableProperties() {
+    func testInit_givenFocusedFieldIsOtpDigitsAndOtpTypeIsTotp_thenSetsNextFieldFocusable() {
         let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
         editOTPViewModel[\.showMore] = true
         editOTPViewModel[\.focusedField] = .otpDigits
         editOTPViewModel[\.otpType] = .totp
         
-        expect(editOTPViewModel[\.previousFieldFocusable]).to(beTrue())
         expect(editOTPViewModel[\.nextFieldFocusable]).to(beTrue())
     }
     
-    func testInit_givenFocusedFieldIsOtpDigitsAndOtpTypeIsHotp_thenSetsFieldFocusableProperties() {
+    func testInit_givenFocusedFieldIsOtpDigitsAndOtpTypeIsHotp_thenSetsNextFieldFocusable() {
         let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
         editOTPViewModel[\.showMore] = true
         editOTPViewModel[\.focusedField] = .otpDigits
         editOTPViewModel[\.otpType] = .hotp
         
-        expect(editOTPViewModel[\.previousFieldFocusable]).to(beTrue())
         expect(editOTPViewModel[\.nextFieldFocusable]).to(beTrue())
     }
     
-    func testInit_givenFocusedFieldIsOtpCounter_thenSetsFieldFocusableProperties() {
+    func testInit_givenFocusedFieldIsOtpCounter_thenSetsNextFieldFocusable() {
         let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
         editOTPViewModel[\.showMore] = true
         editOTPViewModel[\.focusedField] = .otpCounter
         
-        expect(editOTPViewModel[\.previousFieldFocusable]).to(beTrue())
         expect(editOTPViewModel[\.nextFieldFocusable]).to(beFalse())
     }
     
-    func testInit_givenFocusedFieldIsOtpPeriod_thenSetsFieldFocusableProperties() {
+    func testInit_givenFocusedFieldIsOtpPeriod_thenSetsNextFieldFocusable() {
         let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
         editOTPViewModel[\.showMore] = true
         editOTPViewModel[\.focusedField] = .otpPeriod
         
-        expect(editOTPViewModel[\.previousFieldFocusable]).to(beTrue())
         expect(editOTPViewModel[\.nextFieldFocusable]).to(beFalse())
     }
     
@@ -342,125 +332,6 @@ final class EditOTPViewModelTests: XCTestCase {
         editOTPViewModel[\.otpPeriod] = 1
         
         expect(editOTPViewModel[\.editIsValid]).to(equal(validateOtpMock))
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsNil_whenCallingFocusPreviousField_thenDoesntSetFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.focusedField] = nil
-        
-        editOTPViewModel(.focusPreviousField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(beNil())
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsOtpSecret_whenCallingFocusPreviousField_thenDoesntSetFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.focusedField] = .otpSecret
-        
-        editOTPViewModel(.focusPreviousField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(equal(.otpSecret))
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsOtpDigits_whenCallingFocusPreviousField_thenSetsFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.showMore] = true
-        editOTPViewModel[\.focusedField] = .otpDigits
-        
-        editOTPViewModel(.focusPreviousField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(equal(.otpSecret))
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsOtpCounter_whenCallingFocusPreviousField_thenSetsFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.showMore] = true
-        editOTPViewModel[\.focusedField] = .otpCounter
-        
-        editOTPViewModel(.focusPreviousField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(equal(.otpDigits))
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsOtpPeriod_whenCallingFocusPreviousField_thenSetsFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.showMore] = true
-        editOTPViewModel[\.focusedField] = .otpPeriod
-        
-        editOTPViewModel(.focusPreviousField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(equal(.otpDigits))
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsNil_whenCallingFocusNextField_thenDoesntSetFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.focusedField] = nil
-        
-        editOTPViewModel(.focusNextField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(beNil())
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsOtpSecretAndShowMoreIsFalse_whenCallingFocusNextField_thenDoesntSetFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.showMore] = false
-        editOTPViewModel[\.focusedField] = .otpSecret
-        
-        editOTPViewModel(.focusNextField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(equal(.otpSecret))
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsOtpSecretAndShowMoreIsTrue_whenCallingFocusNextField_thenSetsFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.showMore] = true
-        editOTPViewModel[\.focusedField] = .otpSecret
-        
-        editOTPViewModel(.focusNextField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(equal(.otpDigits))
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsOtpDigitsAndOtpTypeIsTotp_whenCallingFocusNextField_thenSetsFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.showMore] = true
-        editOTPViewModel[\.focusedField] = .otpDigits
-        editOTPViewModel[\.otpType] = .totp
-        
-        editOTPViewModel(.focusNextField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(equal(.otpPeriod))
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsOtpDigitsAndOtpTypeIsHotp_whenCallingFocusNextField_thenSetsFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.showMore] = true
-        editOTPViewModel[\.focusedField] = .otpDigits
-        editOTPViewModel[\.otpType] = .hotp
-        
-        editOTPViewModel(.focusNextField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(equal(.otpCounter))
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsOtpCounter_whenCallingFocusNextField_thenDoesntSetFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.showMore] = true
-        editOTPViewModel[\.focusedField] = .otpCounter
-        
-        editOTPViewModel(.focusNextField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(equal(.otpCounter))
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsOtpPeriod_whenCallingFocusNextField_thenDoesntSetFocusedField() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.showMore] = true
-        editOTPViewModel[\.focusedField] = .otpPeriod
-        
-        editOTPViewModel(.focusNextField)
-        
-        expect(editOTPViewModel[\.focusedField]).to(equal(.otpPeriod))
     }
     
     func testCallAsFunction_givenFocusedFieldIsNil_whenCallingSubmit_thenCallsOtpService() {
@@ -690,12 +561,12 @@ final class EditOTPViewModelTests: XCTestCase {
         expect(editOTPViewModel[\.shouldDismiss]).toNot(emit(when: { editOTPViewModel(.submit) }))
     }
     
-    func testCallAsFunction_whenCallingDeleteOtp_thenSetsShowDeleteAlertToTrue() {
+    func testCallAsFunction_whenCallingDeleteOtp_thenSetsshowDeletionConfirmationToTrue() {
         let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
         
         editOTPViewModel(.deleteOTP)
         
-        expect(editOTPViewModel[\.showDeleteAlert]).to(beTrue())
+        expect(editOTPViewModel[\.showDeletionConfirmation]).to(beTrue())
     }
     
     func testCallAsFunction_whenCallingConfirmDelete_thenCallsUpdateOtp() {
@@ -753,13 +624,13 @@ final class EditOTPViewModelTests: XCTestCase {
         expect(editOTPViewModel[\.shouldDismiss]).toNot(emit(when: { editOTPViewModel(.applyToOTP) }))
     }
     
-    func testCallAsFunction_givenHasChangesIsTrue_whenCallingCancel_thenSetsShowCancelAlertToTrue() {
+    func testCallAsFunction_givenHasChangesIsTrue_whenCallingCancel_thenSetsshowCancellationConfirmationToTrue() {
         let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
         editOTPViewModel[\.otpSecret] = .random()
         
         editOTPViewModel(.cancel)
         
-        expect(editOTPViewModel[\.showCancelAlert]).to(beTrue())
+        expect(editOTPViewModel[\.showCancellationConfirmation]).to(beTrue())
     }
     
     func testCallAsFunction_givenHasChangesIsFalse_whenCallingCancel_thenShouldDismissEmits() {
@@ -779,15 +650,6 @@ final class EditOTPViewModelTests: XCTestCase {
         let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
         
         expect(editOTPViewModel[\.shouldDismiss]).to(emit(when: { editOTPViewModel(.discardChanges) }))
-    }
-    
-    func testCallAsFunction_whenCallingDismissKeyboard_thenSetsFocusedFieldToNil() {
-        let editOTPViewModel: any EditOTPViewModelProtocol = EditOTPViewModel(otp: otpMock) { _ in }
-        editOTPViewModel[\.focusedField] = .otpSecret
-        
-        editOTPViewModel(.dismissKeyboard)
-        
-        expect(editOTPViewModel[\.focusedField]).to(beNil())
     }
     
 }

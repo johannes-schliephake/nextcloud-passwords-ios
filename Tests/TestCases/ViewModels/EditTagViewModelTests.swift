@@ -26,15 +26,15 @@ final class EditTagViewModelTests: XCTestCase {
         expect(editTagViewModel[\.tagLabel]).to(equal(tagMock.label))
         expect(editTagViewModel[\.tagColor]).to(equal(.init(hex: tagMock.color)!))
         expect(editTagViewModel[\.tagFavorite]).to(equal(tagMock.favorite))
-        expect(editTagViewModel[\.showDeleteAlert]).to(beFalse())
-        expect(editTagViewModel[\.showCancelAlert]).to(beFalse())
+        expect(editTagViewModel[\.showDeletionConfirmation]).to(beFalse())
+        expect(editTagViewModel[\.showCancellationConfirmation]).to(beFalse())
         expect(editTagViewModel[\.hasChanges]).to(beFalse())
         expect(editTagViewModel[\.editIsValid]).to(beFalse())
         expect(editTagViewModel[\.focusedField]).to(beNil())
     }
     
     func testInit_givenNewlyCreatedTag_thenSetsInitialState() {
-        let newTag = Tag(label: .random(), color: Color.random().hex, favorite: .random())
+        let newTag = Tag(color: Color.random().hex, favorite: .random())
         let editTagViewModel: any EditTagViewModelProtocol = EditTagViewModel(tag: newTag)
         
         expect(editTagViewModel[\.tag]).to(be(newTag))
@@ -42,8 +42,8 @@ final class EditTagViewModelTests: XCTestCase {
         expect(editTagViewModel[\.tagLabel]).to(equal(newTag.label))
         expect(editTagViewModel[\.tagColor]).to(equal(.init(hex: newTag.color)!))
         expect(editTagViewModel[\.tagFavorite]).to(equal(newTag.favorite))
-        expect(editTagViewModel[\.showDeleteAlert]).to(beFalse())
-        expect(editTagViewModel[\.showCancelAlert]).to(beFalse())
+        expect(editTagViewModel[\.showDeletionConfirmation]).to(beFalse())
+        expect(editTagViewModel[\.showCancellationConfirmation]).to(beFalse())
         expect(editTagViewModel[\.hasChanges]).to(beFalse())
         expect(editTagViewModel[\.editIsValid]).to(beFalse())
         expect(editTagViewModel[\.focusedField]).to(equal(.tagLabel))
@@ -116,12 +116,12 @@ final class EditTagViewModelTests: XCTestCase {
         expect(editTagViewModel[\.tagFavorite]).toNot(equal(newFavorite))
     }
     
-    func testCallAsFunction_whenCallingDeleteTag_thenSetsShowDeleteAlertToTrue() {
+    func testCallAsFunction_whenCallingDeleteTag_thenSetsshowDeletionConfirmationToTrue() {
         let editTagViewModel: any EditTagViewModelProtocol = EditTagViewModel(tag: tagMock)
         
         editTagViewModel(.deleteTag)
         
-        expect(editTagViewModel[\.showDeleteAlert]).to(beTrue())
+        expect(editTagViewModel[\.showDeletionConfirmation]).to(beTrue())
     }
     
     func testCallAsFunction_whenCallingConfirmDelete_thenCallsTagsService() {
@@ -159,13 +159,13 @@ final class EditTagViewModelTests: XCTestCase {
         expect(editTagViewModel[\.shouldDismiss]).toNot(emit(when: { editTagViewModel(.applyToTag) }))
     }
     
-    func testCallAsFunction_givenHasChangesIsTrue_whenCallingCancel_thenSetsShowCancelAlertToTrue() {
+    func testCallAsFunction_givenHasChangesIsTrue_whenCallingCancel_thenSetsshowCancellationConfirmationToTrue() {
         let editTagViewModel: any EditTagViewModelProtocol = EditTagViewModel(tag: tagMock)
         editTagViewModel(.toggleFavorite)
         
         editTagViewModel(.cancel)
         
-        expect(editTagViewModel[\.showCancelAlert]).to(beTrue())
+        expect(editTagViewModel[\.showCancellationConfirmation]).to(beTrue())
     }
     
     func testCallAsFunction_givenHasChangesIsFalse_whenCallingCancel_thenShouldDismissEmits() {
@@ -185,15 +185,6 @@ final class EditTagViewModelTests: XCTestCase {
         let editTagViewModel: any EditTagViewModelProtocol = EditTagViewModel(tag: tagMock)
         
         expect(editTagViewModel[\.shouldDismiss]).to(emit(when: { editTagViewModel(.discardChanges) }))
-    }
-    
-    func testCallAsFunction_whenCallingDismissKeyboard_thenSetsFocusedFieldToNil() {
-        let editTagViewModel: any EditTagViewModelProtocol = EditTagViewModel(tag: tagMock)
-        editTagViewModel[\.focusedField] = .tagLabel
-        
-        editTagViewModel(.dismissKeyboard)
-        
-        expect(editTagViewModel[\.focusedField]).to(beNil())
     }
     
 }

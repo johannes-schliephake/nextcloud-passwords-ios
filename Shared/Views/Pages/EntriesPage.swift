@@ -1160,12 +1160,6 @@ extension EntriesPage {
                         mainStack()
                     }
                     .isDetailLink(true)
-                    .apply { view in
-                        if #available(iOS 26, *) {
-                            view
-                                .navigationLinkIndicatorVisibility(.hidden)
-                        }
-                    }
                 }
             }
         }
@@ -1189,32 +1183,51 @@ extension EntriesPage {
                     }
                     if entriesController.filterBy == .otps || autoFillController.mode == .extension,
                        let otp = password.otp {
-                        OTPDisplay(otp: otp) {
-                            otp in
+                        OTPDisplay(otp: otp) { otp in
                             password.updated = Date()
                             password.otp = otp
                             entriesController.update(password: password)
-                        }
-                        content: {
-                            current, _, accessoryView in
-                            Text((current ?? "").segmented)
-                                .foregroundColor(.primary)
-                                .monospaced()
-                                .apply { view in
-                                    if #available(iOS 17, *) {
-                                        view
-                                            .typesettingLanguage(.init(languageCode: .unavailable))
+                        } content: { current, _, accessoryView in
+                            let accessoryView = accessoryView
+                                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                            Button {
+                                current.map { resolve(\.pasteboardService).set(string: $0, sensitive: true) }
+                            } label: {
+                                HStack {
+                                    Text((current ?? "").segmented)
+                                        .foregroundColor(.primary)
+                                        .monospaced()
+                                        .apply { view in
+                                            if #available(iOS 17, *) {
+                                                view
+                                                    .typesettingLanguage(.init(languageCode: .unavailable))
+                                            }
+                                        }
+                                    if #available(iOS 26, *) {
+                                        accessoryView
                                     }
                                 }
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 4)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 5)
-                                        .fill(Color(.secondarySystemBackground))
-                                )
-                            accessoryView
+                                .apply { view in
+                                    if #available(iOS 26, *) {
+                                        view
+                                            .padding(.init(top: 6, leading: 10, bottom: 6, trailing: 6))
+                                            .glassEffect()
+                                    } else {
+                                        view
+                                            .padding(.horizontal, 6)
+                                            .padding(.vertical, 4)
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 5)
+                                                    .fill(Color(.secondarySystemBackground))
+                                            )
+                                    }
+                                }
+                            }
+                            .buttonStyle(.borderless)
+                            if #unavailable(iOS 26) {
+                                accessoryView
+                            }
                         }
-                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
                     else {
                         if let tags = entriesController.tags {
@@ -1225,17 +1238,20 @@ extension EntriesPage {
                                         index, tag in
                                         Circle()
                                             .stroke(Color(UIColor.systemBackground), lineWidth: 2)
+                                            .frame(width: 16, height: 16)
                                             .background(
                                                 Circle()
-                                                    .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
-                                                    .background(
-                                                        Circle()
-                                                            .fill(Color(hex: tag.color) ?? .primary)
-                                                    )
-                                                    .frame(width: 14, height: 14)
+                                                    .fill(Color(hex: tag.color) ?? .primary)
+                                                    .apply { view in
+                                                        if #unavailable(iOS 26) {
+                                                            Circle()
+                                                                .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
+                                                                .frame(width: 14, height: 14)
+                                                                .background(view)
+                                                        }
+                                                    }
                                             )
                                             .zIndex(Double(validTags.count - index))
-                                            .frame(width: 16, height: 16)
                                     }
                                 }
                             }

@@ -13,9 +13,18 @@ struct CaptureOTPPage: View {
                 ToolbarItem(placement: .cancellationAction) {
                     cancelButton()
                 }
-                ToolbarItem(placement: .primaryAction) {
-                    if viewModel[\.isTorchAvailable] {
-                        torchToggle()
+                if #available(iOS 26, *) {
+                    ToolbarSpacer(.flexible, placement: .bottomBar)
+                    ToolbarItem(placement: .bottomBar) {
+                        if viewModel[\.isTorchAvailable] {
+                            torchToggle()
+                        }
+                    }
+                } else {
+                    ToolbarItem(placement: .primaryAction) {
+                        if viewModel[\.isTorchAvailable] {
+                            torchToggle()
+                        }
                     }
                 }
             }

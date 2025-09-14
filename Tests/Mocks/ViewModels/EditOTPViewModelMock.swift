@@ -15,7 +15,7 @@ extension EditOTPViewModel.State: Mock {
     
     convenience init() {
         let otpMock = resolve(\.otp)
-        self.init(isCreating: otpMock.secret.isEmpty, otpType: otpMock.type, otpAlgorithm: otpMock.algorithm, otpSecret: otpMock.secret, otpDigits: otpMock.digits, otpCounter: otpMock.counter, otpPeriod: otpMock.period, showMore: true, sharingUrl: otpMock.url!, sharingAvailable: true, previousFieldFocusable: false, nextFieldFocusable: false, showDeleteAlert: false, showCancelAlert: false, hasChanges: false, editIsValid: true, focusedField: nil)
+        self.init(isCreating: otpMock.secret.isEmpty, otpType: otpMock.type, otpAlgorithm: otpMock.algorithm, otpSecret: otpMock.secret, otpDigits: otpMock.digits, otpCounter: otpMock.counter, otpPeriod: otpMock.period, showMore: true, sharingUrl: otpMock.url!, sharingAvailable: true, nextFieldFocusable: false, showDeletionConfirmation: false, showCancellationConfirmation: false, hasChanges: false, editIsValid: true, focusedField: nil)
     }
     
 }
