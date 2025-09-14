@@ -24,18 +24,26 @@ import XCTest
     
     func test_entriesPage_searchBarVisible_filterByFolders() throws {
         /// Swipe down to show search bar, filter by folders
-        app.collectionViews.firstMatch.cells.firstMatch.swipeDown()
-        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        if #unavailable(iOS 26) {
+            app.collectionViews.firstMatch.cells.firstMatch.swipeDown()
+        }
+        app.buttons["filterSortMenu"].tapUnhittable()
         app.collectionViews.firstMatch.buttons.element(boundBy: 1).tap()
-        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        if #available(iOS 26, *) {
+            app.collectionViews.firstMatch.tapUnhittable(offset: .init(dx: -0.01, dy: -0.01))
+        } else {
+            app.buttons["filterSortMenu"].tapUnhittable()
+        }
         
         snapshot("1")
     }
     
     func test_entriesPage_searchBarVisible_filterByFavorites_sortingOptionsVisible() throws {
         /// Swipe down to show search bar, filter by favorites, show sort menu again
-        app.collectionViews.firstMatch.cells.firstMatch.swipeDown()
-        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        if #unavailable(iOS 26) {
+            app.collectionViews.firstMatch.cells.firstMatch.swipeDown()
+        }
+        app.buttons["filterSortMenu"].tapUnhittable()
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
         
         snapshot("2")
@@ -43,9 +51,13 @@ import XCTest
     
     func test_entriesPage_filterByFavorites_passwordContextMenuVisible() throws {
         /// Filter by favorites, long tap last entry (has to be a password)
-        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        app.buttons["filterSortMenu"].tapUnhittable()
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        if #available(iOS 26, *) {
+            app.collectionViews.firstMatch.tapUnhittable(offset: .init(dx: -0.01, dy: -0.01))
+        } else {
+            app.buttons["filterSortMenu"].tapUnhittable()
+        }
         app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.pressUnhittable(forDuration: 1)
         
         snapshot("3")
@@ -53,24 +65,30 @@ import XCTest
     
     func test_passwordDetailPage() throws {
         /// Filter by favorites, open last entry (has to be a password)
-        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        app.buttons["filterSortMenu"].tapUnhittable()
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        if #available(iOS 26, *) {
+            app.collectionViews.firstMatch.tapUnhittable(offset: .init(dx: -0.01, dy: -0.01))
+        } else {
+            app.buttons["filterSortMenu"].tapUnhittable()
+        }
         app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.tapUnhittable()
         
         snapshot("4")
     }
     
     func test_editPasswordPage() throws {
-        /// Filter by favorites, open last entry (has to be a password), open edit page, show password and password generator, scroll down
-        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        /// Filter by favorites, open last entry (has to be a password), open edit page, show password generator
+        app.buttons["filterSortMenu"].tapUnhittable()
         app.collectionViews.firstMatch.buttons.element(boundBy: 2).tap()
-        app.navigationBars.buttons["filterSortMenu"].tapUnhittable()
+        if #available(iOS 26, *) {
+            app.collectionViews.firstMatch.tapUnhittable(offset: .init(dx: -0.01, dy: -0.01))
+        } else {
+            app.buttons["filterSortMenu"].tapUnhittable()
+        }
         app.collectionViews.firstMatch.cells.lastMatch.buttons.firstMatch.tapUnhittable()
-        app.navigationBars.lastMatch.buttons.lastMatch.tap()
-        app.collectionViews.buttons["showPasswordButton"].tap()
-        app.collectionViews.buttons["passwordGenerator"].tap()
-        // app.collectionViews.lastMatch.swipeUp(velocity: 280)
+        app.buttons["editPasswordButton"].tap()
+        app.buttons["passwordGenerator"].tap()
         
         snapshot("5")
     }

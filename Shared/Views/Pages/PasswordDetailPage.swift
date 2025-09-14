@@ -791,6 +791,7 @@ struct PasswordDetailPage: View {
                 }
         })
         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+        .accessibility(identifier: "editPasswordButton")
     }
     
     private func errorButton(state: Entry.State) -> some View {
