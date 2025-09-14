@@ -81,6 +81,21 @@ struct PasswordDetailPage: View {
                 .onChange(of: showMetadata) { showMetadata in
                     Configuration.userDefaults.set(showMetadata, forKey: "showMetadata")
                 }
+                .apply { view in
+                    if #available(iOS 26, *),
+                       UIDevice.current.userInterfaceIdiom == .phone {
+                        /// Fixes bug in SwiftUI where popovers are presented outside of screen on phones when source is placed trailing in navigation bar
+                        view
+                            .overlay(alignment: .topTrailing) {
+                                EmptyView()
+                                    .frame(width: 2, height: 2)
+                                    .tooltip(isPresented: $showPasswordStatusTooltip) {
+                                        tooltipContent()
+                                    }
+                                    .offset(x: -37, y: -34 + 5)
+                            }
+                    }
+                }
         }
     }
     
@@ -242,8 +257,14 @@ struct PasswordDetailPage: View {
             }
         }
         .buttonStyle(.borderless)
-        .tooltip(isPresented: $showPasswordStatusTooltip) {
-            tooltipContent()
+        .apply { view in
+            let iOS26 = if #available(iOS 26, *) { true } else { false }
+            if !iOS26 || UIDevice.current.userInterfaceIdiom == .pad {
+                view
+                    .tooltip(isPresented: $showPasswordStatusTooltip) {
+                        tooltipContent()
+                    }
+            }
         }
     }
     
