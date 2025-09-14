@@ -306,6 +306,13 @@ struct EntriesPage: View {
                     .listRowInsets(.listRow)
                 }
                 .listStyle(.plain)
+                .apply { view in
+                    if #available(iOS 26, *),
+                       UIDevice.current.userInterfaceIdiom == .pad {
+                        view
+                            .scrollContentBackground(.visible)
+                    }
+                }
             }
             else if !entries.isEmpty {
                 List {
@@ -313,6 +320,13 @@ struct EntriesPage: View {
                         .listRowInsets(.listRow)
                 }
                 .listStyle(.plain)
+                .apply { view in
+                    if #available(iOS 26, *),
+                       UIDevice.current.userInterfaceIdiom == .pad {
+                        view
+                            .scrollContentBackground(.visible)
+                    }
+                }
             }
             else {
                 List {

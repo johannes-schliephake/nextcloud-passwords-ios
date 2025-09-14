@@ -198,7 +198,7 @@ struct EditPasswordPage: View {
                         EmptyView()
                     }
                     .fixedSize()
-                    .colorScheme(.dark)
+                    .preferredColorScheme(didAutoAddOtp ? .dark : nil)
                 }
             }
         }
