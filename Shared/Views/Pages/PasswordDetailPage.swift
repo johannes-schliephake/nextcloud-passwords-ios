@@ -28,6 +28,8 @@ struct PasswordDetailPage: View {
     @ScaledMetric private var upcomingOtpFontSize = 12
     @ScaledMetric private var otpLabelsDistance = 6
     
+    private let iOS26 = if #available(iOS 26, *) { true } else { false }
+    
     // MARK: Views
     
     var body: some View {
@@ -258,7 +260,6 @@ struct PasswordDetailPage: View {
         }
         .buttonStyle(.borderless)
         .apply { view in
-            let iOS26 = if #available(iOS 26, *) { true } else { false }
             if !iOS26 || UIDevice.current.userInterfaceIdiom == .pad {
                 view
                     .tooltip(isPresented: $showPasswordStatusTooltip) {
@@ -397,7 +398,6 @@ struct PasswordDetailPage: View {
     
     private func tagsSection(validTags: [Tag]) -> some View {
         Section {
-            let iOS26 = if #available(iOS 26, *) { true } else { false }
             if iOS26 || !validTags.isEmpty {
                 let aligment: HorizontalAlignment = iOS26 ? .leading : .center
                 FlowView(alignment: aligment) {
@@ -484,7 +484,7 @@ struct PasswordDetailPage: View {
             if #unavailable(iOS 26) {
                 LabeledRow(type: .text, label: "_name", value: password.label, copiable: true)
             }
-            if !password.url.isEmpty {
+            if !password.url.isEmpty || !iOS26 {
                 LabeledRow(type: .url, label: "_url", value: password.url, copiable: true)
             }
         } header: {
@@ -496,7 +496,7 @@ struct PasswordDetailPage: View {
     
     private func accountSection() -> some View {
         Section {
-            if !password.username.isEmpty {
+            if !password.username.isEmpty || !iOS26 {
                 LabeledRow(type: .nonLinguisticText, label: "_username", value: password.username, copiable: true)
             }
             LabeledRow(type: .secret, label: "_password", value: password.password, copiable: true)
@@ -574,7 +574,7 @@ struct PasswordDetailPage: View {
                 }
             }
         } header: {
-            if !password.username.isEmpty || password.otp != nil {
+            if !password.username.isEmpty || password.otp != nil || !iOS26 {
                 Text("_account")
             }
         }
