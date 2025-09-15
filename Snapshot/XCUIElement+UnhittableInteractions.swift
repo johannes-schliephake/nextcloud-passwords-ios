@@ -4,12 +4,12 @@ import XCTest
 extension XCUIElement {
     
     /// Inspired by https://github.com/devexperts/screenobject/blob/master/Sources/ScreenObject/XCTestExtensions/XCUIElement%2BExtensions.swift
-    func tapUnhittable() {
-        coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+    func tapUnhittable(offset: CGVector = .init(dx: 0.5, dy: 0.5)) {
+        coordinate(withNormalizedOffset: offset).tap()
     }
     
-    func pressUnhittable(forDuration duration: TimeInterval) {
-        coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).press(forDuration: duration)
+    func pressUnhittable(offset: CGVector = .init(dx: 0.5, dy: 0.5), forDuration duration: TimeInterval) {
+        coordinate(withNormalizedOffset: offset).press(forDuration: duration)
     }
     
 }

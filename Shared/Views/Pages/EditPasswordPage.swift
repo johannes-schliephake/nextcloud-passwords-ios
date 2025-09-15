@@ -16,8 +16,8 @@ struct EditPasswordPage: View {
     @State private var sheetItem: SheetItem?
     @State private var showAboutOtpsTooltip = false
     @State private var showPhotosPicker = false
-    @State private var showDeleteAlert = false
-    @State private var showCancelAlert = false
+    @State private var showDeletionConfirmation = false
+    @State private var showCancellationConfirmation = false
     
     private var didAutoAddOtp: Bool {
         guard let receivedOtp = autoFillController.receivedOtp else {
@@ -34,6 +34,7 @@ struct EditPasswordPage: View {
     
     var body: some View {
         listView()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_password")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -43,7 +44,7 @@ struct EditPasswordPage: View {
                     confirmButton()
                 }
             }
-            .initialize(focus: $focusedField, with: editPasswordController.password.id.isEmpty ? .passwordLabel : nil)
+            .initialize(focus: $focusedField, with: editPasswordController.password.label.isEmpty ? .passwordLabel : nil)
             .interactiveDismissDisabled(editPasswordController.hasChanges)
             .environment(\.editMode, .constant(editMode ? .active : .inactive))
             .onAppear {
@@ -68,32 +69,6 @@ struct EditPasswordPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Button {
-                    focusedField = focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
-                }
-                label: {
-                    Image(systemName: "chevron.up")
-                }
-                .disabled(focusedField?.previous(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
-                Button {
-                    focusedField = focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id })
-                }
-                label: {
-                    Image(systemName: "chevron.down")
-                }
-                .disabled(focusedField?.next(customUserFieldIds: editPasswordController.passwordCustomUserFields.map { $0.id }) == nil)
-                Spacer()
-                Button {
-                    focusedField = nil
-                }
-                label: {
-                    Text("_dismiss")
-                        .bold()
-                }
-            }
-        }
         .onSubmit {
             guard sheetItem == nil else { /// Prevent submit handling when page is not visible
                 return
@@ -105,20 +80,14 @@ struct EditPasswordPage: View {
                 applyAndDismiss()
             }
         }
-        .apply {
-            view in
-            if #available(iOS 16, *) {
-                view
-                    .photosPicker(isPresented: $showPhotosPicker, selection: Binding(get: {
-                        nil
-                    }, set: { selection in
-                        guard let selection else {
-                            return
-                        }
-                        editPasswordController.extractOtp(from: selection)
-                    }), matching: .images)
+        .photosPicker(isPresented: $showPhotosPicker, selection: Binding(get: {
+            nil
+        }, set: { selection in
+            guard let selection else {
+                return
             }
-        }
+            editPasswordController.extractOtp(from: selection)
+        }), matching: .images)
         .sheet(item: $sheetItem) {
             item in
             switch item {
@@ -131,13 +100,6 @@ struct EditPasswordPage: View {
                 CaptureOTPNavigation {
                     otp in
                     editPasswordController.passwordOtp = otp
-                }
-            case .detectQrCode:
-                if #unavailable(iOS 16) {
-                    ImagePicker {
-                        image in
-                        editPasswordController.extractOtp(from: image)
-                    }
                 }
             case .selectTags:
                 SelectTagsNavigation(temporaryEntry: .password(label: editPasswordController.passwordLabel, username: editPasswordController.passwordUsername, url: editPasswordController.passwordUrl, tags: editPasswordController.passwordValidTags.map { $0.id } + editPasswordController.passwordInvalidTags), selectTags: {
@@ -181,10 +143,10 @@ struct EditPasswordPage: View {
                                     Text(preferredUsername)
                                         .tint(editPasswordController.passwordUsername == preferredUsername ? .white : Color(.secondaryLabel))
                                         .font(.subheadline)
-                                        .padding(.horizontal, 11)
+                                        .padding(.horizontal, 10)
                                         .padding(.vertical, 6)
                                         .background(
-                                            RoundedRectangle(cornerRadius: .infinity)
+                                            Capsule()
                                                 .fill(editPasswordController.passwordUsername == preferredUsername ? .gray : Color(.systemGroupedBackground))
                                         )
                                 }
@@ -192,12 +154,7 @@ struct EditPasswordPage: View {
                             }
                         }
                     }
-                    .apply { view in
-                        if #available(iOS 16, *) {
-                            view
-                                .scrollIndicators(.hidden)
-                        }
-                    }
+                    .scrollIndicators(.hidden)
                     .apply { view in
                         if #available(iOS 17, *) {
                             view
@@ -235,11 +192,13 @@ struct EditPasswordPage: View {
                             .foregroundColor(didAutoAddOtp ? .white : .green)
                     }
                     Spacer()
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink {
+                        EmptyView()
+                    } label: {
                         EmptyView()
                     }
                     .fixedSize()
-                    .tint(didAutoAddOtp ? .white : .primary)
+                    .preferredColorScheme(didAutoAddOtp ? .dark : nil)
                 }
             }
         }
@@ -259,11 +218,21 @@ struct EditPasswordPage: View {
                     Button {
                         showAboutOtpsTooltip = false
                         didAcceptAboutOtps = true
-                    }
-                    label: {
+                    } label: {
                         Text("_confirm")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, minHeight: 34)
                     }
-                    .buttonStyle(.action)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .buttonStyle(.glassProminent)
+                        } else {
+                            view
+                                .buttonStyle(.action)
+                        }
+                    }
                 }
             }
         }
@@ -277,12 +246,7 @@ struct EditPasswordPage: View {
                 }
                 .disabled(UIApplication.isExtension)
                 Button {
-                    if #available(iOS 16, *) {
-                        showPhotosPicker = true
-                    }
-                    else {
-                        sheetItem = .detectQrCode
-                    }
+                    showPhotosPicker = true
                 }
                 label: {
                     Label("_detectQrCodeInPicture", systemImage: "photo")
@@ -301,6 +265,7 @@ struct EditPasswordPage: View {
                 Label("_addOtp", systemImage: "123.rectangle")
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .menuOrder(.fixed)
             .disabled(editPasswordController.passwordCustomFieldCount >= 20)
             .alert(isPresented: $editPasswordController.showExtractOtpErrorAlert) {
                 Alert(title: Text("_error"), message: Text("_extractOtpErrorMessage"))
@@ -309,24 +274,7 @@ struct EditPasswordPage: View {
     }
     
     private func customFieldsSection() -> some View {
-        Section(header: HStack {
-            Text("_customFields")
-            Spacer()
-            Button {
-                editMode.toggle()
-            }
-            label: {
-                if editMode {
-                    Text("_done")
-                }
-                else {
-                    Text("_edit")
-                }
-            }
-            .disabled(editPasswordController.passwordCustomUserFields.isEmpty)
-            .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { editMode = editMode && !$0 }
-        }
-            .font(.footnote)) {
+        Section(header: customFieldsSectionHeader()) {
             ForEach($editPasswordController.passwordCustomUserFields) {
                 $customUserField in
                 HStack {
@@ -348,14 +296,9 @@ struct EditPasswordPage: View {
                         Image(systemName: customUserField.type.systemName)
                             .frame(minWidth: customFieldTypeIconWidth, maxHeight: .infinity, alignment: .leading)
                     }
+                    .menuOrder(.fixed)
                     .fixedSize(horizontal: false, vertical: true)
-                    .apply {
-                        view in
-                        if #available(iOS 16, *) {
-                            view
-                                .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
-                        }
-                    }
+                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
                     Spacer()
                     VStack {
                         EditLabeledRow(type: .text, label: "_name", value: $customUserField.label)
@@ -392,6 +335,32 @@ struct EditPasswordPage: View {
         }
     }
     
+    private func customFieldsSectionHeader() -> some View {
+        HStack {
+            Text("_customFields")
+            Spacer()
+            Button {
+                editMode.toggle()
+            }
+            label: {
+                if editMode {
+                    Text("_done")
+                }
+                else {
+                    Text("_edit")
+                }
+            }
+            .disabled(editPasswordController.passwordCustomUserFields.isEmpty)
+            .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { editMode = editMode && !$0 }
+        }
+        .apply { view in
+            if #unavailable(iOS 26) {
+                view
+                    .font(.footnote)
+            }
+        }
+    }
+    
     private func notesSection() -> some View {
         Section(header: Text("_notes")) {
             TextView("-", text: $editPasswordController.passwordNotes)
@@ -421,25 +390,18 @@ struct EditPasswordPage: View {
                         Label("_addTags", systemImage: "tag")
                     }
                     else {
-                        if #available(iOS 16, *) {
-                            FlowView(alignment: .leading) {
-                                ForEach(editPasswordController.passwordValidTags.sorted()) {
-                                    tag in
-                                    TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
-                                }
-                            }
-                            .padding(.vertical, 3)
-                        }
-                        else {
-                            LegacyFlowView(editPasswordController.passwordValidTags.sorted(), alignment: .leading) {
+                        FlowView(alignment: .leading) {
+                            ForEach(editPasswordController.passwordValidTags.sorted()) {
                                 tag in
                                 TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
                             }
-                            .padding(.vertical, 6)
                         }
+                        .padding(.vertical, 3)
                     }
                     Spacer()
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink {
+                        EmptyView()
+                    } label: {
                         EmptyView()
                     }
                     .fixedSize()
@@ -458,7 +420,9 @@ struct EditPasswordPage: View {
                 HStack {
                     Label(editPasswordController.folderLabel, systemImage: "folder")
                     Spacer()
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink {
+                        EmptyView()
+                    } label: {
                         EmptyView()
                     }
                     .fixedSize()
@@ -470,7 +434,7 @@ struct EditPasswordPage: View {
     
     private func deleteButton() -> some View {
         Button(role: .destructive) {
-            showDeleteAlert = true
+            showDeletionConfirmation = true
         }
         label: {
             HStack {
@@ -479,27 +443,43 @@ struct EditPasswordPage: View {
                 Spacer()
             }
         }
-        .actionSheet(isPresented: $showDeleteAlert) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+        .confirmationDialog("_confirmAction", isPresented: $showDeletionConfirmation) {
+            Button("_deletePassword", role: .destructive) {
                 deleteAndDismiss()
-            }])
+            }
         }
     }
     
     private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            cancelAndDismiss()
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .cancel) {
+                    cancelAndDismiss()
+                }
+            } else {
+                Button("_cancel", role: .cancel) {
+                    cancelAndDismiss()
+                }
+            }
         }
-        .actionSheet(isPresented: $showCancelAlert) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+        .confirmationDialog("_confirmAction", isPresented: $showCancellationConfirmation) {
+            Button("_discardChanges", role: .destructive) {
                 dismiss()
-            }])
+            }
         }
     }
     
     private func confirmButton() -> some View {
-        Button(editPasswordController.password.id.isEmpty ? "_create" : "_done") {
-            applyAndDismiss()
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    applyAndDismiss()
+                }
+            } else {
+                Button(editPasswordController.password.id.isEmpty ? "_create" : "_done") {
+                    applyAndDismiss()
+                }
+            }
         }
         .disabled(!editPasswordController.editIsValid)
     }
@@ -508,7 +488,7 @@ struct EditPasswordPage: View {
     
     private func cancelAndDismiss() {
         if editPasswordController.hasChanges {
-            showCancelAlert = true
+            showCancellationConfirmation = true
         }
         else {
             dismiss()
@@ -542,7 +522,6 @@ extension EditPasswordPage {
         
         case edit(otp: OTP)
         case scanQrCode
-        case detectQrCode
         case selectTags
         case selectFolder
         
@@ -569,29 +548,6 @@ extension EditPasswordPage {
         case passwordUsername
         case passwordPassword
         case passwordCustomFields(id: UUID, row: CustomFieldRow)
-        
-        func previous(customUserFieldIds: [UUID]) -> Self? {
-            switch self {
-            case .passwordLabel:
-                return nil
-            case .passwordUrl:
-                return .passwordLabel
-            case .passwordUsername:
-                return .passwordUrl
-            case .passwordPassword:
-                return .passwordUsername
-            case .passwordCustomFields(let id, let row):
-                switch row {
-                case .label:
-                    guard let previousId = customUserFieldIds.reversed().reduce(Optional(id), { $0 == nil ? $1 : $0 == $1 ? nil : $0 }) else {
-                        return .passwordPassword
-                    }
-                    return .passwordCustomFields(id: previousId, row: .value)
-                case .value:
-                    return .passwordCustomFields(id: id, row: .label)
-                }
-            }
-        }
         
         func next(customUserFieldIds: [UUID]) -> Self? {
             switch self {

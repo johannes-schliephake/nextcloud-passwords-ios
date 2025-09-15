@@ -1,3 +1,9 @@
+## [v2.10] - 2025-09-15
+- iOS 26 compatibility
+- iOS 26 redesign
+- Prefilled name when creating a password from AutoFill
+- Bugfixes and optimizations
+
 ## [v2.9] - 2025-08-10
 - On-device password generator
 - Italian translation (Thanks Luca!)

@@ -16,16 +16,30 @@ struct TagBadge: View {
                 .multilineTextAlignment(.leading)
                 .foregroundColor(.primary.opacity(0.6))
         }
-        .padding(.horizontal, 6)
-        .padding(.vertical, 4)
-        .background(
-            ZStack {
-                RoundedRectangle(cornerRadius: 5)
-                    .fill(baseColor)
-                RoundedRectangle(cornerRadius: 5)
-                    .fill((Color(hex: tag.color) ?? .primary).opacity(0.3))
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .padding(.init(top: 6, leading: 6, bottom: 6, trailing: 10))
+            } else {
+                view
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 4)
             }
-        )
+        }
+        .background {
+            if #available(iOS 26, *) {
+                Capsule()
+                    .fill(Color(.systemBackground))
+                    .fill((Color(hex: tag.color) ?? .primary).opacity(0.3))
+            } else {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 5)
+                        .fill(baseColor)
+                    RoundedRectangle(cornerRadius: 5)
+                        .fill((Color(hex: tag.color) ?? .primary).opacity(0.3))
+                }
+            }
+        }
     }
     
 }

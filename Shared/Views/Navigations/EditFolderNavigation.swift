@@ -12,17 +12,10 @@ struct EditFolderNavigation: View {
     // MARK: Views
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             EditFolderPage(viewModel: resolve(\.editFolderViewModelType).init(folder: folder, didEdit: didEdit).eraseToAnyViewModel())
         }
-        .showColumns(false)
-        .apply {
-            view in
-            if #available(iOS 16, *) {
-                view
-                    .scrollDismissesKeyboard(.interactively)
-            }
-        }
+        .scrollDismissesKeyboard(.immediately)
         .occlude(biometricAuthenticationController.hideContents)
     }
     

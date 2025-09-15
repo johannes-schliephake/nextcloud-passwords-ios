@@ -22,6 +22,7 @@ struct ServerSetupPage: View {
                     .sync($viewModel[\.focusedField], to: _focusedField)
             }
         }
+        .navigationBarTitleDisplayMode(.large)
         .navigationTitle("_connectToServer")
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
@@ -55,45 +56,31 @@ struct ServerSetupPage: View {
             serverAddressField()
         }
         .listStyle(.insetGrouped)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button {
-                    viewModel(.dismissKeyboard)
-                } label: {
-                    Text("_dismiss")
-                        .bold()
-                }
-            }
-        }
     }
     
     private func serverAddressField() -> some View {
         Section(header: Text("_nextcloudServerAddress"), footer: serverAddressFieldFooter()) {
-            ZStack {
-                if let challenge = viewModel[\.challenge] {
-                    NavigationLink(destination: LoginFlowPage(viewModel: resolve(\.loginFlowViewModelType).init(challenge: challenge).eraseToAnyViewModel()), isActive: $viewModel[\.showLoginFlowPage]) {}
-                        .isDetailLink(false)
-                        .frame(width: 0, height: 0)
-                        .hidden()
-                }
-                HStack {
-                    TextField("-", text: $viewModel[\.serverAddress])
-                        .textContentType(.URL)
-                        .keyboardType(.URL)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .focused($focusedField, equals: .serverAddress)
-                        .submitLabel(.done)
-                        .onSubmit {
-                            if viewModel[\.challengeAvailable] {
-                                viewModel(.connect)
-                            }
+            HStack {
+                TextField("-", text: $viewModel[\.serverAddress])
+                    .textContentType(.URL)
+                    .keyboardType(.URL)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .focused($focusedField, equals: .serverAddress)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        if viewModel[\.challengeAvailable] {
+                            viewModel(.connect)
                         }
-                    if viewModel[\.isValidating] {
-                        Spacer()
-                        ProgressView()
                     }
+                if viewModel[\.isValidating] {
+                    Spacer()
+                    ProgressView()
+                }
+            }
+            .navigationDestination(isPresented: $viewModel[\.showLoginFlowPage]) {
+                if let challenge = viewModel[\.challenge] {
+                    LoginFlowPage(viewModel: resolve(\.loginFlowViewModelType).init(challenge: challenge).eraseToAnyViewModel())
                 }
             }
         }
@@ -106,15 +93,29 @@ struct ServerSetupPage: View {
             .padding(.vertical, 6)
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 26, *) {
+            Button(role: .cancel) {
+                viewModel(.cancel)
+            }
+        } else {
+            Button("_cancel", role: .cancel) {
+                viewModel(.cancel)
+            }
         }
     }
     
     private func connectButton() -> some View {
-        Button("_connect") {
-            viewModel(.connect)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    viewModel(.connect)
+                }
+            } else {
+                Button("_connect") {
+                    viewModel(.connect)
+                }
+            }
         }
         .enabled(viewModel[\.challengeAvailable])
     }

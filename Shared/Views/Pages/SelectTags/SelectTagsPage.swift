@@ -9,6 +9,7 @@ struct SelectTagsPage: View {
     
     var body: some View {
         mainStack()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_editTags")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -23,25 +24,29 @@ struct SelectTagsPage: View {
     }
     
     private func mainStack() -> some View {
-        VStack(spacing: 0) {
-            VStack {
-                Group {
-                    switch viewModel[\.temporaryEntry] {
-                    case .password(let label, let username, let url, _):
-                        PasswordRow(label: label, username: username, url: url)
+        listView()
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .safeAreaPadding(.bottom, 20)
+                        .toolbar {
+                            ToolbarItem(placement: .bottomBar) {
+                                row()
+                            }
+                        }
+                } else {
+                    VStack(spacing: 0) {
+                        row()
+                            .background(Color(UIColor.secondarySystemBackground))
+                            .cornerRadius(10)
+                            .padding(.top, 1)
+                            .padding([.horizontal, .bottom])
+                        Divider()
+                            .padding(.leading)
+                        view
                     }
                 }
-                .padding(.vertical, 6)
-                .padding(.horizontal)
             }
-            .background(Color(UIColor.secondarySystemBackground))
-            .cornerRadius(10)
-            .padding(.top, 1)
-            .padding([.horizontal, .bottom])
-            Divider()
-                .padding(.leading)
-            listView()
-        }
     }
     
     private func listView() -> some View {
@@ -57,26 +62,27 @@ struct SelectTagsPage: View {
                 }
             }
             .listRowSeparator(.hidden)
-            .apply {
-                view in
-                if #available(iOS 16, *) {
-                    view
-                        .listRowInsets(.listRow)
-                }
-            }
+            .listRowInsets(.listRow)
         }
         .listStyle(.plain)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button {
-                    viewModel(.dismissKeyboard)
-                } label: {
-                    Text("_dismiss")
-                        .bold()
-                }
+        .apply { view in
+            if #available(iOS 26, *),
+               UIDevice.current.userInterfaceIdiom == .pad {
+                view
+                    .scrollContentBackground(.visible)
             }
         }
+    }
+    
+    private func row() -> some View {
+        Group {
+            switch viewModel[\.temporaryEntry] {
+            case .password(let label, let username, let url, _):
+                PasswordRow(label: label, username: username, url: url)
+            }
+        }
+        .padding(.vertical, 6)
+        .padding(.horizontal)
     }
     
     private func addTagBadge() -> some View {
@@ -93,54 +99,105 @@ struct SelectTagsPage: View {
                     }
                 }
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 7)
-        .background(
-            RoundedRectangle(cornerRadius: 5.7)
-                .strokeBorder(Color(.placeholderText), style: StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
-        )
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 9)
+            } else {
+                view
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 7)
+            }
+        }
+        .background {
+            if #available(iOS 26, *) {
+                Capsule()
+                    .strokeBorder(Color(.placeholderText), style: StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
+            } else {
+                RoundedRectangle(cornerRadius: 5.7)
+                    .strokeBorder(Color(.placeholderText), style: StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
+            }
+        }
     }
     
     private func toggleTagBadge(tag: Tag, isSelected: Bool) -> some View {
-        HStack(spacing: 10) {
-            Circle()
-                .fill(Color(hex: tag.color) ?? .primary)
-                .frame(width: 15.8, height: 15.8)
-            Text(tag.label)
-                .multilineTextAlignment(.leading)
-                .foregroundColor(.primary.opacity(0.6))
-                .frame(maxWidth: .infinity, alignment: .leading)
-            Image(systemName: "checkmark")
-                .font(.body.bold())
-                .foregroundColor(Color(hex: tag.color) ?? .primary)
-                .opacity(isSelected ? 1 : 0)
-        }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 8)
-        .background(
-            ZStack {
-                RoundedRectangle(cornerRadius: 5.7)
-                    .fill(Color(UIColor { $0.userInterfaceStyle == .dark ? .black : .secondarySystemBackground }))
-                RoundedRectangle(cornerRadius: 5.7)
-                    .fill((Color(hex: tag.color) ?? .primary).opacity(0.3))
-                    .opacity(isSelected ? 1 : 0)
-            }
-        )
-        .animation(.easeInOut(duration: 0.2), value: isSelected)
-        .onTapGesture {
+        Button {
             viewModel(.toggleTag(tag))
+        } label: {
+            HStack(spacing: 10) {
+                Circle()
+                    .fill(Color(hex: tag.color) ?? .primary)
+                    .frame(width: 15.8, height: 15.8)
+                Text(tag.label)
+                    .multilineTextAlignment(.leading)
+                    .foregroundColor(.primary.opacity(0.6))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Image(systemName: "checkmark")
+                    .font(.body.bold())
+                    .foregroundColor(Color(hex: tag.color) ?? .primary)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .symbolEffect(.drawOn, isActive: !isSelected)
+                        } else {
+                            view
+                                .opacity(isSelected ? 1 : 0)
+                        }
+                    }
+            }
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .padding(10)
+                } else {
+                    view
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 8)
+                }
+            }
+            .background {
+                if #available(iOS 26, *) {
+                    Capsule()
+                        .fill(isSelected ? Color(.systemBackground) : Color(.secondarySystemBackground))
+                        .fill((Color(hex: tag.color) ?? .primary).opacity(isSelected ? 0.3 : 0))
+                } else {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 5.7)
+                            .fill(Color(UIColor { $0.userInterfaceStyle == .dark ? .black : .secondarySystemBackground }))
+                        RoundedRectangle(cornerRadius: 5.7)
+                            .fill((Color(hex: tag.color) ?? .primary).opacity(0.3))
+                            .opacity(isSelected ? 1 : 0)
+                    }
+                }
+            }
         }
+        .buttonStyle(.borderless)
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 26, *) {
+            Button(role: .cancel) {
+                viewModel(.cancel)
+            }
+        } else {
+            Button("_cancel", role: .cancel) {
+                viewModel(.cancel)
+            }
         }
     }
     
     private func confirmButton() -> some View {
-        Button("_done") {
-            viewModel(.selectTags)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    viewModel(.selectTags)
+                }
+            } else {
+                Button("_done") {
+                    viewModel(.selectTags)
+                }
+            }
         }
         .enabled(viewModel[\.hasChanges])
     }
@@ -166,7 +223,15 @@ extension SelectTagsPage {
                     .resizable()
                     .frame(width: 40, height: 40)
                     .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
-                    .cornerRadius(3.75)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .cornerRadius(6)
+                        } else {
+                            view
+                                .cornerRadius(3.75)
+                        }
+                    }
                     .onAppear {
                         requestFavicon()
                     }

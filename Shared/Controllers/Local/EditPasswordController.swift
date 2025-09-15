@@ -54,6 +54,20 @@ final class EditPasswordController: ObservableObject {
             .map { $0.map { Array($0.prefix(5)) } }
             .sink { [weak self] in self?.preferredUsernames = $0 }
             .store(in: &cancellables)
+        
+        if #available(iOS 26, *),
+              password.id.isEmpty {
+            @Injected(\.urlLabelSuggestionRepository) var urlLabelSuggestionRepository
+            do {
+                guard let suggestedLabel = try urlLabelSuggestionRepository[\.suggestedLabel]?.get() else {
+                    return
+                }
+                passwordLabel = suggestedLabel
+            } catch {
+                @Injected(\.logger) var logger
+                logger.log(error: error)
+            }
+        }
     }
     
     var folderLabel: String {
@@ -87,7 +101,7 @@ final class EditPasswordController: ObservableObject {
         passwordCustomUserFields.count + password.customDataFields.count + (passwordOtp != nil ? 1 : 0)
     }
     
-    @available(iOS 16, *) func extractOtp(from selection: PhotosPickerItem) {
+    func extractOtp(from selection: PhotosPickerItem) {
         selection.loadTransferable(type: Data.self) {
             [weak self] result in
             guard let data = try? result.get(),

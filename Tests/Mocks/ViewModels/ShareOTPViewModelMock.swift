@@ -14,7 +14,7 @@ final class ShareOTPViewModelMock: ViewModelMock<ShareOTPViewModel.State, ShareO
 extension ShareOTPViewModel.State: Mock {
     
     convenience init() {
-        self.init(qrCode: .init(systemName: "qrcode"), qrCodeAvailable: true, showShareSheet: false)
+        self.init(qrCode: .init(systemName: "qrcode"), qrCodeAvailable: true)
     }
     
 }

@@ -3,7 +3,7 @@ import Combine
 import Factory
 
 
-protocol ShareOTPViewModelProtocol: ViewModel where State == ShareOTPViewModel.State, Action == ShareOTPViewModel.Action {
+protocol ShareOTPViewModelProtocol: ViewModel where State == ShareOTPViewModel.State {
     
     init(otpUrl: URL)
     
@@ -16,18 +16,12 @@ final class ShareOTPViewModel: ShareOTPViewModelProtocol {
         
         @Published fileprivate(set) var qrCode: UIImage?
         @Published fileprivate(set) var qrCodeAvailable: Bool
-        @Published var showShareSheet: Bool
         
-        init(qrCode: UIImage?, qrCodeAvailable: Bool, showShareSheet: Bool) {
+        init(qrCode: UIImage?, qrCodeAvailable: Bool) {
             self.qrCode = qrCode
             self.qrCodeAvailable = qrCodeAvailable
-            self.showShareSheet = showShareSheet
         }
         
-    }
-    
-    enum Action {
-        case share
     }
     
     @Injected(\.qrCodeService) private var qrCodeService
@@ -39,7 +33,7 @@ final class ShareOTPViewModel: ShareOTPViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init(otpUrl: URL) {
-        state = .init(qrCode: nil, qrCodeAvailable: false, showShareSheet: false)
+        state = .init(qrCode: nil, qrCodeAvailable: false)
         self.otpUrl = otpUrl
         
         setupPipelines()
@@ -60,13 +54,6 @@ final class ShareOTPViewModel: ShareOTPViewModelProtocol {
                 self?.state.qrCodeAvailable = true
             }
             .store(in: &cancellables)
-    }
-    
-    func callAsFunction(_ action: Action) {
-        switch action {
-        case .share:
-            state.showShareSheet = true
-        }
     }
     
 }

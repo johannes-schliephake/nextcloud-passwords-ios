@@ -9,6 +9,7 @@ struct EditFolderPage: View {
     
     var body: some View {
         listView()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_folder")
             .interactiveDismissDisabled(viewModel[\.hasChanges])
             .toolbar {
@@ -33,17 +34,6 @@ struct EditFolderPage: View {
             }
         }
         .listStyle(.insetGrouped)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button {
-                    viewModel(.dismissKeyboard)
-                } label: {
-                    Text("_dismiss")
-                        .bold()
-                }
-            }
-        }
     }
     
     private func folderLabelField() -> some View {
@@ -77,7 +67,9 @@ struct EditFolderPage: View {
                 HStack {
                     Label(viewModel[\.parentLabel], systemImage: "folder")
                     Spacer()
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink {
+                        EmptyView()
+                    } label: {
                         EmptyView()
                     }
                     .fixedSize()
@@ -102,27 +94,43 @@ struct EditFolderPage: View {
                 Spacer()
             }
         }
-        .actionSheet(isPresented: $viewModel[\.showDeleteAlert]) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
+        .confirmationDialog("_confirmAction", isPresented: $viewModel[\.showDeletionConfirmation]) {
+            Button("_deleteFolder", role: .destructive) {
                 viewModel(.confirmDelete)
-            }])
+            }
         }
     }
     
     private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .cancel) {
+                    viewModel(.cancel)
+                }
+            } else {
+                Button("_cancel", role: .cancel) {
+                    viewModel(.cancel)
+                }
+            }
         }
-        .actionSheet(isPresented: $viewModel[\.showCancelAlert]) {
-            ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_discardChanges")) {
+        .confirmationDialog("_confirmAction", isPresented: $viewModel[\.showCancellationConfirmation]) {
+            Button("_discardChanges", role: .destructive) {
                 viewModel(.discardChanges)
-            }])
+            }
         }
     }
     
     private func confirmButton() -> some View {
-        Button(viewModel[\.isCreating] ? "_create" : "_done") {
-            viewModel(.applyToFolder)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    viewModel(.applyToFolder)
+                }
+            } else {
+                Button(viewModel[\.isCreating] ? "_create" : "_done") {
+                    viewModel(.applyToFolder)
+                }
+            }
         }
         .enabled(viewModel[\.editIsValid])
     }

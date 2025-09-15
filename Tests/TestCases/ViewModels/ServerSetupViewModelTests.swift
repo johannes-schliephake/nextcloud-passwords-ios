@@ -305,13 +305,4 @@ final class ServerSetupViewModelTests: XCTestCase {
         expect(serverSetupViewModel[\.shouldDismiss]).to(emit(when: { serverSetupViewModel(.cancel) }))
     }
     
-    func testCallAsFunction_whenCallingDismissKeyboard_thenSetsFocusedFieldToNil() {
-        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
-        serverSetupViewModel[\.focusedField] = .serverAddress
-        
-        serverSetupViewModel(.dismissKeyboard)
-        
-        expect(serverSetupViewModel[\.focusedField]).to(beNil())
-    }
-    
 }

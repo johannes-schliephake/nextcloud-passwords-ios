@@ -8,9 +8,10 @@ struct SettingsPage: View {
     
     var body: some View {
         listView()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_settings")
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
+                ToolbarItem(placement: .primaryAction) {
                     doneButton()
                 }
             }
@@ -57,18 +58,13 @@ struct SettingsPage: View {
                     Spacer()
                 }
             }
-            .actionSheet(isPresented: $viewModel[\.showLogoutAlert]) {
-                ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_logOut")) {
+            .confirmationDialog("_confirmAction", isPresented: $viewModel[\.showLogoutAlert]) {
+                Button("_logOut", role: .destructive) {
                     viewModel(.confirmLogout)
-                }])
+                }
             }
         }
-        .apply { view in
-            if #available(iOS 16, *) {
-                view
-                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
-            }
-        }
+        .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
     }
     
     private func optionsSection() -> some View {
@@ -98,20 +94,22 @@ struct SettingsPage: View {
     
     private func enableProviderSection() -> some View {
         Section(header: Text("_integration")) {
-            if #available(iOS 17, *),
-               let attributedString = try? AttributedString(markdown: Strings.providerInstructionsMessageWithLink, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
-                Text(attributedString)
-                    .environment(\.openURL, .init { url in
-                        viewModel(.openProviderSettingsUrl(url))
-                        return .handled
-                    })
-            } else {
-                Text("_providerInstructionsMessage")
+            Group {
+                if #available(iOS 17, *),
+                   let attributedString = try? AttributedString(markdown: Strings.providerInstructionsMessageWithLink, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
+                    Text(attributedString)
+                        .environment(\.openURL, .init { url in
+                            viewModel(.openProviderSettingsUrl(url))
+                            return .handled
+                        })
+                } else {
+                    Text("_providerInstructionsMessage")
+                }
             }
+            .font(.footnote)
+            .foregroundColor(.gray)
+            .monospacedDigit()
         }
-        .font(.footnote)
-        .foregroundColor(.gray)
-        .monospacedDigit()
         .listRowBackground(Color(UIColor.systemGroupedBackground))
     }
     
@@ -137,6 +135,7 @@ struct SettingsPage: View {
                     }
                 }
             }
+            .menuOrder(.fixed)
             .enabled(viewModel[\.canPurchaseTip])
             if !viewModel[\.isTestFlight],
                let betaUrl = viewModel[\.betaUrl] {
@@ -145,12 +144,7 @@ struct SettingsPage: View {
                 }
             }
         }
-        .apply { view in
-            if #available(iOS 16, *) {
-                view
-                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
-            }
-        }
+        .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
     }
     
     @ViewBuilder private func supportThisProjectFooter() -> some View {
@@ -173,15 +167,7 @@ struct SettingsPage: View {
                                     .typesettingLanguage(.init(languageCode: .english))
                             }
                         }
-                        .apply { view in
-                            if #available(iOS 16, *) {
-                                view
-                                    .environment(\.locale, .init(languageCode: .english))
-                            } else {
-                                view
-                                    .environment(\.locale, .init(identifier: "en"))
-                            }
-                        }
+                        .environment(\.locale, .init(languageCode: .english))
                 }
                 .isDetailLink(false)
             }
@@ -192,12 +178,7 @@ struct SettingsPage: View {
                 }
             }
         }
-        .apply { view in
-            if #available(iOS 16, *) {
-                view
-                    .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
-            }
-        }
+        .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
     }
     
     private func thanksSection() -> some View {
@@ -218,15 +199,7 @@ struct SettingsPage: View {
                                     .typesettingLanguage(.init(languageCode: .german))
                             }
                         }
-                        .apply { view in
-                            if #available(iOS 16, *) {
-                                view
-                                    .environment(\.locale, .init(languageCode: .german))
-                            } else {
-                                view
-                                    .environment(\.locale, .init(identifier: "de"))
-                            }
-                        }
+                        .environment(\.locale, .init(languageCode: .german))
                     Spacer()
                 }
             }
@@ -235,8 +208,19 @@ struct SettingsPage: View {
     }
     
     private func doneButton() -> some View {
-        Button("_done") {
-            viewModel(.done)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .close) {
+                    viewModel(.done)
+                }
+            } else {
+                Button {
+                    viewModel(.done)
+                } label: {
+                    Text("_done")
+                        .bold()
+                }
+            }
         }
     }
     

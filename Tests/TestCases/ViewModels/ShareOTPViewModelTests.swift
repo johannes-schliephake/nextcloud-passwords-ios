@@ -21,7 +21,6 @@ final class ShareOTPViewModelTests: XCTestCase {
         
         expect(shareOtpViewModel[\.qrCode]).to(beNil())
         expect(shareOtpViewModel[\.qrCodeAvailable]).to(beFalse())
-        expect(shareOtpViewModel[\.showShareSheet]).to(beFalse())
     }
     
     func testInit_thenCallsQrCodeService() {
@@ -75,12 +74,4 @@ final class ShareOTPViewModelTests: XCTestCase {
         expect(shareOtpViewModel[\.$qrCodeAvailable].dropFirst()).to(emit(true, onMainThread: true, when: { self.qrCodeServiceMock._generateQrCode.send(imageMock) }, from: .init()))
     }
     
-    func testCallAsFunction_whenCallingShare_thenSetsShowShareSheetToTrue() {
-        let shareOtpViewModel: any ShareOTPViewModelProtocol = ShareOTPViewModel(otpUrl: urlMock)
-        
-        shareOtpViewModel(.share)
-        
-        expect(shareOtpViewModel[\.showShareSheet]).to(beTrue())
-    }
-
 }

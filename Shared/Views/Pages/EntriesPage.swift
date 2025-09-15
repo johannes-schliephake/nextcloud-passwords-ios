@@ -20,7 +20,7 @@ struct EntriesPage: View {
     @State private var storeChallengePassword = false
     @State private var showStorePasswordTooltip = false
     @State private var sheetItem: SheetItem?
-    @State private var actionSheetItem: ActionSheetItem?
+    @State private var confirmationDialogItem: ConfirmationDialogItem?
     @State private var showFolderErrorAlert = false
     @State private var showTagErrorAlert = false
     @State private var showOfflineText = false
@@ -36,18 +36,8 @@ struct EntriesPage: View {
     var body: some View {
         mainStack()
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .navigation) {
                     leadingToolbarView()
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if sessionController.session != nil,
-                       entriesController.state != .error && sessionController.state != .error,
-                       !sessionController.state.isChallengeAvailable,
-                       entriesController.state == .offline || entriesController.state == .online,
-                       autoFillController.credentialIdentifier == nil,
-                       folderController.entries != nil {
-                        trailingToolbarView()
-                    }
                 }
                 ToolbarItem(placement: .principal) {
                     if entriesController.state == .offline || sessionController.state == .offlineChallengeAvailable {
@@ -55,6 +45,33 @@ struct EntriesPage: View {
                     }
                 }
             }
+            .apply { view in
+                let showTrailingToolbarView = sessionController.session != nil &&
+                                              entriesController.state != .error &&
+                                              sessionController.state != .error &&
+                                              !sessionController.state.isChallengeAvailable &&
+                                              (entriesController.state == .offline || entriesController.state == .online) &&
+                                              autoFillController.credentialIdentifier == nil &&
+                                              folderController.entries != nil
+                if #available(iOS 26, *) {
+                    view
+                        .toolbar {
+                            if showTrailingToolbarView {
+                                trailingToolbar()
+                            }
+                        }
+                } else {
+                    view
+                        .toolbar {
+                            ToolbarItem(placement: .primaryAction) {
+                                if showTrailingToolbarView {
+                                    trailingToolbarView()
+                                }
+                            }
+                        }
+                }
+            }
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle(navigationTitle)
             .onAppear {
                 folderController.autoFillController = autoFillController
@@ -119,10 +136,23 @@ struct EntriesPage: View {
     }
     
     private func connectView() -> some View {
-        Button("_connectToServer") {
+        Button {
             showServerSetupView = true
+        } label: {
+            Text("_connectToServer")
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, minHeight: 34)
         }
-        .buttonStyle(.action)
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .buttonStyle(.glassProminent)
+            } else {
+                view
+                    .buttonStyle(.action)
+            }
+        }
         .frame(maxWidth: 600)
         .padding()
         .sheet(isPresented: $showServerSetupView) {
@@ -131,27 +161,40 @@ struct EntriesPage: View {
     }
     
     private func errorView() -> some View {
-        List {
-            VStack(spacing: 8) {
-                Text("_anErrorOccurred")
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.gray)
-                    .padding()
-                Button {
-                    entriesController.refresh()
-                }
-                label: {
-                    Label("_tryAgain", systemImage: "arrow.clockwise")
-                }
-                .buttonStyle(.borderless)
+        List {}
+            .refreshable {
+                await entriesController.refresh()
             }
-            .frame(maxWidth: .infinity)
-            .listRowBackground(Color(UIColor.systemGroupedBackground))
-        }
-        .refreshable {
-            await entriesController.refresh()
-        }
-        .listStyle(.insetGrouped)
+            .listStyle(.insetGrouped)
+            .overlay {
+                VStack(spacing: 8) {
+                    Text("_anErrorOccurred")
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.gray)
+                        .padding()
+                    Button {
+                        entriesController.refresh()
+                    } label: {
+                        Label("_tryAgain", systemImage: "arrow.clockwise")
+                            .apply { view in
+                                if #available(iOS 26, *) {
+                                    view
+                                        .foregroundColor(.primary)
+                                        .frame(minHeight: 34)
+                                }
+                            }
+                    }
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .buttonStyle(.glass)
+                        } else {
+                            view
+                                .buttonStyle(.borderless)
+                        }
+                    }
+                }
+            }
     }
     
     private func challengeView() -> some View {
@@ -187,20 +230,28 @@ struct EntriesPage: View {
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
                 .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
-            Button("_logIn") {
+            Button {
                 solveChallenge()
+            } label: {
+                Text("_logIn")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, minHeight: 34)
             }
-            .buttonStyle(.action)
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .buttonStyle(.glassProminent)
+                } else {
+                    view
+                        .buttonStyle(.action)
+                }
+            }
             .listRowInsets(EdgeInsets())
             .disabled(challengePassword.count < 12)
         }
         .listStyle(.insetGrouped)
-        .apply { view in
-            if #available(iOS 16.4, *) {
-                view
-                    .scrollBounceBehavior(.basedOnSize)
-            }
-        }
+        .scrollBounceBehavior(.basedOnSize)
         .apply { view in
             if #available(iOS 17, *) {
                 view
@@ -208,18 +259,6 @@ struct EntriesPage: View {
             } else {
                 view
                     .frame(maxWidth: 600)
-            }
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button {
-                    focusedField = nil
-                }
-                label: {
-                    Text("_dismiss")
-                        .bold()
-                }
             }
         }
         .initialize(focus: $focusedField, with: .challengePassword)
@@ -237,12 +276,23 @@ struct EntriesPage: View {
                                 suggestionRows(suggestions: suggestions)
                             }
                             else {
-                                Button(action: {
-                                    sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
-                                }, label: {
+                                Button {
+                                    sheetItem = .edit(entry: .password(Password(label: autoFillController.serviceURLs?.first?.host ?? "", url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
+                                } label: {
                                     Text("_createPassword")
-                                })
-                                .buttonStyle(.action)
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity, minHeight: 34)
+                                }
+                                .apply { view in
+                                    if #available(iOS 26, *) {
+                                        view
+                                            .buttonStyle(.glassProminent)
+                                    } else {
+                                        view
+                                            .buttonStyle(.action)
+                                    }
+                                }
                                 .listRowSeparator(.hidden, edges: .bottom)
                                 .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
                             }
@@ -253,28 +303,30 @@ struct EntriesPage: View {
                             }
                         }
                     }
-                    .apply {
-                        view in
-                        if #available(iOS 16, *) {
-                            view
-                                .listRowInsets(.listRow)
-                        }
-                    }
+                    .listRowInsets(.listRow)
                 }
                 .listStyle(.plain)
+                .apply { view in
+                    if #available(iOS 26, *),
+                       UIDevice.current.userInterfaceIdiom == .pad {
+                        view
+                            .scrollContentBackground(.visible)
+                    }
+                }
             }
             else if !entries.isEmpty {
                 List {
                     entryRows(entries: entries)
-                        .apply {
-                            view in
-                            if #available(iOS 16, *) {
-                                view
-                                    .listRowInsets(.listRow)
-                            }
-                        }
+                        .listRowInsets(.listRow)
                 }
                 .listStyle(.plain)
+                .apply { view in
+                    if #available(iOS 26, *),
+                       UIDevice.current.userInterfaceIdiom == .pad {
+                        view
+                            .scrollContentBackground(.visible)
+                    }
+                }
             }
             else {
                 List {
@@ -338,21 +390,26 @@ struct EntriesPage: View {
                 AddOTPNavigation(entriesController: entriesController, otp: otp)
             }
         }
-        .actionSheet(item: $actionSheetItem) {
-            item in
+        .confirmationDialog("_confirmAction", isPresented: .init {
+            confirmationDialogItem != nil
+        } set: { isPresented in
+            if !isPresented {
+                confirmationDialogItem = nil
+            }
+        }, presenting: confirmationDialogItem) { item in
             switch item {
             case .delete(.folder(let folder)):
-                return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteFolder")) {
+                Button("_deleteFolder", role: .destructive) {
                     entriesController.delete(folder: folder)
-                }])
+                }
             case .delete(.password(let password)):
-                return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deletePassword")) {
+                Button("_deletePassword", role: .destructive) {
                     entriesController.delete(password: password)
-                }])
+                }
             case .delete(.tag(let tag)):
-                return ActionSheet(title: Text("_confirmAction"), buttons: [.cancel(), .destructive(Text("_deleteTag")) {
+                Button("_deleteTag", role: .destructive) {
                     entriesController.delete(tag: tag)
-                }])
+                }
             }
         }
     }
@@ -367,7 +424,7 @@ struct EntriesPage: View {
             }, tagPassword: {
                 sheetItem = .tag(entry: .password(password))
             }, deletePassword: {
-                actionSheetItem = .delete(entry: .password(password))
+                confirmationDialogItem = .delete(entry: .password(password))
             })
         }
     }
@@ -383,7 +440,7 @@ struct EntriesPage: View {
                     }, moveFolder: {
                         sheetItem = .move(entry: .folder(folder))
                     }, deleteFolder: {
-                        actionSheetItem = .delete(entry: .folder(folder))
+                        confirmationDialogItem = .delete(entry: .folder(folder))
                     })
                 case .password(let password):
                     PasswordRow(entriesController: entriesController, folderController: folderController, password: password, editPassword: {
@@ -393,35 +450,105 @@ struct EntriesPage: View {
                     }, tagPassword: {
                         sheetItem = .tag(entry: .password(password))
                     }, deletePassword: {
-                        actionSheetItem = .delete(entry: .password(password))
+                        confirmationDialogItem = .delete(entry: .password(password))
                     })
                 case .tag(let tag):
                     TagRow(entriesController: entriesController, tag: tag, editTag: {
                         sheetItem = .edit(entry: .tag(tag))
                     }, deleteTag: {
-                        actionSheetItem = .delete(entry: .tag(tag))
+                        confirmationDialogItem = .delete(entry: .tag(tag))
                     })
                 }
             }
         }
     }
     
-    private func leadingToolbarView() -> some View {
-        HStack {
-            if folderController.folder.isBaseFolder && folderController.tag == nil {
+    @ViewBuilder private func leadingToolbarView() -> some View {
+        if folderController.folder.isBaseFolder && folderController.tag == nil {
+            HStack {
                 if let cancel = autoFillController.cancel {
-                    Button("_cancel", role: .cancel) {
-                        cancel()
+                    if #available(iOS 26, *) {
+                        Button(role: .cancel) {
+                            cancel()
+                        }
+                    } else {
+                        Button("_cancel", role: .cancel) {
+                            cancel()
+                        }
                     }
                 }
                 else {
-                    Button("_settings") {
+                    Button {
                         showSettingsView = true
+                    } label: {
+                        Label("_settings", systemImage: "gear")
+                            .apply { view in
+                                if #unavailable(iOS 26) {
+                                    view
+                                        .labelStyle(.titleOnly)
+                                }
+                            }
                     }
                     .sheet(isPresented: $showSettingsView) {
                         SettingsNavigation()
                     }
                 }
+            }
+        }
+    }
+    
+    @available(iOS 26, *) @ToolbarContentBuilder private func trailingToolbar() -> some ToolbarContent {
+        if let state = folderController.folder.state {
+            if state.isError {
+                ToolbarItem(placement: .primaryAction) {
+                    folderErrorButton(state: state)
+                }
+                .sharedBackgroundVisibility(.hidden)
+            }
+            else if state.isProcessing {
+                ToolbarItem(placement: .primaryAction) {
+                    ProgressView()
+                }
+                .sharedBackgroundVisibility(.hidden)
+            }
+        }
+        else if let state = folderController.tag?.state {
+            if state.isError {
+                ToolbarItem(placement: .primaryAction) {
+                    tagErrorButton(state: state)
+                }
+                .sharedBackgroundVisibility(.hidden)
+            }
+            else if state.isProcessing {
+                ToolbarItem(placement: .primaryAction) {
+                    ProgressView()
+                }
+                .sharedBackgroundVisibility(.hidden)
+            }
+        }
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
+        if autoFillController.mode != .extension {
+            if showFilterSortMenu {
+                ToolbarItem(placement: .bottomBar) {
+                    filterSortMenu()
+                }
+                if !isPad {
+                    ToolbarSpacer(.flexible, placement: .bottomBar)
+                }
+            }
+        }
+        if !isPad {
+            DefaultToolbarItem(kind: .search, placement: .bottomBar)
+        }
+        if autoFillController.mode != .extension {
+            if !isPad {
+                ToolbarSpacer(.flexible, placement: .bottomBar)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                createMenu()
+            }
+            if isPad {
+                ToolbarSpacer(.flexible, placement: .bottomBar)
             }
         }
     }
@@ -564,18 +691,17 @@ struct EntriesPage: View {
             }
         }
         label: {
-            HStack {
-                Spacer()
+            if #available(iOS 26, *) {
                 Image(systemName: "arrow.up.arrow.down")
+            } else {
+                HStack {
+                    Spacer()
+                    Image(systemName: "arrow.up.arrow.down")
+                }
             }
         }
-        .apply {
-            view in
-            if #available(iOS 16.4, *) {
-                view
-                    .menuActionDismissBehavior(.disabled)
-            }
-        }
+        .menuActionDismissBehavior(.disabled)
+        .menuOrder(.fixed)
         .accessibility(identifier: "filterSortMenu")
         .onChange(of: entriesController.filterBy, perform: didChange)
     }
@@ -588,7 +714,7 @@ struct EntriesPage: View {
                 Label("_createFolder", systemImage: "folder")
             })
             Button(action: {
-                sheetItem = .edit(entry: .password(Password(url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
+                sheetItem = .edit(entry: .password(Password(label: autoFillController.serviceURLs?.first?.host ?? "", url: autoFillController.serviceURLs?.first?.absoluteString ?? "", folder: folderController.folder.id, client: Configuration.clientName, favorite: folderController.folder.isBaseFolder && folderController.tag == nil && entriesController.filterBy == .favorites, tags: [folderController.tag?.id].compactMap { $0 })))
             }, label: {
                 Label("_createPassword", systemImage: "key")
             })
@@ -599,11 +725,16 @@ struct EntriesPage: View {
             })
         }
         label: {
-            HStack {
-                Spacer()
+            if #available(iOS 26, *) {
                 Image(systemName: "plus")
+            } else {
+                HStack {
+                    Spacer()
+                    Image(systemName: "plus")
+                }
             }
         }
+        .menuOrder(.fixed)
         .disabled(folderController.folder.state?.isProcessing ?? false || folderController.tag?.state?.isProcessing ?? false || folderController.folder.state == .decryptionFailed || folderController.tag?.state == .decryptionFailed)
     }
     
@@ -649,7 +780,7 @@ extension EntriesPage {
 
 extension EntriesPage {
     
-    private enum ActionSheetItem: Identifiable {
+    private enum ConfirmationDialogItem: Identifiable {
         
         case delete(entry: Entry)
         
@@ -725,6 +856,7 @@ extension EntriesPage {
                     .tint(.purple)
                     .disabled(folder.state?.isProcessing ?? false || folder.state == .decryptionFailed)
                 }
+                .labelStyle(.iconOnly)
                 .contextMenu {
                     Button {
                         editFolder()
@@ -759,10 +891,18 @@ extension EntriesPage {
         }
         
         private func entriesPageLink() -> some View {
-            NavigationLink(destination: EntriesPage(entriesController: entriesController, folder: folder)) {
+            NavigationLink {
+                EntriesPage(entriesController: entriesController, folder: folder)
+            } label: {
                 mainStack()
             }
             .isDetailLink(false)
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .navigationLinkIndicatorVisibility(.visible)
+                }
+            }
         }
         
         private func mainStack() -> some View {
@@ -917,6 +1057,7 @@ extension EntriesPage {
                     .tint(.purple)
                     .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                 }
+                .labelStyle(.iconOnly)
                 .contextMenu {
                     Section {
                         if let url = URL(string: password.url) {
@@ -931,13 +1072,7 @@ extension EntriesPage {
                             label: {
                                 Label("_copyUsername", systemImage: "doc.on.doc")
                             }
-                            .apply {
-                                view in
-                                if #available(iOS 16.4, *) {
-                                    view
-                                        .menuActionDismissBehavior(.disabled)
-                                }
-                            }
+                            .menuActionDismissBehavior(.disabled)
                         }
                         Button {
                             resolve(\.pasteboardService).set(string: password.password, sensitive: true)
@@ -945,13 +1080,7 @@ extension EntriesPage {
                         label: {
                             Label("_copyPassword", systemImage: "doc.on.doc")
                         }
-                        .apply {
-                            view in
-                            if #available(iOS 16.4, *) {
-                                view
-                                    .menuActionDismissBehavior(.disabled)
-                            }
-                        }
+                        .menuActionDismissBehavior(.disabled)
                         if let otp = password.otp {
                             Button {
                                 otp.current.map { resolve(\.pasteboardService).set(string: $0, sensitive: true) }
@@ -959,13 +1088,7 @@ extension EntriesPage {
                             label: {
                                 Label("_copyOtp", systemImage: "doc.on.doc")
                             }
-                            .apply {
-                                view in
-                                if #available(iOS 16.4, *) {
-                                    view
-                                        .menuActionDismissBehavior(.disabled)
-                                }
-                            }
+                            .menuActionDismissBehavior(.disabled)
                         }
                     }
                     Section {
@@ -1033,30 +1156,21 @@ extension EntriesPage {
                     .buttonStyle(.plain)
                     .frame(maxWidth: .infinity)
                     Spacer()
-                    ZStack {
-                        NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
-                            entriesController.update(password: password)
-                        }, deletePassword: {
-                            entriesController.delete(password: password)
-                        }), isActive: $showPasswordDetailView) {}
-                        .isDetailLink(true)
-                        .frame(width: 0, height: 0)
-                        .hidden()
-                        Button {
-                            showPasswordDetailView = true
-                        }
-                        label: {
-                            Image(systemName: "info.circle")
-                        }
-                        .buttonStyle(.borderless)
+                    Button {
+                        showPasswordDetailView = true
+                    }
+                    label: {
+                        Image(systemName: "info.circle")
+                    }
+                    .buttonStyle(.borderless)
+                    .navigationDestination(isPresented: $showPasswordDetailView) {
+                        PasswordDetailPage(entriesController: entriesController, password: password)
                     }
                 }
                 else {
-                    NavigationLink(destination: PasswordDetailPage(entriesController: entriesController, password: password, updatePassword: {
-                        entriesController.update(password: password)
-                    }, deletePassword: {
-                        entriesController.delete(password: password)
-                    })) {
+                    NavigationLink {
+                        PasswordDetailPage(entriesController: entriesController, password: password)
+                    } label: {
                         mainStack()
                     }
                     .isDetailLink(true)
@@ -1083,42 +1197,51 @@ extension EntriesPage {
                     }
                     if entriesController.filterBy == .otps || autoFillController.mode == .extension,
                        let otp = password.otp {
-                        OTPDisplay(otp: otp) {
-                            otp in
+                        OTPDisplay(otp: otp) { otp in
                             password.updated = Date()
                             password.otp = otp
                             entriesController.update(password: password)
-                        }
-                        content: {
-                            current, _, accessoryView in
-                            Text((current ?? "").segmented)
-                                .foregroundColor(.primary)
-                                .apply {
-                                    view in
-                                    if #available(iOS 16, *) {
-                                        view
-                                            .monospaced()
-                                    }
-                                    else {
-                                        view
-                                            .font(.system(.body, design: .monospaced))
+                        } content: { current, _, accessoryView in
+                            let accessoryView = accessoryView
+                                .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
+                            Button {
+                                current.map { resolve(\.pasteboardService).set(string: $0, sensitive: true) }
+                            } label: {
+                                HStack {
+                                    Text((current ?? "").segmented)
+                                        .foregroundColor(.primary)
+                                        .monospaced()
+                                        .apply { view in
+                                            if #available(iOS 17, *) {
+                                                view
+                                                    .typesettingLanguage(.init(languageCode: .unavailable))
+                                            }
+                                        }
+                                    if #available(iOS 26, *) {
+                                        accessoryView
                                     }
                                 }
                                 .apply { view in
-                                    if #available(iOS 17, *) {
+                                    if #available(iOS 26, *) {
                                         view
-                                            .typesettingLanguage(.init(languageCode: .unavailable))
+                                            .padding(.init(top: 6, leading: 10, bottom: 6, trailing: 6))
+                                            .glassEffect()
+                                    } else {
+                                        view
+                                            .padding(.horizontal, 6)
+                                            .padding(.vertical, 4)
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 5)
+                                                    .fill(Color(.secondarySystemBackground))
+                                            )
                                     }
                                 }
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 4)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 5)
-                                        .fill(Color(.secondarySystemBackground))
-                                )
-                            accessoryView
+                            }
+                            .buttonStyle(.borderless)
+                            if #unavailable(iOS 26) {
+                                accessoryView
+                            }
                         }
-                        .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                     }
                     else {
                         if let tags = entriesController.tags {
@@ -1129,17 +1252,20 @@ extension EntriesPage {
                                         index, tag in
                                         Circle()
                                             .stroke(Color(UIColor.systemBackground), lineWidth: 2)
+                                            .frame(width: 16, height: 16)
                                             .background(
                                                 Circle()
-                                                    .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
-                                                    .background(
-                                                        Circle()
-                                                            .fill(Color(hex: tag.color) ?? .primary)
-                                                    )
-                                                    .frame(width: 14, height: 14)
+                                                    .fill(Color(hex: tag.color) ?? .primary)
+                                                    .apply { view in
+                                                        if #unavailable(iOS 26) {
+                                                            Circle()
+                                                                .strokeBorder(Color(white: 0.5, opacity: 0.35), lineWidth: 1)
+                                                                .frame(width: 14, height: 14)
+                                                                .background(view)
+                                                        }
+                                                    }
                                             )
                                             .zIndex(Double(validTags.count - index))
-                                            .frame(width: 16, height: 16)
                                     }
                                 }
                             }
@@ -1161,7 +1287,15 @@ extension EntriesPage {
                 .resizable()
                 .frame(width: 40, height: 40)
                 .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
-                .cornerRadius(3.75)
+                .apply { view in
+                    if #available(iOS 26, *) {
+                        view
+                            .cornerRadius(6)
+                    } else {
+                        view
+                            .cornerRadius(3.75)
+                    }
+                }
                 .task(id: password.url) {
                     requestFavicon()
                 }
@@ -1303,6 +1437,7 @@ extension EntriesPage {
                     }
                     .disabled(tag.state?.isProcessing ?? false || tag.state == .decryptionFailed)
                 }
+                .labelStyle(.iconOnly)
                 .contextMenu {
                     Button {
                         editTag()
@@ -1330,10 +1465,18 @@ extension EntriesPage {
         }
         
         private func entriesPageLink() -> some View {
-            NavigationLink(destination: EntriesPage(entriesController: entriesController, tag: tag)) {
+            NavigationLink {
+                EntriesPage(entriesController: entriesController, tag: tag)
+            } label: {
                 mainStack()
             }
             .isDetailLink(false)
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .navigationLinkIndicatorVisibility(.visible)
+                }
+            }
         }
         
         private func mainStack() -> some View {

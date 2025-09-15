@@ -7,13 +7,24 @@ struct SelectFolderPage: View {
     
     var body: some View {
         mainStack()
+            .navigationBarTitleDisplayMode(.large)
             .navigationTitle("_move")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     cancelButton()
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    addFolderButton()
+                if #available(iOS 26, *) {
+                    ToolbarItem(placement: .bottomBar) {
+                        row()
+                    }
+                    ToolbarSpacer(.flexible, placement: .bottomBar)
+                    ToolbarItem(placement: .bottomBar) {
+                        addFolderButton()
+                    }
+                } else {
+                    ToolbarItem(placement: .primaryAction) {
+                        addFolderButton()
+                    }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     confirmButton()
@@ -23,27 +34,24 @@ struct SelectFolderPage: View {
     }
     
     private func mainStack() -> some View {
-        VStack(spacing: 0) {
-            VStack {
-                Group {
-                    switch viewModel[\.temporaryEntry] {
-                    case let .folder(label, _):
-                        FolderRow(label: label)
-                    case let .password(label, username, url, _):
-                        PasswordRow(label: label, username: username, url: url)
+        listView()
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .safeAreaPadding(.bottom, 20)
+                } else {
+                    VStack(spacing: 0) {
+                        row()
+                            .background(Color(UIColor.secondarySystemBackground))
+                            .cornerRadius(10)
+                            .padding(.top, 1)
+                            .padding([.horizontal, .bottom])
+                        Divider()
+                            .padding(.leading)
+                        view
                     }
                 }
-                .padding(.vertical, 6)
-                .padding(.horizontal)
             }
-            .background(Color(UIColor.secondarySystemBackground))
-            .cornerRadius(10)
-            .padding(.top, 1)
-            .padding([.horizontal, .bottom])
-            Divider()
-                .padding(.leading)
-            listView()
-        }
     }
     
     private func listView() -> some View {
@@ -53,16 +61,22 @@ struct SelectFolderPage: View {
                     FolderRow(label: folder.label)
                         .id(folder.id)
                 }
-                .listSectionSeparator(.hidden, edges: .top)
-                .apply {
-                    view in
-                    if #available(iOS 16, *) {
+                .apply { view in
+                    if #unavailable(iOS 26) {
                         view
-                            .listRowInsets(.listRow)
+                            .listSectionSeparator(.hidden, edges: .top)
                     }
                 }
+                .listRowInsets(.listRow)
             }
             .listStyle(.plain)
+            .apply { view in
+                if #available(iOS 26, *),
+                   UIDevice.current.userInterfaceIdiom == .pad {
+                    view
+                        .scrollContentBackground(.visible)
+                }
+            }
             .onAppear {
                 withAnimation {
                     guard let selection = viewModel[\.selection] else {
@@ -74,9 +88,28 @@ struct SelectFolderPage: View {
         }
     }
     
-    private func cancelButton() -> some View {
-        Button("_cancel", role: .cancel) {
-            viewModel(.cancel)
+    private func row() -> some View {
+        Group {
+            switch viewModel[\.temporaryEntry] {
+            case let .folder(label, _):
+                FolderRow(label: label)
+            case let .password(label, username, url, _):
+                PasswordRow(label: label, username: username, url: url)
+            }
+        }
+        .padding(.vertical, 6)
+        .padding(.horizontal)
+    }
+    
+    @ViewBuilder private func cancelButton() -> some View {
+        if #available(iOS 26, *) {
+            Button(role: .cancel) {
+                viewModel(.cancel)
+            }
+        } else {
+            Button("_cancel", role: .cancel) {
+                viewModel(.cancel)
+            }
         }
     }
     
@@ -97,8 +130,16 @@ struct SelectFolderPage: View {
     }
     
     private func confirmButton() -> some View {
-        Button("_done") {
-            viewModel(.selectFolder)
+        Group {
+            if #available(iOS 26, *) {
+                Button(role: .confirm) {
+                    viewModel(.selectFolder)
+                }
+            } else {
+                Button("_done") {
+                    viewModel(.selectFolder)
+                }
+            }
         }
         .enabled(viewModel[\.hasChanges])
         .enabled(viewModel[\.selectionIsValid])
@@ -152,7 +193,15 @@ extension SelectFolderPage {
                     .resizable()
                     .frame(width: 40, height: 40)
                     .background(favicon == nil ? Color(white: 0.5, opacity: 0.2) : nil)
-                    .cornerRadius(3.75)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .cornerRadius(6)
+                        } else {
+                            view
+                                .cornerRadius(3.75)
+                        }
+                    }
                     .onAppear {
                         requestFavicon()
                     }

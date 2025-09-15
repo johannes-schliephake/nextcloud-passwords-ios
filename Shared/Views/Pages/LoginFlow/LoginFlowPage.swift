@@ -9,11 +9,26 @@ struct LoginFlowPage: View {
         webView()
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("_logIn")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    if viewModel[\.isLoading] {
-                        ProgressView()
-                    }
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .toolbar {
+                            if viewModel[\.isLoading] {
+                                ToolbarItem(placement: .primaryAction) {
+                                    ProgressView()
+                                }
+                                .sharedBackgroundVisibility(.hidden)
+                            }
+                        }
+                } else {
+                    view
+                        .toolbar {
+                            ToolbarItem(placement: .primaryAction) {
+                                if viewModel[\.isLoading] {
+                                    ProgressView()
+                                }
+                            }
+                        }
                 }
             }
             .interactiveDismissDisabled()

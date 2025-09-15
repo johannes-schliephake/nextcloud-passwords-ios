@@ -12,17 +12,10 @@ struct AddOTPNavigation: View {
     // MARK: Views
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             EntriesPage(entriesController: entriesController)
         }
-        .showColumns(false)
-        .apply {
-            view in
-            if #available(iOS 16, *) {
-                view
-                    .scrollDismissesKeyboard(.interactively)
-            }
-        }
+        .scrollDismissesKeyboard(.immediately)
         .occlude(biometricAuthenticationController.hideContents)
         .onAppear {
             guard !Configuration.userDefaults.bool(forKey: "didAcceptAboutOtps") else {
