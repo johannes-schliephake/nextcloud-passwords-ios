@@ -46,7 +46,7 @@ final class PurchaseService: PurchaseServiceProtocol {
     
     init() {
         /// Products are only available to main app and not the AutoFill credential provider or action extension
-        guard AutoFillController.default.mode == .app else {
+        guard resolve(\.autoFillController).mode == .app else {
             return
         }
         guard appStoreType.canMakePayments else {

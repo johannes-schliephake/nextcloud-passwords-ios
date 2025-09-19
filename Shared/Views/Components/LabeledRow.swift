@@ -99,7 +99,7 @@ struct LabeledRow: View {
     private func fileStack() -> some View {
         HStack {
             mainStack()
-            if let session = SessionController.default.session,
+            if let session = resolve(\.sessionController).session,
                let url = session.generateFileLink(for: value) {
                 Spacer()
                 Link(destination: url) {

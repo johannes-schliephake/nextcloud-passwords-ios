@@ -4,12 +4,10 @@ import Foundation
 /// Functions for managing key-value string pairs in keychain
 final class Keychain {
     
-    static let `default` = Keychain(service: Configuration.appService, accessGroup: Configuration.appKeychain)
-    
     private let service: String
     private let accessGroup: String
     
-    init(service: String, accessGroup: String) {
+    init(service: String = Configuration.appService, accessGroup: String = Configuration.appKeychain) {
         self.service = service
         self.accessGroup = accessGroup
         

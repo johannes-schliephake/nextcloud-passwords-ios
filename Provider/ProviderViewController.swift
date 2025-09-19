@@ -58,23 +58,23 @@ final class ProviderViewController: ASCredentialProviderViewController {
     }
     
     private func provideCredential(mode: AutoFillController.Mode, recordIdentifier: String?) {
-        AutoFillController.default.mode = mode
-        AutoFillController.default.serviceURLs = []
-        AutoFillController.default.credentialIdentifier = recordIdentifier
-        AutoFillController.default.hasField = true
+        resolve(\.autoFillController).mode = mode
+        resolve(\.autoFillController).serviceURLs = []
+        resolve(\.autoFillController).credentialIdentifier = recordIdentifier
+        resolve(\.autoFillController).hasField = true
         
         DispatchQueue.global(qos: .utility).async { [weak self] in
-            if let offlineKeychain = Keychain.default.load(key: "offlineKeychain") {
-                guard let challengePassword = Keychain.default.load(key: "challengePassword"),
+            if let offlineKeychain = resolve(\.keychain).load(key: "offlineKeychain") {
+                guard let challengePassword = resolve(\.keychain).load(key: "challengePassword"),
                       let keychain = Crypto.CSEv1r1.decrypt(keys: offlineKeychain, password: challengePassword) else {
                     self?.extensionContext.cancelRequest(withError: ASExtensionError(.userInteractionRequired))
                     return
                 }
-                AutoFillController.default.keychain = keychain
+                resolve(\.autoFillController).keychain = keychain
             }
             
             let request = OfflineContainer.request()
-            guard let offlineContainers = CoreData.default.fetch(request: request) else {
+            guard let offlineContainers = resolve(\.coreData).fetch(request: request) else {
                 self?.extensionContext.cancelRequest(withError: ASExtensionError(.failed))
                 return
             }
@@ -111,11 +111,11 @@ final class ProviderViewController: ASCredentialProviderViewController {
     }
     
     private func showCredentialList(mode: AutoFillController.Mode, serviceIdentifiers: [ASCredentialServiceIdentifier], recordIdentifier: String?) {
-        AutoFillController.default.mode = mode
-        AutoFillController.default.serviceURLs = serviceIdentifiers.compactMap { .init(string: $0.identifier) }
-        AutoFillController.default.credentialIdentifier = recordIdentifier
-        AutoFillController.default.hasField = true
-        AutoFillController.default.complete = { [weak self] username, secret in
+        resolve(\.autoFillController).mode = mode
+        resolve(\.autoFillController).serviceURLs = serviceIdentifiers.compactMap { .init(string: $0.identifier) }
+        resolve(\.autoFillController).credentialIdentifier = recordIdentifier
+        resolve(\.autoFillController).hasField = true
+        resolve(\.autoFillController).complete = { [weak self] username, secret in
             switch mode {
             case .app:
                 self?.extensionContext.cancelRequest(withError: ASExtensionError(.failed))
@@ -129,14 +129,13 @@ final class ProviderViewController: ASCredentialProviderViewController {
                 self?.extensionContext.completeOneTimeCodeRequest(using: .init(code: secret))
             }
         }
-        AutoFillController.default.cancel = { [weak self] in
+        resolve(\.autoFillController).cancel = { [weak self] in
             self?.extensionContext.cancelRequest(withError: ASExtensionError(.userCanceled))
         }
         
-        UIAlertController.rootViewController = self
+        Container.shared.rootViewController.register { self }
         
-        let mainView = MainView().environmentObject(AutoFillController.default)
-        let hostingController = UIHostingController(rootView: mainView)
+        let hostingController = UIHostingController(rootView: MainView())
         addChild(hostingController)
         view.addSubview(hostingController.view)
         hostingController.didMove(toParent: self)
@@ -167,6 +166,7 @@ final class ProviderViewController: ASCredentialProviderViewController {
         super.viewDidDisappear(animated)
         
         NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        Container.shared.reset()
     }
     
 }

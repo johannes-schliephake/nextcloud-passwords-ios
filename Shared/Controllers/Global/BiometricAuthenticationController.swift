@@ -1,11 +1,12 @@
 import Combine
 import LocalAuthentication
 import SwiftUI
+import Factory
 
 
 final class BiometricAuthenticationController: ObservableObject {
     
-    var autoFillController: AutoFillController?
+    @LazyInjected(\.autoFillController) private var autoFillController
     
     @Published private(set) var hideContents = true
     private var isLocked = true
@@ -30,10 +31,6 @@ final class BiometricAuthenticationController: ObservableObject {
         self.isLocked = isLocked
     }
     
-    func invalidate() {
-        subscriptions.removeAll()
-    }
-    
     private func unlockApp() {
         DispatchQueue().async { [weak self] in
             guard let self else {
@@ -52,7 +49,7 @@ final class BiometricAuthenticationController: ObservableObject {
             let context = LAContext()
             let policy = LAPolicy.deviceOwnerAuthentication
             var error: NSError?
-            guard SessionController.default.session != nil,
+            guard resolve(\.sessionController).session != nil,
                   context.canEvaluatePolicy(policy, error: &error) else {
                 DispatchQueue.main.async { [weak self] in
                     self?.hideContents = false
@@ -69,7 +66,7 @@ final class BiometricAuthenticationController: ObservableObject {
                         self?.semaphore.signal()
                         return
                     }
-                    if let cancelAutoFill = self?.autoFillController?.cancel {
+                    if let cancelAutoFill = self?.autoFillController.cancel {
                         cancelAutoFill()
                     }
                     else {

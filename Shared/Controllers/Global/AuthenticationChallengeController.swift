@@ -6,24 +6,22 @@ import Combine
 
 final class AuthenticationChallengeController: NSObject, ObservableObject {
     
-    static let `default` = AuthenticationChallengeController()
-    
     @Published var certificateConfirmationRequests = [CertificateConfirmationRequest]()
     
     private var acceptedCertificateHash: String? {
         didSet {
             guard let acceptedCertificateHash else {
-                Keychain.default.remove(key: "acceptedCertificateHash")
+                resolve(\.keychain).remove(key: "acceptedCertificateHash")
                 return
             }
-            Keychain.default.store(key: "acceptedCertificateHash", value: acceptedCertificateHash)
+            resolve(\.keychain).store(key: "acceptedCertificateHash", value: acceptedCertificateHash)
         }
     }
     
-    override private init() {
+    override init() {
         super.init()
         
-        acceptedCertificateHash = Keychain.default.load(key: "acceptedCertificateHash")
+        acceptedCertificateHash = resolve(\.keychain).load(key: "acceptedCertificateHash")
     }
     
     func clearAcceptedCertificateHash() {

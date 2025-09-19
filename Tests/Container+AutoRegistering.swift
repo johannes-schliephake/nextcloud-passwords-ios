@@ -100,9 +100,6 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.currentDate.singleton.register { .init() }
         //Self.shared.mainScheduler.register { resolve(\.mainSchedulerMock).eraseToAnyScheduler() }
         Self.shared.userInitiatedScheduler.register { resolve(\.userInitiatedSchedulerMock).eraseToAnyScheduler() }
-        
-        // TODO: remove
-        Self.shared.entriesController.register { .mock }
     }
     
 }

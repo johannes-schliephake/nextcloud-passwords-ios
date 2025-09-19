@@ -1,9 +1,8 @@
 import SwiftUI
+import Factory
 
 
 extension UIAlertController {
-    
-    static weak var rootViewController: UIViewController?
     
     static func presentGlobalAlert(title: String? = nil, message: String? = nil, dismissText: String? = nil, dismissHandler: (() -> Void)? = nil, confirmText: String? = nil, confirmHandler: (() -> Void)? = nil, destructive: Bool = false) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -19,7 +18,7 @@ extension UIAlertController {
         }
         
         /// Present alert on topmost view controller
-        guard var topViewController = rootViewController ?? UIApplication.safeShared?.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.keyWindow?.rootViewController else {
+        guard var topViewController = resolve(\.rootViewController) ?? resolve(\.application)?.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.keyWindow?.rootViewController else {
             return
         }
         while let presentedViewController = topViewController.presentedViewController,

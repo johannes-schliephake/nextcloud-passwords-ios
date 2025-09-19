@@ -37,7 +37,7 @@ final class LoginPollUseCase: LoginPollUseCaseProtocol {
             request.httpMethod = "POST"
             request.httpBody = Data("token=\(poll.token)".utf8)
             
-            let sessionPublisher = NetworkClient.default.dataTaskPublisher(for: request)
+            let sessionPublisher = resolve(\.urlSession).dataTaskPublisher(for: request)
                 .tryMap { result in
                     guard let response = result.response as? HTTPURLResponse,
                           response.statusCode == 200 else {
@@ -83,7 +83,7 @@ final class LoginPollUseCase: LoginPollUseCaseProtocol {
                         .eraseToAnyPublisher()
                 }
             
-            SessionController.default.attachSessionPublisher(
+            resolve(\.sessionController).attachSessionPublisher(
                 sessionPublisher
                     .receive(on: DispatchQueue.main)
                     .eraseToAnyPublisher()

@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import Factory
 
 
 struct DeleteAppPasswordOCSRequest {
@@ -29,7 +30,7 @@ extension DeleteAppPasswordOCSRequest {
         request.setValue("true", forHTTPHeaderField: "OCS-APIREQUEST")
         request.setValue("Basic \(authorizationData.base64EncodedString())", forHTTPHeaderField: "Authorization")
         
-        return NetworkClient.default.dataTaskPublisher(for: request)
+        return resolve(\.urlSession).dataTaskPublisher(for: request)
             .retry(1)
             .ignoreValue()
             .eraseToAnyPublisher()

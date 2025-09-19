@@ -77,7 +77,7 @@ struct EntriesPage: View {
                 folderController.autoFillController = autoFillController
                 
                 DispatchQueue.main.async {
-                    if SessionController.default.session == nil {
+                    if resolve(\.sessionController).session == nil {
                         showServerSetupView = true
                     }
                 }

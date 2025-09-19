@@ -6,11 +6,7 @@ struct EntriesNavigation: View {
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
-#if DEBUG
-    @StateObject private var entriesController = Configuration.isTestEnvironment ? EntriesController.mock : resolve(\.entriesController)
-#else
     @StateObject private var entriesController = resolve(\.entriesController)
-#endif
     
     // MARK: Views
     

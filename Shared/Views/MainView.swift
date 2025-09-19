@@ -5,12 +5,7 @@ import Combine
 
 struct MainView: View {
     
-    @EnvironmentObject private var autoFillController: AutoFillController
-    
-    @StateObject private var authenticationChallengeController = AuthenticationChallengeController.default
-    @StateObject private var biometricAuthenticationController = Configuration.isTestEnvironment ? BiometricAuthenticationController.mock : BiometricAuthenticationController()
-    @StateObject private var sessionController = Configuration.isTestEnvironment ? SessionController.mock : SessionController.default
-    @StateObject private var settingsController = Configuration.isTestEnvironment ? SettingsController.mock : SettingsController.default
+    @StateObject private var authenticationChallengeController = resolve(\.authenticationChallengeController)
     @StateObject private var globalAlertsViewModel = GlobalAlertsViewModel().eraseToAnyViewModel()
     
     // MARK: Views
@@ -19,12 +14,11 @@ struct MainView: View {
         EntriesNavigation()
             .onChange(of: authenticationChallengeController.certificateConfirmationRequests, perform: didChange)
             .copyToast()
-            .environmentObject(biometricAuthenticationController)
-            .environmentObject(sessionController)
-            .environmentObject(settingsController)
+            .environmentObject(resolve(\.autoFillController))
+            .environmentObject(resolve(\.biometricAuthenticationController))
+            .environmentObject(resolve(\.sessionController))
+            .environmentObject(resolve(\.settingsController))
             .onAppear {
-                biometricAuthenticationController.autoFillController = autoFillController
-                
                 Task {
                     do {
                         @Injected(\.prepareWordlistUseCase) var prepareWordlistUseCase
@@ -39,14 +33,10 @@ struct MainView: View {
                 }
                 
                 if #available(iOS 26, *),
-                   let serviceUrl = autoFillController.serviceURLs?.first {
+                   let serviceUrl = resolve(\.autoFillController).serviceURLs?.first {
                     @Injected(\.urlLabelSuggestionRepository) var urlLabelSuggestionRepository
                     urlLabelSuggestionRepository(.setUrl(serviceUrl))
                 }
-            }
-            .onDisappear {
-                /// In some specific situations SwiftUI doesn't reliably deallocate StateObjects. Most of the time this "just" is a memory leak, but in case of the BiometricAuthenticationController it also results in unwanted biometric evaluation calls. Therefore all notification subscriptions have to be manually cancelled through the invalidate function.
-                biometricAuthenticationController.invalidate()
             }
     }
     

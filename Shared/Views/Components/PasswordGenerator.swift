@@ -238,7 +238,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
     }
     
     private func generatePasswordRemotely() {
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             showPasswordServiceErrorAlert = true
             return
         }
