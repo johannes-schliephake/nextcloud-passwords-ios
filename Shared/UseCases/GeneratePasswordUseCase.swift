@@ -119,10 +119,10 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
                     }
                 }
                 .map { password in
-                    var password = password
+                    var password = Array(password)
                     
                     /// Find indices of characters that could be substituted
-                    var substitutionCandidates: [(index: String.Index, diacriticInsensitiveCharacter: Character)] = password.indices
+                    var substitutionCandidates: [(index: [String.Element].Index, diacriticInsensitiveCharacter: Character)] = password.indices
                         .compactMap { index in
                             String(password[index])
                                 .folding(options: [.diacriticInsensitive, .widthInsensitive], locale: wordlistLocale)
@@ -144,7 +144,7 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
                         substitutionCandidates.removeAll { $0.index == indexToSubstitute }
                         remainingSubstitutions -= 1
                     }
-                    return password
+                    return .init(password)
                 }
                 .resultize()
                 .sink { self?.state.generatedPassword = $0 }
