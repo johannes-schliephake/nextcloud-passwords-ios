@@ -13,15 +13,15 @@ struct PasswordDetailPage: View {
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var settingsController: SettingsController
     
-    // TODO: This specific AppStorage crashes iOS 16+17, wait for fix from Apple
-    // TODO: remove onChange for showMetadata when reverting temporary fix
-//    @AppStorage("showMetadata", store: Configuration.userDefaults) private var showMetadata = Configuration.defaults["showMetadata"] as! Bool // swiftlint:disable:this force_cast
+    // AppStorage freezes app on iOS 16 + 17
+//    @AppStorage("showMetadata", store: Configuration.userDefaults) private var showMetadata = Configuration.defaults["showMetadata"] as! Bool
     @State private var showMetadata = Configuration.userDefaults.bool(forKey: "showMetadata")
     @State private var favicon: UIImage?
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
     @State private var passwordDeleted = false
     @State private var navigationSelection: NavigationSelection?
+    @State private var hasNavigationSelection = false
     @State private var showSelectTagsView = false
     @State private var showPasswordStatusTooltip = false
     @ScaledMetric private var currentOtpFontSize = 17
@@ -80,9 +80,6 @@ struct PasswordDetailPage: View {
                     /// This has to be done with a notification because a password can also be deleted from the EntriesPage
                     passwordDeleted = true
                 }
-                .onChange(of: showMetadata) { showMetadata in
-                    Configuration.userDefaults.set(showMetadata, forKey: "showMetadata")
-                }
                 .apply { view in
                     if #available(iOS 26, *),
                        UIDevice.current.userInterfaceIdiom == .phone {
@@ -98,6 +95,7 @@ struct PasswordDetailPage: View {
                             }
                     }
                 }
+                .onChange(of: showMetadata) { Configuration.userDefaults.set($0, forKey: "showMetadata") }
         }
     }
     
@@ -132,7 +130,8 @@ struct PasswordDetailPage: View {
             .apply { view in
                 if #available(iOS 17, *) {
                     view
-                        .navigationDestination(item: $navigationSelection) { navigationSelection in
+                        // Explicit capture of entriesController required to fix freeze on iOS 17, also used for every other navigationDestination
+                        .navigationDestination(item: $navigationSelection) { [entriesController] navigationSelection in
                             switch navigationSelection {
                             case let .duplicate(password):
                                 Self(entriesController: entriesController, password: password)
@@ -143,15 +142,8 @@ struct PasswordDetailPage: View {
                 } else {
                     view
                         .navigationDestination(
-                            isPresented: .init(
-                                get: { navigationSelection != nil },
-                                set: { newValue in
-                                    if !newValue {
-                                        navigationSelection = nil
-                                    }
-                                }
-                            ),
-                            destination: {
+                            isPresented: $hasNavigationSelection,
+                            destination: { [entriesController] in
                                 if let navigationSelection {
                                     switch navigationSelection {
                                     case let .duplicate(password):
@@ -162,6 +154,8 @@ struct PasswordDetailPage: View {
                                 }
                             }
                         )
+                        .onChange(of: navigationSelection) { hasNavigationSelection = $0 != nil }
+                        .onChange(of: hasNavigationSelection) { navigationSelection = $0 ? navigationSelection : nil }
                 }
             }
     }

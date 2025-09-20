@@ -1163,7 +1163,7 @@ extension EntriesPage {
                         Image(systemName: "info.circle")
                     }
                     .buttonStyle(.borderless)
-                    .navigationDestination(isPresented: $showPasswordDetailView) {
+                    .navigationDestination(isPresented: $showPasswordDetailView) { [entriesController] in
                         PasswordDetailPage(entriesController: entriesController, password: password)
                     }
                 }
