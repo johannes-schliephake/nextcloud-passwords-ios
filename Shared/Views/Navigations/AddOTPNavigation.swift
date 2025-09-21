@@ -21,8 +21,13 @@ struct AddOTPNavigation: View {
             guard !Configuration.userDefaults.bool(forKey: "didAcceptAboutOtps") else {
                 return
             }
-            Configuration.userDefaults.set(true, forKey: "didAcceptAboutOtps")
-            UIAlertController.presentGlobalAlert(title: "_aboutOtps".localized, message: "_aboutOtpsMessage".localized)
+            UIAlertController.presentGlobalAlert(
+                title: "_aboutOtps".localized,
+                message: "_aboutOtpsMessage".localized,
+                dismissHandler: { dismiss() },
+                confirmText: "_confirm".localized,
+                confirmHandler: { Configuration.userDefaults.set(true, forKey: "didAcceptAboutOtps") }
+            )
         }
         .environmentObject({
             let autoFillController = AutoFillController()

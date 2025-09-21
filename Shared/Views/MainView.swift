@@ -5,7 +5,7 @@ import Combine
 
 struct MainView: View {
     
-    @StateObject private var authenticationChallengeController = resolve(\.authenticationChallengeController)
+    @InjectedObject(\.authenticationChallengeController) private var authenticationChallengeController
     @StateObject private var globalAlertsViewModel = GlobalAlertsViewModel().eraseToAnyViewModel()
     
     // MARK: Views

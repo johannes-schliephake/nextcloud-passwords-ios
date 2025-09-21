@@ -6,7 +6,7 @@ struct EntriesNavigation: View {
     
     @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
-    @StateObject private var entriesController = resolve(\.entriesController)
+    @InjectedObject(\.entriesController) private var entriesController
     
     // MARK: Views
     
