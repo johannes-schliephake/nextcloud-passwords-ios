@@ -4,8 +4,6 @@ import Factory
 
 struct EntriesNavigation: View {
     
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    
     @InjectedObject(\.entriesController) private var entriesController
     
     // MARK: Views
@@ -33,7 +31,6 @@ struct EntriesNavigation: View {
             }
         }
         .scrollDismissesKeyboard(.immediately)
-        .occlude(biometricAuthenticationController.hideContents)
     }
     
 }

@@ -90,7 +90,7 @@ final class EntriesController: ObservableObject {
         resolve(\.sessionController).$session
             .sink(receiveValue: requestEntries)
             .store(in: &subscriptions)
-        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+        NotificationCenter.default.publisher(for: UIScene.didActivateNotification)
             .sink(receiveValue: refresh)
             .store(in: &subscriptions)
     }

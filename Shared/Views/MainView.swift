@@ -15,7 +15,6 @@ struct MainView: View {
             .onChange(of: authenticationChallengeController.certificateConfirmationRequests, perform: didChange)
             .copyToast()
             .environmentObject(resolve(\.autoFillController))
-            .environmentObject(resolve(\.biometricAuthenticationController))
             .environmentObject(resolve(\.sessionController))
             .environmentObject(resolve(\.settingsController))
             .onAppear {

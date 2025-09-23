@@ -7,6 +7,7 @@ import Factory
     init() {
         _ = resolve(\.logger)
         _ = resolve(\.windowSizeDataSource)
+        _ = resolve(\.biometricAuthenticationController)
     }
     
     // MARK: Views
@@ -20,9 +21,6 @@ import Factory
                         return
                     }
                     resolve(\.autoFillController).receivedOtp = otp
-                }
-                .onAppear {
-                    NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
                 }
         }
     }

@@ -8,6 +8,7 @@ class ExtensionViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         _ = resolve(\.logger)
         _ = resolve(\.windowSizeDataSource)
+        _ = resolve(\.biometricAuthenticationController)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -85,24 +86,29 @@ class ExtensionViewController: UIViewController {
         ])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.post(name: UIScene.willConnectNotification, object: view.window?.windowScene)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.post(name: UIScene.didActivateNotification, object: view.window?.windowScene)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NotificationCenter.default.post(name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.post(name: UIScene.willDeactivateNotification, object: view.window?.windowScene)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.post(name: UIScene.didEnterBackgroundNotification, object: view.window?.windowScene)
         Container.shared.reset()
     }
-
+    
 }

@@ -61,7 +61,7 @@ struct LabeledRow: View {
                 Image(systemName: hideSecret ? "eye" : "eye.slash")
             }
             .buttonStyle(.borderless)
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+            .onReceive(NotificationCenter.default.publisher(for: UIScene.didEnterBackgroundNotification)) { _ in
                 hideSecret = true
             }
             .onChange(of: value) { _ in

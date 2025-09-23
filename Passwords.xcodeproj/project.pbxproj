@@ -47,8 +47,6 @@
 		8F55D99F2582D0DE00CE4FC2 /* AutoFillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55D9992582D04200CE4FC2 /* AutoFillController.swift */; };
 		8F55F71625727CB600E00B28 /* DeleteFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55F71525727CB600E00B28 /* DeleteFolderRequest.swift */; };
 		8F55FBD72570276800CC6920 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55FBD62570276800CC6920 /* SessionController.swift */; };
-		8F560E69258F54A900C896EE /* Occlude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* Occlude.swift */; };
-		8F560E6C258F5AD400C896EE /* Occlude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* Occlude.swift */; };
 		8F561EBE258D26CC008AE12B /* NCPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */; };
 		8F561EC3258D2759008AE12B /* NCPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */; };
 		8F5637C62562C57800A0BF9D /* FaviconServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */; };
@@ -570,7 +568,6 @@
 		DDB1697D27D20CC100F4D752 /* CreateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125827413FF6003912D0 /* CreateTagRequest.swift */; };
 		DDB1697E27D20CC100F4D752 /* RequestSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE0B260287DE00308A33 /* RequestSessionRequest.swift */; };
 		DDB1697F27D20CC100F4D752 /* SelectFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */; };
-		DDB1698027D20CC100F4D752 /* Occlude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* Occlude.swift */; };
 		DDB1698127D20CC100F4D752 /* CopyToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F77DA5C25699F8900CFDA8D /* CopyToast.swift */; };
 		DDB1698227D20CC100F4D752 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
 		DDB1698327D20CC200F4D752 /* ShareOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */; };
@@ -939,7 +936,6 @@
 		8F55D9992582D04200CE4FC2 /* AutoFillController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFillController.swift; sourceTree = "<group>"; };
 		8F55F71525727CB600E00B28 /* DeleteFolderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFolderRequest.swift; sourceTree = "<group>"; };
 		8F55FBD62570276800CC6920 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
-		8F560E68258F54A900C896EE /* Occlude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Occlude.swift; sourceTree = "<group>"; };
 		8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCPasswordsRequest.swift; sourceTree = "<group>"; };
 		8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaviconServiceRequest.swift; sourceTree = "<group>"; };
 		8F570BFA25693F5C00BA4B74 /* ListFoldersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFoldersRequest.swift; sourceTree = "<group>"; };
@@ -2055,7 +2051,6 @@
 				DDA4FE7526E755C000D6F92E /* Initialize.swift */,
 				DD78D6CD2AAC77A200854599 /* LegacySafeAreaPadding.swift */,
 				DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */,
-				8F560E68258F54A900C896EE /* Occlude.swift */,
 				DD760687295F72BC00109075 /* Sync.swift */,
 			);
 			path = Modifiers;
@@ -3219,7 +3214,6 @@
 				DD34E00F2E391E2900028DF2 /* WordlistPreparationDataSource.swift in Sources */,
 				DD78D6D22AACDB3100854599 /* WindowSizeService.swift in Sources */,
 				DDFC42092E1728420080D52A /* OnDemandResources.swift in Sources */,
-				8F560E69258F54A900C896EE /* Occlude.swift in Sources */,
 				DDC14A8E2B3AFBA50062AA4C /* UseCase.swift in Sources */,
 				8F55564A25716BD200F5D805 /* DeletePasswordRequest.swift in Sources */,
 				DD1078782A69472B00E87B3F /* CaptureOTPViewModel.swift in Sources */,
@@ -3461,7 +3455,6 @@
 				DD78D6D32AACDB3100854599 /* WindowSizeService.swift in Sources */,
 				DDC14A8F2B3AFBA50062AA4C /* UseCase.swift in Sources */,
 				DDCE125A27413FF6003912D0 /* CreateTagRequest.swift in Sources */,
-				8F560E6C258F5AD400C896EE /* Occlude.swift in Sources */,
 				DD34E0202E3A27DE00028DF2 /* CryptoSHA256.swift in Sources */,
 				DD1078792A69472B00E87B3F /* CaptureOTPViewModel.swift in Sources */,
 				DD04DE062BAA390B00954A72 /* ManagedConfigurationUseCase.swift in Sources */,
@@ -3805,7 +3798,6 @@
 				DDC7C94A28C1FA3A00451B81 /* Bundle+IsTestFlight.swift in Sources */,
 				DD027F2F2C2EE35F00287708 /* HTTPCookieStore.swift in Sources */,
 				DDBE8AB429B3F9A10054F179 /* FolderValidationService.swift in Sources */,
-				DDB1698027D20CC100F4D752 /* Occlude.swift in Sources */,
 				DDB169E727D20CC300F4D752 /* SelectFolderPage.swift in Sources */,
 				DDB169CC27D20CC200F4D752 /* TextView.swift in Sources */,
 				DD63A1EC2DF1C3F0002C9846 /* Publisher+Debounce.swift in Sources */,

@@ -16,7 +16,7 @@ final class SettingsController: ObservableObject {
         resolve(\.sessionController).$session
             .sink(receiveValue: requestSettings)
             .store(in: &subscriptions)
-        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+        NotificationCenter.default.publisher(for: UIScene.didActivateNotification)
             .sink(receiveValue: refresh)
             .store(in: &subscriptions)
     }

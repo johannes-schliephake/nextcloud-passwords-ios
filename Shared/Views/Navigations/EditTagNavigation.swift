@@ -4,8 +4,6 @@ import Factory
 
 struct EditTagNavigation: View {
     
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    
     let tag: Tag
     
     // MARK: Views
@@ -15,7 +13,6 @@ struct EditTagNavigation: View {
             EditTagPage(viewModel: resolve(\.editTagViewModelType).init(tag: tag).eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
-        .occlude(biometricAuthenticationController.hideContents)
     }
     
 }

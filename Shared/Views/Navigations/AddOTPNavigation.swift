@@ -4,7 +4,6 @@ import SwiftUI
 struct AddOTPNavigation: View {
     
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
     let entriesController: EntriesController
     let otp: OTP
@@ -16,7 +15,6 @@ struct AddOTPNavigation: View {
             EntriesPage(entriesController: entriesController)
         }
         .scrollDismissesKeyboard(.immediately)
-        .occlude(biometricAuthenticationController.hideContents)
         .onAppear {
             guard !Configuration.userDefaults.bool(forKey: "didAcceptAboutOtps") else {
                 return

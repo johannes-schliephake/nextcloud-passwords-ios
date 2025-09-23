@@ -9,7 +9,6 @@ struct PasswordDetailPage: View {
     
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var autoFillController: AutoFillController
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var settingsController: SettingsController
     
@@ -350,7 +349,6 @@ struct PasswordDetailPage: View {
             }
         }
         .environmentObject(autoFillController)
-        .environmentObject(biometricAuthenticationController)
         .environmentObject(sessionController)
         .environmentObject(settingsController)
     }

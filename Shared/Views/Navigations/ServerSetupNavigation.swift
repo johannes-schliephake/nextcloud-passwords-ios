@@ -4,8 +4,6 @@ import Factory
 
 struct ServerSetupNavigation: View {
     
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    
     // MARK: Views
     
     var body: some View {
@@ -13,7 +11,6 @@ struct ServerSetupNavigation: View {
             ServerSetupPage(viewModel: resolve(\.serverSetupViewModelType).init().eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
-        .occlude(biometricAuthenticationController.hideContents)
     }
     
 }

@@ -14,7 +14,7 @@ private struct Initialize<Value: Hashable>: ViewModifier {
             .onAppear {
                 initialize()
             }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            .onReceive(NotificationCenter.default.publisher(for: UIScene.didActivateNotification)) { _ in
                 /// Retry initialization when app returns from background
                 initialize()
             }
