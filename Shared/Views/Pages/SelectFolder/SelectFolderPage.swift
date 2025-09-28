@@ -59,7 +59,6 @@ struct SelectFolderPage: View {
             List {
                 TreePicker(viewModel[\.tree], selection: $viewModel[\.selection]) { folder in
                     FolderRow(label: folder.label)
-                        .id(folder.id)
                 }
                 .apply { view in
                     if #unavailable(iOS 26) {
