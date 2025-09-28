@@ -4,8 +4,6 @@ import Factory
 
 struct SelectTagsNavigation: View {
     
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    
     let temporaryEntry: SelectTagsViewModel.TemporaryEntry
     let selectTags: ([Tag], [String]) -> Void
     
@@ -16,7 +14,6 @@ struct SelectTagsNavigation: View {
             SelectTagsPage(viewModel: resolve(\.selectTagsViewModelType).init(temporaryEntry: temporaryEntry, selectTags: selectTags).eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
-        .occlude(biometricAuthenticationController.hideContents)
     }
     
 }

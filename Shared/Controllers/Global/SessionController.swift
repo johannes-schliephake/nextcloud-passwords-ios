@@ -5,31 +5,29 @@ import Combine
 
 final class SessionController: ObservableObject {
     
-    static let `default` = SessionController()
-    
     @LazyInjected(\.logger) private var logger
     
     @Published private(set) var state: State = .loading
     @Published private(set) var session: Session? {
         didSet {
             guard let session else {
-                Keychain.default.remove(key: "server")
-                Keychain.default.remove(key: "user")
-                Keychain.default.remove(key: "password")
+                resolve(\.keychain).remove(key: "server")
+                resolve(\.keychain).remove(key: "user")
+                resolve(\.keychain).remove(key: "password")
                 state = .loading
                 challenge = nil
                 cachedChallengePassword = nil
                 keepaliveTimer?.invalidate()
                 keepaliveTimer = nil
                 subscriptions.removeAll()
-                Keychain.default.remove(key: "challengePassword")
-                Keychain.default.remove(key: "offlineKeychain")
+                resolve(\.keychain).remove(key: "challengePassword")
+                resolve(\.keychain).remove(key: "offlineKeychain")
                 logger.reset()
                 return
             }
-            Keychain.default.store(key: "server", value: session.server)
-            Keychain.default.store(key: "user", value: session.user)
-            Keychain.default.store(key: "password", value: session.password)
+            resolve(\.keychain).store(key: "server", value: session.server)
+            resolve(\.keychain).store(key: "user", value: session.user)
+            resolve(\.keychain).store(key: "password", value: session.password)
             
             session.$pendingRequestsAvailable
                 .filter { $0 }
@@ -54,12 +52,12 @@ final class SessionController: ObservableObject {
                     case .logout:
                         break
                     case .deauthorization:
-                        AuthenticationChallengeController.default.clearAcceptedCertificateHash()
+                        resolve(\.authenticationChallengeController).clearAcceptedCertificateHash()
                         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                             UIAlertController.presentGlobalAlert(title: "_appDeauthorized".localized, message: "_appDeauthorizedMessage".localized)
                         }
                     case .noConnection:
-                        AuthenticationChallengeController.default.clearAcceptedCertificateHash()
+                        resolve(\.authenticationChallengeController).clearAcceptedCertificateHash()
                         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                             UIAlertController.presentGlobalAlert(title: "_noConnection".localized, message: "_noConnectionMessage".localized)
                         }
@@ -85,10 +83,10 @@ final class SessionController: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     private var logoutSubscription: AnyCancellable?
     
-    private init() {
-        guard let server = Keychain.default.load(key: "server"),
-              let user = Keychain.default.load(key: "user"),
-              let password = Keychain.default.load(key: "password") else {
+    init() {
+        guard let server = resolve(\.keychain).load(key: "server"),
+              let user = resolve(\.keychain).load(key: "user"),
+              let password = resolve(\.keychain).load(key: "password") else {
             return
         }
         session = Session(server: server, user: user, password: password)
@@ -131,7 +129,7 @@ final class SessionController: ObservableObject {
             }
             self?.challenge = challenge
             
-            if let challengePassword = Keychain.default.load(key: "challengePassword") ?? self?.cachedChallengePassword {
+            if let challengePassword = resolve(\.keychain).load(key: "challengePassword") ?? self?.cachedChallengePassword {
                 self?.solveChallenge(password: challengePassword)
             }
             else {
@@ -153,13 +151,13 @@ final class SessionController: ObservableObject {
             return
         }
         guard session.keychain == nil,
-              Keychain.default.load(key: "offlineKeychain") != nil else {
+              resolve(\.keychain).load(key: "offlineKeychain") != nil else {
             state = .offline
             session.runPendingCompletions()
             return
         }
         
-        if let challengePassword = Keychain.default.load(key: "challengePassword") ?? cachedChallengePassword {
+        if let challengePassword = resolve(\.keychain).load(key: "challengePassword") ?? cachedChallengePassword {
             solveChallenge(password: challengePassword)
         }
         else {
@@ -183,10 +181,10 @@ final class SessionController: ObservableObject {
             }
             openSession(password: password, solution: solution, store: store)
         }
-        else if let offlineKeychain = Keychain.default.load(key: "offlineKeychain") {
+        else if let offlineKeychain = resolve(\.keychain).load(key: "offlineKeychain") {
             guard let keychain = Crypto.CSEv1r1.decrypt(keys: offlineKeychain, password: password) else {
                 state = .offlineChallengeAvailable
-                Keychain.default.remove(key: "challengePassword")
+                resolve(\.keychain).remove(key: "challengePassword")
                 UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
                 logger.log(error: "Failed to decrypt offline keychain")
                 return
@@ -194,7 +192,7 @@ final class SessionController: ObservableObject {
             session.keychain = keychain
             cachedChallengePassword = password
             if store {
-                Keychain.default.store(key: "challengePassword", value: password)
+                resolve(\.keychain).store(key: "challengePassword", value: password)
             }
             
             state = .offline
@@ -223,23 +221,23 @@ final class SessionController: ObservableObject {
                 guard response.success,
                       let keys = response.keys["CSEv1r1"] else {
                     self?.state = .onlineChallengeAvailable
-                    Keychain.default.remove(key: "challengePassword")
+                    resolve(\.keychain).remove(key: "challengePassword")
                     UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
                     self?.logger.log(error: "Failed to open session with client side encryption")
                     return
                 }
                 guard let keychain = Crypto.CSEv1r1.decrypt(keys: keys, password: password) else {
                     self?.state = .onlineChallengeAvailable
-                    Keychain.default.remove(key: "challengePassword")
+                    resolve(\.keychain).remove(key: "challengePassword")
                     UIAlertController.presentGlobalAlert(title: "_incorrectPassword".localized, message: "_incorrectPasswordMessage".localized)
                     self?.logger.log(error: "Failed to decrypt online keychain")
                     return
                 }
-                Keychain.default.store(key: "offlineKeychain", value: keys)
+                resolve(\.keychain).store(key: "offlineKeychain", value: keys)
                 session.keychain = keychain
                 self?.cachedChallengePassword = password
                 if store {
-                    Keychain.default.store(key: "challengePassword", value: password)
+                    resolve(\.keychain).store(key: "challengePassword", value: password)
                 }
                 self?.challenge = nil
             }
@@ -260,7 +258,7 @@ final class SessionController: ObservableObject {
     
     private func keepaliveSession() {
         keepaliveTimer?.invalidate()
-        keepaliveTimer = Timer.scheduledTimer(withTimeInterval: Double(SettingsController.default.userSessionLifetime) - 30, repeats: false) {
+        keepaliveTimer = Timer.scheduledTimer(withTimeInterval: Double(resolve(\.settingsController).userSessionLifetime) - 30, repeats: false) {
             [weak self] _ in
             guard let session = self?.session else {
                 return
@@ -289,7 +287,7 @@ final class SessionController: ObservableObject {
             DeleteAppPasswordOCSRequest(session: session).publisher
                 .replaceError(with: ())
         }
-        .sink { AuthenticationChallengeController.default.clearAcceptedCertificateHash() }
+        .sink { resolve(\.authenticationChallengeController).clearAcceptedCertificateHash() }
     }
     
 }

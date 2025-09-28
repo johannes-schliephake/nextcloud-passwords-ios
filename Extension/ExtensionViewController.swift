@@ -8,6 +8,7 @@ class ExtensionViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         _ = resolve(\.logger)
         _ = resolve(\.windowSizeDataSource)
+        _ = resolve(\.biometricAuthenticationController)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -19,10 +20,10 @@ class ExtensionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AutoFillController.default.mode = .extension
-        AutoFillController.default.serviceURLs = []
-        AutoFillController.default.credentialIdentifier = nil
-        AutoFillController.default.hasField = false
+        resolve(\.autoFillController).mode = .extension
+        resolve(\.autoFillController).serviceURLs = []
+        resolve(\.autoFillController).credentialIdentifier = nil
+        resolve(\.autoFillController).hasField = false
         
         if let extensionItems = extensionContext?.inputItems as? [NSExtensionItem] {
             extensionItems
@@ -42,16 +43,16 @@ class ExtensionViewController: UIViewController {
                             return
                         }
                         DispatchQueue.main.async {
-                            AutoFillController.default.serviceURLs = [url]
-                            AutoFillController.default.hasField = hasField
+                            resolve(\.autoFillController).serviceURLs = [url]
+                            resolve(\.autoFillController).hasField = hasField
                         }
                     }
                 }
         }
         
-        AutoFillController.default.complete = {
+        resolve(\.autoFillController).complete = {
             [weak self] _, currentOtp in
-            if AutoFillController.default.hasField {
+            if resolve(\.autoFillController).hasField {
                 let jsDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: ["currentOtp": currentOtp]]
                 let otpItem = NSExtensionItem()
                 otpItem.attachments = [NSItemProvider(item: jsDictionary as NSDictionary, typeIdentifier: UTType.propertyList.identifier)]
@@ -64,15 +65,14 @@ class ExtensionViewController: UIViewController {
                 }
             }
         }
-        AutoFillController.default.cancel = {
+        resolve(\.autoFillController).cancel = {
             [weak self] in
             self?.extensionContext?.cancelRequest(withError: NSError(domain: Configuration.appService, code: 0))
         }
         
-        UIAlertController.rootViewController = self
+        Container.shared.rootViewController.register { self }
         
-        let mainView = MainView().environmentObject(AutoFillController.default)
-        let hostingController = UIHostingController(rootView: mainView)
+        let hostingController = UIHostingController(rootView: MainView())
         addChild(hostingController)
         view.addSubview(hostingController.view)
         hostingController.didMove(toParent: self)
@@ -86,23 +86,29 @@ class ExtensionViewController: UIViewController {
         ])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.post(name: UIScene.willConnectNotification, object: view.window?.windowScene)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.post(name: UIScene.didActivateNotification, object: view.window?.windowScene)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NotificationCenter.default.post(name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.post(name: UIScene.willDeactivateNotification, object: view.window?.windowScene)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.post(name: UIScene.didEnterBackgroundNotification, object: view.window?.windowScene)
+        Container.shared.reset()
     }
-
+    
 }

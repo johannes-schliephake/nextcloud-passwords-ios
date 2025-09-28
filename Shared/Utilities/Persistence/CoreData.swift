@@ -3,8 +3,6 @@ import CoreData
 
 final class CoreData {
     
-    static let `default` = CoreData()
-    
     var context: NSManagedObjectContext {
         container.viewContext
     }
@@ -24,7 +22,7 @@ final class CoreData {
     }
     
     func fetch<T>(request: NSFetchRequest<T>) -> [T]? where T: NSManagedObject {
-        try? Self.default.container.viewContext.fetch(request)
+        try? container.viewContext.fetch(request)
     }
     
     func save() {
@@ -43,7 +41,7 @@ final class CoreData {
     
     func clear<T>(type: T.Type) where T: NSManagedObject {
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: type.fetchRequest())
-        _ = try? Self.default.container.viewContext.execute(deleteRequest)
+        _ = try? container.viewContext.execute(deleteRequest)
     }
     
 }

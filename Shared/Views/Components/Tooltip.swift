@@ -14,7 +14,6 @@ private enum TooltipConstants {
 private struct Tooltip<PopoverContent: View>: ViewModifier {
     
     @Injected(\.windowSizeService) private var windowSizeService
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
     
     @Binding var isPresented: Bool
     let content: () -> PopoverContent
@@ -64,7 +63,6 @@ private struct Tooltip<PopoverContent: View>: ViewModifier {
                     }
                 }
                 .presentationCompactAdaptation(.popover)
-                .occlude(biometricAuthenticationController.hideContents)
             }
     }
     

@@ -77,7 +77,7 @@ struct EntriesPage: View {
                 folderController.autoFillController = autoFillController
                 
                 DispatchQueue.main.async {
-                    if SessionController.default.session == nil {
+                    if resolve(\.sessionController).session == nil {
                         showServerSetupView = true
                     }
                 }
@@ -222,13 +222,26 @@ struct EntriesPage: View {
                             Image(systemName: "questionmark.circle")
                         }
                         .buttonStyle(.borderless)
-                        .tooltip(isPresented: $showStorePasswordTooltip) {
-                            Text("_storePasswordMessage")
+                        .apply { view in
+                            if #available(iOS 17, *) {
+                                view
+                                    .tooltip(isPresented: $showStorePasswordTooltip) {
+                                        Text("_storePasswordMessage")
+                                    }
+                            }
                         }
                     }
                 }
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
                 .listRowBackground(Color(UIColor.systemGroupedBackground))
+                .apply { view in
+                    if #unavailable(iOS 17) {
+                        view
+                            .tooltip(isPresented: $showStorePasswordTooltip) {
+                                Text("_storePasswordMessage")
+                            }
+                    }
+                }
             }
             Button {
                 solveChallenge()
@@ -1163,7 +1176,7 @@ extension EntriesPage {
                         Image(systemName: "info.circle")
                     }
                     .buttonStyle(.borderless)
-                    .navigationDestination(isPresented: $showPasswordDetailView) {
+                    .navigationDestination(isPresented: $showPasswordDetailView) { [entriesController] in
                         PasswordDetailPage(entriesController: entriesController, password: password)
                     }
                 }

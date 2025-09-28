@@ -11,7 +11,9 @@ struct EditPasswordPage: View {
     @StateObject private var editPasswordController: EditPasswordController
     @ScaledMetric private var customFieldTypeIconWidth = 30
     @FocusState private var focusedField: FocusField?
-    @AppStorage("didAcceptAboutOtps", store: Configuration.userDefaults) private var didAcceptAboutOtps = Configuration.defaults["didAcceptAboutOtps"] as! Bool // swiftlint:disable:this force_cast
+    // AppStorage freezes app on iOS 16 + 17
+//    @AppStorage("didAcceptAboutOtps", store: Configuration.userDefaults) private var didAcceptAboutOtps = Configuration.defaults["didAcceptAboutOtps"] as! Bool
+    @State private var didAcceptAboutOtps = Configuration.userDefaults.bool(forKey: "didAcceptAboutOtps")
     @State private var editMode = false
     @State private var sheetItem: SheetItem?
     @State private var showAboutOtpsTooltip = false
@@ -53,6 +55,7 @@ struct EditPasswordPage: View {
                 }
                 editPasswordController.passwordOtp = receivedOtp
             }
+            .onChange(of: didAcceptAboutOtps) { Configuration.userDefaults.set($0, forKey: "didAcceptAboutOtps") }
     }
     
     private func listView() -> some View {

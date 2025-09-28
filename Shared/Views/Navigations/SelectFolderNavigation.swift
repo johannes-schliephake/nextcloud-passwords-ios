@@ -4,8 +4,6 @@ import Factory
 
 struct SelectFolderNavigation: View {
     
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    
     let entry: Entry
     let temporaryEntry: SelectFolderViewModel.TemporaryEntry
     let selectFolder: (Folder) -> Void
@@ -17,7 +15,6 @@ struct SelectFolderNavigation: View {
             SelectFolderPage(viewModel: resolve(\.selectFolderViewModelType).init(entry: entry, temporaryEntry: temporaryEntry, selectFolder: selectFolder).eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
-        .occlude(biometricAuthenticationController.hideContents)
     }
     
 }

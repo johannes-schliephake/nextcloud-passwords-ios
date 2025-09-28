@@ -87,10 +87,10 @@ final class EntriesController: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
-        SessionController.default.$session
+        resolve(\.sessionController).$session
             .sink(receiveValue: requestEntries)
             .store(in: &subscriptions)
-        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+        NotificationCenter.default.publisher(for: UIScene.didActivateNotification)
             .sink(receiveValue: refresh)
             .store(in: &subscriptions)
     }
@@ -115,7 +115,7 @@ final class EntriesController: ObservableObject {
             didMergeOfflineEntries = false
             listRequestsSubscription = nil
             Crypto.AES256.removeKey(named: "offlineKey")
-            CoreData.default.clear(type: OfflineContainer.self)
+            resolve(\.coreData).clear(type: OfflineContainer.self)
             updateAutoFillCredentials()
             return
         }
@@ -128,7 +128,7 @@ final class EntriesController: ObservableObject {
     }
     
     func refresh() async {
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             return
         }
         await withCheckedContinuation {
@@ -140,7 +140,7 @@ final class EntriesController: ObservableObject {
     }
     
     func refresh(completion: (() -> Void)? = nil) {
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             completion?()
             return
         }
@@ -234,9 +234,9 @@ final class EntriesController: ObservableObject {
         DispatchQueue.global(qos: .utility).async {
             [weak self] in
             let request = OfflineContainer.request()
-            guard let offlineContainers = CoreData.default.fetch(request: request) else {
+            guard let offlineContainers = resolve(\.coreData).fetch(request: request) else {
                 DispatchQueue.main.async {
-                    CoreData.default.clear(type: OfflineContainer.self)
+                    resolve(\.coreData).clear(type: OfflineContainer.self)
                     self?.merge(folders: [], passwords: [], tags: [], offline: true)
                 }
                 return
@@ -252,7 +252,7 @@ final class EntriesController: ObservableObject {
             }
             catch {
                 DispatchQueue.main.async {
-                    CoreData.default.clear(type: OfflineContainer.self)
+                    resolve(\.coreData).clear(type: OfflineContainer.self)
                     self?.merge(folders: [], passwords: [], tags: [], offline: true)
                 }
                 self?.logger.log(error: error)
@@ -261,7 +261,7 @@ final class EntriesController: ObservableObject {
     }
     
     private func merge(folders: [Folder], passwords: [Password], tags: [Tag], offline: Bool = false) {
-        guard SessionController.default.session != nil else {
+        guard resolve(\.sessionController).session != nil else {
             return
         }
         
@@ -463,15 +463,15 @@ final class EntriesController: ObservableObject {
     }
     
     private func completeCredentialIdentifierAutoFill() {
-        guard let credentialIdentifier = AutoFillController.default.credentialIdentifier else {
+        guard let credentialIdentifier = resolve(\.autoFillController).credentialIdentifier else {
             return
         }
-        guard let complete = AutoFillController.default.complete,
+        guard let complete = resolve(\.autoFillController).complete,
               let password = passwords?.first(where: { $0.id == credentialIdentifier }) else {
-            AutoFillController.default.credentialIdentifier = nil
+            resolve(\.autoFillController).credentialIdentifier = nil
             return
         }
-        switch AutoFillController.default.mode {
+        switch resolve(\.autoFillController).mode {
         case .app:
             break
         case .provider:
@@ -487,7 +487,7 @@ final class EntriesController: ObservableObject {
     func add(folder: Folder) {
         folder.state = .creating
         
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             folder.state = .creationFailed
             return
         }
@@ -516,7 +516,7 @@ final class EntriesController: ObservableObject {
     func add(password: Password) {
         password.state = .creating
         
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             password.state = .creationFailed
             return
         }
@@ -546,7 +546,7 @@ final class EntriesController: ObservableObject {
     func add(tag: Tag) {
         tag.state = .creating
         
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             tag.state = .creationFailed
             return
         }
@@ -575,7 +575,7 @@ final class EntriesController: ObservableObject {
     func update(folder: Folder) {
         folder.state = .updating
         
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             folder.state = .updateFailed
             return
         }
@@ -602,7 +602,7 @@ final class EntriesController: ObservableObject {
     func update(password: Password) {
         password.state = .updating
         
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             password.state = .updateFailed
             return
         }
@@ -630,7 +630,7 @@ final class EntriesController: ObservableObject {
     func update(tag: Tag) {
         tag.state = .updating
         
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             tag.state = .updateFailed
             return
         }
@@ -657,7 +657,7 @@ final class EntriesController: ObservableObject {
     func delete(folder: Folder) {
         folder.state = .deleting
         
-        guard let session = SessionController.default.session,
+        guard let session = resolve(\.sessionController).session,
               let folders,
               let passwords else {
             folder.state = .deletionFailed
@@ -702,7 +702,7 @@ final class EntriesController: ObservableObject {
     func delete(password: Password) {
         password.state = .deleting
         
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             password.state = .deletionFailed
             return
         }
@@ -725,7 +725,7 @@ final class EntriesController: ObservableObject {
     func delete(tag: Tag) {
         tag.state = .deleting
         
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             tag.state = .deletionFailed
             return
         }
@@ -750,7 +750,7 @@ final class EntriesController: ObservableObject {
             return nil
         }
         let searchTerm = searchTerm.trimmingCharacters(in: .whitespacesAndNewlines)
-        let filterBy = AutoFillController.default.mode != .extension ? filterBy : .otps
+        let filterBy = resolve(\.autoFillController).mode != .extension ? filterBy : .otps
         let sortBy = defaultSorting ?? sortBy
         let reversed = defaultSorting != nil ? false : reversed
         
@@ -955,7 +955,7 @@ final class EntriesController: ObservableObject {
                     .reduce(0.0, +)
             }
             .zip(with: passwords)
-            .filter { AutoFillController.default.mode != .extension || $0.1.otp != nil }
+            .filter { resolve(\.autoFillController).mode != .extension || $0.1.otp != nil }
             .filter { $0.0 > 0.5 }
             .sorted { $0.0 > $1.0 }
             .prefix(5)

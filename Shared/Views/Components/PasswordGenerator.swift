@@ -8,11 +8,17 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
     @Binding var password: String
     var generateInitial = false
     
-    @AppStorage("generatorNumbers", store: Configuration.userDefaults) private var generatorNumbers = Configuration.defaults["generatorNumbers"] as! Bool // swiftlint:disable:this force_cast
-    @AppStorage("generatorSpecial", store: Configuration.userDefaults) private var generatorSpecial = Configuration.defaults["generatorSpecial"] as! Bool // swiftlint:disable:this force_cast
-    @AppStorage("generatorStrength", store: Configuration.userDefaults) private var generatorStrength = PasswordServiceRequest.Strength(rawValue: Configuration.defaults["generatorStrength"] as! Int) ?? .default // swiftlint:disable:this force_cast
-    @AppStorage("generatorLength", store: Configuration.userDefaults) private var generatorLength = Configuration.defaults["generatorLength"] as! Int // swiftlint:disable:this force_cast
-    @AppStorage("onDeviceGenerator", store: Configuration.userDefaults) private var onDeviceGenerator = Configuration.defaults["onDeviceGenerator"] as! Bool // swiftlint:disable:this force_cast
+    // AppStorage freezes app on iOS 16 + 17
+//    @AppStorage("generatorNumbers", store: Configuration.userDefaults) private var generatorNumbers = Configuration.defaults["generatorNumbers"] as! Bool
+//    @AppStorage("generatorSpecial", store: Configuration.userDefaults) private var generatorSpecial = Configuration.defaults["generatorSpecial"] as! Bool
+//    @AppStorage("generatorStrength", store: Configuration.userDefaults) private var generatorStrength = PasswordServiceRequest.Strength(rawValue: Configuration.defaults["generatorStrength"] as! Int) ?? .default
+//    @AppStorage("generatorLength", store: Configuration.userDefaults) private var generatorLength = Configuration.defaults["generatorLength"] as! Int
+//    @AppStorage("onDeviceGenerator", store: Configuration.userDefaults) private var onDeviceGenerator = Configuration.defaults["onDeviceGenerator"] as! Bool
+    @State private var generatorNumbers = Configuration.userDefaults.bool(forKey: "generatorNumbers")
+    @State private var generatorSpecial = Configuration.userDefaults.bool(forKey: "generatorSpecial")
+    @State private var generatorStrength = PasswordServiceRequest.Strength(rawValue: Configuration.userDefaults.integer(forKey: "generatorStrength")) ?? .default
+    @State private var generatorLength = Configuration.userDefaults.integer(forKey: "generatorLength")
+    @State private var onDeviceGenerator = Configuration.userDefaults.bool(forKey: "onDeviceGenerator")
     
     @ScaledMetric private var generatorLengthLabelWidth = 30
     @State private var showPasswordGenerator = false
@@ -47,6 +53,11 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
             }
             generatePassword()
         }
+        .onChange(of: generatorNumbers) { Configuration.userDefaults.set($0, forKey: "generatorNumbers") }
+        .onChange(of: generatorSpecial) { Configuration.userDefaults.set($0, forKey: "generatorSpecial") }
+        .onChange(of: generatorStrength) { Configuration.userDefaults.set($0, forKey: "generatorStrength") }
+        .onChange(of: generatorLength) { Configuration.userDefaults.set($0, forKey: "generatorLength") }
+        .onChange(of: onDeviceGenerator) { Configuration.userDefaults.set($0, forKey: "onDeviceGenerator") }
     }
     
     private func passwordGenerator() -> some View {
@@ -238,7 +249,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
     }
     
     private func generatePasswordRemotely() {
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             showPasswordServiceErrorAlert = true
             return
         }

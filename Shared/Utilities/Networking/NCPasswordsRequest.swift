@@ -112,7 +112,7 @@ extension NCPasswordsRequest {
             request.httpShouldHandleCookies = false
             request.httpBody = body
             
-            NetworkClient.default.dataTask(with: request) {
+            resolve(\.urlSession).dataTask(with: request) {
                 [self] data, response, _ in
                 guard let data,
                       let response = response as? HTTPURLResponse else {

@@ -3,8 +3,6 @@ import Foundation
 
 final class AutoFillController: ObservableObject {
     
-    static let `default` = AutoFillController()
-    
     /// Attributes may be set by AutoFill credential provider or action extension
     @Published var mode: Mode = .app
     @Published var receivedOtp: OTP?
