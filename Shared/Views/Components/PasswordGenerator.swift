@@ -111,25 +111,39 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                     )
                 }
             }
-            Divider()
-                .apply { view in
-                    if #unavailable(iOS 26) {
-                        view
-                            .padding(.trailing, -100)
-                    }
-                }
+            if #unavailable(iOS 26) {
+                Divider()
+                    .padding(.trailing, -100)
+            }
             Button {
                 generatePassword()
-            }
-            label: {
-                HStack {
-                    Label("_generatePassword", systemImage: "dice")
-                    if showProgressView {
-                        Spacer()
-                        ProgressView()
+            } label: {
+                if #available(iOS 26, *) {
+                    ZStack {
+                        Label("_generatePassword", systemImage: "dice")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, minHeight: 34)
+                        if showProgressView {
+                            ProgressView()
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
                     }
+                } else {
+                    HStack {
+                        Label("_generatePassword", systemImage: "dice")
+                        if showProgressView {
+                            Spacer()
+                            ProgressView()
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .buttonStyle(.bordered)
+                }
             }
             .disabled(showProgressView)
         }

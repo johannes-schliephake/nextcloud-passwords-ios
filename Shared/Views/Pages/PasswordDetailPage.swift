@@ -278,32 +278,40 @@ struct PasswordDetailPage: View {
             }
             if password.editable,
                password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
-                Divider()
-                    .apply { view in
-                        if #unavailable(iOS 26) {
-                            view
-                                .padding(.trailing, -100)
-                        }
-                    }
+                if #unavailable(iOS 26) {
+                    Divider()
+                        .padding(.trailing, -100)
+                }
                 Button {
                     showPasswordStatusTooltip = false
                     showEditPasswordView = true
-                }
-                label: {
+                } label: {
                     Label("_editPassword", systemImage: "square.and.pencil")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .apply { view in
+                            if #available(iOS 26, *) {
+                                view
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity, minHeight: 34)
+                            } else {
+                                view
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                }
+                .apply { view in
+                    if #available(iOS 26, *) {
+                        view
+                            .buttonStyle(.bordered)
+                    }
                 }
                 .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             }
             if password.statusCode == .duplicate,
                let duplicates = entriesController.passwords?.filter({ $0.password == password.password && $0.id != password.id }) {
-                Divider()
-                    .apply { view in
-                        if #unavailable(iOS 26) {
-                            view
-                                .padding(.trailing, -100)
-                        }
-                    }
+                if #unavailable(iOS 26) {
+                    Divider()
+                        .padding(.trailing, -100)
+                }
                 VStack(alignment: .leading, spacing: 0) {
                     Text(Strings.duplicates)
                         .font(.subheadline)
@@ -311,13 +319,10 @@ struct PasswordDetailPage: View {
                         .foregroundColor(.gray)
                         .padding(.top, 12)
                         .padding(.bottom, EdgeInsets.listRow.bottom)
-                    Divider()
-                        .apply { view in
-                            if #unavailable(iOS 26) {
-                                view
-                                    .padding(.trailing, -100)
-                            }
-                        }
+                    if #unavailable(iOS 26) {
+                        Divider()
+                            .padding(.trailing, -100)
+                    }
                     if duplicates.isEmpty {
                         Text(Strings.duplicatesTrashMessage)
                             .foregroundColor(.gray)
