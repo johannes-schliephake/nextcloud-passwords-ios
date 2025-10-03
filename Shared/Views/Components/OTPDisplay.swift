@@ -48,14 +48,14 @@ struct OTPDisplay<Content: View>: View {
             .task(id: otp) {
                 updateTotp(otp, date: Date(), isInitial: true)
             }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) {
+            .onReceive(NotificationCenter.default.publisher(for: UIScene.didActivateNotification)) {
                 _ in
                 updateTotp(otp, date: Date(), isInitial: true)
             }
             .onDisappear {
                 updateTotp(otp, date: nil)
             }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) {
+            .onReceive(NotificationCenter.default.publisher(for: UIScene.didEnterBackgroundNotification)) {
                 _ in
                 updateTotp(otp, date: nil)
             }

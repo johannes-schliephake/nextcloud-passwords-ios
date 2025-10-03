@@ -1,89 +1,81 @@
 import Combine
 import LocalAuthentication
 import SwiftUI
+import Factory
 
 
 final class BiometricAuthenticationController: ObservableObject {
     
-    var autoFillController: AutoFillController?
+    @LazyInjected(\.autoFillController) private var autoFillController
+    @LazyInjected(\.sessionController) private var sessionController
     
-    @Published private(set) var hideContents = true
-    private var isLocked = true
-    
-    private var subscriptions = Set<AnyCancellable>()
-    private let semaphore = DispatchSemaphore(value: 1)
+    private let isLockedSubject = CurrentValueSubject<Bool, Never>(true)
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
-        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
-            .sink { [weak self] _ in self?.unlockApp() }
-            .store(in: &subscriptions)
-        NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)
-            .sink { [weak self] _ in self?.hideContents = true }
-            .store(in: &subscriptions)
-        NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)
-            .sink { [weak self] _ in self?.isLocked = true }
-            .store(in: &subscriptions)
+        weak var `self` = self
+        
+        NotificationCenter.default.publisher(for: UIScene.didActivateNotification)
+            .ignoreValue()
+            .flatMap(maxPublishers: .max(1)) {
+                Bridge { @MainActor [weak self] in
+                    if self?.isLockedSubject.value == false {
+                        true
+                    } else {
+                        await self?.verifyDeviceOwner() ?? false
+                    }
+                }
+            }
+            .filter { $0 }
+            .ignoreValue()
+            .receive(on: DispatchQueue.main)
+            .sink { self?.isLockedSubject.send(false) }
+            .store(in: &cancellables)
+        
+        NotificationCenter.default.publisher(for: UIScene.didEnterBackgroundNotification)
+            .ignoreValue()
+            .sink { self?.isLockedSubject.send(true) }
+            .store(in: &cancellables)
+        
+        Publishers.CombineLatest(
+            NotificationCenter.default.publisher(for: UIScene.willConnectNotification)
+                .compactMap { $0.object as? UIWindowScene }
+                .first(),
+            Publishers.Merge(
+                NotificationCenter.default.publisher(for: UIScene.willDeactivateNotification)
+                    .map { _ in (true, true) },
+                isLockedSubject
+                    .map { ($0, !$0) }
+            )
+        )
+        .sink { $0.blur(enabled: $1.0, animated: $1.1) }
+        .store(in: &cancellables)
     }
     
     private init(isLocked: Bool) {
-        self.hideContents = isLocked
-        self.isLocked = isLocked
+        isLockedSubject.send(isLocked)
     }
     
-    func invalidate() {
-        subscriptions.removeAll()
-    }
-    
-    private func unlockApp() {
-        DispatchQueue().async { [weak self] in
-            guard let self else {
-                return
+    private func verifyDeviceOwner() async -> Bool {
+        let context = LAContext()
+        let policy = LAPolicy.deviceOwnerAuthentication
+        
+        guard sessionController.session != nil,
+              context.canEvaluatePolicy(policy, error: nil) else {
+            return true
+        }
+        
+        do {
+            return try await context.evaluatePolicy(policy, localizedReason: Strings.unlockApp)
+        } catch {
+            guard (error as? LAError)?.code == .userCancel else {
+                return false
             }
-            semaphore.wait()
-            
-            guard isLocked else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.hideContents = false
-                    self?.semaphore.signal()
-                }
-                return
-            }
-            
-            let context = LAContext()
-            let policy = LAPolicy.deviceOwnerAuthentication
-            var error: NSError?
-            guard SessionController.default.session != nil,
-                  context.canEvaluatePolicy(policy, error: &error) else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.hideContents = false
-                    self?.isLocked = false
-                    self?.semaphore.signal()
-                }
-                return
-            }
-            
-            context.evaluatePolicy(policy, localizedReason: "_unlockApp".localized) { [weak self] success, error in
-                guard success else {
-                    guard let laError = error as? LAError,
-                          laError.code == .userCancel else {
-                        self?.semaphore.signal()
-                        return
-                    }
-                    if let cancelAutoFill = self?.autoFillController?.cancel {
-                        cancelAutoFill()
-                    }
-                    else {
-                        self?.semaphore.signal()
-                        self?.unlockApp()
-                    }
-                    return
-                }
-                
-                DispatchQueue.main.async { [weak self] in
-                    self?.hideContents = false
-                    self?.isLocked = false
-                    self?.semaphore.signal()
-                }
+            if let cancelAutoFill = autoFillController.cancel {
+                cancelAutoFill()
+                return false
+            } else {
+                return await verifyDeviceOwner()
             }
         }
     }
@@ -95,6 +87,53 @@ extension BiometricAuthenticationController: MockObject {
     
     static var mock: BiometricAuthenticationController {
         BiometricAuthenticationController(isLocked: false)
+    }
+    
+}
+
+
+private extension UIWindowScene {
+    
+    private static let blurTag = -2398416497534319401
+    
+    func blur(enabled: Bool, animated: Bool) {
+        windows.forEach { window in
+            if let blur = window.viewWithTag(Self.blurTag) {
+                switch (enabled, animated) {
+                case (true, true):
+                    blur.isHidden = false
+                    UIView.animate(withDuration: 0.2) {
+                        blur.alpha = 1
+                    }
+                case (false, true):
+                    UIView.animate(withDuration: 0.2) {
+                        blur.alpha = 0
+                    } completion: { _ in
+                        blur.isHidden = true
+                    }
+                case (_, false):
+                    blur.isHidden = !enabled
+                    blur.alpha = enabled ? 1 : 0
+                }
+            } else if enabled {
+                let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
+                blur.tag = Self.blurTag
+                blur.layer.zPosition = .init(Float.greatestFiniteMagnitude)
+                window.addSubview(blur)
+                if let rootView = window.rootViewController?.view {
+                    blur.translatesAutoresizingMaskIntoConstraints = false
+                    NSLayoutConstraint.activate([
+                        blur.topAnchor.constraint(equalTo: rootView.topAnchor),
+                        blur.bottomAnchor.constraint(equalTo: rootView.bottomAnchor),
+                        blur.leadingAnchor.constraint(equalTo: rootView.leadingAnchor),
+                        blur.trailingAnchor.constraint(equalTo: rootView.trailingAnchor)
+                    ])
+                } else {
+                    resolve(\.logger).log(error: "Unable to find a root view controller to constrain the blur view to, falling back to frame-based method")
+                    blur.frame = window.frame
+                }
+            }
+        }
     }
     
 }

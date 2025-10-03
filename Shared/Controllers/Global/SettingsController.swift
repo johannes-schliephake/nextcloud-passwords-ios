@@ -5,8 +5,6 @@ import SwiftUI
 
 final class SettingsController: ObservableObject {
     
-    static let `default` = SettingsController()
-    
     @LazyInjected(\.logger) private var logger
     
     @Published private var settings: Settings? /// Published private value will still refresh views
@@ -14,11 +12,11 @@ final class SettingsController: ObservableObject {
     private var settingsFetchDate: Date?
     private var subscriptions = Set<AnyCancellable>()
     
-    private init() {
-        SessionController.default.$session
+    init() {
+        resolve(\.sessionController).$session
             .sink(receiveValue: requestSettings)
             .store(in: &subscriptions)
-        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+        NotificationCenter.default.publisher(for: UIScene.didActivateNotification)
             .sink(receiveValue: refresh)
             .store(in: &subscriptions)
     }
@@ -47,7 +45,7 @@ final class SettingsController: ObservableObject {
             }
         }
         
-        guard let session = SessionController.default.session else {
+        guard let session = resolve(\.sessionController).session else {
             return
         }
         fetchOnlineSettings(session: session)

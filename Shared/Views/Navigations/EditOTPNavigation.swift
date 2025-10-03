@@ -4,8 +4,6 @@ import Factory
 
 struct EditOTPNavigation: View {
     
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    
     let otp: OTP
     let updateOtp: (OTP?) -> Void
     
@@ -16,7 +14,6 @@ struct EditOTPNavigation: View {
             EditOTPPage(viewModel: resolve(\.editOTPViewModelType).init(otp: otp, updateOtp: updateOtp).eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
-        .occlude(biometricAuthenticationController.hideContents)
     }
     
 }

@@ -78,8 +78,8 @@ struct ServerSetupPage: View {
                     ProgressView()
                 }
             }
-            .navigationDestination(isPresented: $viewModel[\.showLoginFlowPage]) {
-                if let challenge = viewModel[\.challenge] {
+            .navigationDestination(isPresented: $viewModel[\.showLoginFlowPage]) { [challenge = viewModel[\.challenge]] in
+                if let challenge {
                     LoginFlowPage(viewModel: resolve(\.loginFlowViewModelType).init(challenge: challenge).eraseToAnyViewModel())
                 }
             }

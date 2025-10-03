@@ -4,8 +4,6 @@ import Factory
 
 struct EditFolderNavigation: View {
     
-    @EnvironmentObject private var biometricAuthenticationController: BiometricAuthenticationController
-    
     let folder: Folder
     var didEdit: ((Folder) -> Void)?
     
@@ -16,7 +14,6 @@ struct EditFolderNavigation: View {
             EditFolderPage(viewModel: resolve(\.editFolderViewModelType).init(folder: folder, didEdit: didEdit).eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
-        .occlude(biometricAuthenticationController.hideContents)
     }
     
 }

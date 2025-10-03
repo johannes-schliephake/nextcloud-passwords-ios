@@ -281,9 +281,93 @@ extension Container {
     }
     
     // TODO: remove
+    var application: Factory<UIApplication?> {
+        self {
+            guard !UIApplication.isExtension,
+                  UIApplication.responds(to: NSSelectorFromString("sharedApplication")) else {
+                return nil
+            }
+            return UIApplication.perform(NSSelectorFromString("sharedApplication"))?.takeUnretainedValue() as? UIApplication
+        }
+        .cached
+    }
+    var urlSession: Factory<URLSession> {
+        self {
+            let configuration = URLSessionConfiguration.default
+            configuration.httpAdditionalHeaders = ["User-Agent": Configuration.clientName]
+            return URLSession(configuration: configuration, delegate: resolve(\.authenticationChallengeController), delegateQueue: nil)
+        }
+        .cached
+    }
+    var rootViewController: Factory<UIViewController?> {
+        self { nil }
+            .cached
+    }
     var entriesController: Factory<EntriesController> {
+        self {
+#if DEBUG
+            Configuration.isTestEnvironment ? .mock : .init()
+#else
+            .init()
+#endif
+        }
+        .cached
+    }
+    var authenticationChallengeController: Factory<AuthenticationChallengeController> {
         self { .init() }
             .cached
+    }
+    var autoFillController: Factory<AutoFillController> {
+        self {
+#if DEBUG
+            Configuration.isTestEnvironment ? .mock : .init()
+#else
+            .init()
+#endif
+        }
+        .cached
+    }
+    var sessionController: Factory<SessionController> {
+        self {
+#if DEBUG
+            Configuration.isTestEnvironment ? .mock : .init()
+#else
+            .init()
+#endif
+        }
+        .cached
+    }
+    var settingsController: Factory<SettingsController> {
+        self {
+#if DEBUG
+            Configuration.isTestEnvironment ? .mock : .init()
+#else
+            .init()
+#endif
+        }
+        .cached
+    }
+    var coreData: Factory<CoreData> {
+        self { .init() }
+            .cached
+    }
+    var keychain: Factory<Keychain> {
+        self { .init() }
+            .cached
+    }
+    var sodium: Factory<Sodium> {
+        self { .init() }
+            .cached
+    }
+    var biometricAuthenticationController: Factory<BiometricAuthenticationController> {
+        self {
+#if DEBUG
+            Configuration.isTestEnvironment ? .mock : .init()
+#else
+            .init()
+#endif
+        }
+        .cached
     }
     
 }

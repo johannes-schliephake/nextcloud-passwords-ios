@@ -71,7 +71,7 @@ final class Tag: ObservableObject, Identifiable {
         case "none":
             break
         case "CSEv1r1":
-            guard let keychain = SessionController.default.session?.keychain,
+            guard let keychain = resolve(\.sessionController).session?.keychain,
                   let key = keychain.keys[cseKey],
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key),
                   let decryptedColor = Crypto.CSEv1r1.decrypt(payload: color, key: key) else {
@@ -116,16 +116,16 @@ final class Tag: ObservableObject, Identifiable {
     
     func updateOfflineContainer() {
         if revision.isEmpty || !Configuration.userDefaults.bool(forKey: "storeOffline") {
-            CoreData.default.delete(offlineContainer)
+            resolve(\.coreData).delete(offlineContainer)
             offlineContainer = nil
         }
         else if let offlineContainer {
             offlineContainer.update(from: self)
         }
         else {
-            offlineContainer = OfflineContainer(context: CoreData.default.context, tag: self)
+            offlineContainer = OfflineContainer(context: resolve(\.coreData).context, tag: self)
         }
-        CoreData.default.save()
+        resolve(\.coreData).save()
     }
     
     static private func randomTagColor() -> String {
@@ -158,7 +158,7 @@ extension Tag: Codable {
     func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        if let keychain = SessionController.default.session?.keychain,
+        if let keychain = resolve(\.sessionController).session?.keychain,
            state != .decryptionFailed,
            cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true {
             guard let key = keychain.keys[keychain.current],

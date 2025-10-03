@@ -1,5 +1,6 @@
 import Combine
 import Foundation
+import Factory
 
 
 protocol CheckTrustUseCaseProtocol: UseCase where State == CheckTrustUseCase.State, Action == CheckTrustUseCase.Action {}
@@ -29,7 +30,7 @@ final class CheckTrustUseCase: CheckTrustUseCaseProtocol {
     func callAsFunction(_ action: Action) {
         switch action {
         case let .setTrust(trust):
-            cancellable = AuthenticationChallengeController.default.checkTrust(trust)
+            cancellable = resolve(\.authenticationChallengeController).checkTrust(trust)
                 .first()
                 .sink { [weak self] in self?.state.isTrusted = .success($0) }
         }

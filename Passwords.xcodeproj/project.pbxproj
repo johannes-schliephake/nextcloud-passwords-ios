@@ -47,8 +47,6 @@
 		8F55D99F2582D0DE00CE4FC2 /* AutoFillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55D9992582D04200CE4FC2 /* AutoFillController.swift */; };
 		8F55F71625727CB600E00B28 /* DeleteFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55F71525727CB600E00B28 /* DeleteFolderRequest.swift */; };
 		8F55FBD72570276800CC6920 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55FBD62570276800CC6920 /* SessionController.swift */; };
-		8F560E69258F54A900C896EE /* Occlude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* Occlude.swift */; };
-		8F560E6C258F5AD400C896EE /* Occlude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* Occlude.swift */; };
 		8F561EBE258D26CC008AE12B /* NCPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */; };
 		8F561EC3258D2759008AE12B /* NCPasswordsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */; };
 		8F5637C62562C57800A0BF9D /* FaviconServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */; };
@@ -60,8 +58,6 @@
 		8F582BFA255EA63D00F1E3DA /* LoginFlowPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F582BF9255EA63D00F1E3DA /* LoginFlowPage.swift */; };
 		8F582BFE255EAD7000F1E3DA /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F582BFD255EAD7000F1E3DA /* Keychain.swift */; };
 		8F59F521256AE65800D9FE40 /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F59F520256AE65800D9FE40 /* ActionButtonStyle.swift */; };
-		8F5A8440259A4FA700BFDF29 /* UIApplication+SafeShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A843F259A4FA700BFDF29 /* UIApplication+SafeShared.swift */; };
-		8F5A8445259A501700BFDF29 /* UIApplication+SafeShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A843F259A4FA700BFDF29 /* UIApplication+SafeShared.swift */; };
 		8F5A8449259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */; };
 		8F5A844C259A67AE00BFDF29 /* UIAlertController+PresentGlobalAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */; };
 		8F5AB3C2256304CF00B8FB68 /* PasswordDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */; };
@@ -109,8 +105,6 @@
 		8F997F9D2572ED7800B5F784 /* CreateFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997F9C2572ED7800B5F784 /* CreateFolderRequest.swift */; };
 		8F997FA5257300A600B5F784 /* EditPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FA4257300A600B5F784 /* EditPasswordPage.swift */; };
 		8F997FAB2573043400B5F784 /* PasswordServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F997FAA2573043400B5F784 /* PasswordServiceRequest.swift */; };
-		8FA5B74C261109D7006CBC7D /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5B74B261109D7006CBC7D /* NetworkClient.swift */; };
-		8FA5B74D261109D7006CBC7D /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5B74B261109D7006CBC7D /* NetworkClient.swift */; };
 		8FBAC9D0264A7B050038A626 /* String+Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBAC9CF264A7B050038A626 /* String+Score.swift */; };
 		8FBAC9D1264A7B050038A626 /* String+Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBAC9CF264A7B050038A626 /* String+Score.swift */; };
 		8FBE43B9258D599E003F7F34 /* Date+FormattedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */; };
@@ -574,7 +568,6 @@
 		DDB1697D27D20CC100F4D752 /* CreateTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125827413FF6003912D0 /* CreateTagRequest.swift */; };
 		DDB1697E27D20CC100F4D752 /* RequestSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE0B260287DE00308A33 /* RequestSessionRequest.swift */; };
 		DDB1697F27D20CC100F4D752 /* SelectFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5726A3793A00770FEA /* SelectFolderNavigation.swift */; };
-		DDB1698027D20CC100F4D752 /* Occlude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F560E68258F54A900C896EE /* Occlude.swift */; };
 		DDB1698127D20CC100F4D752 /* CopyToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F77DA5C25699F8900CFDA8D /* CopyToast.swift */; };
 		DDB1698227D20CC100F4D752 /* EditLabeledRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4A9E88269F84B9007268E2 /* EditLabeledRow.swift */; };
 		DDB1698327D20CC200F4D752 /* ShareOTPPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B586A27D00E6F00E54E71 /* ShareOTPPage.swift */; };
@@ -625,7 +618,6 @@
 		DDB169BB27D20CC200F4D752 /* ShowTagRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE1261274140A9003912D0 /* ShowTagRequest.swift */; };
 		DDB169BC27D20CC200F4D752 /* EditFolderNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F559A1725A0AE3300D7A39F /* EditFolderNavigation.swift */; };
 		DDB169BD27D20CC200F4D752 /* OfflineContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F854E6B26239457008885C3 /* OfflineContainer.swift */; };
-		DDB169BE27D20CC200F4D752 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5B74B261109D7006CBC7D /* NetworkClient.swift */; };
 		DDB169BF27D20CC200F4D752 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCE125527411B09003912D0 /* Tag.swift */; };
 		DDB169C027D20CC200F4D752 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F57B425256C0DD600329B05 /* SettingsPage.swift */; };
 		DDB169C127D20CC200F4D752 /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F59F520256AE65800D9FE40 /* ActionButtonStyle.swift */; };
@@ -654,7 +646,6 @@
 		DDB169E227D20CC200F4D752 /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4FE7526E755C000D6F92E /* Initialize.swift */; };
 		DDB169E327D20CC200F4D752 /* UIApplication+IsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE43C8258D5A2D003F7F34 /* UIApplication+IsExtension.swift */; };
 		DDB169E527D20CC300F4D752 /* CaptureOTPNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */; };
-		DDB169E627D20CC300F4D752 /* UIApplication+SafeShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5A843F259A4FA700BFDF29 /* UIApplication+SafeShared.swift */; };
 		DDB169E727D20CC300F4D752 /* SelectFolderPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9FAD5A26A3796500770FEA /* SelectFolderPage.swift */; };
 		DDB169E827D20CC300F4D752 /* SelectTagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0C28742766028500E3DAEF /* SelectTagsPage.swift */; };
 		DDB169EB27D20CC300F4D752 /* URL+Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6ED3B92663841D00DD61DE /* URL+Score.swift */; };
@@ -945,7 +936,6 @@
 		8F55D9992582D04200CE4FC2 /* AutoFillController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFillController.swift; sourceTree = "<group>"; };
 		8F55F71525727CB600E00B28 /* DeleteFolderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFolderRequest.swift; sourceTree = "<group>"; };
 		8F55FBD62570276800CC6920 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
-		8F560E68258F54A900C896EE /* Occlude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Occlude.swift; sourceTree = "<group>"; };
 		8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCPasswordsRequest.swift; sourceTree = "<group>"; };
 		8F5637C52562C57800A0BF9D /* FaviconServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaviconServiceRequest.swift; sourceTree = "<group>"; };
 		8F570BFA25693F5C00BA4B74 /* ListFoldersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFoldersRequest.swift; sourceTree = "<group>"; };
@@ -958,7 +948,6 @@
 		8F582BF9255EA63D00F1E3DA /* LoginFlowPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowPage.swift; sourceTree = "<group>"; };
 		8F582BFD255EAD7000F1E3DA /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		8F59F520256AE65800D9FE40 /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
-		8F5A843F259A4FA700BFDF29 /* UIApplication+SafeShared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+SafeShared.swift"; sourceTree = "<group>"; };
 		8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+PresentGlobalAlert.swift"; sourceTree = "<group>"; };
 		8F5AB3C1256304CF00B8FB68 /* PasswordDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDetailPage.swift; sourceTree = "<group>"; };
 		8F5BBC8F25F2B6D3001271F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -993,7 +982,6 @@
 		8F997F9C2572ED7800B5F784 /* CreateFolderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFolderRequest.swift; sourceTree = "<group>"; };
 		8F997FA4257300A600B5F784 /* EditPasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordPage.swift; sourceTree = "<group>"; };
 		8F997FAA2573043400B5F784 /* PasswordServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordServiceRequest.swift; sourceTree = "<group>"; };
-		8FA5B74B261109D7006CBC7D /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		8FBAC9CF264A7B050038A626 /* String+Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Score.swift"; sourceTree = "<group>"; };
 		8FBE43B8258D599E003F7F34 /* Date+FormattedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FormattedString.swift"; sourceTree = "<group>"; };
 		8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Label+ShowIcon.swift"; sourceTree = "<group>"; };
@@ -1993,7 +1981,6 @@
 				DDC7C94728C1FA3A00451B81 /* Bundle+IsTestFlight.swift */,
 				DD72AE1C28A7A78A00E72DB7 /* Bundle+Root.swift */,
 				8FBE43C8258D5A2D003F7F34 /* UIApplication+IsExtension.swift */,
-				8F5A843F259A4FA700BFDF29 /* UIApplication+SafeShared.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -2003,7 +1990,6 @@
 			children = (
 				DD2D700F28C7ED1F000F1607 /* FailableDecodable.swift */,
 				8F561EBD258D26CC008AE12B /* NCPasswordsRequest.swift */,
-				8FA5B74B261109D7006CBC7D /* NetworkClient.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -2065,7 +2051,6 @@
 				DDA4FE7526E755C000D6F92E /* Initialize.swift */,
 				DD78D6CD2AAC77A200854599 /* LegacySafeAreaPadding.swift */,
 				DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */,
-				8F560E68258F54A900C896EE /* Occlude.swift */,
 				DD760687295F72BC00109075 /* Sync.swift */,
 			);
 			path = Modifiers;
@@ -3148,7 +3133,6 @@
 				DD0E59A9274146C8003D7D50 /* EditTagPage.swift in Sources */,
 				DD845CBC2AF3AC2C00048F3F /* WindowSizeRepository.swift in Sources */,
 				DDBEE5BB2A07C7C8008F4099 /* Publishers+CombineLatest6.swift in Sources */,
-				8F5A8440259A4FA700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
 				8F68D73F26495AE200FF192C /* ShowPasswordRequest.swift in Sources */,
 				8F854E6D26239457008885C3 /* OfflineContainer.swift in Sources */,
 				DD2AEB782AEAAE520001781E /* DataScannerView.swift in Sources */,
@@ -3230,7 +3214,6 @@
 				DD34E00F2E391E2900028DF2 /* WordlistPreparationDataSource.swift in Sources */,
 				DD78D6D22AACDB3100854599 /* WindowSizeService.swift in Sources */,
 				DDFC42092E1728420080D52A /* OnDemandResources.swift in Sources */,
-				8F560E69258F54A900C896EE /* Occlude.swift in Sources */,
 				DDC14A8E2B3AFBA50062AA4C /* UseCase.swift in Sources */,
 				8F55564A25716BD200F5D805 /* DeletePasswordRequest.swift in Sources */,
 				DD1078782A69472B00E87B3F /* CaptureOTPViewModel.swift in Sources */,
@@ -3266,7 +3249,6 @@
 				DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				DDC14A862B39A8C90062AA4C /* Stateful.swift in Sources */,
 				DDBFDFB62BFB78C1000B5C30 /* Current.swift in Sources */,
-				8FA5B74C261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				DDACC45429EF3F440094D141 /* LogViewModel.swift in Sources */,
 				8F997F8D2572C2FB00B5F784 /* UpdatePasswordRequest.swift in Sources */,
 				DDFC420E2E17E04B0080D52A /* OnDemandResourcesRepository.swift in Sources */,
@@ -3383,7 +3365,6 @@
 				8FBAC9D1264A7B050038A626 /* String+Score.swift in Sources */,
 				DD9C50152A81862E002588DD /* ProductsAppStoreDataSource.swift in Sources */,
 				DD77FF342C4C6C0C00E193C9 /* CredentialProviderSettingsHelping.swift in Sources */,
-				8F5A8445259A501700BFDF29 /* UIApplication+SafeShared.swift in Sources */,
 				DD72AE1A28A31EE700E72DB7 /* DeleteAppPasswordOCSRequest.swift in Sources */,
 				DD0E59AA274146C8003D7D50 /* EditTagPage.swift in Sources */,
 				DDF0C47E2AD7F35E00A50661 /* PasteboardRepository.swift in Sources */,
@@ -3474,7 +3455,6 @@
 				DD78D6D32AACDB3100854599 /* WindowSizeService.swift in Sources */,
 				DDC14A8F2B3AFBA50062AA4C /* UseCase.swift in Sources */,
 				DDCE125A27413FF6003912D0 /* CreateTagRequest.swift in Sources */,
-				8F560E6C258F5AD400C896EE /* Occlude.swift in Sources */,
 				DD34E0202E3A27DE00028DF2 /* CryptoSHA256.swift in Sources */,
 				DD1078792A69472B00E87B3F /* CaptureOTPViewModel.swift in Sources */,
 				DD04DE062BAA390B00954A72 /* ManagedConfigurationUseCase.swift in Sources */,
@@ -3508,7 +3488,6 @@
 				DDC14A872B39A8C90062AA4C /* Stateful.swift in Sources */,
 				DDBFDFB72BFB78C1000B5C30 /* Current.swift in Sources */,
 				DDCE126627414101003912D0 /* UpdateTagRequest.swift in Sources */,
-				8FA5B74D261109D7006CBC7D /* NetworkClient.swift in Sources */,
 				DDACC45529EF3F440094D141 /* LogViewModel.swift in Sources */,
 				DDFC420C2E17E04B0080D52A /* OnDemandResourcesRepository.swift in Sources */,
 				8FBE43D2258D5A8C003F7F34 /* UIApplication+IsExtension.swift in Sources */,
@@ -3819,7 +3798,6 @@
 				DDC7C94A28C1FA3A00451B81 /* Bundle+IsTestFlight.swift in Sources */,
 				DD027F2F2C2EE35F00287708 /* HTTPCookieStore.swift in Sources */,
 				DDBE8AB429B3F9A10054F179 /* FolderValidationService.swift in Sources */,
-				DDB1698027D20CC100F4D752 /* Occlude.swift in Sources */,
 				DDB169E727D20CC300F4D752 /* SelectFolderPage.swift in Sources */,
 				DDB169CC27D20CC200F4D752 /* TextView.swift in Sources */,
 				DD63A1EC2DF1C3F0002C9846 /* Publisher+Debounce.swift in Sources */,
@@ -3899,7 +3877,6 @@
 				DDB1697B27D20CC100F4D752 /* PasswordDetailPage.swift in Sources */,
 				DD38ACFB27DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
 				DDA25D9C2A8C1F2A005D9320 /* VerificationResult.swift in Sources */,
-				DDB169BE27D20CC200F4D752 /* NetworkClient.swift in Sources */,
 				DD1E1D7C2A016ABE002DB08B /* OTPService.swift in Sources */,
 				DDC87BCB2A54037700D56A49 /* TreePicker.swift in Sources */,
 				DDB169E127D20CC200F4D752 /* EditTagPage.swift in Sources */,
@@ -3916,7 +3893,6 @@
 				DDB1698F27D20CC200F4D752 /* Apply.swift in Sources */,
 				DDBAD1A82DA5042F004F9283 /* Collection+Subscript.swift in Sources */,
 				DD1CA7202AA9110E00AADD94 /* ListWidthLimit.swift in Sources */,
-				DDB169E627D20CC300F4D752 /* UIApplication+SafeShared.swift in Sources */,
 				DDB9DEE62B9EEEA800206F1E /* Handleable.swift in Sources */,
 				DDB169A427D20CC200F4D752 /* PasswordServiceRequest.swift in Sources */,
 				DD03D9BF28C8DE92006118F2 /* Strings.swift in Sources */,
@@ -4204,7 +4180,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -4214,7 +4190,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.10;
+				MARKETING_VERSION = 2.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -4230,7 +4206,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -4240,7 +4216,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.10;
+				MARKETING_VERSION = 2.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -4254,14 +4230,14 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				INFOPLIST_FILE = Provider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.10;
+				MARKETING_VERSION = 2.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4275,14 +4251,14 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				INFOPLIST_FILE = Provider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.10;
+				MARKETING_VERSION = 2.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4387,14 +4363,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				INFOPLIST_FILE = Extension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.10;
+				MARKETING_VERSION = 2.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4409,14 +4385,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				INFOPLIST_FILE = Extension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.10;
+				MARKETING_VERSION = 2.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

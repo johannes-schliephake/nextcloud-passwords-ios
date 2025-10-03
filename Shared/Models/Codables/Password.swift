@@ -150,7 +150,7 @@ final class Password: ObservableObject, Identifiable {
         case "none":
             break
         case "CSEv1r1":
-            guard let keychain = SessionController.default.session?.keychain ?? AutoFillController.default.keychain,
+            guard let keychain = resolve(\.sessionController).session?.keychain ?? resolve(\.autoFillController).keychain,
                   let key = keychain.keys[cseKey],
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key),
                   let decryptedUsername = Crypto.CSEv1r1.decrypt(payload: username, key: key),
@@ -293,16 +293,16 @@ final class Password: ObservableObject, Identifiable {
     
     func updateOfflineContainer() {
         if revision.isEmpty || !Configuration.userDefaults.bool(forKey: "storeOffline") {
-            CoreData.default.delete(offlineContainer)
+            resolve(\.coreData).delete(offlineContainer)
             offlineContainer = nil
         }
         else if let offlineContainer {
             offlineContainer.update(from: self)
         }
         else {
-            offlineContainer = OfflineContainer(context: CoreData.default.context, password: self)
+            offlineContainer = OfflineContainer(context: resolve(\.coreData).context, password: self)
         }
-        CoreData.default.save()
+        resolve(\.coreData).save()
     }
     
     private func scoreUrlString(_ urlString: String, searchTerm: String) -> Double {
@@ -360,7 +360,7 @@ extension Password: Codable {
         }
         
         var cseType = cseType
-        if let keychain = SessionController.default.session?.keychain,
+        if let keychain = resolve(\.sessionController).session?.keychain,
            state != .decryptionFailed,
            (cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true) && !shared {
             guard let key = keychain.keys[keychain.current],

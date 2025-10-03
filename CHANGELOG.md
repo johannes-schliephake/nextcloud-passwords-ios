@@ -1,3 +1,6 @@
+## [v2.10.1] - 2025-10-03
+- Bugfixes and optimizations
+
 ## [v2.10] - 2025-09-15
 - iOS 26 compatibility
 - iOS 26 redesign
