@@ -22,7 +22,7 @@
 
 /* I.e. all passwords */
 "_all" = "Alle";
-"_anErrorOccurred" = "Noe gikk galt …";
+"_anErrorOccurred" = "Noe gikk galt …";
 
 /* This is a label for a settings toggle */
 "_automaticallyGeneratePasswords" = "Generer passord automatisk";
@@ -123,7 +123,7 @@
 "_notes" = "Notater";
 
 /* Shown in empty lists */
-"_nothingToSeeHere" = "Ingenting her …";
+"_nothingToSeeHere" = "Ingenting her …";
 
 /* This is the label for starting an In-App purchase */
 "_giveATip" = "Gi en donasjon";
