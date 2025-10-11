@@ -22,7 +22,7 @@
 
 /* I.e. all passwords */
 "_all" = "Alles";
-"_anErrorOccurred" = "Er is een fout opgetreden...";
+"_anErrorOccurred" = "Er is een fout opgetreden …";
 "_appDeauthorized" = "App autorisatie ingetrokken";
 "_appDeauthorizedMessage" = "Vanwege te veel mislukte inlogpogingen is de autorisatie van deze app door de server ingetrokken. Probeer het later opnieuw.";
 
