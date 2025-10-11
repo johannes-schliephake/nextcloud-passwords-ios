@@ -18,7 +18,6 @@ struct PasswordDetailPage: View {
     @State private var favicon: UIImage?
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
-    @State private var passwordDeleted = false
     @State private var navigationSelection: NavigationSelection?
     @State private var hasNavigationSelection = false
     @State private var showSelectTagsView = false
@@ -32,78 +31,65 @@ struct PasswordDetailPage: View {
     // MARK: Views
     
     var body: some View {
-        if passwordDeleted && UIDevice.current.userInterfaceIdiom == .pad {
-            deletedView()
-        }
-        else {
-            mainStack()
-                .navigationBarTitleDisplayMode(.large)
-                .navigationTitle(password.label)
-                .toolbar {
-                    if #available(iOS 26, *) {
-                        ToolbarItem(placement: .largeTitle) {
-                            Text("")
-                        }
-                        stateToolbar()
-                        if let complete = autoFillController.complete,
-                           autoFillController.mode != .extension || password.otp != nil {
-                            ToolbarItem(placement: .bottomBar) {
-                                selectButton(complete: complete)
-                            }
-                        }
-                        ToolbarSpacer(.flexible, placement: .bottomBar)
+        mainStack()
+            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle(password.label)
+            .toolbar {
+                if #available(iOS 26, *) {
+                    ToolbarItem(placement: .largeTitle) {
+                        Text("")
+                    }
+                    stateToolbar()
+                    if let complete = autoFillController.complete,
+                       autoFillController.mode != .extension || password.otp != nil {
                         ToolbarItem(placement: .bottomBar) {
-                            favoriteButton()
+                            selectButton(complete: complete)
                         }
-                        ToolbarItem(placement: .bottomBar) {
-                            if password.editable {
-                                editButton()
-                            }
+                    }
+                    ToolbarSpacer(.flexible, placement: .bottomBar)
+                    ToolbarItem(placement: .bottomBar) {
+                        favoriteButton()
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        if password.editable {
+                            editButton()
                         }
-                    } else {
-                        ToolbarItem(placement: .primaryAction) {
-                            stateView()
-                        }
-                        ToolbarItem(placement: .primaryAction) {
-                            if password.editable {
-                                editButton()
-                            }
+                    }
+                } else {
+                    ToolbarItem(placement: .primaryAction) {
+                        stateView()
+                    }
+                    ToolbarItem(placement: .primaryAction) {
+                        if password.editable {
+                            editButton()
                         }
                     }
                 }
-                .onReceive(resolve(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) {
-                    _ in
+            }
+            .onReceive(resolve(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) { _ in
+                dismiss()
+            }
+            .onChange(of: sessionController.session == nil) { withoutSession in
+                if withoutSession {
                     dismiss()
-                    
-                    /// Clear password detail page on iPad when password was deleted (SwiftUI doesn't close view when NavigationLink is removed)
-                    /// This has to be done with a notification because a password can also be deleted from the EntriesPage
-                    passwordDeleted = true
                 }
-                .apply { view in
-                    if #available(iOS 26, *),
-                       UIDevice.current.userInterfaceIdiom == .phone {
-                        /// Fixes bug in SwiftUI where popovers are presented outside of screen on phones when source is placed trailing in navigation bar
-                        view
-                            .overlay(alignment: .topTrailing) {
-                                EmptyView()
-                                    .frame(width: 2, height: 2)
-                                    .tooltip(isPresented: $showPasswordStatusTooltip) {
-                                        tooltipContent()
-                                    }
-                                    .offset(x: -37, y: -34 + 5)
-                            }
-                    }
+            }
+            .apply { view in
+                if #available(iOS 26, *),
+                   UIDevice.current.userInterfaceIdiom == .phone {
+                    /// Fixes bug in SwiftUI where popovers are presented outside of screen on phones when source is placed trailing in navigation bar
+                    view
+                        .overlay(alignment: .topTrailing) {
+                            EmptyView()
+                                .frame(width: 2, height: 2)
+                                .tooltip(isPresented: $showPasswordStatusTooltip) {
+                                    tooltipContent()
+                                }
+                                .offset(x: -37, y: -34 + 5)
+                        }
                 }
-                .onChange(of: showMetadata) { Configuration.userDefaults.set($0, forKey: "showMetadata") }
-        }
-    }
-    
-    private func deletedView() -> some View {
-        VStack {
-            Text("_deletedPasswordMessage")
-                .foregroundColor(.gray)
-                .padding()
-        }
+            }
+            .onChange(of: showMetadata) { Configuration.userDefaults.set($0, forKey: "showMetadata") }
     }
     
     private func mainStack() -> some View {

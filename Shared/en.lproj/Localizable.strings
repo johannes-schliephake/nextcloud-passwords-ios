@@ -91,7 +91,6 @@
 
 /* Use the same wording Apple uses across iOS */
 "_delete" = "Delete";
-"_deletedPasswordMessage" = "This password was deleted.";
 "_deleteFolder" = "Delete Folder";
 "_deleteFolderErrorMessage" = "An error occurred while deleting the folder. Please delete the folder again.";
 "_deleteOtp" = "Delete One-Time Password";
