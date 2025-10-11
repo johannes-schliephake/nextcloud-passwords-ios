@@ -13,7 +13,7 @@
 
 /* I.e. all passwords */
 "_all" = "Alla";
-"_anErrorOccurred" = "Ett fel uppstod …";
+"_anErrorOccurred" = "Ett fel uppstod …";
 "_appDeauthorized" = "App avauktoriserad";
 "_appDeauthorizedMessage" = "På grund av för många misslyckade inloggningsförsök avauktoriserades denna app av servern. Vänligen försök igen senare.";
 
@@ -121,7 +121,7 @@
 "_notes" = "Anteckningar";
 
 /* Shown in empty lists */
-"_nothingToSeeHere" = "Inget att se här …";
+"_nothingToSeeHere" = "Inget att se här …";
 
 /* This is a label for a password generator toggle */
 "_numbers" = "Siffror";
