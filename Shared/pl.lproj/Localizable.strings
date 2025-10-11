@@ -59,7 +59,7 @@
 "_strength" = "Siła";
 "_offline" = "Offline";
 "_metadata" = "Metadane";
-"_anErrorOccurred" = "Wystąpił błąd…";
+"_anErrorOccurred" = "Wystąpił błąd …";
 "_numbers" = "Liczby";
 "_credentials" = "Dane logowania";
 "_tryAgain" = "Spróbuj ponownie";
@@ -73,7 +73,7 @@
 "_exportAsQrCode" = "Eksportuj jako kod QR";
 "_edit" = "Edytuj";
 "_supportThisProject" = "Wspieraj ten projekt";
-"_nothingToSeeHere" = "Nie ma tu nic do zobaczenia…";
+"_nothingToSeeHere" = "Nie ma tu nic do zobaczenia …";
 "_duplicatesTrashMessage" = "Wszystkie duplikaty tego hasła znajdują się w koszu.";
 "_invalidCertificateMessage(hash)" = "Certyfikat serwera jest nieprawidłowy. Nie można zagwarantować bezpiecznego połączenia. Czy certyfikat powinien być nadal używany?\n\nSHA-256 certyfikatu:\n%@";
 "_tipFailed" = "Napiwek nie powiódł się";
