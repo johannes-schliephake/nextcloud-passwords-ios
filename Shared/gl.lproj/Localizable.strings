@@ -2,7 +2,7 @@
 "_addManually" = "Engadir manualmente";
 "_algorithm" = "Algoritmo";
 "_all" = "Todo";
-"_anErrorOccurred" = "Produciuse un erro…";
+"_anErrorOccurred" = "Produciuse un erro …";
 "_cancel" = "Cancelar";
 "_deleteFolderErrorMessage" = "Produciuse un erro ao eliminar o cartafol. Elimine o cartafol de novo.";
 "_edit" = "Editar";
@@ -149,7 +149,7 @@
 "_nextcloudServerAddress" = "Enderezo do servidor de Nextcloud";
 "_notes" = "Notas";
 "_noConnection" = "Non hai conexión";
-"_nothingToSeeHere" = "Non hai nada que ver aquí…";
+"_nothingToSeeHere" = "Non hai nada que ver aquí …";
 "_numbers" = "Números";
 "_offline" = "Sen conexión";
 "_passwordStatusDuplicateMessage" = "Este contrasinal está a ser usado máis dunha vez.";
