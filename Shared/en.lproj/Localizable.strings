@@ -22,7 +22,7 @@
 
 /* I.e. all passwords */
 "_all" = "All";
-"_anErrorOccurred" = "An error occurred …";
+"_anErrorOccurred" = "An error occurred …";
 "_appDeauthorized" = "App Deauthorized";
 "_appDeauthorizedMessage" = "Because of too many failed login attempts this app was deauthorized by the server. Please try again later.";
 "_appExtensionWordlistErrorMessage" = "An error occurred while generating the password. Try to open the main app to fix this issue.";
@@ -207,7 +207,7 @@
 "_notes" = "Notes";
 
 /* Shown in empty lists */
-"_nothingToSeeHere" = "Nothing to see here …";
+"_nothingToSeeHere" = "Nothing to see here …";
 
 /* This is a label for a password generator toggle */
 "_numbers" = "Numbers";
