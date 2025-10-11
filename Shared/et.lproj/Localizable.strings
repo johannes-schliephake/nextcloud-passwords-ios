@@ -6,7 +6,7 @@
 "_addTags" = "Lisa silte";
 "_algorithm" = "Algoritm";
 "_all" = "Kõik";
-"_anErrorOccurred" = "Tekkis viga…";
+"_anErrorOccurred" = "Tekkis viga …";
 "_about" = "Rakenduse teave";
 "_copyPassword" = "Kopeeri salasõna";
 "_copyUsername" = "Kopeeri kasutajanimi";
@@ -92,7 +92,7 @@
 "_noConnection" = "Võrguühendus puudub";
 "_noConnectionMessage" = "Ühenduse loomine rakendusega Nextcloudi Salasõnad ei õnnestunud.";
 "_notes" = "Märkmed";
-"_nothingToSeeHere" = "Siin pole midagi huvitavat…";
+"_nothingToSeeHere" = "Siin pole midagi huvitavat …";
 "_numbers" = "Numbrid";
 "_offline" = "Võrguühendus puudub";
 "_openUrl" = "Ava võrguaadress";
