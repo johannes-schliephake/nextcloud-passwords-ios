@@ -6,7 +6,7 @@ import Combine
 struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
     
     @Binding var password: String
-    var generateInitial = false
+    @State var generateInitial = false
     
     // AppStorage freezes app on iOS 16 + 17
 //    @AppStorage("generatorNumbers", store: Configuration.userDefaults) private var generatorNumbers = Configuration.defaults["generatorNumbers"] as! Bool
@@ -51,6 +51,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                   password.isEmpty else {
                 return
             }
+            generateInitial = false
             generatePassword()
         }
         .onChange(of: generatorNumbers) { Configuration.userDefaults.set($0, forKey: "generatorNumbers") }
