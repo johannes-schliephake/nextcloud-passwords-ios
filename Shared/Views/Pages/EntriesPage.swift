@@ -233,7 +233,7 @@ struct EntriesPage: View {
                     }
                 }
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
-                .listRowBackground(Color(UIColor.systemGroupedBackground))
+                .listRowBackground(Color.clear)
                 .apply { view in
                     if #unavailable(iOS 17) {
                         view
@@ -348,7 +348,7 @@ struct EntriesPage: View {
                         .foregroundColor(.gray)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .listRowBackground(Color(UIColor.systemGroupedBackground))
+                        .listRowBackground(Color.clear)
                 }
                 .listStyle(.insetGrouped)
             }

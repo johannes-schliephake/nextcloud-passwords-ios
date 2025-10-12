@@ -170,7 +170,7 @@ struct PasswordDetailPage: View {
                     .padding(.top)
                 }
             }
-            .listRowBackground(Color(UIColor.systemGroupedBackground))
+            .listRowBackground(Color.clear)
             .apply { view in
                 if #available(iOS 26, *) {
                     view
@@ -180,7 +180,7 @@ struct PasswordDetailPage: View {
             if let tags = entriesController.tags {
                 let validTags = EntriesController.tags(for: password.tags, in: tags).valid
                 tagsSection(validTags: validTags)
-                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+                    .listRowBackground(Color.clear)
             }
             serviceSection()
             accountSection()
@@ -191,7 +191,7 @@ struct PasswordDetailPage: View {
                 notesSection()
             }
             metadataSection()
-                .listRowBackground(Color(UIColor.systemGroupedBackground))
+                .listRowBackground(Color.clear)
         }
         .listStyle(.insetGrouped)
         .apply { view in

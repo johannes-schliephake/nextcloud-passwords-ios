@@ -37,7 +37,7 @@ struct LogPage: View {
                     .foregroundColor(.gray)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+                    .listRowBackground(Color.clear)
             }
         }
         .listStyle(.insetGrouped)
