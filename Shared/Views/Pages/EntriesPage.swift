@@ -1318,16 +1318,18 @@ extension EntriesPage {
             VStack(alignment: .leading) {
                 Text(password.label)
                     .lineLimit(1)
-                Text(!password.username.isEmpty ? password.username : "-")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                    .lineLimit(1)
-                    .apply { view in
-                        if #available(iOS 17, *) {
-                            view
-                                .typesettingLanguage(.init(languageCode: .unavailable))
+                if !password.username.isEmpty {
+                    Text(password.username)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .lineLimit(1)
+                        .apply { view in
+                            if #available(iOS 17, *) {
+                                view
+                                    .typesettingLanguage(.init(languageCode: .unavailable))
+                            }
                         }
-                    }
+                }
             }
         }
         
