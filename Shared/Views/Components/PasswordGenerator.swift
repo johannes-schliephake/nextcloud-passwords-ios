@@ -123,9 +123,11 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                     ZStack {
                         Label("_generatePassword", systemImage: "dice")
                             .font(.headline)
+                            .foregroundColor(.white)
                             .frame(maxWidth: .infinity, minHeight: 34)
                         if showProgressView {
                             ProgressView()
+                                .tint(.white)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                     }
@@ -143,7 +145,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
             .apply { view in
                 if #available(iOS 26, *) {
                     view
-                        .buttonStyle(.bordered)
+                        .buttonStyle(.glassProminent)
                 }
             }
             .disabled(showProgressView)

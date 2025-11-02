@@ -283,6 +283,7 @@ struct PasswordDetailPage: View {
                             if #available(iOS 26, *) {
                                 view
                                     .font(.headline)
+                                    .foregroundColor(.white)
                                     .frame(maxWidth: .infinity, minHeight: 34)
                             } else {
                                 view
@@ -293,7 +294,7 @@ struct PasswordDetailPage: View {
                 .apply { view in
                     if #available(iOS 26, *) {
                         view
-                            .buttonStyle(.bordered)
+                            .buttonStyle(.glassProminent)
                     }
                 }
                 .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
@@ -306,7 +307,15 @@ struct PasswordDetailPage: View {
                 }
                 VStack(alignment: .leading, spacing: 0) {
                     Text(Strings.duplicates)
-                        .font(.subheadline)
+                        .apply { view in
+                            if #available(iOS 26, *) {
+                                view
+                                    .font(.headline)
+                            } else {
+                                view
+                                    .font(.subheadline)
+                            }
+                        }
                         .bold()
                         .foregroundColor(.gray)
                         .padding(.top, 12)

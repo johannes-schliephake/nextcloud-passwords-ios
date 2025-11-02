@@ -329,6 +329,12 @@ struct EntriesPage: View {
                 }
                 .listStyle(.plain)
                 .apply { view in
+                    if #available(iOS 26, *) {
+                        view
+                            .safeAreaPadding(.bottom, 20)
+                    }
+                }
+                .apply { view in
                     if #available(iOS 26, *),
                        UIDevice.current.userInterfaceIdiom == .pad {
                         view
@@ -351,6 +357,12 @@ struct EntriesPage: View {
                         }
                 }
                 .listStyle(.plain)
+                .apply { view in
+                    if #available(iOS 26, *) {
+                        view
+                            .safeAreaPadding(.bottom, 20)
+                    }
+                }
                 .apply { view in
                     if #available(iOS 26, *),
                        UIDevice.current.userInterfaceIdiom == .pad {

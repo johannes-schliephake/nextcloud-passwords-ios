@@ -71,6 +71,12 @@ struct EditOTPPage: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .controlSize(.large)
+                        }
+                    }
                 }
                 VStack(alignment: .leading, spacing: 6) {
                     Text("_algorithm")
@@ -93,6 +99,12 @@ struct EditOTPPage: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .controlSize(.large)
+                        }
+                    }
                 }
                 EditLabeledRow(label: "_digits", value: $viewModel[\.otpDigits], bounds: 6...8)
                     .focused($focusedField, equals: .otpDigits)

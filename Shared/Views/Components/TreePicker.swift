@@ -51,7 +51,7 @@ struct TreePicker<Element: Identifiable, Content: View>: View {
                     view
                         .padding(.horizontal, depth == 0 ? TreePickerConstants.rowHorizontalContentPadding : 0)
                         .listRowBackground(
-                            Capsule()
+                            RoundedRectangle(cornerRadius: 26)
                                 .fill(isSelected ? Color(white: 0.49, opacity: 0.22) : Color.clear)
                                 .padding(.leading, Double(depth) * TreePickerConstants.rowDepthInset + TreePickerConstants.rowHorizontalBackgroundPadding)
                                 .padding(.trailing, TreePickerConstants.rowHorizontalBackgroundPadding)
