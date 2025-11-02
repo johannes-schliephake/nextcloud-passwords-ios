@@ -460,9 +460,6 @@
 		DD9538F22B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9538F12B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift */; };
 		DD9538F32B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9538F12B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift */; };
 		DD9538F42B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9538F12B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift */; };
-		DD95B07E27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */; };
-		DD95B07F27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */; };
-		DD95B08027D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */; };
 		DD988D142DD1440000FF6934 /* Publisher+Resultize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD988D132DD143F600FF6934 /* Publisher+Resultize.swift */; };
 		DD988D152DD1440000FF6934 /* Publisher+Resultize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD988D132DD143F600FF6934 /* Publisher+Resultize.swift */; };
 		DD988D162DD1440000FF6934 /* Publisher+Resultize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD988D132DD143F600FF6934 /* Publisher+Resultize.swift */; };
@@ -786,9 +783,9 @@
 		DDE6F2022C16149000D4CA36 /* LoginFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE6F2012C16149000D4CA36 /* LoginFlowViewModel.swift */; };
 		DDE6F2032C16149000D4CA36 /* LoginFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE6F2012C16149000D4CA36 /* LoginFlowViewModel.swift */; };
 		DDE6F2042C16149000D4CA36 /* LoginFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE6F2012C16149000D4CA36 /* LoginFlowViewModel.swift */; };
-		DDEC98FF2926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */; };
-		DDEC99002926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */; };
-		DDEC99012926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */; };
+		DDEC98FF2926D5AC004BE717 /* EdgeInsets+EntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+EntryRow.swift */; };
+		DDEC99002926D5AC004BE717 /* EdgeInsets+EntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+EntryRow.swift */; };
+		DDEC99012926D5AC004BE717 /* EdgeInsets+EntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+EntryRow.swift */; };
 		DDED770526E2186D0037A18D /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDED770426E2186D0037A18D /* Apply.swift */; };
 		DDED770626E2186D0037A18D /* Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDED770426E2186D0037A18D /* Apply.swift */; };
 		DDF05AA22DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF05AA12DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift */; };
@@ -1216,7 +1213,6 @@
 		DD941A322AF8419F002D263E /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		DD941A332AF84293002D263E /* .xcode-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".xcode-version"; sourceTree = "<group>"; };
 		DD9538F12B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+ReplaceOutput.swift"; sourceTree = "<group>"; };
-		DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceSpecificPadding.swift"; sourceTree = "<group>"; };
 		DD988D132DD143F600FF6934 /* Publisher+Resultize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Resultize.swift"; sourceTree = "<group>"; };
 		DD9A99F62A23E9120016722F /* EditTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagViewModel.swift; sourceTree = "<group>"; };
 		DD9A99FA2A23FE4A0016722F /* EditTagViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagViewModelTests.swift; sourceTree = "<group>"; };
@@ -1341,7 +1337,7 @@
 		DDE0701D27C8F83B00FC65E2 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
 		DDE6E31B28604F090089BB0B /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
 		DDE6F2012C16149000D4CA36 /* LoginFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowViewModel.swift; sourceTree = "<group>"; };
-		DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EdgeInsets+ListRow.swift"; sourceTree = "<group>"; };
+		DDEC98FE2926D5AC004BE717 /* EdgeInsets+EntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EdgeInsets+EntryRow.swift"; sourceTree = "<group>"; };
 		DDED770426E2186D0037A18D /* Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apply.swift; sourceTree = "<group>"; };
 		DDF05AA12DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Entries.swift"; sourceTree = "<group>"; };
 		DDF05AA52DA2F2120059CD16 /* CharacterCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCounter.swift; sourceTree = "<group>"; };
@@ -1957,7 +1953,6 @@
 				DDF05AA12DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift */,
 				8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */,
 				8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */,
-				DD95B07D27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2426,7 +2421,7 @@
 			isa = PBXGroup;
 			children = (
 				8F59F520256AE65800D9FE40 /* ActionButtonStyle.swift */,
-				DDEC98FE2926D5AC004BE717 /* EdgeInsets+ListRow.swift */,
+				DDEC98FE2926D5AC004BE717 /* EdgeInsets+EntryRow.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -3240,7 +3235,7 @@
 				DD9C50182A819692002588DD /* Product.swift in Sources */,
 				8F997FA5257300A600B5F784 /* EditPasswordPage.swift in Sources */,
 				8F997FAB2573043400B5F784 /* PasswordServiceRequest.swift in Sources */,
-				DDEC98FF2926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */,
+				DDEC98FF2926D5AC004BE717 /* EdgeInsets+EntryRow.swift in Sources */,
 				8F118753253C9EE10019FECA /* PasswordsApp.swift in Sources */,
 				DDCA2EAD2E33A7300001D619 /* Repository.swift in Sources */,
 				DDA25DA22A8C1F7C005D9320 /* AppStore.swift in Sources */,
@@ -3254,7 +3249,6 @@
 				DDFC420E2E17E04B0080D52A /* OnDemandResourcesRepository.swift in Sources */,
 				DD67204827BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
 				DD0B7AE32971B35B00A59E3C /* FoldersService.swift in Sources */,
-				DD95B07E27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
 				8F52EFC925B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
 				DDF432BB2DAFBD9C0070E93C /* RandomWordUseCase.swift in Sources */,
 				DD0EF2A02C16DBD900F0D59B /* LoginPollUseCase.swift in Sources */,
@@ -3479,7 +3473,7 @@
 				8FC361B925827E4C00785371 /* ServerSetupPage.swift in Sources */,
 				8FC361C325827E5200785371 /* BiometricAuthenticationController.swift in Sources */,
 				8FC361D425827E5D00785371 /* CreatePasswordRequest.swift in Sources */,
-				DDEC99002926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */,
+				DDEC99002926D5AC004BE717 /* EdgeInsets+EntryRow.swift in Sources */,
 				DDCA2EAE2E33A7300001D619 /* Repository.swift in Sources */,
 				DDA25DA32A8C1F7C005D9320 /* AppStore.swift in Sources */,
 				DD28587F2C2C31C6009549FE /* Publisher+IgnoreValue.swift in Sources */,
@@ -3493,7 +3487,6 @@
 				8FBE43D2258D5A8C003F7F34 /* UIApplication+IsExtension.swift in Sources */,
 				DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
 				DD0B7AE42971B35B00A59E3C /* FoldersService.swift in Sources */,
-				DD95B07F27D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
 				DDF432BC2DAFBD9C0070E93C /* RandomWordUseCase.swift in Sources */,
 				DD0EF2A12C16DBD900F0D59B /* LoginPollUseCase.swift in Sources */,
 				DD77FF2F2C4C6A5500E193C9 /* OpenProviderSettingsUseCase.swift in Sources */,
@@ -3843,7 +3836,7 @@
 				DDB169AB27D20CC200F4D752 /* TagBadge.swift in Sources */,
 				DDB169D227D20CC200F4D752 /* Crypto.swift in Sources */,
 				DDB169D927D20CC200F4D752 /* DeletePasswordRequest.swift in Sources */,
-				DDEC99012926D5AC004BE717 /* EdgeInsets+ListRow.swift in Sources */,
+				DDEC99012926D5AC004BE717 /* EdgeInsets+EntryRow.swift in Sources */,
 				DDA25DA42A8C1F7C005D9320 /* AppStore.swift in Sources */,
 				DDB1698527D20CC200F4D752 /* UpdatePasswordRequest.swift in Sources */,
 				DDCA2EAC2E33A7300001D619 /* Repository.swift in Sources */,
@@ -3852,7 +3845,6 @@
 				DD63A1E82DF1C3E5002C9846 /* Publisher+Receive.swift in Sources */,
 				DDC14A882B39A8C90062AA4C /* Stateful.swift in Sources */,
 				DDBFDFB82BFB78C1000B5C30 /* Current.swift in Sources */,
-				DD95B08027D7539B00F16067 /* UIDevice+DeviceSpecificPadding.swift in Sources */,
 				DDACC45629EF3F440094D141 /* LogViewModel.swift in Sources */,
 				DDB169DA27D20CC200F4D752 /* OpenSessionRequest.swift in Sources */,
 				DDB169B327D20CC200F4D752 /* String+Localized.swift in Sources */,

@@ -62,7 +62,16 @@ struct SelectTagsPage: View {
                 }
             }
             .listRowSeparator(.hidden)
-            .listRowInsets(.listRow)
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .listRowInsets(.top, EdgeInsets.entryRow.top)
+                        .listRowInsets(.bottom, EdgeInsets.entryRow.bottom)
+                } else {
+                    view
+                        .listRowInsets(.entryRow)
+                }
+            }
         }
         .listStyle(.plain)
         .apply { view in

@@ -22,6 +22,7 @@ struct PasswordDetailPage: View {
     @State private var hasNavigationSelection = false
     @State private var showSelectTagsView = false
     @State private var showPasswordStatusTooltip = false
+    @State private var sectionWidth = 300.0
     @ScaledMetric private var currentOtpFontSize = 17
     @ScaledMetric private var upcomingOtpFontSize = 12
     @ScaledMetric private var otpLabelsDistance = 6
@@ -170,6 +171,11 @@ struct PasswordDetailPage: View {
                     .padding(.top)
                 }
             }
+            .onGeometryChange(
+                for: Double.self,
+                of: { $0.size.width },
+                action: { sectionWidth = $0 }
+            )
             .listRowBackground(Color.clear)
             .apply { view in
                 if #available(iOS 26, *) {
@@ -304,7 +310,7 @@ struct PasswordDetailPage: View {
                         .bold()
                         .foregroundColor(.gray)
                         .padding(.top, 12)
-                        .padding(.bottom, EdgeInsets.listRow.bottom)
+                        .padding(.bottom, EdgeInsets.entryRow.bottom)
                     if #unavailable(iOS 26) {
                         Divider()
                             .padding(.trailing, -100)
@@ -322,8 +328,8 @@ struct PasswordDetailPage: View {
                                 navigationSelection = .duplicate(password: duplicate)
                             } label: {
                                 PasswordRow(label: duplicate.label, username: duplicate.username, url: duplicate.url)
-                                    .padding(.top, EdgeInsets.listRow.top)
-                                    .padding(.bottom, EdgeInsets.listRow.bottom)
+                                    .padding(.top, EdgeInsets.entryRow.top)
+                                    .padding(.bottom, EdgeInsets.entryRow.bottom)
                                     .foregroundColor(.primary)
                             }
                             Divider()
@@ -641,20 +647,9 @@ struct PasswordDetailPage: View {
                             }
                     }
                 }
-                .apply { view in
-#if targetEnvironment(simulator)
-                    if #available(iOS 26, *) {
-                        view
-                            .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
-                    } else {
-                        view
-                            .listRowInsets(EdgeInsets(top: 8, leading: UIDevice.current.deviceSpecificPadding - 4, bottom: 8, trailing: 16 + UIDevice.current.deviceSpecificPadding))
-                    }
-#else
-                    view
-                        .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
-#endif
-                }
+                .frame(width: sectionWidth)
+                .frame(maxWidth: .infinity)
+                .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
             } label: {
                 Text("_metadata")
                     .foregroundColor(.gray)
