@@ -62,7 +62,7 @@ extension Container: @retroactive AutoRegistering {
         //Self.shared.productsAppStoreDataSource.register { ProductsAppStoreDataSourceMock() }
         //Self.shared.productsRepository.register { ProductsRepositoryMock() }
 //        if #available(iOS 26, *) {
-            //Self.shared.urlLabelSuggestionLanguangeModelDataSource.cached.register { UrlLabelSuggestionLanguangeModelDataSourceMock() }
+            //Self.shared.urlLabelSuggestionLanguageModelDataSource.cached.register { UrlLabelSuggestionLanguageModelDataSourceMock() }
             //Self.shared.urlLabelSuggestionRepository.register { UrlLabelSuggestionRepositoryMock() }
 //        }
         Self.shared.windowSizeDataSource.register { WindowSizeDataSourceMock() }

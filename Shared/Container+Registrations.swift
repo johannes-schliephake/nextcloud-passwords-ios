@@ -181,8 +181,8 @@ extension Container {
         self { ProductsRepository() }
             .cached
     }
-    @available(iOS 26, *) var urlLabelSuggestionLanguangeModelDataSource: Factory<any UrlLabelSuggestionLanguangeModelDataSourceProtocol> { // swiftlint:disable:this identifier_name
-        self { UrlLabelSuggestionLanguangeModelDataSource() }
+    @available(iOS 26, *) var urlLabelSuggestionLanguageModelDataSource: Factory<any UrlLabelSuggestionLanguageModelDataSourceProtocol> { // swiftlint:disable:this identifier_name
+        self { UrlLabelSuggestionLanguageModelDataSource() }
     }
     @available(iOS 26, *) var urlLabelSuggestionRepository: Factory<any UrlLabelSuggestionRepositoryProtocol> {
         self { UrlLabelSuggestionRepository() }
