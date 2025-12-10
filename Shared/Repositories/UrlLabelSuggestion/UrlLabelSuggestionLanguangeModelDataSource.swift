@@ -43,7 +43,7 @@ import FoundationModels
         - accounts.google.com → "Google"
         - auth.wikimedia.org → "Wikipedia"
         - login.microsoftonline.com → "Microsoft"
-        - subdomain.unknown-site.com → "Unknown Site
+        - subdomain.unknown-site.com → "Unknown Site"
         
         Special Cases:
         - IP addresses → "Local Service"
