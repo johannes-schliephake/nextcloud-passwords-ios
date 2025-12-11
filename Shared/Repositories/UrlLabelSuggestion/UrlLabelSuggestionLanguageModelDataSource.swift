@@ -11,11 +11,11 @@ import FoundationModels
 }
 
 
-@available(iOS 26, *) protocol UrlLabelSuggestionLanguangeModelDataSourceProtocol: DataSource where State == UrlLabelSuggestionLanguangeModelDataSource.State, Action == UrlLabelSuggestionLanguangeModelDataSource.Action {} // swiftlint:disable:this type_name
+@available(iOS 26, *) protocol UrlLabelSuggestionLanguageModelDataSourceProtocol: DataSource where State == UrlLabelSuggestionLanguageModelDataSource.State, Action == UrlLabelSuggestionLanguageModelDataSource.Action {} // swiftlint:disable:this type_name
 
 
 // TODO: tests
-@available(iOS 26, *) final class UrlLabelSuggestionLanguangeModelDataSource: UrlLabelSuggestionLanguangeModelDataSourceProtocol { // swiftlint:disable:this type_name
+@available(iOS 26, *) final class UrlLabelSuggestionLanguageModelDataSource: UrlLabelSuggestionLanguageModelDataSourceProtocol { // swiftlint:disable:this type_name
     
     final class State {
         

@@ -664,9 +664,9 @@
 		DDBC925A2AF1097B009C42BF /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC92592AF1097B009C42BF /* Notifications.swift */; };
 		DDBC925B2AF1097B009C42BF /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC92592AF1097B009C42BF /* Notifications.swift */; };
 		DDBC925C2AF1097B009C42BF /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC92592AF1097B009C42BF /* Notifications.swift */; };
-		DDBDA4822E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift */; };
-		DDBDA4832E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift */; };
-		DDBDA4842E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift */; };
+		DDBDA4822E5B7567009EE4CF /* UrlLabelSuggestionLanguageModelDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguageModelDataSource.swift */; };
+		DDBDA4832E5B7567009EE4CF /* UrlLabelSuggestionLanguageModelDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguageModelDataSource.swift */; };
+		DDBDA4842E5B7567009EE4CF /* UrlLabelSuggestionLanguageModelDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguageModelDataSource.swift */; };
 		DDBDA4862E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4852E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift */; };
 		DDBDA4872E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4852E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift */; };
 		DDBDA4882E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBDA4852E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift */; };
@@ -1284,7 +1284,7 @@
 		DDBD6EA12702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA22702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDBD6EA32702F708003A747D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlLabelSuggestionLanguangeModelDataSource.swift; sourceTree = "<group>"; };
+		DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguageModelDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlLabelSuggestionLanguageModelDataSource.swift; sourceTree = "<group>"; };
 		DDBDA4852E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlLabelSuggestionRepository.swift; sourceTree = "<group>"; };
 		DDBDA4892E5B7956009EE4CF /* DefaultLanguageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLanguageModel.swift; sourceTree = "<group>"; };
 		DDBDCF6B2E1D1CFE00DADBC8 /* FileDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDataSource.swift; sourceTree = "<group>"; };
@@ -2477,7 +2477,7 @@
 		DDBDA4802E5B74D6009EE4CF /* UrlLabelSuggestion */ = {
 			isa = PBXGroup;
 			children = (
-				DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift */,
+				DDBDA4812E5B7567009EE4CF /* UrlLabelSuggestionLanguageModelDataSource.swift */,
 				DDBDA4852E5B75AC009EE4CF /* UrlLabelSuggestionRepository.swift */,
 			);
 			path = UrlLabelSuggestion;
@@ -3171,7 +3171,7 @@
 				8F854E6926239314008885C3 /* CoreData.swift in Sources */,
 				8F997F952572C79900B5F784 /* EditFolderPage.swift in Sources */,
 				DD760688295F72BC00109075 /* Sync.swift in Sources */,
-				DDBDA4842E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */,
+				DDBDA4842E5B7567009EE4CF /* UrlLabelSuggestionLanguageModelDataSource.swift in Sources */,
 				8F71A8252607634E00863C27 /* CloseSessionRequest.swift in Sources */,
 				DD9C50082A7FC279002588DD /* PropertyListDataSource.swift in Sources */,
 				8F854E66262390FA008885C3 /* CoreData.xcdatamodeld in Sources */,
@@ -3409,7 +3409,7 @@
 				8F5A844C259A67AE00BFDF29 /* UIAlertController+PresentGlobalAlert.swift in Sources */,
 				8F65736B25E3C4F200139163 /* TextView.swift in Sources */,
 				DD760689295F72BC00109075 /* Sync.swift in Sources */,
-				DDBDA4822E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */,
+				DDBDA4822E5B7567009EE4CF /* UrlLabelSuggestionLanguageModelDataSource.swift in Sources */,
 				8F854E6A26239314008885C3 /* CoreData.swift in Sources */,
 				DD9C50092A7FC279002588DD /* PropertyListDataSource.swift in Sources */,
 				8FC361D125827E5D00785371 /* DeleteFolderRequest.swift in Sources */,
@@ -3775,7 +3775,7 @@
 				DDB169A527D20CC200F4D752 /* ListTagsRequest.swift in Sources */,
 				DD9C500A2A7FC279002588DD /* PropertyListDataSource.swift in Sources */,
 				DDB169B427D20CC200F4D752 /* ListSettingsRequest.swift in Sources */,
-				DDBDA4832E5B7567009EE4CF /* UrlLabelSuggestionLanguangeModelDataSource.swift in Sources */,
+				DDBDA4832E5B7567009EE4CF /* UrlLabelSuggestionLanguageModelDataSource.swift in Sources */,
 				DDB169D727D20CC200F4D752 /* MockObject.swift in Sources */,
 				DD34DFE22E33EB0200028DF2 /* FileHandling.swift in Sources */,
 				DD845CBA2AF3AB9B00048F3F /* WindowSizeDataSource.swift in Sources */,
