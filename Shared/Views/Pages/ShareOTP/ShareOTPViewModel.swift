@@ -48,7 +48,7 @@ final class ShareOTPViewModel: ShareOTPViewModelProtocol {
                 self?.logger.log(error: error)
                 return Empty<UIImage, Never>()
             }
-            .receive(on: DispatchQueue.main)
+            .receive(on: \.mainScheduler)
             .sink { qrCode in
                 self?.state.qrCode = qrCode
                 self?.state.qrCodeAvailable = true

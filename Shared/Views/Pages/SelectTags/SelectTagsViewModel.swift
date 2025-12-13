@@ -133,7 +133,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
         case .addTag:
             state.$focusedField
                 .first { $0 == nil }
-                .receive(on: DispatchQueue.main)
+                .receive(on: \.mainScheduler)
                 .sink { [weak self] _ in self?.state.focusedField = .addTagLabel }
                 .store(in: &cancellables)
             let tag: Tag
