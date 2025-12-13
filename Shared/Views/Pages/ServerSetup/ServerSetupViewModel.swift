@@ -97,7 +97,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
                 return Just(loginUrl)
                     .handle(with: initiateLoginUseCase, { .setLoginUrl($0) }, publishing: \.$challenge)
                     .optionalize()
-                    .receive(on: DispatchQueue.main)
+                    .receive(on: \.mainScheduler)
                     .handleEvents(receiveFailure: { error in
                         self?.state.showManagedServerAddressErrorAlert = self?.state.isServerAddressManaged == true
                         self?.logger.log(error: error)

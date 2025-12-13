@@ -6,6 +6,7 @@ import Factory
 
 final class SettingsViewModelTests: XCTestCase {
     
+    @LazyInjected(\.mainSchedulerMock) private var mainSchedulerMock
     @MockInjected(\.sessionService) private var sessionServiceMock: SessionServiceMock
     @MockInjected(\.settingsService) private var settingsServiceMock: SettingsServiceMock
     @MockInjected(\.purchaseService) private var purchaseServiceMock: PurchaseServiceMock
@@ -122,74 +123,81 @@ final class SettingsViewModelTests: XCTestCase {
         expect(settingsViewModel[\.isUniversalClipboardEnabled]).to(equal(isUniversalClipboardEnabledMock))
     }
     
-    func testInit_whenPurchaseServiceEmittingProducts_thenSetsTipProducts() {
+    func testInit_whenPurchaseServiceEmittingProducts_thenSetsTipProductsOnMainScheduler() {
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         let productsMock = [ProductMock(), ProductMock()]
         
-        purchaseServiceMock._products.send(productsMock)
-        
-        expect(settingsViewModel[\.tipProducts]?.compactMap { $0 as? ProductMock }).toEventually(equal(productsMock))
-    }
-    
-    func testInit_whenPurchaseServiceEmittingProductsFromBackgroundThread_thenSetsTipProductsFromMainThread() {
-        let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
-        let productsMock = [ProductMock(), ProductMock()]
-        
-        expect(settingsViewModel[\.$tipProducts].dropFirst().compactMap { $0 as? [ProductMock] }).to(emit(productsMock, onMainThread: true, when: { self.purchaseServiceMock._products.send(productsMock) }, from: .init()))
+        expect(settingsViewModel[\.$tipProducts].dropFirst().compactMap { $0 as? [ProductMock] })
+            .toNot(emit(when: { self.purchaseServiceMock._products.send(productsMock) }))
+            .to(emit(productsMock, when: { self.mainSchedulerMock.advance() }))
     }
     
     func testInit_whenPurchaseServiceEmittingTransactionStatePurchasing_thenSetsIsTipTransactionRunningToTrue() {
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         
         purchaseServiceMock._transactionState.send(.purchasing)
+        mainSchedulerMock.advance()
         
-        expect(settingsViewModel[\.isTipTransactionRunning]).toEventually(beTrue())
+        expect(settingsViewModel[\.isTipTransactionRunning]).to(beTrue())
     }
     
     func testInit_whenPurchaseServiceEmittingTransactionStatePending_thenSetsIsTipTransactionRunningToFalse() {
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         
         purchaseServiceMock._transactionState.send(.pending)
+        mainSchedulerMock.advance()
         
-        expect(settingsViewModel[\.isTipTransactionRunning]).toAlways(beFalse())
+        expect(settingsViewModel[\.isTipTransactionRunning]).to(beFalse())
     }
     
     func testInit_whenPurchaseServiceEmittingTransactionStatePurchased_thenSetsIsTipTransactionRunningToFalse() {
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         
         purchaseServiceMock._transactionState.send(.purchased)
+        mainSchedulerMock.advance()
         
-        expect(settingsViewModel[\.isTipTransactionRunning]).toAlways(beFalse())
+        expect(settingsViewModel[\.isTipTransactionRunning]).to(beFalse())
     }
     
     func testInit_whenPurchaseServiceEmittingTransactionStateFailed_thenSetsIsTipTransactionRunningToFalse() {
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         
         purchaseServiceMock._transactionState.send(.failed)
+        mainSchedulerMock.advance()
         
-        expect(settingsViewModel[\.isTipTransactionRunning]).toAlways(beFalse())
+        expect(settingsViewModel[\.isTipTransactionRunning]).to(beFalse())
     }
     
     func testInit_whenPurchaseServiceEmittingTransactionStateNil_thenSetsIsTipTransactionRunningToFalse() {
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         
         purchaseServiceMock._transactionState.send(nil)
+        mainSchedulerMock.advance()
         
-        expect(settingsViewModel[\.isTipTransactionRunning]).toAlways(beFalse())
+        expect(settingsViewModel[\.isTipTransactionRunning]).to(beFalse())
     }
     
-    func testInit_whenPurchaseServiceEmittingTransactionStateFromBackgroundThread_thenSetsIsTipTransactionRunningFromMainThread() {
+    func testInit_whenPurchaseServiceEmittingTransactionState_thenSetsIsTipTransactionRunningOnMainScheduler() {
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         
-        expect(settingsViewModel[\.$isTipTransactionRunning].dropFirst()).to(emit(true, onMainThread: true, when: { self.purchaseServiceMock._transactionState.send(.purchasing) }, from: .init()))
+        expect(settingsViewModel[\.$isTipTransactionRunning].dropFirst())
+            .toNot(emit(when: { self.purchaseServiceMock._transactionState.send(.purchasing) }))
+            .to(emit(true, when: { self.mainSchedulerMock.advance() }))
     }
+    
+    
+    
+    
+    
+    
     
     func testInit_whenPurchaseServiceNotEmittingProductsAndEmittingTransactionStatePurchasing_thenSetsCanPurchaseTipToFalse() {
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         
         purchaseServiceMock._transactionState.send(.purchasing)
+        mainSchedulerMock.advance()
         
-        expect(settingsViewModel[\.canPurchaseTip]).toAlways(beFalse())
+        expect(settingsViewModel[\.canPurchaseTip]).to(beFalse())
     }
     
     func testInit_whenPurchaseServiceEmittingEmptyProductsAndTransactionStatePurchasing_thenSetsCanPurchaseTipToFalse() {
@@ -197,8 +205,9 @@ final class SettingsViewModelTests: XCTestCase {
         
         purchaseServiceMock._products.send([])
         purchaseServiceMock._transactionState.send(.purchasing)
+        mainSchedulerMock.advance()
         
-        expect(settingsViewModel[\.canPurchaseTip]).toAlways(beFalse())
+        expect(settingsViewModel[\.canPurchaseTip]).to(beFalse())
     }
     
     func testInit_whenPurchaseServiceEmittingProductsAndTransactionStatePurchasing_thenSetsCanPurchaseTipToFalse() {
@@ -206,8 +215,9 @@ final class SettingsViewModelTests: XCTestCase {
         
         purchaseServiceMock._products.send([ProductMock()])
         purchaseServiceMock._transactionState.send(.purchasing)
+        mainSchedulerMock.advance()
         
-        expect(settingsViewModel[\.canPurchaseTip]).toAlways(beFalse())
+        expect(settingsViewModel[\.canPurchaseTip]).to(beFalse())
     }
     
     func testInit_whenPurchaseServiceNotEmittingProductsAndEmittingTransactionStateNotPurchasing_thenSetsCanPurchaseTipToFalse() {
@@ -215,8 +225,9 @@ final class SettingsViewModelTests: XCTestCase {
         let transactionStateMock = (Array(TransactionState.allCases.dropFirst()) + [nil]).randomElement() ?? nil
         
         purchaseServiceMock._transactionState.send(transactionStateMock)
+        mainSchedulerMock.advance()
         
-        expect(settingsViewModel[\.canPurchaseTip]).toAlways(beFalse())
+        expect(settingsViewModel[\.canPurchaseTip]).to(beFalse())
     }
     
     func testInit_whenPurchaseServiceEmittingEmptyProductsAndTransactionStateNotPurchasing_thenSetsCanPurchaseTipToFalse() {
@@ -225,8 +236,9 @@ final class SettingsViewModelTests: XCTestCase {
         
         purchaseServiceMock._products.send([])
         purchaseServiceMock._transactionState.send(transactionStateMock)
+        mainSchedulerMock.advance()
         
-        expect(settingsViewModel[\.canPurchaseTip]).toAlways(beFalse())
+        expect(settingsViewModel[\.canPurchaseTip]).to(beFalse())
     }
     
     func testInit_whenPurchaseServiceEmittingProductsAndTransactionStateNotPurchasing_thenSetsCanPurchaseTipToTrue() {
@@ -235,33 +247,29 @@ final class SettingsViewModelTests: XCTestCase {
         
         purchaseServiceMock._products.send([ProductMock()])
         purchaseServiceMock._transactionState.send(transactionStateMock)
+        mainSchedulerMock.advance()
         
-        expect(settingsViewModel[\.canPurchaseTip]).toEventually(beTrue())
+        expect(settingsViewModel[\.canPurchaseTip]).to(beTrue())
     }
     
-    func testInit_whenPurchaseServiceEmittingProductsAndTransactionStateFromBackgroundThread_thenSetsCanPurchaseTipFromMainThread() {
+    func testInit_whenPurchaseServiceEmittingProductsAndTransactionState_thenSetsCanPurchaseTipOnMainScheduler() {
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         
-        expect(settingsViewModel[\.$canPurchaseTip].dropFirst(2)).to(emit(true, onMainThread: true, when: {
-            self.purchaseServiceMock._products.send([ProductMock()])
-            self.purchaseServiceMock._transactionState.send(nil)
-        }, from: .init()))
+        expect(settingsViewModel[\.$canPurchaseTip].dropFirst(2))
+            .toNot(emit(when: {
+                self.purchaseServiceMock._products.send([ProductMock()])
+                self.purchaseServiceMock._transactionState.send(nil)
+            }))
+            .to(emit(true, when: { self.mainSchedulerMock.advance() }))
     }
     
-    func testInit_whenLoggerEmittingIsAvailable_thenSetsIsLogAvailable() {
-        let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
-        let isAvailableMock = Bool.random()
-        
-        loggerMock._isAvailablePublisher.send(isAvailableMock)
-        
-        expect(settingsViewModel[\.isLogAvailable]).toEventually(equal(isAvailableMock))
-    }
-    
-    func testInit_whenLoggerEmittingIsAvailableFromBackgroundThread_thenSetsIsLogAvailableFromMainThread() {
+    func testInit_whenLoggerEmittingIsAvailable_thenSetsIsLogAvailableOnMainScheduler() {
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         let isAvailableMock = Bool.random()
         
-        expect(settingsViewModel[\.$isLogAvailable].dropFirst()).to(emit(isAvailableMock, onMainThread: true, when: { self.loggerMock._isAvailablePublisher.send(isAvailableMock) }, from: .init()))
+        expect(settingsViewModel[\.$isLogAvailable].dropFirst())
+            .toNot(emit(when: { self.loggerMock._isAvailablePublisher.send(isAvailableMock) }))
+            .to(emit(isAvailableMock, when: { self.mainSchedulerMock.advance() }))
     }
     
     func testCallAsFunction_whenCallingClearChallengePassword_thenCallsSessionService() {

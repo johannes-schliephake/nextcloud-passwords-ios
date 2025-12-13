@@ -46,14 +46,14 @@ final class LogViewModel: LogViewModelProtocol {
         weak var `self` = self
         
         logger.isAvailablePublisher
-            .receive(on: DispatchQueue.main)
+            .receive(on: \.mainScheduler)
             .sink { self?.state.isAvailable = $0 }
             .store(in: &cancellables)
         
         logger.eventsPublisher
             .map { $0?.reversed() }
             .replaceNil(with: [])
-            .receive(on: DispatchQueue.main)
+            .receive(on: \.mainScheduler)
             .sink { self?.state.events = $0 }
             .store(in: &cancellables)
     }

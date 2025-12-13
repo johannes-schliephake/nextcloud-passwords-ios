@@ -9,6 +9,7 @@ final class ServerSetupViewModelTests: XCTestCase {
     private let loginUrlMock = LoginURL(string: "https://example.com")
     private let challengeMock = LoginFlowChallenge(login: .random(), poll: .init(token: .random(), endpoint: .random()))
     
+    @LazyInjected(\.mainSchedulerMock) private var mainSchedulerMock
     @LazyInjected(\.userInitiatedSchedulerMock) private var userInitiatedSchedulerMock
     @MockInjected(\.loginUrlUseCase) private var loginUrlUseCaseMock: LoginUrlUseCaseMock
     @MockInjected(\.managedConfigurationUseCase) private var managedConfigurationUseCaseMock: ManagedConfigurationUseCaseMock
@@ -87,8 +88,9 @@ final class ServerSetupViewModelTests: XCTestCase {
         loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
         userInitiatedSchedulerMock.run()
         initiateLoginUseCaseMock.mockState(\.challenge, value: .success(challengeMock))
-        try require(serverSetupViewModel[\.challenge]).toEventuallyNot(beNil())
-        try require(serverSetupViewModel[\.challengeAvailable]).toEventuallyNot(beFalse())
+        mainSchedulerMock.advance()
+        try require(serverSetupViewModel[\.challenge]).toNot(beNil())
+        try require(serverSetupViewModel[\.challengeAvailable]).toNot(beFalse())
         
         serverSetupViewModel[\.serverAddress] = .random()
         
@@ -192,49 +194,34 @@ final class ServerSetupViewModelTests: XCTestCase {
         }
     }
     
-    func testInit_whenInitiateLoginUseCaseEmittingChallenge_thenSetsIsValidatingToFalse() {
+    func testInit_whenInitiateLoginUseCaseEmittingChallenge_thenSetsIsValidatingToFalseOnMainScheduler() {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
         userInitiatedSchedulerMock.run()
         
-        initiateLoginUseCaseMock.mockState(\.challenge, value: .success(challengeMock))
-        
-        expect(serverSetupViewModel[\.isValidating]).toEventually(beFalse())
+        expect(serverSetupViewModel[\.$isValidating].dropFirst())
+            .toNot(emit(when: { self.initiateLoginUseCaseMock.mockState(\.challenge, value: .success(self.challengeMock)) }))
+            .to(emit(false, when: { self.mainSchedulerMock.advance() }))
     }
     
-    func testInit_whenInitiateLoginUseCaseEmittingChallenge_thenSetsChallenge() {
+    func testInit_whenInitiateLoginUseCaseEmittingChallenge_thenSetsChallengeOnMainScheduler() {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
         userInitiatedSchedulerMock.run()
         
-        initiateLoginUseCaseMock.mockState(\.challenge, value: .success(challengeMock))
-        
-        expect(serverSetupViewModel[\.challenge]).toEventually(equal(challengeMock))
-        expect(serverSetupViewModel[\.challengeAvailable]).toEventually(beTrue())
+        expect(serverSetupViewModel[\.$challenge].dropFirst())
+            .toNot(emit(when: { self.initiateLoginUseCaseMock.mockState(\.challenge, value: .success(self.challengeMock)) }))
+            .to(emit(challengeMock, when: { self.mainSchedulerMock.advance() }))
     }
     
-    func testInit_whenInitiateLoginUseCaseEmittingChallengeFromBackgroundThread_thenSetsIsValidatingFromMainThread() {
+    func testInit_whenInitiateLoginUseCaseEmittingChallenge_thenSetsChallengeAvailableOnMainScheduler() {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
         userInitiatedSchedulerMock.run()
         
-        expect(serverSetupViewModel[\.$isValidating].dropFirst()).to(emit(onMainThread: true, when: { self.initiateLoginUseCaseMock.mockState(\.challenge, value: .success(self.challengeMock)) }, from: .init()))
-    }
-    
-    func testInit_whenInitiateLoginUseCaseEmittingChallengeFromBackgroundThread_thenSetsChallengeFromMainThread() {
-        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
-        loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
-        userInitiatedSchedulerMock.run()
-        
-        expect(serverSetupViewModel[\.$challenge].dropFirst()).to(emit(onMainThread: true, when: { self.initiateLoginUseCaseMock.mockState(\.challenge, value: .success(self.challengeMock)) }, from: .init()))
-    }
-    
-    func testInit_whenInitiateLoginUseCaseEmittingChallengeFromBackgroundThread_thenSetsChallengeAvailableFromMainThread() {
-        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
-        loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
-        userInitiatedSchedulerMock.run()
-        
-        expect(serverSetupViewModel[\.$challengeAvailable].dropFirst()).to(emit(onMainThread: true, when: { self.initiateLoginUseCaseMock.mockState(\.challenge, value: .success(self.challengeMock)) }, from: .init()))
+        expect(serverSetupViewModel[\.$challengeAvailable].dropFirst())
+            .toNot(emit(when: { self.initiateLoginUseCaseMock.mockState(\.challenge, value: .success(self.challengeMock)) }))
+            .to(emit(true, when: { self.mainSchedulerMock.advance() }))
     }
     
     func testInit_givenNonManagedServerAddress_whenInitiateLoginUseCaseFailing_thenSetsShowManagedServerAddressErrorAlertToFalse() {
@@ -243,8 +230,9 @@ final class ServerSetupViewModelTests: XCTestCase {
         userInitiatedSchedulerMock.run()
         
         initiateLoginUseCaseMock.mockState(\.challenge, value: .failure(ErrorMock.standard))
+        mainSchedulerMock.advance()
         
-        expect(serverSetupViewModel[\.showManagedServerAddressErrorAlert]).toAlways(beFalse())
+        expect(serverSetupViewModel[\.showManagedServerAddressErrorAlert]).to(beFalse())
     }
     
     func testInit_givenManagedServerAddress_whenInitiateLoginUseCaseFailing_thenSetsShowManagedServerAddressErrorAlertToTrue() {
@@ -254,17 +242,20 @@ final class ServerSetupViewModelTests: XCTestCase {
         userInitiatedSchedulerMock.run()
         
         initiateLoginUseCaseMock.mockState(\.challenge, value: .failure(ErrorMock.standard))
+        mainSchedulerMock.advance()
         
-        expect(serverSetupViewModel[\.showManagedServerAddressErrorAlert]).toEventually(beTrue())
+        expect(serverSetupViewModel[\.showManagedServerAddressErrorAlert]).to(beTrue())
     }
     
-    func testInit_whenInitiateLoginUseCaseFailingFromBackgroundThread_thenSetsShowManagedServerAddressErrorAlertFromMainThread() {
+    func testInit_whenInitiateLoginUseCaseFailing_thenSetsShowManagedServerAddressErrorAlertOnMainScheduler() {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         managedConfigurationUseCaseMock.mockState(\.serverUrl, value: .success(.random()))
         loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
         userInitiatedSchedulerMock.run()
         
-        expect(serverSetupViewModel[\.$showManagedServerAddressErrorAlert].dropFirst()).to(emit(onMainThread: true, when: { self.initiateLoginUseCaseMock.mockState(\.challenge, value: .failure(ErrorMock.standard)) }, from: .init()))
+        expect(serverSetupViewModel[\.$showManagedServerAddressErrorAlert].dropFirst())
+            .toNot(emit(when: { self.initiateLoginUseCaseMock.mockState(\.challenge, value: .failure(ErrorMock.standard)) }))
+            .to(emit(when: { self.mainSchedulerMock.advance() }))
     }
     
     func testInit_whenInitiateLoginUseCaseFailing_thenSetsChallengeToNil() {
@@ -273,9 +264,10 @@ final class ServerSetupViewModelTests: XCTestCase {
         userInitiatedSchedulerMock.run()
         
         initiateLoginUseCaseMock.mockState(\.challenge, value: .failure(ErrorMock.standard))
+        mainSchedulerMock.advance()
         
-        expect(serverSetupViewModel[\.challenge]).toAlways(beNil())
-        expect(serverSetupViewModel[\.challengeAvailable]).toAlways(beFalse())
+        expect(serverSetupViewModel[\.challenge]).to(beNil())
+        expect(serverSetupViewModel[\.challengeAvailable]).to(beFalse())
     }
     
     func testCallAsFunction_givenChallengeIsAvailable_whenCallingConnect_thenSetsShowLoginFlowPageToTrue() throws {
@@ -283,8 +275,7 @@ final class ServerSetupViewModelTests: XCTestCase {
         loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
         userInitiatedSchedulerMock.run()
         initiateLoginUseCaseMock.mockState(\.challenge, value: .success(challengeMock))
-        try require(serverSetupViewModel[\.challenge]).toEventuallyNot(beNil())
-        try require(serverSetupViewModel[\.challengeAvailable]).toEventuallyNot(beFalse())
+        mainSchedulerMock.advance()
         
         serverSetupViewModel(.connect)
         

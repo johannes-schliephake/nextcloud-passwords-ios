@@ -117,12 +117,12 @@ final class SettingsViewModel: SettingsViewModelProtocol {
             .store(in: &cancellables)
         
         purchaseService.products
-            .receive(on: DispatchQueue.main)
+            .receive(on: \.mainScheduler)
             .sink { self?.state.tipProducts = $0 }
             .store(in: &cancellables)
         
         purchaseService.transactionState
-            .receive(on: DispatchQueue.main)
+            .receive(on: \.mainScheduler)
             .sink { transactionState in
                 if case .purchasing = transactionState {
                     self?.state.isTipTransactionRunning = true
@@ -143,7 +143,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         .store(in: &cancellables)
         
         logger.isAvailablePublisher
-            .receive(on: DispatchQueue.main)
+            .receive(on: \.mainScheduler)
             .sink { self?.state.isLogAvailable = $0 }
             .store(in: &cancellables)
     }

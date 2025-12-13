@@ -78,7 +78,10 @@ extension Container: @retroactive AutoRegistering {
         //Self.shared.appStoreType.register { AppStoreMock.self }
         //Self.shared.bundleResourceRequestType.register { BundleResourceRequestMock.self }
         if #available(iOS 17, *) {
-            Self.shared.credentialProviderSettingsHelperType.cached.register { CredentialProviderSettingsHelperMock.self }
+            Self.shared.credentialProviderSettingsHelperType.cached.register {
+                CredentialProviderSettingsHelperMock.removeAssociated()
+                return CredentialProviderSettingsHelperMock.self
+            }
         }
 //        if #available(iOS 26, *) {
             //Self.shared.defaultLanguageModelType.register { DefaultLanguageModelMock.self }
@@ -98,7 +101,7 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.configurationType.register { ConfigurationMock.self }
         //Self.shared.cryptoSHA256Type.register { CryptoSHA256Mock.self }
         Self.shared.currentDate.singleton.register { .init() }
-        //Self.shared.mainScheduler.register { resolve(\.mainSchedulerMock).eraseToAnyScheduler() }
+        Self.shared.mainScheduler.register { resolve(\.mainSchedulerMock).eraseToAnyScheduler() }
         Self.shared.userInitiatedScheduler.register { resolve(\.userInitiatedSchedulerMock).eraseToAnyScheduler() }
     }
     

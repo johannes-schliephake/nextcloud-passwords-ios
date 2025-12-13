@@ -22,6 +22,10 @@ extension Associating {
         objc_setAssociatedObject(source, associationKey(Value.self), value, .OBJC_ASSOCIATION_RETAIN)
     }
     
+    static func removeAssociated(with source: Any = Self.self) {
+        objc_removeAssociatedObjects(source)
+    }
+    
     private static func associationKey<Value: Initializable>(_ valueType: Value.Type) -> UnsafeRawPointer {
         .init(
             bitPattern: UInt(
@@ -46,6 +50,14 @@ extension Associating {
     
     func setAssociated<Value: Initializable>(_ value: Value) {
         setAssociated(value, with: self)
+    }
+    
+    func removeAssociated(with source: Any) {
+        Self.removeAssociated(with: source)
+    }
+    
+    func removeAssociated() {
+        removeAssociated(with: self)
     }
     
 }

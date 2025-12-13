@@ -9,6 +9,7 @@ final class CaptureOTPViewModelTests: XCTestCase {
     
     @Injected(\.otp) private var otpMock
     
+    @LazyInjected(\.mainSchedulerMock) private var mainSchedulerMock
     @MockInjected(\.torchService) private var torchServiceMock: TorchServiceMock
     @MockInjected(\.otpService) private var otpServiceMock: OTPServiceMock
     
@@ -34,36 +35,22 @@ final class CaptureOTPViewModelTests: XCTestCase {
         expect(self.torchServiceMock).to(beAccessed(.once, on: "isTorchActive"))
     }
     
-    func testInit_whenTorchServiceEmittingIsTorchAvailable_thenSetsIsTorchAvailable() {
+    func testInit_whenTorchServiceEmittingIsTorchAvailable_thenSetsIsTorchAvailableOnMainScheduler() {
         let captureOtpViewModel: any CaptureOTPViewModelProtocol = CaptureOTPViewModel { _ in }
         let isTorchAvailableMock = Bool.random()
         
-        torchServiceMock._isTorchAvailable.send(isTorchAvailableMock)
-        
-        expect(captureOtpViewModel[\.isTorchAvailable]).toEventually(equal(isTorchAvailableMock))
+        expect(captureOtpViewModel[\.$isTorchAvailable].dropFirst())
+            .toNot(emit(when: { self.torchServiceMock._isTorchAvailable.send(isTorchAvailableMock) }))
+            .to(emit(isTorchAvailableMock, when: { self.mainSchedulerMock.advance() }))
     }
     
-    func testInit_whenTorchServiceEmittingIsTorchAvailableFromBackgroundThread_thenSetsIsTorchAvailableFromMainThread() {
-        let captureOtpViewModel: any CaptureOTPViewModelProtocol = CaptureOTPViewModel { _ in }
-        let isTorchAvailableMock = Bool.random()
-        
-        expect(captureOtpViewModel[\.$isTorchAvailable].dropFirst()).to(emit(isTorchAvailableMock, onMainThread: true, when: { self.torchServiceMock._isTorchAvailable.send(isTorchAvailableMock) }, from: .init()))
-    }
-    
-    func testInit_whenTorchServiceEmittingIsTorchActive_thenSetsIsTorchActive() {
+    func testInit_whenTorchServiceEmittingIsTorchActive_thenSetsIsTorchActiveOnMainScheduler() {
         let captureOtpViewModel: any CaptureOTPViewModelProtocol = CaptureOTPViewModel { _ in }
         let isTorchActiveMock = Bool.random()
         
-        torchServiceMock._isTorchActive.send(isTorchActiveMock)
-        
-        expect(captureOtpViewModel[\.isTorchActive]).toEventually(equal(isTorchActiveMock))
-    }
-    
-    func testInit_whenTorchServiceEmittingIsTorchActiveFromBackgroundThread_thenSetsIsTorchActiveFromMainThread() {
-        let captureOtpViewModel: any CaptureOTPViewModelProtocol = CaptureOTPViewModel { _ in }
-        let isTorchActiveMock = Bool.random()
-        
-        expect(captureOtpViewModel[\.$isTorchActive].dropFirst()).to(emit(isTorchActiveMock, onMainThread: true, when: { self.torchServiceMock._isTorchActive.send(isTorchActiveMock) }, from: .init()))
+        expect(captureOtpViewModel[\.$isTorchActive].dropFirst())
+            .toNot(emit(when: { self.torchServiceMock._isTorchActive.send(isTorchActiveMock) }))
+            .to(emit(isTorchActiveMock, when: { self.mainSchedulerMock.advance() }))
     }
     
     func testCallAsFunction_whenCallingToggleTorch_thenCallsTorchService() {

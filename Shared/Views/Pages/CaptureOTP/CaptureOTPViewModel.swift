@@ -56,12 +56,12 @@ final class CaptureOTPViewModel: CaptureOTPViewModelProtocol {
         weak var `self` = self
         
         torchService.isTorchAvailable
-            .receive(on: DispatchQueue.main)
+            .receive(on: \.mainScheduler)
             .sink { self?.state.isTorchAvailable = $0 }
             .store(in: &cancellables)
         
         torchService.isTorchActive
-            .receive(on: DispatchQueue.main)
+            .receive(on: \.mainScheduler)
             .sink { self?.state.isTorchActive = $0 }
             .store(in: &cancellables)
     }

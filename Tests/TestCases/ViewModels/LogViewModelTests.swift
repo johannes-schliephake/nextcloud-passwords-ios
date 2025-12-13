@@ -8,6 +8,7 @@ final class LogViewModelTests: XCTestCase {
     
     @Injected(\.logEvents) private var logEventMocks
     
+    @LazyInjected(\.mainSchedulerMock) private var mainSchedulerMock
     @MockInjected(\.logger) private var loggerMock: LoggerMock
     @MockInjected(\.pasteboardService) private var pasteboardServiceMock: PasteboardServiceMock
     
@@ -31,50 +32,48 @@ final class LogViewModelTests: XCTestCase {
         expect(self.loggerMock).to(beAccessed(.once, on: "eventsPublisher"))
     }
     
-    func testInit_whenLoggerEmittingIsAvailable_thenSetsIsAvailable() {
+    func testInit_whenLoggerEmittingIsAvailable_thenSetsIsAvailableOnMainScheduler() {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
         let isAvailableMock = Bool.random()
         
-        loggerMock._isAvailablePublisher.send(isAvailableMock)
-        
-        expect(logViewModel[\.isAvailable]).toEventually(equal(isAvailableMock))
-    }
-    
-    func testInit_whenLoggerEmittingIsAvailableFromBackgroundThread_thenSetsIsAvailableFromMainThread() {
-        let logViewModel: any LogViewModelProtocol = LogViewModel()
-        let isAvailableMock = Bool.random()
-        
-        expect(logViewModel[\.$isAvailable].dropFirst()).to(emit(isAvailableMock, onMainThread: true, when: { self.loggerMock._isAvailablePublisher.send(isAvailableMock) }, from: .init()))
+        expect(logViewModel[\.$isAvailable].dropFirst())
+            .toNot(emit(isAvailableMock, when: { self.loggerMock._isAvailablePublisher.send(isAvailableMock) }))
+            .to(emit(isAvailableMock, when: { self.mainSchedulerMock.advance() }))
     }
     
     func testInit_whenLoggerEmittingNilEvents_thenSetsEvents() {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
         
         loggerMock._eventsPublisher.send(nil)
+        mainSchedulerMock.advance()
         
-        expect(logViewModel[\.events]).toAlways(beEmpty())
+        expect(logViewModel[\.events]).to(beEmpty())
     }
     
     func testInit_whenLoggerEmittingEmptyEvents_thenSetsEvents() {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
         
         loggerMock._eventsPublisher.send([])
+        mainSchedulerMock.advance()
         
-        expect(logViewModel[\.events]).toAlways(beEmpty())
+        expect(logViewModel[\.events]).to(beEmpty())
     }
     
     func testInit_whenLoggerEmittingEvents_thenSetsEventsReversed() {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
         
         loggerMock._eventsPublisher.send(logEventMocks)
+        mainSchedulerMock.advance()
         
-        expect(logViewModel[\.events]).toEventually(equal(logEventMocks.reversed()))
+        expect(logViewModel[\.events]).to(equal(logEventMocks.reversed()))
     }
     
-    func testInit_whenLoggerEmittingEventsFromBackgroundThread_thenSetsEventsFromMainThread() {
+    func testInit_whenLoggerEmittingEvents_thenSetsEventsOnMainScheduler() {
         let logViewModel: any LogViewModelProtocol = LogViewModel()
         
-        expect(logViewModel[\.$events].dropFirst()).to(emit([], onMainThread: true, when: { self.loggerMock._eventsPublisher.send([]) }, from: .init()))
+        expect(logViewModel[\.$events].dropFirst())
+            .toNot(emit(when: { self.loggerMock._eventsPublisher.send([]) }))
+            .to(emit([], when: { self.mainSchedulerMock.advance() }))
     }
     
     func testCallAsFunction_whenCallingCopyLog_thenCallsLogger() {
