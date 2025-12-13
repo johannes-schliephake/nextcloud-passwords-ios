@@ -30,7 +30,6 @@
 "_decryptPasswordErrorMessage" = "Une erreur est survenue durant la décryption du mot de passe.";
 "_decryptTagErrorMessage" = "Une erreur est survenue durant la décryption de l'étiquette.";
 "_delete" = "Supprimer";
-"_deletedPasswordMessage" = "Ce mot de passe a été supprimé.";
 "_deleteFolder" = "Supprimer le dossier";
 "_deleteFolderErrorMessage" = "Une erreur est survenue durant la suppression du dossier. Veuillez le supprimer à nouveau.";
 "_deletePassword" = "Supprimer le mot de passe";

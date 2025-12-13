@@ -243,7 +243,6 @@
 
 /* Use the same wording Apple uses across iOS */
 "_delete" = "Suprimir";
-"_deletedPasswordMessage" = "S'ha suprimit aquesta contrasenya.";
 "_createPassword" = "Crear una contrasenya";
 "_noConnectionMessage" = "No s'ha pogut connectar a la instància Passwords de Nextcloud.";
 "_deleteFolder" = "Suprimir la carpeta";

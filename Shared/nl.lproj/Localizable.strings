@@ -66,7 +66,6 @@
 
 /* Use the same wording Apple uses across iOS */
 "_delete" = "Verwijderen";
-"_deletedPasswordMessage" = "Dit wachtwoord is verwijderd.";
 "_deleteFolder" = "Folder verwijderen";
 "_deleteFolderErrorMessage" = "Er is een fout opgetreden bij het verwijderen van de map. Verwijder de map alstublieft opnieuw.";
 "_deleteOtp" = "Eenmalig wachtwoord verwijderen";

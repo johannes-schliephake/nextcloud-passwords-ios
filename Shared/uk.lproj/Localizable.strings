@@ -169,7 +169,6 @@
 "_customFields" = "Користувацькі поля";
 "_decryptFolderErrorMessage" = "Під час розшифрування теки сталася помилка.";
 "_decryptPasswordErrorMessage" = "Виникла помилка при розшифровці пароля.";
-"_deletedPasswordMessage" = "Цей пароль було видалено.";
 "_deleteFolder" = "Видалити теку";
 "_deleteFolderErrorMessage" = "Під час видалення теки сталася помилка. Будь ласка, видаліть теку ще раз.";
 

@@ -57,7 +57,6 @@
 "_decryptFolderErrorMessage" = "Ett fel uppstod vid dekrypteringen av mappen.";
 "_decryptPasswordErrorMessage" = "Ett fel inträffade när lösenordet dekrypterades.";
 "_decryptTagErrorMessage" = "Ett fel uppstod vid dekryptering av taggen.";
-"_deletedPasswordMessage" = "Lösenordet är borttaget.";
 "_deleteOtp" = "Ta bort engångslösenordet";
 "_deletePassword" = "Ta bort lösenord";
 "_deleteTag" = "Ta bort tagg";

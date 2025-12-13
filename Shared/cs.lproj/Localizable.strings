@@ -40,7 +40,6 @@
 "_decryptPasswordErrorMessage" = "Při rozšifrovávání hesla došlo k chybě.";
 "_decryptTagErrorMessage" = "Při rozšifrovávání štítku došlo k chybě. Uložte ho znovu.";
 "_delete" = "Smazat";
-"_deletedPasswordMessage" = "Toto heslo bylo smazáno.";
 "_deleteFolder" = "Smazat složku";
 "_deleteFolderErrorMessage" = "Při mazání složky došlo k chybě. Smažte ji znovu.";
 "_deleteOtp" = "Smazat jednorázové heslo";

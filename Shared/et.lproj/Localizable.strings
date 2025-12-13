@@ -44,7 +44,6 @@
 "_connect" = "Ühenda";
 "_connectingToNextcloudInstanceAt(url)" = "Loon ühendust Nextcloudi serveriga:\n%@";
 "_delete" = "Kustuta";
-"_deletedPasswordMessage" = "Salasõna on kustutatud.";
 "_deleteFolder" = "Kustuta kaust";
 "_deleteFolderErrorMessage" = "Kausta kustutamisel tekkis viga. Palun kustuta kaust uuesti.";
 "_deleteOtp" = "Kustuta ühekordne salasõna";

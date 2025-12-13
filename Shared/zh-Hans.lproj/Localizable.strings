@@ -36,7 +36,6 @@
 "_decryptPasswordErrorMessage" = "解密密码时出错。";
 "_decryptTagErrorMessage" = "解密标签时出错。";
 "_delete" = "删除";
-"_deletedPasswordMessage" = "此密码已删除。";
 "_deleteFolder" = "删除文件夹";
 "_deleteOtp" = "删除一次性密码";
 "_deletePassword" = "删除密码";

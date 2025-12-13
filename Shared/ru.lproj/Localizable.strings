@@ -40,7 +40,6 @@
 "_decryptPasswordErrorMessage" = "Произошла ошибка при расшифровке пароля.";
 "_decryptTagErrorMessage" = "Произошла ошибка при расшифровке тега.";
 "_delete" = "Удалить";
-"_deletedPasswordMessage" = "Пароль был удален.";
 "_deleteFolder" = "Удалить папку";
 "_deleteFolderErrorMessage" = "При удалении папки произошла ошибка. Пожалуйста, попробуйте еще раз.";
 "_deleteOtp" = "Удалить OTP пароль";
