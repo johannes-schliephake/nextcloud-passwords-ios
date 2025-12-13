@@ -233,7 +233,7 @@ struct EntriesPage: View {
                     }
                 }
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
-                .listRowBackground(Color(UIColor.systemGroupedBackground))
+                .listRowBackground(Color.clear)
                 .apply { view in
                     if #unavailable(iOS 17) {
                         view
@@ -316,9 +316,24 @@ struct EntriesPage: View {
                             }
                         }
                     }
-                    .listRowInsets(.listRow)
+                    .apply { view in
+                        if #available(iOS 26, *) {
+                            view
+                                .listRowInsets(.top, EdgeInsets.entryRow.top)
+                                .listRowInsets(.bottom, EdgeInsets.entryRow.bottom)
+                        } else {
+                            view
+                                .listRowInsets(.entryRow)
+                        }
+                    }
                 }
                 .listStyle(.plain)
+                .apply { view in
+                    if #available(iOS 26, *) {
+                        view
+                            .safeAreaPadding(.bottom, 20)
+                    }
+                }
                 .apply { view in
                     if #available(iOS 26, *),
                        UIDevice.current.userInterfaceIdiom == .pad {
@@ -330,9 +345,24 @@ struct EntriesPage: View {
             else if !entries.isEmpty {
                 List {
                     entryRows(entries: entries)
-                        .listRowInsets(.listRow)
+                        .apply { view in
+                            if #available(iOS 26, *) {
+                                view
+                                    .listRowInsets(.top, EdgeInsets.entryRow.top)
+                                    .listRowInsets(.bottom, EdgeInsets.entryRow.bottom)
+                            } else {
+                                view
+                                    .listRowInsets(.entryRow)
+                            }
+                        }
                 }
                 .listStyle(.plain)
+                .apply { view in
+                    if #available(iOS 26, *) {
+                        view
+                            .safeAreaPadding(.bottom, 20)
+                    }
+                }
                 .apply { view in
                     if #available(iOS 26, *),
                        UIDevice.current.userInterfaceIdiom == .pad {
@@ -348,7 +378,7 @@ struct EntriesPage: View {
                         .foregroundColor(.gray)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .listRowBackground(Color(UIColor.systemGroupedBackground))
+                        .listRowBackground(Color.clear)
                 }
                 .listStyle(.insetGrouped)
             }
@@ -1318,16 +1348,18 @@ extension EntriesPage {
             VStack(alignment: .leading) {
                 Text(password.label)
                     .lineLimit(1)
-                Text(!password.username.isEmpty ? password.username : "-")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                    .lineLimit(1)
-                    .apply { view in
-                        if #available(iOS 17, *) {
-                            view
-                                .typesettingLanguage(.init(languageCode: .unavailable))
+                if !password.username.isEmpty {
+                    Text(password.username)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .lineLimit(1)
+                        .apply { view in
+                            if #available(iOS 17, *) {
+                                view
+                                    .typesettingLanguage(.init(languageCode: .unavailable))
+                            }
                         }
-                    }
+                }
             }
         }
         

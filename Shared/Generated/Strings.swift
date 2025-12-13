@@ -57,7 +57,6 @@ internal enum Strings {
   internal static let decryptPasswordErrorMessage = Strings.tr("Localizable", "_decryptPasswordErrorMessage", fallback: "An error occurred while decrypting the password.")
   internal static let decryptTagErrorMessage = Strings.tr("Localizable", "_decryptTagErrorMessage", fallback: "An error occurred while decrypting the tag.")
   internal static let delete = Strings.tr("Localizable", "_delete", fallback: "Delete")
-  internal static let deletedPasswordMessage = Strings.tr("Localizable", "_deletedPasswordMessage", fallback: "This password was deleted.")
   internal static let deleteFolder = Strings.tr("Localizable", "_deleteFolder", fallback: "Delete Folder")
   internal static let deleteFolderErrorMessage = Strings.tr("Localizable", "_deleteFolderErrorMessage", fallback: "An error occurred while deleting the folder. Please delete the folder again.")
   internal static let deleteOtp = Strings.tr("Localizable", "_deleteOtp", fallback: "Delete One-Time Password")

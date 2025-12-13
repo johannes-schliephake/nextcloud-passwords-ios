@@ -6,7 +6,7 @@ import Combine
 struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
     
     @Binding var password: String
-    var generateInitial = false
+    @State var generateInitial = false
     
     // AppStorage freezes app on iOS 16 + 17
 //    @AppStorage("generatorNumbers", store: Configuration.userDefaults) private var generatorNumbers = Configuration.defaults["generatorNumbers"] as! Bool
@@ -51,6 +51,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                   password.isEmpty else {
                 return
             }
+            generateInitial = false
             generatePassword()
         }
         .onChange(of: generatorNumbers) { Configuration.userDefaults.set($0, forKey: "generatorNumbers") }
@@ -111,25 +112,41 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                     )
                 }
             }
-            Divider()
-                .apply { view in
-                    if #unavailable(iOS 26) {
-                        view
-                            .padding(.trailing, -100)
-                    }
-                }
+            if #unavailable(iOS 26) {
+                Divider()
+                    .padding(.trailing, -100)
+            }
             Button {
                 generatePassword()
-            }
-            label: {
-                HStack {
-                    Label("_generatePassword", systemImage: "dice")
-                    if showProgressView {
-                        Spacer()
-                        ProgressView()
+            } label: {
+                if #available(iOS 26, *) {
+                    ZStack {
+                        Label("_generatePassword", systemImage: "dice")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, minHeight: 34)
+                        if showProgressView {
+                            ProgressView()
+                                .tint(.white)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
                     }
+                } else {
+                    HStack {
+                        Label("_generatePassword", systemImage: "dice")
+                        if showProgressView {
+                            Spacer()
+                            ProgressView()
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .buttonStyle(.glassProminent)
+                }
             }
             .disabled(showProgressView)
         }

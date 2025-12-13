@@ -110,7 +110,7 @@ struct SettingsPage: View {
             .foregroundColor(.gray)
             .monospacedDigit()
         }
-        .listRowBackground(Color(UIColor.systemGroupedBackground))
+        .listRowBackground(Color.clear)
     }
     
     private func supportThisProjectSection() -> some View {
@@ -204,7 +204,7 @@ struct SettingsPage: View {
                 }
             }
         }
-        .listRowBackground(Color(UIColor.systemGroupedBackground))
+        .listRowBackground(Color.clear)
     }
     
     private func doneButton() -> some View {
