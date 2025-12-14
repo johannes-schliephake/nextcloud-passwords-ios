@@ -32,7 +32,7 @@ final class FolderLabelUseCase: FolderLabelUseCaseProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         idSubject
             .compactFlatMapLatest { id in

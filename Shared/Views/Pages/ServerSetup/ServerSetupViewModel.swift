@@ -65,7 +65,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         managedConfigurationUseCase[\.$serverUrl]
             .sink { managedServerAddress in

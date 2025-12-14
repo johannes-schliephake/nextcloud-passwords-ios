@@ -91,7 +91,7 @@ final class EditOTPViewModel: EditOTPViewModelProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         Publishers.CombineLatest6(
             state.$otpType,

@@ -90,7 +90,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         sessionService.username
             .sink { self?.state.username = $0 }

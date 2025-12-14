@@ -53,7 +53,7 @@ final class CaptureOTPViewModel: CaptureOTPViewModelProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         torchService.isTorchAvailable
             .receive(on: \.mainScheduler)

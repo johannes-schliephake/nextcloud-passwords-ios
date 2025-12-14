@@ -27,7 +27,7 @@ final class PreferredUsernameUseCase: PreferredUsernameUseCaseProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         entriesController.$passwords
             .map { passwords in

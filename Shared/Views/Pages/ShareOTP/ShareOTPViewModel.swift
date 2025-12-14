@@ -40,7 +40,7 @@ final class ShareOTPViewModel: ShareOTPViewModelProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         Just(otpUrl)
             .compactFlatMapLatest { self?.qrCodeService.generateQrCode(from: $0) }
