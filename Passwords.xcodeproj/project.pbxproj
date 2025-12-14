@@ -2855,7 +2855,7 @@
 					sv.wordlist,
 				);
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					8F11874E253C9EE10019FECA = {
 						CreatedOnToolsVersion = 12.0.1;
@@ -4466,7 +4466,7 @@
 			repositoryURL = "https://github.com/Quick/Nimble";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 13.0.0;
+				minimumVersion = 14.0.0;
 			};
 		};
 		DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */ = {
