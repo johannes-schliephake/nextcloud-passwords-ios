@@ -56,7 +56,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
         }
         .onChange(of: generatorNumbers) { Configuration.userDefaults.set($0, forKey: "generatorNumbers") }
         .onChange(of: generatorSpecial) { Configuration.userDefaults.set($0, forKey: "generatorSpecial") }
-        .onChange(of: generatorStrength) { Configuration.userDefaults.set($0, forKey: "generatorStrength") }
+        .onChange(of: generatorStrength.rawValue) { Configuration.userDefaults.set($0, forKey: "generatorStrength") }
         .onChange(of: generatorLength) { Configuration.userDefaults.set($0, forKey: "generatorLength") }
         .onChange(of: onDeviceGenerator) { Configuration.userDefaults.set($0, forKey: "onDeviceGenerator") }
     }
@@ -198,6 +198,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                     ZStack {
                         if let leading = labels.leading {
                             Text(leading)
+                                .multilineTextAlignment(.leading)
                                 .frame(width: 36)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .apply { view in
@@ -209,11 +210,13 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                         }
                         if let center = labels.center {
                             Text(center)
+                                .multilineTextAlignment(.center)
                                 .frame(width: 36)
                                 .frame(maxWidth: .infinity, alignment: .center)
                         }
                         if let trailing = labels.trailing {
                             Text(trailing)
+                                .multilineTextAlignment(.trailing)
                                 .frame(width: 36)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                                 .apply { view in
