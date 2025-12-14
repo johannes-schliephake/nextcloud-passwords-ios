@@ -37,7 +37,7 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
     func callAsFunction(_ action: Action) {
         switch action {
         case let .generatePassword(includingNumbers, includingSpecialCharacters, length):
-            weak var `self` = self
+            weak let `self` = self
             
             @Injected(\.randomNumberGenerator) var randomNumberGenerator
             let wordlistLocale = self?.wordlistLocaleUseCase[\.wordlistLocale]?.get()

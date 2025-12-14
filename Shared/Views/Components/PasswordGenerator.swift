@@ -318,7 +318,7 @@ private class GeneratePasswordHelperViewModel: ViewModel {
     func callAsFunction(_ action: Action) {
         switch action {
         case let .generatePassword(includingNumbers: includingNumbers, includingSpecialCharacters: includingSpecialCharacters, length: length):
-            weak var `self` = self
+            weak let `self` = self
             
             cancellable = Just((includingNumbers, includingSpecialCharacters, length))
                 .receive(on: \.userInitiatedScheduler)

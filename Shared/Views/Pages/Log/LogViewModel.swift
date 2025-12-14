@@ -43,7 +43,7 @@ final class LogViewModel: LogViewModelProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         logger.isAvailablePublisher
             .receive(on: \.mainScheduler)

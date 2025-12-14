@@ -77,7 +77,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         let selectionPublisher = tagsService.tags(for: state.temporaryEntry.tags)
             .map { ($0, self?.state.hasChanges ?? false) }

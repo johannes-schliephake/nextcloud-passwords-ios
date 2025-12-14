@@ -66,7 +66,7 @@ extension QRCapture {
             metadataOutput.metadataObjectTypes = [.qr]
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             
-            weak var `self` = self
+            weak let `self` = self
             
             NotificationCenter.default.publisher(for: .AVCaptureSessionRuntimeError)
                 .compactMap { $0.userInfo?[AVCaptureSessionErrorKey] as? AVError }

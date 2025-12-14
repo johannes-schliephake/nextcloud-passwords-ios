@@ -60,7 +60,7 @@ final class LoginFlowViewModel: LoginFlowViewModelProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         state.$request
             .dropFirst()

@@ -46,7 +46,7 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
     func callAsFunction(_ action: Action) {
         switch action {
         case .startStreamingWords:
-            weak var `self` = self
+            weak let `self` = self
             
             isRunning = true
             

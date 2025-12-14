@@ -38,7 +38,7 @@ final class InitiateLoginUseCase: InitiateLoginUseCaseProtocol {
             var request = URLRequest(url: loginUrl.value)
             request.httpMethod = "POST"
             
-            weak var `self` = self
+            weak let `self` = self
             cancellable = resolve(\.urlSession).dataTaskPublisher(for: request)
                 .map(\.data)
                 .decode(type: LoginFlowChallenge.self, decoder: configurationType.jsonDecoder)
