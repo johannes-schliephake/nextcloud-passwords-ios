@@ -247,6 +247,12 @@
 "_providerInstructionsMessageWithLink" = "This app supports AutoFill. The feature has to be enabled manually:\n1. [Tap here](autoFillSettings) to open the system's AutoFill settings\n2. Enable AutoFill\n3. Enable this app\n4. Optional: Enable this app for Code Set Up";
 "_qrCaptureErrorMessage" = "An error occurred while launching the camera.";
 
+/* A button in the settings menu */
+"_rateOnTheAppStore" = "Rate on the App Store";
+
+/* A button in the settings menu */
+"_reportAnIssue" = "Report an Issue";
+
 /* I.e. reject this certificate */
 "_reject" = "Reject";
 
