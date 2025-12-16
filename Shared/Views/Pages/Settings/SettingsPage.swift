@@ -143,6 +143,11 @@ struct SettingsPage: View {
                     Label(Strings.joinTestFlightBeta, systemImage: "testtube.2")
                 }
             }
+            if let reviewUrl = viewModel[\.reviewUrl] {
+                Link(destination: reviewUrl) {
+                    Label(Strings.rateOnTheAppStore, systemImage: "star.bubble")
+                }
+            }
         }
         .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
     }
@@ -175,6 +180,11 @@ struct SettingsPage: View {
             if let sourceCodeUrl = viewModel[\.sourceCodeUrl] {
                 Link(destination: sourceCodeUrl) {
                     Label("_sourceCode", systemImage: "curlybraces")
+                }
+            }
+            if let reportIssueUrl = viewModel[\.reportIssueUrl] {
+                Link(destination: reportIssueUrl) {
+                    Label(Strings.reportAnIssue, systemImage: "ladybug")
                 }
             }
         }

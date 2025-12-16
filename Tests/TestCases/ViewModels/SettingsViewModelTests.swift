@@ -38,6 +38,8 @@ final class SettingsViewModelTests: XCTestCase {
         expect(settingsViewModel[\.isTipTransactionRunning]).to(beFalse())
         expect(settingsViewModel[\.isTestFlight]).to(beFalse())
         expect(settingsViewModel[\.betaUrl]).to(equal(.init(string: "https://testflight.apple.com/join/iuljLJ4u")!))
+        expect(settingsViewModel[\.reviewUrl]).to(equal(.init(string: "https://apps.apple.com/app/id1546212226?action=write-review")!))
+        expect(settingsViewModel[\.reportIssueUrl]).to(equal(.init(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios/issues")!))
         expect(settingsViewModel[\.isLogAvailable]).to(beFalse())
         expect(settingsViewModel[\.versionName]).to(equal("0.0.0 (Debug, Build 0)"))
         expect(settingsViewModel[\.sourceCodeUrl]).to(equal(.init(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios")!))
