@@ -163,3 +163,5 @@
 "_appExtensionWordlistErrorMessage" = "Salasõna loomisel tekkis viga. Vea parandmiseks proovi avada põhirakendus.";
 "_length" = "Pikkus";
 "_onDevicePasswordGenerator" = "Salasõnade looja nutiseadmes";
+"_rateOnTheAppStore" = "Hinda meid App Store'is";
+"_reportAnIssue" = "Teata veast või problemist";
