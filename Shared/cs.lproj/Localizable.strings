@@ -167,3 +167,5 @@
 "_appExtensionWordlistErrorMessage" = "Při vytváření hesla došlo k chybě. Zkuste opravit tento problém otevřením hlavní aplikace.";
 "_length" = "Délka";
 "_onDevicePasswordGenerator" = "Vytváření hesel na zařízení";
+"_rateOnTheAppStore" = "Zanechat hodnocení na App Store";
+"_reportAnIssue" = "Nahlásit problém";
