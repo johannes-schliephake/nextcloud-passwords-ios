@@ -15,7 +15,6 @@
 "_connect" = "Connettersi";
 "_detectQrCodeInPicture" = "Rilevare un codice QR nell'immagine";
 "_storePassword" = "Memorizza Password";
-"_deletedPasswordMessage" = "Questa password è stata eliminata.";
 "_numbers" = "Numeri";
 "_aboutOtpsMessage" = "Questa applicazione supporta le one-time password solo per comodità. Memorizzare le one-time password insieme a quella dell'account vanifica alcuni dei vantaggi di sicurezza dell'autenticazione a più fattori. Abilitare un secondo fattore è meglio che non usarne affatto uno, ma un'app indipendente per le one-time password sarà più sicuro. NON memorizzare le one-time password per il proprio account Nextcloud o per account critici, come quelli di posta elettronica o di online banking. Le one-time password si sincronizzano sull'istanza Nextcloud Passwords, ma al momento sono supportate solo dall'app iOS (v2.6 o più recente).";
 "_credentials" = "Credenziali";
@@ -30,7 +29,7 @@
 "_addTags" = "Aggiungi i Tag";
 "_algorithm" = "Algoritmo";
 "_all" = "Tutte";
-"_anErrorOccurred" = "Si è verificato un errore …";
+"_anErrorOccurred" = "Si è verificato un errore …";
 "_appDeauthorizedMessage" = "A causa di un numero eccessivo di tentativi di accesso non riusciti, questa applicazione è stata disattivata dal server. Riprovare più tardi.";
 "_appDeauthorized" = "App Disattivata";
 "_automaticallyAddedOtp" = "OTP aggiunto automaticamente";
@@ -95,7 +94,7 @@
 "_name" = "Nome";
 "_noConnection" = "Nessuna Connessione";
 "_noConnectionMessage" = "Impossibile connettersi all’istanza Nextcloud Password.";
-"_nothingToSeeHere" = "Niente c’è niente da vedere …";
+"_nothingToSeeHere" = "Niente c’è niente da vedere …";
 "_offline" = "Non in linea";
 "_openUrl" = "Apri URL";
 "_options" = "Opzioni";

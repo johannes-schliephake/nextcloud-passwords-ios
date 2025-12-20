@@ -6,7 +6,7 @@
 "_addTags" = "Lisa silte";
 "_algorithm" = "Algoritm";
 "_all" = "Kõik";
-"_anErrorOccurred" = "Tekkis viga…";
+"_anErrorOccurred" = "Tekkis viga …";
 "_about" = "Rakenduse teave";
 "_copyPassword" = "Kopeeri salasõna";
 "_copyUsername" = "Kopeeri kasutajanimi";
@@ -44,7 +44,6 @@
 "_connect" = "Ühenda";
 "_connectingToNextcloudInstanceAt(url)" = "Loon ühendust Nextcloudi serveriga:\n%@";
 "_delete" = "Kustuta";
-"_deletedPasswordMessage" = "Salasõna on kustutatud.";
 "_deleteFolder" = "Kustuta kaust";
 "_deleteFolderErrorMessage" = "Kausta kustutamisel tekkis viga. Palun kustuta kaust uuesti.";
 "_deleteOtp" = "Kustuta ühekordne salasõna";
@@ -92,7 +91,7 @@
 "_noConnection" = "Võrguühendus puudub";
 "_noConnectionMessage" = "Ühenduse loomine rakendusega Nextcloudi Salasõnad ei õnnestunud.";
 "_notes" = "Märkmed";
-"_nothingToSeeHere" = "Siin pole midagi huvitavat…";
+"_nothingToSeeHere" = "Siin pole midagi huvitavat …";
 "_numbers" = "Numbrid";
 "_offline" = "Võrguühendus puudub";
 "_openUrl" = "Ava võrguaadress";
@@ -164,3 +163,5 @@
 "_appExtensionWordlistErrorMessage" = "Salasõna loomisel tekkis viga. Vea parandmiseks proovi avada põhirakendus.";
 "_length" = "Pikkus";
 "_onDevicePasswordGenerator" = "Salasõnade looja nutiseadmes";
+"_rateOnTheAppStore" = "Hinda meid App Store'is";
+"_reportAnIssue" = "Teata veast või problemist";

@@ -19,7 +19,7 @@ import Factory
         case setUrl(URL)
     }
     
-    @Injected(\.urlLabelSuggestionLanguangeModelDataSource) private var urlLabelSuggestionLanguangeModelDataSource // swiftlint:disable:this identifier_name
+    @Injected(\.urlLabelSuggestionLanguageModelDataSource) private var urlLabelSuggestionLanguageModelDataSource // swiftlint:disable:this identifier_name
     
     let state: State
     
@@ -34,7 +34,7 @@ import Factory
         switch action {
         case let .setUrl(url):
             cancellable = Just(url)
-                .handle(with: urlLabelSuggestionLanguangeModelDataSource, { .setUrl($0) }, publishing: \.$suggestedLabel)
+                .handle(with: urlLabelSuggestionLanguageModelDataSource, { .setUrl($0) }, publishing: \.$suggestedLabel)
                 .resultize()
                 .sink { [weak self] in self?.state.suggestedLabel = $0 }
         }

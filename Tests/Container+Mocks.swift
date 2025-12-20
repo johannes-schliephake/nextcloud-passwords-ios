@@ -51,6 +51,10 @@ extension Container {
             .shared
     }
     
+    var mainSchedulerMock: Factory<TestSchedulerOf<DispatchQueue>> {
+        self { DispatchQueue.test }
+            .cached
+    }
     var userInitiatedSchedulerMock: Factory<TestSchedulerOf<DispatchQueue>> {
         self { DispatchQueue.test }
             .cached

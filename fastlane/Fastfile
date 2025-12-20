@@ -38,9 +38,9 @@ lane :take_screenshots do
         "iPhone 16e",
         "iPhone 8 Plus",
         "iPhone SE (3rd generation)",
-        "iPad Pro 13-inch (M4)",
+        "iPad Pro 13-inch (M5)",
         "iPad Pro (12.9-inch) (2nd generation)",
-        "iPad Pro 11-inch (M4)",
+        "iPad Pro 11-inch (M5)",
         "iPad Air (3rd generation)",
         "iPad mini (5th generation)"
     ]
@@ -70,7 +70,7 @@ lane :build_and_upload do
     unless last_git_tag != version
         UI.user_error!("The version number didn't change")
     end
-    run_tests(scheme: "Passwords", disable_package_automatic_updates: true)
+    run_tests(scheme: "Passwords", deployment_target_version: "26.2", disable_package_automatic_updates: true)
     get_certificates(output_path: "fastlane/tmp")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")

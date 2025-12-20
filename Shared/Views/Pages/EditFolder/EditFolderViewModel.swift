@@ -85,7 +85,7 @@ final class EditFolderViewModel: EditFolderViewModelProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         state.$folderParent
             .handle(with: folderLabelUseCase, { .setId($0) }, publishing: \.$label)

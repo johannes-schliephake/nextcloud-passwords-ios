@@ -58,7 +58,7 @@ final class PurchaseService: PurchaseServiceProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         productsRepository.products
             .map { $0.sorted { $0.price < $1.price } }
@@ -72,7 +72,7 @@ final class PurchaseService: PurchaseServiceProtocol {
     }
     
     func purchase(product: any Product) {
-        weak var `self` = self
+        weak let `self` = self
         
         transactionStateInternal = .purchasing
         

@@ -31,7 +31,7 @@ final class ProductsRepository: ProductsRepositoryProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         productIdentifiersRepository.productIdentifiers
             .flatMapLatest(productsAppStoreDataSource.products)

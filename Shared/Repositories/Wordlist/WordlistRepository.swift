@@ -48,7 +48,7 @@ final class WordlistRepository: WordlistRepositoryProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         languageSubject
             .compactMap { $0 }

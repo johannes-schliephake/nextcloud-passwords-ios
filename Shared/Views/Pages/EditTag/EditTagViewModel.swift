@@ -72,7 +72,7 @@ final class EditTagViewModel: EditTagViewModelProtocol {
     private func setupPipelines() {
         let initialTagColor = Color(hex: state.tag.color)
         
-        weak var `self` = self
+        weak let `self` = self
         
         Publishers.CombineLatest3(
             state.$tagLabel

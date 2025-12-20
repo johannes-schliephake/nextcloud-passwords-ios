@@ -11,11 +11,11 @@ import FoundationModels
 }
 
 
-@available(iOS 26, *) protocol UrlLabelSuggestionLanguangeModelDataSourceProtocol: DataSource where State == UrlLabelSuggestionLanguangeModelDataSource.State, Action == UrlLabelSuggestionLanguangeModelDataSource.Action {} // swiftlint:disable:this type_name
+@available(iOS 26, *) protocol UrlLabelSuggestionLanguageModelDataSourceProtocol: DataSource where State == UrlLabelSuggestionLanguageModelDataSource.State, Action == UrlLabelSuggestionLanguageModelDataSource.Action {} // swiftlint:disable:this type_name
 
 
 // TODO: tests
-@available(iOS 26, *) final class UrlLabelSuggestionLanguangeModelDataSource: UrlLabelSuggestionLanguangeModelDataSourceProtocol { // swiftlint:disable:this type_name
+@available(iOS 26, *) final class UrlLabelSuggestionLanguageModelDataSource: UrlLabelSuggestionLanguageModelDataSourceProtocol { // swiftlint:disable:this type_name
     
     final class State {
         
@@ -43,7 +43,7 @@ import FoundationModels
         - accounts.google.com → "Google"
         - auth.wikimedia.org → "Wikipedia"
         - login.microsoftonline.com → "Microsoft"
-        - subdomain.unknown-site.com → "Unknown Site
+        - subdomain.unknown-site.com → "Unknown Site"
         
         Special Cases:
         - IP addresses → "Local Service"

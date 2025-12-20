@@ -5,9 +5,6 @@ struct ShareOTPPage: View {
     
     @StateObject var viewModel: AnyViewModelOf<ShareOTPViewModel>
     
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @Environment(\.verticalSizeClass) private var verticalSizeClass
-    
     var body: some View {
         listView()
             .navigationBarTitleDisplayMode(.inline)
@@ -17,27 +14,35 @@ struct ShareOTPPage: View {
     private func listView() -> some View {
         List {
             qrCode()
-            warningLabel()
-            shareButton()
+                .listRowBackground(Color.clear)
+            Section {
+                warningLabel()
+                shareButton()
+            }
         }
         .listStyle(.insetGrouped)
     }
     
     private func qrCode() -> some View {
-        HStack {
-            Spacer()
+        Group {
             if let qrCode = viewModel[\.qrCode] {
                 Image(uiImage: qrCode)
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: horizontalSizeClass == .compact && verticalSizeClass == .regular ? .infinity : 240)
-                    .padding(.vertical)
+                    .frame(maxWidth: 240)
+                    .padding()
+                    .background {
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.white)
+                    }
             } else {
                 ProgressView()
+                    .frame(height: 240)
+                    .padding()
             }
-            Spacer()
         }
+        .frame(maxWidth: .infinity)
     }
     
     private func warningLabel() -> some View {

@@ -16,7 +16,7 @@
 /* Possible option when adding an OTP, other keys are "_scanQrCode" and "_detectQrCodeInPicture" */
 "_addManually" = "Додати вручну";
 "_algorithm" = "Алгоритм";
-"_anErrorOccurred" = "Виникла помилка …";
+"_anErrorOccurred" = "Виникла помилка …";
 
 /* This refers to the noun ("the counter") and counts how many OTPs have been used */
 "_counter" = "Лічильник";
@@ -58,7 +58,7 @@
 "_managedServerUrlErrorMessage" = "Адреса сервера Nextcloud була попередньо налаштована, але програма не змогла під'єднатися до екземпляра Nextcloud. Будь ласка, зверніться до вашого адміністратора.";
 
 /* Shown in empty lists */
-"_nothingToSeeHere" = "Тут немає на що дивитися …";
+"_nothingToSeeHere" = "Тут немає на що дивитися …";
 
 /* I.e. settings options */
 "_options" = "Опції";
@@ -169,7 +169,6 @@
 "_customFields" = "Користувацькі поля";
 "_decryptFolderErrorMessage" = "Під час розшифрування теки сталася помилка.";
 "_decryptPasswordErrorMessage" = "Виникла помилка при розшифровці пароля.";
-"_deletedPasswordMessage" = "Цей пароль було видалено.";
 "_deleteFolder" = "Видалити теку";
 "_deleteFolderErrorMessage" = "Під час видалення теки сталася помилка. Будь ласка, видаліть теку ще раз.";
 

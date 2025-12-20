@@ -77,7 +77,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         let selectionPublisher = tagsService.tags(for: state.temporaryEntry.tags)
             .map { ($0, self?.state.hasChanges ?? false) }
@@ -133,7 +133,7 @@ final class SelectTagsViewModel: SelectTagsViewModelProtocol {
         case .addTag:
             state.$focusedField
                 .first { $0 == nil }
-                .receive(on: DispatchQueue.main)
+                .receive(on: \.mainScheduler)
                 .sink { [weak self] _ in self?.state.focusedField = .addTagLabel }
                 .store(in: &cancellables)
             let tag: Tag

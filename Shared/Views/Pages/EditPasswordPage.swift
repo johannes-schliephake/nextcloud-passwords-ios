@@ -399,7 +399,12 @@ struct EditPasswordPage: View {
                                 TagBadge(tag: tag, baseColor: Color(.systemGroupedBackground))
                             }
                         }
-                        .padding(.vertical, 3)
+                        .apply { view in
+                            if #unavailable(iOS 26) {
+                                view
+                                    .padding(.vertical, 3)
+                            }
+                        }
                     }
                     Spacer()
                     NavigationLink {

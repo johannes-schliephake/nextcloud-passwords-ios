@@ -26,7 +26,7 @@ final class ManagedConfigurationUseCase: ManagedConfigurationUseCaseProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         Timer.publish(every: 1, on: .main, in: .default)
             .autoconnect()

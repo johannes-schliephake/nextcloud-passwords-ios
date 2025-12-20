@@ -6,8 +6,7 @@ import Combine
 func emit<P: Publisher>(
     within timeout: NimbleTimeInterval = PollingDefaults.timeout,
     onMainThread expectMainThread: Bool? = nil,
-    when block: (() -> Void)? = nil,
-    from originQueue: DispatchQueue = .main
+    when block: (() -> Void)? = nil
 ) -> Matcher<P> {
     .init { expression in
         var message = ExpectationMessage.expectedTo("emit")
@@ -35,9 +34,7 @@ func emit<P: Publisher>(
             }
             .store(in: &cancellables)
         
-        originQueue.async(flags: .enforceQoS) {
-            block?()
-        }
+        block?()
         XCTWaiter().wait(for: [expectation], timeout: timeout.timeInterval)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't receive value"))
     }
@@ -48,8 +45,7 @@ func emit<P: Publisher>(
     _ expectedValue: P.Output,
     within timeout: NimbleTimeInterval = PollingDefaults.timeout,
     onMainThread expectMainThread: Bool? = nil,
-    when block: (() -> Void)? = nil,
-    from originQueue: DispatchQueue = .main
+    when block: (() -> Void)? = nil
 ) -> Matcher<P> where P.Output: Equatable {
     .init { expression in
         var message = ExpectationMessage.expectedTo("emit <\(stringify(expectedValue))>")
@@ -77,9 +73,7 @@ func emit<P: Publisher>(
             }
             .store(in: &cancellables)
         
-        originQueue.async(flags: .enforceQoS) {
-            block?()
-        }
+        block?()
         XCTWaiter().wait(for: [expectation], timeout: timeout.timeInterval)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't receive value"))
     }
@@ -91,12 +85,11 @@ func emit<P: Publisher>(
     _ otherExpectedValues: P.Output...,
     within timeout: NimbleTimeInterval = PollingDefaults.timeout,
     onMainThread expectMainThread: Bool? = nil,
-    when block: (() -> Void)? = nil,
-    from originQueue: DispatchQueue = .main
+    when block: (() -> Void)? = nil
 ) -> Matcher<P> where P.Output: Equatable {
     .init { expression in
         let expectedValues = [firstExpectedValue] + otherExpectedValues
-        let result = try emit(expectedValues, within: timeout, onMainThread: expectMainThread, when: block, from: originQueue).satisfies(
+        let result = try emit(expectedValues, within: timeout, onMainThread: expectMainThread, when: block).satisfies(
             .init(expression: {
                 try expression.evaluate()?.collect(expectedValues.count)
             }, location: expression.location, isClosure: expression.isClosure)

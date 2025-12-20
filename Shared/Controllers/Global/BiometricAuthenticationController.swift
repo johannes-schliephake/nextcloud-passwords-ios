@@ -13,7 +13,7 @@ final class BiometricAuthenticationController: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        weak var `self` = self
+        weak let `self` = self
         
         NotificationCenter.default.publisher(for: UIScene.didActivateNotification)
             .ignoreValue()

@@ -1,3 +1,6 @@
+## [v2.10.2] - 2025-12-21
+- Bugfixes and optimizations
+
 ## [v2.10.1] - 2025-10-03
 - Bugfixes and optimizations
 

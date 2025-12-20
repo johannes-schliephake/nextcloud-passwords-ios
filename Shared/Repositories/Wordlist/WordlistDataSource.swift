@@ -32,7 +32,7 @@ final class WordlistDataSource: WordlistDataSourceProtocol {
     func callAsFunction(_ action: Action) {
         switch action {
         case let .setLanguage(language):
-            weak var `self` = self
+            weak let `self` = self
             
             cancellable = Just(language)
                 .handle(with: wordlistPreparationDataSource, { .setLanguage($0) }, publishing: \.$wordlistUrl)

@@ -6,7 +6,7 @@ import Combine
 struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
     
     @Binding var password: String
-    var generateInitial = false
+    @State var generateInitial = false
     
     // AppStorage freezes app on iOS 16 + 17
 //    @AppStorage("generatorNumbers", store: Configuration.userDefaults) private var generatorNumbers = Configuration.defaults["generatorNumbers"] as! Bool
@@ -51,11 +51,12 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                   password.isEmpty else {
                 return
             }
+            generateInitial = false
             generatePassword()
         }
         .onChange(of: generatorNumbers) { Configuration.userDefaults.set($0, forKey: "generatorNumbers") }
         .onChange(of: generatorSpecial) { Configuration.userDefaults.set($0, forKey: "generatorSpecial") }
-        .onChange(of: generatorStrength) { Configuration.userDefaults.set($0, forKey: "generatorStrength") }
+        .onChange(of: generatorStrength.rawValue) { Configuration.userDefaults.set($0, forKey: "generatorStrength") }
         .onChange(of: generatorLength) { Configuration.userDefaults.set($0, forKey: "generatorLength") }
         .onChange(of: onDeviceGenerator) { Configuration.userDefaults.set($0, forKey: "onDeviceGenerator") }
     }
@@ -111,25 +112,41 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                     )
                 }
             }
-            Divider()
-                .apply { view in
-                    if #unavailable(iOS 26) {
-                        view
-                            .padding(.trailing, -100)
-                    }
-                }
+            if #unavailable(iOS 26) {
+                Divider()
+                    .padding(.trailing, -100)
+            }
             Button {
                 generatePassword()
-            }
-            label: {
-                HStack {
-                    Label("_generatePassword", systemImage: "dice")
-                    if showProgressView {
-                        Spacer()
-                        ProgressView()
+            } label: {
+                if #available(iOS 26, *) {
+                    ZStack {
+                        Label("_generatePassword", systemImage: "dice")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, minHeight: 34)
+                        if showProgressView {
+                            ProgressView()
+                                .tint(.white)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
                     }
+                } else {
+                    HStack {
+                        Label("_generatePassword", systemImage: "dice")
+                        if showProgressView {
+                            Spacer()
+                            ProgressView()
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .buttonStyle(.glassProminent)
+                }
             }
             .disabled(showProgressView)
         }
@@ -181,6 +198,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                     ZStack {
                         if let leading = labels.leading {
                             Text(leading)
+                                .multilineTextAlignment(.leading)
                                 .frame(width: 36)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .apply { view in
@@ -192,11 +210,13 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
                         }
                         if let center = labels.center {
                             Text(center)
+                                .multilineTextAlignment(.center)
                                 .frame(width: 36)
                                 .frame(maxWidth: .infinity, alignment: .center)
                         }
                         if let trailing = labels.trailing {
                             Text(trailing)
+                                .multilineTextAlignment(.trailing)
                                 .frame(width: 36)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                                 .apply { view in
@@ -301,7 +321,7 @@ private class GeneratePasswordHelperViewModel: ViewModel {
     func callAsFunction(_ action: Action) {
         switch action {
         case let .generatePassword(includingNumbers: includingNumbers, includingSpecialCharacters: includingSpecialCharacters, length: length):
-            weak var `self` = self
+            weak let `self` = self
             
             cancellable = Just((includingNumbers, includingSpecialCharacters, length))
                 .receive(on: \.userInitiatedScheduler)

@@ -59,7 +59,6 @@ struct SelectFolderPage: View {
             List {
                 TreePicker(viewModel[\.tree], selection: $viewModel[\.selection]) { folder in
                     FolderRow(label: folder.label)
-                        .id(folder.id)
                 }
                 .apply { view in
                     if #unavailable(iOS 26) {
@@ -67,7 +66,16 @@ struct SelectFolderPage: View {
                             .listSectionSeparator(.hidden, edges: .top)
                     }
                 }
-                .listRowInsets(.listRow)
+                .apply { view in
+                    if #available(iOS 26, *) {
+                        view
+                            .listRowInsets(.top, EdgeInsets.entryRow.top)
+                            .listRowInsets(.bottom, EdgeInsets.entryRow.bottom)
+                    } else {
+                        view
+                            .listRowInsets(.entryRow)
+                    }
+                }
             }
             .listStyle(.plain)
             .apply { view in
@@ -209,16 +217,18 @@ extension SelectFolderPage {
                 VStack(alignment: .leading) {
                     Text(!label.isEmpty ? label : "-")
                         .lineLimit(1)
-                    Text(!username.isEmpty ? username : "-")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                        .lineLimit(1)
-                        .apply { view in
-                            if #available(iOS 17, *) {
-                                view
-                                    .typesettingLanguage(.init(languageCode: .unavailable))
+                    if !username.isEmpty {
+                        Text(username)
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                            .lineLimit(1)
+                            .apply { view in
+                                if #available(iOS 17, *) {
+                                    view
+                                        .typesettingLanguage(.init(languageCode: .unavailable))
+                                }
                             }
-                        }
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }

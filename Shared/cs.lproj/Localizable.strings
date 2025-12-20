@@ -9,7 +9,7 @@
 "_addTags" = "Přidat štítky";
 "_algorithm" = "Algoritmus";
 "_all" = "Vše";
-"_anErrorOccurred" = "Došlo k chybě …";
+"_anErrorOccurred" = "Došlo k chybě …";
 "_appDeauthorized" = "Aplikaci zrušeno pověření";
 "_appDeauthorizedMessage" = "Z důvodu příliš mnoha nezdařených pokusů o přihlášení bylo této aplikaci serverem zrušeno pověření. Zkuste to znovu později.";
 "_automaticallyGeneratePasswords" = "Vytvářet hesla automaticky";
@@ -40,7 +40,6 @@
 "_decryptPasswordErrorMessage" = "Při rozšifrovávání hesla došlo k chybě.";
 "_decryptTagErrorMessage" = "Při rozšifrovávání štítku došlo k chybě. Uložte ho znovu.";
 "_delete" = "Smazat";
-"_deletedPasswordMessage" = "Toto heslo bylo smazáno.";
 "_deleteFolder" = "Smazat složku";
 "_deleteFolderErrorMessage" = "Při mazání složky došlo k chybě. Smažte ji znovu.";
 "_deleteOtp" = "Smazat jednorázové heslo";
@@ -93,7 +92,7 @@
 "_noConnection" = "Žádné připojení";
 "_noConnectionMessage" = "Nedaří se připojit k instanci aplikace Hesla na Nextcloud.";
 "_notes" = "Poznámky";
-"_nothingToSeeHere" = "Tady není nic k vidění …";
+"_nothingToSeeHere" = "Tady není nic k vidění …";
 "_numbers" = "Číslice";
 "_offline" = "Nepřipojeno k serveru";
 "_openUrl" = "Otevřít URL";
@@ -168,3 +167,5 @@
 "_appExtensionWordlistErrorMessage" = "Při vytváření hesla došlo k chybě. Zkuste opravit tento problém otevřením hlavní aplikace.";
 "_length" = "Délka";
 "_onDevicePasswordGenerator" = "Vytváření hesel na zařízení";
+"_rateOnTheAppStore" = "Zanechat hodnocení na App Store";
+"_reportAnIssue" = "Nahlásit problém";

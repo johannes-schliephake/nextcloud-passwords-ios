@@ -22,7 +22,7 @@
 
 /* I.e. all passwords */
 "_all" = "Alles";
-"_anErrorOccurred" = "Er is een fout opgetreden...";
+"_anErrorOccurred" = "Er is een fout opgetreden …";
 "_appDeauthorized" = "App autorisatie ingetrokken";
 "_appDeauthorizedMessage" = "Vanwege te veel mislukte inlogpogingen is de autorisatie van deze app door de server ingetrokken. Probeer het later opnieuw.";
 
@@ -66,7 +66,6 @@
 
 /* Use the same wording Apple uses across iOS */
 "_delete" = "Verwijderen";
-"_deletedPasswordMessage" = "Dit wachtwoord is verwijderd.";
 "_deleteFolder" = "Folder verwijderen";
 "_deleteFolderErrorMessage" = "Er is een fout opgetreden bij het verwijderen van de map. Verwijder de map alstublieft opnieuw.";
 "_deleteOtp" = "Eenmalig wachtwoord verwijderen";

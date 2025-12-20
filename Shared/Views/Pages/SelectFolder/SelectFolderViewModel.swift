@@ -88,7 +88,7 @@ final class SelectFolderViewModel: SelectFolderViewModelProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         foldersService.folders
             .compactMap { folders in

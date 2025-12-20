@@ -22,7 +22,7 @@
 
 /* I.e. all passwords */
 "_all" = "Alle";
-"_anErrorOccurred" = "Noe gikk galt …";
+"_anErrorOccurred" = "Noe gikk galt …";
 
 /* This is a label for a settings toggle */
 "_automaticallyGeneratePasswords" = "Generer passord automatisk";
@@ -57,7 +57,6 @@
 /* Use the same wording Apple uses across iOS */
 "_delete" = "Slett";
 "_decryptTagErrorMessage" = "Kunne ikke dekryptere etiketten.";
-"_deletedPasswordMessage" = "Dette passordet har blitt slettet.";
 "_deleteFolderErrorMessage" = "Kunne ikke slette mappen. Slett mappen igjen.";
 "_decryptPasswordErrorMessage" = "Kunne ikke dekryptere passordet.";
 "_deletePasswordErrorMessage" = "Kunne ikke slette passordet. Slett passordet igjen.";
@@ -123,7 +122,7 @@
 "_notes" = "Notater";
 
 /* Shown in empty lists */
-"_nothingToSeeHere" = "Ingenting her …";
+"_nothingToSeeHere" = "Ingenting her …";
 
 /* This is the label for starting an In-App purchase */
 "_giveATip" = "Gi en donasjon";

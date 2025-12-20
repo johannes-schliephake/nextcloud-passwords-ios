@@ -62,7 +62,16 @@ struct SelectTagsPage: View {
                 }
             }
             .listRowSeparator(.hidden)
-            .listRowInsets(.listRow)
+            .apply { view in
+                if #available(iOS 26, *) {
+                    view
+                        .listRowInsets(.top, EdgeInsets.entryRow.top)
+                        .listRowInsets(.bottom, EdgeInsets.entryRow.bottom)
+                } else {
+                    view
+                        .listRowInsets(.entryRow)
+                }
+            }
         }
         .listStyle(.plain)
         .apply { view in
@@ -239,16 +248,18 @@ extension SelectTagsPage {
                 VStack(alignment: .leading) {
                     Text(!label.isEmpty ? label : "-")
                         .lineLimit(1)
-                    Text(!username.isEmpty ? username : "-")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                        .lineLimit(1)
-                        .apply { view in
-                            if #available(iOS 17, *) {
-                                view
-                                    .typesettingLanguage(.init(languageCode: .unavailable))
+                    if !username.isEmpty {
+                        Text(username)
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                            .lineLimit(1)
+                            .apply { view in
+                                if #available(iOS 17, *) {
+                                    view
+                                        .typesettingLanguage(.init(languageCode: .unavailable))
+                                }
                             }
-                        }
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }

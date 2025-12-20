@@ -18,11 +18,11 @@ struct PasswordDetailPage: View {
     @State private var favicon: UIImage?
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
-    @State private var passwordDeleted = false
     @State private var navigationSelection: NavigationSelection?
     @State private var hasNavigationSelection = false
     @State private var showSelectTagsView = false
     @State private var showPasswordStatusTooltip = false
+    @State private var sectionWidth = 300.0
     @ScaledMetric private var currentOtpFontSize = 17
     @ScaledMetric private var upcomingOtpFontSize = 12
     @ScaledMetric private var otpLabelsDistance = 6
@@ -32,78 +32,65 @@ struct PasswordDetailPage: View {
     // MARK: Views
     
     var body: some View {
-        if passwordDeleted && UIDevice.current.userInterfaceIdiom == .pad {
-            deletedView()
-        }
-        else {
-            mainStack()
-                .navigationBarTitleDisplayMode(.large)
-                .navigationTitle(password.label)
-                .toolbar {
-                    if #available(iOS 26, *) {
-                        ToolbarItem(placement: .largeTitle) {
-                            Text("")
-                        }
-                        stateToolbar()
-                        if let complete = autoFillController.complete,
-                           autoFillController.mode != .extension || password.otp != nil {
-                            ToolbarItem(placement: .bottomBar) {
-                                selectButton(complete: complete)
-                            }
-                        }
-                        ToolbarSpacer(.flexible, placement: .bottomBar)
+        mainStack()
+            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle(password.label)
+            .toolbar {
+                if #available(iOS 26, *) {
+                    ToolbarItem(placement: .largeTitle) {
+                        Text("")
+                    }
+                    stateToolbar()
+                    if let complete = autoFillController.complete,
+                       autoFillController.mode != .extension || password.otp != nil {
                         ToolbarItem(placement: .bottomBar) {
-                            favoriteButton()
+                            selectButton(complete: complete)
                         }
-                        ToolbarItem(placement: .bottomBar) {
-                            if password.editable {
-                                editButton()
-                            }
+                    }
+                    ToolbarSpacer(.flexible, placement: .bottomBar)
+                    ToolbarItem(placement: .bottomBar) {
+                        favoriteButton()
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        if password.editable {
+                            editButton()
                         }
-                    } else {
-                        ToolbarItem(placement: .primaryAction) {
-                            stateView()
-                        }
-                        ToolbarItem(placement: .primaryAction) {
-                            if password.editable {
-                                editButton()
-                            }
+                    }
+                } else {
+                    ToolbarItem(placement: .primaryAction) {
+                        stateView()
+                    }
+                    ToolbarItem(placement: .primaryAction) {
+                        if password.editable {
+                            editButton()
                         }
                     }
                 }
-                .onReceive(resolve(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) {
-                    _ in
+            }
+            .onReceive(resolve(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) { _ in
+                dismiss()
+            }
+            .onChange(of: sessionController.session == nil) { withoutSession in
+                if withoutSession {
                     dismiss()
-                    
-                    /// Clear password detail page on iPad when password was deleted (SwiftUI doesn't close view when NavigationLink is removed)
-                    /// This has to be done with a notification because a password can also be deleted from the EntriesPage
-                    passwordDeleted = true
                 }
-                .apply { view in
-                    if #available(iOS 26, *),
-                       UIDevice.current.userInterfaceIdiom == .phone {
-                        /// Fixes bug in SwiftUI where popovers are presented outside of screen on phones when source is placed trailing in navigation bar
-                        view
-                            .overlay(alignment: .topTrailing) {
-                                EmptyView()
-                                    .frame(width: 2, height: 2)
-                                    .tooltip(isPresented: $showPasswordStatusTooltip) {
-                                        tooltipContent()
-                                    }
-                                    .offset(x: -37, y: -34 + 5)
-                            }
-                    }
+            }
+            .apply { view in
+                if #available(iOS 26, *),
+                   UIDevice.current.userInterfaceIdiom == .phone {
+                    /// Fixes bug in SwiftUI where popovers are presented outside of screen on phones when source is placed trailing in navigation bar
+                    view
+                        .overlay(alignment: .topTrailing) {
+                            EmptyView()
+                                .frame(width: 2, height: 2)
+                                .tooltip(isPresented: $showPasswordStatusTooltip) {
+                                    tooltipContent()
+                                }
+                                .offset(x: -37, y: -34 + 5)
+                        }
                 }
-                .onChange(of: showMetadata) { Configuration.userDefaults.set($0, forKey: "showMetadata") }
-        }
-    }
-    
-    private func deletedView() -> some View {
-        VStack {
-            Text("_deletedPasswordMessage")
-                .foregroundColor(.gray)
-                .padding()
-        }
+            }
+            .onChange(of: showMetadata) { Configuration.userDefaults.set($0, forKey: "showMetadata") }
     }
     
     private func mainStack() -> some View {
@@ -184,7 +171,12 @@ struct PasswordDetailPage: View {
                     .padding(.top)
                 }
             }
-            .listRowBackground(Color(UIColor.systemGroupedBackground))
+            .onGeometryChange(
+                for: Double.self,
+                of: { $0.size.width },
+                action: { sectionWidth = $0 }
+            )
+            .listRowBackground(Color.clear)
             .apply { view in
                 if #available(iOS 26, *) {
                     view
@@ -194,7 +186,7 @@ struct PasswordDetailPage: View {
             if let tags = entriesController.tags {
                 let validTags = EntriesController.tags(for: password.tags, in: tags).valid
                 tagsSection(validTags: validTags)
-                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+                    .listRowBackground(Color.clear)
             }
             serviceSection()
             accountSection()
@@ -205,7 +197,7 @@ struct PasswordDetailPage: View {
                 notesSection()
             }
             metadataSection()
-                .listRowBackground(Color(UIColor.systemGroupedBackground))
+                .listRowBackground(Color.clear)
         }
         .listStyle(.insetGrouped)
         .apply { view in
@@ -278,46 +270,60 @@ struct PasswordDetailPage: View {
             }
             if password.editable,
                password.statusCode == .outdated || password.statusCode == .duplicate || password.statusCode == .breached {
-                Divider()
-                    .apply { view in
-                        if #unavailable(iOS 26) {
-                            view
-                                .padding(.trailing, -100)
-                        }
-                    }
+                if #unavailable(iOS 26) {
+                    Divider()
+                        .padding(.trailing, -100)
+                }
                 Button {
                     showPasswordStatusTooltip = false
                     showEditPasswordView = true
-                }
-                label: {
+                } label: {
                     Label("_editPassword", systemImage: "square.and.pencil")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .apply { view in
+                            if #available(iOS 26, *) {
+                                view
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity, minHeight: 34)
+                            } else {
+                                view
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                }
+                .apply { view in
+                    if #available(iOS 26, *) {
+                        view
+                            .buttonStyle(.glassProminent)
+                    }
                 }
                 .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
             }
             if password.statusCode == .duplicate,
                let duplicates = entriesController.passwords?.filter({ $0.password == password.password && $0.id != password.id }) {
-                Divider()
-                    .apply { view in
-                        if #unavailable(iOS 26) {
-                            view
-                                .padding(.trailing, -100)
-                        }
-                    }
+                if #unavailable(iOS 26) {
+                    Divider()
+                        .padding(.trailing, -100)
+                }
                 VStack(alignment: .leading, spacing: 0) {
                     Text(Strings.duplicates)
-                        .font(.subheadline)
+                        .apply { view in
+                            if #available(iOS 26, *) {
+                                view
+                                    .font(.headline)
+                            } else {
+                                view
+                                    .font(.subheadline)
+                            }
+                        }
                         .bold()
                         .foregroundColor(.gray)
                         .padding(.top, 12)
-                        .padding(.bottom, EdgeInsets.listRow.bottom)
-                    Divider()
-                        .apply { view in
-                            if #unavailable(iOS 26) {
-                                view
-                                    .padding(.trailing, -100)
-                            }
-                        }
+                        .padding(.bottom, EdgeInsets.entryRow.bottom)
+                    if #unavailable(iOS 26) {
+                        Divider()
+                            .padding(.trailing, -100)
+                    }
                     if duplicates.isEmpty {
                         Text(Strings.duplicatesTrashMessage)
                             .foregroundColor(.gray)
@@ -331,8 +337,8 @@ struct PasswordDetailPage: View {
                                 navigationSelection = .duplicate(password: duplicate)
                             } label: {
                                 PasswordRow(label: duplicate.label, username: duplicate.username, url: duplicate.url)
-                                    .padding(.top, EdgeInsets.listRow.top)
-                                    .padding(.bottom, EdgeInsets.listRow.bottom)
+                                    .padding(.top, EdgeInsets.entryRow.top)
+                                    .padding(.bottom, EdgeInsets.entryRow.bottom)
                                     .foregroundColor(.primary)
                             }
                             Divider()
@@ -650,20 +656,9 @@ struct PasswordDetailPage: View {
                             }
                     }
                 }
-                .apply { view in
-#if targetEnvironment(simulator)
-                    if #available(iOS 26, *) {
-                        view
-                            .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
-                    } else {
-                        view
-                            .listRowInsets(EdgeInsets(top: 8, leading: UIDevice.current.deviceSpecificPadding - 4, bottom: 8, trailing: 16 + UIDevice.current.deviceSpecificPadding))
-                    }
-#else
-                    view
-                        .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
-#endif
-                }
+                .frame(width: sectionWidth)
+                .frame(maxWidth: .infinity)
+                .listRowInsets(EdgeInsets(top: 8, leading: -4, bottom: 8, trailing: 16))
             } label: {
                 Text("_metadata")
                     .foregroundColor(.gray)
@@ -876,16 +871,18 @@ extension PasswordDetailPage {
                 VStack(alignment: .leading) {
                     Text(!label.isEmpty ? label : "-")
                         .lineLimit(1)
-                    Text(!username.isEmpty ? username : "-")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                        .lineLimit(1)
-                        .apply { view in
-                            if #available(iOS 17, *) {
-                                view
-                                    .typesettingLanguage(.init(languageCode: .unavailable))
+                    if !username.isEmpty {
+                        Text(username)
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                            .lineLimit(1)
+                            .apply { view in
+                                if #available(iOS 17, *) {
+                                    view
+                                        .typesettingLanguage(.init(languageCode: .unavailable))
+                                }
                             }
-                        }
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }

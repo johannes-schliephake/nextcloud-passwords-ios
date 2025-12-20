@@ -110,7 +110,7 @@ struct SettingsPage: View {
             .foregroundColor(.gray)
             .monospacedDigit()
         }
-        .listRowBackground(Color(UIColor.systemGroupedBackground))
+        .listRowBackground(Color.clear)
     }
     
     private func supportThisProjectSection() -> some View {
@@ -141,6 +141,11 @@ struct SettingsPage: View {
                let betaUrl = viewModel[\.betaUrl] {
                 Link(destination: betaUrl) {
                     Label(Strings.joinTestFlightBeta, systemImage: "testtube.2")
+                }
+            }
+            if let reviewUrl = viewModel[\.reviewUrl] {
+                Link(destination: reviewUrl) {
+                    Label(Strings.rateOnTheAppStore, systemImage: "star.bubble")
                 }
             }
         }
@@ -177,6 +182,11 @@ struct SettingsPage: View {
                     Label("_sourceCode", systemImage: "curlybraces")
                 }
             }
+            if let reportIssueUrl = viewModel[\.reportIssueUrl] {
+                Link(destination: reportIssueUrl) {
+                    Label(Strings.reportAnIssue, systemImage: "ladybug")
+                }
+            }
         }
         .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
     }
@@ -204,7 +214,7 @@ struct SettingsPage: View {
                 }
             }
         }
-        .listRowBackground(Color(UIColor.systemGroupedBackground))
+        .listRowBackground(Color.clear)
     }
     
     private func doneButton() -> some View {

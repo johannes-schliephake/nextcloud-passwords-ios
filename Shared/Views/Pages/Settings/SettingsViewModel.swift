@@ -28,13 +28,15 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         @Published fileprivate(set) var isTipTransactionRunning: Bool
         let isTestFlight: Bool
         let betaUrl: URL?
+        let reviewUrl: URL?
+        let reportIssueUrl: URL?
         @Published fileprivate(set) var isLogAvailable: Bool
         let versionName: String
         let sourceCodeUrl: URL?
         
         let shouldDismiss = Signal()
         
-        init(username: String?, server: String?, isChallengePasswordStored: Bool, wasChallengePasswordCleared: Bool, showLogoutAlert: Bool, isOfflineStorageEnabled: Bool, isOnDevicePasswordGeneratorEnabled: Bool, isAutomaticPasswordGenerationEnabled: Bool, isUniversalClipboardEnabled: Bool, canPurchaseTip: Bool, tipProducts: [any Product]?, isTipTransactionRunning: Bool, isTestFlight: Bool, betaUrl: URL?, isLogAvailable: Bool, versionName: String, sourceCodeUrl: URL?) {
+        init(username: String?, server: String?, isChallengePasswordStored: Bool, wasChallengePasswordCleared: Bool, showLogoutAlert: Bool, isOfflineStorageEnabled: Bool, isOnDevicePasswordGeneratorEnabled: Bool, isAutomaticPasswordGenerationEnabled: Bool, isUniversalClipboardEnabled: Bool, canPurchaseTip: Bool, tipProducts: [any Product]?, isTipTransactionRunning: Bool, isTestFlight: Bool, betaUrl: URL?, reviewUrl: URL?, reportIssueUrl: URL?, isLogAvailable: Bool, versionName: String, sourceCodeUrl: URL?) {
             self.username = username
             self.server = server
             self.isChallengePasswordStored = isChallengePasswordStored
@@ -49,6 +51,8 @@ final class SettingsViewModel: SettingsViewModelProtocol {
             self.isTipTransactionRunning = isTipTransactionRunning
             self.isTestFlight = isTestFlight
             self.betaUrl = betaUrl
+            self.reviewUrl = reviewUrl
+            self.reportIssueUrl = reportIssueUrl
             self.isLogAvailable = isLogAvailable
             self.versionName = versionName
             self.sourceCodeUrl = sourceCodeUrl
@@ -82,15 +86,17 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         let isChallengePasswordStored = _sessionService.wrappedValue.isChallengePasswordStored
         let configuration = resolve(\.configurationType)
         let betaUrl = URL(string: "https://testflight.apple.com/join/iuljLJ4u")
+        let reviewUrl = URL(string: "https://apps.apple.com/app/id1546212226?action=write-review")
+        let reportIssueUrl = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios/issues")
         let versionName = "\(configuration.shortVersionString)\(configuration.isDebug || configuration.isTestFlight ? " (\(configuration.isDebug ? "Debug" : configuration.isTestFlight ? "TestFlight" : "Unknown"), Build \(configuration.buildNumberString))" : "")"
         let sourceCodeUrl = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios")
-        state = .init(username: nil, server: nil, isChallengePasswordStored: isChallengePasswordStored, wasChallengePasswordCleared: false, showLogoutAlert: false, isOfflineStorageEnabled: false, isOnDevicePasswordGeneratorEnabled: false, isAutomaticPasswordGenerationEnabled: false, isUniversalClipboardEnabled: false, canPurchaseTip: false, tipProducts: nil, isTipTransactionRunning: false, isTestFlight: configuration.isTestFlight, betaUrl: betaUrl, isLogAvailable: false, versionName: versionName, sourceCodeUrl: sourceCodeUrl)
+        state = .init(username: nil, server: nil, isChallengePasswordStored: isChallengePasswordStored, wasChallengePasswordCleared: false, showLogoutAlert: false, isOfflineStorageEnabled: false, isOnDevicePasswordGeneratorEnabled: false, isAutomaticPasswordGenerationEnabled: false, isUniversalClipboardEnabled: false, canPurchaseTip: false, tipProducts: nil, isTipTransactionRunning: false, isTestFlight: configuration.isTestFlight, betaUrl: betaUrl, reviewUrl: reviewUrl, reportIssueUrl: reportIssueUrl, isLogAvailable: false, versionName: versionName, sourceCodeUrl: sourceCodeUrl)
         
         setupPipelines()
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         sessionService.username
             .sink { self?.state.username = $0 }
@@ -117,12 +123,12 @@ final class SettingsViewModel: SettingsViewModelProtocol {
             .store(in: &cancellables)
         
         purchaseService.products
-            .receive(on: DispatchQueue.main)
+            .receive(on: \.mainScheduler)
             .sink { self?.state.tipProducts = $0 }
             .store(in: &cancellables)
         
         purchaseService.transactionState
-            .receive(on: DispatchQueue.main)
+            .receive(on: \.mainScheduler)
             .sink { transactionState in
                 if case .purchasing = transactionState {
                     self?.state.isTipTransactionRunning = true
@@ -143,7 +149,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         .store(in: &cancellables)
         
         logger.isAvailablePublisher
-            .receive(on: DispatchQueue.main)
+            .receive(on: \.mainScheduler)
             .sink { self?.state.isLogAvailable = $0 }
             .store(in: &cancellables)
     }

@@ -22,7 +22,7 @@
 
 /* I.e. all passwords */
 "_all" = "All";
-"_anErrorOccurred" = "An error occurred …";
+"_anErrorOccurred" = "An error occurred …";
 "_appDeauthorized" = "App Deauthorized";
 "_appDeauthorizedMessage" = "Because of too many failed login attempts this app was deauthorized by the server. Please try again later.";
 "_appExtensionWordlistErrorMessage" = "An error occurred while generating the password. Try to open the main app to fix this issue.";
@@ -91,7 +91,6 @@
 
 /* Use the same wording Apple uses across iOS */
 "_delete" = "Delete";
-"_deletedPasswordMessage" = "This password was deleted.";
 "_deleteFolder" = "Delete Folder";
 "_deleteFolderErrorMessage" = "An error occurred while deleting the folder. Please delete the folder again.";
 "_deleteOtp" = "Delete One-Time Password";
@@ -207,7 +206,7 @@
 "_notes" = "Notes";
 
 /* Shown in empty lists */
-"_nothingToSeeHere" = "Nothing to see here …";
+"_nothingToSeeHere" = "Nothing to see here …";
 
 /* This is a label for a password generator toggle */
 "_numbers" = "Numbers";
@@ -247,6 +246,12 @@
 /* Make sure to keep newlines (\n) and the link (autoFillSettings) and make sure to use the exact same wording Apple uses for each step  */
 "_providerInstructionsMessageWithLink" = "This app supports AutoFill. The feature has to be enabled manually:\n1. [Tap here](autoFillSettings) to open the system's AutoFill settings\n2. Enable AutoFill\n3. Enable this app\n4. Optional: Enable this app for Code Set Up";
 "_qrCaptureErrorMessage" = "An error occurred while launching the camera.";
+
+/* A button in the settings menu */
+"_rateOnTheAppStore" = "Rate on the App Store";
+
+/* A button in the settings menu */
+"_reportAnIssue" = "Report an Issue";
 
 /* I.e. reject this certificate */
 "_reject" = "Reject";

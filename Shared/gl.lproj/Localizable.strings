@@ -21,7 +21,7 @@
 "_folder" = "Cartafol";
 "_folders" = "Cartafoles";
 "_giveATip" = "Dar unha adealla";
-"_highFive" = "High Five! 👏";
+"_highFive" = "Choca eses cinco! 👏";
 "_id" = "ID";
 "_incorrectPassword" = "Contrasinal incorrecto";
 "_clearStoredE2EPassword" = "Limpar o contrasinal E2E almacenado";
@@ -116,7 +116,6 @@
 "_decryptFolderErrorMessage" = "Produciuse un erro ao descifrar o cartafol.";
 "_decryptTagErrorMessage" = "Produciuse un erro ao descifrar a etiqueta.";
 "_decryptPasswordErrorMessage" = "Produciuse un erro ao descifrar o contrasinal.";
-"_deletedPasswordMessage" = "Este contrasinal foi eliminado.";
 "_deleteFolder" = "Eliminar cartafol";
 "_delete" = "Eliminar";
 "_aboutOtpsMessage" = "Esta aplicación admite contrasinais dun só uso só por comodidade. Almacenar o seu contrasinal dun só uso xunto co contrasinal da súa conta elimina algúns dos beneficios de seguranza da autenticación multifactor. Activar un segundo factor é mellor que non usar ningún, mais unha aplicación independente dun contrasinal dun só uso será máis segura. NON garde contrasinais dun só uso para a súa conta de Nextcloud ou contas críticas, coma o correo-e ou contas de banca en liña. Os contrasinais dun só uso sincronizaranse coa súa instancia de Contrasinais de Nextcloud, mais actualmente só son compatíbeis coa aplicación iOS (v2.6 ou posterior).";

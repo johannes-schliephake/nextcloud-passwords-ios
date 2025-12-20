@@ -7,8 +7,7 @@ func fail<P: Publisher>(
     _ expectedError: P.Failure? = nil,
     within timeout: NimbleTimeInterval = PollingDefaults.timeout,
     onMainThread expectMainThread: Bool? = nil,
-    when block: (() -> Void)? = nil,
-    from originQueue: DispatchQueue = .main
+    when block: (() -> Void)? = nil
 ) -> Matcher<P> where P.Failure: Equatable {
     .init { expression in
         var message: ExpectationMessage
@@ -44,9 +43,7 @@ func fail<P: Publisher>(
             }
             .store(in: &cancellables)
         
-        originQueue.async(flags: .enforceQoS) {
-            block?()
-        }
+        block?()
         XCTWaiter().wait(for: [expectation], timeout: timeout.timeInterval)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't complete with failure"))
     }

@@ -6,8 +6,7 @@ import Combine
 func finish<P: Publisher>(
     within timeout: NimbleTimeInterval = PollingDefaults.timeout,
     onMainThread expectMainThread: Bool? = nil,
-    when block: (() -> Void)? = nil,
-    from originQueue: DispatchQueue = .main
+    when block: (() -> Void)? = nil
 ) -> Matcher<P> {
     .init { expression in
         var message = ExpectationMessage.expectedTo("finish")
@@ -39,9 +38,7 @@ func finish<P: Publisher>(
             }
             .store(in: &cancellables)
         
-        originQueue.async(flags: .enforceQoS) {
-            block?()
-        }
+        block?()
         XCTWaiter().wait(for: [expectation], timeout: timeout.timeInterval)
         return result ?? .init(status: .doesNotMatch, message: message.appended(message: " - didn't complete"))
     }

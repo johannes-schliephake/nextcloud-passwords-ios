@@ -13,7 +13,7 @@
 
 /* I.e. all passwords */
 "_all" = "Alla";
-"_anErrorOccurred" = "Ett fel uppstod …";
+"_anErrorOccurred" = "Ett fel uppstod …";
 "_appDeauthorized" = "App avauktoriserad";
 "_appDeauthorizedMessage" = "På grund av för många misslyckade inloggningsförsök avauktoriserades denna app av servern. Vänligen försök igen senare.";
 
@@ -57,7 +57,6 @@
 "_decryptFolderErrorMessage" = "Ett fel uppstod vid dekrypteringen av mappen.";
 "_decryptPasswordErrorMessage" = "Ett fel inträffade när lösenordet dekrypterades.";
 "_decryptTagErrorMessage" = "Ett fel uppstod vid dekryptering av taggen.";
-"_deletedPasswordMessage" = "Lösenordet är borttaget.";
 "_deleteOtp" = "Ta bort engångslösenordet";
 "_deletePassword" = "Ta bort lösenord";
 "_deleteTag" = "Ta bort tagg";
@@ -121,7 +120,7 @@
 "_notes" = "Anteckningar";
 
 /* Shown in empty lists */
-"_nothingToSeeHere" = "Inget att se här …";
+"_nothingToSeeHere" = "Inget att se här …";
 
 /* This is a label for a password generator toggle */
 "_numbers" = "Siffror";

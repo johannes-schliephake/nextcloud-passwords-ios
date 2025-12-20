@@ -36,7 +36,6 @@
 "_decryptPasswordErrorMessage" = "解密密码时出错。";
 "_decryptTagErrorMessage" = "解密标签时出错。";
 "_delete" = "删除";
-"_deletedPasswordMessage" = "此密码已删除。";
 "_deleteFolder" = "删除文件夹";
 "_deleteOtp" = "删除一次性密码";
 "_deletePassword" = "删除密码";
@@ -164,3 +163,5 @@
 "_appExtensionWordlistErrorMessage" = "生成密码时出错。请尝试打开主应用以修复此问题。";
 "_length" = "长度";
 "_onDevicePasswordGenerator" = "设备端密码生成器";
+"_rateOnTheAppStore" = "在 App Store 上评分";
+"_reportAnIssue" = "报告问题";

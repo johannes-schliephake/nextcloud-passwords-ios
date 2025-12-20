@@ -34,7 +34,7 @@ final class WordlistPreparationDataSource: WordlistPreparationDataSourceProtocol
     func callAsFunction(_ action: Action) {
         switch action {
         case let .setLanguage(language):
-            weak var `self` = self
+            weak let `self` = self
             
             if case .success = state.wordlistUrl {
                 return

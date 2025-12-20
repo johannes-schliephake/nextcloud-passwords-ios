@@ -8,6 +8,7 @@ final class ShareOTPViewModelTests: XCTestCase {
     
     private let urlMock = URL.random()
     
+    @LazyInjected(\.mainSchedulerMock) private var mainSchedulerMock
     @MockInjected(\.qrCodeService) private var qrCodeServiceMock: QRCodeServiceMock
     
     override func tearDown() {
@@ -33,6 +34,7 @@ final class ShareOTPViewModelTests: XCTestCase {
         let shareOtpViewModel: any ShareOTPViewModelProtocol = ShareOTPViewModel(otpUrl: urlMock)
         
         qrCodeServiceMock._generateQrCode.send(completion: .failure(.generatorUnavailable))
+        mainSchedulerMock.advance()
         
         expect(shareOtpViewModel[\.qrCode]).to(beNil())
         expect(shareOtpViewModel[\.qrCodeAvailable]).to(beFalse())
@@ -42,6 +44,7 @@ final class ShareOTPViewModelTests: XCTestCase {
         let shareOtpViewModel: any ShareOTPViewModelProtocol = ShareOTPViewModel(otpUrl: urlMock)
         
         qrCodeServiceMock._generateQrCode.send(completion: .failure(.generationFailed))
+        mainSchedulerMock.advance()
         
         expect(shareOtpViewModel[\.qrCode]).to(beNil())
         expect(shareOtpViewModel[\.qrCodeAvailable]).to(beFalse())
@@ -51,27 +54,22 @@ final class ShareOTPViewModelTests: XCTestCase {
         let shareOtpViewModel: any ShareOTPViewModelProtocol = ShareOTPViewModel(otpUrl: urlMock)
         
         qrCodeServiceMock._generateQrCode.send(completion: .failure(.conversionFailed))
+        mainSchedulerMock.advance()
         
         expect(shareOtpViewModel[\.qrCode]).to(beNil())
         expect(shareOtpViewModel[\.qrCodeAvailable]).to(beFalse())
     }
     
-    func testInit_whenQrCodeServiceEmittingQrCode_thenSetsQrCode() {
+    func testInit_whenQrCodeServiceEmittingQrCode_thenSetsQrCodeOnMainScheduler() {
         let shareOtpViewModel: any ShareOTPViewModelProtocol = ShareOTPViewModel(otpUrl: urlMock)
         let imageMock = UIImage(systemName: "qrcode")!
         
-        qrCodeServiceMock._generateQrCode.send(imageMock)
-        
-        expect(shareOtpViewModel[\.qrCode]).toEventually(be(imageMock))
-        expect(shareOtpViewModel[\.qrCodeAvailable]).toEventually(beTrue())
-    }
-    
-    func testInit_whenQrCodeServiceEmittingQrCodeFromBackgroundThread_thenSetsQrCodeFromMainThread() {
-        let shareOtpViewModel: any ShareOTPViewModelProtocol = ShareOTPViewModel(otpUrl: urlMock)
-        let imageMock = UIImage(systemName: "qrcode")!
-        
-        expect(shareOtpViewModel[\.$qrCode].dropFirst()).to(emit(imageMock, onMainThread: true, when: { self.qrCodeServiceMock._generateQrCode.send(imageMock) }, from: .init()))
-        expect(shareOtpViewModel[\.$qrCodeAvailable].dropFirst()).to(emit(true, onMainThread: true, when: { self.qrCodeServiceMock._generateQrCode.send(imageMock) }, from: .init()))
+        expect(shareOtpViewModel[\.$qrCode].dropFirst())
+            .toNot(emit(when: { self.qrCodeServiceMock._generateQrCode.send(imageMock) }))
+            .to(emit(imageMock, when: { self.mainSchedulerMock.advance() }))
+        expect(shareOtpViewModel[\.$qrCodeAvailable].dropFirst())
+            .toNot(emit(when: { self.qrCodeServiceMock._generateQrCode.send(imageMock) }))
+            .to(emit(true, when: { self.mainSchedulerMock.advance() }))
     }
     
 }

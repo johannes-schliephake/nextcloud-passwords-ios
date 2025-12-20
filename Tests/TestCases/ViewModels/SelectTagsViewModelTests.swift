@@ -9,6 +9,7 @@ final class SelectTagsViewModelTests: XCTestCase {
     private let temporaryEntryMock: SelectTagsViewModel.TemporaryEntry = .password(label: .random(), username: .random(), url: .random(), tags: [.random()])
     @Injected(\.tags) private var tagMocks
     
+    @LazyInjected(\.mainSchedulerMock) private var mainSchedulerMock
     @MockInjected(\.tagsService) private var tagsServiceMock: TagsServiceMock
     @MockInjected(\.tagValidationService) private var tagValidationServiceMock: TagValidationServiceMock
     
@@ -91,36 +92,23 @@ final class SelectTagsViewModelTests: XCTestCase {
         expect(selectTagsViewModel[\.selectableTags].map(\.isSelected)).to(equal([false, false]))
     }
     
-    func testCallAsFunction_givenFocusedFieldIsNotNil_whenCallingAddTag_thenDoesntChangeFocusedField() {
+    func testCallAsFunction_givenFocusedFieldIsNotNil_whenCallingAddTag_thenDoesntSetFocusedField() throws {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntryMock) { _, _ in }
         selectTagsViewModel[\.focusedField] = .addTagLabel
         
-        selectTagsViewModel(.addTag)
-        
-        expect(selectTagsViewModel[\.focusedField]).to(equal(.addTagLabel))
+        expect(selectTagsViewModel[\.$focusedField].dropFirst())
+            .toNot(emit(when: { selectTagsViewModel(.addTag) }))
+            .toNot(emit(when: { self.mainSchedulerMock.advance() }))
     }
     
     func testCallAsFunction_givenFocusedFieldIsNotNil_whenCallingAddTagAndSettingFocusedFieldToNil_thenSetsFocusedFieldToAddTagLabel() throws {
         let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntryMock) { _, _ in }
         selectTagsViewModel[\.focusedField] = .addTagLabel
         
-        selectTagsViewModel(.addTag)
-        selectTagsViewModel[\.focusedField] = nil
-        try require(selectTagsViewModel[\.focusedField]).to(beNil())
-        
-        expect(selectTagsViewModel[\.focusedField]).toEventually(equal(.addTagLabel))
-    }
-    
-    func testCallAsFunction_givenFocusedFieldIsNotNil_whenCallingAddTagAndSettingFocusedFieldToNilTwice_thenKeepsFocusedFieldNil() throws {
-        let selectTagsViewModel: any SelectTagsViewModelProtocol = SelectTagsViewModel(temporaryEntry: temporaryEntryMock) { _, _ in }
-        selectTagsViewModel[\.focusedField] = .addTagLabel
-        
-        selectTagsViewModel(.addTag)
-        selectTagsViewModel[\.focusedField] = nil
-        try require(selectTagsViewModel[\.focusedField]).toEventuallyNot(beNil())
-        selectTagsViewModel[\.focusedField] = nil
-        
-        expect(selectTagsViewModel[\.focusedField]).toAlways(beNil())
+        expect(selectTagsViewModel[\.$focusedField].dropFirst())
+            .toNot(emit(when: { selectTagsViewModel(.addTag) }))
+            .to(emit(nil, when: { selectTagsViewModel[\.focusedField] = nil }))
+            .to(emit(.addTagLabel, when: { self.mainSchedulerMock.advance() }))
     }
     
     func testCallAsFunction_whenCallingAddTag_thenCallsTagsService() {

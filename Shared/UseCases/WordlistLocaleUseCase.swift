@@ -30,7 +30,7 @@ final class WordlistLocaleUseCase: WordlistLocaleUseCaseProtocol {
     }
     
     private func setupPipelines() {
-        weak var `self` = self
+        weak let `self` = self
         
         onDemandResourcesRepository.onDemandResources
             .map { onDemandResources in
