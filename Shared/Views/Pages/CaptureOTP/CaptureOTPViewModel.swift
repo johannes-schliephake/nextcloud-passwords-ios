@@ -14,16 +14,12 @@ final class CaptureOTPViewModel: CaptureOTPViewModelProtocol {
     
     final class State: ObservableObject {
         
-        @Published fileprivate(set) var isTorchAvailable: Bool
-        @Published fileprivate(set) var isTorchActive: Bool
         @Published var showErrorAlert: Bool
         @Published fileprivate(set) var didCaptureOtp: Bool
         
         let shouldDismiss = Signal()
         
-        init(isTorchAvailable: Bool, isTorchActive: Bool, showErrorAlert: Bool, didCaptureOtp: Bool) {
-            self.isTorchAvailable = isTorchAvailable
-            self.isTorchActive = isTorchActive
+        init(showErrorAlert: Bool, didCaptureOtp: Bool) {
             self.showErrorAlert = showErrorAlert
             self.didCaptureOtp = didCaptureOtp
         }
@@ -31,14 +27,11 @@ final class CaptureOTPViewModel: CaptureOTPViewModelProtocol {
     }
     
     enum Action {
-        case toggleTorch
         case captureQrResult(Result<String, any Error>)
         case cancel
     }
     
-    @Injected(\.torchService) private var torchService
     @LazyInjected(\.otpService) private var otpService
-    @LazyInjected(\.logger) private var logger
     
     let state: State
     
@@ -46,34 +39,12 @@ final class CaptureOTPViewModel: CaptureOTPViewModelProtocol {
     private var cancellables = Set<AnyCancellable>()
     
     init(captureOtp: @escaping (OTP) -> Void) {
-        state = .init(isTorchAvailable: false, isTorchActive: false, showErrorAlert: false, didCaptureOtp: false)
+        state = .init(showErrorAlert: false, didCaptureOtp: false)
         self.captureOtp = captureOtp
-        
-        setupPipelines()
-    }
-    
-    private func setupPipelines() {
-        weak let `self` = self
-        
-        torchService.isTorchAvailable
-            .receive(on: \.mainScheduler)
-            .sink { self?.state.isTorchAvailable = $0 }
-            .store(in: &cancellables)
-        
-        torchService.isTorchActive
-            .receive(on: \.mainScheduler)
-            .sink { self?.state.isTorchActive = $0 }
-            .store(in: &cancellables)
     }
     
     func callAsFunction(_ action: Action) {
         switch action {
-        case .toggleTorch:
-            do {
-                try torchService.toggleTorch()
-            } catch {
-                logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
-            }
         case let .captureQrResult(.success(value)):
             guard !state.didCaptureOtp,
                   let otp = otpService.makeOtp(urlString: value) else {

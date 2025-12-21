@@ -13,20 +13,6 @@ struct CaptureOTPPage: View {
                 ToolbarItem(placement: .cancellationAction) {
                     cancelButton()
                 }
-                if #available(iOS 26, *) {
-                    ToolbarSpacer(.flexible, placement: .bottomBar)
-                    ToolbarItem(placement: .bottomBar) {
-                        if viewModel[\.isTorchAvailable] {
-                            torchToggle()
-                        }
-                    }
-                } else {
-                    ToolbarItem(placement: .primaryAction) {
-                        if viewModel[\.isTorchAvailable] {
-                            torchToggle()
-                        }
-                    }
-                }
             }
             .dismiss(on: viewModel[\.shouldDismiss])
     }
@@ -64,14 +50,6 @@ struct CaptureOTPPage: View {
             Button("_cancel", role: .cancel) {
                 viewModel(.cancel)
             }
-        }
-    }
-    
-    private func torchToggle() -> some View {
-        Button {
-            viewModel(.toggleTorch)
-        } label: {
-            Image(systemName: viewModel[\.isTorchActive] ? "lightbulb.fill" : "lightbulb")
         }
     }
     
