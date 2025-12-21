@@ -201,9 +201,6 @@
 		DD14666C2A6BDE68003BBA8F /* CaptureOTPViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD14666B2A6BDE68003BBA8F /* CaptureOTPViewModelMock.swift */; };
 		DD14666E2A6BDE82003BBA8F /* EditTagViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD14666D2A6BDE82003BBA8F /* EditTagViewModelMock.swift */; };
 		DD1466702A6BDE98003BBA8F /* SelectFolderViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD14666F2A6BDE98003BBA8F /* SelectFolderViewModelMock.swift */; };
-		DD1466722A6BE2AE003BBA8F /* VideoCapturerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1466712A6BE2AE003BBA8F /* VideoCapturerMock.swift */; };
-		DD1466742A6BE625003BBA8F /* TorchServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1466732A6BE625003BBA8F /* TorchServiceMock.swift */; };
-		DD1466762A6BE720003BBA8F /* TorchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1466752A6BE720003BBA8F /* TorchServiceTests.swift */; };
 		DD1466782A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1466772A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift */; };
 		DD15CBF12C16F92800A8F34C /* Publisher+IgnoreFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15CBF02C16F92800A8F34C /* Publisher+IgnoreFailure.swift */; };
 		DD15CBF22C16F92800A8F34C /* Publisher+IgnoreFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15CBF02C16F92800A8F34C /* Publisher+IgnoreFailure.swift */; };
@@ -241,15 +238,6 @@
 		DD250E422A979BC600A0D3C4 /* Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD250E3F2A979BC600A0D3C4 /* Bridge.swift */; };
 		DD250E442A979C4C00A0D3C4 /* BridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD250E432A979C4C00A0D3C4 /* BridgeTests.swift */; };
 		DD251A3029301B60001F6F2A /* XCUIElement+UnhittableInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD251A2F29301B60001F6F2A /* XCUIElement+UnhittableInteractions.swift */; };
-		DD27237B2A6976500017BAA2 /* TorchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD27237A2A6976500017BAA2 /* TorchService.swift */; };
-		DD27237C2A6976500017BAA2 /* TorchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD27237A2A6976500017BAA2 /* TorchService.swift */; };
-		DD27237D2A6976500017BAA2 /* TorchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD27237A2A6976500017BAA2 /* TorchService.swift */; };
-		DD27237F2A69847E0017BAA2 /* VideoCapturing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD27237E2A69847E0017BAA2 /* VideoCapturing.swift */; };
-		DD2723802A69847E0017BAA2 /* VideoCapturing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD27237E2A69847E0017BAA2 /* VideoCapturing.swift */; };
-		DD2723812A69847E0017BAA2 /* VideoCapturing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD27237E2A69847E0017BAA2 /* VideoCapturing.swift */; };
-		DD2723832A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2723822A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift */; };
-		DD2723842A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2723822A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift */; };
-		DD2723852A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2723822A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift */; };
 		DD28587D2C2C31C6009549FE /* Publisher+IgnoreValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD28587C2C2C31C6009549FE /* Publisher+IgnoreValue.swift */; };
 		DD28587E2C2C31C6009549FE /* Publisher+IgnoreValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD28587C2C2C31C6009549FE /* Publisher+IgnoreValue.swift */; };
 		DD28587F2C2C31C6009549FE /* Publisher+IgnoreValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD28587C2C2C31C6009549FE /* Publisher+IgnoreValue.swift */; };
@@ -1027,9 +1015,6 @@
 		DD14666B2A6BDE68003BBA8F /* CaptureOTPViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPViewModelMock.swift; sourceTree = "<group>"; };
 		DD14666D2A6BDE82003BBA8F /* EditTagViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagViewModelMock.swift; sourceTree = "<group>"; };
 		DD14666F2A6BDE98003BBA8F /* SelectFolderViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderViewModelMock.swift; sourceTree = "<group>"; };
-		DD1466712A6BE2AE003BBA8F /* VideoCapturerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCapturerMock.swift; sourceTree = "<group>"; };
-		DD1466732A6BE625003BBA8F /* TorchServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchServiceMock.swift; sourceTree = "<group>"; };
-		DD1466752A6BE720003BBA8F /* TorchServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchServiceTests.swift; sourceTree = "<group>"; };
 		DD1466772A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPViewModelTests.swift; sourceTree = "<group>"; };
 		DD15CBF02C16F92800A8F34C /* Publisher+IgnoreFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+IgnoreFailure.swift"; sourceTree = "<group>"; };
 		DD18E49A2BC940410037F696 /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
@@ -1050,9 +1035,6 @@
 		DD250E3F2A979BC600A0D3C4 /* Bridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridge.swift; sourceTree = "<group>"; };
 		DD250E432A979C4C00A0D3C4 /* BridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeTests.swift; sourceTree = "<group>"; };
 		DD251A2F29301B60001F6F2A /* XCUIElement+UnhittableInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+UnhittableInteractions.swift"; sourceTree = "<group>"; };
-		DD27237A2A6976500017BAA2 /* TorchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchService.swift; sourceTree = "<group>"; };
-		DD27237E2A69847E0017BAA2 /* VideoCapturing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCapturing.swift; sourceTree = "<group>"; };
-		DD2723822A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVCaptureDevice.TorchMode+Toggled.swift"; sourceTree = "<group>"; };
 		DD28587C2C2C31C6009549FE /* Publisher+IgnoreValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+IgnoreValue.swift"; sourceTree = "<group>"; };
 		DD2AEB772AEAAE520001781E /* DataScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataScannerView.swift; sourceTree = "<group>"; };
 		DD2B7D0927EE6D5E0018E07E /* Appfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
@@ -1852,7 +1834,6 @@
 			isa = PBXGroup;
 			children = (
 				8F703BFB26245C6100CC7018 /* Array+Zip.swift */,
-				DD2723822A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift */,
 				DD84EEF4288ECC4C0094B5A6 /* CGPoint+Operators.swift */,
 				8F7237992651468700832A88 /* Collection+Avg.swift */,
 				DD34C0A72A94A8BF005B25BA /* Collection+Subscript.swift */,
@@ -2065,7 +2046,6 @@
 				DDB00D302A6FBA180060909F /* SettingsService.swift */,
 				DD214361295A014B006C08DD /* TagsService.swift */,
 				DDBE8AB529B3FEFF0054F179 /* TagValidationService.swift */,
-				DD27237A2A6976500017BAA2 /* TorchService.swift */,
 				DD78D6D12AACDB3100854599 /* WindowSizeService.swift */,
 			);
 			path = Services;
@@ -2167,7 +2147,6 @@
 				DDCD27812A16C579009EC50F /* QRCodeGenerating.swift */,
 				DDA25D9D2A8C1F51005D9320 /* Transaction.swift */,
 				DDA25D992A8C1F2A005D9320 /* VerificationResult.swift */,
-				DD27237E2A69847E0017BAA2 /* VideoCapturing.swift */,
 				DD6D1EDB2C2E047500D2AAC4 /* WebDataStore.swift */,
 				DD845CB22AF38C2900048F3F /* Window.swift */,
 				DD845CAE2AF38C2000048F3F /* WindowScene.swift */,
@@ -2515,7 +2494,6 @@
 				DDF0C4912ADD430200A50661 /* PasteboardServiceTests.swift */,
 				DDDD93F62A14BD650061BEA0 /* QRCodeServiceTests.swift */,
 				DD5E3CB0295363DB0032F517 /* TagValidationServiceTests.swift */,
-				DD1466752A6BE720003BBA8F /* TorchServiceTests.swift */,
 				DD845CCD2AF3DC3F00048F3F /* WindowSizeServiceTests.swift */,
 			);
 			path = Services;
@@ -2578,7 +2556,6 @@
 				DD24F0362A8E2246009823C8 /* SettingsServiceMock.swift */,
 				DD7BC52129AFFD33004AA7BC /* TagsServiceMock.swift */,
 				DD7BC51D29AFFCCF004AA7BC /* TagValidationServiceMock.swift */,
-				DD1466732A6BE625003BBA8F /* TorchServiceMock.swift */,
 				DD845CBF2AF3B87500048F3F /* WindowSizeServiceMock.swift */,
 			);
 			path = Services;
@@ -2645,7 +2622,6 @@
 				DDF0C4892ADD3F1700A50661 /* PasteboardMock.swift */,
 				DD24F03A2A8EA9F0009823C8 /* ProductMock.swift */,
 				DDCD277F2A16C55F009EC50F /* QRCodeGeneratorMock.swift */,
-				DD1466712A6BE2AE003BBA8F /* VideoCapturerMock.swift */,
 				DDF856FA2C2F6380002F2581 /* WebDataStoreMock.swift */,
 				DD845CD12AF405D300048F3F /* WindowMock.swift */,
 				DD845CCF2AF405CD00048F3F /* WindowSceneMock.swift */,
@@ -3112,7 +3088,6 @@
 				DD83C20B2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */,
 				DD6F95DF2BAB8D2E00BA196E /* Publisher+HandleEvents.swift in Sources */,
 				DD18E49B2BC940410037F696 /* Signal.swift in Sources */,
-				DD27237B2A6976500017BAA2 /* TorchService.swift in Sources */,
 				DD8A77D32C2774430086CFDD /* WebView.swift in Sources */,
 				DDBDCF722E1D1FE100DADBC8 /* WordlistDataSource.swift in Sources */,
 				DD5189EE27A16BFA00264A0D /* Data+Init.swift in Sources */,
@@ -3203,7 +3178,6 @@
 				DD9C50042A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */,
 				8F77DA5D25699F8900CFDA8D /* CopyToast.swift in Sources */,
 				8F513A63256064E9001C6EF9 /* ServerSetupPage.swift in Sources */,
-				DD27237F2A69847E0017BAA2 /* VideoCapturing.swift in Sources */,
 				DD214362295A014B006C08DD /* TagsService.swift in Sources */,
 				DDCE125927413FF6003912D0 /* CreateTagRequest.swift in Sources */,
 				DD34E00F2E391E2900028DF2 /* WordlistPreparationDataSource.swift in Sources */,
@@ -3253,7 +3227,6 @@
 				DDF432BB2DAFBD9C0070E93C /* RandomWordUseCase.swift in Sources */,
 				DD0EF2A02C16DBD900F0D59B /* LoginPollUseCase.swift in Sources */,
 				DD77FF302C4C6A5500E193C9 /* OpenProviderSettingsUseCase.swift in Sources */,
-				DD2723832A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */,
 				DDBDCF6C2E1D1CFE00DADBC8 /* FileDataSource.swift in Sources */,
 				DD1078742A691F5200E87B3F /* QRCapture.swift in Sources */,
 				DDBDA48A2E5B7956009EE4CF /* DefaultLanguageModel.swift in Sources */,
@@ -3346,7 +3319,6 @@
 				DDF05AA82DA2F2120059CD16 /* CharacterCounter.swift in Sources */,
 				DDACC45929F080D50094D141 /* PasteboardService.swift in Sources */,
 				DD83C20C2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */,
-				DD27237C2A6976500017BAA2 /* TorchService.swift in Sources */,
 				DD6F95E02BAB8D2E00BA196E /* Publisher+HandleEvents.swift in Sources */,
 				DD18E49C2BC940410037F696 /* Signal.swift in Sources */,
 				8FBE43D4258D5A8C003F7F34 /* Date+FormattedString.swift in Sources */,
@@ -3441,7 +3413,6 @@
 				DD9C50052A7FB9BB002588DD /* ProductIdentifiersPropertyListDataSource.swift in Sources */,
 				DD76068D295F731200109075 /* Dismiss.swift in Sources */,
 				8FBE43D3258D5A8C003F7F34 /* String+Localized.swift in Sources */,
-				DD2723802A69847E0017BAA2 /* VideoCapturing.swift in Sources */,
 				8FC361B725827E4C00785371 /* PasswordDetailPage.swift in Sources */,
 				DD34E00E2E391E2900028DF2 /* WordlistPreparationDataSource.swift in Sources */,
 				DD214363295A014B006C08DD /* TagsService.swift in Sources */,
@@ -3490,7 +3461,6 @@
 				DDF432BC2DAFBD9C0070E93C /* RandomWordUseCase.swift in Sources */,
 				DD0EF2A12C16DBD900F0D59B /* LoginPollUseCase.swift in Sources */,
 				DD77FF2F2C4C6A5500E193C9 /* OpenProviderSettingsUseCase.swift in Sources */,
-				DD2723842A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */,
 				DDBDCF6E2E1D1CFE00DADBC8 /* FileDataSource.swift in Sources */,
 				DD1078752A691F5200E87B3F /* QRCapture.swift in Sources */,
 				DDBDA48B2E5B7956009EE4CF /* DefaultLanguageModel.swift in Sources */,
@@ -3617,7 +3587,6 @@
 				DD7BC52429AFFD6E004AA7BC /* FoldersServiceMock.swift in Sources */,
 				DD8023FE2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift in Sources */,
 				DD7BC52829AFFE0A004AA7BC /* EditFolderViewModelMock.swift in Sources */,
-				DD1466722A6BE2AE003BBA8F /* VideoCapturerMock.swift in Sources */,
 				DD82E5F22BC72B1100F8257F /* LoginUrlUseCaseTests.swift in Sources */,
 				DD845CCC2AF3DC2D00048F3F /* WindowSizeDataSourceTests.swift in Sources */,
 				DD5862AF2C08AEAE00AB7343 /* ServerSetupViewModelMock.swift in Sources */,
@@ -3628,7 +3597,6 @@
 				DD14666C2A6BDE68003BBA8F /* CaptureOTPViewModelMock.swift in Sources */,
 				DD7BC51A29AFBAD8004AA7BC /* PropertyAccessLogging.swift in Sources */,
 				DD8DC0482C0866480030FF6E /* Stateful+LogPropertyAccess.swift in Sources */,
-				DD1466742A6BE625003BBA8F /* TorchServiceMock.swift in Sources */,
 				DD7BC52029AFFD01004AA7BC /* FolderValidationServiceMock.swift in Sources */,
 				DDC2A4F429F58345001D79DC /* ConfigurationMock.swift in Sources */,
 				DDACC45229EE73090094D141 /* LoggerMock.swift in Sources */,
@@ -3670,7 +3638,6 @@
 				DDF856FF2C2F666D002F2581 /* CheckLoginGrantUseCaseMock.swift in Sources */,
 				DD82E5F42BC72B2100F8257F /* ServerSetupViewModelTests.swift in Sources */,
 				DDBEE5C32A080BCA008F4099 /* OTPServiceMock.swift in Sources */,
-				DD1466762A6BE720003BBA8F /* TorchServiceTests.swift in Sources */,
 				DD12565F2C2C8EFD00406836 /* Node+ArrayBuilder.swift in Sources */,
 				DD9A99FB2A23FE4A0016722F /* EditTagViewModelTests.swift in Sources */,
 				DD14666E2A6BDE82003BBA8F /* EditTagViewModelMock.swift in Sources */,
@@ -3715,7 +3682,6 @@
 				DD83C20D2A1CA90E005E9004 /* DispatchQueue+Init.swift in Sources */,
 				DD6F95E12BAB8D2E00BA196E /* Publisher+HandleEvents.swift in Sources */,
 				DD18E49D2BC940410037F696 /* Signal.swift in Sources */,
-				DD27237D2A6976500017BAA2 /* TorchService.swift in Sources */,
 				DD8A77D52C2774430086CFDD /* WebView.swift in Sources */,
 				DDBDCF732E1D1FE100DADBC8 /* WordlistDataSource.swift in Sources */,
 				DDB169BB27D20CC200F4D752 /* ShowTagRequest.swift in Sources */,
@@ -3803,7 +3769,6 @@
 				DD76068E295F731200109075 /* Dismiss.swift in Sources */,
 				DDB1699B27D20CC200F4D752 /* EditPasswordController.swift in Sources */,
 				DDB169CB27D20CC200F4D752 /* AutoFillController.swift in Sources */,
-				DD2723812A69847E0017BAA2 /* VideoCapturing.swift in Sources */,
 				DD214364295A014B006C08DD /* TagsService.swift in Sources */,
 				DDB1699027D20CC200F4D752 /* Password.swift in Sources */,
 				DD34E0102E391E2900028DF2 /* WordlistPreparationDataSource.swift in Sources */,
@@ -3854,7 +3819,6 @@
 				DDB169A227D20CC200F4D752 /* DeleteTagRequest.swift in Sources */,
 				DD0EF2A22C16DBD900F0D59B /* LoginPollUseCase.swift in Sources */,
 				DDF432BA2DAFBD9C0070E93C /* RandomWordUseCase.swift in Sources */,
-				DD2723852A69CE090017BAA2 /* AVCaptureDevice.TorchMode+Toggled.swift in Sources */,
 				DD77FF312C4C6A5500E193C9 /* OpenProviderSettingsUseCase.swift in Sources */,
 				DD1078762A691F5200E87B3F /* QRCapture.swift in Sources */,
 				DDBDCF6D2E1D1CFE00DADBC8 /* FileDataSource.swift in Sources */,

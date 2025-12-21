@@ -49,7 +49,6 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.settingsService.register { SettingsServiceMock() }
         Self.shared.tagValidationService.register { TagValidationServiceMock() }
         Self.shared.tagsService.register { TagsServiceMock() }
-        Self.shared.torchService.cached.register { TorchServiceMock() }
         Self.shared.windowSizeService.register { WindowSizeServiceMock() }
         
         // MARK: Repositories
@@ -95,7 +94,6 @@ extension Container: @retroactive AutoRegistering {
         //Self.shared.randomNumberGenerator.cached.register { RandomNumberGeneratorMock() }
         Self.shared.systemNotifications.cached.register { NotificationsMock() }
         //Self.shared.transactionType.register { TransactionMock.self }
-        Self.shared.videoCapturer.cached.register { VideoCapturerMock() }
         
         // MARK: Miscellaneous
         Self.shared.configurationType.register { ConfigurationMock.self }

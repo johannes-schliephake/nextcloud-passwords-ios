@@ -13,7 +13,7 @@ final class CaptureOTPViewModelMock: ViewModelMock<CaptureOTPViewModel.State, Ca
 extension CaptureOTPViewModel.State: Mock {
     
     convenience init() {
-        self.init(isTorchAvailable: true, isTorchActive: false, showErrorAlert: false, didCaptureOtp: false)
+        self.init(showErrorAlert: false, didCaptureOtp: false)
     }
     
 }
