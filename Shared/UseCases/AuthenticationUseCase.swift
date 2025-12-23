@@ -12,7 +12,8 @@ final class AuthenticationUseCase: AuthenticationUseCaseProtocol {
         case setChallenge(LoginFlowChallenge)
     }
     
-    @Injected(\.loginPollUseCase) private var loginPollUseCase
+    @LazyInjected(\.loginPollUseCase) private var loginPollUseCase
+    @LazyInjected(\.windowRepository) private var windowRepository
     @LazyInjected(\.logger) private var logger
     
     let state: State
@@ -33,7 +34,7 @@ final class AuthenticationUseCase: AuthenticationUseCaseProtocol {
             loginPollUseCase(.setPoll(challenge.poll))
             webAuthenticationSession?.cancel()
             webAuthenticationSession = resolve(\.webAuthenticationSessionType).init(url: challenge.login, callbackURLScheme: nil) { _, _ in }
-            webAuthenticationSession?.window = window
+            webAuthenticationSession?.window = windowRepository[\.window]
             if webAuthenticationSession?.start() != true {
                 logger.log(error: "Unable to launch web authentication session")
             }

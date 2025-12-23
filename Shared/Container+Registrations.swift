@@ -84,6 +84,10 @@ extension Container {
     var randomWordUseCase: Factory<any RandomWordUseCaseProtocol> {
         self { RandomWordUseCase() }
     }
+    var windowSizeUseCase: Factory<any WindowSizeUseCaseProtocol> {
+        self { WindowSizeUseCase() }
+            .cached
+    }
     var wordlistLocaleUseCase: Factory<any WordlistLocaleUseCaseProtocol> {
         self { WordlistLocaleUseCase() }
             .cached
@@ -137,10 +141,6 @@ extension Container {
     var torchService: Factory<any TorchServiceProtocol> {
         self { TorchService() }
     }
-    var windowSizeService: Factory<any WindowSizeServiceProtocol> {
-        self { WindowSizeService() }
-            .cached
-    }
     
     // MARK: Repositories
     var onDemandResourcesPropertyListDataSource: Factory<any OnDemandResourcesPropertyListDataSourceProtocol> {
@@ -182,12 +182,12 @@ extension Container {
         self { UrlLabelSuggestionRepository() }
             .cached
     }
-    var windowSizeDataSource: Factory<any WindowSizeDataSourceProtocol> {
-        self { WindowSizeDataSource() }
+    var windowDataSource: Factory<any WindowDataSourceProtocol> {
+        self { WindowDataSource() }
             .cached
     }
-    var windowSizeRepository: Factory<any WindowSizeRepositoryProtocol> {
-        self { WindowSizeRepository() }
+    var windowRepository: Factory<any WindowRepositoryProtocol> {
+        self { WindowRepository() }
             .cached
     }
     var wordlistDataSource: Factory<any WordlistDataSourceProtocol> {
@@ -254,7 +254,7 @@ extension Container {
         }
     }
     var webAuthenticationSessionType: Factory<any WebAuthenticationSession.Type> {
-        self { WrappedASWebAuthenticationSession.self } 
+        self { WrappedASWebAuthenticationSession.self }
     }
     
     // MARK: Miscellaneous

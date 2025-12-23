@@ -31,6 +31,10 @@ extension Stateful {
         }
     }
     
+    subscript<Value>(_ keyPath: KeyPath<State, Result<Value, Never>?>) -> Value? {
+        state[keyPath: keyPath]?.get()
+    }
+    
 }
 
 

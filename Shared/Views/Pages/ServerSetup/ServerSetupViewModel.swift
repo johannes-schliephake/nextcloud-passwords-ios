@@ -46,9 +46,9 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
     static private let fallbackServerAddress = "https://"
     
     @Injected(\.loginUrlUseCase) private var loginUrlUseCase
-    @Injected(\.initiateLoginUseCase) private var initiateLoginUseCase
+    @LazyInjected(\.initiateLoginUseCase) private var initiateLoginUseCase
     @Injected(\.managedConfigurationUseCase) private var managedConfigurationUseCase
-    @Injected(\.authenticationUseCase) private var authenticationUseCase
+    @LazyInjected(\.authenticationUseCase) private var authenticationUseCase
     @LazyInjected(\.logger) private var logger
     
     let state: State

@@ -6,7 +6,7 @@ import Factory
     
     init() {
         _ = resolve(\.logger)
-        _ = resolve(\.windowSizeDataSource)
+        _ = resolve(\.windowDataSource)
         _ = resolve(\.biometricAuthenticationController)
     }
     

@@ -13,7 +13,7 @@ private enum TooltipConstants {
 
 private struct Tooltip<PopoverContent: View>: ViewModifier {
     
-    @Injected(\.windowSizeService) private var windowSizeService
+    @Injected(\.windowSizeUseCase) private var windowSizeUseCase
     
     @Binding var isPresented: Bool
     let content: () -> PopoverContent
@@ -38,7 +38,7 @@ private struct Tooltip<PopoverContent: View>: ViewModifier {
                 }
                 .frame(maxHeight: TooltipConstants.maxSize.height)
                 .apply { view in
-                    if let windowWidth = windowSizeService.windowSize?.width {
+                    if let windowWidth = windowSizeUseCase[\.windowSize]?.width {
                         let maxWidth = TooltipConstants.maxSize.width
                         let maxWidthAvailable = windowWidth - TooltipConstants.minimumHorizontalSpacing * 2
                         let maxWidthAvailableWithoutArrow = maxWidthAvailable - TooltipConstants.horizontalArrowWidth

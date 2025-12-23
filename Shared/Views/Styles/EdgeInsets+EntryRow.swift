@@ -7,7 +7,7 @@ extension EdgeInsets {
     private static var horizontalInset: Double {
         switch (
             UIDevice.current.userInterfaceIdiom,
-            resolve(\.windowSizeService).windowSize?.width ?? 0,
+            resolve(\.windowSizeUseCase)[\.windowSize]?.width ?? 0,
             UIDevice.current.orientation.isLandscape
         ) {
         case (.pad, 668..., _): /// iPad split view

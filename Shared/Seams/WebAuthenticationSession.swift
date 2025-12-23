@@ -1,7 +1,7 @@
 import AuthenticationServices
 
 
-protocol WebAuthenticationSession {
+protocol WebAuthenticationSession { // swiftlint:disable:this file_types_order
     
     init(url: URL, callbackURLScheme: String?, completionHandler: @escaping (URL?, (any Error)?) -> Void)
     
