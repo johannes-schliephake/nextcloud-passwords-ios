@@ -12,7 +12,6 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.editOTPViewModelType.register { EditOTPViewModelMock.self }
         Self.shared.editTagViewModelType.register { EditTagViewModelMock.self }
         //Self.shared.globalAlertsViewModelType.register { GlobalAlertsViewModelMock.self }
-        Self.shared.loginFlowViewModelType.register { LoginFlowViewModelMock.self }
         Self.shared.logViewModelType.register { LogViewModelMock.self }
         Self.shared.selectFolderViewModelType.register { SelectFolderViewModelMock.self }
         Self.shared.selectTagsViewModelType.register { SelectTagsViewModelMock.self }
@@ -21,8 +20,6 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.shareOTPViewModelType.register { ShareOTPViewModelMock.self }
         
         // MARK: UseCases
-        Self.shared.checkLoginGrantUseCase.cached.register { CheckLoginGrantUseCaseMock() }
-        Self.shared.checkTrustUseCase.cached.register { CheckTrustUseCaseMock() }
         Self.shared.folderLabelUseCase.cached.register { FolderLabelUseCaseMock() }
         //Self.shared.generatePasswordUseCase.cached.register { GeneratePasswordUseCaseMock() }
         Self.shared.initiateLoginUseCase.cached.register { InitiateLoginUseCaseMock() }
@@ -88,7 +85,6 @@ extension Container: @retroactive AutoRegistering {
 //        }
         //Self.shared.fileHandleType.register { FileHandleMock.self }
         //Self.shared.fileManager.cached.register { FileManagerMock() }
-        Self.shared.nonPersistentWebDataStore.cached.register { WebDataStoreMock() }
         Self.shared.pasteboard.cached.register { PasteboardMock() }
         Self.shared.productType.register { ProductMock.self }
         Self.shared.qrCodeGenerator.cached.register { QRCodeGeneratorMock() }

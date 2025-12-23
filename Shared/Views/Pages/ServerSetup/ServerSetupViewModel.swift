@@ -18,21 +18,17 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
         @Published fileprivate(set) var isServerAddressManaged: Bool
         @Published var showManagedServerAddressErrorAlert: Bool
         @Published fileprivate(set) var isValidating: Bool
-        @Published fileprivate(set) var challenge: LoginFlowChallenge?
         @Published fileprivate(set) var challengeAvailable: Bool
-        @Published var showLoginFlowPage: Bool
         @Published var focusedField: FocusField?
         
         let shouldDismiss = Signal()
         
-        init(serverAddress: String, isServerAddressManaged: Bool, showManagedServerAddressErrorAlert: Bool, isValidating: Bool, challenge: LoginFlowChallenge?, challengeAvailable: Bool, showLoginFlowPage: Bool, focusedField: FocusField?) {
+        init(serverAddress: String, isServerAddressManaged: Bool, showManagedServerAddressErrorAlert: Bool, isValidating: Bool, challengeAvailable: Bool, focusedField: FocusField?) {
             self.serverAddress = serverAddress
             self.isServerAddressManaged = isServerAddressManaged
             self.showManagedServerAddressErrorAlert = showManagedServerAddressErrorAlert
             self.isValidating = isValidating
-            self.challenge = challenge
             self.challengeAvailable = challengeAvailable
-            self.showLoginFlowPage = showLoginFlowPage
             self.focusedField = focusedField
         }
         
@@ -56,10 +52,11 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
     
     let state: State
     
+    private var challenge: LoginFlowChallenge?
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        state = .init(serverAddress: Self.fallbackServerAddress, isServerAddressManaged: false, showManagedServerAddressErrorAlert: false, isValidating: false, challenge: nil, challengeAvailable: false, showLoginFlowPage: false, focusedField: .serverAddress)
+        state = .init(serverAddress: Self.fallbackServerAddress, isServerAddressManaged: false, showManagedServerAddressErrorAlert: false, isValidating: false, challengeAvailable: false, focusedField: .serverAddress)
         
         setupPipelines()
     }
@@ -80,7 +77,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
             .handleEvents(receiveOutput: { _ in
                 self?.initiateLoginUseCase(.cancel)
                 self?.state.isValidating = false
-                self?.state.challenge = nil
+                self?.challenge = nil
                 self?.state.challengeAvailable = false
             })
             .handle(with: loginUrlUseCase, { .setString($0) }, publishing: \.$loginUrl)
@@ -107,7 +104,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
             }
             .sink { challenge in
                 self?.state.isValidating = false
-                self?.state.challenge = challenge
+                self?.challenge = challenge
                 self?.state.challengeAvailable = challenge != nil
             }
             .store(in: &cancellables)
@@ -116,11 +113,10 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
     func callAsFunction(_ action: Action) {
         switch action {
         case .connect:
-            guard state.challenge != nil else {
+            guard let challenge else {
                 logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
                 return
             }
-            state.showLoginFlowPage = true
         case .cancel:
             state.shouldDismiss()
         }

@@ -28,9 +28,6 @@ extension Container {
     var globalAlertsViewModelType: Factory<any GlobalAlertsViewModelProtocol.Type> {
         self { GlobalAlertsViewModel.self }
     }
-    var loginFlowViewModelType: Factory<any LoginFlowViewModelProtocol.Type> {
-        self { LoginFlowViewModel.self }
-    }
     var logViewModelType: Factory<any LogViewModelProtocol.Type> {
         self { LogViewModel.self }
     }
@@ -51,11 +48,6 @@ extension Container {
     }
     
     // MARK: UseCases
-    var checkLoginGrantUseCase: Factory<any CheckLoginGrantUseCaseProtocol> {
-        self { CheckLoginGrantUseCase() }
-    }
-    var checkTrustUseCase: Factory<any CheckTrustUseCaseProtocol> {
-        self { CheckTrustUseCase() }
     }
     var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
         self { FolderLabelUseCase() }
@@ -231,9 +223,6 @@ extension Container {
     }
     var fileManager: Factory<any FileManaging> {
         self { FileManager.default }
-    }
-    var nonPersistentWebDataStore: Factory<any WebDataStore> {
-        self { WKWebsiteDataStore.nonPersistent() }
     }
     var pasteboard: Factory<any Pasteboard> {
         self { UIPasteboard.general }
