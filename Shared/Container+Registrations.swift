@@ -48,6 +48,8 @@ extension Container {
     }
     
     // MARK: UseCases
+    var authenticationUseCase: Factory<any AuthenticationUseCaseProtocol> {
+        self { AuthenticationUseCase() }
     }
     var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
         self { FolderLabelUseCase() }
@@ -250,6 +252,9 @@ extension Container {
                 AVCaptureDevice.default(for: .video)
             }
         }
+    }
+    var webAuthenticationSessionType: Factory<any WebAuthenticationSession.Type> {
+        self { WrappedASWebAuthenticationSession.self } 
     }
     
     // MARK: Miscellaneous

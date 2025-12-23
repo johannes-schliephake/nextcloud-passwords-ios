@@ -48,6 +48,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
     @Injected(\.loginUrlUseCase) private var loginUrlUseCase
     @Injected(\.initiateLoginUseCase) private var initiateLoginUseCase
     @Injected(\.managedConfigurationUseCase) private var managedConfigurationUseCase
+    @Injected(\.authenticationUseCase) private var authenticationUseCase
     @LazyInjected(\.logger) private var logger
     
     let state: State
@@ -108,6 +109,15 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
                 self?.state.challengeAvailable = challenge != nil
             }
             .store(in: &cancellables)
+        
+        Publishers.CombineLatest(
+            state.$isServerAddressManaged,
+            state.$challengeAvailable
+        )
+        .filter { $0 && $1 }
+        .compactMap { _ in self?.challenge }
+        .sink { self?.authenticationUseCase(.setChallenge($0)) }
+        .store(in: &cancellables)
     }
     
     func callAsFunction(_ action: Action) {
@@ -117,6 +127,7 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
                 logger.log(error: "View-ViewModel inconsistency encountered, this case shouldn't be reachable")
                 return
             }
+            authenticationUseCase(.setChallenge(challenge))
         case .cancel:
             state.shouldDismiss()
         }

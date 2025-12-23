@@ -20,6 +20,7 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.shareOTPViewModelType.register { ShareOTPViewModelMock.self }
         
         // MARK: UseCases
+        //Self.shared.authenticationUseCase.cached.register { AuthenticationUseCaseMock() }
         Self.shared.folderLabelUseCase.cached.register { FolderLabelUseCaseMock() }
         //Self.shared.generatePasswordUseCase.cached.register { GeneratePasswordUseCaseMock() }
         Self.shared.initiateLoginUseCase.cached.register { InitiateLoginUseCaseMock() }
@@ -92,6 +93,7 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.systemNotifications.cached.register { NotificationsMock() }
         //Self.shared.transactionType.register { TransactionMock.self }
         Self.shared.videoCapturer.cached.register { VideoCapturerMock() }
+        //Self.shared.webAuthenticationSessionType.register { WebAuthenticationSessionMock.self }
         
         // MARK: Miscellaneous
         Self.shared.configurationType.register { ConfigurationMock.self }

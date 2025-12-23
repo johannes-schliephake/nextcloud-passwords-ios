@@ -81,6 +81,7 @@ final class SessionController: ObservableObject {
     }
     private var keepaliveTimer: Timer?
     private var subscriptions = Set<AnyCancellable>()
+    private var attachSessionSubscription: AnyCancellable?
     private var logoutSubscription: AnyCancellable?
     
     init() {
@@ -98,9 +99,8 @@ final class SessionController: ObservableObject {
     }
     
     func attachSessionPublisher(_ sessionPublisher: AnyPublisher<Session, Never>) {
-        sessionPublisher
+        attachSessionSubscription = sessionPublisher
             .sink { [weak self] in self?.session = $0 }
-            .store(in: &subscriptions)
     }
     
     private func requestSession() {
