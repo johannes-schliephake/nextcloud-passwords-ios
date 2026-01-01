@@ -16,13 +16,7 @@ final class AuthenticationUseCase: AuthenticationUseCaseProtocol {
     @LazyInjected(\.windowRepository) private var windowRepository
     @LazyInjected(\.logger) private var logger
     
-    let state: State
-    
     private var webAuthenticationSession: (any WebAuthenticationSession)?
-    
-    init() {
-        state = .init()
-    }
     
     deinit {
         webAuthenticationSession?.cancel()

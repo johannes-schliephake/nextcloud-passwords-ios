@@ -302,6 +302,13 @@
 		DD5100BB2EFB0C4A00923827 /* WindowSizeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100BA2EFB0C4A00923827 /* WindowSizeUseCase.swift */; };
 		DD5100BC2EFB0C4A00923827 /* WindowSizeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100BA2EFB0C4A00923827 /* WindowSizeUseCase.swift */; };
 		DD5100BD2EFB0C4A00923827 /* WindowSizeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100BA2EFB0C4A00923827 /* WindowSizeUseCase.swift */; };
+		DD5100C12EFB351400923827 /* WindowSizeUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100C02EFB351400923827 /* WindowSizeUseCaseTests.swift */; };
+		DD5100C62EFBFCDA00923827 /* WindowDataSourceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100C52EFBFCDA00923827 /* WindowDataSourceMock.swift */; };
+		DD5100C82EFBFCE100923827 /* WindowRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100C72EFBFCE100923827 /* WindowRepositoryMock.swift */; };
+		DD5100CA2EFBFCF200923827 /* WindowSizeUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100C92EFBFCF200923827 /* WindowSizeUseCaseMock.swift */; };
+		DD5100CC2EFBFE8C00923827 /* AuthenticationUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100CB2EFBFE8C00923827 /* AuthenticationUseCaseMock.swift */; };
+		DD5100CE2F072D1C00923827 /* AuthenticationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100CD2F072D1C00923827 /* AuthenticationUseCaseTests.swift */; };
+		DD5100D02F072F5900923827 /* WebAuthenticationSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100CF2F072F5900923827 /* WebAuthenticationSessionMock.swift */; };
 		DD5189EE27A16BFA00264A0D /* Data+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5189ED27A16BFA00264A0D /* Data+Init.swift */; };
 		DD5189EF27A16BFA00264A0D /* Data+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5189ED27A16BFA00264A0D /* Data+Init.swift */; };
 		DD5419712A08D28B004C3EFA /* URL+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5419702A08D28B004C3EFA /* URL+Random.swift */; };
@@ -435,13 +442,9 @@
 		DD845CBC2AF3AC2C00048F3F /* WindowRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CBB2AF3AC2C00048F3F /* WindowRepository.swift */; };
 		DD845CBD2AF3AC2C00048F3F /* WindowRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CBB2AF3AC2C00048F3F /* WindowRepository.swift */; };
 		DD845CBE2AF3AC2C00048F3F /* WindowRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CBB2AF3AC2C00048F3F /* WindowRepository.swift */; };
-		DD845CC02AF3B87500048F3F /* WindowSizeServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CBF2AF3B87500048F3F /* WindowSizeServiceMock.swift */; };
-		DD845CC32AF3B88F00048F3F /* WindowSizeDataSourceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CC22AF3B88F00048F3F /* WindowSizeDataSourceMock.swift */; };
-		DD845CC52AF3B89900048F3F /* WindowSizeRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CC42AF3B89900048F3F /* WindowSizeRepositoryMock.swift */; };
 		DD845CC72AF3B8B300048F3F /* NotificationsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CC62AF3B8B300048F3F /* NotificationsMock.swift */; };
-		DD845CCA2AF3DC1E00048F3F /* WindowSizeRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CC92AF3DC1E00048F3F /* WindowSizeRepositoryTests.swift */; };
-		DD845CCC2AF3DC2D00048F3F /* WindowSizeDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CCB2AF3DC2D00048F3F /* WindowSizeDataSourceTests.swift */; };
-		DD845CCE2AF3DC3F00048F3F /* WindowSizeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CCD2AF3DC3F00048F3F /* WindowSizeServiceTests.swift */; };
+		DD845CCA2AF3DC1E00048F3F /* WindowRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CC92AF3DC1E00048F3F /* WindowRepositoryTests.swift */; };
+		DD845CCC2AF3DC2D00048F3F /* WindowDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CCB2AF3DC2D00048F3F /* WindowDataSourceTests.swift */; };
 		DD845CD02AF405CD00048F3F /* WindowSceneMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CCF2AF405CD00048F3F /* WindowSceneMock.swift */; };
 		DD845CD22AF405D300048F3F /* WindowMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD845CD12AF405D300048F3F /* WindowMock.swift */; };
 		DD84EEF5288ECC4C0094B5A6 /* CGPoint+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD84EEF4288ECC4C0094B5A6 /* CGPoint+Operators.swift */; };
@@ -1084,6 +1087,13 @@
 		DD4F0BED28C0FFD2005AA668 /* feedback_email.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = feedback_email.txt; sourceTree = "<group>"; };
 		DD4F0BEE28C0FFE3005AA668 /* feedback_email.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = feedback_email.txt; sourceTree = "<group>"; };
 		DD5100BA2EFB0C4A00923827 /* WindowSizeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeUseCase.swift; sourceTree = "<group>"; };
+		DD5100C02EFB351400923827 /* WindowSizeUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeUseCaseTests.swift; sourceTree = "<group>"; };
+		DD5100C52EFBFCDA00923827 /* WindowDataSourceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowDataSourceMock.swift; sourceTree = "<group>"; };
+		DD5100C72EFBFCE100923827 /* WindowRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowRepositoryMock.swift; sourceTree = "<group>"; };
+		DD5100C92EFBFCF200923827 /* WindowSizeUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeUseCaseMock.swift; sourceTree = "<group>"; };
+		DD5100CB2EFBFE8C00923827 /* AuthenticationUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCaseMock.swift; sourceTree = "<group>"; };
+		DD5100CD2F072D1C00923827 /* AuthenticationUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCaseTests.swift; sourceTree = "<group>"; };
+		DD5100CF2F072F5900923827 /* WebAuthenticationSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthenticationSessionMock.swift; sourceTree = "<group>"; };
 		DD5189ED27A16BFA00264A0D /* Data+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Init.swift"; sourceTree = "<group>"; };
 		DD5419702A08D28B004C3EFA /* URL+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Random.swift"; sourceTree = "<group>"; };
 		DD5739982A1028FF004B6E69 /* ShareOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOTPViewModel.swift; sourceTree = "<group>"; };
@@ -1169,13 +1179,9 @@
 		DD845CB22AF38C2900048F3F /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		DD845CB72AF3AB9B00048F3F /* WindowDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowDataSource.swift; sourceTree = "<group>"; };
 		DD845CBB2AF3AC2C00048F3F /* WindowRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowRepository.swift; sourceTree = "<group>"; };
-		DD845CBF2AF3B87500048F3F /* WindowSizeServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeServiceMock.swift; sourceTree = "<group>"; };
-		DD845CC22AF3B88F00048F3F /* WindowSizeDataSourceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeDataSourceMock.swift; sourceTree = "<group>"; };
-		DD845CC42AF3B89900048F3F /* WindowSizeRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeRepositoryMock.swift; sourceTree = "<group>"; };
 		DD845CC62AF3B8B300048F3F /* NotificationsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsMock.swift; sourceTree = "<group>"; };
-		DD845CC92AF3DC1E00048F3F /* WindowSizeRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeRepositoryTests.swift; sourceTree = "<group>"; };
-		DD845CCB2AF3DC2D00048F3F /* WindowSizeDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeDataSourceTests.swift; sourceTree = "<group>"; };
-		DD845CCD2AF3DC3F00048F3F /* WindowSizeServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeServiceTests.swift; sourceTree = "<group>"; };
+		DD845CC92AF3DC1E00048F3F /* WindowRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowRepositoryTests.swift; sourceTree = "<group>"; };
+		DD845CCB2AF3DC2D00048F3F /* WindowDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowDataSourceTests.swift; sourceTree = "<group>"; };
 		DD845CCF2AF405CD00048F3F /* WindowSceneMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSceneMock.swift; sourceTree = "<group>"; };
 		DD845CD12AF405D300048F3F /* WindowMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowMock.swift; sourceTree = "<group>"; };
 		DD84EEF4288ECC4C0094B5A6 /* CGPoint+Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Operators.swift"; sourceTree = "<group>"; };
@@ -2113,6 +2119,15 @@
 			path = Pasteboard;
 			sourceTree = "<group>";
 		};
+		DD5100C42EFBFCD200923827 /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				DD5100C52EFBFCDA00923827 /* WindowDataSourceMock.swift */,
+				DD5100C72EFBFCE100923827 /* WindowRepositoryMock.swift */,
+			);
+			path = Window;
+			sourceTree = "<group>";
+		};
 		DD5D87F62A8FC7E9008CD9F1 /* Seams */ = {
 			isa = PBXGroup;
 			children = (
@@ -2321,12 +2336,14 @@
 		DD8023F82C08B01A00C6808A /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				DD5100CB2EFBFE8C00923827 /* AuthenticationUseCaseMock.swift */,
 				DDA0B8412C106BBC00DA2940 /* FolderLabelUseCaseMock.swift */,
 				DD8023FA2C08B03500C6808A /* InitiateLoginUseCaseMock.swift */,
 				DDF857042C2F6681002F2581 /* LoginPollUseCaseMock.swift */,
 				DD8023F92C08B03500C6808A /* LoginUrlUseCaseMock.swift */,
 				DD8023FB2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift */,
 				DD77FF362C4C722A00E193C9 /* OpenProviderSettingsUseCaseMock.swift */,
+				DD5100C92EFBFCF200923827 /* WindowSizeUseCaseMock.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -2334,8 +2351,10 @@
 		DD82E5F02BC72AF100F8257F /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				DD5100CD2F072D1C00923827 /* AuthenticationUseCaseTests.swift */,
 				DD82E5F12BC72B1100F8257F /* LoginUrlUseCaseTests.swift */,
 				DD77FF3A2C4D7A1900E193C9 /* OpenProviderSettingsUseCaseTests.swift */,
+				DD5100C02EFB351400923827 /* WindowSizeUseCaseTests.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -2349,22 +2368,13 @@
 			path = Window;
 			sourceTree = "<group>";
 		};
-		DD845CC12AF3B87F00048F3F /* WindowSize */ = {
+		DD845CC82AF3DC0F00048F3F /* Window */ = {
 			isa = PBXGroup;
 			children = (
-				DD845CC22AF3B88F00048F3F /* WindowSizeDataSourceMock.swift */,
-				DD845CC42AF3B89900048F3F /* WindowSizeRepositoryMock.swift */,
+				DD845CCB2AF3DC2D00048F3F /* WindowDataSourceTests.swift */,
+				DD845CC92AF3DC1E00048F3F /* WindowRepositoryTests.swift */,
 			);
-			path = WindowSize;
-			sourceTree = "<group>";
-		};
-		DD845CC82AF3DC0F00048F3F /* WindowSize */ = {
-			isa = PBXGroup;
-			children = (
-				DD845CCB2AF3DC2D00048F3F /* WindowSizeDataSourceTests.swift */,
-				DD845CC92AF3DC1E00048F3F /* WindowSizeRepositoryTests.swift */,
-			);
-			path = WindowSize;
+			path = Window;
 			sourceTree = "<group>";
 		};
 		DDAC9C5F2A2930C0005E6011 /* Styles */ = {
@@ -2526,7 +2536,6 @@
 				DD7BC52129AFFD33004AA7BC /* TagsServiceMock.swift */,
 				DD7BC51D29AFFCCF004AA7BC /* TagValidationServiceMock.swift */,
 				DD1466732A6BE625003BBA8F /* TorchServiceMock.swift */,
-				DD845CBF2AF3B87500048F3F /* WindowSizeServiceMock.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2569,7 +2578,7 @@
 			isa = PBXGroup;
 			children = (
 				DDF0C4832ADD3EAD00A50661 /* Pasteboard */,
-				DD845CC12AF3B87F00048F3F /* WindowSize */,
+				DD5100C42EFBFCD200923827 /* Window */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -2592,6 +2601,7 @@
 				DD24F03A2A8EA9F0009823C8 /* ProductMock.swift */,
 				DDCD277F2A16C55F009EC50F /* QRCodeGeneratorMock.swift */,
 				DD1466712A6BE2AE003BBA8F /* VideoCapturerMock.swift */,
+				DD5100CF2F072F5900923827 /* WebAuthenticationSessionMock.swift */,
 				DD845CD12AF405D300048F3F /* WindowMock.swift */,
 				DD845CCF2AF405CD00048F3F /* WindowSceneMock.swift */,
 			);
@@ -3524,18 +3534,18 @@
 				DD18E4A02BCA9EAF0037F696 /* LoginURLTests.swift in Sources */,
 				DD5419712A08D28B004C3EFA /* URL+Random.swift in Sources */,
 				DDF0C4922ADD430200A50661 /* PasteboardServiceTests.swift in Sources */,
-				DD845CC02AF3B87500048F3F /* WindowSizeServiceMock.swift in Sources */,
 				DD77FF402C4E3E2900E193C9 /* Initializable.swift in Sources */,
 				DDF423832A9BEACB0060C5E8 /* ObjectMock.swift in Sources */,
 				DDDD93F72A14BD650061BEA0 /* QRCodeServiceTests.swift in Sources */,
 				DD7BC51E29AFFCCF004AA7BC /* TagValidationServiceMock.swift in Sources */,
+				DD5100CC2EFBFE8C00923827 /* AuthenticationUseCaseMock.swift in Sources */,
 				DDBEE5BF2A07C802008F4099 /* EditOTPViewModelTests.swift in Sources */,
-				DD845CC52AF3B89900048F3F /* WindowSizeRepositoryMock.swift in Sources */,
 				DDFF5D4A29D850ED00422603 /* MockInjected.swift in Sources */,
 				DDF4137A2954C28100B886EB /* ScoreTests.swift in Sources */,
 				DDF924D32A5D4173005C9977 /* SelectFolderViewModelTests.swift in Sources */,
 				DD845CD22AF405D300048F3F /* WindowMock.swift in Sources */,
 				DD77FF3B2C4D7A1900E193C9 /* OpenProviderSettingsUseCaseTests.swift in Sources */,
+				DD5100CE2F072D1C00923827 /* AuthenticationUseCaseTests.swift in Sources */,
 				DDCD27802A16C55F009EC50F /* QRCodeGeneratorMock.swift in Sources */,
 				DD7BC52229AFFD33004AA7BC /* TagsServiceMock.swift in Sources */,
 				DD46282D2A948FAE002DB487 /* Fail.swift in Sources */,
@@ -3549,7 +3559,7 @@
 				DD7BC52829AFFE0A004AA7BC /* EditFolderViewModelMock.swift in Sources */,
 				DD1466722A6BE2AE003BBA8F /* VideoCapturerMock.swift in Sources */,
 				DD82E5F22BC72B1100F8257F /* LoginUrlUseCaseTests.swift in Sources */,
-				DD845CCC2AF3DC2D00048F3F /* WindowSizeDataSourceTests.swift in Sources */,
+				DD845CCC2AF3DC2D00048F3F /* WindowDataSourceTests.swift in Sources */,
 				DD5862AF2C08AEAE00AB7343 /* ServerSetupViewModelMock.swift in Sources */,
 				DD7D452D2BFD1BB0006AB23B /* Current+ValueMockable.swift in Sources */,
 				DD7CCDE72A0B95910035C84C /* OTPValidationServiceTests.swift in Sources */,
@@ -3560,6 +3570,8 @@
 				DD8DC0482C0866480030FF6E /* Stateful+LogPropertyAccess.swift in Sources */,
 				DD1466742A6BE625003BBA8F /* TorchServiceMock.swift in Sources */,
 				DD7BC52029AFFD01004AA7BC /* FolderValidationServiceMock.swift in Sources */,
+				DD5100C12EFB351400923827 /* WindowSizeUseCaseTests.swift in Sources */,
+				DD5100CA2EFBFCF200923827 /* WindowSizeUseCaseMock.swift in Sources */,
 				DDC2A4F429F58345001D79DC /* ConfigurationMock.swift in Sources */,
 				DDACC45229EE73090094D141 /* LoggerMock.swift in Sources */,
 				DD12565D2C2C8E9B00406836 /* ArrayBuilder.swift in Sources */,
@@ -3567,7 +3579,7 @@
 				DDF4138A2955AFD000B886EB /* ViewModelTests.swift in Sources */,
 				DD1466782A6BE72E003BBA8F /* CaptureOTPViewModelTests.swift in Sources */,
 				DDA5528F2C088CF3009687EA /* Stateful+MockState.swift in Sources */,
-				DD845CCA2AF3DC1E00048F3F /* WindowSizeRepositoryTests.swift in Sources */,
+				DD845CCA2AF3DC1E00048F3F /* WindowRepositoryTests.swift in Sources */,
 				DD5E99F129AAA15500A7A4B9 /* Emit.swift in Sources */,
 				DD9A99FD2A248D1D0016722F /* Color+Random.swift in Sources */,
 				DDF0C48E2ADD42E300A50661 /* PasteboardDataSourceTests.swift in Sources */,
@@ -3580,10 +3592,9 @@
 				DD7BC51B29AFBAD8004AA7BC /* FunctionCallLogging.swift in Sources */,
 				DDBEE5C52A080D3B008F4099 /* OTPValidationServiceMock.swift in Sources */,
 				DD85E2302C2A140000EDBC9C /* Timeout.swift in Sources */,
-				DD845CC32AF3B88F00048F3F /* WindowSizeDataSourceMock.swift in Sources */,
 				DDF0C4852ADD3EB900A50661 /* PasteboardDataSourceMock.swift in Sources */,
-				DD845CCE2AF3DC3F00048F3F /* WindowSizeServiceTests.swift in Sources */,
 				DD845CD02AF405CD00048F3F /* WindowSceneMock.swift in Sources */,
+				DD5100C62EFBFCDA00923827 /* WindowDataSourceMock.swift in Sources */,
 				DD5E3CBA2953BD620032F517 /* SelectTagsViewModelTests.swift in Sources */,
 				DD24F0392A8E23E2009823C8 /* PurchaseServiceMock.swift in Sources */,
 				DD7BC51C29AFBAD8004AA7BC /* Mock.swift in Sources */,
@@ -3596,6 +3607,8 @@
 				DD3634042C4EA9FB00B5AC57 /* Array+Initializable.swift in Sources */,
 				DDC6E1A229F085D100607C81 /* PasteboardServiceMock.swift in Sources */,
 				DD7BC52A29AFFE43004AA7BC /* ViewModelMock.swift in Sources */,
+				DD5100C82EFBFCE100923827 /* WindowRepositoryMock.swift in Sources */,
+				DD5100D02F072F5900923827 /* WebAuthenticationSessionMock.swift in Sources */,
 				DD82E5F42BC72B2100F8257F /* ServerSetupViewModelTests.swift in Sources */,
 				DDBEE5C32A080BCA008F4099 /* OTPServiceMock.swift in Sources */,
 				DD1466762A6BE720003BBA8F /* TorchServiceTests.swift in Sources */,

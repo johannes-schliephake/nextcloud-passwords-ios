@@ -65,13 +65,6 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
     private func setupPipelines() {
         weak let `self` = self
         
-        managedConfigurationUseCase[\.$serverUrl]
-            .sink { managedServerAddress in
-                self?.state.serverAddress = managedServerAddress ?? Self.fallbackServerAddress
-                self?.state.isServerAddressManaged = managedServerAddress != nil
-            }
-            .store(in: &cancellables)
-        
         state.$serverAddress
             .dropFirst()
             .removeDuplicates()
@@ -107,6 +100,13 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
                 self?.state.isValidating = false
                 self?.challenge = challenge
                 self?.state.challengeAvailable = challenge != nil
+            }
+            .store(in: &cancellables)
+        
+        managedConfigurationUseCase[\.$serverUrl]
+            .sink { managedServerAddress in
+                self?.state.serverAddress = managedServerAddress ?? Self.fallbackServerAddress
+                self?.state.isServerAddressManaged = managedServerAddress != nil
             }
             .store(in: &cancellables)
         
