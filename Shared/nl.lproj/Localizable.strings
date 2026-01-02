@@ -54,7 +54,7 @@
 "_createFolderErrorMessage" = "Er is een fout opgetreden bij het maken van de map. Sla de map alstublieft opnieuw op.";
 "_createPassword" = "Wachtwoord aanmaken";
 "_createPasswordErrorMessage" = "Er is een fout opgetreden bij het maken van het wachtwoord. Bewaar het wachtwoord nogmaals.";
-"_createTag" = "Tag maken";
+"_createTag" = "Tag aanmaken";
 "_createTagErrorMessage" = "Er is een fout opgetreden bij het maken van de tag. Sla de tag opnieuw op.";
 
 /* Nextcloud credentials that were used to connect to an instance */
@@ -141,3 +141,10 @@
 "_editPassword" = "Wachtwoord bewerken";
 "_editPasswordErrorMessage" = "Er is een fout opgetreden bij het bewerken van het wachtwoord. Sla het wachtwoord opnieuw op.";
 "_editTagErrorMessage" = "Er is een fout opgetreden bij het bewerken van de tag. Sla de tag opnieuw op.";
+"_clearStoredE2EPassword" = "Wis opgeslagen E2E wachtwoorden";
+"_automaticallyAddedOtp" = "Automatisch OTP toevoegen";
+"_clientSide" = "Clientzijde";
+"_appExtensionWordlistErrorMessage" = "Er is een fout opgetreden met het genereren van het wachtwoord. Open de hoofdapplicatie om die probleem op te lossen.";
+"_connectingToNextcloudInstanceAt(url)" = "Verbinden met Nextcloud-omgeving via\n%@";
+"_counter" = "Telling";
+"_counterBased" = "Teller-gebaseerd";

@@ -1,6 +1,5 @@
 import Factory
 import CoreImage
-import AVFoundation
 import StoreKit
 import CombineSchedulers
 import WebKit
@@ -139,9 +138,6 @@ extension Container {
         self { TagsService() }
             .cached
     }
-    var torchService: Factory<any TorchServiceProtocol> {
-        self { TorchService() }
-    }
     
     // MARK: Repositories
     var onDemandResourcesPropertyListDataSource: Factory<any OnDemandResourcesPropertyListDataSourceProtocol> {
@@ -244,15 +240,6 @@ extension Container {
     }
     var transactionType: Factory<any Transaction.Type> {
         self { StoreKit.Transaction.self }
-    }
-    var videoCapturer: Factory<(any VideoCapturing)?> {
-        self {
-            if #available(iOS 17, *) {
-                AVCaptureDevice.userPreferredCamera
-            } else {
-                AVCaptureDevice.default(for: .video)
-            }
-        }
     }
     var webAuthenticationSessionType: Factory<any WebAuthenticationSession.Type> {
         self { WrappedASWebAuthenticationSession.self }
