@@ -118,6 +118,15 @@ final class ServerSetupViewModel: ServerSetupViewModelProtocol {
         .compactMap { _ in self?.challenge }
         .sink { self?.authenticationUseCase(.setChallenge($0)) }
         .store(in: &cancellables)
+        
+        Publishers.CombineLatest(
+            state.$isServerAddressManaged,
+            authenticationUseCase[\.$latestAttemptFailed]
+        )
+        .filter { $0 && $1 }
+        .ignoreValue()
+        .sink { self?.state.shouldDismiss() }
+        .store(in: &cancellables)
     }
     
     func callAsFunction(_ action: Action) {

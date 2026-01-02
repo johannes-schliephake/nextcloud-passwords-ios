@@ -19,6 +19,12 @@ final class AuthenticationUseCaseTests: XCTestCase {
         webAuthenticationSessionTypeMock.functionCallLog.removeAll()
     }
     
+    func testInit_thenSetsInitialState() {
+        let authenticationUseCase: any AuthenticationUseCaseProtocol = AuthenticationUseCase()
+        
+        expect(authenticationUseCase[\.latestAttemptFailed]).to(beNil())
+    }
+    
     func testCallAsFunction_whenCallingSetChallenge_thenCallsLoginPollUseCase() {
         let authenticationUseCase: any AuthenticationUseCaseProtocol = AuthenticationUseCase()
         
@@ -34,6 +40,36 @@ final class AuthenticationUseCaseTests: XCTestCase {
         
         let webAuthenticationSessionMock = try XCTUnwrap(webAuthenticationSessionTypeMock.functionCallLog.removeFirst().parameters.first as? WebAuthenticationSessionMock)
         expect(webAuthenticationSessionMock).to(beCalled(.once, on: "init(url:callbackURLScheme:completionHandler:)", withParameters: challengeMock.login, nil as String?))
+    }
+    
+    func testCallAsFunction_givenSetChallengeCalled_whenCallingCompletionHandlerWithError_thenSetsLatestAttemptFailedToTrue() throws {
+        let authenticationUseCase: any AuthenticationUseCaseProtocol = AuthenticationUseCase()
+        authenticationUseCase(.setChallenge(challengeMock))
+        let webAuthenticationSessionMock = try XCTUnwrap(webAuthenticationSessionTypeMock.functionCallLog.removeFirst().parameters.first as? WebAuthenticationSessionMock)
+        
+        let completionHandler = try XCTUnwrap(webAuthenticationSessionMock._initCompletionHandler)
+        completionHandler(nil, ErrorMock.standard)
+        
+        expect(authenticationUseCase[\.latestAttemptFailed]).to(beTrue())
+    }
+    
+    func testCallAsFunction_givenSetChallengeCalled_whenCallingCompletionHandlerWithoutError_thenSetsLatestAttemptFailedToFalse() throws {
+        let authenticationUseCase: any AuthenticationUseCaseProtocol = AuthenticationUseCase()
+        authenticationUseCase(.setChallenge(challengeMock))
+        let webAuthenticationSessionMock = try XCTUnwrap(webAuthenticationSessionTypeMock.functionCallLog.removeFirst().parameters.first as? WebAuthenticationSessionMock)
+        
+        let completionHandler = try XCTUnwrap(webAuthenticationSessionMock._initCompletionHandler)
+        completionHandler(nil, nil)
+        
+        expect(authenticationUseCase[\.latestAttemptFailed]).to(beFalse())
+    }
+    
+    func testCallAsFunction_whenCallingSetChallengeAndNotCallingCompletionHandler_thenDoesntSetLatestAttemptFailed() throws {
+        let authenticationUseCase: any AuthenticationUseCaseProtocol = AuthenticationUseCase()
+        
+        authenticationUseCase(.setChallenge(challengeMock))
+        
+        expect(authenticationUseCase[\.latestAttemptFailed]).to(beNil())
     }
     
     func testCallAsFunction_whenCallingSetChallenge_thenAccessesWindowRepository() {

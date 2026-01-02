@@ -16,11 +16,11 @@ final class WebAuthenticationSessionMock: WebAuthenticationSession, Mock, Functi
         }
     }
     
-    var _initCompletionHandler: (URL?, (any Error)?)? // swiftlint:disable:this identifier_name
+    var _initCompletionHandler: ((URL?, (any Error)?) -> Void)? // swiftlint:disable:this identifier_name
     init(url: URL, callbackURLScheme: String?, completionHandler: @escaping (URL?, (any Error)?) -> Void) {
         Self.logFunctionCall(parameters: self)
         logFunctionCall(parameters: url, callbackURLScheme)
-        _initCompletionHandler.map { completionHandler($0, $1) }
+        _initCompletionHandler = completionHandler
     }
     
     init() {}

@@ -64,7 +64,7 @@ final class ServerSetupViewModelTests: XCTestCase {
         expect(serverSetupViewModel[\.isServerAddressManaged]).to(beTrue())
     }
     
-    func testInit_whenSettingServerAddress_thenCallsInitiateLoginUseCase() throws {
+    func testInit_whenSettingServerAddress_thenCallsInitiateLoginUseCase() {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         
         serverSetupViewModel[\.serverAddress] = .random()
@@ -256,7 +256,7 @@ final class ServerSetupViewModelTests: XCTestCase {
         expect(serverSetupViewModel[\.challengeAvailable]).to(beFalse())
     }
     
-    func testInit_givenIsServerAddressManagedIsTrue_whenInitiateLoginUseCaseEmittingChallenge_thenCallsAuthenticationUseCase() throws {
+    func testInit_givenIsServerAddressManagedIsTrue_whenInitiateLoginUseCaseEmittingChallenge_thenCallsAuthenticationUseCase() {
         withExtendedLifetime(ServerSetupViewModel()) {
             managedConfigurationUseCaseMock.mockState(\.serverUrl, value: .success(.random()))
             loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
@@ -269,7 +269,7 @@ final class ServerSetupViewModelTests: XCTestCase {
         }
     }
     
-    func testInit_givenIsServerAddressManagedIsFalse_whenInitiateLoginUseCaseEmittingChallenge_thenDoesntCallAuthenticationUseCase() throws {
+    func testInit_givenIsServerAddressManagedIsFalse_whenInitiateLoginUseCaseEmittingChallenge_thenDoesntCallAuthenticationUseCase() {
         withExtendedLifetime(ServerSetupViewModel()) {
             loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
             userInitiatedSchedulerMock.run()
@@ -281,7 +281,7 @@ final class ServerSetupViewModelTests: XCTestCase {
         }
     }
     
-    func testInit_givenIsServerAddressManagedIsTrue_thenDoesntCallAuthenticationUseCase() throws {
+    func testInit_givenIsServerAddressManagedIsTrue_thenDoesntCallAuthenticationUseCase() {
         withExtendedLifetime(ServerSetupViewModel()) {
             managedConfigurationUseCaseMock.mockState(\.serverUrl, value: .success(.random()))
             
@@ -289,13 +289,45 @@ final class ServerSetupViewModelTests: XCTestCase {
         }
     }
     
-    func testInit_givenIsServerAddressManagedIsFalse_thenDoesntCallAuthenticationUseCase() throws {
+    func testInit_givenIsServerAddressManagedIsFalse_thenDoesntCallAuthenticationUseCase() {
         _ = ServerSetupViewModel()
         
         expect(self.authenticationUseCaseMock).toNot(beCalled())
     }
     
-    func testCallAsFunction_givenChallengeAvailableIsTrue_whenCallingConnect_thenCallsAuthenticationUseCase() throws {
+    func testInit_givenIsServerAddressManagedIsTrue_whenAuthenticationUseCaseSetsLatestAttemptFailedToTrue_thenShouldDismissEmits() {
+        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
+        managedConfigurationUseCaseMock.mockState(\.serverUrl, value: .success(.random()))
+        
+        expect(serverSetupViewModel[\.shouldDismiss]).to(emit(when: { self.authenticationUseCaseMock.mockState(\.latestAttemptFailed, value: .success(true)) }))
+    }
+    
+    func testInit_givenIsServerAddressManagedIsTrue_whenAuthenticationUseCaseSetsLatestAttemptFailedToFalse_thenShouldDismissDoesntEmit() {
+        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
+        managedConfigurationUseCaseMock.mockState(\.serverUrl, value: .success(.random()))
+        
+        expect(serverSetupViewModel[\.shouldDismiss]).toNot(emit(when: { self.authenticationUseCaseMock.mockState(\.latestAttemptFailed, value: .success(false)) }))
+    }
+    
+    func testInit_givenIsServerAddressManagedIsFalse_whenAuthenticationUseCaseSetsLatestAttemptFailedToTrue_thenShouldDismissDoesntEmit() {
+        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
+        
+        expect(serverSetupViewModel[\.shouldDismiss]).toNot(emit(when: { self.authenticationUseCaseMock.mockState(\.latestAttemptFailed, value: .success(true)) }))
+    }
+    
+    func testInit_givenIsServerAddressManagedIsFalse_whenAuthenticationUseCaseSetsLatestAttemptFailedToFalse_thenShouldDismissDoesntEmit() {
+        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
+        
+        expect(serverSetupViewModel[\.shouldDismiss]).toNot(emit(when: { self.authenticationUseCaseMock.mockState(\.latestAttemptFailed, value: .success(false)) }))
+    }
+    
+    func testInit_whenManagedConfigurationUseCaseEmittingServerUrl_thenShouldDismissDoesntEmit() {
+        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
+        
+        expect(serverSetupViewModel[\.shouldDismiss]).toNot(emit(when: { self.managedConfigurationUseCaseMock.mockState(\.serverUrl, value: .success(.random())) }))
+    }
+    
+    func testCallAsFunction_givenChallengeAvailableIsTrue_whenCallingConnect_thenCallsAuthenticationUseCase() {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
         userInitiatedSchedulerMock.run()

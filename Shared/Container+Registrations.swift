@@ -50,6 +50,7 @@ extension Container {
     // MARK: UseCases
     var authenticationUseCase: Factory<any AuthenticationUseCaseProtocol> {
         self { AuthenticationUseCase() }
+            .cached
     }
     var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
         self { FolderLabelUseCase() }
