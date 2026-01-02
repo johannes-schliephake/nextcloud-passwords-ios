@@ -7,7 +7,7 @@ final class ServerSetupViewModelMock: ViewModelMock<ServerSetupViewModel.State, 
 extension ServerSetupViewModel.State: Mock {
     
     convenience init() {
-        self.init(serverAddress: "https://", isServerAddressManaged: false, showManagedServerAddressErrorAlert: false, isValidating: false, challenge: nil, challengeAvailable: false, showLoginFlowPage: false, focusedField: nil)
+        self.init(serverAddress: "https://", isServerAddressManaged: false, showManagedServerAddressErrorAlert: false, isValidating: false, challengeAvailable: false, focusedField: nil)
     }
     
 }

@@ -7,7 +7,7 @@ class ExtensionViewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         _ = resolve(\.logger)
-        _ = resolve(\.windowSizeDataSource)
+        _ = resolve(\.windowDataSource)
         _ = resolve(\.biometricAuthenticationController)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

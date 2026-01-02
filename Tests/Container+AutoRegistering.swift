@@ -12,7 +12,6 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.editOTPViewModelType.register { EditOTPViewModelMock.self }
         Self.shared.editTagViewModelType.register { EditTagViewModelMock.self }
         //Self.shared.globalAlertsViewModelType.register { GlobalAlertsViewModelMock.self }
-        Self.shared.loginFlowViewModelType.register { LoginFlowViewModelMock.self }
         Self.shared.logViewModelType.register { LogViewModelMock.self }
         Self.shared.selectFolderViewModelType.register { SelectFolderViewModelMock.self }
         Self.shared.selectTagsViewModelType.register { SelectTagsViewModelMock.self }
@@ -21,8 +20,7 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.shareOTPViewModelType.register { ShareOTPViewModelMock.self }
         
         // MARK: UseCases
-        Self.shared.checkLoginGrantUseCase.cached.register { CheckLoginGrantUseCaseMock() }
-        Self.shared.checkTrustUseCase.cached.register { CheckTrustUseCaseMock() }
+        Self.shared.authenticationUseCase.register { AuthenticationUseCaseMock() }
         Self.shared.folderLabelUseCase.cached.register { FolderLabelUseCaseMock() }
         //Self.shared.generatePasswordUseCase.cached.register { GeneratePasswordUseCaseMock() }
         Self.shared.initiateLoginUseCase.cached.register { InitiateLoginUseCaseMock() }
@@ -35,6 +33,7 @@ extension Container: @retroactive AutoRegistering {
         //Self.shared.preferredUsernameUseCase.register { PreferredUsernameUseCaseMock() }
         //Self.shared.prepareWordlistUseCase.register { PrepareWordlistUseCaseMock() }
         //Self.shared.randomWordUseCase.cached.register { RandomWordUseCaseMock() }
+        Self.shared.windowSizeUseCase.register { WindowSizeUseCaseMock() }
         //Self.shared.wordlistLocaleUseCase.register { WordlistLocaleUseCaseMock() }
         
         // MARK: Services
@@ -49,7 +48,6 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.settingsService.register { SettingsServiceMock() }
         Self.shared.tagValidationService.register { TagValidationServiceMock() }
         Self.shared.tagsService.register { TagsServiceMock() }
-        Self.shared.windowSizeService.register { WindowSizeServiceMock() }
         
         // MARK: Repositories
         //Self.shared.onDemandResourcesPropertyListDataSource.register { OnDemandResourcesPropertyListDataSourceMock() }
@@ -64,8 +62,8 @@ extension Container: @retroactive AutoRegistering {
             //Self.shared.urlLabelSuggestionLanguageModelDataSource.cached.register { UrlLabelSuggestionLanguageModelDataSourceMock() }
             //Self.shared.urlLabelSuggestionRepository.register { UrlLabelSuggestionRepositoryMock() }
 //        }
-        Self.shared.windowSizeDataSource.register { WindowSizeDataSourceMock() }
-        Self.shared.windowSizeRepository.register { WindowSizeRepositoryMock() }
+        Self.shared.windowDataSource.register { WindowDataSourceMock() }
+        Self.shared.windowRepository.register { WindowRepositoryMock() }
         //Self.shared.wordlistDataSource.cached.register { WordlistDataSourceMock() }
         //Self.shared.wordlistPreparationDataSource.register { WordlistPreparationDataSourceMock() }
         //Self.shared.wordlistRepository.cached.register { WordlistRepositoryMock() }
@@ -87,13 +85,13 @@ extension Container: @retroactive AutoRegistering {
 //        }
         //Self.shared.fileHandleType.register { FileHandleMock.self }
         //Self.shared.fileManager.cached.register { FileManagerMock() }
-        Self.shared.nonPersistentWebDataStore.cached.register { WebDataStoreMock() }
         Self.shared.pasteboard.cached.register { PasteboardMock() }
         Self.shared.productType.register { ProductMock.self }
         Self.shared.qrCodeGenerator.cached.register { QRCodeGeneratorMock() }
         //Self.shared.randomNumberGenerator.cached.register { RandomNumberGeneratorMock() }
         Self.shared.systemNotifications.cached.register { NotificationsMock() }
         //Self.shared.transactionType.register { TransactionMock.self }
+        Self.shared.webAuthenticationSessionType.register { WebAuthenticationSessionMock.self }
         
         // MARK: Miscellaneous
         Self.shared.configurationType.register { ConfigurationMock.self }

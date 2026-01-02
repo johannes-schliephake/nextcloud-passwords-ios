@@ -82,18 +82,6 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
         }
     }
     
-    func checkTrust(_ trust: SecTrust?) -> AnyPublisher<Bool, Never> {
-        Just(trust)
-            .flatMap { [weak self] trust in
-                Future { promise in
-                    self?.checkTrust(trust) { disposition, _ in
-                        promise(.success(disposition == .useCredential))
-                    }
-                }
-            }
-            .eraseToAnyPublisher()
-    }
-    
 }
 
 

@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 
 
-protocol Window {
+protocol Window: AnyObject {
     
     var framePublisher: AnyPublisher<CGRect, Never> { get }
     

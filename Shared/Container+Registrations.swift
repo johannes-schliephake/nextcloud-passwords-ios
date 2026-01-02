@@ -27,9 +27,6 @@ extension Container {
     var globalAlertsViewModelType: Factory<any GlobalAlertsViewModelProtocol.Type> {
         self { GlobalAlertsViewModel.self }
     }
-    var loginFlowViewModelType: Factory<any LoginFlowViewModelProtocol.Type> {
-        self { LoginFlowViewModel.self }
-    }
     var logViewModelType: Factory<any LogViewModelProtocol.Type> {
         self { LogViewModel.self }
     }
@@ -50,11 +47,9 @@ extension Container {
     }
     
     // MARK: UseCases
-    var checkLoginGrantUseCase: Factory<any CheckLoginGrantUseCaseProtocol> {
-        self { CheckLoginGrantUseCase() }
-    }
-    var checkTrustUseCase: Factory<any CheckTrustUseCaseProtocol> {
-        self { CheckTrustUseCase() }
+    var authenticationUseCase: Factory<any AuthenticationUseCaseProtocol> {
+        self { AuthenticationUseCase() }
+            .cached
     }
     var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
         self { FolderLabelUseCase() }
@@ -88,6 +83,10 @@ extension Container {
     }
     var randomWordUseCase: Factory<any RandomWordUseCaseProtocol> {
         self { RandomWordUseCase() }
+    }
+    var windowSizeUseCase: Factory<any WindowSizeUseCaseProtocol> {
+        self { WindowSizeUseCase() }
+            .cached
     }
     var wordlistLocaleUseCase: Factory<any WordlistLocaleUseCaseProtocol> {
         self { WordlistLocaleUseCase() }
@@ -139,10 +138,6 @@ extension Container {
         self { TagsService() }
             .cached
     }
-    var windowSizeService: Factory<any WindowSizeServiceProtocol> {
-        self { WindowSizeService() }
-            .cached
-    }
     
     // MARK: Repositories
     var onDemandResourcesPropertyListDataSource: Factory<any OnDemandResourcesPropertyListDataSourceProtocol> {
@@ -184,12 +179,12 @@ extension Container {
         self { UrlLabelSuggestionRepository() }
             .cached
     }
-    var windowSizeDataSource: Factory<any WindowSizeDataSourceProtocol> {
-        self { WindowSizeDataSource() }
+    var windowDataSource: Factory<any WindowDataSourceProtocol> {
+        self { WindowDataSource() }
             .cached
     }
-    var windowSizeRepository: Factory<any WindowSizeRepositoryProtocol> {
-        self { WindowSizeRepository() }
+    var windowRepository: Factory<any WindowRepositoryProtocol> {
+        self { WindowRepository() }
             .cached
     }
     var wordlistDataSource: Factory<any WordlistDataSourceProtocol> {
@@ -228,9 +223,6 @@ extension Container {
     var fileManager: Factory<any FileManaging> {
         self { FileManager.default }
     }
-    var nonPersistentWebDataStore: Factory<any WebDataStore> {
-        self { WKWebsiteDataStore.nonPersistent() }
-    }
     var pasteboard: Factory<any Pasteboard> {
         self { UIPasteboard.general }
     }
@@ -248,6 +240,9 @@ extension Container {
     }
     var transactionType: Factory<any Transaction.Type> {
         self { StoreKit.Transaction.self }
+    }
+    var webAuthenticationSessionType: Factory<any WebAuthenticationSession.Type> {
+        self { WrappedASWebAuthenticationSession.self }
     }
     
     // MARK: Miscellaneous
