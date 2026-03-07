@@ -70,7 +70,7 @@
       "location" : "https://github.com/jedisct1/swift-sodium",
       "state" : {
         "branch" : "master",
-        "revision" : "eb2ec4029e2ec191a2ae848bd50fe5c7b0412a2d"
+        "revision" : "2b2f23c75ebcc40162dce904881c1be11d730cc7"
       }
     },
     {
@@ -78,8 +78,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
       "state" : {
-        "revision" : "31073495cae9caf243c440eac94b3ab067e3d7bc",
-        "version" : "1.8.0"
+        "revision" : "dfd70507def84cb5fb821278448a262c6ff2bbad",
+        "version" : "1.9.0"
       }
     }
   ],
