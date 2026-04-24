@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/combine-schedulers",
       "state" : {
-        "revision" : "fd16d76fd8b9a976d88bfb6cacc05ca8d19c91b6",
-        "version" : "1.1.0"
+        "revision" : "dcccb979a2183b8df3334237e3dc1ae2b4116a86",
+        "version" : "1.2.0"
       }
     },
     {
@@ -70,7 +70,7 @@
       "location" : "https://github.com/jedisct1/swift-sodium",
       "state" : {
         "branch" : "master",
-        "revision" : "2b2f23c75ebcc40162dce904881c1be11d730cc7"
+        "revision" : "cfd195c76882aa9b997560ca7cb95d72fbf5db00"
       }
     },
     {
