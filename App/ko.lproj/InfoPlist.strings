@@ -1,0 +1,11 @@
+/* Name of the app */
+"CFBundleDisplayName" = "비밀번호";
+
+/* Shown when user is asked for Camera permissions for scanning an OTP QR code, same as "_scanQrCode" in Localizable.strings and "NSCameraUsageDescription" in Provider/InfoPlist.strings and "NSCameraUsageDescription" in Extension/InfoPlist.strings */
+"NSCameraUsageDescription" = "QR 코드 스캔";
+
+/* Shown when user is asked for Face ID permissions, same as "_unlockApp" in Localizable.strings and "NSFaceIDUsageDescription" in Provider/InfoPlist.strings and "NSFaceIDUsageDescription" in Extension/InfoPlist.strings */
+"NSFaceIDUsageDescription" = "앱 잠금 해제";
+
+/* Shown when user is asked for photo library permissions, same as "_shareQrCode" in Localizable.strings and "NSPhotoLibraryAddUsageDescription" in Provider/InfoPlist.strings and "NSPhotoLibraryAddUsageDescription" in Extension/InfoPlist.strings */
+"NSPhotoLibraryAddUsageDescription" = "QR 코드 공유";
