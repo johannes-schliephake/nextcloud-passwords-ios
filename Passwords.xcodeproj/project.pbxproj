@@ -1177,6 +1177,10 @@
 		DD941A332AF84293002D263E /* .xcode-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".xcode-version"; sourceTree = "<group>"; };
 		DD9538F12B9E17BB001C00F5 /* Publisher+ReplaceOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+ReplaceOutput.swift"; sourceTree = "<group>"; };
 		DD988D132DD143F600FF6934 /* Publisher+Resultize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Resultize.swift"; sourceTree = "<group>"; };
+		DD9959522FC0DF0700D451B2 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD9959532FC0DF0700D451B2 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD9959542FC0DF0700D451B2 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD9959552FC0DF0800D451B2 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD9A99F62A23E9120016722F /* EditTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagViewModel.swift; sourceTree = "<group>"; };
 		DD9A99FA2A23FE4A0016722F /* EditTagViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagViewModelTests.swift; sourceTree = "<group>"; };
 		DD9A99FC2A248D1D0016722F /* Color+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Random.swift"; sourceTree = "<group>"; };
@@ -2827,6 +2831,7 @@
 				"zh-Hans",
 				it,
 				et,
+				ko,
 			);
 			mainGroup = 8F118746253C9EE10019FECA;
 			packageReferences = (
@@ -3866,6 +3871,7 @@
 				DD7F690B2D5D39B3006F1136 /* zh-Hans */,
 				DDAFAD552D80D1CC009C53F3 /* it */,
 				DD63A1E52DF08724002C9846 /* et */,
+				DD9959552FC0DF0800D451B2 /* ko */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -3888,6 +3894,7 @@
 				DD7F69082D5D39B3006F1136 /* zh-Hans */,
 				DDAFAD522D80D1CC009C53F3 /* it */,
 				DD63A1E22DF08723002C9846 /* et */,
+				DD9959522FC0DF0700D451B2 /* ko */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3910,6 +3917,7 @@
 				DD7F69092D5D39B3006F1136 /* zh-Hans */,
 				DDAFAD532D80D1CC009C53F3 /* it */,
 				DD63A1E32DF08723002C9846 /* et */,
+				DD9959532FC0DF0700D451B2 /* ko */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3932,6 +3940,7 @@
 				DD7F690A2D5D39B3006F1136 /* zh-Hans */,
 				DDAFAD542D80D1CC009C53F3 /* it */,
 				DD63A1E42DF08723002C9846 /* et */,
+				DD9959542FC0DF0700D451B2 /* ko */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
