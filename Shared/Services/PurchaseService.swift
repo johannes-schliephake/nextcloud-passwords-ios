@@ -1,5 +1,5 @@
 import Combine
-import Factory
+import FactoryKit
 import Foundation
 
 
@@ -46,7 +46,7 @@ final class PurchaseService: PurchaseServiceProtocol {
     
     init() {
         /// Products are only available to main app and not the AutoFill credential provider or action extension
-        guard resolve(\.autoFillController).mode == .app else {
+        guard dependency(\.autoFillController).mode == .app else {
             return
         }
         guard appStoreType.canMakePayments else {

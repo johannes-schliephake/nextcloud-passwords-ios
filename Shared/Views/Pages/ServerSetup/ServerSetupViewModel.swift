@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol ServerSetupViewModelProtocol: ViewModel where State == ServerSetupViewModel.State, Action == ServerSetupViewModel.Action {

@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-import Factory
+import FactoryKit
 
 
 protocol InitiateLoginUseCaseProtocol: UseCase where State == InitiateLoginUseCase.State, Action == InitiateLoginUseCase.Action {}
@@ -33,13 +33,13 @@ final class InitiateLoginUseCase: InitiateLoginUseCaseProtocol {
     func callAsFunction(_ action: Action) {
         switch action {
         case let .setLoginUrl(loginUrl):
-            resolve(\.authenticationChallengeController).clearAcceptedCertificateHash()
+            dependency(\.authenticationChallengeController).clearAcceptedCertificateHash()
             
             var request = URLRequest(url: loginUrl.value)
             request.httpMethod = "POST"
             
             weak let `self` = self
-            cancellable = resolve(\.urlSession).dataTaskPublisher(for: request)
+            cancellable = dependency(\.urlSession).dataTaskPublisher(for: request)
                 .map(\.data)
                 .decode(type: LoginFlowChallenge.self, decoder: configurationType.jsonDecoder)
                 .resultize()

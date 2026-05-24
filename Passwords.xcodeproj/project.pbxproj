@@ -336,9 +336,6 @@
 		DD62B0732BBCB121006E1530 /* LoginFlowChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD62B0722BBCB121006E1530 /* LoginFlowChallenge.swift */; };
 		DD62B0742BBCB121006E1530 /* LoginFlowChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD62B0722BBCB121006E1530 /* LoginFlowChallenge.swift */; };
 		DD62B0752BBCB121006E1530 /* LoginFlowChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD62B0722BBCB121006E1530 /* LoginFlowChallenge.swift */; };
-		DD6350DB293FEC7E0058A787 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DD6350DA293FEC7E0058A787 /* Factory */; };
-		DD6350DD293FEC9B0058A787 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DD6350DC293FEC9B0058A787 /* Factory */; };
-		DD6350DF293FECA00058A787 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DD6350DE293FECA00058A787 /* Factory */; };
 		DD6350E1293FED030058A787 /* Container+Registrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6350E0293FED030058A787 /* Container+Registrations.swift */; };
 		DD6350E2293FED030058A787 /* Container+Registrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6350E0293FED030058A787 /* Container+Registrations.swift */; };
 		DD6350E3293FED030058A787 /* Container+Registrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6350E0293FED030058A787 /* Container+Registrations.swift */; };
@@ -762,6 +759,9 @@
 		DDE6E31C28604F090089BB0B /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE6E31B28604F090089BB0B /* FlowView.swift */; };
 		DDE6E31D28604F090089BB0B /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE6E31B28604F090089BB0B /* FlowView.swift */; };
 		DDE6E31E28604F090089BB0B /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE6E31B28604F090089BB0B /* FlowView.swift */; };
+		DDE857D62FC0E49900818F0D /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = DDE857D52FC0E49900818F0D /* FactoryKit */; };
+		DDE857D82FC0E4A000818F0D /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = DDE857D72FC0E4A000818F0D /* FactoryKit */; };
+		DDE857DA2FC0E4A600818F0D /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = DDE857D92FC0E4A600818F0D /* FactoryKit */; };
 		DDEC98FF2926D5AC004BE717 /* EdgeInsets+EntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+EntryRow.swift */; };
 		DDEC99002926D5AC004BE717 /* EdgeInsets+EntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+EntryRow.swift */; };
 		DDEC99012926D5AC004BE717 /* EdgeInsets+EntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEC98FE2926D5AC004BE717 /* EdgeInsets+EntryRow.swift */; };
@@ -1341,8 +1341,8 @@
 			files = (
 				8F118765253CA2980019FECA /* AuthenticationServices.framework in Frameworks */,
 				DD8024012C08E2E500C6808A /* CombineSchedulers in Frameworks */,
-				DD6350DB293FEC7E0058A787 /* Factory in Frameworks */,
 				8F52F3C725936FDE00B4EFCE /* StoreKit.framework in Frameworks */,
+				DDE857D62FC0E49900818F0D /* FactoryKit in Frameworks */,
 				DDA25D902A8C1C48005D9320 /* AnyAsyncSequence in Frameworks */,
 				8F10C6492602BD9200FA5B1D /* Clibsodium in Frameworks */,
 				8F10C64B2602BD9200FA5B1D /* Sodium in Frameworks */,
@@ -1353,12 +1353,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDE857D82FC0E4A000818F0D /* FactoryKit in Frameworks */,
 				8FC361992582762600785371 /* AuthenticationServices.framework in Frameworks */,
 				8F10C64D2602C05F00FA5B1D /* Clibsodium in Frameworks */,
 				DD8024032C08E2F300C6808A /* CombineSchedulers in Frameworks */,
 				8F10C64F2602C05F00FA5B1D /* Sodium in Frameworks */,
 				DDA25D922A8C1C70005D9320 /* AnyAsyncSequence in Frameworks */,
-				DD6350DD293FEC9B0058A787 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1381,12 +1381,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDE857DA2FC0E4A600818F0D /* FactoryKit in Frameworks */,
 				DDB1695527D1FCFF00F4D752 /* UniformTypeIdentifiers.framework in Frameworks */,
 				DDB1696627D1FD2900F4D752 /* Clibsodium in Frameworks */,
 				DD8024052C08E2FA00C6808A /* CombineSchedulers in Frameworks */,
 				DDB1696827D1FD2900F4D752 /* Sodium in Frameworks */,
 				DDA25D942A8C1C77005D9320 /* AnyAsyncSequence in Frameworks */,
-				DD6350DF293FECA00058A787 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2673,9 +2673,9 @@
 			packageProductDependencies = (
 				8F10C6482602BD9200FA5B1D /* Clibsodium */,
 				8F10C64A2602BD9200FA5B1D /* Sodium */,
-				DD6350DA293FEC7E0058A787 /* Factory */,
 				DDA25D8F2A8C1C48005D9320 /* AnyAsyncSequence */,
 				DD8024002C08E2E500C6808A /* CombineSchedulers */,
+				DDE857D52FC0E49900818F0D /* FactoryKit */,
 			);
 			productName = Passwords;
 			productReference = 8F11874F253C9EE10019FECA /* Passwords.app */;
@@ -2698,9 +2698,9 @@
 			packageProductDependencies = (
 				8F10C64C2602C05F00FA5B1D /* Clibsodium */,
 				8F10C64E2602C05F00FA5B1D /* Sodium */,
-				DD6350DC293FEC9B0058A787 /* Factory */,
 				DDA25D912A8C1C70005D9320 /* AnyAsyncSequence */,
 				DD8024022C08E2F300C6808A /* CombineSchedulers */,
+				DDE857D72FC0E4A000818F0D /* FactoryKit */,
 			);
 			productName = Provider;
 			productReference = 8FC361982582762600785371 /* Provider.appex */;
@@ -2764,9 +2764,9 @@
 			packageProductDependencies = (
 				DDB1696527D1FD2900F4D752 /* Clibsodium */,
 				DDB1696727D1FD2900F4D752 /* Sodium */,
-				DD6350DE293FECA00058A787 /* Factory */,
 				DDA25D932A8C1C77005D9320 /* AnyAsyncSequence */,
 				DD8024042C08E2FA00C6808A /* CombineSchedulers */,
+				DDE857D92FC0E4A600818F0D /* FactoryKit */,
 			);
 			productName = Extension;
 			productReference = DDB1695327D1FCFF00F4D752 /* Extension.appex */;
@@ -4383,7 +4383,7 @@
 			repositoryURL = "https://github.com/hmlongco/Factory";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				minimumVersion = 3.0.0;
 			};
 		};
 		DD8023FF2C08E28100C6808A /* XCRemoteSwiftPackageReference "combine-schedulers" */ = {
@@ -4430,21 +4430,6 @@
 			package = DD5E99EA29AA88C500A7A4B9 /* XCRemoteSwiftPackageReference "Nimble" */;
 			productName = Nimble;
 		};
-		DD6350DA293FEC7E0058A787 /* Factory */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */;
-			productName = Factory;
-		};
-		DD6350DC293FEC9B0058A787 /* Factory */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */;
-			productName = Factory;
-		};
-		DD6350DE293FECA00058A787 /* Factory */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */;
-			productName = Factory;
-		};
 		DD8024002C08E2E500C6808A /* CombineSchedulers */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DD8023FF2C08E28100C6808A /* XCRemoteSwiftPackageReference "combine-schedulers" */;
@@ -4484,6 +4469,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8F10C6472602BD9200FA5B1D /* XCRemoteSwiftPackageReference "swift-sodium" */;
 			productName = Sodium;
+		};
+		DDE857D52FC0E49900818F0D /* FactoryKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = FactoryKit;
+		};
+		DDE857D72FC0E4A000818F0D /* FactoryKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = FactoryKit;
+		};
+		DDE857D92FC0E4A600818F0D /* FactoryKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD6350D9293FEC7E0058A787 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = FactoryKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -1,4 +1,4 @@
-import Factory
+import FactoryKit
 @testable import Passwords
 
 
@@ -97,8 +97,8 @@ extension Container: @retroactive AutoRegistering {
         Self.shared.configurationType.register { ConfigurationMock.self }
         //Self.shared.cryptoSHA256Type.register { CryptoSHA256Mock.self }
         Self.shared.currentDate.singleton.register { .init() }
-        Self.shared.mainScheduler.register { resolve(\.mainSchedulerMock).eraseToAnyScheduler() }
-        Self.shared.userInitiatedScheduler.register { resolve(\.userInitiatedSchedulerMock).eraseToAnyScheduler() }
+        Self.shared.mainScheduler.register { dependency(\.mainSchedulerMock).eraseToAnyScheduler() }
+        Self.shared.userInitiatedScheduler.register { dependency(\.userInitiatedSchedulerMock).eraseToAnyScheduler() }
     }
     
 }

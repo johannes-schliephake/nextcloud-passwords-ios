@@ -1,5 +1,5 @@
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol Logging {
@@ -40,7 +40,7 @@ final class Logger: Logging {
     private var lock = ReadersWriterLock()
     
     init() {
-        let configuration = resolve(\.configurationType)
+        let configuration = dependency(\.configurationType)
         let logEnabled = configuration.isDebug || configuration.isTestEnvironment || configuration.isTestFlight
         eventsInternal = logEnabled ? [LogEvent]() : nil
         

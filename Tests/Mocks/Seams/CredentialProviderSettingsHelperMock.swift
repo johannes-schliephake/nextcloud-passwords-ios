@@ -1,5 +1,5 @@
 @testable import Passwords
-import Factory
+import FactoryKit
 
 
 @available(iOS 17, *) final class CredentialProviderSettingsHelperMock: CredentialProviderSettingsHelping, Mock, FunctionCallLogging {

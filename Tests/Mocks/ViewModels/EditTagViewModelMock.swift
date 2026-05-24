@@ -1,5 +1,5 @@
 @testable import Passwords
-import Factory
+import FactoryKit
 
 
 final class EditTagViewModelMock: ViewModelMock<EditTagViewModel.State, EditTagViewModel.Action>, EditTagViewModelProtocol {
@@ -14,7 +14,7 @@ final class EditTagViewModelMock: ViewModelMock<EditTagViewModel.State, EditTagV
 extension EditTagViewModel.State: Mock {
     
     convenience init() {
-        let tagMock = resolve(\.tag)
+        let tagMock = dependency(\.tag)
         self.init(tag: tagMock, isCreating: tagMock.id.isEmpty, tagLabel: tagMock.label, tagColor: .init(hex: tagMock.color)!, tagFavorite: tagMock.favorite, showDeletionConfirmation: false, showCancellationConfirmation: false, hasChanges: false, editIsValid: true, focusedField: nil)
     }
     

@@ -1,4 +1,4 @@
-import Factory
+import FactoryKit
 import CoreImage
 import StoreKit
 import CombineSchedulers
@@ -263,7 +263,7 @@ extension Container {
     }
     
     // TODO: remove
-    var application: Factory<UIApplication?> {
+    @MainActor var application: Factory<UIApplication?> {
         self {
             guard !UIApplication.isExtension,
                   UIApplication.responds(to: NSSelectorFromString("sharedApplication")) else {
@@ -277,7 +277,7 @@ extension Container {
         self {
             let configuration = URLSessionConfiguration.default
             configuration.httpAdditionalHeaders = ["User-Agent": Configuration.clientName]
-            return URLSession(configuration: configuration, delegate: resolve(\.authenticationChallengeController), delegateQueue: nil)
+            return URLSession(configuration: configuration, delegate: dependency(\.authenticationChallengeController), delegateQueue: nil)
         }
         .cached
     }

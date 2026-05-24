@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 import Combine
 
 
@@ -14,9 +14,9 @@ struct MainView: View {
         EntriesNavigation()
             .onChange(of: authenticationChallengeController.certificateConfirmationRequests, perform: didChange)
             .copyToast()
-            .environmentObject(resolve(\.autoFillController))
-            .environmentObject(resolve(\.sessionController))
-            .environmentObject(resolve(\.settingsController))
+            .environmentObject(dependency(\.autoFillController))
+            .environmentObject(dependency(\.sessionController))
+            .environmentObject(dependency(\.settingsController))
             .onAppear {
                 Task {
                     do {
@@ -32,7 +32,7 @@ struct MainView: View {
                 }
                 
                 if #available(iOS 26, *),
-                   let serviceUrl = resolve(\.autoFillController).serviceURLs?.first {
+                   let serviceUrl = dependency(\.autoFillController).serviceURLs?.first {
                     @Injected(\.urlLabelSuggestionRepository) var urlLabelSuggestionRepository
                     urlLabelSuggestionRepository(.setUrl(serviceUrl))
                 }

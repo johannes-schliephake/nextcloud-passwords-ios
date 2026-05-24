@@ -1,6 +1,6 @@
 @preconcurrency import WebKit
 import Foundation
-import Factory
+import FactoryKit
 import Combine
 
 
@@ -11,17 +11,17 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
     private var acceptedCertificateHash: String? {
         didSet {
             guard let acceptedCertificateHash else {
-                resolve(\.keychain).remove(key: "acceptedCertificateHash")
+                dependency(\.keychain).remove(key: "acceptedCertificateHash")
                 return
             }
-            resolve(\.keychain).store(key: "acceptedCertificateHash", value: acceptedCertificateHash)
+            dependency(\.keychain).store(key: "acceptedCertificateHash", value: acceptedCertificateHash)
         }
     }
     
     override init() {
         super.init()
         
-        acceptedCertificateHash = resolve(\.keychain).load(key: "acceptedCertificateHash")
+        acceptedCertificateHash = dependency(\.keychain).load(key: "acceptedCertificateHash")
     }
     
     func clearAcceptedCertificateHash() {
@@ -37,7 +37,7 @@ final class AuthenticationChallengeController: NSObject, ObservableObject {
     }
     
     func deny(certificateHash: String) {
-        resolve(\.sessionService).logout()
+        dependency(\.sessionService).logout()
         
         let deniedCertificateConfirmationRequests = certificateConfirmationRequests.filter { $0.hash == certificateHash }
         certificateConfirmationRequests.removeAll { deniedCertificateConfirmationRequests.contains($0) }

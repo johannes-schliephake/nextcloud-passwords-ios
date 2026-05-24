@@ -1,12 +1,12 @@
 import Foundation
-import Factory
+import FactoryKit
 
 
 extension DispatchQueue {
     
     convenience init(qos: DispatchQoS = .default, fileID: String = #fileID, functionName: String = #function, line: UInt = #line) {
         let label = [
-            resolve(\.configurationType).appService,
+            dependency(\.configurationType).appService,
             fileID,
             functionName,
             String(line)

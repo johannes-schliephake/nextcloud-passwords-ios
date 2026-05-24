@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-import Factory
+import FactoryKit
 
 
 protocol RandomWordUseCaseProtocol: UseCase where State == RandomWordUseCase.State, Action == RandomWordUseCase.Action {}

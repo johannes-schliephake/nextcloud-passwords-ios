@@ -1,13 +1,13 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 @main struct PasswordsApp: App {
     
     init() {
-        _ = resolve(\.logger)
-        _ = resolve(\.windowDataSource)
-        _ = resolve(\.biometricAuthenticationController)
+        _ = dependency(\.logger)
+        _ = dependency(\.windowDataSource)
+        _ = dependency(\.biometricAuthenticationController)
     }
     
     // MARK: Views
@@ -20,7 +20,7 @@ import Factory
                         UIAlertController.presentGlobalAlert(title: "_error".localized, message: "_extractOtpErrorMessage".localized)
                         return
                     }
-                    resolve(\.autoFillController).receivedOtp = otp
+                    dependency(\.autoFillController).receivedOtp = otp
                 }
         }
     }

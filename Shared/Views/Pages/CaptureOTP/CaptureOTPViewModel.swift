@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol CaptureOTPViewModelProtocol: ViewModel where State == CaptureOTPViewModel.State, Action == CaptureOTPViewModel.Action {

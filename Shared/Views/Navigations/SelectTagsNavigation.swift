@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct SelectTagsNavigation: View {
@@ -11,7 +11,7 @@ struct SelectTagsNavigation: View {
     
     var body: some View {
         NavigationStack {
-            SelectTagsPage(viewModel: resolve(\.selectTagsViewModelType).init(temporaryEntry: temporaryEntry, selectTags: selectTags).eraseToAnyViewModel())
+            SelectTagsPage(viewModel: dependency(\.selectTagsViewModelType).init(temporaryEntry: temporaryEntry, selectTags: selectTags).eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
     }

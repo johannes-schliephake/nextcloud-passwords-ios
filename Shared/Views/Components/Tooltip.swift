@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 private enum TooltipConstants {

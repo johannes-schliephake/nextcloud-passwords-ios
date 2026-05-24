@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct ServerSetupNavigation: View {
@@ -8,7 +8,7 @@ struct ServerSetupNavigation: View {
     
     var body: some View {
         NavigationStack {
-            ServerSetupPage(viewModel: resolve(\.serverSetupViewModelType).init().eraseToAnyViewModel())
+            ServerSetupPage(viewModel: dependency(\.serverSetupViewModelType).init().eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
     }

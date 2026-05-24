@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol ManagedConfigurationUseCaseProtocol: UseCase where State == ManagedConfigurationUseCase.State {}

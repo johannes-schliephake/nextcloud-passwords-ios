@@ -1,5 +1,5 @@
 @testable import Passwords
-import Factory
+import FactoryKit
 
 
 final class LogViewModelMock: ViewModelMock<LogViewModel.State, LogViewModel.Action>, LogViewModelProtocol {}
@@ -8,7 +8,7 @@ final class LogViewModelMock: ViewModelMock<LogViewModel.State, LogViewModel.Act
 extension LogViewModel.State: Mock {
     
     convenience init() {
-        let logEventMocks = resolve(\.logEvents)
+        let logEventMocks = dependency(\.logEvents)
         self.init(isAvailable: true, events: logEventMocks)
     }
     

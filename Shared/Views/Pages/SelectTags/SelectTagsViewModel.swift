@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol SelectTagsViewModelProtocol: ViewModel where State == SelectTagsViewModel.State, Action == SelectTagsViewModel.Action {

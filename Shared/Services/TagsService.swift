@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol TagsServiceProtocol {
@@ -49,7 +49,7 @@ final class TagsService: TagsServiceProtocol {
             throw TagAddError.validationFailed
         }
         
-        let currentDate = resolve(\.currentDate)
+        let currentDate = dependency(\.currentDate)
         let tag = Tag(label: label, client: Configuration.clientName, edited: currentDate, created: currentDate, updated: currentDate)
         entriesController.add(tag: tag)
         return tag
@@ -63,7 +63,7 @@ final class TagsService: TagsServiceProtocol {
             throw TagApplyError.isProcessing
         }
         
-        let currentDate = resolve(\.currentDate)
+        let currentDate = dependency(\.currentDate)
         if tag.id.isEmpty {
             tag.created = currentDate
         }

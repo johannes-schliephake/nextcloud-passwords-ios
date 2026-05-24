@@ -4,13 +4,13 @@
 import Foundation
 import Sodium
 import CryptoKit
-import Factory
+import FactoryKit
 
 
 enum Crypto {
     
     private static var sodium: Sodium {
-        resolve(\.sodium)
+        dependency(\.sodium)
     }
     
 }
@@ -150,17 +150,17 @@ extension Crypto {
     enum AES256 {
         
         static func getKey(named keyName: String) -> SymmetricKey {
-            if let key = resolve(\.keychain).load(key: keyName),
+            if let key = dependency(\.keychain).load(key: keyName),
                let data = Data(base64Encoded: key) {
                 return SymmetricKey(data: data)
             }
             let key = SymmetricKey(size: .bits256)
-            resolve(\.keychain).store(key: keyName, value: key.withUnsafeBytes { Data($0).base64EncodedString() })
+            dependency(\.keychain).store(key: keyName, value: key.withUnsafeBytes { Data($0).base64EncodedString() })
             return key
         }
         
         static func removeKey(named keyName: String) {
-            resolve(\.keychain).remove(key: keyName)
+            dependency(\.keychain).remove(key: keyName)
         }
         
         static func decrypt(offlineContainers: [OfflineContainer], key: SymmetricKey) throws -> (folders: [Folder], passwords: [Password], tags: [Tag]) {

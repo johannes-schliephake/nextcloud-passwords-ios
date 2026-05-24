@@ -1,5 +1,5 @@
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol ProductsAppStoreDataSourceProtocol {

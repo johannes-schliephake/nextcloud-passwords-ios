@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-import Factory
+import FactoryKit
 
 
 protocol LoginPollUseCaseProtocol: UseCase where Action == LoginPollUseCase.Action {}
@@ -25,7 +25,7 @@ final class LoginPollUseCase: LoginPollUseCaseProtocol {
             request.httpMethod = "POST"
             request.httpBody = Data("token=\(poll.token)".utf8)
             
-            let sessionPublisher = resolve(\.urlSession).dataTaskPublisher(for: request)
+            let sessionPublisher = dependency(\.urlSession).dataTaskPublisher(for: request)
                 .tryMap { result in
                     guard let response = result.response as? HTTPURLResponse,
                           response.statusCode == 200 else {
@@ -33,7 +33,7 @@ final class LoginPollUseCase: LoginPollUseCaseProtocol {
                     }
                     return result.data
                 }
-                .decode(type: Response.self, decoder: resolve(\.configurationType).jsonDecoder)
+                .decode(type: Response.self, decoder: dependency(\.configurationType).jsonDecoder)
                 .catch { error in
                     Fail(error: error)
                         .delay(for: .init(floatLiteral: Self.pollInterval), scheduler: DispatchQueue.global(qos: .utility))
@@ -45,7 +45,7 @@ final class LoginPollUseCase: LoginPollUseCaseProtocol {
                 .ignoreFailure()
                 .map { Session(server: $0.server, user: $0.loginName, password: $0.appPassword) }
             
-            resolve(\.sessionController).attachSessionPublisher(
+            dependency(\.sessionController).attachSessionPublisher(
                 sessionPublisher
                     .receive(on: DispatchQueue.main)
                     .eraseToAnyPublisher()

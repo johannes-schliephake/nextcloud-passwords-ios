@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol EditFolderViewModelProtocol: ViewModel where State == EditFolderViewModel.State, Action == EditFolderViewModel.Action {

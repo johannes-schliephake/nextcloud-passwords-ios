@@ -1,5 +1,5 @@
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol FolderLabelUseCaseProtocol: UseCase where State == FolderLabelUseCase.State, Action == FolderLabelUseCase.Action {}

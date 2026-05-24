@@ -1,5 +1,5 @@
 import Combine
-import Factory
+import FactoryKit
 import SwiftUI
 
 
@@ -13,7 +13,7 @@ final class SettingsController: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
-        resolve(\.sessionController).$session
+        dependency(\.sessionController).$session
             .sink(receiveValue: requestSettings)
             .store(in: &subscriptions)
         NotificationCenter.default.publisher(for: UIScene.didActivateNotification)
@@ -45,7 +45,7 @@ final class SettingsController: ObservableObject {
             }
         }
         
-        guard let session = resolve(\.sessionController).session else {
+        guard let session = dependency(\.sessionController).session else {
             return
         }
         fetchOnlineSettings(session: session)

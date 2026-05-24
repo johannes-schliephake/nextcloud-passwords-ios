@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-import Factory
+import FactoryKit
 
 
 @available(iOS 26, *) protocol UrlLabelSuggestionRepositoryProtocol: Repository where State == UrlLabelSuggestionRepository.State, Action == UrlLabelSuggestionRepository.Action {}

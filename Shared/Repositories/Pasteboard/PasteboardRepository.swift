@@ -1,4 +1,4 @@
-import Factory
+import FactoryKit
 
 
 protocol PasteboardRepositoryProtocol {

@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol EditOTPViewModelProtocol: ViewModel where State == EditOTPViewModel.State, Action == EditOTPViewModel.Action {

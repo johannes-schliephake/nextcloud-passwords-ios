@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct SettingsNavigation: View {
@@ -8,7 +8,7 @@ struct SettingsNavigation: View {
     
     var body: some View {
         NavigationStack {
-            SettingsPage(viewModel: resolve(\.settingsViewModelType).init().eraseToAnyViewModel())
+            SettingsPage(viewModel: dependency(\.settingsViewModelType).init().eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
     }

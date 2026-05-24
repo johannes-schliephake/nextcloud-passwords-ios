@@ -1,5 +1,5 @@
 import Foundation
-import Factory
+import FactoryKit
 
 
 struct LogEvent: Identifiable, CustomStringConvertible {
@@ -23,7 +23,7 @@ struct LogEvent: Identifiable, CustomStringConvertible {
     let id = UUID()
     let type: Type
     let message: String
-    let date = resolve(\.currentDate)
+    let date = dependency(\.currentDate)
     let fileID: String
     let functionName: String
     let line: UInt

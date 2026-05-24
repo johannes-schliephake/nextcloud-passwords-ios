@@ -1,5 +1,5 @@
 import Foundation
-import Factory
+import FactoryKit
 
 
 enum FileError: Error, CustomStringConvertible {

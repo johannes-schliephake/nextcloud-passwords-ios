@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import Factory
+import FactoryKit
 
 
 private enum CopyToastConstants {
@@ -25,7 +25,7 @@ struct CopyToast<Content: View>: View {
     
     var body: some View {
         layers()
-            .onReceive(resolve(\.systemNotifications).publisher(for: UIPasteboard.changedNotification)) { _ in
+            .onReceive(dependency(\.systemNotifications).publisher(for: UIPasteboard.changedNotification)) { _ in
                 visibilityTask?.cancel()
                 isVisible = true
                 visibilityTask = .init { @MainActor in

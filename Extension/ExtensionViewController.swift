@@ -1,14 +1,14 @@
 import SwiftUI
-import Factory
+import FactoryKit
 import UniformTypeIdentifiers
 
 
 class ExtensionViewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        _ = resolve(\.logger)
-        _ = resolve(\.windowDataSource)
-        _ = resolve(\.biometricAuthenticationController)
+        _ = dependency(\.logger)
+        _ = dependency(\.windowDataSource)
+        _ = dependency(\.biometricAuthenticationController)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -20,10 +20,10 @@ class ExtensionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        resolve(\.autoFillController).mode = .extension
-        resolve(\.autoFillController).serviceURLs = []
-        resolve(\.autoFillController).credentialIdentifier = nil
-        resolve(\.autoFillController).hasField = false
+        dependency(\.autoFillController).mode = .extension
+        dependency(\.autoFillController).serviceURLs = []
+        dependency(\.autoFillController).credentialIdentifier = nil
+        dependency(\.autoFillController).hasField = false
         
         if let extensionItems = extensionContext?.inputItems as? [NSExtensionItem] {
             extensionItems
@@ -43,29 +43,29 @@ class ExtensionViewController: UIViewController {
                             return
                         }
                         DispatchQueue.main.async {
-                            resolve(\.autoFillController).serviceURLs = [url]
-                            resolve(\.autoFillController).hasField = hasField
+                            dependency(\.autoFillController).serviceURLs = [url]
+                            dependency(\.autoFillController).hasField = hasField
                         }
                     }
                 }
         }
         
-        resolve(\.autoFillController).complete = {
+        dependency(\.autoFillController).complete = {
             [weak self] _, currentOtp in
-            if resolve(\.autoFillController).hasField {
+            if dependency(\.autoFillController).hasField {
                 let jsDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: ["currentOtp": currentOtp]]
                 let otpItem = NSExtensionItem()
                 otpItem.attachments = [NSItemProvider(item: jsDictionary as NSDictionary, typeIdentifier: UTType.propertyList.identifier)]
                 self?.extensionContext?.completeRequest(returningItems: [otpItem])
             }
             else {
-                resolve(\.pasteboardService).set(string: currentOtp, sensitive: true)
+                dependency(\.pasteboardService).set(string: currentOtp, sensitive: true)
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                     self?.extensionContext?.completeRequest(returningItems: nil)
                 }
             }
         }
-        resolve(\.autoFillController).cancel = {
+        dependency(\.autoFillController).cancel = {
             [weak self] in
             self?.extensionContext?.cancelRequest(withError: NSError(domain: Configuration.appService, code: 0))
         }

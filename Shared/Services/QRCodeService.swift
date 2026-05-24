@@ -1,6 +1,6 @@
 import Combine
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 protocol QRCodeServiceProtocol {
@@ -24,7 +24,7 @@ struct QRCodeService: QRCodeServiceProtocol {
             .receive(on: \.userInitiatedScheduler)
             .map { Data($0.absoluteString.utf8) }
             .map { data in
-                let filter = resolve(\.qrCodeGenerator)
+                let filter = dependency(\.qrCodeGenerator)
                 filter?.setValue(data, forKey: "inputMessage")
                 return filter
             }

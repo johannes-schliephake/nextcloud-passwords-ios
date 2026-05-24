@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct EditTagNavigation: View {
@@ -10,7 +10,7 @@ struct EditTagNavigation: View {
     
     var body: some View {
         NavigationStack {
-            EditTagPage(viewModel: resolve(\.editTagViewModelType).init(tag: tag).eraseToAnyViewModel())
+            EditTagPage(viewModel: dependency(\.editTagViewModelType).init(tag: tag).eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
     }

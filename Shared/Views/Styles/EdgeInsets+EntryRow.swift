@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 extension EdgeInsets {
@@ -7,7 +7,7 @@ extension EdgeInsets {
     private static var horizontalInset: Double {
         switch (
             UIDevice.current.userInterfaceIdiom,
-            resolve(\.windowSizeUseCase)[\.windowSize]?.width ?? 0,
+            dependency(\.windowSizeUseCase)[\.windowSize]?.width ?? 0,
             UIDevice.current.orientation.isLandscape
         ) {
         case (.pad, 668..., _): /// iPad split view

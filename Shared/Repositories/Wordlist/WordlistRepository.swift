@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-import Factory
+import FactoryKit
 
 
 protocol WordlistRepositoryProtocol: Repository where State == WordlistRepository.State, Action == WordlistRepository.Action {}

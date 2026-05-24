@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct EditFolderNavigation: View {
@@ -11,7 +11,7 @@ struct EditFolderNavigation: View {
     
     var body: some View {
         NavigationStack {
-            EditFolderPage(viewModel: resolve(\.editFolderViewModelType).init(folder: folder, didEdit: didEdit).eraseToAnyViewModel())
+            EditFolderPage(viewModel: dependency(\.editFolderViewModelType).init(folder: folder, didEdit: didEdit).eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
     }
