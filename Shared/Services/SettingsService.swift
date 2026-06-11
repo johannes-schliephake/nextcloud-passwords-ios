@@ -1,5 +1,5 @@
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol SettingsServiceProtocol {
@@ -27,7 +27,7 @@ final class SettingsService: SettingsServiceProtocol {
         }
         set {
             isOfflineStorageEnabledInternal = newValue
-            resolve(\.configurationType).userDefaults.set(newValue, forKey: "storeOffline")
+            dependency(\.configurationType).userDefaults.set(newValue, forKey: "storeOffline")
             
             if !newValue {
                 Crypto.AES256.removeKey(named: "offlineKey")
@@ -46,7 +46,7 @@ final class SettingsService: SettingsServiceProtocol {
         }
         set {
             isOnDevicePasswordGeneratorEnabledInternal = newValue
-            resolve(\.configurationType).userDefaults.set(newValue, forKey: "onDeviceGenerator")
+            dependency(\.configurationType).userDefaults.set(newValue, forKey: "onDeviceGenerator")
         }
     }
     var isOnDevicePasswordGeneratorEnabledPublisher: AnyPublisher<Bool, Never> { // swiftlint:disable:this identifier_name
@@ -59,7 +59,7 @@ final class SettingsService: SettingsServiceProtocol {
         }
         set {
             isAutomaticPasswordGenerationEnabledInternal = newValue
-            resolve(\.configurationType).userDefaults.set(newValue, forKey: "automaticallyGeneratePasswords")
+            dependency(\.configurationType).userDefaults.set(newValue, forKey: "automaticallyGeneratePasswords")
         }
     }
     var isAutomaticPasswordGenerationEnabledPublisher: AnyPublisher<Bool, Never> { // swiftlint:disable:this identifier_name
@@ -72,7 +72,7 @@ final class SettingsService: SettingsServiceProtocol {
         }
         set {
             isUniversalClipboardEnabledInternal = newValue
-            resolve(\.configurationType).userDefaults.set(newValue, forKey: "universalClipboard")
+            dependency(\.configurationType).userDefaults.set(newValue, forKey: "universalClipboard")
         }
     }
     var isUniversalClipboardEnabledPublisher: AnyPublisher<Bool, Never> {
@@ -80,9 +80,9 @@ final class SettingsService: SettingsServiceProtocol {
             .eraseToAnyPublisher()
     }
     
-    @Published private var isOfflineStorageEnabledInternal = resolve(\.configurationType).userDefaults.bool(forKey: "storeOffline")
-    @Published private var isOnDevicePasswordGeneratorEnabledInternal = resolve(\.configurationType).userDefaults.bool(forKey: "onDeviceGenerator") // swiftlint:disable:this identifier_name
-    @Published private var isAutomaticPasswordGenerationEnabledInternal = resolve(\.configurationType).userDefaults.bool(forKey: "automaticallyGeneratePasswords") // swiftlint:disable:this identifier_name
-    @Published private var isUniversalClipboardEnabledInternal = resolve(\.configurationType).userDefaults.bool(forKey: "universalClipboard")
+    @Published private var isOfflineStorageEnabledInternal = dependency(\.configurationType).userDefaults.bool(forKey: "storeOffline")
+    @Published private var isOnDevicePasswordGeneratorEnabledInternal = dependency(\.configurationType).userDefaults.bool(forKey: "onDeviceGenerator") // swiftlint:disable:this identifier_name
+    @Published private var isAutomaticPasswordGenerationEnabledInternal = dependency(\.configurationType).userDefaults.bool(forKey: "automaticallyGeneratePasswords") // swiftlint:disable:this identifier_name
+    @Published private var isUniversalClipboardEnabledInternal = dependency(\.configurationType).userDefaults.bool(forKey: "universalClipboard")
 
 }

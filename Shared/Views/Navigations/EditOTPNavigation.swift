@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct EditOTPNavigation: View {
@@ -11,7 +11,7 @@ struct EditOTPNavigation: View {
     
     var body: some View {
         NavigationStack {
-            EditOTPPage(viewModel: resolve(\.editOTPViewModelType).init(otp: otp, updateOtp: updateOtp).eraseToAnyViewModel())
+            EditOTPPage(viewModel: dependency(\.editOTPViewModelType).init(otp: otp, updateOtp: updateOtp).eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
     }

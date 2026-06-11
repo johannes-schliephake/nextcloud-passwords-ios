@@ -1,5 +1,6 @@
-import Factory
+import FactoryKit
 import Combine
+import Foundation
 
 
 protocol GeneratePasswordUseCaseProtocol: UseCase where State == GeneratePasswordUseCase.State, Action == GeneratePasswordUseCase.Action {}
@@ -40,7 +41,7 @@ final class GeneratePasswordUseCase: GeneratePasswordUseCaseProtocol {
             weak let `self` = self
             
             @Injected(\.randomNumberGenerator) var randomNumberGenerator
-            let wordlistLocale = self?.wordlistLocaleUseCase[\.wordlistLocale]?.get()
+            let wordlistLocale: Locale? = self?.wordlistLocaleUseCase[\.wordlistLocale]
             
             /// Wordlists only contain words with at least 3 characters, plus 1 for dashes if special characters are included
             let minimumChunkLength = 3 + (includingSpecialCharacters ? 1 : 0)

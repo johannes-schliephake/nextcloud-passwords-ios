@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct PasswordDetailPage: View {
@@ -67,7 +67,7 @@ struct PasswordDetailPage: View {
                     }
                 }
             }
-            .onReceive(resolve(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) { _ in
+            .onReceive(dependency(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) { _ in
                 dismiss()
             }
             .onChange(of: sessionController.session == nil) { withoutSession in
@@ -507,7 +507,7 @@ struct PasswordDetailPage: View {
                     } content: { current, upcoming, accessoryView in
                         Button {
                             if let current {
-                                resolve(\.pasteboardService).set(string: current, sensitive: false)
+                                dependency(\.pasteboardService).set(string: current, sensitive: false)
                             }
                         } label: {
                             VStack(alignment: .leading, spacing: otpLabelsDistance) {

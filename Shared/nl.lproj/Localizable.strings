@@ -54,7 +54,7 @@
 "_createFolderErrorMessage" = "Er is een fout opgetreden bij het maken van de map. Sla de map alstublieft opnieuw op.";
 "_createPassword" = "Wachtwoord aanmaken";
 "_createPasswordErrorMessage" = "Er is een fout opgetreden bij het maken van het wachtwoord. Bewaar het wachtwoord nogmaals.";
-"_createTag" = "Tag maken";
+"_createTag" = "Tag aanmaken";
 "_createTagErrorMessage" = "Er is een fout opgetreden bij het maken van de tag. Sla de tag opnieuw op.";
 
 /* Nextcloud credentials that were used to connect to an instance */
@@ -96,7 +96,7 @@
 
 /* I.e. export this OTP as a QR code */
 "_exportAsQrCode" = "Exporteren als QR-code";
-"_extractOtpErrorMessage" = "Er is een fout opgetreden bij het zoeken naar een QR-code in de geselecteerde afbeelding.";
+"_extractOtpErrorMessage" = "Er is een fout opgetreden bij het zoeken naar een QR-code.";
 
 /* This refers to the noun ("the favorite") */
 "_favorite" = "Favoriet";
@@ -141,3 +141,46 @@
 "_editPassword" = "Wachtwoord bewerken";
 "_editPasswordErrorMessage" = "Er is een fout opgetreden bij het bewerken van het wachtwoord. Sla het wachtwoord opnieuw op.";
 "_editTagErrorMessage" = "Er is een fout opgetreden bij het bewerken van de tag. Sla de tag opnieuw op.";
+"_clearStoredE2EPassword" = "Wis opgeslagen E2E wachtwoorden";
+"_automaticallyAddedOtp" = "Automatisch OTP toevoegen";
+"_clientSide" = "Clientzijde";
+"_appExtensionWordlistErrorMessage" = "Er is een fout opgetreden met het genereren van het wachtwoord. Open de hoofdapplicatie om die probleem op te lossen.";
+"_connectingToNextcloudInstanceAt(url)" = "Verbinden met Nextcloud-omgeving via\n%@";
+"_counter" = "Telling";
+"_counterBased" = "Teller-gebaseerd";
+"_dismiss" = "Sluiten";
+"_done" = "Klaar";
+"_duplicates" = "Duplicaten";
+"_duplicatesTrashMessage" = "Alle duplicaten van dit wachtwoord zijn naar de prullenmand verplaatst.";
+"_editTags" = "Tags aanpassen";
+"_joinTestFlightBeta" = "Aanmelden voor TestFlight Beta";
+"_length" = "Bijv. lengte van een wachtwoord";
+"_logIn" = "Inloggen";
+"_logOut" = "Uitloggen";
+"_low" = "Zwak";
+"_managedServerUrlErrorMessage" = "Het NextCloud server adres is vooraf ingesteld, maar de app kon niet naar de NextCloud instantie verbinden. Neem contact op met uw systeembeheerder.";
+"_medium" = "Matig";
+"_metadata" = "Metadata";
+"_moreOptions" = "Meer opties";
+"_move" = "Verplaatsen";
+"_name" = "Naam";
+"_nextcloudServerAddress" = "NextCloud server adres";
+"_noConnection" = "Geen verbinding";
+"_noConnectionMessage" = "Kon niet verbinden met de NextCloud Passwords installatie.";
+"_notes" = "Notities";
+"_nothingToSeeHere" = "Hier is niets te zien …";
+"_numbers" = "Cijfers";
+"_offline" = "Offline";
+"_onDevicePasswordGenerator" = "Lokale wachtwoord generator";
+"_openUrl" = "Open URL";
+"_options" = "Opties";
+"_otp" = "Eenmalig wachtwoord";
+"_otps" = "Eenmalige wachtwoorden";
+"_password" = "Wachtwoord";
+"_passwords" = "Wachtwoorden";
+"_passwordServiceErrorMessage" = "Er is iets mis gegaan bij het genereren van het wachtwoord.";
+"_passwordStatusBreachedMessage" = "Dit wachtwoord is niet veilig. Het is gevonden in een database van gecompromitteerde wachtwoorden.";
+"_passwordStatusDuplicateMessage" = "Dit wachtwoord wordt meerdere malen gebruikt.";
+"_passwordStatusGoodMessage" = "Dit wachtwoord is veilig. Het is niet gecompromitteerd en voldoet aan alle gespecificeerde regels.";
+"_passwordStatusOutdatedMessage" = "Dit wachtwoord heeft de maximale leeftijd bereikt.";
+"_passwordStatusUnknownMessage" = "Dit wachtwoord is nog niet gecontroleerd op de beveiliging of de optie om hash's op te slaan voor veiligheidscontroles is gehandicapt.";

@@ -1,4 +1,4 @@
-import Factory
+import FactoryKit
 @testable import Passwords
 import Foundation
 import CombineSchedulers

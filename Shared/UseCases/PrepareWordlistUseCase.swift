@@ -1,5 +1,5 @@
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol PrepareWordlistUseCaseProtocol: UseCase where State == PrepareWordlistUseCase.State, Action == PrepareWordlistUseCase.Action {}

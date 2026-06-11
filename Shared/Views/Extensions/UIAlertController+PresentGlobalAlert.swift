@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 extension UIAlertController {
@@ -18,7 +18,7 @@ extension UIAlertController {
         }
         
         /// Present alert on topmost view controller
-        guard var topViewController = resolve(\.rootViewController) ?? resolve(\.application)?.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.keyWindow?.rootViewController else {
+        guard var topViewController = dependency(\.rootViewController) ?? dependency(\.application)?.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.keyWindow?.rootViewController else {
             return
         }
         while let presentedViewController = topViewController.presentedViewController,

@@ -1,8 +1,7 @@
 import XCTest
 import Nimble
-import Factory
+import FactoryKit
 @testable import Passwords
-import AVFoundation
 
 
 final class CaptureOTPViewModelTests: XCTestCase {
@@ -10,7 +9,6 @@ final class CaptureOTPViewModelTests: XCTestCase {
     @Injected(\.otp) private var otpMock
     
     @LazyInjected(\.mainSchedulerMock) private var mainSchedulerMock
-    @MockInjected(\.torchService) private var torchServiceMock: TorchServiceMock
     @MockInjected(\.otpService) private var otpServiceMock: OTPServiceMock
     
     override func tearDown() {
@@ -22,43 +20,8 @@ final class CaptureOTPViewModelTests: XCTestCase {
     func testInit_thenSetsInitialState() {
         let captureOtpViewModel: any CaptureOTPViewModelProtocol = CaptureOTPViewModel { _ in }
         
-        expect(captureOtpViewModel[\.isTorchAvailable]).to(beFalse())
-        expect(captureOtpViewModel[\.isTorchActive]).to(beFalse())
         expect(captureOtpViewModel[\.showErrorAlert]).to(beFalse())
         expect(captureOtpViewModel[\.didCaptureOtp]).to(beFalse())
-    }
-    
-    func testInit_thenCallsTorchService() {
-        _ = CaptureOTPViewModel { _ in }
-        
-        expect(self.torchServiceMock).to(beAccessed(.once, on: "isTorchAvailable"))
-        expect(self.torchServiceMock).to(beAccessed(.once, on: "isTorchActive"))
-    }
-    
-    func testInit_whenTorchServiceEmittingIsTorchAvailable_thenSetsIsTorchAvailableOnMainScheduler() {
-        let captureOtpViewModel: any CaptureOTPViewModelProtocol = CaptureOTPViewModel { _ in }
-        let isTorchAvailableMock = Bool.random()
-        
-        expect(captureOtpViewModel[\.$isTorchAvailable].dropFirst())
-            .toNot(emit(when: { self.torchServiceMock._isTorchAvailable.send(isTorchAvailableMock) }))
-            .to(emit(isTorchAvailableMock, when: { self.mainSchedulerMock.advance() }))
-    }
-    
-    func testInit_whenTorchServiceEmittingIsTorchActive_thenSetsIsTorchActiveOnMainScheduler() {
-        let captureOtpViewModel: any CaptureOTPViewModelProtocol = CaptureOTPViewModel { _ in }
-        let isTorchActiveMock = Bool.random()
-        
-        expect(captureOtpViewModel[\.$isTorchActive].dropFirst())
-            .toNot(emit(when: { self.torchServiceMock._isTorchActive.send(isTorchActiveMock) }))
-            .to(emit(isTorchActiveMock, when: { self.mainSchedulerMock.advance() }))
-    }
-    
-    func testCallAsFunction_whenCallingToggleTorch_thenCallsTorchService() {
-        let captureOtpViewModel: any CaptureOTPViewModelProtocol = CaptureOTPViewModel { _ in }
-        
-        captureOtpViewModel(.toggleTorch)
-        
-        expect(self.torchServiceMock).to(beCalled(.once, on: "toggleTorch()"))
     }
     
     func testCallAsFunction_whenCallingCaptureQrResultWithSuccess_thenCallsOtpService() {
@@ -142,7 +105,7 @@ final class CaptureOTPViewModelTests: XCTestCase {
     func testCallAsFunction_whenCallingCaptureQrResultWithFailure_thenSetsShowErrorAlertToTrue() {
         let captureOtpViewModel: any CaptureOTPViewModelProtocol = CaptureOTPViewModel { _ in }
         
-        captureOtpViewModel(.captureQrResult(.failure(AVError(.deviceNotConnected))))
+        captureOtpViewModel(.captureQrResult(.failure(ErrorMock.standard)))
         
         expect(captureOtpViewModel[\.showErrorAlert]).to(beTrue())
     }

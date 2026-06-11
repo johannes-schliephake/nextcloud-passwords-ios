@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-import Factory
+import FactoryKit
 
 
 protocol RandomWordUseCaseProtocol: UseCase where State == RandomWordUseCase.State, Action == RandomWordUseCase.Action {}
@@ -62,7 +62,7 @@ final class RandomWordUseCase: RandomWordUseCaseProtocol {
                     while let self,
                           self.isRunning {
                         guard let wordData = words.randomElement(using: &randomNumberGenerator),
-                              let word = String(data: wordData, encoding: .utf8) else { // swiftlint:disable:this non_optional_string_data_conversion
+                              let word = String(data: wordData, encoding: .utf8) else {
                             self.state.word = .failure(RandomWordError.cannotParseWord)
                             return
                         }

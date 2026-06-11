@@ -19,6 +19,11 @@ extension Stateful where Self: PropertyAccessLogging {
         }
     }
     
+    subscript<Value>(_ keyPath: KeyPath<State, Result<Value, Never>?>) -> Value? {
+        logPropertyAccess(of: keyPath)
+        return state[keyPath: keyPath]?.get()
+    }
+    
     private func logPropertyAccess<Value>(of keyPath: KeyPath<State, Value>) {
         guard let label = String(describing: keyPath).split(separator: ".").last else {
             fatalError("Failed to log property access") // swiftlint:disable:this fatal_error

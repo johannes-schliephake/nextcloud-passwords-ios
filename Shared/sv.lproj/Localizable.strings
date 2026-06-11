@@ -310,7 +310,7 @@
 "_passwordStatusOutdatedMessage" = "Detta lösenord har nått maxåldern.";
 
 /* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
-"_providerInstructionsMessage" = "Den här appen stöder Autofyll av lösenord. Funktionen måste vara aktiverad i iOSs Inställningar-app:\n1. Öppna appen Inställningar\n2. Tryck på Lösenord\n3. Tryck på Autofyll lösenord\n4. Aktivera Autofyll lösenord\n5. Aktivera den här appen";
+"_providerInstructionsMessage" = "Den här appen stöder autofill. Funktionen måste vara aktiverad i iOS:s Inställningar:\n1. Öppna appen Inställningar\n2. Tryck på  Allmänt\n3. Tryck på Autofyll och lösenord\n4. Aktivera på Autofyll lösenord och nycklar";
 
 /* I.e. security status of a password */
 "_security" = "Säkerhet";
@@ -326,3 +326,9 @@
 /* Apple's marketing term for pasteboard sync across the user's iCloud devices */
 "_universalClipboard" = "Universella urklipp";
 "_automaticallyAddedOtp" = "Automatiskt tillagd OTP";
+"_appExtensionWordlistErrorMessage" = "Ett fel inträffade vid generering av lösenordet. Försök att öppna huvudappen för att åtgärda detta problem.";
+"_length" = "Längd";
+"_onDevicePasswordGenerator" = "Lösenordsgenerator på enheten";
+"_providerInstructionsMessageWithLink" = "Denna app stöder AutoFill. Funktionen måste aktiveras manuellt:\n1. [Tryck här](autoFillSettings) för att öppna systemets AutoFillinställningar\n2. Aktivera AutoFill\n3. Aktivera denna app\n4. Valfritt: Aktivera den här appen för Code Set Up";
+"_rateOnTheAppStore" = "Betygsätt på App Store";
+"_reportAnIssue" = "Rapportera fel";

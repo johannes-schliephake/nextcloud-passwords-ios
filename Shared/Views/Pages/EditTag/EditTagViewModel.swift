@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol EditTagViewModelProtocol: ViewModel where State == EditTagViewModel.State, Action == EditTagViewModel.Action {

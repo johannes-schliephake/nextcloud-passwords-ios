@@ -1,5 +1,5 @@
 import Foundation
-import Factory
+import FactoryKit
 
 
 protocol PasteboardDataSourceProtocol {
@@ -14,7 +14,7 @@ struct PasteboardDataSource: PasteboardDataSourceProtocol {
     @Injected(\.pasteboard) private var pasteboard
     
     func set(string: String, localOnly: Bool, sensitive: Bool) {
-        pasteboard.setObjects([string], localOnly: localOnly, expirationDate: sensitive ? resolve(\.currentDate).advanced(by: 60) : nil)
+        pasteboard.setObjects([string], localOnly: localOnly, expirationDate: sensitive ? dependency(\.currentDate).advanced(by: 60) : nil)
     }
     
 }

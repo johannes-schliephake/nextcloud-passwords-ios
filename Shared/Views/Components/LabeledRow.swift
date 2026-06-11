@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct LabeledRow: View {
@@ -99,7 +99,7 @@ struct LabeledRow: View {
     private func fileStack() -> some View {
         HStack {
             mainStack()
-            if let session = resolve(\.sessionController).session,
+            if let session = dependency(\.sessionController).session,
                let url = session.generateFileLink(for: value) {
                 Spacer()
                 Link(destination: url) {
@@ -123,7 +123,7 @@ struct LabeledRow: View {
     
     private func copiableStack() -> some View {
         Button {
-            resolve(\.pasteboardService).set(string: value, sensitive: type == .secret)
+            dependency(\.pasteboardService).set(string: value, sensitive: type == .secret)
         }
         label: {
             labeledStack()

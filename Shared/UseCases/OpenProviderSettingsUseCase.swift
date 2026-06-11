@@ -1,4 +1,4 @@
-import Factory
+import FactoryKit
 
 
 @available(iOS 17, *) protocol OpenProviderSettingsUseCaseProtocol: UseCase where Action == OpenProviderSettingsUseCase.Action {}

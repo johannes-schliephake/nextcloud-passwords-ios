@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct EntriesPage: View {
@@ -77,7 +77,7 @@ struct EntriesPage: View {
                 folderController.autoFillController = autoFillController
                 
                 DispatchQueue.main.async {
-                    if resolve(\.sessionController).session == nil {
+                    if dependency(\.sessionController).session == nil {
                         showServerSetupView = true
                     }
                 }
@@ -1110,7 +1110,7 @@ extension EntriesPage {
                         }
                         if !password.username.isEmpty {
                             Button {
-                                resolve(\.pasteboardService).set(string: password.username, sensitive: false)
+                                dependency(\.pasteboardService).set(string: password.username, sensitive: false)
                             }
                             label: {
                                 Label("_copyUsername", systemImage: "doc.on.doc")
@@ -1118,7 +1118,7 @@ extension EntriesPage {
                             .menuActionDismissBehavior(.disabled)
                         }
                         Button {
-                            resolve(\.pasteboardService).set(string: password.password, sensitive: true)
+                            dependency(\.pasteboardService).set(string: password.password, sensitive: true)
                         }
                         label: {
                             Label("_copyPassword", systemImage: "doc.on.doc")
@@ -1126,7 +1126,7 @@ extension EntriesPage {
                         .menuActionDismissBehavior(.disabled)
                         if let otp = password.otp {
                             Button {
-                                otp.current.map { resolve(\.pasteboardService).set(string: $0, sensitive: true) }
+                                otp.current.map { dependency(\.pasteboardService).set(string: $0, sensitive: true) }
                             }
                             label: {
                                 Label("_copyOtp", systemImage: "doc.on.doc")
@@ -1248,7 +1248,7 @@ extension EntriesPage {
                             let accessoryView = accessoryView
                                 .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
                             Button {
-                                current.map { resolve(\.pasteboardService).set(string: $0, sensitive: true) }
+                                current.map { dependency(\.pasteboardService).set(string: $0, sensitive: true) }
                             } label: {
                                 HStack {
                                     Text((current ?? "").segmented)

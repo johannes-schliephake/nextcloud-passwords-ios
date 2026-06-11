@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol FoldersServiceProtocol {
@@ -44,7 +44,7 @@ final class FoldersService: FoldersServiceProtocol {
             throw FolderApplyError.isProcessing
         }
         
-        let currentDate = resolve(\.currentDate)
+        let currentDate = dependency(\.currentDate)
         if folder.id.isEmpty {
             folder.created = currentDate
         }

@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol SettingsViewModelProtocol: ViewModel where State == SettingsViewModel.State, Action == SettingsViewModel.Action {
@@ -84,7 +84,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     
     init() {
         let isChallengePasswordStored = _sessionService.wrappedValue.isChallengePasswordStored
-        let configuration = resolve(\.configurationType)
+        let configuration = dependency(\.configurationType)
         let betaUrl = URL(string: "https://testflight.apple.com/join/iuljLJ4u")
         let reviewUrl = URL(string: "https://apps.apple.com/app/id1546212226?action=write-review")
         let reportIssueUrl = URL(string: "https://github.com/johannes-schliephake/nextcloud-passwords-ios/issues")
@@ -181,7 +181,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
                 logger.log(error: "Localizables contain Markdown with URL that can't be handled")
                 return
             }
-            let openProviderSettingsUseCase = resolve(\.openProviderSettingsUseCase)
+            let openProviderSettingsUseCase = dependency(\.openProviderSettingsUseCase)
             openProviderSettingsUseCase(.open)
         case let .tip(product):
             purchaseService.purchase(product: product)

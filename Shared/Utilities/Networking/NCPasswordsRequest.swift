@@ -1,5 +1,5 @@
 import Foundation
-import Factory
+import FactoryKit
 
 
 enum NCPasswordsRequestError: Error {
@@ -89,7 +89,7 @@ extension NCPasswordsRequest {
                 return
             }
             
-            lazy var logger = resolve(\.logger)
+            lazy var logger = dependency(\.logger)
             
             let body: Data?
             do {
@@ -112,7 +112,7 @@ extension NCPasswordsRequest {
             request.httpShouldHandleCookies = false
             request.httpBody = body
             
-            resolve(\.urlSession).dataTask(with: request) {
+            dependency(\.urlSession).dataTask(with: request) {
                 [self] data, response, _ in
                 guard let data,
                       let response = response as? HTTPURLResponse else {

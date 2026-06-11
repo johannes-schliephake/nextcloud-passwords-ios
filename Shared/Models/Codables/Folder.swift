@@ -1,5 +1,5 @@
 import Foundation
-import Factory
+import FactoryKit
 
 
 final class Folder: ObservableObject, Identifiable {
@@ -79,7 +79,7 @@ final class Folder: ObservableObject, Identifiable {
         case "none":
             break
         case "CSEv1r1":
-            guard let keychain = resolve(\.sessionController).session?.keychain,
+            guard let keychain = dependency(\.sessionController).session?.keychain,
                   let key = keychain.keys[cseKey],
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key) else {
                 state = .decryptionFailed
@@ -131,16 +131,16 @@ final class Folder: ObservableObject, Identifiable {
     
     func updateOfflineContainer() {
         if revision.isEmpty || !Configuration.userDefaults.bool(forKey: "storeOffline") {
-            resolve(\.coreData).delete(offlineContainer)
+            dependency(\.coreData).delete(offlineContainer)
             offlineContainer = nil
         }
         else if let offlineContainer {
             offlineContainer.update(from: self)
         }
         else {
-            offlineContainer = OfflineContainer(context: resolve(\.coreData).context, folder: self)
+            offlineContainer = OfflineContainer(context: dependency(\.coreData).context, folder: self)
         }
-        resolve(\.coreData).save()
+        dependency(\.coreData).save()
     }
     
 }
@@ -168,7 +168,7 @@ extension Folder: Codable {
     func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        if let keychain = resolve(\.sessionController).session?.keychain,
+        if let keychain = dependency(\.sessionController).session?.keychain,
            state != .decryptionFailed,
            cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true {
             guard let key = keychain.keys[keychain.current],

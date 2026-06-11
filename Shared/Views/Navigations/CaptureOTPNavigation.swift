@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct CaptureOTPNavigation: View {
@@ -10,7 +10,7 @@ struct CaptureOTPNavigation: View {
     
     var body: some View {
         NavigationStack {
-            CaptureOTPPage(viewModel: resolve(\.captureOTPViewModelType).init(captureOtp: capture).eraseToAnyViewModel())
+            CaptureOTPPage(viewModel: dependency(\.captureOTPViewModelType).init(captureOtp: capture).eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
     }

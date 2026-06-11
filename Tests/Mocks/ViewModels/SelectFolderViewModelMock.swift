@@ -1,5 +1,5 @@
 @testable import Passwords
-import Factory
+import FactoryKit
 
 
 final class SelectFolderViewModelMock: ViewModelMock<SelectFolderViewModel.State, SelectFolderViewModel.Action>, SelectFolderViewModelProtocol {
@@ -14,8 +14,8 @@ final class SelectFolderViewModelMock: ViewModelMock<SelectFolderViewModel.State
 extension SelectFolderViewModel.State: Mock {
     
     convenience init() {
-        let folderMocks = resolve(\.folders).sortedByLabel()
-        let passwordMock = resolve(\.password)
+        let folderMocks = dependency(\.folders).sortedByLabel()
+        let passwordMock = dependency(\.password)
         let tree = Node(value: Folder()) {
             Node(value: folderMocks[0])
             Node(value: folderMocks[1])

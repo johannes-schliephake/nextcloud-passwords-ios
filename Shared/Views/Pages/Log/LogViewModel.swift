@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol LogViewModelProtocol: ViewModel where State == LogViewModel.State, Action == LogViewModel.Action {

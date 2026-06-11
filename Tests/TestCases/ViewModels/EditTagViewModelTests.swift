@@ -1,6 +1,6 @@
 import XCTest
 import Nimble
-import Factory
+import FactoryKit
 import SwiftUI
 @testable import Passwords
 

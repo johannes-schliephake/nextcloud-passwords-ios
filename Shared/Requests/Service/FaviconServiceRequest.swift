@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct FaviconServiceRequest {
@@ -40,7 +40,7 @@ extension FaviconServiceRequest: NCPasswordsRequest {
     
     func decode(data: Data) -> UIImage? {
         guard let image = UIImage(data: data) else {
-            resolve(\.logger).log(error: "Failed to decode favicon")
+            dependency(\.logger).log(error: "Failed to decode favicon")
             return nil
         }
         return image

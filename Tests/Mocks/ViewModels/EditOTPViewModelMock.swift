@@ -1,5 +1,5 @@
 @testable import Passwords
-import Factory
+import FactoryKit
 
 
 final class EditOTPViewModelMock: ViewModelMock<EditOTPViewModel.State, EditOTPViewModel.Action>, EditOTPViewModelProtocol {
@@ -14,7 +14,7 @@ final class EditOTPViewModelMock: ViewModelMock<EditOTPViewModel.State, EditOTPV
 extension EditOTPViewModel.State: Mock {
     
     convenience init() {
-        let otpMock = resolve(\.otp)
+        let otpMock = dependency(\.otp)
         self.init(isCreating: otpMock.secret.isEmpty, otpType: otpMock.type, otpAlgorithm: otpMock.algorithm, otpSecret: otpMock.secret, otpDigits: otpMock.digits, otpCounter: otpMock.counter, otpPeriod: otpMock.period, showMore: true, sharingUrl: otpMock.url!, sharingAvailable: true, nextFieldFocusable: false, showDeletionConfirmation: false, showCancellationConfirmation: false, hasChanges: false, editIsValid: true, focusedField: nil)
     }
     

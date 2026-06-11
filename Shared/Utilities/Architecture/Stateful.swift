@@ -12,6 +12,7 @@ protocol Stateful {
     
     subscript<Value>(_ keyPath: KeyPath<State, Value>) -> Value { get }
     subscript<Value>(_ keyPath: ReferenceWritableKeyPath<State, Value>) -> Value { get nonmutating set }
+    subscript<Value>(_ keyPath: KeyPath<State, Result<Value, Never>?>) -> Value? { get }
     
 }
 
@@ -29,6 +30,10 @@ extension Stateful {
         nonmutating set {
             state[keyPath: keyPath] = newValue
         }
+    }
+    
+    subscript<Value>(_ keyPath: KeyPath<State, Result<Value, Never>?>) -> Value? {
+        state[keyPath: keyPath]?.get()
     }
     
 }

@@ -58,7 +58,7 @@ final class Keychain {
               let data = result as? Data else {
             return nil
         }
-        return String(data: data, encoding: .utf8) // swiftlint:disable:this non_optional_string_data_conversion
+        return String(data: data, encoding: .utf8)
     }
     
     func remove(key: String) {

@@ -1,7 +1,7 @@
 import SwiftUI
 import PhotosUI
 import Combine
-import Factory
+import FactoryKit
 
 
 final class EditPasswordController: ObservableObject {
@@ -50,7 +50,7 @@ final class EditPasswordController: ObservableObject {
         (passwordValidTags, passwordInvalidTags) = EntriesController.tags(for: password.tags, in: entriesController.tags ?? [])
         passwordFolder = password.folder
         
-        resolve(\.preferredUsernameUseCase)[\.$preferredUsernames]
+        dependency(\.preferredUsernameUseCase)[\.$preferredUsernames]
             .map { $0.map { Array($0.prefix(5)) } }
             .sink { [weak self] in self?.preferredUsernames = $0 }
             .store(in: &cancellables)
@@ -142,7 +142,7 @@ final class EditPasswordController: ObservableObject {
         password.updated = Date()
         
         let hash = Crypto.SHA1.hash(.init(passwordPassword.utf8))
-        password.hash = String(hash.prefix(resolve(\.settingsController).userPasswordSecurityHash))
+        password.hash = String(hash.prefix(dependency(\.settingsController).userPasswordSecurityHash))
         
         password.password = passwordPassword
         password.label = passwordLabel

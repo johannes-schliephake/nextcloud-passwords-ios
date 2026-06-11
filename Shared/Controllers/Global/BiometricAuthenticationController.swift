@@ -1,7 +1,7 @@
 import Combine
 import LocalAuthentication
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 final class BiometricAuthenticationController: ObservableObject {
@@ -129,7 +129,7 @@ private extension UIWindowScene {
                         blur.trailingAnchor.constraint(equalTo: rootView.trailingAnchor)
                     ])
                 } else {
-                    resolve(\.logger).log(error: "Unable to find a root view controller to constrain the blur view to, falling back to frame-based method")
+                    dependency(\.logger).log(error: "Unable to find a root view controller to constrain the blur view to, falling back to frame-based method")
                     blur.frame = window.frame
                 }
             }

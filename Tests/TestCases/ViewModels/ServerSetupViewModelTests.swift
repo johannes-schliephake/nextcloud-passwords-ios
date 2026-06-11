@@ -1,6 +1,6 @@
 import XCTest
 import Nimble
-import Factory
+import FactoryKit
 @testable import Passwords
 
 
@@ -14,6 +14,7 @@ final class ServerSetupViewModelTests: XCTestCase {
     @MockInjected(\.loginUrlUseCase) private var loginUrlUseCaseMock: LoginUrlUseCaseMock
     @MockInjected(\.managedConfigurationUseCase) private var managedConfigurationUseCaseMock: ManagedConfigurationUseCaseMock
     @MockInjected(\.initiateLoginUseCase) private var initiateLoginUseCaseMock: InitiateLoginUseCaseMock
+    @MockInjected(\.authenticationUseCase) private var authenticationUseCaseMock: AuthenticationUseCaseMock
     
     override func tearDown() {
         super.tearDown()
@@ -28,9 +29,7 @@ final class ServerSetupViewModelTests: XCTestCase {
         expect(serverSetupViewModel[\.isServerAddressManaged]).to(beFalse())
         expect(serverSetupViewModel[\.showManagedServerAddressErrorAlert]).to(beFalse())
         expect(serverSetupViewModel[\.isValidating]).to(beFalse())
-        expect(serverSetupViewModel[\.challenge]).to(beNil())
         expect(serverSetupViewModel[\.challengeAvailable]).to(beFalse())
-        expect(serverSetupViewModel[\.showLoginFlowPage]).to(beFalse())
         expect(serverSetupViewModel[\.focusedField]).to(equal(.serverAddress))
     }
     
@@ -65,7 +64,7 @@ final class ServerSetupViewModelTests: XCTestCase {
         expect(serverSetupViewModel[\.isServerAddressManaged]).to(beTrue())
     }
     
-    func testInit_whenSettingServerAddress_thenCallsInitiateLoginUseCase() throws {
+    func testInit_whenSettingServerAddress_thenCallsInitiateLoginUseCase() {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         
         serverSetupViewModel[\.serverAddress] = .random()
@@ -83,18 +82,16 @@ final class ServerSetupViewModelTests: XCTestCase {
         expect(serverSetupViewModel[\.isValidating]).to(beFalse())
     }
     
-    func testInit_whenSettingServerAddress_thenClearsChallenge() throws {
+    func testInit_whenSettingServerAddress_thenSetsChallengeAvailableToFalse() throws {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
         userInitiatedSchedulerMock.run()
         initiateLoginUseCaseMock.mockState(\.challenge, value: .success(challengeMock))
         mainSchedulerMock.advance()
-        try require(serverSetupViewModel[\.challenge]).toNot(beNil())
         try require(serverSetupViewModel[\.challengeAvailable]).toNot(beFalse())
         
         serverSetupViewModel[\.serverAddress] = .random()
         
-        expect(serverSetupViewModel[\.challenge]).to(beNil())
         expect(serverSetupViewModel[\.challengeAvailable]).to(beFalse())
     }
     
@@ -204,16 +201,6 @@ final class ServerSetupViewModelTests: XCTestCase {
             .to(emit(false, when: { self.mainSchedulerMock.advance() }))
     }
     
-    func testInit_whenInitiateLoginUseCaseEmittingChallenge_thenSetsChallengeOnMainScheduler() {
-        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
-        loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
-        userInitiatedSchedulerMock.run()
-        
-        expect(serverSetupViewModel[\.$challenge].dropFirst())
-            .toNot(emit(when: { self.initiateLoginUseCaseMock.mockState(\.challenge, value: .success(self.challengeMock)) }))
-            .to(emit(challengeMock, when: { self.mainSchedulerMock.advance() }))
-    }
-    
     func testInit_whenInitiateLoginUseCaseEmittingChallenge_thenSetsChallengeAvailableOnMainScheduler() {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
@@ -258,7 +245,7 @@ final class ServerSetupViewModelTests: XCTestCase {
             .to(emit(when: { self.mainSchedulerMock.advance() }))
     }
     
-    func testInit_whenInitiateLoginUseCaseFailing_thenSetsChallengeToNil() {
+    func testInit_whenInitiateLoginUseCaseFailing_thenSetsChallengeAvailableToFalse() {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
         userInitiatedSchedulerMock.run()
@@ -266,11 +253,81 @@ final class ServerSetupViewModelTests: XCTestCase {
         initiateLoginUseCaseMock.mockState(\.challenge, value: .failure(ErrorMock.standard))
         mainSchedulerMock.advance()
         
-        expect(serverSetupViewModel[\.challenge]).to(beNil())
         expect(serverSetupViewModel[\.challengeAvailable]).to(beFalse())
     }
     
-    func testCallAsFunction_givenChallengeIsAvailable_whenCallingConnect_thenSetsShowLoginFlowPageToTrue() throws {
+    func testInit_givenIsServerAddressManagedIsTrue_whenInitiateLoginUseCaseEmittingChallenge_thenCallsAuthenticationUseCase() {
+        withExtendedLifetime(ServerSetupViewModel()) {
+            managedConfigurationUseCaseMock.mockState(\.serverUrl, value: .success(.random()))
+            loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
+            userInitiatedSchedulerMock.run()
+            
+            initiateLoginUseCaseMock.mockState(\.challenge, value: .success(challengeMock))
+            mainSchedulerMock.advance()
+            
+            expect(self.authenticationUseCaseMock).to(beCalled(.once, on: "setChallenge", withParameter: challengeMock))
+        }
+    }
+    
+    func testInit_givenIsServerAddressManagedIsFalse_whenInitiateLoginUseCaseEmittingChallenge_thenDoesntCallAuthenticationUseCase() {
+        withExtendedLifetime(ServerSetupViewModel()) {
+            loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
+            userInitiatedSchedulerMock.run()
+            
+            initiateLoginUseCaseMock.mockState(\.challenge, value: .success(challengeMock))
+            mainSchedulerMock.advance()
+            
+            expect(self.authenticationUseCaseMock).toNot(beCalled())
+        }
+    }
+    
+    func testInit_givenIsServerAddressManagedIsTrue_thenDoesntCallAuthenticationUseCase() {
+        withExtendedLifetime(ServerSetupViewModel()) {
+            managedConfigurationUseCaseMock.mockState(\.serverUrl, value: .success(.random()))
+            
+            expect(self.authenticationUseCaseMock).toNot(beCalled())
+        }
+    }
+    
+    func testInit_givenIsServerAddressManagedIsFalse_thenDoesntCallAuthenticationUseCase() {
+        _ = ServerSetupViewModel()
+        
+        expect(self.authenticationUseCaseMock).toNot(beCalled())
+    }
+    
+    func testInit_givenIsServerAddressManagedIsTrue_whenAuthenticationUseCaseSetsLatestAttemptFailedToTrue_thenShouldDismissEmits() {
+        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
+        managedConfigurationUseCaseMock.mockState(\.serverUrl, value: .success(.random()))
+        
+        expect(serverSetupViewModel[\.shouldDismiss]).to(emit(when: { self.authenticationUseCaseMock.mockState(\.latestAttemptFailed, value: .success(true)) }))
+    }
+    
+    func testInit_givenIsServerAddressManagedIsTrue_whenAuthenticationUseCaseSetsLatestAttemptFailedToFalse_thenShouldDismissDoesntEmit() {
+        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
+        managedConfigurationUseCaseMock.mockState(\.serverUrl, value: .success(.random()))
+        
+        expect(serverSetupViewModel[\.shouldDismiss]).toNot(emit(when: { self.authenticationUseCaseMock.mockState(\.latestAttemptFailed, value: .success(false)) }))
+    }
+    
+    func testInit_givenIsServerAddressManagedIsFalse_whenAuthenticationUseCaseSetsLatestAttemptFailedToTrue_thenShouldDismissDoesntEmit() {
+        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
+        
+        expect(serverSetupViewModel[\.shouldDismiss]).toNot(emit(when: { self.authenticationUseCaseMock.mockState(\.latestAttemptFailed, value: .success(true)) }))
+    }
+    
+    func testInit_givenIsServerAddressManagedIsFalse_whenAuthenticationUseCaseSetsLatestAttemptFailedToFalse_thenShouldDismissDoesntEmit() {
+        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
+        
+        expect(serverSetupViewModel[\.shouldDismiss]).toNot(emit(when: { self.authenticationUseCaseMock.mockState(\.latestAttemptFailed, value: .success(false)) }))
+    }
+    
+    func testInit_whenManagedConfigurationUseCaseEmittingServerUrl_thenShouldDismissDoesntEmit() {
+        let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
+        
+        expect(serverSetupViewModel[\.shouldDismiss]).toNot(emit(when: { self.managedConfigurationUseCaseMock.mockState(\.serverUrl, value: .success(.random())) }))
+    }
+    
+    func testCallAsFunction_givenChallengeAvailableIsTrue_whenCallingConnect_thenCallsAuthenticationUseCase() {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         loginUrlUseCaseMock.mockState(\.loginUrl, value: .success(loginUrlMock))
         userInitiatedSchedulerMock.run()
@@ -279,15 +336,15 @@ final class ServerSetupViewModelTests: XCTestCase {
         
         serverSetupViewModel(.connect)
         
-        expect(serverSetupViewModel[\.showLoginFlowPage]).to(beTrue())
+        expect(self.authenticationUseCaseMock).to(beCalled(.once, on: "setChallenge", withParameter: challengeMock))
     }
     
-    func testCallAsFunction_givenChallengeIsNil_whenCallingConnect_thenDoesntSetShowLoginFlowPage() {
+    func testCallAsFunction_givenChallengeAvailableIsFalse_whenCallingConnect_thenDoesntCallAuthenticationUseCase() {
         let serverSetupViewModel: any ServerSetupViewModelProtocol = ServerSetupViewModel()
         
         serverSetupViewModel(.connect)
         
-        expect(serverSetupViewModel[\.showLoginFlowPage]).to(beFalse())
+        expect(self.authenticationUseCaseMock).toNot(beCalled())
     }
     
     func testCallAsFunction_whenCallingCancel_thenShouldDismissEmits() {

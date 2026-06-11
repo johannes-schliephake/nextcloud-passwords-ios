@@ -1,5 +1,5 @@
 @testable import Passwords
-import Factory
+import FactoryKit
 
 
 final class EditFolderViewModelMock: ViewModelMock<EditFolderViewModel.State, EditFolderViewModel.Action>, EditFolderViewModelProtocol {
@@ -14,7 +14,7 @@ final class EditFolderViewModelMock: ViewModelMock<EditFolderViewModel.State, Ed
 extension EditFolderViewModel.State: Mock {
     
     convenience init() {
-        let folderMock = resolve(\.folder)
+        let folderMock = dependency(\.folder)
         self.init(folder: folderMock, isCreating: folderMock.id.isEmpty, folderLabel: folderMock.label, folderFavorite: folderMock.favorite, folderParent: folderMock.parent!, parentLabel: "_rootFolder".localized, showSelectFolderView: false, showDeletionConfirmation: false, showCancellationConfirmation: false, hasChanges: false, editIsValid: true, focusedField: nil)
     }
     

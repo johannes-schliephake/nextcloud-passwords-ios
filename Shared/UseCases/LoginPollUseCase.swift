@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-import Factory
+import FactoryKit
 
 
 protocol LoginPollUseCaseProtocol: UseCase where Action == LoginPollUseCase.Action {}
@@ -10,34 +10,22 @@ protocol LoginPollUseCaseProtocol: UseCase where Action == LoginPollUseCase.Acti
 final class LoginPollUseCase: LoginPollUseCaseProtocol {
     
     enum Action {
-        case setDataStore(any WebDataStore)
         case setPoll(LoginFlowChallenge.Poll)
-        case startPolling
     }
+    
+    private static let pollLifetime: TimeInterval = 20 * 60
+    private static let pollInterval: TimeInterval = 2
     
     @LazyInjected(\.logger) private var logger
     
-    private var dataStore: (any WebDataStore)?
-    private var poll: LoginFlowChallenge.Poll?
-    
     func callAsFunction(_ action: Action) {
         switch action {
-        case let .setDataStore(dataStore):
-            self.dataStore = dataStore
         case let .setPoll(poll):
-            self.poll = poll
-        case .startPolling:
-            guard let dataStore,
-                  let poll else {
-                logger.log(error: "UseCase usage inconsistency encountered, this case shouldn't be reachable")
-                return
-            }
-            
             var request = URLRequest(url: poll.endpoint)
             request.httpMethod = "POST"
             request.httpBody = Data("token=\(poll.token)".utf8)
             
-            let sessionPublisher = resolve(\.urlSession).dataTaskPublisher(for: request)
+            let sessionPublisher = dependency(\.urlSession).dataTaskPublisher(for: request)
                 .tryMap { result in
                     guard let response = result.response as? HTTPURLResponse,
                           response.statusCode == 200 else {
@@ -45,45 +33,19 @@ final class LoginPollUseCase: LoginPollUseCaseProtocol {
                     }
                     return result.data
                 }
-                .decode(type: Response.self, decoder: resolve(\.configurationType).jsonDecoder)
+                .decode(type: Response.self, decoder: dependency(\.configurationType).jsonDecoder)
                 .catch { error in
                     Fail(error: error)
-                        .delay(for: 1, scheduler: DispatchQueue.global(qos: .utility))
+                        .delay(for: .init(floatLiteral: Self.pollInterval), scheduler: DispatchQueue.global(qos: .utility))
                 }
-                .retry(30)
+                .retry(.init(Self.pollLifetime / Self.pollInterval))
                 .handleEvents(receiveFailure: { [weak self] error in
                     self?.logger.log(error: error)
                 })
                 .ignoreFailure()
-                .combineLatest(Future { promise in
-                    DispatchQueue.main.async {
-                        dataStore.httpCookieStore.getAllCookies { cookies in
-                            let sessionCookie = cookies.first { $0.name == "nc_session_id" }
-                            let sessionId = sessionCookie?.value
-                            promise(.success(sessionId))
-                        }
-                    }
-                })
-                .map { response, temporarySessionId in
-                    let appSession = Session(server: response.server, user: response.loginName, password: response.appPassword)
-                    let webSession = temporarySessionId.map { Session(server: appSession.server, user: appSession.user, password: $0) }
-                    return (appSession, webSession)
-                }
-                .flatMapLatest { appSession, webSession in
-                    guard let webSession else {
-                        return Just(appSession)
-                            .eraseToAnyPublisher()
-                    }
-                    return DeleteAppPasswordOCSRequest(session: webSession).publisher
-                        .handleEvents(receiveFailure: { [weak self] error in
-                            self?.logger.log(error: error)
-                        })
-                        .replaceError(with: ())
-                        .map { appSession }
-                        .eraseToAnyPublisher()
-                }
+                .map { Session(server: $0.server, user: $0.loginName, password: $0.appPassword) }
             
-            resolve(\.sessionController).attachSessionPublisher(
+            dependency(\.sessionController).attachSessionPublisher(
                 sessionPublisher
                     .receive(on: DispatchQueue.main)
                     .eraseToAnyPublisher()

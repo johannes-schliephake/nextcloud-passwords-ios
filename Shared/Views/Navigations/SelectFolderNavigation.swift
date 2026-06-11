@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct SelectFolderNavigation: View {
@@ -12,7 +12,7 @@ struct SelectFolderNavigation: View {
     
     var body: some View {
         NavigationStack {
-            SelectFolderPage(viewModel: resolve(\.selectFolderViewModelType).init(entry: entry, temporaryEntry: temporaryEntry, selectFolder: selectFolder).eraseToAnyViewModel())
+            SelectFolderPage(viewModel: dependency(\.selectFolderViewModelType).init(entry: entry, temporaryEntry: temporaryEntry, selectFolder: selectFolder).eraseToAnyViewModel())
         }
         .scrollDismissesKeyboard(.immediately)
     }

@@ -1,6 +1,5 @@
-import Factory
+import FactoryKit
 import CoreImage
-import AVFoundation
 import StoreKit
 import CombineSchedulers
 import WebKit
@@ -28,9 +27,6 @@ extension Container {
     var globalAlertsViewModelType: Factory<any GlobalAlertsViewModelProtocol.Type> {
         self { GlobalAlertsViewModel.self }
     }
-    var loginFlowViewModelType: Factory<any LoginFlowViewModelProtocol.Type> {
-        self { LoginFlowViewModel.self }
-    }
     var logViewModelType: Factory<any LogViewModelProtocol.Type> {
         self { LogViewModel.self }
     }
@@ -51,11 +47,9 @@ extension Container {
     }
     
     // MARK: UseCases
-    var checkLoginGrantUseCase: Factory<any CheckLoginGrantUseCaseProtocol> {
-        self { CheckLoginGrantUseCase() }
-    }
-    var checkTrustUseCase: Factory<any CheckTrustUseCaseProtocol> {
-        self { CheckTrustUseCase() }
+    var authenticationUseCase: Factory<any AuthenticationUseCaseProtocol> {
+        self { AuthenticationUseCase() }
+            .cached
     }
     var folderLabelUseCase: Factory<any FolderLabelUseCaseProtocol> {
         self { FolderLabelUseCase() }
@@ -89,6 +83,10 @@ extension Container {
     }
     var randomWordUseCase: Factory<any RandomWordUseCaseProtocol> {
         self { RandomWordUseCase() }
+    }
+    var windowSizeUseCase: Factory<any WindowSizeUseCaseProtocol> {
+        self { WindowSizeUseCase() }
+            .cached
     }
     var wordlistLocaleUseCase: Factory<any WordlistLocaleUseCaseProtocol> {
         self { WordlistLocaleUseCase() }
@@ -140,13 +138,6 @@ extension Container {
         self { TagsService() }
             .cached
     }
-    var torchService: Factory<any TorchServiceProtocol> {
-        self { TorchService() }
-    }
-    var windowSizeService: Factory<any WindowSizeServiceProtocol> {
-        self { WindowSizeService() }
-            .cached
-    }
     
     // MARK: Repositories
     var onDemandResourcesPropertyListDataSource: Factory<any OnDemandResourcesPropertyListDataSourceProtocol> {
@@ -188,12 +179,12 @@ extension Container {
         self { UrlLabelSuggestionRepository() }
             .cached
     }
-    var windowSizeDataSource: Factory<any WindowSizeDataSourceProtocol> {
-        self { WindowSizeDataSource() }
+    var windowDataSource: Factory<any WindowDataSourceProtocol> {
+        self { WindowDataSource() }
             .cached
     }
-    var windowSizeRepository: Factory<any WindowSizeRepositoryProtocol> {
-        self { WindowSizeRepository() }
+    var windowRepository: Factory<any WindowRepositoryProtocol> {
+        self { WindowRepository() }
             .cached
     }
     var wordlistDataSource: Factory<any WordlistDataSourceProtocol> {
@@ -232,9 +223,6 @@ extension Container {
     var fileManager: Factory<any FileManaging> {
         self { FileManager.default }
     }
-    var nonPersistentWebDataStore: Factory<any WebDataStore> {
-        self { WKWebsiteDataStore.nonPersistent() }
-    }
     var pasteboard: Factory<any Pasteboard> {
         self { UIPasteboard.general }
     }
@@ -253,14 +241,8 @@ extension Container {
     var transactionType: Factory<any Transaction.Type> {
         self { StoreKit.Transaction.self }
     }
-    var videoCapturer: Factory<(any VideoCapturing)?> {
-        self {
-            if #available(iOS 17, *) {
-                AVCaptureDevice.userPreferredCamera
-            } else {
-                AVCaptureDevice.default(for: .video)
-            }
-        }
+    var webAuthenticationSessionType: Factory<any WebAuthenticationSession.Type> {
+        self { WrappedASWebAuthenticationSession.self }
     }
     
     // MARK: Miscellaneous
@@ -281,7 +263,7 @@ extension Container {
     }
     
     // TODO: remove
-    var application: Factory<UIApplication?> {
+    @MainActor var application: Factory<UIApplication?> {
         self {
             guard !UIApplication.isExtension,
                   UIApplication.responds(to: NSSelectorFromString("sharedApplication")) else {
@@ -295,7 +277,7 @@ extension Container {
         self {
             let configuration = URLSessionConfiguration.default
             configuration.httpAdditionalHeaders = ["User-Agent": Configuration.clientName]
-            return URLSession(configuration: configuration, delegate: resolve(\.authenticationChallengeController), delegateQueue: nil)
+            return URLSession(configuration: configuration, delegate: dependency(\.authenticationChallengeController), delegateQueue: nil)
         }
         .cached
     }

@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 import Combine
 
 
@@ -269,7 +269,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
     }
     
     private func generatePasswordRemotely() {
-        guard let session = resolve(\.sessionController).session else {
+        guard let session = dependency(\.sessionController).session else {
             showPasswordServiceErrorAlert = true
             return
         }

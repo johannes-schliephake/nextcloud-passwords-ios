@@ -1,5 +1,5 @@
 import Foundation
-import Factory
+import FactoryKit
 
 
 final class Password: ObservableObject, Identifiable {
@@ -74,7 +74,7 @@ final class Password: ObservableObject, Identifiable {
             guard let newValue,
                   customFields.count < 20,
                   let data = try? Configuration.updatingJsonEncoder.encode(newValue),
-                  let value = String(data: data, encoding: .utf8) else { // swiftlint:disable:this non_optional_string_data_conversion
+                  let value = String(data: data, encoding: .utf8) else {
                 return
             }
             let otpField = CustomField(label: CustomField.otpKey, type: .data, value: value)
@@ -150,7 +150,7 @@ final class Password: ObservableObject, Identifiable {
         case "none":
             break
         case "CSEv1r1":
-            guard let keychain = resolve(\.sessionController).session?.keychain ?? resolve(\.autoFillController).keychain,
+            guard let keychain = dependency(\.sessionController).session?.keychain ?? dependency(\.autoFillController).keychain,
                   let key = keychain.keys[cseKey],
                   let decryptedLabel = Crypto.CSEv1r1.decrypt(payload: label, key: key),
                   let decryptedUsername = Crypto.CSEv1r1.decrypt(payload: username, key: key),
@@ -293,16 +293,16 @@ final class Password: ObservableObject, Identifiable {
     
     func updateOfflineContainer() {
         if revision.isEmpty || !Configuration.userDefaults.bool(forKey: "storeOffline") {
-            resolve(\.coreData).delete(offlineContainer)
+            dependency(\.coreData).delete(offlineContainer)
             offlineContainer = nil
         }
         else if let offlineContainer {
             offlineContainer.update(from: self)
         }
         else {
-            offlineContainer = OfflineContainer(context: resolve(\.coreData).context, password: self)
+            offlineContainer = OfflineContainer(context: dependency(\.coreData).context, password: self)
         }
-        resolve(\.coreData).save()
+        dependency(\.coreData).save()
     }
     
     private func scoreUrlString(_ urlString: String, searchTerm: String) -> Double {
@@ -355,12 +355,12 @@ extension Password: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         let customFieldsData = try Configuration.nonUpdatingJsonEncoder.encode(customFields)
-        guard let customFieldsString = String(data: customFieldsData, encoding: .utf8) else { // swiftlint:disable:this non_optional_string_data_conversion
+        guard let customFieldsString = String(data: customFieldsData, encoding: .utf8) else {
             throw EncodingError.invalidValue(self, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Custom fields encoding failed"))
         }
         
         var cseType = cseType
-        if let keychain = resolve(\.sessionController).session?.keychain,
+        if let keychain = dependency(\.sessionController).session?.keychain,
            state != .decryptionFailed,
            (cseType != "none" || encoder.userInfo[CodingUserInfoKey(rawValue: "updated")!] as? Bool == true) && !shared {
             guard let key = keychain.keys[keychain.current],
@@ -533,7 +533,7 @@ extension Password: MockObject {
     
     static var mocks: [Password] {
         [
-            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com/index.php/login", customFields: [CustomField(label: CustomField.otpKey, type: .data, value: String(data: try! Configuration.nonUpdatingJsonEncoder.encode(OTP.mock), encoding: .utf8)!)], status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", favorite: true, edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001", "00000000-0000-0000-0003-000000000002"]), // swiftlint:disable:this force_try non_optional_string_data_conversion
+            Password(id: "00000000-0000-0000-0002-000000000001", label: "Nextcloud", username: "admin", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://cloud.example.com/index.php/login", customFields: [CustomField(label: CustomField.otpKey, type: .data, value: String(data: try! Configuration.nonUpdatingJsonEncoder.encode(OTP.mock), encoding: .utf8)!)], status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", favorite: true, edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001", "00000000-0000-0000-0003-000000000002"]), // swiftlint:disable:this force_try
             Password(id: "00000000-0000-0000-0002-000000000002", label: "GitHub", username: "johannes-schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://github.com/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001"]),
             Password(id: "00000000-0000-0000-0002-000000000003", label: "Weblate", username: "johannes.schliephake", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://hosted.weblate.org/accounts/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date()),
             Password(id: "00000000-0000-0000-0002-000000000004", label: "Swift.org", username: "johannes", password: "Qr47UtYI2Nau3ee3xP51ugl6FWbUwb7F97Yz", url: "https://forums.swift.org/login", status: 0, statusCode: .good, folder: Entry.baseId, revision: Entry.baseId, cseType: "CSEv1r1", edited: Date(), created: Date().addingTimeInterval(.random(in: 1...2) * -86400), updated: Date(), tags: ["00000000-0000-0000-0003-000000000001"])

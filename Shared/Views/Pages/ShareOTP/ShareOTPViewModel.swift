@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol ShareOTPViewModelProtocol: ViewModel where State == ShareOTPViewModel.State {

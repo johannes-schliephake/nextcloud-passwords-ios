@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Factory
+import FactoryKit
 
 
 protocol PropertyListDataSource<Content> {
@@ -20,7 +20,7 @@ extension PropertyListDataSource {
             throw URLError(.badURL)
         }
         let data = try Data(contentsOf: url)
-        let content = try resolve(\.configurationType).propertyListDecoder.decode(Content.self, from: data)
+        let content = try dependency(\.configurationType).propertyListDecoder.decode(Content.self, from: data)
         return content
     }
     

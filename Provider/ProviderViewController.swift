@@ -1,14 +1,14 @@
 import AuthenticationServices
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 final class ProviderViewController: ASCredentialProviderViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        _ = resolve(\.logger)
-        _ = resolve(\.windowSizeDataSource)
-        _ = resolve(\.biometricAuthenticationController)
+        _ = dependency(\.logger)
+        _ = dependency(\.windowDataSource)
+        _ = dependency(\.biometricAuthenticationController)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -59,23 +59,23 @@ final class ProviderViewController: ASCredentialProviderViewController {
     }
     
     private func provideCredential(mode: AutoFillController.Mode, recordIdentifier: String?) {
-        resolve(\.autoFillController).mode = mode
-        resolve(\.autoFillController).serviceURLs = []
-        resolve(\.autoFillController).credentialIdentifier = recordIdentifier
-        resolve(\.autoFillController).hasField = true
+        dependency(\.autoFillController).mode = mode
+        dependency(\.autoFillController).serviceURLs = []
+        dependency(\.autoFillController).credentialIdentifier = recordIdentifier
+        dependency(\.autoFillController).hasField = true
         
         DispatchQueue.global(qos: .utility).async { [weak self] in
-            if let offlineKeychain = resolve(\.keychain).load(key: "offlineKeychain") {
-                guard let challengePassword = resolve(\.keychain).load(key: "challengePassword"),
+            if let offlineKeychain = dependency(\.keychain).load(key: "offlineKeychain") {
+                guard let challengePassword = dependency(\.keychain).load(key: "challengePassword"),
                       let keychain = Crypto.CSEv1r1.decrypt(keys: offlineKeychain, password: challengePassword) else {
                     self?.extensionContext.cancelRequest(withError: ASExtensionError(.userInteractionRequired))
                     return
                 }
-                resolve(\.autoFillController).keychain = keychain
+                dependency(\.autoFillController).keychain = keychain
             }
             
             let request = OfflineContainer.request()
-            guard let offlineContainers = resolve(\.coreData).fetch(request: request) else {
+            guard let offlineContainers = dependency(\.coreData).fetch(request: request) else {
                 self?.extensionContext.cancelRequest(withError: ASExtensionError(.failed))
                 return
             }
@@ -112,11 +112,11 @@ final class ProviderViewController: ASCredentialProviderViewController {
     }
     
     private func showCredentialList(mode: AutoFillController.Mode, serviceIdentifiers: [ASCredentialServiceIdentifier], recordIdentifier: String?) {
-        resolve(\.autoFillController).mode = mode
-        resolve(\.autoFillController).serviceURLs = serviceIdentifiers.compactMap { .init(string: $0.identifier) }
-        resolve(\.autoFillController).credentialIdentifier = recordIdentifier
-        resolve(\.autoFillController).hasField = true
-        resolve(\.autoFillController).complete = { [weak self] username, secret in
+        dependency(\.autoFillController).mode = mode
+        dependency(\.autoFillController).serviceURLs = serviceIdentifiers.compactMap { .init(string: $0.identifier) }
+        dependency(\.autoFillController).credentialIdentifier = recordIdentifier
+        dependency(\.autoFillController).hasField = true
+        dependency(\.autoFillController).complete = { [weak self] username, secret in
             switch mode {
             case .app:
                 self?.extensionContext.cancelRequest(withError: ASExtensionError(.failed))
@@ -130,7 +130,7 @@ final class ProviderViewController: ASCredentialProviderViewController {
                 self?.extensionContext.completeOneTimeCodeRequest(using: .init(code: secret))
             }
         }
-        resolve(\.autoFillController).cancel = { [weak self] in
+        dependency(\.autoFillController).cancel = { [weak self] in
             self?.extensionContext.cancelRequest(withError: ASExtensionError(.userCanceled))
         }
         

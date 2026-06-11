@@ -31,6 +31,7 @@ You can install beta builds by joining the [TestFlight](https://testflight.apple
 - Simplified Chinese: [Sketch6580](https://hosted.weblate.org/user/Sketch6580)
 - Italian: [Luca](https://hosted.weblate.org/user/Pigro)
 - Estonian: [Priit Jõerüüt](https://hosted.weblate.org/user/jrthwlate)
+- Korean: [Iranto](https://github.com/laboranto)
 
 Everybody is welcome to contribute translations via [Weblate](https://hosted.weblate.org/engage/nextcloud-passwords-ios)!
 
@@ -38,8 +39,7 @@ Everybody is welcome to contribute translations via [Weblate](https://hosted.web
 Perform these steps to set up this project:
 - Run `rbenv install` to install the matching Ruby version or manually install the version specified in the [.ruby-version](.ruby-version) file
 - Run `gem install bundler` to install Bundler
-- Run `bundle install` to install dependencies
-- Run `brew install swiftlint swiftgen` to install SwiftLint & SwiftGen
+- Run `bundle install` and `brew bundle` to install dependencies
 - Launch the project with the Xcode version specfied in the [.xcode-version](.xcode-version) file
 - Log into your Apple Developer Account in Xcode
 - Adjust some project settings to be able to build the app:

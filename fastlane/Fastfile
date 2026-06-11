@@ -30,12 +30,12 @@ end
 
 desc("Takes all screenshots required for the App Store and commits the changes.")
 lane :take_screenshots do
-    # Screenshot specifications at https://help.apple.com/app-store-connect/#/devd274dd925
+    # Screenshot specifications at https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications
     devices = [
         "iPhone 17 Pro Max",
         "iPhone 14 Plus",
         "iPhone 17 Pro",
-        "iPhone 16e",
+        "iPhone 17e",
         "iPhone 8 Plus",
         "iPhone SE (3rd generation)",
         "iPad Pro 13-inch (M5)",
@@ -70,7 +70,7 @@ lane :build_and_upload do
     unless last_git_tag != version
         UI.user_error!("The version number didn't change")
     end
-    run_tests(scheme: "Passwords", deployment_target_version: "26.2", disable_package_automatic_updates: true)
+    run_tests(scheme: "Passwords", deployment_target_version: "26.5", disable_package_automatic_updates: true)
     get_certificates(output_path: "fastlane/tmp")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")

@@ -1,4 +1,4 @@
-@testable import Factory
+@testable import FactoryKit
 
 
 @propertyWrapper struct MockInjected<T, M> {

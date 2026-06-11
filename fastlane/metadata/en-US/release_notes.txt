@@ -1,1 +1,2 @@
+• Korean translation (Thanks Iranto!)
 • Bugfixes and optimizations

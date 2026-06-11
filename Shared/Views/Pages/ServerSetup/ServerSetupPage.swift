@@ -1,5 +1,5 @@
 import SwiftUI
-import Factory
+import FactoryKit
 
 
 struct ServerSetupPage: View {
@@ -32,22 +32,18 @@ struct ServerSetupPage: View {
         .dismiss(on: viewModel[\.shouldDismiss])
     }
     
-    @ViewBuilder private func managedSetupPage() -> some View {
-        if let challenge = viewModel[\.challenge] {
-            LoginFlowPage(viewModel: resolve(\.loginFlowViewModelType).init(challenge: challenge).eraseToAnyViewModel())
-        } else {
-            VStack(spacing: 8) {
-                ProgressView()
-                Text(Strings.connectingToNextcloudInstanceAtUrl(viewModel[\.serverAddress]))
-                    .font(.subheadline)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.gray)
-            }
-            .alert(isPresented: $viewModel[\.showManagedServerAddressErrorAlert]) {
-                Alert(title: Text("_error"), message: Text(Strings.managedServerUrlErrorMessage), dismissButton: .cancel {
-                    viewModel(.cancel)
-                })
-            }
+    private func managedSetupPage() -> some View {
+        VStack(spacing: 8) {
+            ProgressView()
+            Text(Strings.connectingToNextcloudInstanceAtUrl(viewModel[\.serverAddress]))
+                .font(.subheadline)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.gray)
+        }
+        .alert(isPresented: $viewModel[\.showManagedServerAddressErrorAlert]) {
+            Alert(title: Text("_error"), message: Text(Strings.managedServerUrlErrorMessage), dismissButton: .cancel {
+                viewModel(.cancel)
+            })
         }
     }
     
@@ -76,11 +72,6 @@ struct ServerSetupPage: View {
                 if viewModel[\.isValidating] {
                     Spacer()
                     ProgressView()
-                }
-            }
-            .navigationDestination(isPresented: $viewModel[\.showLoginFlowPage]) { [challenge = viewModel[\.challenge]] in
-                if let challenge {
-                    LoginFlowPage(viewModel: resolve(\.loginFlowViewModelType).init(challenge: challenge).eraseToAnyViewModel())
                 }
             }
         }
