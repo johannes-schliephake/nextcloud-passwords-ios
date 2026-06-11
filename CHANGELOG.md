@@ -1,3 +1,7 @@
+## [v2.11] - 2026-06-11
+- Korean translation (Thanks Iranto!)
+- Bugfixes and optimizations
+
 ## [v2.10.2] - 2025-12-21
 - Bugfixes and optimizations
 
