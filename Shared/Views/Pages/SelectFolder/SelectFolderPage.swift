@@ -109,7 +109,7 @@ struct SelectFolderPage: View {
         .padding(.horizontal)
     }
     
-    @ViewBuilder private func cancelButton() -> some View {
+    @ContentBuilder private func cancelButton() -> some View {
         if #available(iOS 26, *) {
             Button(role: .cancel) {
                 viewModel(.cancel)

@@ -152,7 +152,7 @@ struct SettingsPage: View {
         .alignmentGuide(.listRowSeparatorLeading) { $0[.leading] }
     }
     
-    @ViewBuilder private func supportThisProjectFooter() -> some View {
+    @ContentBuilder private func supportThisProjectFooter() -> some View {
         if viewModel[\.isTestFlight] {
             Text(Strings.supportThisProjectMessage)
         }

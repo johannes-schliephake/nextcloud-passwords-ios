@@ -506,7 +506,7 @@ struct EntriesPage: View {
         }
     }
     
-    @ViewBuilder private func leadingToolbarView() -> some View {
+    @ContentBuilder private func leadingToolbarView() -> some View {
         if folderController.folder.isBaseFolder && folderController.tag == nil {
             HStack {
                 if let cancel = autoFillController.cancel {
@@ -540,7 +540,7 @@ struct EntriesPage: View {
         }
     }
     
-    @available(iOS 26, *) @ToolbarContentBuilder private func trailingToolbar() -> some ToolbarContent {
+    @available(iOS 26, *) @ContentBuilder private func trailingToolbar() -> some ToolbarContent {
         if let state = folderController.folder.state {
             if state.isError {
                 ToolbarItem(placement: .primaryAction) {
@@ -1393,7 +1393,7 @@ extension EntriesPage {
                 .foregroundColor(.gray)
         }
         
-        @ViewBuilder private func statusImage() -> some View {
+        @ContentBuilder private func statusImage() -> some View {
             switch password.statusCode {
             case .good:
                 Image(systemName: "checkmark.shield.fill")

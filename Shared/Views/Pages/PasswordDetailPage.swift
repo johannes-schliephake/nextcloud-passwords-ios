@@ -676,7 +676,7 @@ struct PasswordDetailPage: View {
         }
     }
     
-    private func labeledFootnote<Content: View>(_ labelKey: LocalizedStringKey, @ViewBuilder content: () -> Content) -> some View {
+    private func labeledFootnote<Content: View>(_ labelKey: LocalizedStringKey, @ContentBuilder content: () -> Content) -> some View {
         HStack(alignment: .top) {
             Text(labelKey)
                 .font(.footnote)
@@ -733,7 +733,7 @@ struct PasswordDetailPage: View {
         .disabled(password.state == .decryptionFailed)
     }
     
-    @available(iOS 26, *) @ToolbarContentBuilder private func stateToolbar() -> some ToolbarContent {
+    @available(iOS 26, *) @ContentBuilder private func stateToolbar() -> some ToolbarContent {
         if let state = password.state {
             if state.isError {
                 ToolbarItem(placement: .primaryAction) {
@@ -754,7 +754,7 @@ struct PasswordDetailPage: View {
         .sharedBackgroundVisibility(.hidden)
     }
     
-    @ViewBuilder private func stateView() -> some View {
+    @ContentBuilder private func stateView() -> some View {
         if let state = password.state {
             if state.isError {
                 errorButton(state: state)

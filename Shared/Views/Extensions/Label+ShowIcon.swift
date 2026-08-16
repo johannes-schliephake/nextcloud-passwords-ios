@@ -3,7 +3,7 @@ import SwiftUI
 
 extension Label {
     
-    @MainActor @ViewBuilder func showIcon(_ show: Bool) -> some View {
+    @MainActor @ContentBuilder func showIcon(_ show: Bool) -> some View {
         if show {
             labelStyle(.automatic)
         }
