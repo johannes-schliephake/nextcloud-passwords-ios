@@ -3,7 +3,7 @@ import AuthenticationServices
 
 protocol CredentialProviderSettingsHelping {
     
-    static func openCredentialProviderAppSettings(completionHandler: (@Sendable ((any Error)?) -> Void)?)
+    static func openCredentialProviderAppSettings(completionHandler: (@Sendable (any Error?) -> Void)?)
     
 }
 

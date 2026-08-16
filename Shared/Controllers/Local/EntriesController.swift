@@ -948,8 +948,7 @@ final class EntriesController: ObservableObject {
         }
         
         return passwords
-            .map {
-                password -> Double in
+            .map { password in
                 serviceURLs
                     .map { password.score(searchTerm: $0.absoluteString) }
                     .reduce(0.0, +)

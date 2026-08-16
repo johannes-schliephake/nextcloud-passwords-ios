@@ -24,7 +24,7 @@ final class AuthenticationUseCase: AuthenticationUseCaseProtocol {
     
     let state: State
     
-    private var webAuthenticationSession: (any WebAuthenticationSession)?
+    private var webAuthenticationSession: any WebAuthenticationSession?
     
     init() {
         state = .init()
