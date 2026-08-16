@@ -7,7 +7,7 @@ extension Data {
     
     init?(base32Encoded base32String: String) {
         let base32String = base32String.uppercased()
-        guard base32String.allSatisfy({ Data.base32Alphabet[$0] != nil }) else {
+        guard base32String.allSatisfy({ Self.base32Alphabet[$0] != nil }) else {
             return nil
         }
         
@@ -16,7 +16,7 @@ extension Data {
             .enumerated()
             .map {
                 (index: Int, character: Character) in
-                (index * 5 / 8, index * 5 % 8, (Data.base32Alphabet[character] ?? 0) << 3)
+                (index * 5 / 8, index * 5 % 8, (Self.base32Alphabet[character] ?? 0) << 3)
             }
             .forEach {
                 byteIndex, bitIndex, bits in

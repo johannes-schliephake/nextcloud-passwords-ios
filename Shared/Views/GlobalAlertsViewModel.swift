@@ -25,7 +25,7 @@ final class GlobalAlertsViewModel: GlobalAlertsViewModelProtocol {
         purchaseService.transactionState
             .compactMap { $0 }
             .receive(on: DispatchQueue.main)
-            .sink { transactionState in
+            .sink { [weak self] transactionState in
                 switch transactionState {
                 case .purchasing:
                     break
