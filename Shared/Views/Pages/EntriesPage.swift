@@ -433,13 +433,7 @@ struct EntriesPage: View {
                 AddOTPNavigation(entriesController: entriesController, otp: otp)
             }
         }
-        .confirmationDialog("_confirmAction", isPresented: .init {
-            confirmationDialogItem != nil
-        } set: { isPresented in
-            if !isPresented {
-                confirmationDialogItem = nil
-            }
-        }, presenting: confirmationDialogItem) { item in
+        .confirmationDialog("_confirmAction", item: $confirmationDialogItem) { item in
             switch item {
             case .delete(.folder(let folder)):
                 Button("_deleteFolder", role: .destructive) {
