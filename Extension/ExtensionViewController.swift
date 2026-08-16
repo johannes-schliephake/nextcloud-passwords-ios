@@ -70,7 +70,7 @@ class ExtensionViewController: UIViewController {
             self?.extensionContext?.cancelRequest(withError: NSError(domain: Configuration.appService, code: 0))
         }
         
-        Container.shared.rootViewController.register { self }
+        Container.shared.rootViewController { self }
         
         let hostingController = UIHostingController(rootView: MainView())
         addChild(hostingController)

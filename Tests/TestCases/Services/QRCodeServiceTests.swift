@@ -41,7 +41,7 @@ final class QRCodeServiceTests: XCTestCase {
     }
     
     func testGenerateQrCode_givenMissingGenerator_thenFailsWithGeneratorUnavailable() {
-        Container.shared.qrCodeGenerator.register { nil }
+        Container.shared.qrCodeGenerator { nil }
         let qrCodeService: any QRCodeServiceProtocol = QRCodeService()
         
         expect(qrCodeService.generateQrCode(from: .random())).to(fail(.generatorUnavailable, when: { self.userInitiatedSchedulerMock.advance() }))

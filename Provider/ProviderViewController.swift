@@ -134,7 +134,7 @@ final class ProviderViewController: ASCredentialProviderViewController {
             self?.extensionContext.cancelRequest(withError: ASExtensionError(.userCanceled))
         }
         
-        Container.shared.rootViewController.register { self }
+        Container.shared.rootViewController { self }
         
         let hostingController = UIHostingController(rootView: MainView())
         addChild(hostingController)
