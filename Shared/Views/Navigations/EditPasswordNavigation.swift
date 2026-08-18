@@ -12,6 +12,12 @@ struct EditPasswordNavigation: View {
         NavigationStack {
             EditPasswordPage(entriesController: entriesController, password: password)
         }
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .scrollEdgeEffectStyle(.soft, for: .all)
+            }
+        }
         .scrollDismissesKeyboard(.immediately)
     }
     

@@ -30,6 +30,12 @@ struct EntriesNavigation: View {
                 .navigationSplitViewStyle(.balanced)
             }
         }
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .scrollEdgeEffectStyle(.soft, for: .all)
+            }
+        }
         .scrollDismissesKeyboard(.immediately)
     }
     

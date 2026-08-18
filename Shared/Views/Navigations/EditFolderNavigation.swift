@@ -13,6 +13,12 @@ struct EditFolderNavigation: View {
         NavigationStack {
             EditFolderPage(viewModel: dependency(\.editFolderViewModelType).init(folder: folder, didEdit: didEdit).eraseToAnyViewModel())
         }
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .scrollEdgeEffectStyle(.soft, for: .all)
+            }
+        }
         .scrollDismissesKeyboard(.immediately)
     }
     
