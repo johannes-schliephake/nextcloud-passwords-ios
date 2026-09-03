@@ -46,6 +46,12 @@ struct EntriesPage: View {
                 }
             }
             .apply { view in
+                if #available(iOS 17, *) {
+                    view
+                        .toolbar(removing: .sidebarToggle)
+                }
+            }
+            .apply { view in
                 let showTrailingToolbarView = sessionController.session != nil &&
                                               entriesController.state != .error &&
                                               sessionController.state != .error &&
