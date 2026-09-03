@@ -180,7 +180,7 @@ struct EditPasswordPage: View {
         }
     }
     
-    @ViewBuilder private func otpButton() -> some View {
+    @ContentBuilder private func otpButton() -> some View {
         if let otp = editPasswordController.passwordOtp {
             Button {
                 sheetItem = .edit(otp: otp)

@@ -3,9 +3,9 @@ import AuthenticationServices
 
 protocol WebAuthenticationSession { // swiftlint:disable:this file_types_order
     
-    var window: (any Window)? { get set }
+    var window: any Window? { get set }
     
-    init(url: URL, callbackURLScheme: String?, completionHandler: @escaping (URL?, (any Error)?) -> Void)
+    init(url: URL, callbackURLScheme: String?, completionHandler: @escaping (URL?, any Error?) -> Void)
     
     func start() -> Bool
     func cancel()
@@ -29,7 +29,7 @@ final class WrappedASWebAuthenticationSession: ASWebAuthenticationSession, WebAu
         
     }
     
-    var window: (any Window)? {
+    var window: any Window? {
         get {
             presentationContextProvider?.presentationAnchor(for: self)
         }
@@ -39,7 +39,7 @@ final class WrappedASWebAuthenticationSession: ASWebAuthenticationSession, WebAu
         }
     }
     
-    private var retainedPresentationContextProvider: (any ASWebAuthenticationPresentationContextProviding)? {
+    private var retainedPresentationContextProvider: any ASWebAuthenticationPresentationContextProviding? {
         didSet {
             presentationContextProvider = retainedPresentationContextProvider
         }

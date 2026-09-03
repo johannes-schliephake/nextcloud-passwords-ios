@@ -14,6 +14,12 @@ struct SelectFolderNavigation: View {
         NavigationStack {
             SelectFolderPage(viewModel: dependency(\.selectFolderViewModelType).init(entry: entry, temporaryEntry: temporaryEntry, selectFolder: selectFolder).eraseToAnyViewModel())
         }
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .scrollEdgeEffectStyle(.soft, for: .all)
+            }
+        }
         .scrollDismissesKeyboard(.immediately)
     }
     

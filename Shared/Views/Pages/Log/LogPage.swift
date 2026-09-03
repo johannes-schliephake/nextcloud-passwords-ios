@@ -95,7 +95,7 @@ struct LogPage: View {
         }
     }
     
-    @ViewBuilder private func icon(for event: LogEvent) -> some View {
+    @ContentBuilder private func icon(for event: LogEvent) -> some View {
         switch event.type {
         case .error:
             Image(systemName: "exclamationmark.triangle")

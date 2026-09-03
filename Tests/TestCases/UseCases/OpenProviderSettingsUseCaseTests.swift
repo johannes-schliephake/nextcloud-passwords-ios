@@ -8,10 +8,11 @@ import FactoryKit
     
     @MockInjected(\.credentialProviderSettingsHelperType) private var credentialProviderSettingsHelperTypeMock: CredentialProviderSettingsHelperMock.Type
     
+    @diagnose(UselessAvailabilityCheck, as: ignored)
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        guard #available(iOS 17, *) else { // Don't trust Xcode, this warning is wrong, XCTest will try to run this on iOS 16
+        guard #available(iOS 17, *) else { // Don't trust Xcode, this warning is wrong, XCTest will try to run this on iOS 16 (warning disabled above)
             throw XCTSkip()
         }
     }

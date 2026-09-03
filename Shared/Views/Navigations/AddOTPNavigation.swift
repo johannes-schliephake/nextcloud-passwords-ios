@@ -14,6 +14,12 @@ struct AddOTPNavigation: View {
         NavigationStack {
             EntriesPage(entriesController: entriesController)
         }
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .scrollEdgeEffectStyle(.soft, for: .all)
+            }
+        }
         .scrollDismissesKeyboard(.immediately)
         .onAppear {
             guard !Configuration.userDefaults.bool(forKey: "didAcceptAboutOtps") else {

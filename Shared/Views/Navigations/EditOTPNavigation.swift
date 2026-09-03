@@ -13,6 +13,12 @@ struct EditOTPNavigation: View {
         NavigationStack {
             EditOTPPage(viewModel: dependency(\.editOTPViewModelType).init(otp: otp, updateOtp: updateOtp).eraseToAnyViewModel())
         }
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .scrollEdgeEffectStyle(.soft, for: .all)
+            }
+        }
         .scrollDismissesKeyboard(.immediately)
     }
     

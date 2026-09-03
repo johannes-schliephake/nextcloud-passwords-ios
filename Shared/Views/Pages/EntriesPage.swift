@@ -46,6 +46,12 @@ struct EntriesPage: View {
                 }
             }
             .apply { view in
+                if #available(iOS 17, *) {
+                    view
+                        .toolbar(removing: .sidebarToggle)
+                }
+            }
+            .apply { view in
                 let showTrailingToolbarView = sessionController.session != nil &&
                                               entriesController.state != .error &&
                                               sessionController.state != .error &&
@@ -433,13 +439,7 @@ struct EntriesPage: View {
                 AddOTPNavigation(entriesController: entriesController, otp: otp)
             }
         }
-        .confirmationDialog("_confirmAction", isPresented: .init {
-            confirmationDialogItem != nil
-        } set: { isPresented in
-            if !isPresented {
-                confirmationDialogItem = nil
-            }
-        }, presenting: confirmationDialogItem) { item in
+        .confirmationDialog("_confirmAction", item: $confirmationDialogItem) { item in
             switch item {
             case .delete(.folder(let folder)):
                 Button("_deleteFolder", role: .destructive) {
@@ -506,7 +506,7 @@ struct EntriesPage: View {
         }
     }
     
-    @ViewBuilder private func leadingToolbarView() -> some View {
+    @ContentBuilder private func leadingToolbarView() -> some View {
         if folderController.folder.isBaseFolder && folderController.tag == nil {
             HStack {
                 if let cancel = autoFillController.cancel {
@@ -540,7 +540,7 @@ struct EntriesPage: View {
         }
     }
     
-    @available(iOS 26, *) @ToolbarContentBuilder private func trailingToolbar() -> some ToolbarContent {
+    @available(iOS 26, *) @ContentBuilder private func trailingToolbar() -> some ToolbarContent {
         if let state = folderController.folder.state {
             if state.isError {
                 ToolbarItem(placement: .primaryAction) {
@@ -1393,7 +1393,7 @@ extension EntriesPage {
                 .foregroundColor(.gray)
         }
         
-        @ViewBuilder private func statusImage() -> some View {
+        @ContentBuilder private func statusImage() -> some View {
             switch password.statusCode {
             case .good:
                 Image(systemName: "checkmark.shield.fill")

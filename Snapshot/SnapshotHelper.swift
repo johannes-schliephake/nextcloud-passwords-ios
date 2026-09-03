@@ -133,7 +133,7 @@ open class Snapshot: NSObject {
             let launchArguments = try String(contentsOf: path, encoding: String.Encoding.utf8)
             let regex = try NSRegularExpression(pattern: "(\\\".+?\\\"|\\S+)", options: [])
             let matches = regex.matches(in: launchArguments, options: [], range: NSRange(location: 0, length: launchArguments.count))
-            let results = matches.map { result -> String in
+            let results = matches.map { result in
                 (launchArguments as NSString).substring(with: result.range)
             }
             app.launchArguments += results

@@ -16,18 +16,16 @@ struct EntriesNavigation: View {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 NavigationSplitView(
                     columnVisibility: .constant(.all),
-                    sidebar: {
-                        view
-                            .apply { view in
-                                if #available(iOS 17, *) {
-                                    view
-                                        .toolbar(removing: .sidebarToggle)
-                                }
-                            }
-                    },
+                    sidebar: { view },
                     detail: {}
                 )
                 .navigationSplitViewStyle(.balanced)
+            }
+        }
+        .apply { view in
+            if #available(iOS 26, *) {
+                view
+                    .scrollEdgeEffectStyle(.soft, for: .all)
             }
         }
         .scrollDismissesKeyboard(.immediately)

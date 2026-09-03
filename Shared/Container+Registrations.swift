@@ -229,7 +229,7 @@ extension Container {
     var productType: Factory<any Product.Type> {
         self { StoreKit.Product.self }
     }
-    var qrCodeGenerator: Factory<(any QRCodeGenerating)?> {
+    var qrCodeGenerator: Factory<any QRCodeGenerating?> {
         self { CIFilter(name: "CIQRCodeGenerator") }
     }
     var randomNumberGenerator: Factory<any RandomNumberGenerator> {
