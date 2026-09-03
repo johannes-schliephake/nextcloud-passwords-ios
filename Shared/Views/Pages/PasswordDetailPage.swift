@@ -27,7 +27,7 @@ struct PasswordDetailPage: View {
     @ScaledMetric private var upcomingOtpFontSize = 12
     @ScaledMetric private var otpLabelsDistance = 6
     
-    private let iOS26 = if #available(iOS 26, *) { true } else { false }
+    private let isIos26OrAbove = if #available(iOS 26, *) { true } else { false }
     
     // MARK: Views
     
@@ -245,7 +245,7 @@ struct PasswordDetailPage: View {
         }
         .buttonStyle(.borderless)
         .apply { view in
-            if !iOS26 || UIDevice.current.userInterfaceIdiom == .pad {
+            if !isIos26OrAbove || UIDevice.current.userInterfaceIdiom == .pad {
                 view
                     .tooltip(isPresented: $showPasswordStatusTooltip) {
                         tooltipContent()
@@ -396,8 +396,8 @@ struct PasswordDetailPage: View {
     
     private func tagsSection(validTags: [Tag]) -> some View {
         Section {
-            if iOS26 || !validTags.isEmpty {
-                let aligment: HorizontalAlignment = iOS26 ? .leading : .center
+            if isIos26OrAbove || !validTags.isEmpty {
+                let aligment: HorizontalAlignment = isIos26OrAbove ? .leading : .center
                 FlowView(alignment: aligment) {
                     ForEach(validTags.sorted()) { tag in
                         TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
@@ -482,7 +482,7 @@ struct PasswordDetailPage: View {
             if #unavailable(iOS 26) {
                 LabeledRow(type: .text, label: "_name", value: password.label, copiable: true)
             }
-            if !password.url.isEmpty || !iOS26 {
+            if !password.url.isEmpty || !isIos26OrAbove {
                 LabeledRow(type: .url, label: "_url", value: password.url, copiable: true)
             }
         } header: {
@@ -494,7 +494,7 @@ struct PasswordDetailPage: View {
     
     private func accountSection() -> some View {
         Section {
-            if !password.username.isEmpty || !iOS26 {
+            if !password.username.isEmpty || !isIos26OrAbove {
                 LabeledRow(type: .nonLinguisticText, label: "_username", value: password.username, copiable: true)
             }
             LabeledRow(type: .secret, label: "_password", value: password.password, copiable: true)
@@ -572,7 +572,7 @@ struct PasswordDetailPage: View {
                 }
             }
         } header: {
-            if !password.username.isEmpty || password.otp != nil || !iOS26 {
+            if !password.username.isEmpty || password.otp != nil || !isIos26OrAbove {
                 Text("_account")
             }
         }
