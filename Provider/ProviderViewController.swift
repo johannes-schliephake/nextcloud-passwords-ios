@@ -17,11 +17,7 @@ final class ProviderViewController: ASCredentialProviderViewController {
         fatalError("init(coder:) has not been implemented") // swiftlint:disable:this fatal_error
     }
     
-    override func provideCredentialWithoutUserInteraction(for credentialIdentity: ASPasswordCredentialIdentity) {
-        provideCredential(mode: .provider, recordIdentifier: credentialIdentity.recordIdentifier)
-    }
-    
-    @available(iOS 17, *) override func provideCredentialWithoutUserInteraction(for credentialRequest: any ASCredentialRequest) {
+    override func provideCredentialWithoutUserInteraction(for credentialRequest: any ASCredentialRequest) {
         let recordIdentifier = credentialRequest.credentialIdentity.recordIdentifier
         switch credentialRequest.type {
         case .password:
@@ -33,11 +29,7 @@ final class ProviderViewController: ASCredentialProviderViewController {
         }
     }
     
-    override func prepareInterfaceToProvideCredential(for credentialIdentity: ASPasswordCredentialIdentity) {
-        showCredentialList(mode: .provider, serviceIdentifiers: [credentialIdentity.serviceIdentifier], recordIdentifier: credentialIdentity.recordIdentifier)
-    }
-    
-    @available(iOS 17, *) override func prepareInterfaceToProvideCredential(for credentialRequest: any ASCredentialRequest) {
+    override func prepareInterfaceToProvideCredential(for credentialRequest: any ASCredentialRequest) {
         let serviceIdentifiers = [credentialRequest.credentialIdentity.serviceIdentifier]
         let recordIdentifier = credentialRequest.credentialIdentity.recordIdentifier
         switch credentialRequest.type {

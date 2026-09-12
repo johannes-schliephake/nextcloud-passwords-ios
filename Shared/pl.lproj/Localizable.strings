@@ -25,7 +25,6 @@
 "_passwords" = "Hasła";
 "_password" = "Hasło";
 "_passwordStatusDuplicateMessage" = "To hasło jest używane więcej niż jeden raz.";
-"_providerInstructionsMessage" = "Ta aplikacja obsługuje autouzupełnianie haseł. Funkcję tę należy włączyć w aplikacji Ustawienia systemu iOS:\n1. Otwórz aplikację Ustawienia\n2. Stuknij opcję Hasła\n3. Stuknij opcję Autouzupełnianie haseł\n4. Włącz autouzupełnianie haseł\n5. Włącz tę aplikację";
 "_qrCaptureErrorMessage" = "Wystąpił błąd podczas włączania aparatu.";
 "_suggestions" = "Sugestie";
 "_storePasswordMessage" = "Jeśli ta opcja jest włączona, hasło end-to-end jest przechowywane w postaci zaszyfrowanej w pęku kluczy urządzenia.";

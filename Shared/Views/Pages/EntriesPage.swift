@@ -45,12 +45,7 @@ struct EntriesPage: View {
                     }
                 }
             }
-            .apply { view in
-                if #available(iOS 17, *) {
-                    view
-                        .toolbar(removing: .sidebarToggle)
-                }
-            }
+            .toolbar(removing: .sidebarToggle)
             .apply { view in
                 let showTrailingToolbarView = sessionController.session != nil &&
                                               entriesController.state != .error &&
@@ -228,26 +223,13 @@ struct EntriesPage: View {
                             Image(systemName: "questionmark.circle")
                         }
                         .buttonStyle(.borderless)
-                        .apply { view in
-                            if #available(iOS 17, *) {
-                                view
-                                    .tooltip(isPresented: $showStorePasswordTooltip) {
-                                        Text("_storePasswordMessage")
-                                    }
-                            }
+                        .tooltip(isPresented: $showStorePasswordTooltip) {
+                            Text("_storePasswordMessage")
                         }
                     }
                 }
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
                 .listRowBackground(Color.clear)
-                .apply { view in
-                    if #unavailable(iOS 17) {
-                        view
-                            .tooltip(isPresented: $showStorePasswordTooltip) {
-                                Text("_storePasswordMessage")
-                            }
-                    }
-                }
             }
             Button {
                 solveChallenge()
@@ -271,15 +253,7 @@ struct EntriesPage: View {
         }
         .listStyle(.insetGrouped)
         .scrollBounceBehavior(.basedOnSize)
-        .apply { view in
-            if #available(iOS 17, *) {
-                view
-                    .listWidthLimit(600)
-            } else {
-                view
-                    .frame(maxWidth: 600)
-            }
-        }
+        .listWidthLimit(600)
         .initialize(focus: $focusedField, with: .challengePassword)
     }
     
@@ -1254,12 +1228,7 @@ extension EntriesPage {
                                     Text((current ?? "").segmented)
                                         .foregroundColor(.primary)
                                         .monospaced()
-                                        .apply { view in
-                                            if #available(iOS 17, *) {
-                                                view
-                                                    .typesettingLanguage(.init(languageCode: .unavailable))
-                                            }
-                                        }
+                                        .typesettingLanguage(.init(languageCode: .unavailable))
                                     if #available(iOS 26, *) {
                                         accessoryView
                                     }
@@ -1353,12 +1322,7 @@ extension EntriesPage {
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .lineLimit(1)
-                        .apply { view in
-                            if #available(iOS 17, *) {
-                                view
-                                    .typesettingLanguage(.init(languageCode: .unavailable))
-                            }
-                        }
+                        .typesettingLanguage(.init(languageCode: .unavailable))
                 }
             }
         }

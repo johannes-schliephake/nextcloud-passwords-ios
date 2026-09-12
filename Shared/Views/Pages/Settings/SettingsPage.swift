@@ -41,11 +41,7 @@ struct SettingsPage: View {
                 Button {
                     viewModel(.clearChallengePassword)
                 } label: {
-                    if #available(iOS 17, *) {
-                        Label(Strings.clearStoredE2EPassword, systemImage: "key.slash")
-                    } else {
-                        Label(Strings.clearStoredE2EPassword, systemImage: "delete.left")
-                    }
+                    Label(Strings.clearStoredE2EPassword, systemImage: "key.slash")
                 }
                 .disabled(viewModel[\.wasChallengePasswordCleared])
             }
@@ -95,15 +91,12 @@ struct SettingsPage: View {
     private func enableProviderSection() -> some View {
         Section(header: Text("_integration")) {
             Group {
-                if #available(iOS 17, *),
-                   let attributedString = try? AttributedString(markdown: Strings.providerInstructionsMessageWithLink, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
+                if let attributedString = try? AttributedString(markdown: Strings.providerInstructionsMessageWithLink, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
                     Text(attributedString)
                         .environment(\.openURL, .init { url in
                             viewModel(.openProviderSettingsUrl(url))
                             return .handled
                         })
-                } else {
-                    Text("_providerInstructionsMessage")
                 }
             }
             .font(.footnote)
@@ -166,12 +159,7 @@ struct SettingsPage: View {
                 } label: {
                     Label("Log", systemImage: "doc.text.magnifyingglass")
                         .foregroundColor(.accentColor)
-                        .apply { view in
-                            if #available(iOS 17, *) {
-                                view
-                                    .typesettingLanguage(.init(languageCode: .english))
-                            }
-                        }
+                        .typesettingLanguage(.init(languageCode: .english))
                         .environment(\.locale, .init(languageCode: .english))
                 }
                 .isDetailLink(false)
@@ -203,12 +191,7 @@ struct SettingsPage: View {
                         .font(.footnote)
                         .bold()
                         .foregroundColor(.gray)
-                        .apply { view in
-                            if #available(iOS 17, *) {
-                                view
-                                    .typesettingLanguage(.init(languageCode: .german))
-                            }
-                        }
+                        .typesettingLanguage(.init(languageCode: .german))
                         .environment(\.locale, .init(languageCode: .german))
                     Spacer()
                 }

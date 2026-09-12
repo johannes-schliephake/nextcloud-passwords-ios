@@ -382,9 +382,6 @@
 		DD7815FC2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */; };
 		DD7815FD2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */; };
 		DD7815FE2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */; };
-		DD78D6CE2AAC77A200854599 /* LegacySafeAreaPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD78D6CD2AAC77A200854599 /* LegacySafeAreaPadding.swift */; };
-		DD78D6CF2AAC77A200854599 /* LegacySafeAreaPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD78D6CD2AAC77A200854599 /* LegacySafeAreaPadding.swift */; };
-		DD78D6D02AAC77A200854599 /* LegacySafeAreaPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD78D6CD2AAC77A200854599 /* LegacySafeAreaPadding.swift */; };
 		DD7BC51829AFBA00004AA7BC /* Container+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7BC51729AFBA00004AA7BC /* Container+Mocks.swift */; };
 		DD7BC51A29AFBAD8004AA7BC /* PropertyAccessLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD760683295E498000109075 /* PropertyAccessLogging.swift */; };
 		DD7BC51B29AFBAD8004AA7BC /* FunctionCallLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF4138B29571D1D00B886EB /* FunctionCallLogging.swift */; };
@@ -1132,7 +1129,6 @@
 		DD77FF3D2C4E3E0300E193C9 /* Associating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Associating.swift; sourceTree = "<group>"; };
 		DD77FF3F2C4E3E2900E193C9 /* Initializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializable.swift; sourceTree = "<group>"; };
 		DD7815FB2C2420D400D2924F /* AsyncSequence+First.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsyncSequence+First.swift"; sourceTree = "<group>"; };
-		DD78D6CD2AAC77A200854599 /* LegacySafeAreaPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySafeAreaPadding.swift; sourceTree = "<group>"; };
 		DD7BC51729AFBA00004AA7BC /* Container+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Mocks.swift"; sourceTree = "<group>"; };
 		DD7BC51D29AFFCCF004AA7BC /* TagValidationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagValidationServiceMock.swift; sourceTree = "<group>"; };
 		DD7BC51F29AFFD01004AA7BC /* FolderValidationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderValidationServiceMock.swift; sourceTree = "<group>"; };
@@ -1996,7 +1992,6 @@
 				DD76068B295F731200109075 /* Dismiss.swift */,
 				DD1E1D712A010D0C002DB08B /* Enabled.swift */,
 				DDA4FE7526E755C000D6F92E /* Initialize.swift */,
-				DD78D6CD2AAC77A200854599 /* LegacySafeAreaPadding.swift */,
 				DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */,
 				DD760687295F72BC00109075 /* Sync.swift */,
 			);
@@ -3021,7 +3016,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD78D6CE2AAC77A200854599 /* LegacySafeAreaPadding.swift in Sources */,
 				8FBE43C9258D5A2D003F7F34 /* UIApplication+IsExtension.swift in Sources */,
 				DD7815FE2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */,
 				DDAD6A3D2E2663D3006F1395 /* WordlistRepository.swift in Sources */,
@@ -3250,7 +3244,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD78D6CF2AAC77A200854599 /* LegacySafeAreaPadding.swift in Sources */,
 				8F79AE0D260287DE00308A33 /* RequestSessionRequest.swift in Sources */,
 				DD7815FD2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */,
 				DDAD6A3F2E2663D3006F1395 /* WordlistRepository.swift in Sources */,
@@ -3600,7 +3593,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD78D6D02AAC77A200854599 /* LegacySafeAreaPadding.swift in Sources */,
 				DDB169B127D20CC200F4D752 /* BiometricAuthenticationController.swift in Sources */,
 				DD7815FC2C2420DB00D2924F /* AsyncSequence+First.swift in Sources */,
 				DDAD6A3E2E2663D3006F1395 /* WordlistRepository.swift in Sources */,
@@ -3999,7 +3991,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4059,7 +4051,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ExistentialAny -enable-upcoming-feature ImplicitOpenExistentials -Xfrontend -disable-sil-ownership-verifier";

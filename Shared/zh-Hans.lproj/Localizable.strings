@@ -120,7 +120,6 @@
 "_secret" = "机密";
 "_security" = "安全";
 "_select" = "选择";
-"_providerInstructionsMessage" = "此应用支持自动填充，必须在系统的设置中启用：\n1. 打开设置\n2. 点按密码\n3. 点按密码选项或自动填充密码\n4. 启用自动填充\n5. 启用此应用";
 "_selectColor" = "选择颜色";
 "_serverAddressFieldMessage" = "需要 HTTPS 连接。";
 "_serverSide" = "服务器端";

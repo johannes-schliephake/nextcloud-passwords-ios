@@ -28,9 +28,7 @@ extension Container: @retroactive AutoRegistering {
             $0.loginPollUseCase.cached { LoginPollUseCaseMock() }
             $0.loginUrlUseCase.cached { LoginUrlUseCaseMock() }
             $0.managedConfigurationUseCase { ManagedConfigurationUseCaseMock() }
-            if #available(iOS 17, *) {
-                $0.openProviderSettingsUseCase.cached { OpenProviderSettingsUseCaseMock() }
-            }
+            $0.openProviderSettingsUseCase.cached { OpenProviderSettingsUseCaseMock() }
             //$0.preferredUsernameUseCase { PreferredUsernameUseCaseMock() }
             //$0.prepareWordlistUseCase { PrepareWordlistUseCaseMock() }
             //$0.randomWordUseCase.cached { RandomWordUseCaseMock() }
@@ -75,11 +73,9 @@ extension Container: @retroactive AutoRegistering {
             // MARK: Seams
             //$0.appStoreType { AppStoreMock.self }
             //$0.bundleResourceRequestType { BundleResourceRequestMock.self }
-            if #available(iOS 17, *) {
-                $0.credentialProviderSettingsHelperType.cached {
-                    CredentialProviderSettingsHelperMock.removeAssociated()
-                    return CredentialProviderSettingsHelperMock.self
-                }
+            $0.credentialProviderSettingsHelperType.cached {
+                CredentialProviderSettingsHelperMock.removeAssociated()
+                return CredentialProviderSettingsHelperMock.self
             }
     //        if #available(iOS 26, *) {
                 //$0.defaultLanguageModelType { DefaultLanguageModelMock.self }

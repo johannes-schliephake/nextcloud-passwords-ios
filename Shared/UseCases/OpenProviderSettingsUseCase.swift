@@ -1,10 +1,10 @@
 import FactoryKit
 
 
-@available(iOS 17, *) protocol OpenProviderSettingsUseCaseProtocol: UseCase where Action == OpenProviderSettingsUseCase.Action {}
+protocol OpenProviderSettingsUseCaseProtocol: UseCase where Action == OpenProviderSettingsUseCase.Action {}
 
 
-@available(iOS 17, *) final class OpenProviderSettingsUseCase: OpenProviderSettingsUseCaseProtocol {
+final class OpenProviderSettingsUseCase: OpenProviderSettingsUseCaseProtocol {
     
     enum Action {
         case open

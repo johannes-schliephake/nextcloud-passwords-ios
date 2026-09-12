@@ -153,7 +153,6 @@
 "_offline" = "Sen conexión";
 "_passwordStatusDuplicateMessage" = "Este contrasinal está a ser usado máis dunha vez.";
 "_passwordStatusGoodMessage" = "Este contrasinal é seguro. Non foi comprometido e non infrinxe as regras de seguranza definidas.";
-"_providerInstructionsMessage" = "Esta aplicación admite o autocompletado. A función ten que estar activada na aplicación de Axustes do sistema:\n1. Abra a aplicación Axustes\n2. Toque en Contrasinais\n3. Toque en Opcións de contrasinal ou Autocompletar contrasinais\n4. Active o autocompletado\n5. Active esta aplicación";
 "_passwordStatusOutdatedMessage" = "Este contrasinal acadou a duración límite.";
 "_shareOtpWarningMessage" = "Este código QR contén datos moi sensíbeis sobre o contrasinal dun só uso";
 "_supportThisProjectMessage" = "A versión TestFlight desta aplicación está instalada. As compras realizanse só a efecto de probas e non van ser facturadas.";

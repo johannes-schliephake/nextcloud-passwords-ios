@@ -309,9 +309,6 @@
 /* "Maximum age": Use the same wording that the web client uses in its settings */
 "_passwordStatusOutdatedMessage" = "Detta lösenord har nått maxåldern.";
 
-/* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
-"_providerInstructionsMessage" = "Den här appen stöder autofill. Funktionen måste vara aktiverad i iOS:s Inställningar:\n1. Öppna appen Inställningar\n2. Tryck på  Allmänt\n3. Tryck på Autofyll och lösenord\n4. Aktivera på Autofyll lösenord och nycklar";
-
 /* I.e. security status of a password */
 "_security" = "Säkerhet";
 

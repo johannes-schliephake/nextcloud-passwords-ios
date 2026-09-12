@@ -158,12 +158,7 @@ struct EditPasswordPage: View {
                         }
                     }
                     .scrollIndicators(.hidden)
-                    .apply { view in
-                        if #available(iOS 17, *) {
-                            view
-                                .scrollClipDisabled()
-                        }
-                    }
+                    .scrollClipDisabled()
                 }
             }
             HStack(spacing: 16) {

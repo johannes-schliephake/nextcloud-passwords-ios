@@ -154,9 +154,6 @@
 
 /* The folder all passwords and folders are placed in, which are not in a subfolder */
 "_rootFolder" = "Rotmappe";
-
-/* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
-"_providerInstructionsMessage" = "Programmet støtter automatisk utfylling av passord. Funksjonen må skrus på i iOS-innstillingsprogrammet:\n1. Åpne innstillingsprogrammet\n2. Trykk «Passord»\n3. Trykk «Fyll inn passord automatisk»\n4. Skru på «Fyll inn passord automatisk»\n5. Skru på dette programmet";
 "_settings" = "Innstillinger";
 "_serverAddressFieldMessage" = "En HTTPS-tilkobling kreves.";
 
