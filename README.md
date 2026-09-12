@@ -10,7 +10,7 @@ A Password AutoFill provider is integrated into the app for seamless login exper
 
 This app requires a Nextcloud server with the Passwords app installed.
 
-<img src="fastlane/screenshots/en-US/iPhone%2017%20Pro-1.png" width="19%"> <img src="fastlane/screenshots/en-US/iPhone%2017%20Pro-2.png" width="19%"> <img src="fastlane/screenshots/en-US/iPhone%2017%20Pro-3.png" width="19%"> <img src="fastlane/screenshots/en-US/iPhone%2017%20Pro-4.png" width="19%"> <img src="fastlane/screenshots/en-US/iPhone%2017%20Pro-5.png" width="19%">
+<img src="fastlane/screenshots/en-US/iPhone%2018%20Pro-1.png" width="19%"> <img src="fastlane/screenshots/en-US/iPhone%2018%20Pro-2.png" width="19%"> <img src="fastlane/screenshots/en-US/iPhone%2018%20Pro-3.png" width="19%"> <img src="fastlane/screenshots/en-US/iPhone%2018%20Pro-4.png" width="19%"> <img src="fastlane/screenshots/en-US/iPhone%2018%20Pro-5.png" width="19%">
 
 ## TestFlight
 

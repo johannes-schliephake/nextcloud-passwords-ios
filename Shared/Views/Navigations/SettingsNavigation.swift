@@ -13,7 +13,7 @@ struct SettingsNavigation: View {
         .apply { view in
             if #available(iOS 26, *) {
                 view
-                    .scrollEdgeEffectStyle(.soft, for: .all)
+                    .scrollEdgeEffectStyle(.soft, for: .top)
             }
         }
         .scrollDismissesKeyboard(.immediately)
