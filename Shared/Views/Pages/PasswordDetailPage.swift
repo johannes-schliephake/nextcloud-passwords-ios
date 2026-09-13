@@ -42,7 +42,7 @@ struct PasswordDetailPage: View {
                     }
                     stateToolbar()
                     if let complete = autoFillController.complete,
-                       autoFillController.mode != .extension || password.otp != nil {
+                       autoFillController.mode != .otpProvider || password.otp != nil {
                         ToolbarItem(placement: .bottomBar) {
                             selectButton(complete: complete)
                         }
@@ -70,7 +70,7 @@ struct PasswordDetailPage: View {
             .onReceive(dependency(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) { _ in
                 dismiss()
             }
-            .onChange(of: sessionController.session == nil) { withoutSession in
+            .onChange(of: sessionController.session == nil) { _, withoutSession in
                 if withoutSession {
                     dismiss()
                 }
@@ -90,7 +90,7 @@ struct PasswordDetailPage: View {
                         }
                 }
             }
-            .onChange(of: showMetadata) { Configuration.userDefaults.set($0, forKey: "showMetadata") }
+            .onChange(of: showMetadata) { _, showMetadata in Configuration.userDefaults.set(showMetadata, forKey: "showMetadata") }
     }
     
     private func mainStack() -> some View {
@@ -101,7 +101,7 @@ struct PasswordDetailPage: View {
                         VStack(spacing: 0) {
                             view
                             if let complete = autoFillController.complete,
-                               autoFillController.mode != .extension || password.otp != nil {
+                               autoFillController.mode != .otpProvider || password.otp != nil {
                                 Divider()
                                 selectBar(geometryProxy: geometryProxy, complete: complete)
                             }
@@ -706,16 +706,16 @@ struct PasswordDetailPage: View {
             switch autoFillController.mode {
             case .app:
                 complete(password.id, "")
-            case .provider:
+            case .passwordProvider:
                 complete(password.username, password.password)
-            case .extension:
+            case .otpProvider:
                 guard let currentOtp = password.otp?.current else {
                     return
                 }
                 complete(password.username, currentOtp)
             }
         } label: {
-            Text(autoFillController.mode == .extension && !autoFillController.hasField ? "_copyOtp" : "_select")
+            Text(autoFillController.mode == .otpProvider && !autoFillController.hasField ? "_copyOtp" : "_select")
                 .font(.headline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, minHeight: 34)

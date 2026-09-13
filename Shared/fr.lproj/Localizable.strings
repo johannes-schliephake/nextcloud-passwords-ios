@@ -82,7 +82,6 @@
 "_passwordServiceErrorMessage" = "Une erreur est survenue durant la génération du mot de passe.";
 "_passwordStatusDuplicateMessage" = "Ce mot de passe a été utilisé plus d'une fois.";
 "_passwordStatusOutdatedMessage" = "Ce mot de passe est arrivé à expiration.";
-"_providerInstructionsMessage" = "Cette application supporte le préremplissage de mot de passe. La fonctionnalité doit être activée dans les Paramètres iOS :\n1. Ouvrir les Paramètres\n2. Appuyez sur Mots de passe\n3. Appuyez Préremplir les mots de passe\n4. Activer préremplir les mots de passe\n5. Autoriser le remplissage par cette application";
 "_reject" = "Rejeter";
 "_secret" = "Secret";
 "_security" = "Sécurité";

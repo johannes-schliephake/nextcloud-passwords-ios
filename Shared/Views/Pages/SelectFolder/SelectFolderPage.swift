@@ -222,12 +222,7 @@ extension SelectFolderPage {
                             .font(.subheadline)
                             .foregroundColor(.gray)
                             .lineLimit(1)
-                            .apply { view in
-                                if #available(iOS 17, *) {
-                                    view
-                                        .typesettingLanguage(.init(languageCode: .unavailable))
-                                }
-                            }
+                            .typesettingLanguage(.init(languageCode: .unavailable))
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

@@ -100,6 +100,7 @@ extension QRCapture {
             action(.success(value))
         }
         
+        @diagnose(DeprecatedDeclaration, as: ignored, reason: "Legacy code for A10 iPads, can be removed when dropping support for iPadOS 17")
         private func updateVideoOrientation() {
             switch UIDevice.current.orientation {
             case .landscapeLeft:

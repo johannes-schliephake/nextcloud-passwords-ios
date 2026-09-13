@@ -294,9 +294,6 @@
 "_options" = "Opcions";
 "_password" = "Contrasenya";
 
-/* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
-"_providerInstructionsMessage" = "Aquesta app admet l'emplenament automàtic de contrasenyes. La funció s'ha d'habilitar a Configuració d'iOS:\n1. Obre l'aplicació Configuració\n2. Toca Contrasenyes\n3. Toca Emplena automàticament les contrasenyes\n4. Habilita les contrasenyes d'emplenament automàtic\n5. Habilita aquesta aplicació";
-
 /* Possible option when adding an OTP, other keys are "_detectQrCodeInPicture" and "_addManually" */
 "_scanQrCode" = "Escanejar el codi QR";
 

@@ -70,7 +70,7 @@ extension Container {
         self { ManagedConfigurationUseCase() }
             .cached
     }
-    @available(iOS 17, *) var openProviderSettingsUseCase: Factory<any OpenProviderSettingsUseCaseProtocol> {
+    var openProviderSettingsUseCase: Factory<any OpenProviderSettingsUseCaseProtocol> {
         self { OpenProviderSettingsUseCase() }
     }
     var preferredUsernameUseCase: Factory<any PreferredUsernameUseCaseProtocol> {
@@ -211,7 +211,7 @@ extension Container {
     var bundleResourceRequestType: Factory<any BundleResourceRequesting.Type> {
         self { NSBundleResourceRequest.self }
     }
-    @available(iOS 17, *) var credentialProviderSettingsHelperType: Factory<any CredentialProviderSettingsHelping.Type> {
+    var credentialProviderSettingsHelperType: Factory<any CredentialProviderSettingsHelping.Type> {
         self { ASSettingsHelper.self }
     }
     @available(iOS 26, *) var defaultLanguageModelType: Factory<any DefaultLanguageModel.Type> {

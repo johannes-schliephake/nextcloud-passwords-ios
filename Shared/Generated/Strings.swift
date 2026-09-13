@@ -133,7 +133,6 @@ internal enum Strings {
   internal static let passwordStatusOutdatedMessage = Strings.tr("Localizable", "_passwordStatusOutdatedMessage", fallback: "This password has reached the maximum age.")
   internal static let passwordStatusUnknownMessage = Strings.tr("Localizable", "_passwordStatusUnknownMessage", fallback: "This password has not yet been checked for its security or the option to store hashes for security checks is disabled.")
   internal static let periodSeconds = Strings.tr("Localizable", "_periodSeconds", fallback: "Period (Seconds)")
-  internal static let providerInstructionsMessage = Strings.tr("Localizable", "_providerInstructionsMessage", fallback: "This app supports AutoFill. The feature has to be enabled in the system's Settings app:\n1. Open the Settings app\n2. Tap Passwords\n3. Tap Password Options or AutoFill Passwords\n4. Enable AutoFill\n5. Enable this app")
   internal static let providerInstructionsMessageWithLink = Strings.tr("Localizable", "_providerInstructionsMessageWithLink", fallback: "This app supports AutoFill. The feature has to be enabled manually:\n1. [Tap here](autoFillSettings) to open the system's AutoFill settings\n2. Enable AutoFill\n3. Enable this app\n4. Optional: Enable this app for Code Set Up")
   internal static let qrCaptureErrorMessage = Strings.tr("Localizable", "_qrCaptureErrorMessage", fallback: "An error occurred while launching the camera.")
   internal static let rateOnTheAppStore = Strings.tr("Localizable", "_rateOnTheAppStore", fallback: "Rate on the App Store")

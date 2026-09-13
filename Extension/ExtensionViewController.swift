@@ -20,7 +20,7 @@ class ExtensionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dependency(\.autoFillController).mode = .extension
+        dependency(\.autoFillController).mode = .otpProvider
         dependency(\.autoFillController).serviceURLs = []
         dependency(\.autoFillController).credentialIdentifier = nil
         dependency(\.autoFillController).hasField = false

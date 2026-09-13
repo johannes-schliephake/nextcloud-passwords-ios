@@ -45,7 +45,7 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
         .alert(isPresented: $showAppExtensionWordlistErrorAlert) {
             Alert(title: Text("_error"), message: Text(Strings.appExtensionWordlistErrorMessage))
         }
-        .onChange(of: password) { _ in showPasswordGenerator = false }
+        .onChange(of: password) { showPasswordGenerator = false }
         .onAppear {
             guard generateInitial,
                   password.isEmpty else {
@@ -54,11 +54,11 @@ struct PasswordGenerator: View { // swiftlint:disable:this file_types_order
             generateInitial = false
             generatePassword()
         }
-        .onChange(of: generatorNumbers) { Configuration.userDefaults.set($0, forKey: "generatorNumbers") }
-        .onChange(of: generatorSpecial) { Configuration.userDefaults.set($0, forKey: "generatorSpecial") }
-        .onChange(of: generatorStrength.rawValue) { Configuration.userDefaults.set($0, forKey: "generatorStrength") }
-        .onChange(of: generatorLength) { Configuration.userDefaults.set($0, forKey: "generatorLength") }
-        .onChange(of: onDeviceGenerator) { Configuration.userDefaults.set($0, forKey: "onDeviceGenerator") }
+        .onChange(of: generatorNumbers) { _, generatorNumbers in Configuration.userDefaults.set(generatorNumbers, forKey: "generatorNumbers") }
+        .onChange(of: generatorSpecial) { _, generatorSpecial in Configuration.userDefaults.set(generatorSpecial, forKey: "generatorSpecial") }
+        .onChange(of: generatorStrength.rawValue) { _, generatorStrength in Configuration.userDefaults.set(generatorStrength, forKey: "generatorStrength") }
+        .onChange(of: generatorLength) { _, generatorLength in Configuration.userDefaults.set(generatorLength, forKey: "generatorLength") }
+        .onChange(of: onDeviceGenerator) { _, onDeviceGenerator in Configuration.userDefaults.set(onDeviceGenerator, forKey: "onDeviceGenerator") }
     }
     
     private func passwordGenerator() -> some View {

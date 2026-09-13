@@ -17,4 +17,4 @@ extension CredentialProviderSettingsHelping {
 }
 
 
-@available(iOS 17, *) extension ASSettingsHelper: CredentialProviderSettingsHelping {}
+extension ASSettingsHelper: CredentialProviderSettingsHelping {}

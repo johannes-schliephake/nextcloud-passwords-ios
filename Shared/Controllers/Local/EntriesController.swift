@@ -453,7 +453,7 @@ final class EntriesController: ObservableObject {
                         .map { ASOneTimeCodeCredentialIdentity(serviceIdentifier: .init(identifier: $0.url, type: .URL), label: $0.username, recordIdentifier: $0.id) }
                     ASCredentialIdentityStore.shared.replaceCredentialIdentities(passwordIdentities + otpIdentities)
                 } else {
-                    ASCredentialIdentityStore.shared.replaceCredentialIdentities(with: passwordIdentities)
+                    ASCredentialIdentityStore.shared.replaceCredentialIdentities(passwordIdentities)
                 }
             }
             else {
@@ -474,9 +474,9 @@ final class EntriesController: ObservableObject {
         switch dependency(\.autoFillController).mode {
         case .app:
             break
-        case .provider:
+        case .passwordProvider:
             complete(password.username, password.password)
-        case .extension:
+        case .otpProvider:
             guard let currentOtp = password.otp?.current else {
                 return
             }
@@ -750,7 +750,7 @@ final class EntriesController: ObservableObject {
             return nil
         }
         let searchTerm = searchTerm.trimmingCharacters(in: .whitespacesAndNewlines)
-        let filterBy = dependency(\.autoFillController).mode != .extension ? filterBy : .otps
+        let filterBy = dependency(\.autoFillController).mode != .otpProvider ? filterBy : .otps
         let sortBy = defaultSorting ?? sortBy
         let reversed = defaultSorting != nil ? false : reversed
         
@@ -954,7 +954,7 @@ final class EntriesController: ObservableObject {
                     .reduce(0.0, +)
             }
             .zip(with: passwords)
-            .filter { dependency(\.autoFillController).mode != .extension || $0.1.otp != nil }
+            .filter { dependency(\.autoFillController).mode != .otpProvider || $0.1.otp != nil }
             .filter { $0.0 > 0.5 }
             .sorted { $0.0 > $1.0 }
             .prefix(5)

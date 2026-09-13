@@ -27,15 +27,7 @@ private struct Tooltip<PopoverContent: View>: ViewModifier {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .scrollBounceBehavior(.basedOnSize)
-                .apply { view in
-                    if #available(iOS 17, *) {
-                        view
-                            .safeAreaPadding(TooltipConstants.safeArea)
-                    } else {
-                        view
-                            .legacySafeAreaPadding(TooltipConstants.safeArea)
-                    }
-                }
+                .safeAreaPadding(TooltipConstants.safeArea)
                 .frame(maxHeight: TooltipConstants.maxSize.height)
                 .apply { view in
                     if let windowWidth = windowSizeUseCase[\.windowSize]?.width {

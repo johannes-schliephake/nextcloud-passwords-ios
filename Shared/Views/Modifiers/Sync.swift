@@ -9,10 +9,10 @@ private struct Sync<Value: Hashable>: ViewModifier {
     func body(content: Content) -> some View {
         content
             .initialize(focus: $focusState, with: value)
-            .onChange(of: value) { value in
+            .onChange(of: value) { _, value in
                 focusState = value
             }
-            .onChange(of: focusState) { focusState in
+            .onChange(of: focusState) { _, focusState in
                 value = focusState
             }
     }

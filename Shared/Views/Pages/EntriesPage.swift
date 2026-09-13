@@ -45,12 +45,7 @@ struct EntriesPage: View {
                     }
                 }
             }
-            .apply { view in
-                if #available(iOS 17, *) {
-                    view
-                        .toolbar(removing: .sidebarToggle)
-                }
-            }
+            .toolbar(removing: .sidebarToggle)
             .apply { view in
                 let showTrailingToolbarView = sessionController.session != nil &&
                                               entriesController.state != .error &&
@@ -88,7 +83,7 @@ struct EntriesPage: View {
                     }
                 }
             }
-            .onChange(of: autoFillController.receivedOtp) { receivedOtp in
+            .onChange(of: autoFillController.receivedOtp) { _, receivedOtp in
                 guard let receivedOtp else {
                     return
                 }
@@ -105,7 +100,7 @@ struct EntriesPage: View {
         if autoFillController.receivedOtp != nil && folderController.folder.isBaseFolder {
             return "_addOtp".localized
         }
-        if autoFillController.mode == .extension {
+        if autoFillController.mode == .otpProvider {
             return "_otps".localized
         }
         return switch (entriesController.filterBy, folderController.folder.isBaseFolder, folderController.tag) {
@@ -228,26 +223,13 @@ struct EntriesPage: View {
                             Image(systemName: "questionmark.circle")
                         }
                         .buttonStyle(.borderless)
-                        .apply { view in
-                            if #available(iOS 17, *) {
-                                view
-                                    .tooltip(isPresented: $showStorePasswordTooltip) {
-                                        Text("_storePasswordMessage")
-                                    }
-                            }
+                        .tooltip(isPresented: $showStorePasswordTooltip) {
+                            Text("_storePasswordMessage")
                         }
                     }
                 }
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2))
                 .listRowBackground(Color.clear)
-                .apply { view in
-                    if #unavailable(iOS 17) {
-                        view
-                            .tooltip(isPresented: $showStorePasswordTooltip) {
-                                Text("_storePasswordMessage")
-                            }
-                    }
-                }
             }
             Button {
                 solveChallenge()
@@ -271,15 +253,7 @@ struct EntriesPage: View {
         }
         .listStyle(.insetGrouped)
         .scrollBounceBehavior(.basedOnSize)
-        .apply { view in
-            if #available(iOS 17, *) {
-                view
-                    .listWidthLimit(600)
-            } else {
-                view
-                    .frame(maxWidth: 600)
-            }
-        }
+        .listWidthLimit(600)
         .initialize(focus: $focusedField, with: .challengePassword)
     }
     
@@ -287,7 +261,7 @@ struct EntriesPage: View {
         VStack {
             if let suggestions = folderController.suggestions,
                folderController.searchTerm.isEmpty,
-               suggestions.isEmpty && autoFillController.mode == .provider || !suggestions.isEmpty && folderController.folder.isBaseFolder && folderController.tag == nil {
+               suggestions.isEmpty && autoFillController.mode == .passwordProvider || !suggestions.isEmpty && folderController.folder.isBaseFolder && folderController.tag == nil {
                 List {
                     Group {
                         Section(header: Text("_suggestions")) {
@@ -570,7 +544,7 @@ struct EntriesPage: View {
             }
         }
         let isPad = UIDevice.current.userInterfaceIdiom == .pad
-        if autoFillController.mode != .extension {
+        if autoFillController.mode != .otpProvider {
             if showFilterSortMenu {
                 ToolbarItem(placement: .bottomBar) {
                     filterSortMenu()
@@ -583,7 +557,7 @@ struct EntriesPage: View {
         if !isPad {
             DefaultToolbarItem(kind: .search, placement: .bottomBar)
         }
-        if autoFillController.mode != .extension {
+        if autoFillController.mode != .otpProvider {
             if !isPad {
                 ToolbarSpacer(.flexible, placement: .bottomBar)
             }
@@ -616,7 +590,7 @@ struct EntriesPage: View {
                 }
                 Spacer()
             }
-            if autoFillController.mode != .extension {
+            if autoFillController.mode != .otpProvider {
                 if showFilterSortMenu {
                     filterSortMenu()
                 }
@@ -746,7 +720,7 @@ struct EntriesPage: View {
         .menuActionDismissBehavior(.disabled)
         .menuOrder(.fixed)
         .accessibility(identifier: "filterSortMenu")
-        .onChange(of: entriesController.filterBy, perform: didChange)
+        .onChange(of: entriesController.filterBy) { _, filterBy in didChange(filterBy: filterBy) }
     }
     
     private func createMenu() -> some View {
@@ -1183,9 +1157,9 @@ extension EntriesPage {
                         switch autoFillController.mode {
                         case .app:
                             complete(password.id, "")
-                        case .provider:
+                        case .passwordProvider:
                             complete(password.username, password.password)
-                        case .extension:
+                        case .otpProvider:
                             guard let currentOtp = password.otp?.current else {
                                 return
                             }
@@ -1238,7 +1212,7 @@ extension EntriesPage {
                             Spacer()
                         }
                     }
-                    if entriesController.filterBy == .otps || autoFillController.mode == .extension,
+                    if entriesController.filterBy == .otps || autoFillController.mode == .otpProvider,
                        let otp = password.otp {
                         OTPDisplay(otp: otp) { otp in
                             password.updated = Date()
@@ -1254,12 +1228,7 @@ extension EntriesPage {
                                     Text((current ?? "").segmented)
                                         .foregroundColor(.primary)
                                         .monospaced()
-                                        .apply { view in
-                                            if #available(iOS 17, *) {
-                                                view
-                                                    .typesettingLanguage(.init(languageCode: .unavailable))
-                                            }
-                                        }
+                                        .typesettingLanguage(.init(languageCode: .unavailable))
                                     if #available(iOS 26, *) {
                                         accessoryView
                                     }
@@ -1353,12 +1322,7 @@ extension EntriesPage {
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .lineLimit(1)
-                        .apply { view in
-                            if #available(iOS 17, *) {
-                                view
-                                    .typesettingLanguage(.init(languageCode: .unavailable))
-                            }
-                        }
+                        .typesettingLanguage(.init(languageCode: .unavailable))
                 }
             }
         }

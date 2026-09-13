@@ -17,45 +17,37 @@ final class ProviderViewController: ASCredentialProviderViewController {
         fatalError("init(coder:) has not been implemented") // swiftlint:disable:this fatal_error
     }
     
-    override func provideCredentialWithoutUserInteraction(for credentialIdentity: ASPasswordCredentialIdentity) {
-        provideCredential(mode: .provider, recordIdentifier: credentialIdentity.recordIdentifier)
-    }
-    
-    @available(iOS 17, *) override func provideCredentialWithoutUserInteraction(for credentialRequest: any ASCredentialRequest) {
+    override func provideCredentialWithoutUserInteraction(for credentialRequest: any ASCredentialRequest) {
         let recordIdentifier = credentialRequest.credentialIdentity.recordIdentifier
         switch credentialRequest.type {
         case .password:
-            provideCredential(mode: .provider, recordIdentifier: recordIdentifier)
+            provideCredential(mode: .passwordProvider, recordIdentifier: recordIdentifier)
         case .oneTimeCode:
-            provideCredential(mode: .extension, recordIdentifier: recordIdentifier)
+            provideCredential(mode: .otpProvider, recordIdentifier: recordIdentifier)
         default:
             extensionContext.cancelRequest(withError: ASExtensionError(.failed))
         }
     }
     
-    override func prepareInterfaceToProvideCredential(for credentialIdentity: ASPasswordCredentialIdentity) {
-        showCredentialList(mode: .provider, serviceIdentifiers: [credentialIdentity.serviceIdentifier], recordIdentifier: credentialIdentity.recordIdentifier)
-    }
-    
-    @available(iOS 17, *) override func prepareInterfaceToProvideCredential(for credentialRequest: any ASCredentialRequest) {
+    override func prepareInterfaceToProvideCredential(for credentialRequest: any ASCredentialRequest) {
         let serviceIdentifiers = [credentialRequest.credentialIdentity.serviceIdentifier]
         let recordIdentifier = credentialRequest.credentialIdentity.recordIdentifier
         switch credentialRequest.type {
         case .password:
-            showCredentialList(mode: .provider, serviceIdentifiers: serviceIdentifiers, recordIdentifier: recordIdentifier)
+            showCredentialList(mode: .passwordProvider, serviceIdentifiers: serviceIdentifiers, recordIdentifier: recordIdentifier)
         case .oneTimeCode:
-            showCredentialList(mode: .extension, serviceIdentifiers: serviceIdentifiers, recordIdentifier: recordIdentifier)
+            showCredentialList(mode: .otpProvider, serviceIdentifiers: serviceIdentifiers, recordIdentifier: recordIdentifier)
         default:
             extensionContext.cancelRequest(withError: ASExtensionError(.failed))
         }
     }
     
     override func prepareCredentialList(for serviceIdentifiers: [ASCredentialServiceIdentifier]) {
-        showCredentialList(mode: .provider, serviceIdentifiers: serviceIdentifiers, recordIdentifier: nil)
+        showCredentialList(mode: .passwordProvider, serviceIdentifiers: serviceIdentifiers, recordIdentifier: nil)
     }
     
     override func prepareOneTimeCodeCredentialList(for serviceIdentifiers: [ASCredentialServiceIdentifier]) {
-        showCredentialList(mode: .extension, serviceIdentifiers: serviceIdentifiers, recordIdentifier: nil)
+        showCredentialList(mode: .otpProvider, serviceIdentifiers: serviceIdentifiers, recordIdentifier: nil)
     }
     
     private func provideCredential(mode: AutoFillController.Mode, recordIdentifier: String?) {
@@ -94,9 +86,9 @@ final class ProviderViewController: ASCredentialProviderViewController {
             switch mode {
             case .app:
                 self?.extensionContext.cancelRequest(withError: ASExtensionError(.failed))
-            case .provider:
+            case .passwordProvider:
                 self?.extensionContext.completeRequest(withSelectedCredential: .init(user: password.username, password: password.password))
-            case .extension:
+            case .otpProvider:
                 guard let currentOtp = password.otp?.current else {
                     self?.extensionContext.cancelRequest(withError: ASExtensionError(.credentialIdentityNotFound))
                     return
@@ -120,9 +112,9 @@ final class ProviderViewController: ASCredentialProviderViewController {
             switch mode {
             case .app:
                 self?.extensionContext.cancelRequest(withError: ASExtensionError(.failed))
-            case .provider:
+            case .passwordProvider:
                 self?.extensionContext.completeRequest(withSelectedCredential: .init(user: username, password: secret))
-            case .extension:
+            case .otpProvider:
                 guard #available(iOS 18, *) else {
                     self?.extensionContext.cancelRequest(withError: ASExtensionError(.failed))
                     return

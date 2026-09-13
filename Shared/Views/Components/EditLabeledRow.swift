@@ -164,8 +164,7 @@ struct EditLabeledRow: View {
                         .keyboardType(.numberPad)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
-                        .onChange(of: numberStringValue) {
-                            numberStringValue in
+                        .onChange(of: numberStringValue) { _, numberStringValue in
                             let numberStringValue = numberStringValue.filter { "0123456789-".contains($0) }
                             guard var intValue = Int(numberStringValue),
                                   self.intValue != intValue else {
@@ -186,8 +185,7 @@ struct EditLabeledRow: View {
                             self.intValue = intValue
                             self.numberStringValue = String(intValue)
                         }
-                        .onChange(of: intValue) {
-                            intValue in
+                        .onChange(of: intValue) { _, intValue in
                             let numberStringValue = String(intValue)
                             guard self.numberStringValue != numberStringValue else {
                                 return

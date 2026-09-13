@@ -77,9 +77,6 @@
 /* This refers to the noun ("the tag") */
 "_tag" = "Тег";
 
-/* Make sure to keep newlines (\n), don't translate "Password AutoFill" and make sure to use the exact same wording Apple uses for each step */
-"_providerInstructionsMessage" = "Цей додаток підтримує автозаповнення. Ця функція повинна бути ввімкнена в додатку Налаштування системи:\n1. Відкрийте програму Налаштування\n2. Торкніться Паролі\n3. Торкніться Параметри паролів або Автоматичне заповнення паролів\n4. Увімкніть автозаповнення\n5. Увімкніть цей додаток";
-
 /* I.e. strength of the password to generate */
 "_strength" = "Міцність";
 "_thanksMessage" = "Дякуємо всій спільноті Nextcloud та всім, хто долучився до створення такої дивовижної екосистеми. Я сподіваюся, що зможу зробити свій внесок за допомогою цього додатку.";
