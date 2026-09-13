@@ -83,7 +83,7 @@ struct EntriesPage: View {
                     }
                 }
             }
-            .onChange(of: autoFillController.receivedOtp) { receivedOtp in
+            .onChange(of: autoFillController.receivedOtp) { _, receivedOtp in
                 guard let receivedOtp else {
                     return
                 }
@@ -720,7 +720,7 @@ struct EntriesPage: View {
         .menuActionDismissBehavior(.disabled)
         .menuOrder(.fixed)
         .accessibility(identifier: "filterSortMenu")
-        .onChange(of: entriesController.filterBy, perform: didChange)
+        .onChange(of: entriesController.filterBy) { _, filterBy in didChange(filterBy: filterBy) }
     }
     
     private func createMenu() -> some View {

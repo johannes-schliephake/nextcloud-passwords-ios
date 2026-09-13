@@ -70,7 +70,7 @@ struct PasswordDetailPage: View {
             .onReceive(dependency(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) { _ in
                 dismiss()
             }
-            .onChange(of: sessionController.session == nil) { withoutSession in
+            .onChange(of: sessionController.session == nil) { _, withoutSession in
                 if withoutSession {
                     dismiss()
                 }
@@ -90,7 +90,7 @@ struct PasswordDetailPage: View {
                         }
                 }
             }
-            .onChange(of: showMetadata) { Configuration.userDefaults.set($0, forKey: "showMetadata") }
+            .onChange(of: showMetadata) { _, showMetadata in Configuration.userDefaults.set(showMetadata, forKey: "showMetadata") }
     }
     
     private func mainStack() -> some View {

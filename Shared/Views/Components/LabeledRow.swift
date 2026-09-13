@@ -64,7 +64,7 @@ struct LabeledRow: View {
             .onReceive(NotificationCenter.default.publisher(for: UIScene.didEnterBackgroundNotification)) { _ in
                 hideSecret = true
             }
-            .onChange(of: value) { _ in
+            .onChange(of: value) {
                 hideSecret = true
             }
         }

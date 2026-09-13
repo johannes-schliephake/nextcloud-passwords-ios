@@ -453,7 +453,7 @@ final class EntriesController: ObservableObject {
                         .map { ASOneTimeCodeCredentialIdentity(serviceIdentifier: .init(identifier: $0.url, type: .URL), label: $0.username, recordIdentifier: $0.id) }
                     ASCredentialIdentityStore.shared.replaceCredentialIdentities(passwordIdentities + otpIdentities)
                 } else {
-                    ASCredentialIdentityStore.shared.replaceCredentialIdentities(with: passwordIdentities)
+                    ASCredentialIdentityStore.shared.replaceCredentialIdentities(passwordIdentities)
                 }
             }
             else {

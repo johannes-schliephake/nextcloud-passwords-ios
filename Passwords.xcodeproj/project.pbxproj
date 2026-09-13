@@ -2782,7 +2782,7 @@
 					sv.wordlist,
 				);
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					8F11874E253C9EE10019FECA = {
 						CreatedOnToolsVersion = 12.0.1;

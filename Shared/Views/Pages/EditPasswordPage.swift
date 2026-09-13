@@ -55,7 +55,7 @@ struct EditPasswordPage: View {
                 }
                 editPasswordController.passwordOtp = receivedOtp
             }
-            .onChange(of: didAcceptAboutOtps) { Configuration.userDefaults.set($0, forKey: "didAcceptAboutOtps") }
+            .onChange(of: didAcceptAboutOtps) { _, didAcceptAboutOtps in Configuration.userDefaults.set(didAcceptAboutOtps, forKey: "didAcceptAboutOtps") }
     }
     
     private func listView() -> some View {
@@ -349,7 +349,7 @@ struct EditPasswordPage: View {
                 }
             }
             .disabled(editPasswordController.passwordCustomUserFields.isEmpty)
-            .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { editMode = editMode && !$0 }
+            .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { _, customUserFieldsEmpty in editMode = editMode && !customUserFieldsEmpty }
         }
         .apply { view in
             if #unavailable(iOS 26) {
