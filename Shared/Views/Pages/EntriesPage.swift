@@ -100,7 +100,7 @@ struct EntriesPage: View {
         if autoFillController.receivedOtp != nil && folderController.folder.isBaseFolder {
             return "_addOtp".localized
         }
-        if autoFillController.mode == .extension {
+        if autoFillController.mode == .otpProvider {
             return "_otps".localized
         }
         return switch (entriesController.filterBy, folderController.folder.isBaseFolder, folderController.tag) {
@@ -261,7 +261,7 @@ struct EntriesPage: View {
         VStack {
             if let suggestions = folderController.suggestions,
                folderController.searchTerm.isEmpty,
-               suggestions.isEmpty && autoFillController.mode == .provider || !suggestions.isEmpty && folderController.folder.isBaseFolder && folderController.tag == nil {
+               suggestions.isEmpty && autoFillController.mode == .passwordProvider || !suggestions.isEmpty && folderController.folder.isBaseFolder && folderController.tag == nil {
                 List {
                     Group {
                         Section(header: Text("_suggestions")) {
@@ -544,7 +544,7 @@ struct EntriesPage: View {
             }
         }
         let isPad = UIDevice.current.userInterfaceIdiom == .pad
-        if autoFillController.mode != .extension {
+        if autoFillController.mode != .otpProvider {
             if showFilterSortMenu {
                 ToolbarItem(placement: .bottomBar) {
                     filterSortMenu()
@@ -557,7 +557,7 @@ struct EntriesPage: View {
         if !isPad {
             DefaultToolbarItem(kind: .search, placement: .bottomBar)
         }
-        if autoFillController.mode != .extension {
+        if autoFillController.mode != .otpProvider {
             if !isPad {
                 ToolbarSpacer(.flexible, placement: .bottomBar)
             }
@@ -590,7 +590,7 @@ struct EntriesPage: View {
                 }
                 Spacer()
             }
-            if autoFillController.mode != .extension {
+            if autoFillController.mode != .otpProvider {
                 if showFilterSortMenu {
                     filterSortMenu()
                 }
@@ -1157,9 +1157,9 @@ extension EntriesPage {
                         switch autoFillController.mode {
                         case .app:
                             complete(password.id, "")
-                        case .provider:
+                        case .passwordProvider:
                             complete(password.username, password.password)
-                        case .extension:
+                        case .otpProvider:
                             guard let currentOtp = password.otp?.current else {
                                 return
                             }
@@ -1212,7 +1212,7 @@ extension EntriesPage {
                             Spacer()
                         }
                     }
-                    if entriesController.filterBy == .otps || autoFillController.mode == .extension,
+                    if entriesController.filterBy == .otps || autoFillController.mode == .otpProvider,
                        let otp = password.otp {
                         OTPDisplay(otp: otp) { otp in
                             password.updated = Date()

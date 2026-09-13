@@ -22,8 +22,8 @@ extension AutoFillController {
     
     enum Mode {
         case app
-        case provider
-        case `extension`
+        case passwordProvider
+        case otpProvider
     }
     
 }
