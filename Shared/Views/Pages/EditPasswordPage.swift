@@ -55,7 +55,7 @@ struct EditPasswordPage: View {
                 }
                 editPasswordController.passwordOtp = receivedOtp
             }
-            .onChange(of: didAcceptAboutOtps) { Configuration.userDefaults.set($0, forKey: "didAcceptAboutOtps") }
+            .onChange(of: didAcceptAboutOtps) { _, didAcceptAboutOtps in Configuration.userDefaults.set(didAcceptAboutOtps, forKey: "didAcceptAboutOtps") }
     }
     
     private func listView() -> some View {
@@ -158,12 +158,7 @@ struct EditPasswordPage: View {
                         }
                     }
                     .scrollIndicators(.hidden)
-                    .apply { view in
-                        if #available(iOS 17, *) {
-                            view
-                                .scrollClipDisabled()
-                        }
-                    }
+                    .scrollClipDisabled()
                 }
             }
             HStack(spacing: 16) {
@@ -180,7 +175,7 @@ struct EditPasswordPage: View {
         }
     }
     
-    @ViewBuilder private func otpButton() -> some View {
+    @ContentBuilder private func otpButton() -> some View {
         if let otp = editPasswordController.passwordOtp {
             Button {
                 sheetItem = .edit(otp: otp)
@@ -354,7 +349,7 @@ struct EditPasswordPage: View {
                 }
             }
             .disabled(editPasswordController.passwordCustomUserFields.isEmpty)
-            .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { editMode = editMode && !$0 }
+            .onChange(of: editPasswordController.passwordCustomUserFields.isEmpty) { _, customUserFieldsEmpty in editMode = editMode && !customUserFieldsEmpty }
         }
         .apply { view in
             if #unavailable(iOS 26) {

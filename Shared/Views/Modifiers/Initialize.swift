@@ -25,7 +25,7 @@ private struct Initialize<Value: Hashable>: ViewModifier {
               !didInitialize else {
             return
         }
-        Task {
+        _ = Task {
             /// Try to set the initial value for two seconds. If this doesn't work, the view probably doesn't exist anymore or the app is in background
             for _ in 0..<20 {
                 guard binding.wrappedValue == nil else {

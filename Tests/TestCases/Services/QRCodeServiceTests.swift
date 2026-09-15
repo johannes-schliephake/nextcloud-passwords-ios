@@ -19,11 +19,7 @@ final class QRCodeServiceTests: XCTestCase {
         let qrCodeService: any QRCodeServiceProtocol = QRCodeService()
         qrCodeGeneratorMock._outputImage = .init(data: Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAAqADAAQAAAABAAAAAgAAAADtGLyqAAAAHGlET1QAAAACAAAAAAAAAAEAAAAoAAAAAQAAAAEAAABDeWVRjwAAAA9JREFUGBliYGBg+A8CAAAAAP//Z5hE4QAAAA1JREFUY/gPBAwMDP8BVrsJ91O1pxYAAAAASUVORK5CYII=")!, options: [.nearestSampling: true])!
         
-        let expectedImageData = if #available(iOS 17, *) {
-            Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAHhlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAKgAgAEAAAAAQAAABCgAwAEAAAAAQAAABAAAAAAiKeUQwAAAAlwSFlzAAALEwAACxMBAJqcGAAAABxpRE9UAAAAAgAAAAAAAAAIAAAAKAAAAAgAAAAIAAAATV7YLH8AAAAZSURBVDgRYmBgYPiPD/8nAIB6Rw0Y+mEAAAAA//9oDyprAAAAG0lEQVRj+E8AMDAw/MeLCejHrxlk+KgBgyAMAHyifZ9UtHq+AAAAAElFTkSuQmCC")!
-        } else {
-            Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAAXnVPIAAAAHGlET1QAAAACAAAAAAAAAAgAAAAoAAAACAAAAAgAAABNXtgsfwAAABlJREFUOBFiYGBg+I8P/ycAgHpHDRj6YQAAAAD//2gPKmsAAAAbSURBVGP4TwAwMDD8x4sJ6MevGWT4qAGDIAwAfKJ9n1S0er4AAAAASUVORK5CYII=")!
-        }
+        let expectedImageData = Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAHhlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAKgAgAEAAAAAQAAABCgAwAEAAAAAQAAABAAAAAAiKeUQwAAAAlwSFlzAAALEwAACxMBAJqcGAAAABxpRE9UAAAAAgAAAAAAAAAIAAAAKAAAAAgAAAAIAAAATV7YLH8AAAAZSURBVDgRYmBgYPiPD/8nAIB6Rw0Y+mEAAAAA//9oDyprAAAAG0lEQVRj+E8AMDAw/MeLCejHrxlk+KgBgyAMAHyifZ9UtHq+AAAAAElFTkSuQmCC")!
         expect(qrCodeService.generateQrCode(from: .random()).map { $0.pngData() })
             .toNot(emit())
             .to(emit(expectedImageData, when: { self.userInitiatedSchedulerMock.advance() }))
@@ -41,7 +37,7 @@ final class QRCodeServiceTests: XCTestCase {
     }
     
     func testGenerateQrCode_givenMissingGenerator_thenFailsWithGeneratorUnavailable() {
-        Container.shared.qrCodeGenerator.register { nil }
+        Container.shared.qrCodeGenerator { nil }
         let qrCodeService: any QRCodeServiceProtocol = QRCodeService()
         
         expect(qrCodeService.generateQrCode(from: .random())).to(fail(.generatorUnavailable, when: { self.userInitiatedSchedulerMock.advance() }))

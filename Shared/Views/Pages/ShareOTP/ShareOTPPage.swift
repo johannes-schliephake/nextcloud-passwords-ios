@@ -50,7 +50,7 @@ struct ShareOTPPage: View {
             .foregroundColor(.red)
     }
     
-    @ViewBuilder private func shareButton() -> some View {
+    @ContentBuilder private func shareButton() -> some View {
         let item = Image(uiImage: viewModel[\.qrCode] ?? UIImage())
         ShareLink("_shareQrCode", item: item, preview: SharePreview("_otp", image: item))
             .enabled(viewModel[\.qrCodeAvailable])

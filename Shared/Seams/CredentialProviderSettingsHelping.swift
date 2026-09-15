@@ -3,7 +3,7 @@ import AuthenticationServices
 
 protocol CredentialProviderSettingsHelping {
     
-    static func openCredentialProviderAppSettings(completionHandler: (@Sendable ((any Error)?) -> Void)?)
+    static func openCredentialProviderAppSettings(completionHandler: (@Sendable (any Error?) -> Void)?)
     
 }
 
@@ -17,4 +17,4 @@ extension CredentialProviderSettingsHelping {
 }
 
 
-@available(iOS 17, *) extension ASSettingsHelper: CredentialProviderSettingsHelping {}
+extension ASSettingsHelper: CredentialProviderSettingsHelping {}

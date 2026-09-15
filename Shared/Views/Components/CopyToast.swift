@@ -17,7 +17,7 @@ struct CopyToast<Content: View>: View {
     @State private var isVisible = false
     @State private var safeAreaBottomInset = 0.0
     
-    init(@ViewBuilder content: @escaping () -> Content) {
+    init(@ContentBuilder content: @escaping () -> Content) {
         self.content = content
     }
     

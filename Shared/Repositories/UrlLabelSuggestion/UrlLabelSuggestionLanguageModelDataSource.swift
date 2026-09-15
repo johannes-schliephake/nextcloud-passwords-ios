@@ -79,7 +79,7 @@ import FoundationModels
                     generating: Suggestion.self,
                     includeSchemaInPrompt: false,
                     options: .init(
-                        sampling: .greedy,
+                        samplingMode: .greedy,
                         temperature: 0
                     )
                 )

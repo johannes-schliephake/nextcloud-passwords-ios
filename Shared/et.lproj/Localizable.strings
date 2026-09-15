@@ -137,7 +137,6 @@
 "_periodSeconds" = "Kehtivus (sekundeis)";
 "_passwordStatusUnknownMessage" = "Selle salasõna turvalisust pole kontrollitud või sellise kontrolli jaoks vajalike räside salvestamine pole lubatud.";
 "_qrCaptureErrorMessage" = "Kaamera käivitamisel tekkis viga.";
-"_providerInstructionsMessage" = "See rakendus toetab automaattäite teenust (AutoFill). Sa pead ta süsteemi seadistustest sisse lülitama:\n1. Ava seadistuste rakendus (Settings)\n2. Klõpsi nupul Salasõnad (Passwords)\n3. Klõpsi salasõnade valikuid (Password Options või AutoFill Passwords)\n4. Lülita automaattäite teenus (AutoFill) sisse\n5. Luba kasutamine selle rakenduse puhul";
 "_service" = "Teenus";
 "_settings" = "Seadistused";
 "_shareOtpWarningMessage" = "Selles QR-koodis leiduvad ühekordse salasõna kohta väga delikaatsed andmed";

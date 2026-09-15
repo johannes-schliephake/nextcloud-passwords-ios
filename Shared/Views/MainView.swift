@@ -12,7 +12,9 @@ struct MainView: View {
     
     var body: some View {
         EntriesNavigation()
-            .onChange(of: authenticationChallengeController.certificateConfirmationRequests, perform: didChange)
+            .onChange(of: authenticationChallengeController.certificateConfirmationRequests) { _, certificateConfirmationRequests in
+                didChange(certificateConfirmationRequests: certificateConfirmationRequests)
+            }
             .copyToast()
             .environmentObject(dependency(\.autoFillController))
             .environmentObject(dependency(\.sessionController))

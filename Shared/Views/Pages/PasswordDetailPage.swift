@@ -27,7 +27,7 @@ struct PasswordDetailPage: View {
     @ScaledMetric private var upcomingOtpFontSize = 12
     @ScaledMetric private var otpLabelsDistance = 6
     
-    private let iOS26 = if #available(iOS 26, *) { true } else { false }
+    private let isIos26OrAbove = if #available(iOS 26, *) { true } else { false }
     
     // MARK: Views
     
@@ -42,7 +42,7 @@ struct PasswordDetailPage: View {
                     }
                     stateToolbar()
                     if let complete = autoFillController.complete,
-                       autoFillController.mode != .extension || password.otp != nil {
+                       autoFillController.mode != .otpProvider || password.otp != nil {
                         ToolbarItem(placement: .bottomBar) {
                             selectButton(complete: complete)
                         }
@@ -70,7 +70,7 @@ struct PasswordDetailPage: View {
             .onReceive(dependency(\.systemNotifications).publisher(for: Notification.Name("deletePassword"), object: password)) { _ in
                 dismiss()
             }
-            .onChange(of: sessionController.session == nil) { withoutSession in
+            .onChange(of: sessionController.session == nil) { _, withoutSession in
                 if withoutSession {
                     dismiss()
                 }
@@ -90,7 +90,7 @@ struct PasswordDetailPage: View {
                         }
                 }
             }
-            .onChange(of: showMetadata) { Configuration.userDefaults.set($0, forKey: "showMetadata") }
+            .onChange(of: showMetadata) { _, showMetadata in Configuration.userDefaults.set(showMetadata, forKey: "showMetadata") }
     }
     
     private func mainStack() -> some View {
@@ -101,7 +101,7 @@ struct PasswordDetailPage: View {
                         VStack(spacing: 0) {
                             view
                             if let complete = autoFillController.complete,
-                               autoFillController.mode != .extension || password.otp != nil {
+                               autoFillController.mode != .otpProvider || password.otp != nil {
                                 Divider()
                                 selectBar(geometryProxy: geometryProxy, complete: complete)
                             }
@@ -245,7 +245,7 @@ struct PasswordDetailPage: View {
         }
         .buttonStyle(.borderless)
         .apply { view in
-            if !iOS26 || UIDevice.current.userInterfaceIdiom == .pad {
+            if !isIos26OrAbove || UIDevice.current.userInterfaceIdiom == .pad {
                 view
                     .tooltip(isPresented: $showPasswordStatusTooltip) {
                         tooltipContent()
@@ -396,8 +396,8 @@ struct PasswordDetailPage: View {
     
     private func tagsSection(validTags: [Tag]) -> some View {
         Section {
-            if iOS26 || !validTags.isEmpty {
-                let aligment: HorizontalAlignment = iOS26 ? .leading : .center
+            if isIos26OrAbove || !validTags.isEmpty {
+                let aligment: HorizontalAlignment = isIos26OrAbove ? .leading : .center
                 FlowView(alignment: aligment) {
                     ForEach(validTags.sorted()) { tag in
                         TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
@@ -482,7 +482,7 @@ struct PasswordDetailPage: View {
             if #unavailable(iOS 26) {
                 LabeledRow(type: .text, label: "_name", value: password.label, copiable: true)
             }
-            if !password.url.isEmpty || !iOS26 {
+            if !password.url.isEmpty || !isIos26OrAbove {
                 LabeledRow(type: .url, label: "_url", value: password.url, copiable: true)
             }
         } header: {
@@ -494,7 +494,7 @@ struct PasswordDetailPage: View {
     
     private func accountSection() -> some View {
         Section {
-            if !password.username.isEmpty || !iOS26 {
+            if !password.username.isEmpty || !isIos26OrAbove {
                 LabeledRow(type: .nonLinguisticText, label: "_username", value: password.username, copiable: true)
             }
             LabeledRow(type: .secret, label: "_password", value: password.password, copiable: true)
@@ -572,7 +572,7 @@ struct PasswordDetailPage: View {
                 }
             }
         } header: {
-            if !password.username.isEmpty || password.otp != nil || !iOS26 {
+            if !password.username.isEmpty || password.otp != nil || !isIos26OrAbove {
                 Text("_account")
             }
         }
@@ -676,7 +676,7 @@ struct PasswordDetailPage: View {
         }
     }
     
-    private func labeledFootnote<Content: View>(_ labelKey: LocalizedStringKey, @ViewBuilder content: () -> Content) -> some View {
+    private func labeledFootnote<Content: View>(_ labelKey: LocalizedStringKey, @ContentBuilder content: () -> Content) -> some View {
         HStack(alignment: .top) {
             Text(labelKey)
                 .font(.footnote)
@@ -706,16 +706,16 @@ struct PasswordDetailPage: View {
             switch autoFillController.mode {
             case .app:
                 complete(password.id, "")
-            case .provider:
+            case .passwordProvider:
                 complete(password.username, password.password)
-            case .extension:
+            case .otpProvider:
                 guard let currentOtp = password.otp?.current else {
                     return
                 }
                 complete(password.username, currentOtp)
             }
         } label: {
-            Text(autoFillController.mode == .extension && !autoFillController.hasField ? "_copyOtp" : "_select")
+            Text(autoFillController.mode == .otpProvider && !autoFillController.hasField ? "_copyOtp" : "_select")
                 .font(.headline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, minHeight: 34)
@@ -733,7 +733,7 @@ struct PasswordDetailPage: View {
         .disabled(password.state == .decryptionFailed)
     }
     
-    @available(iOS 26, *) @ToolbarContentBuilder private func stateToolbar() -> some ToolbarContent {
+    @available(iOS 26, *) @ContentBuilder private func stateToolbar() -> some ToolbarContent {
         if let state = password.state {
             if state.isError {
                 ToolbarItem(placement: .primaryAction) {
@@ -754,7 +754,7 @@ struct PasswordDetailPage: View {
         .sharedBackgroundVisibility(.hidden)
     }
     
-    @ViewBuilder private func stateView() -> some View {
+    @ContentBuilder private func stateView() -> some View {
         if let state = password.state {
             if state.isError {
                 errorButton(state: state)

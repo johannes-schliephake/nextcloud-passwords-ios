@@ -343,10 +343,6 @@ final class SettingsViewModelTests: XCTestCase {
     }
     
     func testCallAsFunction_givenRandomUrl_whenCallingOpenProviderSettingsUrl_thenDoesntCallOpenProviderSettingsUseCase() throws {
-        guard #available(iOS 17, *) else {
-            throw XCTSkip()
-        }
-        
         @MockInjected(\.openProviderSettingsUseCase) var openProviderSettingsUseCaseMock: OpenProviderSettingsUseCaseMock
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         
@@ -356,10 +352,6 @@ final class SettingsViewModelTests: XCTestCase {
     }
     
     func testCallAsFunction_givenAutoFillSettingsUrl_whenCallingOpenProviderSettingsUrl_thenCallsOpenProviderSettingsUseCase() throws {
-        guard #available(iOS 17, *) else {
-            throw XCTSkip()
-        }
-        
         @MockInjected(\.openProviderSettingsUseCase) var openProviderSettingsUseCaseMock: OpenProviderSettingsUseCaseMock
         let settingsViewModel: any SettingsViewModelProtocol = SettingsViewModel()
         

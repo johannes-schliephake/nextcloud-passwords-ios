@@ -9,6 +9,7 @@ struct CaptureOTPPage: View {
         mainStack()
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("_scanQrCode")
+            .preferredColorScheme(.dark)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     cancelButton()
@@ -32,7 +33,7 @@ struct CaptureOTPPage: View {
                     .padding(.bottom, geometryProxy.safeAreaInsets.bottom)
             }
             .background(Color.black)
-            .edgesIgnoringSafeArea([.horizontal, .bottom])
+            .ignoresSafeArea()
             .alert(isPresented: $viewModel[\.showErrorAlert]) {
                 Alert(title: Text("_error"), message: Text("_qrCaptureErrorMessage"), dismissButton: .cancel {
                     viewModel(.cancel)
@@ -41,7 +42,7 @@ struct CaptureOTPPage: View {
         }
     }
     
-    @ViewBuilder private func cancelButton() -> some View {
+    @ContentBuilder private func cancelButton() -> some View {
         if #available(iOS 26, *) {
             Button(role: .cancel) {
                 viewModel(.cancel)

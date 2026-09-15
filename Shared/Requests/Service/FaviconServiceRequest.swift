@@ -22,13 +22,13 @@ extension FaviconServiceRequest: NCPasswordsRequest {
         if Configuration.isTestEnvironment {
             switch domain {
             case "cloud.example.com":
-                completion(FaviconServiceRequest.mocks[0])
+                completion(Self.mocks[0])
             case "github.com":
-                completion(FaviconServiceRequest.mocks[1])
+                completion(Self.mocks[1])
             case "hosted.weblate.org":
-                completion(FaviconServiceRequest.mocks[2])
+                completion(Self.mocks[2])
             case "forums.swift.org":
-                completion(FaviconServiceRequest.mocks[3])
+                completion(Self.mocks[3])
             default:
                 break
             }

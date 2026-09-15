@@ -4,8 +4,8 @@ import Foundation
 
 final class WebAuthenticationSessionMock: WebAuthenticationSession, Mock, FunctionCallLogging, PropertyAccessLogging {
 
-    var _window: (any Window)? // swiftlint:disable:this identifier_name
-    var window: (any Window)? {
+    var _window: any Window? // swiftlint:disable:this identifier_name
+    var window: any Window? {
         get {
             logPropertyAccess()
             return _window
@@ -16,8 +16,8 @@ final class WebAuthenticationSessionMock: WebAuthenticationSession, Mock, Functi
         }
     }
     
-    var _initCompletionHandler: ((URL?, (any Error)?) -> Void)? // swiftlint:disable:this identifier_name
-    init(url: URL, callbackURLScheme: String?, completionHandler: @escaping (URL?, (any Error)?) -> Void) {
+    var _initCompletionHandler: ((URL?, any Error?) -> Void)? // swiftlint:disable:this identifier_name
+    init(url: URL, callbackURLScheme: String?, completionHandler: @escaping (URL?, any Error?) -> Void) {
         Self.logFunctionCall(parameters: self)
         logFunctionCall(parameters: url, callbackURLScheme)
         _initCompletionHandler = completionHandler

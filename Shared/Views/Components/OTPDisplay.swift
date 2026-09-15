@@ -5,7 +5,7 @@ struct OTPDisplay<Content: View>: View {
     
     let otp: OTP
     let updateOtp: (OTP) -> Void
-    @ViewBuilder let content: (String?, String?, AnyView) -> Content
+    @ContentBuilder let content: (String?, String?, AnyView) -> Content
     
     @State private var current: String?
     @State private var upcoming: String?
@@ -17,7 +17,7 @@ struct OTPDisplay<Content: View>: View {
         content(current, upcoming, AnyView(accessoryView()))
     }
     
-    @ViewBuilder private func accessoryView() -> some View {
+    @ContentBuilder private func accessoryView() -> some View {
         switch otp.type {
         case .hotp:
             Button {

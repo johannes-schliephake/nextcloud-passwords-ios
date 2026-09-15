@@ -1,3 +1,7 @@
+## [v2.12] - 2026-09-15
+- iOS 27 compatibility
+- Optimizations
+
 ## [v2.11] - 2026-06-11
 - Korean translation (Thanks Iranto!)
 - Bugfixes and optimizations

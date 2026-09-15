@@ -20,7 +20,7 @@ class ExtensionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dependency(\.autoFillController).mode = .extension
+        dependency(\.autoFillController).mode = .otpProvider
         dependency(\.autoFillController).serviceURLs = []
         dependency(\.autoFillController).credentialIdentifier = nil
         dependency(\.autoFillController).hasField = false
@@ -70,7 +70,7 @@ class ExtensionViewController: UIViewController {
             self?.extensionContext?.cancelRequest(withError: NSError(domain: Configuration.appService, code: 0))
         }
         
-        Container.shared.rootViewController.register { self }
+        Container.shared.rootViewController { self }
         
         let hostingController = UIHostingController(rootView: MainView())
         addChild(hostingController)

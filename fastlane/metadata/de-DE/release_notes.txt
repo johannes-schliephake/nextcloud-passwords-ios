@@ -1,2 +1,2 @@
-• Koreanische Übersetzung (Danke Iranto!)
-• Fehlerbehebungen und Optimierungen
+• iOS 27 Kompatibilität
+• Optimierungen

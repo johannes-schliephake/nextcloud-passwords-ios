@@ -11,12 +11,7 @@ struct LogPage: View {
         listView()
             .navigationBarTitleDisplayMode(.large)
             .navigationTitle("Log")
-            .apply { view in
-                if #available(iOS 17, *) {
-                    view
-                        .typesettingLanguage(.init(languageCode: .english))
-                }
-            }
+            .typesettingLanguage(.init(languageCode: .english))
             .environment(\.locale, .init(languageCode: .english))
             .environment(\.layoutDirection, .leftToRight)
     }
@@ -95,7 +90,7 @@ struct LogPage: View {
         }
     }
     
-    @ViewBuilder private func icon(for event: LogEvent) -> some View {
+    @ContentBuilder private func icon(for event: LogEvent) -> some View {
         switch event.type {
         case .error:
             Image(systemName: "exclamationmark.triangle")

@@ -64,7 +64,7 @@ struct LabeledRow: View {
             .onReceive(NotificationCenter.default.publisher(for: UIScene.didEnterBackgroundNotification)) { _ in
                 hideSecret = true
             }
-            .onChange(of: value) { _ in
+            .onChange(of: value) {
                 hideSecret = true
             }
         }
@@ -147,32 +147,17 @@ struct LabeledRow: View {
             case .nonLinguisticText:
                 Text(!value.isEmpty ? value : "-")
                     .foregroundColor(.primary)
-                    .apply { view in
-                        if #available(iOS 17, *) {
-                            view
-                                .typesettingLanguage(.init(languageCode: .unavailable))
-                        }
-                    }
+                    .typesettingLanguage(.init(languageCode: .unavailable))
             case .secret:
                 Text(hideSecret ? "••••••••••••" : value)
                     .foregroundColor(.primary)
                     .monospaced()
-                    .apply { view in
-                        if #available(iOS 17, *) {
-                            view
-                                .typesettingLanguage(.init(languageCode: .unavailable))
-                        }
-                    }
+                    .typesettingLanguage(.init(languageCode: .unavailable))
             case .pin:
                 Text(value.segmented)
                     .foregroundColor(.primary)
                     .monospaced()
-                    .apply { view in
-                        if #available(iOS 17, *) {
-                            view
-                                .typesettingLanguage(.init(languageCode: .unavailable))
-                        }
-                    }
+                    .typesettingLanguage(.init(languageCode: .unavailable))
             default:
                 Text(!value.isEmpty ? value : "-")
                     .foregroundColor(.primary)

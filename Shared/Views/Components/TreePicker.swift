@@ -29,11 +29,11 @@ struct TreePicker<Element: Identifiable, Content: View>: View {
     private let depth: Int
     private let content: (Element) -> Content
     
-    init(_ root: Node<Element>, selection: Binding<Element?>, @ViewBuilder content: @escaping (Element) -> Content) {
+    init(_ root: Node<Element>, selection: Binding<Element?>, @ContentBuilder content: @escaping (Element) -> Content) {
         self.init(root, isExpanded: true, selection: selection, depth: 0, content: content)
     }
     
-    private init(_ node: Node<Element>, isExpanded: Bool, selection: Binding<Element?>, depth: Int, @ViewBuilder content: @escaping (Element) -> Content) {
+    private init(_ node: Node<Element>, isExpanded: Bool, selection: Binding<Element?>, depth: Int, @ContentBuilder content: @escaping (Element) -> Content) {
         self.node = node
         _isExpanded = .init(wrappedValue: isExpanded)
         _selection = selection
@@ -64,7 +64,7 @@ struct TreePicker<Element: Identifiable, Content: View>: View {
             }
     }
     
-    @ViewBuilder func tree() -> some View {
+    @ContentBuilder func tree() -> some View {
         if let children = node.children {
             DisclosureGroup(isExpanded: $isExpanded) {
                 ForEach(children, id: \.value.id) { child in

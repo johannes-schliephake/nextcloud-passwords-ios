@@ -4,17 +4,9 @@ import FactoryKit
 @testable import Passwords
 
 
-@available(iOS 17, *) final class OpenProviderSettingsUseCaseTests: XCTestCase {
+final class OpenProviderSettingsUseCaseTests: XCTestCase {
     
     @MockInjected(\.credentialProviderSettingsHelperType) private var credentialProviderSettingsHelperTypeMock: CredentialProviderSettingsHelperMock.Type
-    
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-        
-        guard #available(iOS 17, *) else { // Don't trust Xcode, this warning is wrong, XCTest will try to run this on iOS 16
-            throw XCTSkip()
-        }
-    }
     
     override func tearDown() {
         super.tearDown()
