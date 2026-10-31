@@ -75,8 +75,7 @@ struct SelectTagsPage: View {
         }
         .listStyle(.plain)
         .apply { view in
-            if #available(iOS 26, *),
-               UIDevice.current.userInterfaceIdiom == .pad {
+            if #available(iOS 26, *) {
                 view
                     .scrollContentBackground(.visible)
             }

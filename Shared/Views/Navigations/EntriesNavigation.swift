@@ -5,23 +5,24 @@ import FactoryKit
 struct EntriesNavigation: View {
     
     @InjectedObject(\.entriesController) private var entriesController
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     // MARK: Views
     
     var body: some View {
-        NavigationStack {
-            EntriesPage(entriesController: entriesController)
-        }
-        .apply { view in
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                NavigationSplitView(
-                    columnVisibility: .constant(.all),
-                    sidebar: { view },
-                    detail: {}
-                )
-                .navigationSplitViewStyle(.balanced)
+        NavigationSplitView(
+            columnVisibility: .constant(.all),
+            sidebar: {
+                NavigationStack {
+                    EntriesPage(entriesController: entriesController)
+                }
+            },
+            detail: {
+                Color(.systemGroupedBackground)
+                    .ignoresSafeArea()
             }
-        }
+        )
+        .navigationSplitViewStyle(.balanced)
         .apply { view in
             if #available(iOS 26, *) {
                 view
@@ -29,6 +30,7 @@ struct EntriesNavigation: View {
             }
         }
         .scrollDismissesKeyboard(.immediately)
+        .environment(\.hasMultiColumnLayout, horizontalSizeClass == .regular)
     }
     
 }
