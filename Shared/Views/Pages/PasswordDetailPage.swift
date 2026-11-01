@@ -462,7 +462,7 @@ struct PasswordDetailPage: View {
                     } content: { current, upcoming, accessoryView in
                         Button {
                             if let current {
-                                dependency(\.pasteboardService).set(string: current, sensitive: false)
+                                dependency(\.pasteboardService).set(string: current, sensitive: true)
                             }
                         } label: {
                             VStack(alignment: .leading, spacing: otpLabelsDistance) {
