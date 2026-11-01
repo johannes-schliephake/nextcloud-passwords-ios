@@ -357,16 +357,15 @@ struct PasswordDetailPage: View {
                 FlowView(alignment: aligment) {
                     ForEach(validTags.sorted()) { tag in
                         TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
-                            .apply { view in
-                                if horizontalSizeClass != .regular { /// Disable tag buttons for iPad because of NavigationLink bugs
-                                    Button {
-                                        navigationSelection = .entries(tag: tag)
-                                    } label: {
-                                        view
-                                    }
-                                    .buttonStyle(.borderless)
-                                }
-                            }
+                        // TODO: Memory leaks in NavigationSplitView and missing support for NavigationPath prevent native routing of tag page from detail view. Bring back nested NavigationStack based on size class or implement custom navigation in UIKit. Tag navigation from detail page disabled for now
+//                            .apply { view in
+//                                Button {
+//                                    navigationSelection = .entries(tag: tag)
+//                                } label: {
+//                                    view
+//                                }
+//                                .buttonStyle(.borderless)
+//                            }
                     }
                     if #available(iOS 26, *) {
                         selectTagsButton(hasTags: !validTags.isEmpty)
