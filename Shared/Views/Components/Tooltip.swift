@@ -1,19 +1,14 @@
 import SwiftUI
-import FactoryKit
 
 
 private enum TooltipConstants {
     static let maxSize = CGSize(width: 400, height: 400)
     static let padding = EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20)
     static let safeArea = EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
-    static let minimumHorizontalSpacing = if #available(iOS 26, *), UIDevice.current.userInterfaceIdiom == .phone { 10.0 } else { 19.0 }
-    static let horizontalArrowWidth = 46.0
 }
 
 
 private struct Tooltip<PopoverContent: View>: ViewModifier {
-    
-    @Injected(\.windowSizeUseCase) private var windowSizeUseCase
     
     @Binding var isPresented: Bool
     let content: () -> PopoverContent
@@ -28,26 +23,11 @@ private struct Tooltip<PopoverContent: View>: ViewModifier {
                 }
                 .scrollBounceBehavior(.basedOnSize)
                 .safeAreaPadding(TooltipConstants.safeArea)
-                .frame(maxHeight: TooltipConstants.maxSize.height)
-                .apply { view in
-                    if let windowWidth = windowSizeUseCase[\.windowSize]?.width {
-                        let maxWidth = TooltipConstants.maxSize.width
-                        let maxWidthAvailable = windowWidth - TooltipConstants.minimumHorizontalSpacing * 2
-                        let maxWidthAvailableWithoutArrow = maxWidthAvailable - TooltipConstants.horizontalArrowWidth
-                        
-                        let (contentWidth, forcedWidth) = if maxWidthAvailable < maxWidth {
-                            (maxWidthAvailable, 10000.0)
-                        } else if maxWidthAvailableWithoutArrow < maxWidth {
-                            (maxWidthAvailableWithoutArrow, maxWidthAvailableWithoutArrow)
-                        } else {
-                            (maxWidth, maxWidth)
-                        }
-                        
-                        view
-                            .frame(width: contentWidth) // Force popover content to the maximum possible width
-                            .frame(width: forcedWidth) // Force arrow to the top or bottom when popover uses the window's full width
-                    }
-                }
+                .frame(
+                    idealWidth: TooltipConstants.maxSize.width,
+                    maxWidth: TooltipConstants.maxSize.width,
+                    maxHeight: TooltipConstants.maxSize.height
+                )
                 .apply { view in
                     if #unavailable(iOS 26) {
                         view
@@ -55,6 +35,7 @@ private struct Tooltip<PopoverContent: View>: ViewModifier {
                     }
                 }
                 .presentationCompactAdaptation(.popover)
+                .popoverArrowEdges(.vertical)
             }
     }
     

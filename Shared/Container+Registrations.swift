@@ -84,10 +84,6 @@ extension Container {
     var randomWordUseCase: Factory<any RandomWordUseCaseProtocol> {
         self { RandomWordUseCase() }
     }
-    var windowSizeUseCase: Factory<any WindowSizeUseCaseProtocol> {
-        self { WindowSizeUseCase() }
-            .cached
-    }
     var wordlistLocaleUseCase: Factory<any WordlistLocaleUseCaseProtocol> {
         self { WordlistLocaleUseCase() }
             .cached
@@ -282,7 +278,7 @@ extension Container {
         .cached
     }
     var rootViewController: Factory<UIViewController?> {
-        self { nil }
+        self { dependency(\.application)?.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.keyWindow?.rootViewController }
             .cached
     }
     var entriesController: Factory<EntriesController> {

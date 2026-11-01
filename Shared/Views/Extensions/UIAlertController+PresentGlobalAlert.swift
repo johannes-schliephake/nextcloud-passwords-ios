@@ -18,14 +18,14 @@ extension UIAlertController {
         }
         
         /// Present alert on topmost view controller
-        guard var topViewController = dependency(\.rootViewController) ?? dependency(\.application)?.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.keyWindow?.rootViewController else {
+        guard var rootViewController = dependency(\.rootViewController) else {
             return
         }
-        while let presentedViewController = topViewController.presentedViewController,
+        while let presentedViewController = rootViewController.presentedViewController,
               !presentedViewController.isBeingDismissed {
-            topViewController = presentedViewController
+            rootViewController = presentedViewController
         }
-        topViewController.present(alertController, animated: true)
+        rootViewController.present(alertController, animated: true)
     }
     
 }

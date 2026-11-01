@@ -1,2 +1,2 @@
-• iOS 27 compatibility
+• iPhone Duo compatibility
 • Optimizations
