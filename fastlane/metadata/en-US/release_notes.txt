@@ -1,2 +1,2 @@
 • iPhone Duo compatibility
-• Optimizations
+• Bugfixes and optimizations
