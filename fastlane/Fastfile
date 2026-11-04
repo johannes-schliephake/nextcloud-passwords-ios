@@ -42,6 +42,9 @@ lane :take_screenshots do
         reset_git_repo(force: true)
         UI.user_error!("Did not keep screenshots, because the HTML file was rejected by the user")
     end
+    Dir.glob("screenshots/*/* (Snapshot)-*.png").each do |screenshot|
+        File.rename(screenshot, screenshot.sub(" (Snapshot)", ""))
+    end
     sh("git add ../fastlane/screenshots")
     sh("git commit -m \"Update screenshots\"")
 end
