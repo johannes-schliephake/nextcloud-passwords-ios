@@ -1,3 +1,7 @@
+## [v2.13] - 2026-11-04
+- iPhone Duo compatibility
+- Bugfixes and optimizations
+
 ## [v2.12] - 2026-09-15
 - iOS 27 compatibility
 - Optimizations
