@@ -3,13 +3,13 @@ import SwiftUI
 
 private struct ListWidthLimit: ViewModifier {
     
-    let limit: Double
+    let limit: Double?
     
     @State private var contentWidth = 300.0
     @State private var safeAreaInsets = EdgeInsets()
     
-    private var margin: Double {
-        (contentWidth - limit) / 2
+    private var margin: Double? {
+        limit.map({ (contentWidth - $0) / 2 })
     }
     
     func body(content: Content) -> some View {
@@ -25,12 +25,12 @@ private struct ListWidthLimit: ViewModifier {
                 action: { safeAreaInsets = $0 }
             )
             .contentMargins(
-                margin > EdgeInsets.entryRow.leading ? .horizontal : [],
+                margin.map { $0 > EdgeInsets.entryRow.leading } ?? false ? .horizontal : [],
                 .init(
                     top: 0,
-                    leading: safeAreaInsets.leading + margin,
+                    leading: safeAreaInsets.leading + (margin ?? 0),
                     bottom: 0,
-                    trailing: safeAreaInsets.trailing + margin
+                    trailing: safeAreaInsets.trailing + (margin ?? 0)
                 ),
                 for: .scrollContent
             )
@@ -41,7 +41,7 @@ private struct ListWidthLimit: ViewModifier {
 
 extension View {
     
-    func listWidthLimit(_ limit: Double) -> some View {
+    func listWidthLimit(_ limit: Double?) -> some View {
         modifier(ListWidthLimit(limit: limit))
     }
     

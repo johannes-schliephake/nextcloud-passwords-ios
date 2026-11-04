@@ -8,6 +8,7 @@ struct PasswordDetailPage: View {
     @ObservedObject var password: Password
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var sessionController: SessionController
     @EnvironmentObject private var settingsController: SettingsController
@@ -19,7 +20,6 @@ struct PasswordDetailPage: View {
     @State private var showEditPasswordView = false
     @State private var showErrorAlert = false
     @State private var navigationSelection: NavigationSelection?
-    @State private var hasNavigationSelection = false
     @State private var showSelectTagsView = false
     @State private var showPasswordStatusTooltip = false
     @State private var sectionWidth = 300.0
@@ -75,21 +75,6 @@ struct PasswordDetailPage: View {
                     dismiss()
                 }
             }
-            .apply { view in
-                if #available(iOS 26, *),
-                   UIDevice.current.userInterfaceIdiom == .phone {
-                    /// Fixes bug in SwiftUI where popovers are presented outside of screen on phones when source is placed trailing in navigation bar
-                    view
-                        .overlay(alignment: .topTrailing) {
-                            EmptyView()
-                                .frame(width: 2, height: 2)
-                                .tooltip(isPresented: $showPasswordStatusTooltip) {
-                                    tooltipContent()
-                                }
-                                .offset(x: -37, y: -34 + 5)
-                        }
-                }
-            }
             .onChange(of: showMetadata) { _, showMetadata in Configuration.userDefaults.set(showMetadata, forKey: "showMetadata") }
     }
     
@@ -113,35 +98,12 @@ struct PasswordDetailPage: View {
             .sheet(isPresented: $showEditPasswordView, content: {
                 EditPasswordNavigation(entriesController: entriesController, password: password)
             })
-            .apply { view in
-                if #available(iOS 17, *) {
-                    view
-                        // Explicit capture of entriesController required to fix freeze on iOS 17, also used for every other navigationDestination
-                        .navigationDestination(item: $navigationSelection) { [entriesController] navigationSelection in
-                            switch navigationSelection {
-                            case let .duplicate(password):
-                                Self(entriesController: entriesController, password: password)
-                            case let .entries(tag):
-                                EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
-                            }
-                        }
-                } else {
-                    view
-                        .navigationDestination(
-                            isPresented: $hasNavigationSelection,
-                            destination: { [entriesController] in
-                                if let navigationSelection {
-                                    switch navigationSelection {
-                                    case let .duplicate(password):
-                                        Self(entriesController: entriesController, password: password)
-                                    case let .entries(tag):
-                                        EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
-                                    }
-                                }
-                            }
-                        )
-                        .onChange(of: navigationSelection) { hasNavigationSelection = $0 != nil }
-                        .onChange(of: hasNavigationSelection) { navigationSelection = $0 ? navigationSelection : nil }
+            .navigationDestination(item: $navigationSelection) { [entriesController] navigationSelection in // Explicit capture of entriesController required to fix freeze on iOS 17, also used for every other navigationDestination
+                switch navigationSelection {
+                case let .duplicate(password):
+                    Self(entriesController: entriesController, password: password)
+                case let .entries(tag):
+                    EntriesPage(entriesController: entriesController, tag: tag, showFilterSortMenu: false)
                 }
             }
     }
@@ -200,13 +162,7 @@ struct PasswordDetailPage: View {
                 .listRowBackground(Color.clear)
         }
         .listStyle(.insetGrouped)
-        .apply { view in
-            if UIDevice.current.userInterfaceIdiom == .pad,
-               #available(iOS 17, *) {
-                view
-                    .listWidthLimit(600)
-            }
-        }
+        .listWidthLimit(horizontalSizeClass == .regular ? 600 : nil)
     }
     
     private func passwordStatusIcon() -> some View {
@@ -244,13 +200,8 @@ struct PasswordDetailPage: View {
             }
         }
         .buttonStyle(.borderless)
-        .apply { view in
-            if !isIos26OrAbove || UIDevice.current.userInterfaceIdiom == .pad {
-                view
-                    .tooltip(isPresented: $showPasswordStatusTooltip) {
-                        tooltipContent()
-                    }
-            }
+        .tooltip(isPresented: $showPasswordStatusTooltip) {
+            tooltipContent()
         }
     }
     
@@ -390,7 +341,12 @@ struct PasswordDetailPage: View {
                     }
                 }
         }
-        .buttonStyle(.borderless)
+        .apply { view in
+            if #unavailable(iOS 26) {
+                view
+                    .buttonStyle(.borderless)
+            }
+        }
         .disabled(password.state?.isProcessing ?? false || password.state == .decryptionFailed)
     }
     
@@ -401,16 +357,15 @@ struct PasswordDetailPage: View {
                 FlowView(alignment: aligment) {
                     ForEach(validTags.sorted()) { tag in
                         TagBadge(tag: tag, baseColor: Color(.secondarySystemGroupedBackground))
-                            .apply { view in
-                                if UIDevice.current.userInterfaceIdiom != .pad { /// Disable tag buttons for iPad because of NavigationLink bugs
-                                    Button {
-                                        navigationSelection = .entries(tag: tag)
-                                    } label: {
-                                        view
-                                    }
-                                    .buttonStyle(.borderless)
-                                }
-                            }
+                        // TODO: Memory leaks in NavigationSplitView and missing support for NavigationPath prevent native routing of tag page from detail view. Bring back nested NavigationStack based on size class or implement custom navigation in UIKit. Tag navigation from detail page disabled for now
+//                            .apply { view in
+//                                Button {
+//                                    navigationSelection = .entries(tag: tag)
+//                                } label: {
+//                                    view
+//                                }
+//                                .buttonStyle(.borderless)
+//                            }
                     }
                     if #available(iOS 26, *) {
                         selectTagsButton(hasTags: !validTags.isEmpty)
@@ -507,7 +462,7 @@ struct PasswordDetailPage: View {
                     } content: { current, upcoming, accessoryView in
                         Button {
                             if let current {
-                                dependency(\.pasteboardService).set(string: current, sensitive: false)
+                                dependency(\.pasteboardService).set(string: current, sensitive: true)
                             }
                         } label: {
                             VStack(alignment: .leading, spacing: otpLabelsDistance) {
@@ -518,12 +473,7 @@ struct PasswordDetailPage: View {
                                     .font(.system(size: currentOtpFontSize))
                                     .foregroundColor(.primary)
                                     .monospaced()
-                                    .apply { view in
-                                        if #available(iOS 17, *) {
-                                            view
-                                                .typesettingLanguage(.init(languageCode: .unavailable))
-                                        }
-                                    }
+                                    .typesettingLanguage(.init(languageCode: .unavailable))
                                     .id(current)
                                     .transition(
                                         .asymmetric(
@@ -539,12 +489,7 @@ struct PasswordDetailPage: View {
                                         .font(.system(size: upcomingOtpFontSize))
                                         .foregroundColor(.gray)
                                         .monospaced()
-                                        .apply { view in
-                                            if #available(iOS 17, *) {
-                                                view
-                                                    .typesettingLanguage(.init(languageCode: .unavailable))
-                                            }
-                                        }
+                                        .typesettingLanguage(.init(languageCode: .unavailable))
                                         .id(upcoming)
                                         .transition(
                                             .asymmetric(
@@ -638,22 +583,12 @@ struct PasswordDetailPage: View {
                     if !password.id.isEmpty {
                         labeledFootnote("_id") {
                             Text(password.id.uppercased())
-                                .apply { view in
-                                    if #available(iOS 17, *) {
-                                        view
-                                            .typesettingLanguage(.init(languageCode: .unavailable))
-                                    }
-                                }
+                                .typesettingLanguage(.init(languageCode: .unavailable))
                         }
                     }
                     labeledFootnote("_hash") {
                         Text(Crypto.SHA1.hash(.init(password.password.utf8), humanReadable: true))
-                            .apply { view in
-                                if #available(iOS 17, *) {
-                                    view
-                                        .typesettingLanguage(.init(languageCode: .unavailable))
-                                }
-                            }
+                            .typesettingLanguage(.init(languageCode: .unavailable))
                     }
                 }
                 .frame(width: sectionWidth)
@@ -876,12 +811,7 @@ extension PasswordDetailPage {
                             .font(.subheadline)
                             .foregroundColor(.gray)
                             .lineLimit(1)
-                            .apply { view in
-                                if #available(iOS 17, *) {
-                                    view
-                                        .typesettingLanguage(.init(languageCode: .unavailable))
-                                }
-                            }
+                            .typesettingLanguage(.init(languageCode: .unavailable))
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

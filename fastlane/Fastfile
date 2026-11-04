@@ -15,6 +15,7 @@ desc("Takes all screenshots required for the App Store and commits the changes."
 lane :take_screenshots do
     # Screenshot specifications at https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications
     devices = [
+        "iPhone Duo",
         "iPhone 18 Pro Max",
         "iPhone 14 Plus",
         "iPhone 18 Pro",
@@ -27,10 +28,22 @@ lane :take_screenshots do
     ]
     languages = ["en-US", "de-DE"]
     run_tests(build_for_testing: true, scheme: "Passwords", derived_data_path: "fastlane/tmp", disable_package_automatic_updates: true)
-    capture_screenshots(devices: devices, languages: languages, clear_previous_screenshots: true, override_status_bar: true, dark_mode: false, test_without_building: true, scheme: "Passwords", stop_after_first_error: true, derived_data_path: "fastlane/tmp", testplan: "Snapshot")
+    begin
+        devices.each do |device|
+            sh("xcrun simctl create \"#{device} (Snapshot)\" \"#{device}\"")
+        end
+        capture_screenshots(devices: devices.map { |device| "#{device} (Snapshot)" }, languages: languages, clear_previous_screenshots: true, override_status_bar: true, dark_mode: false, test_without_building: true, scheme: "Passwords", stop_after_first_error: true, derived_data_path: "fastlane/tmp", testplan: "Snapshot")
+    ensure
+        devices.each do |device|
+            sh("xcrun simctl delete \"#{device} (Snapshot)\"")
+        end
+    end
     unless prompt(text: "Does the preview on path './fastlane/screenshots/screenshots.html' look okay for you?", boolean: true)
         reset_git_repo(force: true)
         UI.user_error!("Did not keep screenshots, because the HTML file was rejected by the user")
+    end
+    Dir.glob("screenshots/*/* (Snapshot)-*.png").each do |screenshot|
+        File.rename(screenshot, screenshot.sub(" (Snapshot)", ""))
     end
     sh("git add ../fastlane/screenshots")
     sh("git commit -m \"Update screenshots\"")
@@ -47,11 +60,12 @@ end
 
 desc("Downloads certificates and provisioning profiles, bumps build numbers, archives the app, uploads the binary to TestFlight, distributes to public beta and commits the build bump.")
 lane :build_and_upload do
-    version = "v#{get_version_number(target: "Passwords")}"
-    unless last_git_tag != version
+    app_version = "v#{get_version_number(target: "Passwords")}"
+    unless last_git_tag != app_version
         UI.user_error!("The version number didn't change")
     end
-    run_tests(scheme: "Passwords", deployment_target_version: "27.0", disable_package_automatic_updates: true)
+    sdk_version = sh("xcrun --sdk iphoneos --show-sdk-version").strip
+    run_tests(scheme: "Passwords", deployment_target_version: sdk_version, disable_package_automatic_updates: true)
     get_certificates(output_path: "fastlane/tmp")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords")
     get_provisioning_profile(output_path: "fastlane/tmp", app_identifier: "de.cdslash.Passwords.Provider")
@@ -59,7 +73,7 @@ lane :build_and_upload do
     increment_build_number_in_xcodeproj(target: "Passwords")
     increment_build_number_in_xcodeproj(target: "Provider")
     increment_build_number_in_xcodeproj(target: "Extension")
-    build_app(scheme: "Passwords", clean: true, output_directory: "fastlane/tmp", output_name: "Passwords (#{version}, Build #{get_build_number}).ipa", export_method: "app-store", disable_package_automatic_updates: true)
+    build_app(scheme: "Passwords", clean: true, output_directory: "fastlane/tmp", output_name: "Passwords (#{app_version}, Build #{get_build_number}).ipa", export_method: "app-store", disable_package_automatic_updates: true)
     localized_app_info = {
         "en-US": {
             feedback_email: File.read("metadata/en-US/feedback_email.txt").strip,
@@ -100,19 +114,19 @@ end
 
 desc("Merges release into main branch and publishes as a GitHub release.")
 lane :git_release do
-    version = "v#{get_version_number(target: "Passwords")}"
-    unless last_git_tag != version
+    app_version = "v#{get_version_number(target: "Passwords")}"
+    unless last_git_tag != app_version
         UI.user_error!("The version number didn't change")
     end
     release_notes = File.read("metadata/en-US/release_notes.txt").strip
-    File.write("../CHANGELOG.md", "## [#{version}] - #{Time.now.strftime("%Y-%m-%d")}\n#{release_notes.gsub(/^• /, "- ")}\n\n#{File.read("../CHANGELOG.md")}")
+    File.write("../CHANGELOG.md", "## [#{app_version}] - #{Time.now.strftime("%Y-%m-%d")}\n#{release_notes.gsub(/^• /, "- ")}\n\n#{File.read("../CHANGELOG.md")}")
     sh("git add ../CHANGELOG.md")
     sh("git commit -m \"Update changelog\"")
     sh("git checkout main")
-    sh("git merge develop -m \"#{version}\"")
+    sh("git merge develop -m \"#{app_version}\"")
     sh("git checkout develop")
     sh("git push origin develop main")
     api_token = prompt(text: "Your GitHub API token: ", secure_text: true)
-    set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: version, name: version, commitish: "main", description: release_notes, upload_assets: ["fastlane/tmp/Passwords (#{version}, Build #{get_build_number}).ipa", "fastlane/tmp/Passwords (#{version}, Build #{get_build_number}).app.dSYM.zip"])
+    set_github_release(repository_name: "johannes-schliephake/nextcloud-passwords-ios", api_token: api_token, tag_name: app_version, name: app_version, commitish: "main", description: release_notes, upload_assets: ["fastlane/tmp/Passwords (#{app_version}, Build #{get_build_number}).ipa", "fastlane/tmp/Passwords (#{app_version}, Build #{get_build_number}).app.dSYM.zip"])
     sh("git fetch --tags")
 end

@@ -1,2 +1,2 @@
-• iOS 27 Kompatibilität
-• Optimierungen
+• iPhone Duo Kompatibilität
+• Fehlerbehebungen und Optimierungen

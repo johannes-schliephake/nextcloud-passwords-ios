@@ -198,14 +198,14 @@ extension Crypto {
                 .map { try AES.GCM.SealedBox(combined: $0) }
                 .map { try AES.GCM.open($0, using: key) }
                 .map { try Configuration.jsonDecoder.decode(Tag.self, from: $0) }
-                .zip(with: passwordOfflineContainers)
+                .zip(with: tagOfflineContainers)
                 .map {
                     tag, offlineContainer in
                     tag.offlineContainer = offlineContainer
                     return tag
                 }
             
-            // TODO: Find a better to fix duplicate entries
+            // TODO: Find a better way to fix duplicate entries
             // When creating a new entry from this app, in very rare cases, the entry is created multiple times and even stored multiple times in Core Data. The cause of this issue is still unknown. Those duplicate entries cause a lot of rare bugs, including:
             // - The same entry is shown multiple times in the entries list (obviously)
             // - When receiving new remote data, the updated*Pairs in EntriesController can get out of sync, thus preventing the new data from showing up in the iOS app

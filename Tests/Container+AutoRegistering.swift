@@ -32,7 +32,6 @@ extension Container: @retroactive AutoRegistering {
             //$0.preferredUsernameUseCase { PreferredUsernameUseCaseMock() }
             //$0.prepareWordlistUseCase { PrepareWordlistUseCaseMock() }
             //$0.randomWordUseCase.cached { RandomWordUseCaseMock() }
-            $0.windowSizeUseCase { WindowSizeUseCaseMock() }
             //$0.wordlistLocaleUseCase { WordlistLocaleUseCaseMock() }
             
             // MARK: Services

@@ -5,6 +5,8 @@ struct EditTagPage: View {
     
     @StateObject var viewModel: AnyViewModelOf<EditTagViewModel>
     
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
     @FocusState private var focusedField: EditTagViewModel.FocusField?
     
     var body: some View {
@@ -66,7 +68,8 @@ struct EditTagPage: View {
             .allowsHitTesting(false)
             .background(
                 ZStack {
-                    if UIDevice.current.userInterfaceIdiom == .pad {
+                    if #unavailable(iOS 18),
+                       horizontalSizeClass == .regular {
                         /// `scaleEffect` and `ColorPicker` can't be combined on iPad to enlarge tap area because the color picker view isn't a sheet
                         LazyHStack(spacing: 0) {
                             ForEach(0..<50) { _ in

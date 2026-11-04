@@ -147,6 +147,9 @@
 		8FC361FF25828B0500785371 /* EntriesNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC361FB25828AE600785371 /* EntriesNavigation.swift */; };
 		8FCBF8BD25AE152500F75B33 /* ScreenshotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8BC25AE152500F75B33 /* ScreenshotGenerator.swift */; };
 		8FCBF8D925AE160B00F75B33 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCBF8D725AE15E900F75B33 /* SnapshotHelper.swift */; };
+		DD03D3DD306FAF7D005B9D77 /* ToolbarVerticalEdgeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D3DC306FAF7D005B9D77 /* ToolbarVerticalEdgeReader.swift */; };
+		DD03D3DE306FAF7D005B9D77 /* ToolbarVerticalEdgeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D3DC306FAF7D005B9D77 /* ToolbarVerticalEdgeReader.swift */; };
+		DD03D3DF306FAF7D005B9D77 /* ToolbarVerticalEdgeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D3DC306FAF7D005B9D77 /* ToolbarVerticalEdgeReader.swift */; };
 		DD03D9BD28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
 		DD03D9BE28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
 		DD03D9BF28C8DE92006118F2 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD03D9BC28C8DE92006118F2 /* Strings.swift */; };
@@ -287,13 +290,8 @@
 		DD4D06102ABF32C8002DEAAD /* PasteboardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4D060F2ABF32C8002DEAAD /* PasteboardRepository.swift */; };
 		DD4D06122ABF33D8002DEAAD /* PasteboardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4D06112ABF33D8002DEAAD /* PasteboardDataSource.swift */; };
 		DD4D06142ABF3472002DEAAD /* Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4D06132ABF3472002DEAAD /* Pasteboard.swift */; };
-		DD5100BB2EFB0C4A00923827 /* WindowSizeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100BA2EFB0C4A00923827 /* WindowSizeUseCase.swift */; };
-		DD5100BC2EFB0C4A00923827 /* WindowSizeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100BA2EFB0C4A00923827 /* WindowSizeUseCase.swift */; };
-		DD5100BD2EFB0C4A00923827 /* WindowSizeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100BA2EFB0C4A00923827 /* WindowSizeUseCase.swift */; };
-		DD5100C12EFB351400923827 /* WindowSizeUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100C02EFB351400923827 /* WindowSizeUseCaseTests.swift */; };
 		DD5100C62EFBFCDA00923827 /* WindowDataSourceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100C52EFBFCDA00923827 /* WindowDataSourceMock.swift */; };
 		DD5100C82EFBFCE100923827 /* WindowRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100C72EFBFCE100923827 /* WindowRepositoryMock.swift */; };
-		DD5100CA2EFBFCF200923827 /* WindowSizeUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100C92EFBFCF200923827 /* WindowSizeUseCaseMock.swift */; };
 		DD5100CC2EFBFE8C00923827 /* AuthenticationUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100CB2EFBFE8C00923827 /* AuthenticationUseCaseMock.swift */; };
 		DD5100CE2F072D1C00923827 /* AuthenticationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100CD2F072D1C00923827 /* AuthenticationUseCaseTests.swift */; };
 		DD5100D02F072F5900923827 /* WebAuthenticationSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5100CF2F072F5900923827 /* WebAuthenticationSessionMock.swift */; };
@@ -733,6 +731,12 @@
 		DDD517192B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */; };
 		DDD5171A2B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */; };
 		DDD5171B2B7BAD83005A85AF /* ReadersWriterLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */; };
+		DDD567AE3095CCBD004BCE0A /* UIPopoverArrowDirection+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD567AD3095CCBD004BCE0A /* UIPopoverArrowDirection+Init.swift */; };
+		DDD567AF3095CCBD004BCE0A /* UIPopoverArrowDirection+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD567AD3095CCBD004BCE0A /* UIPopoverArrowDirection+Init.swift */; };
+		DDD567B03095CCBD004BCE0A /* UIPopoverArrowDirection+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD567AD3095CCBD004BCE0A /* UIPopoverArrowDirection+Init.swift */; };
+		DDD567B23095CCDA004BCE0A /* PopoverArrowEdges.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD567B13095CCDA004BCE0A /* PopoverArrowEdges.swift */; };
+		DDD567B33095CCDA004BCE0A /* PopoverArrowEdges.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD567B13095CCDA004BCE0A /* PopoverArrowEdges.swift */; };
+		DDD567B43095CCDA004BCE0A /* PopoverArrowEdges.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD567B13095CCDA004BCE0A /* PopoverArrowEdges.swift */; };
 		DDDA38AA2BFA514000FDC960 /* Publisher+FlatMapLatest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA46C52BF7A04C0077F068 /* Publisher+FlatMapLatest.swift */; };
 		DDDA38AB2BFA514000FDC960 /* Publisher+FlatMapLatest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA46C52BF7A04C0077F068 /* Publisher+FlatMapLatest.swift */; };
 		DDDA38AC2BFA514000FDC960 /* Publisher+FlatMapLatest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFA46C52BF7A04C0077F068 /* Publisher+FlatMapLatest.swift */; };
@@ -963,6 +967,7 @@
 		9F5B819C26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819D26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F5B819E26AF27490020B199 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD03D3DC306FAF7D005B9D77 /* ToolbarVerticalEdgeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarVerticalEdgeReader.swift; sourceTree = "<group>"; };
 		DD03D9BC28C8DE92006118F2 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		DD03D9C028C8DFCB006118F2 /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		DD0424652829853100E9B9DE /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1064,11 +1069,8 @@
 		DD4D06132ABF3472002DEAAD /* Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pasteboard.swift; sourceTree = "<group>"; };
 		DD4F0BED28C0FFD2005AA668 /* feedback_email.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = feedback_email.txt; sourceTree = "<group>"; };
 		DD4F0BEE28C0FFE3005AA668 /* feedback_email.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = feedback_email.txt; sourceTree = "<group>"; };
-		DD5100BA2EFB0C4A00923827 /* WindowSizeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeUseCase.swift; sourceTree = "<group>"; };
-		DD5100C02EFB351400923827 /* WindowSizeUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeUseCaseTests.swift; sourceTree = "<group>"; };
 		DD5100C52EFBFCDA00923827 /* WindowDataSourceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowDataSourceMock.swift; sourceTree = "<group>"; };
 		DD5100C72EFBFCE100923827 /* WindowRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowRepositoryMock.swift; sourceTree = "<group>"; };
-		DD5100C92EFBFCF200923827 /* WindowSizeUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSizeUseCaseMock.swift; sourceTree = "<group>"; };
 		DD5100CB2EFBFE8C00923827 /* AuthenticationUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCaseMock.swift; sourceTree = "<group>"; };
 		DD5100CD2F072D1C00923827 /* AuthenticationUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCaseTests.swift; sourceTree = "<group>"; };
 		DD5100CF2F072F5900923827 /* WebAuthenticationSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthenticationSessionMock.swift; sourceTree = "<group>"; };
@@ -1283,6 +1285,8 @@
 		DDCE1261274140A9003912D0 /* ShowTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagRequest.swift; sourceTree = "<group>"; };
 		DDCE126427414101003912D0 /* UpdateTagRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTagRequest.swift; sourceTree = "<group>"; };
 		DDD517182B7BAD83005A85AF /* ReadersWriterLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadersWriterLock.swift; sourceTree = "<group>"; };
+		DDD567AD3095CCBD004BCE0A /* UIPopoverArrowDirection+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPopoverArrowDirection+Init.swift"; sourceTree = "<group>"; };
+		DDD567B13095CCDA004BCE0A /* PopoverArrowEdges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverArrowEdges.swift; sourceTree = "<group>"; };
 		DDDB6B5527A80639007572B1 /* CaptureOTPNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPNavigation.swift; sourceTree = "<group>"; };
 		DDDB6B5827A806ED007572B1 /* CaptureOTPPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureOTPPage.swift; sourceTree = "<group>"; };
 		DDDBF1E42C3D50DD0036B94C /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1510,6 +1514,7 @@
 				DD1078732A691F5200E87B3F /* QRCapture.swift */,
 				DDDF3387276F7FDE008EEB3F /* TagBadge.swift */,
 				8F65736925E3C4F200139163 /* TextView.swift */,
+				DD03D3DC306FAF7D005B9D77 /* ToolbarVerticalEdgeReader.swift */,
 				DDE0701D27C8F83B00FC65E2 /* Tooltip.swift */,
 				DDC87BC82A54037700D56A49 /* TreePicker.swift */,
 			);
@@ -1901,6 +1906,7 @@
 				DDF05AA12DA2F1BC0059CD16 /* EnvironmentValues+Entries.swift */,
 				8FBE43BE258D59E0003F7F34 /* Label+ShowIcon.swift */,
 				8F5A8448259A66C300BFDF29 /* UIAlertController+PresentGlobalAlert.swift */,
+				DDD567AD3095CCBD004BCE0A /* UIPopoverArrowDirection+Init.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1993,6 +1999,7 @@
 				DD1E1D712A010D0C002DB08B /* Enabled.swift */,
 				DDA4FE7526E755C000D6F92E /* Initialize.swift */,
 				DD1CA71D2AA9110E00AADD94 /* ListWidthLimit.swift */,
+				DDD567B13095CCDA004BCE0A /* PopoverArrowEdges.swift */,
 				DD760687295F72BC00109075 /* Sync.swift */,
 			);
 			path = Modifiers;
@@ -2318,7 +2325,6 @@
 				DD8023F92C08B03500C6808A /* LoginUrlUseCaseMock.swift */,
 				DD8023FB2C08B03500C6808A /* ManagedConfigurationUseCaseMock.swift */,
 				DD77FF362C4C722A00E193C9 /* OpenProviderSettingsUseCaseMock.swift */,
-				DD5100C92EFBFCF200923827 /* WindowSizeUseCaseMock.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -2329,7 +2335,6 @@
 				DD5100CD2F072D1C00923827 /* AuthenticationUseCaseTests.swift */,
 				DD82E5F12BC72B1100F8257F /* LoginUrlUseCaseTests.swift */,
 				DD77FF3A2C4D7A1900E193C9 /* OpenProviderSettingsUseCaseTests.swift */,
-				DD5100C02EFB351400923827 /* WindowSizeUseCaseTests.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -2635,7 +2640,6 @@
 				DDAE72B32D96EF18008D6E54 /* PreferredUsernameUseCase.swift */,
 				DD34E0112E39291F00028DF2 /* PrepareWordlistUseCase.swift */,
 				DDF432B92DAFBD970070E93C /* RandomWordUseCase.swift */,
-				DD5100BA2EFB0C4A00923827 /* WindowSizeUseCase.swift */,
 				DDFB16AE2DA8F0B700E6C492 /* WordlistLocaleUseCase.swift */,
 			);
 			path = UseCases;
@@ -2782,7 +2786,7 @@
 					sv.wordlist,
 				);
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 2700;
+				LastUpgradeCheck = 2720;
 				TargetAttributes = {
 					8F11874E253C9EE10019FECA = {
 						CreatedOnToolsVersion = 12.0.1;
@@ -3067,6 +3071,7 @@
 				DDBEE5B72A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */,
 				DD4D06122ABF33D8002DEAAD /* PasteboardDataSource.swift in Sources */,
 				DD1E1D722A010D0C002DB08B /* Enabled.swift in Sources */,
+				DDD567B03095CCBD004BCE0A /* UIPopoverArrowDirection+Init.swift in Sources */,
 				DD34DFE82E3628A400028DF2 /* OnDemandPreparationDataSource.swift in Sources */,
 				DDB00D2D2A6F16A20060909F /* SessionService.swift in Sources */,
 				DD34E0132E39291F00028DF2 /* PrepareWordlistUseCase.swift in Sources */,
@@ -3159,6 +3164,7 @@
 				DDA25DA22A8C1F7C005D9320 /* AppStore.swift in Sources */,
 				DD28587E2C2C31C6009549FE /* Publisher+IgnoreValue.swift in Sources */,
 				DD63A1E92DF1C3E5002C9846 /* Publisher+Receive.swift in Sources */,
+				DDD567B33095CCDA004BCE0A /* PopoverArrowEdges.swift in Sources */,
 				DDCE126527414101003912D0 /* UpdateTagRequest.swift in Sources */,
 				DDC14A862B39A8C90062AA4C /* Stateful.swift in Sources */,
 				DDBFDFB62BFB78C1000B5C30 /* Current.swift in Sources */,
@@ -3168,7 +3174,6 @@
 				DD67204827BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
 				DD0B7AE32971B35B00A59E3C /* FoldersService.swift in Sources */,
 				8F52EFC925B1D0FC00DCFAC1 /* MockObject.swift in Sources */,
-				DD5100BD2EFB0C4A00923827 /* WindowSizeUseCase.swift in Sources */,
 				DDF432BB2DAFBD9C0070E93C /* RandomWordUseCase.swift in Sources */,
 				DD0EF2A02C16DBD900F0D59B /* LoginPollUseCase.swift in Sources */,
 				DD77FF302C4C6A5500E193C9 /* OpenProviderSettingsUseCase.swift in Sources */,
@@ -3185,6 +3190,7 @@
 				DD3FAD642775DC86002202DE /* Settings.swift in Sources */,
 				8F72379A2651468700832A88 /* Collection+Avg.swift in Sources */,
 				DDA25D9A2A8C1F2A005D9320 /* VerificationResult.swift in Sources */,
+				DD03D3DE306FAF7D005B9D77 /* ToolbarVerticalEdgeReader.swift in Sources */,
 				8F703BFC26245C6100CC7018 /* Array+Zip.swift in Sources */,
 				DD38ACF927DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
 				DDC87BC92A54037700D56A49 /* TreePicker.swift in Sources */,
@@ -3295,6 +3301,7 @@
 				DDBEE5B82A07C7C3008F4099 /* Publishers+CombineLatest5.swift in Sources */,
 				8F74244726039BD600B73646 /* Crypto.swift in Sources */,
 				DDF0C4802AD7F36A00A50661 /* Pasteboard.swift in Sources */,
+				DDD567AF3095CCBD004BCE0A /* UIPopoverArrowDirection+Init.swift in Sources */,
 				DD34DFE62E3628A400028DF2 /* OnDemandPreparationDataSource.swift in Sources */,
 				DDB00D2E2A6F16A20060909F /* SessionService.swift in Sources */,
 				DD34E0142E39291F00028DF2 /* PrepareWordlistUseCase.swift in Sources */,
@@ -3387,6 +3394,7 @@
 				DDCA2EAE2E33A7300001D619 /* Repository.swift in Sources */,
 				DDA25DA32A8C1F7C005D9320 /* AppStore.swift in Sources */,
 				DD28587F2C2C31C6009549FE /* Publisher+IgnoreValue.swift in Sources */,
+				DDD567B23095CCDA004BCE0A /* PopoverArrowEdges.swift in Sources */,
 				DD63A1E72DF1C3E5002C9846 /* Publisher+Receive.swift in Sources */,
 				8FC361D025827E5D00785371 /* UpdatePasswordRequest.swift in Sources */,
 				DDC14A872B39A8C90062AA4C /* Stateful.swift in Sources */,
@@ -3396,7 +3404,6 @@
 				DDFC420C2E17E04B0080D52A /* OnDemandResourcesRepository.swift in Sources */,
 				8FBE43D2258D5A8C003F7F34 /* UIApplication+IsExtension.swift in Sources */,
 				DD67204927BB94F00078CF47 /* EditOTPNavigation.swift in Sources */,
-				DD5100BC2EFB0C4A00923827 /* WindowSizeUseCase.swift in Sources */,
 				DD0B7AE42971B35B00A59E3C /* FoldersService.swift in Sources */,
 				DDF432BC2DAFBD9C0070E93C /* RandomWordUseCase.swift in Sources */,
 				DD0EF2A12C16DBD900F0D59B /* LoginPollUseCase.swift in Sources */,
@@ -3413,6 +3420,7 @@
 				DD15CBF22C16F92800A8F34C /* Publisher+IgnoreFailure.swift in Sources */,
 				8F68D74326495BD100FF192C /* ShowFolderRequest.swift in Sources */,
 				DD3FAD652775DC86002202DE /* Settings.swift in Sources */,
+				DD03D3DD306FAF7D005B9D77 /* ToolbarVerticalEdgeReader.swift in Sources */,
 				DDA25D9B2A8C1F2A005D9320 /* VerificationResult.swift in Sources */,
 				8F72379B2651468700832A88 /* Collection+Avg.swift in Sources */,
 				8F703BFD26245C6100CC7018 /* Array+Zip.swift in Sources */,
@@ -3534,8 +3542,6 @@
 				DD7BC51A29AFBAD8004AA7BC /* PropertyAccessLogging.swift in Sources */,
 				DD8DC0482C0866480030FF6E /* Stateful+LogPropertyAccess.swift in Sources */,
 				DD7BC52029AFFD01004AA7BC /* FolderValidationServiceMock.swift in Sources */,
-				DD5100C12EFB351400923827 /* WindowSizeUseCaseTests.swift in Sources */,
-				DD5100CA2EFBFCF200923827 /* WindowSizeUseCaseMock.swift in Sources */,
 				DDC2A4F429F58345001D79DC /* ConfigurationMock.swift in Sources */,
 				DDACC45229EE73090094D141 /* LoggerMock.swift in Sources */,
 				DD12565D2C2C8E9B00406836 /* ArrayBuilder.swift in Sources */,
@@ -3644,6 +3650,7 @@
 				DDF0C4812AD7F36A00A50661 /* Pasteboard.swift in Sources */,
 				DDB00D2F2A6F16A20060909F /* SessionService.swift in Sources */,
 				DD34DFE72E3628A400028DF2 /* OnDemandPreparationDataSource.swift in Sources */,
+				DDD567AE3095CCBD004BCE0A /* UIPopoverArrowDirection+Init.swift in Sources */,
 				DD1E1D742A010D0C002DB08B /* Enabled.swift in Sources */,
 				DD34E0122E39291F00028DF2 /* PrepareWordlistUseCase.swift in Sources */,
 				DDB00D2B2A6EA24E0060909F /* SettingsViewModel.swift in Sources */,
@@ -3736,6 +3743,7 @@
 				DD28587D2C2C31C6009549FE /* Publisher+IgnoreValue.swift in Sources */,
 				DDB1695A27D1FCFF00F4D752 /* ExtensionViewController.swift in Sources */,
 				DD63A1E82DF1C3E5002C9846 /* Publisher+Receive.swift in Sources */,
+				DDD567B43095CCDA004BCE0A /* PopoverArrowEdges.swift in Sources */,
 				DDC14A882B39A8C90062AA4C /* Stateful.swift in Sources */,
 				DDBFDFB82BFB78C1000B5C30 /* Current.swift in Sources */,
 				DDACC45629EF3F440094D141 /* LogViewModel.swift in Sources */,
@@ -3745,7 +3753,6 @@
 				DD0B7AE52971B35B00A59E3C /* FoldersService.swift in Sources */,
 				DDB1699F27D20CC200F4D752 /* OTPDisplay.swift in Sources */,
 				DDB169A227D20CC200F4D752 /* DeleteTagRequest.swift in Sources */,
-				DD5100BB2EFB0C4A00923827 /* WindowSizeUseCase.swift in Sources */,
 				DD0EF2A22C16DBD900F0D59B /* LoginPollUseCase.swift in Sources */,
 				DDF432BA2DAFBD9C0070E93C /* RandomWordUseCase.swift in Sources */,
 				DD77FF312C4C6A5500E193C9 /* OpenProviderSettingsUseCase.swift in Sources */,
@@ -3762,6 +3769,7 @@
 				DDB1697B27D20CC100F4D752 /* PasswordDetailPage.swift in Sources */,
 				DD38ACFB27DCC3B600E13648 /* PasswordGenerator.swift in Sources */,
 				DDA25D9C2A8C1F2A005D9320 /* VerificationResult.swift in Sources */,
+				DD03D3DF306FAF7D005B9D77 /* ToolbarVerticalEdgeReader.swift in Sources */,
 				DD1E1D7C2A016ABE002DB08B /* OTPService.swift in Sources */,
 				DDC87BCB2A54037700D56A49 /* TreePicker.swift in Sources */,
 				DDB169E127D20CC200F4D752 /* EditTagPage.swift in Sources */,
@@ -4070,7 +4078,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-debug";
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -4080,7 +4088,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.12;
+				MARKETING_VERSION = 2.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -4095,7 +4103,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = App/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -4105,7 +4113,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.12;
+				MARKETING_VERSION = 2.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -4119,14 +4127,14 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				INFOPLIST_FILE = Provider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.12;
+				MARKETING_VERSION = 2.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4140,14 +4148,14 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Provider/Provider.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				INFOPLIST_FILE = Provider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.12;
+				MARKETING_VERSION = 2.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Provider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4252,14 +4260,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				INFOPLIST_FILE = Extension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.12;
+				MARKETING_VERSION = 2.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4274,14 +4282,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				INFOPLIST_FILE = Extension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.12;
+				MARKETING_VERSION = 2.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PARENT_PRODUCT_BUNDLE_IDENTIFIER).Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

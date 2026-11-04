@@ -9,6 +9,8 @@ struct EntriesPage: View {
     
     @Injected(\.logger) private var logger
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.hasMultiColumnLayout) private var hasMultiColumnLayout
     @EnvironmentObject private var autoFillController: AutoFillController
     @EnvironmentObject private var sessionController: SessionController
     
@@ -253,7 +255,7 @@ struct EntriesPage: View {
         }
         .listStyle(.insetGrouped)
         .scrollBounceBehavior(.basedOnSize)
-        .listWidthLimit(600)
+        .listWidthLimit(horizontalSizeClass == .regular ? 600 : nil)
         .initialize(focus: $focusedField, with: .challengePassword)
     }
     
@@ -315,8 +317,7 @@ struct EntriesPage: View {
                     }
                 }
                 .apply { view in
-                    if #available(iOS 26, *),
-                       UIDevice.current.userInterfaceIdiom == .pad {
+                    if #available(iOS 26, *) {
                         view
                             .scrollContentBackground(.visible)
                     }
@@ -344,8 +345,7 @@ struct EntriesPage: View {
                     }
                 }
                 .apply { view in
-                    if #available(iOS 26, *),
-                       UIDevice.current.userInterfaceIdiom == .pad {
+                    if #available(iOS 26, *) {
                         view
                             .scrollContentBackground(.visible)
                     }
@@ -543,29 +543,31 @@ struct EntriesPage: View {
                 .sharedBackgroundVisibility(.hidden)
             }
         }
-        let isPad = UIDevice.current.userInterfaceIdiom == .pad
-        if autoFillController.mode != .otpProvider {
-            if showFilterSortMenu {
-                ToolbarItem(placement: .bottomBar) {
-                    filterSortMenu()
+        ToolbarVerticalEdgeReader { verticalEdge in
+            let inOtpProvider = autoFillController.mode == .otpProvider
+            let showCreateMenuFirst = hasMultiColumnLayout || verticalEdge != nil || UIDevice.current.userInterfaceIdiom == .pad
+            if !inOtpProvider {
+                if showCreateMenuFirst {
+                    ToolbarItem(placement: .bottomBar) {
+                        createMenu()
+                    }
                 }
-                if !isPad {
-                    ToolbarSpacer(.flexible, placement: .bottomBar)
+                if showFilterSortMenu {
+                    ToolbarItem(placement: .bottomBar) {
+                        filterSortMenu()
+                    }
+                }
+                if showCreateMenuFirst || showFilterSortMenu {
+                    ToolbarSpacer(hasMultiColumnLayout || UIDevice.current.userInterfaceIdiom == .pad ? .flexible : .fixed, placement: .bottomBar)
                 }
             }
-        }
-        if !isPad {
             DefaultToolbarItem(kind: .search, placement: .bottomBar)
-        }
-        if autoFillController.mode != .otpProvider {
-            if !isPad {
-                ToolbarSpacer(.flexible, placement: .bottomBar)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                createMenu()
-            }
-            if isPad {
-                ToolbarSpacer(.flexible, placement: .bottomBar)
+            if !inOtpProvider,
+               !showCreateMenuFirst {
+                ToolbarSpacer(.fixed, placement: .bottomBar)
+                ToolbarItem(placement: .bottomBar) {
+                    createMenu()
+                }
             }
         }
     }
